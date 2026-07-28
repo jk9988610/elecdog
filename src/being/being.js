@@ -3,6 +3,7 @@
 import { hashString, mulberry32 } from '../core/hash.js';
 import { assignSocialSlot } from '../world/social.js';
 import { assessStress, externalThreshold, preferAct } from '../world/viability.js';
+import { assignCellBoundary } from '../world/cell.js';
 
 function dnaToRegisters(dna, count = 8) {
   const rng = mulberry32(hashString(dna));
@@ -32,6 +33,7 @@ export class Being {
     this.stressStreak = 0;
     this.generation = 0;
     this.lineageParent = null;
+    this.cellBoundary = assignCellBoundary(dna.sequence, id);
   }
 
   advanceRegisters(substrate = null) {

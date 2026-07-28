@@ -2,8 +2,11 @@ import { createWorld } from '../world/world.js';
 import { performBirthRitual } from '../birth/ritual.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
+import { buildDashboardStats } from './stats.js';
 
-const NOTES_KEY = 'elecdog-field-notes';
+const SEED_DNA =
+  '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
+const SEED_ID = '0120260729010001';
 
 export class ObserverApp {
   constructor(root) {
@@ -12,176 +15,65 @@ export class ObserverApp {
     this.recorder = new Recorder();
     this.timer = null;
     this.speed = 200;
-    this.filterChannel = 'all';
     this.render();
-    this.loadNotes();
+    this.bootstrapWorld();
   }
 
   render() {
     this.root.innerHTML = `
       <header class="header">
-        <h1>ElecDog · 观察台</h1>
-        <p class="subtitle">Phase 0 — 最小可观察内核</p>
+        <h1>ElecDog</h1>
+        <p class="subtitle">世界实况 · 辞典统计</p>
       </header>
 
-      <section class="panel controls">
-        <div class="row">
-          <label>世界名称 <input id="world-name" type="text" placeholder="未命名世界" /></label>
-          <button id="btn-create-world" type="button">创建世界</button>
-        </div>
-        <div class="row" id="birth-row" hidden>
-          <label>个体名 <input id="being-name" type="text" value="小狗" /></label>
-          <label>代号 <input id="being-code" type="text" value="001" maxlength="8" /></label>
-          <button id="btn-birth" type="button">诞生仪式</button>
-        </div>
-        <div class="row" id="run-row" hidden>
-          <button id="btn-step" type="button">单步 tick</button>
-          <button id="btn-run" type="button">运行</button>
-          <button id="btn-pause" type="button" disabled>暂停</button>
-          <label>间隔(ms) <input id="speed" type="number" value="200" min="50" max="2000" step="50" /></label>
-          <span id="tick-display" class="tick">tick: 0</span>
-        </div>
-        <div class="row" id="export-row" hidden>
-          <button id="btn-copy-log" type="button">复制全部输出</button>
-          <button id="btn-export" type="button">导出日志 JSON</button>
-          <button id="btn-clear-log" type="button">清空日志</button>
-          <span id="copy-feedback" class="copy-feedback" hidden>已复制</span>
-        </div>
+      <section class="toolbar">
+        <button id="btn-run" type="button">运行</button>
+        <button id="btn-pause" type="button" disabled>暂停</button>
+        <label class="speed-label">间隔 <input id="speed" type="number" value="200" min="50" max="2000" step="50" /></label>
+        <span id="tick-display" class="tick">tick 0</span>
+        <span id="place-display" class="place"></span>
       </section>
 
-      <section class="panel status" id="status-panel" hidden>
-        <h2>世界状态</h2>
-        <pre id="world-status"></pre>
-      </section>
-
-      <section class="panel beings" id="beings-panel" hidden>
-        <h2>个体</h2>
-        <div id="beings-list"></div>
-      </section>
-
-      <section class="panel log-panel">
-        <div class="log-header">
-          <h2>观察日志</h2>
-          <div class="log-actions">
-            <button id="btn-copy-visible" type="button" class="btn-small">复制当前视图</button>
-            <select id="channel-filter">
-            <option value="all">全部通道</option>
-            <option value="ritual">ritual</option>
-            <option value="system">system</option>
-            <option value="internal">internal（对内）</option>
-            <option value="external">external（对外）</option>
-            <option value="signal">signal（外来信号）</option>
-            <option value="environment">environment（环境脉搏/回响）</option>
-            <option value="substrate">substrate（基底场态）</option>
-            <option value="nodes">nodes（世界节点）</option>
-            <option value="social">social（社会迹）</option>
-            <option value="viability">viability（存续/场压）</option>
-            <option value="population">population（种群结构）</option>
-            <option value="metabolism">metabolism（基底代谢）</option>
-            <option value="memory">memory（事件记忆迹）</option>
-            <option value="state">state</option>
-          </select>
-          </div>
-        </div>
-        <div id="log-view" class="log-view"></div>
-      </section>
-
-      <section class="panel notes-panel">
-        <h2>田野笔记</h2>
-        <p class="hint">只记录可观测事实。归纳后写入 docs/OBSERVATION_LOG.md</p>
-        <textarea id="field-notes" rows="8" placeholder="OBS-YYYYMMDD-01&#10;- 世界：&#10;- 个体：&#10;- tick 范围：&#10;- 事实："></textarea>
-        <div class="row">
-          <button id="btn-save-notes" type="button">保存笔记（本地）</button>
-          <button id="btn-copy-notes" type="button">复制笔记</button>
-        </div>
-      </section>
+      <main class="dashboard" id="dashboard"></main>
     `;
 
-    this.bind();
-    this.refreshLog();
-  }
-
-  bind() {
     this.$ = {
-      worldName: this.root.querySelector('#world-name'),
-      btnCreateWorld: this.root.querySelector('#btn-create-world'),
-      birthRow: this.root.querySelector('#birth-row'),
-      beingName: this.root.querySelector('#being-name'),
-      beingCode: this.root.querySelector('#being-code'),
-      btnBirth: this.root.querySelector('#btn-birth'),
-      runRow: this.root.querySelector('#run-row'),
-      exportRow: this.root.querySelector('#export-row'),
-      btnStep: this.root.querySelector('#btn-step'),
       btnRun: this.root.querySelector('#btn-run'),
       btnPause: this.root.querySelector('#btn-pause'),
       speed: this.root.querySelector('#speed'),
       tickDisplay: this.root.querySelector('#tick-display'),
-      statusPanel: this.root.querySelector('#status-panel'),
-      worldStatus: this.root.querySelector('#world-status'),
-      beingsPanel: this.root.querySelector('#beings-panel'),
-      beingsList: this.root.querySelector('#beings-list'),
-      channelFilter: this.root.querySelector('#channel-filter'),
-      logView: this.root.querySelector('#log-view'),
-      fieldNotes: this.root.querySelector('#field-notes'),
-      btnSaveNotes: this.root.querySelector('#btn-save-notes'),
-      btnCopyNotes: this.root.querySelector('#btn-copy-notes'),
-      btnCopyLog: this.root.querySelector('#btn-copy-log'),
-      btnCopyVisible: this.root.querySelector('#btn-copy-visible'),
-      copyFeedback: this.root.querySelector('#copy-feedback'),
-      btnExport: this.root.querySelector('#btn-export'),
-      btnClearLog: this.root.querySelector('#btn-clear-log'),
+      placeDisplay: this.root.querySelector('#place-display'),
+      dashboard: this.root.querySelector('#dashboard'),
     };
 
-    this.$.btnCreateWorld.addEventListener('click', () => this.createWorld());
-    this.$.btnBirth.addEventListener('click', () => this.birth());
-    this.$.btnStep.addEventListener('click', () => this.step());
     this.$.btnRun.addEventListener('click', () => this.run());
     this.$.btnPause.addEventListener('click', () => this.pause());
-    this.$.channelFilter.addEventListener('change', () => {
-      this.filterChannel = this.$.channelFilter.value;
-      this.refreshLog();
-    });
-    this.$.btnSaveNotes.addEventListener('click', () => this.saveNotes());
-    this.$.btnCopyNotes.addEventListener('click', () => this.copyNotes());
-    this.$.btnCopyLog.addEventListener('click', () => this.copyAllLog());
-    this.$.btnCopyVisible.addEventListener('click', () => this.copyVisibleLog());
-    this.$.btnExport.addEventListener('click', () => this.exportLog());
-    this.$.btnClearLog.addEventListener('click', () => this.clearLog());
   }
 
-  createWorld() {
-    this.pause();
-    this.recorder.clear();
-    this.world = createWorld(this.$.worldName.value);
-    this.recorder.system(0, `世界创建 ${this.world.name}`, {
-      birthPlace: this.world.birthPlace,
-    });
-    this.$.birthRow.hidden = false;
-    this.$.runRow.hidden = false;
-    this.$.exportRow.hidden = false;
-    this.$.statusPanel.hidden = false;
-    this.refreshAll();
-  }
-
-  birth() {
-    if (!this.world) return;
-    const name = this.$.beingName.value.trim() || '小狗';
-    const code = this.$.beingCode.value.trim() || '001';
-    performBirthRitual(this.world, this.recorder, { name, code });
-    this.$.beingsPanel.hidden = false;
-    this.refreshAll();
+  bootstrapWorld() {
+    this.world = createWorld('01');
+    const seeds = [
+      { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
+      { name: '002', code: '002' },
+      { name: '003', code: '003' },
+      { name: '001-乙', code: '001' },
+    ];
+    for (const s of seeds) {
+      performBirthRitual(this.world, this.recorder, s);
+    }
+    this.refresh();
+    this.run();
   }
 
   step() {
     if (!this.world) return;
     stepWorld(this.world, this.recorder);
-    this.refreshAll();
+    this.refresh();
   }
 
   run() {
     if (!this.world || this.timer) return;
     this.speed = Number(this.$.speed.value) || 200;
-    this.world.running = true;
     this.$.btnRun.disabled = true;
     this.$.btnPause.disabled = false;
     this.timer = setInterval(() => this.step(), this.speed);
@@ -192,119 +84,109 @@ export class ObserverApp {
       clearInterval(this.timer);
       this.timer = null;
     }
-    if (this.world) this.world.running = false;
-    if (this.$.btnRun) this.$.btnRun.disabled = !this.world;
-    if (this.$.btnPause) this.$.btnPause.disabled = true;
+    this.$.btnRun.disabled = false;
+    this.$.btnPause.disabled = true;
   }
 
-  refreshAll() {
-    this.refreshStatus();
-    this.refreshBeings();
-    this.refreshLog();
-  }
-
-  refreshStatus() {
+  refresh() {
     if (!this.world) return;
-    this.$.tickDisplay.textContent = `tick: ${this.world.tick}`;
-    this.$.worldStatus.textContent = JSON.stringify(
-      {
-        name: this.world.name,
-        birthPlace: this.world.birthPlace,
-        tick: this.world.tick,
-        beings: this.world.beings.length,
-      },
-      null,
-      2
-    );
+    const s = buildDashboardStats(this.world, this.recorder);
+    this.$.tickDisplay.textContent = `tick ${s.world.tick}`;
+    this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}`;
+    this.$.dashboard.innerHTML = this.renderDashboard(s);
   }
 
-  refreshBeings() {
-    if (!this.world) return;
-    this.$.beingsList.innerHTML = this.world.beings
+  renderDashboard(s) {
+    const cmp = s.population.cmp;
+    const cmpBlock = cmp
+      ? `
+        <div class="stat-row"><span>存活</span><strong>${cmp.pop ?? s.population.alive}</strong></div>
+        <div class="stat-row"><span>代号种数</span><strong>${cmp.codes ?? '—'}</strong></div>
+        <div class="stat-row"><span>谱系根</span><strong>${cmp.lineageRoots ?? '—'}</strong></div>
+        <div class="stat-row"><span>结构指数</span><strong>${cmp.structIdx ?? '—'}</strong></div>
+        <div class="stat-row"><span>代号同质</span><strong>${cmp.codeHom ?? '—'}</strong></div>
+        <div class="stat-row"><span>谱系同质</span><strong>${cmp.lineageHom ?? '—'}</strong></div>
+      `
+      : `<div class="stat-row"><span>存活</span><strong>${s.population.alive}</strong></div>`;
+
+    const slotLines = Object.entries(s.population.slots)
+      .map(([slot, n]) => `<div class="stat-row"><span>${slot}</span><strong>${n}</strong></div>`)
+      .join('');
+
+    const beingCards = s.beings
       .map(
         (b) => `
-      <div class="being-card">
-        <strong>${b.name}</strong>（${b.code}）<br/>
-        <span class="mono">ID ${b.id}</span><br/>
-        <span class="mono">DNA ${b.dna.sequence.slice(0, 24)}…</span>
-      </div>`
+      <article class="being-card">
+        <header class="being-head">
+          <span class="being-id">${b.id.slice(-8)}</span>
+          <span class="being-meta">${b.code} · ${b.slot} · 代${b.generation}</span>
+        </header>
+        <div class="being-grid">
+          <div class="stat-row"><span>场压</span><strong>${fmt(b.stress)}</strong></div>
+          <div class="stat-row"><span>LOW 连击</span><strong>${b.lowStreak}</strong></div>
+          <div class="stat-row"><span>对外率</span><strong>${pct(b.extRate)}</strong></div>
+          <div class="stat-row"><span>TX / ACT</span><strong>${b.tx} / ${b.act}</strong></div>
+          <div class="stat-row"><span>摄取 DRW</span><strong>${b.drw}</strong></div>
+          <div class="stat-row"><span>匮乏 LOW</span><strong>${b.low}</strong></div>
+          <div class="stat-row"><span>膜完整性</span><strong>${fmt(b.integrity)}</strong></div>
+          <div class="stat-row"><span>跨域 MBR</span><strong>${b.mbr}</strong></div>
+        </div>
+        <div class="being-domain">代谢域 e${b.cellBoundary.join(' e')}</div>
+        <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
+      </article>`
       )
       .join('');
-  }
 
-  refreshLog() {
-    const channel = this.filterChannel === 'all' ? null : this.filterChannel;
-    const entries = this.recorder.query({ channel, limit: 400 });
-    this.$.logView.innerHTML = entries
-      .map((e) => {
-        const who = e.beingId ? ` <span class="who">${e.beingId}</span>` : '';
-        return `<div class="log-line ch-${e.channel}"><span class="t">t${e.tick}</span> <span class="ch">${e.channel}</span>${who} <span class="c">${escapeHtml(e.content)}</span></div>`;
-      })
-      .join('');
-    this.$.logView.scrollTop = this.$.logView.scrollHeight;
-  }
+    return `
+      <section class="panel env-panel">
+        <h2>环境</h2>
+        <h3 class="term">数字基底场</h3>
+        <pre class="field-state">${s.environment.substrate}</pre>
+        <h3 class="term">行动标靶</h3>
+        <pre class="field-state">${s.environment.nodes}</pre>
+        <h3 class="term">环境脉搏与反馈</h3>
+        <div class="stat-grid">
+          <div class="stat-row"><span>脉搏 AMB</span><strong>${s.environment.amb}</strong></div>
+          <div class="stat-row"><span>扰动 PTB</span><strong>${s.environment.ptb}</strong></div>
+          <div class="stat-row"><span>回响 RES</span><strong>${s.environment.res}</strong></div>
+          <div class="stat-row"><span>标靶 TGT</span><strong>${s.environment.tgt}</strong></div>
+          <div class="stat-row"><span>枯竭 DEP</span><strong>${s.environment.dep}</strong></div>
+          <div class="stat-row"><span>剧变 SHK</span><strong>${s.environment.shk}</strong></div>
+          <div class="stat-row"><span>节点脉冲 NPL</span><strong>${s.environment.npl}</strong></div>
+          <div class="stat-row"><span>生物圈 BIO</span><strong>${s.environment.bio}</strong></div>
+        </div>
+      </section>
 
-  saveNotes() {
-    localStorage.setItem(NOTES_KEY, this.$.fieldNotes.value);
-  }
+      <section class="panel pop-panel">
+        <h2>种群</h2>
+        <h3 class="term">种群结构迹</h3>
+        ${cmpBlock}
+        <h3 class="term">存续与谱系</h3>
+        <div class="stat-grid">
+          <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
+          <div class="stat-row"><span>终止 END</span><strong>${s.population.ended}</strong></div>
+          <div class="stat-row"><span>续行 LINEAGE</span><strong>${s.population.lineage}</strong></div>
+          <div class="stat-row"><span>争夺 contest</span><strong>${s.population.contest}</strong></div>
+        </div>
+        <h3 class="term">社会位</h3>
+        <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
+      </section>
 
-  loadNotes() {
-    const saved = localStorage.getItem(NOTES_KEY);
-    if (saved) this.$.fieldNotes.value = saved;
-  }
-
-  async copyNotes() {
-    await this.copyText(this.$.fieldNotes.value);
-  }
-
-  async copyAllLog() {
-    const text = this.recorder.exportText({ world: this.world });
-    await this.copyText(text);
-  }
-
-  async copyVisibleLog() {
-    const channel = this.filterChannel === 'all' ? null : this.filterChannel;
-    const entries = this.recorder.query({ channel, limit: 100000 });
-    const lines = entries.map((e) => {
-      const who = e.beingId ? ` ${e.beingId}` : '';
-      return `t${e.tick}\t${e.channel}${who}\t${e.content}`;
-    });
-    await this.copyText(lines.join('\n'));
-  }
-
-  async copyText(text) {
-    if (!text) return;
-    await navigator.clipboard.writeText(text);
-    this.$.copyFeedback.hidden = false;
-    clearTimeout(this._copyTimer);
-    this._copyTimer = setTimeout(() => {
-      this.$.copyFeedback.hidden = true;
-    }, 2000);
-  }
-
-  exportLog() {
-    const blob = new Blob([this.recorder.exportJson()], { type: 'application/json' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
-    a.href = url;
-    a.download = `elecdog-log-${Date.now()}.json`;
-    a.click();
-    URL.revokeObjectURL(url);
-  }
-
-  clearLog() {
-    if (!confirm('清空当前观察日志？')) return;
-    this.recorder.clear();
-    if (this.world) {
-      this.recorder.system(this.world.tick, '日志已清空');
-    }
-    this.refreshLog();
+      <section class="panel beings-panel">
+        <h2>个体</h2>
+        <p class="panel-hint">自助求生 · 基底代谢 · 细胞边界 · 对外双型 · 寄存器漂移</p>
+        <div class="beings-grid">${beingCards || '<p class="muted">无存活个体</p>'}</div>
+      </section>
+    `;
   }
 }
 
-function escapeHtml(str) {
-  return str
-    .replace(/&/g, '&amp;')
-    .replace(/</g, '&lt;')
-    .replace(/>/g, '&gt;');
+function fmt(n) {
+  if (n == null) return '—';
+  return typeof n === 'number' ? n.toFixed(3) : String(n);
+}
+
+function pct(n) {
+  if (n == null) return '—';
+  return `${(n * 100).toFixed(1)}%`;
 }

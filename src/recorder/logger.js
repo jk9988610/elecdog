@@ -87,6 +87,10 @@ export class Recorder {
     return this.log({ tick, channel: 'population', content, meta });
   }
 
+  cell(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'cell', beingId, content, meta });
+  }
+
   query({ channel, beingId, tickFrom, tickTo, limit = 500 }) {
     let result = this.entries;
     if (channel) result = result.filter((e) => e.channel === channel);

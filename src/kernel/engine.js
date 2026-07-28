@@ -1,4 +1,4 @@
-// 公理: A9 — 时钟；场压自助反馈；存续终止与谱系续行；环境剧变；生物圈反馈；种群结构迹
+// 公理: A9 — 时钟；场压；谱系；剧变；生物圈；种群结构；细胞边界
 
 import {
   advanceSubstrate,
@@ -20,6 +20,7 @@ import { spawnLineageOffspring } from '../world/lineage.js';
 import { advanceCatastrophe } from '../world/catastrophe.js';
 import { accumulateBiotic, applyBioticCycle } from '../world/biotic.js';
 import { compositionSnapshot, shouldRecordComposition } from '../world/composition.js';
+import { CELL_INTEGRITY_LOW } from '../world/cell.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -202,6 +203,19 @@ export function stepWorld(world, recorder) {
         `[DRW] e${met.draw.idx} -${met.draw.amount.toFixed(4)} act${met.draw.activity}`,
         { kind: 'DRW', ...met.draw }
       );
+      if (met.crossBoundary) {
+        recorder.cell(
+          world.tick,
+          being.id,
+          `[MBR] e${met.draw.idx} cross domain ${being.cellBoundary.join(',')}`,
+          {
+            kind: 'MBR',
+            idx: met.draw.idx,
+            boundary: being.cellBoundary,
+            integrity: met.integrity,
+          }
+        );
+      }
     }
     if (met.low) {
       being.lowStreak++;
@@ -213,6 +227,23 @@ export function stepWorld(world, recorder) {
       );
     } else {
       being.lowStreak = 0;
+    }
+
+    if (
+      met.integrity != null &&
+      (met.crossBoundary || (met.integrity < CELL_INTEGRITY_LOW && world.tick % 25 === 0))
+    ) {
+      recorder.cell(
+        world.tick,
+        being.id,
+        `[CEL] integrity ${met.integrity.toFixed(3)} domain e${being.cellBoundary.join(' e')}`,
+        {
+          kind: 'CEL',
+          integrity: met.integrity,
+          boundary: being.cellBoundary,
+          crossBoundary: met.crossBoundary,
+        }
+      );
     }
 
     updateStressStreak(being, result.stress);

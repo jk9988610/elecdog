@@ -1,0 +1,71 @@
+{
+  "runAt": "2026-07-28T22:24:59.107Z",
+  "phase": 20,
+  "extension": "cell_boundary_metabolic_domain",
+  "solo500": {
+    "cell": {
+      "mbrCount": 0,
+      "celCount": 10,
+      "lowIntegrityCount": 10,
+      "avgIntegrity": 0.3861,
+      "uniqueBoundaries": 1,
+      "aliveWithBoundary": 1
+    },
+    "viability": {
+      "svvCount": 150,
+      "endCount": 3,
+      "lineageCount": 3,
+      "endReasons": [
+        "low_streak",
+        "stress_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 3,
+      "avgMutation": 1,
+      "actCount": 148,
+      "highStressActCount": 24,
+      "highStressActRate": 0.16216216216216217
+    }
+  },
+  "four400": {
+    "cell": {
+      "mbrCount": 0,
+      "celCount": 34,
+      "lowIntegrityCount": 34,
+      "avgIntegrity": 0.3714,
+      "uniqueBoundaries": 4,
+      "aliveWithBoundary": 4
+    },
+    "viability": {
+      "svvCount": 994,
+      "endCount": 18,
+      "lineageCount": 18,
+      "endReasons": [
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 7,
+      "avgMutation": 2.7777777777777777,
+      "actCount": 494,
+      "highStressActCount": 252,
+      "highStressActRate": 0.5101214574898786
+    },
+    "alive": 4
+  }
+}
