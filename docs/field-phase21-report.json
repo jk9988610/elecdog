@@ -1,0 +1,3595 @@
+{
+  "runAt": "2026-07-28T22:34:02.363Z",
+  "phase": 21,
+  "extension": "multi_generation_evolution_field",
+  "scenarios": {
+    "A_solo2000": [
+      {
+        "seed": 0,
+        "evolution": {
+          "viability": {
+            "svvCount": 92,
+            "endCount": 3,
+            "lineageCount": 3,
+            "endReasons": [
+              "low_streak",
+              "low_streak",
+              "low_streak"
+            ],
+            "maxGeneration": 3,
+            "avgMutation": 4,
+            "actCount": 555,
+            "highStressActCount": 11,
+            "highStressActRate": 0.01981981981981982
+          },
+          "composition": {
+            "cmpCount": 20,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 200,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 300,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 400,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 500,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 600,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 700,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 800,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 900,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1000,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1100,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1200,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1300,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1400,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1500,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1600,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1700,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1800,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1900,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 2000,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              }
+            ],
+            "avgStruct": 0.631,
+            "structDrift": 0,
+            "clusterDominant": 20,
+            "meshDominant": 0,
+            "finalPop": 1,
+            "finalCodeHom": 1,
+            "finalLineageHom": 1
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 32,
+            "lowIntegrityCount": 32,
+            "avgIntegrity": 0.3358,
+            "uniqueBoundaries": 1,
+            "aliveWithBoundary": 1
+          },
+          "catastrophe": {
+            "shkCount": 11,
+            "nplCount": 9,
+            "totalPulses": 20,
+            "expectedPulses": 20,
+            "pulseTicks": [
+              100,
+              200,
+              300,
+              400,
+              500,
+              600,
+              700,
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1300,
+              1400,
+              1500,
+              1600,
+              1700,
+              1800,
+              1900,
+              2000
+            ],
+            "depFromPulse": 5,
+            "svvAfterPulse": [
+              {
+                "pulseTick": 100,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 200,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 300,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 500,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 600,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 900,
+                "svvCount": 2
+              },
+              {
+                "pulseTick": 1000,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1100,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1200,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1300,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1500,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1600,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1900,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 2000,
+                "svvCount": 0
+              }
+            ],
+            "avgSvvAfterPulse": 0.1
+          },
+          "pulseEnds": {
+            "pulseCount": 20,
+            "endsInWindow": 1
+          },
+          "cellEnd": {
+            "endCount": 3,
+            "endedWithMbr": 0,
+            "endedWithCel": 2,
+            "mbrEndRate": 0,
+            "celEndRate": 0.6666666666666666
+          },
+          "dna": {
+            "gen0Count": 1,
+            "aliveCount": 1,
+            "totalCount": 4,
+            "gen0Freq": {
+              "0": 0.2083,
+              "1": 0.2396,
+              "2": 0.2708,
+              "3": 0.2813
+            },
+            "aliveFreq": {
+              "0": 0.25,
+              "1": 0.25,
+              "2": 0.25,
+              "3": 0.25
+            },
+            "allFreq": {
+              "0": 0.2266,
+              "1": 0.25,
+              "2": 0.263,
+              "3": 0.2604
+            },
+            "driftAliveVsGen0": {
+              "0": 0.0417,
+              "1": 0.0104,
+              "2": -0.0208,
+              "3": -0.0313
+            },
+            "driftAllVsGen0": {
+              "0": 0.0183,
+              "1": 0.0104,
+              "2": -0.0078,
+              "3": -0.0209
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 4,
+                "freq": {
+                  "0": 0.2266,
+                  "1": 0.25,
+                  "2": 0.263,
+                  "3": 0.2604
+                }
+              },
+              "4-7": {
+                "count": 0,
+                "freq": null
+              },
+              "8+": {
+                "count": 0,
+                "freq": null
+              }
+            },
+            "maxGeneration": 3
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.1042,
+            "maxGen": 3
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 3,
+            "lineageCount": 3,
+            "alive": 1
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": 0,
+            "avgIntegrity": 0.3358,
+            "maxGen": 3
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.6666666666666666,
+            "pulseEnds": 1
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "evolution": {
+          "viability": {
+            "svvCount": 340,
+            "endCount": 10,
+            "lineageCount": 10,
+            "endReasons": [
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak"
+            ],
+            "maxGeneration": 10,
+            "avgMutation": 3.2,
+            "actCount": 552,
+            "highStressActCount": 48,
+            "highStressActRate": 0.08695652173913043
+          },
+          "composition": {
+            "cmpCount": 20,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 200,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 300,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 400,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 500,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 600,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 700,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 800,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 900,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1000,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1100,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1200,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1300,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1400,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1500,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1600,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1700,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1800,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 1900,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              },
+              {
+                "tick": 2000,
+                "struct": 0.631,
+                "pop": 1,
+                "codeHom": 1,
+                "lineageHom": 1,
+                "spread": 0,
+                "clusterScore": 0.75,
+                "meshScore": 0.4375
+              }
+            ],
+            "avgStruct": 0.631,
+            "structDrift": 0,
+            "clusterDominant": 20,
+            "meshDominant": 0,
+            "finalPop": 1,
+            "finalCodeHom": 1,
+            "finalLineageHom": 1
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 21,
+            "lowIntegrityCount": 21,
+            "avgIntegrity": 0.3924,
+            "uniqueBoundaries": 1,
+            "aliveWithBoundary": 1
+          },
+          "catastrophe": {
+            "shkCount": 15,
+            "nplCount": 5,
+            "totalPulses": 20,
+            "expectedPulses": 20,
+            "pulseTicks": [
+              100,
+              200,
+              300,
+              400,
+              500,
+              600,
+              700,
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1300,
+              1400,
+              1500,
+              1600,
+              1700,
+              1800,
+              1900,
+              2000
+            ],
+            "depFromPulse": 2,
+            "svvAfterPulse": [
+              {
+                "pulseTick": 100,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 200,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 300,
+                "svvCount": 6
+              },
+              {
+                "pulseTick": 400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 500,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 600,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 900,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1000,
+                "svvCount": 6
+              },
+              {
+                "pulseTick": 1100,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1200,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1300,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1500,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1600,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1900,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 2000,
+                "svvCount": 0
+              }
+            ],
+            "avgSvvAfterPulse": 0.6
+          },
+          "pulseEnds": {
+            "pulseCount": 20,
+            "endsInWindow": 5
+          },
+          "cellEnd": {
+            "endCount": 10,
+            "endedWithMbr": 0,
+            "endedWithCel": 7,
+            "mbrEndRate": 0,
+            "celEndRate": 0.7
+          },
+          "dna": {
+            "gen0Count": 1,
+            "aliveCount": 1,
+            "totalCount": 11,
+            "gen0Freq": {
+              "0": 0.2083,
+              "1": 0.2396,
+              "2": 0.2708,
+              "3": 0.2813
+            },
+            "aliveFreq": {
+              "0": 0.2604,
+              "1": 0.2708,
+              "2": 0.1979,
+              "3": 0.2708
+            },
+            "allFreq": {
+              "0": 0.2112,
+              "1": 0.2547,
+              "2": 0.2367,
+              "3": 0.2974
+            },
+            "driftAliveVsGen0": {
+              "0": 0.0521,
+              "1": 0.0312,
+              "2": -0.0729,
+              "3": -0.0105
+            },
+            "driftAllVsGen0": {
+              "0": 0.0029,
+              "1": 0.0151,
+              "2": -0.0341,
+              "3": 0.0161
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 4,
+                "freq": {
+                  "0": 0.2057,
+                  "1": 0.237,
+                  "2": 0.2656,
+                  "3": 0.2917
+                }
+              },
+              "4-7": {
+                "count": 4,
+                "freq": {
+                  "0": 0.1875,
+                  "1": 0.2656,
+                  "2": 0.2344,
+                  "3": 0.3125
+                }
+              },
+              "8+": {
+                "count": 3,
+                "freq": {
+                  "0": 0.25,
+                  "1": 0.2639,
+                  "2": 0.2014,
+                  "3": 0.2847
+                }
+              }
+            },
+            "maxGeneration": 10
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.1667,
+            "maxGen": 10
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 10,
+            "lineageCount": 10,
+            "alive": 1
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": 0,
+            "avgIntegrity": 0.3924,
+            "maxGen": 10
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.7,
+            "pulseEnds": 5
+          }
+        }
+      }
+    ],
+    "B_four1500": [
+      {
+        "seed": 0,
+        "evolution": {
+          "viability": {
+            "svvCount": 2644,
+            "endCount": 58,
+            "lineageCount": 58,
+            "endReasons": [
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "compound",
+              "low_streak",
+              "compound",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "compound",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak"
+            ],
+            "maxGeneration": 16,
+            "avgMutation": 2.7758620689655173,
+            "actCount": 1812,
+            "highStressActCount": 530,
+            "highStressActRate": 0.2924944812362031
+          },
+          "composition": {
+            "cmpCount": 15,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.2752,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0095,
+                "clusterScore": 0.2899,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 200,
+                "struct": 0.2824,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0518,
+                "clusterScore": 0.3005,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 300,
+                "struct": 0.3035,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.028,
+                "clusterScore": 0.2945,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 400,
+                "struct": 0.2841,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.062,
+                "clusterScore": 0.303,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 500,
+                "struct": 0.2901,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0978,
+                "clusterScore": 0.3119,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 600,
+                "struct": 0.2865,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0764,
+                "clusterScore": 0.3066,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 700,
+                "struct": 0.2772,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0213,
+                "clusterScore": 0.2928,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 800,
+                "struct": 0.2806,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0414,
+                "clusterScore": 0.2979,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 900,
+                "struct": 0.281,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0433,
+                "clusterScore": 0.2983,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1000,
+                "struct": 0.2893,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0932,
+                "clusterScore": 0.3108,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1100,
+                "struct": 0.2753,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0102,
+                "clusterScore": 0.29,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1200,
+                "struct": 0.311,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0706,
+                "clusterScore": 0.3051,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1300,
+                "struct": 0.3006,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0124,
+                "clusterScore": 0.2906,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1400,
+                "struct": 0.3038,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0297,
+                "clusterScore": 0.2949,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1500,
+                "struct": 0.2812,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.045,
+                "clusterScore": 0.2987,
+                "meshScore": 0.7625
+              }
+            ],
+            "avgStruct": 0.2881,
+            "structDrift": 0.006,
+            "clusterDominant": 0,
+            "meshDominant": 15,
+            "finalPop": 4,
+            "finalCodeHom": 0.5,
+            "finalLineageHom": 0.25
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 95,
+            "lowIntegrityCount": 95,
+            "avgIntegrity": 0.3656,
+            "uniqueBoundaries": 3,
+            "aliveWithBoundary": 4
+          },
+          "catastrophe": {
+            "shkCount": 8,
+            "nplCount": 7,
+            "totalPulses": 15,
+            "expectedPulses": 15,
+            "pulseTicks": [
+              100,
+              200,
+              300,
+              400,
+              500,
+              600,
+              700,
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1300,
+              1400,
+              1500
+            ],
+            "depFromPulse": 0,
+            "svvAfterPulse": [
+              {
+                "pulseTick": 100,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 200,
+                "svvCount": 15
+              },
+              {
+                "pulseTick": 300,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 500,
+                "svvCount": 10
+              },
+              {
+                "pulseTick": 600,
+                "svvCount": 20
+              },
+              {
+                "pulseTick": 700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 900,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1000,
+                "svvCount": 16
+              },
+              {
+                "pulseTick": 1100,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1200,
+                "svvCount": 19
+              },
+              {
+                "pulseTick": 1300,
+                "svvCount": 19
+              },
+              {
+                "pulseTick": 1400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1500,
+                "svvCount": 4
+              }
+            ],
+            "avgSvvAfterPulse": 8.466666666666667
+          },
+          "pulseEnds": {
+            "pulseCount": 15,
+            "endsInWindow": 29
+          },
+          "cellEnd": {
+            "endCount": 58,
+            "endedWithMbr": 0,
+            "endedWithCel": 37,
+            "mbrEndRate": 0,
+            "celEndRate": 0.6379310344827587
+          },
+          "dna": {
+            "gen0Count": 4,
+            "aliveCount": 4,
+            "totalCount": 62,
+            "gen0Freq": {
+              "0": 0.2344,
+              "1": 0.2318,
+              "2": 0.2552,
+              "3": 0.2787
+            },
+            "aliveFreq": {
+              "0": 0.2422,
+              "1": 0.2604,
+              "2": 0.2604,
+              "3": 0.237
+            },
+            "allFreq": {
+              "0": 0.2352,
+              "1": 0.2497,
+              "2": 0.2562,
+              "3": 0.2589
+            },
+            "driftAliveVsGen0": {
+              "0": 0.0078,
+              "1": 0.0286,
+              "2": 0.0052,
+              "3": -0.0417
+            },
+            "driftAllVsGen0": {
+              "0": 0.0008,
+              "1": 0.0179,
+              "2": 0.001,
+              "3": -0.0198
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2422,
+                  "1": 0.2396,
+                  "2": 0.2506,
+                  "3": 0.2676
+                }
+              },
+              "4-7": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2344,
+                  "1": 0.2487,
+                  "2": 0.2487,
+                  "3": 0.2682
+                }
+              },
+              "8+": {
+                "count": 30,
+                "freq": {
+                  "0": 0.232,
+                  "1": 0.2556,
+                  "2": 0.2632,
+                  "3": 0.2493
+                }
+              }
+            },
+            "maxGeneration": 16
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.0833,
+            "maxGen": 16
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 58,
+            "lineageCount": 58,
+            "alive": 4
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": 0.006,
+            "avgIntegrity": 0.3656,
+            "maxGen": 16
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.6379310344827587,
+            "pulseEnds": 29
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "evolution": {
+          "viability": {
+            "svvCount": 2884,
+            "endCount": 54,
+            "lineageCount": 54,
+            "endReasons": [
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak"
+            ],
+            "maxGeneration": 18,
+            "avgMutation": 2.925925925925926,
+            "actCount": 1714,
+            "highStressActCount": 543,
+            "highStressActRate": 0.31680280046674447
+          },
+          "composition": {
+            "cmpCount": 15,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.3031,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0263,
+                "clusterScore": 0.2941,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 200,
+                "struct": 0.2815,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0467,
+                "clusterScore": 0.2992,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 300,
+                "struct": 0.2769,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0194,
+                "clusterScore": 0.2924,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 400,
+                "struct": 0.277,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0201,
+                "clusterScore": 0.2925,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 500,
+                "struct": 0.2862,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0745,
+                "clusterScore": 0.3061,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 600,
+                "struct": 0.2821,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.05,
+                "clusterScore": 0.3,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 700,
+                "struct": 0.28,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0378,
+                "clusterScore": 0.297,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 800,
+                "struct": 0.2824,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0518,
+                "clusterScore": 0.3004,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 900,
+                "struct": 0.2811,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0443,
+                "clusterScore": 0.2986,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1000,
+                "struct": 0.3047,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0351,
+                "clusterScore": 0.2963,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1100,
+                "struct": 0.3115,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0733,
+                "clusterScore": 0.3058,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1200,
+                "struct": 0.3118,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0748,
+                "clusterScore": 0.3062,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1300,
+                "struct": 0.2541,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0095,
+                "clusterScore": 0.2899,
+                "meshScore": 0.85
+              },
+              {
+                "tick": 1400,
+                "struct": 0.3077,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0521,
+                "clusterScore": 0.3005,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1500,
+                "struct": 0.2824,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.052,
+                "clusterScore": 0.3005,
+                "meshScore": 0.7625
+              }
+            ],
+            "avgStruct": 0.2882,
+            "structDrift": -0.0207,
+            "clusterDominant": 0,
+            "meshDominant": 15,
+            "finalPop": 4,
+            "finalCodeHom": 0.5,
+            "finalLineageHom": 0.25
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 105,
+            "lowIntegrityCount": 105,
+            "avgIntegrity": 0.374,
+            "uniqueBoundaries": 4,
+            "aliveWithBoundary": 4
+          },
+          "catastrophe": {
+            "shkCount": 7,
+            "nplCount": 8,
+            "totalPulses": 15,
+            "expectedPulses": 15,
+            "pulseTicks": [
+              100,
+              200,
+              300,
+              400,
+              500,
+              600,
+              700,
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1300,
+              1400,
+              1500
+            ],
+            "depFromPulse": 0,
+            "svvAfterPulse": [
+              {
+                "pulseTick": 100,
+                "svvCount": 16
+              },
+              {
+                "pulseTick": 200,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 300,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 400,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 500,
+                "svvCount": 11
+              },
+              {
+                "pulseTick": 600,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 700,
+                "svvCount": 2
+              },
+              {
+                "pulseTick": 800,
+                "svvCount": 21
+              },
+              {
+                "pulseTick": 900,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1000,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1100,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1200,
+                "svvCount": 6
+              },
+              {
+                "pulseTick": 1300,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1400,
+                "svvCount": 4
+              },
+              {
+                "pulseTick": 1500,
+                "svvCount": 0
+              }
+            ],
+            "avgSvvAfterPulse": 8.8
+          },
+          "pulseEnds": {
+            "pulseCount": 15,
+            "endsInWindow": 38
+          },
+          "cellEnd": {
+            "endCount": 54,
+            "endedWithMbr": 0,
+            "endedWithCel": 40,
+            "mbrEndRate": 0,
+            "celEndRate": 0.7407407407407407
+          },
+          "dna": {
+            "gen0Count": 4,
+            "aliveCount": 4,
+            "totalCount": 58,
+            "gen0Freq": {
+              "0": 0.2448,
+              "1": 0.224,
+              "2": 0.25,
+              "3": 0.2813
+            },
+            "aliveFreq": {
+              "0": 0.2448,
+              "1": 0.2448,
+              "2": 0.2526,
+              "3": 0.2578
+            },
+            "allFreq": {
+              "0": 0.2434,
+              "1": 0.2252,
+              "2": 0.2592,
+              "3": 0.2723
+            },
+            "driftAliveVsGen0": {
+              "0": 0,
+              "1": 0.0208,
+              "2": 0.0026,
+              "3": -0.0235
+            },
+            "driftAllVsGen0": {
+              "0": -0.0014,
+              "1": 0.0012,
+              "2": 0.0092,
+              "3": -0.009
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2474,
+                  "1": 0.2233,
+                  "2": 0.2546,
+                  "3": 0.2747
+                }
+              },
+              "4-7": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2422,
+                  "1": 0.2246,
+                  "2": 0.2572,
+                  "3": 0.2761
+                }
+              },
+              "8+": {
+                "count": 26,
+                "freq": {
+                  "0": 0.2416,
+                  "1": 0.2268,
+                  "2": 0.2632,
+                  "3": 0.2684
+                }
+              }
+            },
+            "maxGeneration": 18
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.0469,
+            "maxGen": 18
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 54,
+            "lineageCount": 54,
+            "alive": 4
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "support",
+            "structDrift": -0.0207,
+            "avgIntegrity": 0.374,
+            "maxGen": 18
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.7407407407407407,
+            "pulseEnds": 38
+          }
+        }
+      }
+    ],
+    "C_four2000_catastrophe": [
+      {
+        "seed": 0,
+        "evolution": {
+          "viability": {
+            "svvCount": 3766,
+            "endCount": 77,
+            "lineageCount": 77,
+            "endReasons": [
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak"
+            ],
+            "maxGeneration": 23,
+            "avgMutation": 3.2857142857142856,
+            "actCount": 2292,
+            "highStressActCount": 730,
+            "highStressActRate": 0.31849912739965097
+          },
+          "composition": {
+            "cmpCount": 20,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.3101,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0652,
+                "clusterScore": 0.3038,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 200,
+                "struct": 0.3052,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0379,
+                "clusterScore": 0.297,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 300,
+                "struct": 0.3113,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0723,
+                "clusterScore": 0.3056,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 400,
+                "struct": 0.2826,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0532,
+                "clusterScore": 0.3008,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 500,
+                "struct": 0.2855,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0704,
+                "clusterScore": 0.3051,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 600,
+                "struct": 0.2788,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0307,
+                "clusterScore": 0.2952,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 700,
+                "struct": 0.2781,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0266,
+                "clusterScore": 0.2941,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 800,
+                "struct": 0.2587,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0377,
+                "clusterScore": 0.2969,
+                "meshScore": 0.85
+              },
+              {
+                "tick": 900,
+                "struct": 0.3051,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0374,
+                "clusterScore": 0.2968,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1000,
+                "struct": 0.2827,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0538,
+                "clusterScore": 0.301,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1100,
+                "struct": 0.2846,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0647,
+                "clusterScore": 0.3037,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1200,
+                "struct": 0.278,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0259,
+                "clusterScore": 0.294,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1300,
+                "struct": 0.2866,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0767,
+                "clusterScore": 0.3067,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1400,
+                "struct": 0.3033,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.027,
+                "clusterScore": 0.2942,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1500,
+                "struct": 0.279,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0316,
+                "clusterScore": 0.2954,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1600,
+                "struct": 0.29,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0976,
+                "clusterScore": 0.3119,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1700,
+                "struct": 0.3041,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0315,
+                "clusterScore": 0.2954,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1800,
+                "struct": 0.2826,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0533,
+                "clusterScore": 0.3008,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1900,
+                "struct": 0.2845,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0644,
+                "clusterScore": 0.3036,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 2000,
+                "struct": 0.3065,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0451,
+                "clusterScore": 0.2988,
+                "meshScore": 0.675
+              }
+            ],
+            "avgStruct": 0.2899,
+            "structDrift": -0.0036,
+            "clusterDominant": 0,
+            "meshDominant": 20,
+            "finalPop": 4,
+            "finalCodeHom": 0.5,
+            "finalLineageHom": 0.25
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 157,
+            "lowIntegrityCount": 157,
+            "avgIntegrity": 0.3686,
+            "uniqueBoundaries": 4,
+            "aliveWithBoundary": 4
+          },
+          "catastrophe": {
+            "shkCount": 9,
+            "nplCount": 11,
+            "totalPulses": 20,
+            "expectedPulses": 20,
+            "pulseTicks": [
+              100,
+              200,
+              300,
+              400,
+              500,
+              600,
+              700,
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1300,
+              1400,
+              1500,
+              1600,
+              1700,
+              1800,
+              1900,
+              2000
+            ],
+            "depFromPulse": 0,
+            "svvAfterPulse": [
+              {
+                "pulseTick": 100,
+                "svvCount": 1
+              },
+              {
+                "pulseTick": 200,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 300,
+                "svvCount": 6
+              },
+              {
+                "pulseTick": 400,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 500,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 600,
+                "svvCount": 13
+              },
+              {
+                "pulseTick": 700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 800,
+                "svvCount": 2
+              },
+              {
+                "pulseTick": 900,
+                "svvCount": 2
+              },
+              {
+                "pulseTick": 1000,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1100,
+                "svvCount": 4
+              },
+              {
+                "pulseTick": 1200,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1300,
+                "svvCount": 2
+              },
+              {
+                "pulseTick": 1400,
+                "svvCount": 11
+              },
+              {
+                "pulseTick": 1500,
+                "svvCount": 1
+              },
+              {
+                "pulseTick": 1600,
+                "svvCount": 22
+              },
+              {
+                "pulseTick": 1700,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1900,
+                "svvCount": 2
+              },
+              {
+                "pulseTick": 2000,
+                "svvCount": 0
+              }
+            ],
+            "avgSvvAfterPulse": 8.1
+          },
+          "pulseEnds": {
+            "pulseCount": 20,
+            "endsInWindow": 39
+          },
+          "cellEnd": {
+            "endCount": 77,
+            "endedWithMbr": 0,
+            "endedWithCel": 52,
+            "mbrEndRate": 0,
+            "celEndRate": 0.6753246753246753
+          },
+          "dna": {
+            "gen0Count": 4,
+            "aliveCount": 4,
+            "totalCount": 81,
+            "gen0Freq": {
+              "0": 0.237,
+              "1": 0.2292,
+              "2": 0.25,
+              "3": 0.2839
+            },
+            "aliveFreq": {
+              "0": 0.2396,
+              "1": 0.2526,
+              "2": 0.2604,
+              "3": 0.2474
+            },
+            "allFreq": {
+              "0": 0.2361,
+              "1": 0.2492,
+              "2": 0.2638,
+              "3": 0.2509
+            },
+            "driftAliveVsGen0": {
+              "0": 0.0026,
+              "1": 0.0234,
+              "2": 0.0104,
+              "3": -0.0365
+            },
+            "driftAllVsGen0": {
+              "0": -0.0009,
+              "1": 0.02,
+              "2": 0.0138,
+              "3": -0.033
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2331,
+                  "1": 0.2331,
+                  "2": 0.2578,
+                  "3": 0.2761
+                }
+              },
+              "4-7": {
+                "count": 16,
+                "freq": {
+                  "0": 0.235,
+                  "1": 0.2363,
+                  "2": 0.2708,
+                  "3": 0.2578
+                }
+              },
+              "8+": {
+                "count": 49,
+                "freq": {
+                  "0": 0.2375,
+                  "1": 0.2587,
+                  "2": 0.2634,
+                  "3": 0.2404
+                }
+              }
+            },
+            "maxGeneration": 23
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.0729,
+            "maxGen": 23
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 77,
+            "lineageCount": 77,
+            "alive": 4
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": -0.0036,
+            "avgIntegrity": 0.3686,
+            "maxGen": 23
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.6753246753246753,
+            "pulseEnds": 39
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "evolution": {
+          "viability": {
+            "svvCount": 3788,
+            "endCount": 78,
+            "lineageCount": 78,
+            "endReasons": [
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "compound",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak"
+            ],
+            "maxGeneration": 25,
+            "avgMutation": 2.923076923076923,
+            "actCount": 2272,
+            "highStressActCount": 777,
+            "highStressActRate": 0.3419894366197183
+          },
+          "composition": {
+            "cmpCount": 20,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.3031,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0262,
+                "clusterScore": 0.2941,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 200,
+                "struct": 0.286,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0734,
+                "clusterScore": 0.3058,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 300,
+                "struct": 0.3081,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0541,
+                "clusterScore": 0.301,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 400,
+                "struct": 0.2802,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0389,
+                "clusterScore": 0.2972,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 500,
+                "struct": 0.2822,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0504,
+                "clusterScore": 0.3001,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 600,
+                "struct": 0.3049,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0362,
+                "clusterScore": 0.2966,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 700,
+                "struct": 0.2851,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0681,
+                "clusterScore": 0.3045,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 800,
+                "struct": 0.3136,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0853,
+                "clusterScore": 0.3088,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 900,
+                "struct": 0.3089,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0589,
+                "clusterScore": 0.3022,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1000,
+                "struct": 0.26,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0459,
+                "clusterScore": 0.299,
+                "meshScore": 0.85
+              },
+              {
+                "tick": 1100,
+                "struct": 0.3095,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0617,
+                "clusterScore": 0.3029,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1200,
+                "struct": 0.3085,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0564,
+                "clusterScore": 0.3016,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1300,
+                "struct": 0.305,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0367,
+                "clusterScore": 0.2967,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1400,
+                "struct": 0.2608,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.051,
+                "clusterScore": 0.3003,
+                "meshScore": 0.85
+              },
+              {
+                "tick": 1500,
+                "struct": 0.3005,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0114,
+                "clusterScore": 0.2903,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1600,
+                "struct": 0.303,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0253,
+                "clusterScore": 0.2938,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1700,
+                "struct": 0.3196,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.1201,
+                "clusterScore": 0.3175,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1800,
+                "struct": 0.2836,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0592,
+                "clusterScore": 0.3023,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1900,
+                "struct": 0.2819,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0491,
+                "clusterScore": 0.2998,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 2000,
+                "struct": 0.3118,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0749,
+                "clusterScore": 0.3062,
+                "meshScore": 0.675
+              }
+            ],
+            "avgStruct": 0.2958,
+            "structDrift": 0.0087,
+            "clusterDominant": 0,
+            "meshDominant": 20,
+            "finalPop": 4,
+            "finalCodeHom": 0.5,
+            "finalLineageHom": 0.25
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 144,
+            "lowIntegrityCount": 144,
+            "avgIntegrity": 0.3643,
+            "uniqueBoundaries": 4,
+            "aliveWithBoundary": 4
+          },
+          "catastrophe": {
+            "shkCount": 9,
+            "nplCount": 11,
+            "totalPulses": 20,
+            "expectedPulses": 20,
+            "pulseTicks": [
+              100,
+              200,
+              300,
+              400,
+              500,
+              600,
+              700,
+              800,
+              900,
+              1000,
+              1100,
+              1200,
+              1300,
+              1400,
+              1500,
+              1600,
+              1700,
+              1800,
+              1900,
+              2000
+            ],
+            "depFromPulse": 0,
+            "svvAfterPulse": [
+              {
+                "pulseTick": 100,
+                "svvCount": 19
+              },
+              {
+                "pulseTick": 200,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 300,
+                "svvCount": 5
+              },
+              {
+                "pulseTick": 400,
+                "svvCount": 3
+              },
+              {
+                "pulseTick": 500,
+                "svvCount": 8
+              },
+              {
+                "pulseTick": 600,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 700,
+                "svvCount": 6
+              },
+              {
+                "pulseTick": 800,
+                "svvCount": 13
+              },
+              {
+                "pulseTick": 900,
+                "svvCount": 10
+              },
+              {
+                "pulseTick": 1000,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1100,
+                "svvCount": 11
+              },
+              {
+                "pulseTick": 1200,
+                "svvCount": 11
+              },
+              {
+                "pulseTick": 1300,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1400,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1500,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1600,
+                "svvCount": 6
+              },
+              {
+                "pulseTick": 1700,
+                "svvCount": 24
+              },
+              {
+                "pulseTick": 1800,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 1900,
+                "svvCount": 0
+              },
+              {
+                "pulseTick": 2000,
+                "svvCount": 4
+              }
+            ],
+            "avgSvvAfterPulse": 10.8
+          },
+          "pulseEnds": {
+            "pulseCount": 20,
+            "endsInWindow": 43
+          },
+          "cellEnd": {
+            "endCount": 78,
+            "endedWithMbr": 0,
+            "endedWithCel": 57,
+            "mbrEndRate": 0,
+            "celEndRate": 0.7307692307692307
+          },
+          "dna": {
+            "gen0Count": 4,
+            "aliveCount": 4,
+            "totalCount": 82,
+            "gen0Freq": {
+              "0": 0.2396,
+              "1": 0.2318,
+              "2": 0.2552,
+              "3": 0.2735
+            },
+            "aliveFreq": {
+              "0": 0.2578,
+              "1": 0.2396,
+              "2": 0.2292,
+              "3": 0.2734
+            },
+            "allFreq": {
+              "0": 0.2334,
+              "1": 0.2456,
+              "2": 0.2551,
+              "3": 0.266
+            },
+            "driftAliveVsGen0": {
+              "0": 0.0182,
+              "1": 0.0078,
+              "2": -0.026,
+              "3": -0.0001
+            },
+            "driftAllVsGen0": {
+              "0": -0.0062,
+              "1": 0.0138,
+              "2": -0.0001,
+              "3": -0.0075
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2376,
+                  "1": 0.2409,
+                  "2": 0.2598,
+                  "3": 0.2617
+                }
+              },
+              "4-7": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2253,
+                  "1": 0.2507,
+                  "2": 0.2656,
+                  "3": 0.2585
+                }
+              },
+              "8+": {
+                "count": 50,
+                "freq": {
+                  "0": 0.2346,
+                  "1": 0.2454,
+                  "2": 0.2502,
+                  "3": 0.2698
+                }
+              }
+            },
+            "maxGeneration": 25
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.0521,
+            "maxGen": 25
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 78,
+            "lineageCount": 78,
+            "alive": 4
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": 0.0087,
+            "avgIntegrity": 0.3643,
+            "maxGen": 25
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.7307692307692307,
+            "pulseEnds": 43
+          }
+        }
+      }
+    ],
+    "D_four1500_no_catastrophe": [
+      {
+        "seed": 0,
+        "evolution": {
+          "viability": {
+            "svvCount": 3139,
+            "endCount": 67,
+            "lineageCount": 67,
+            "endReasons": [
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "compound",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak"
+            ],
+            "maxGeneration": 19,
+            "avgMutation": 3.029850746268657,
+            "actCount": 1730,
+            "highStressActCount": 640,
+            "highStressActRate": 0.3699421965317919
+          },
+          "composition": {
+            "cmpCount": 15,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.2796,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0351,
+                "clusterScore": 0.2963,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 200,
+                "struct": 0.3045,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.034,
+                "clusterScore": 0.296,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 300,
+                "struct": 0.2784,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0283,
+                "clusterScore": 0.2946,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 400,
+                "struct": 0.3079,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.053,
+                "clusterScore": 0.3007,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 500,
+                "struct": 0.2611,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0527,
+                "clusterScore": 0.3007,
+                "meshScore": 0.85
+              },
+              {
+                "tick": 600,
+                "struct": 0.2775,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0228,
+                "clusterScore": 0.2932,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 700,
+                "struct": 0.3091,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0598,
+                "clusterScore": 0.3024,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 800,
+                "struct": 0.271,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.1152,
+                "clusterScore": 0.3163,
+                "meshScore": 0.85
+              },
+              {
+                "tick": 900,
+                "struct": 0.3125,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0788,
+                "clusterScore": 0.3072,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1000,
+                "struct": 0.2886,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0889,
+                "clusterScore": 0.3097,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1100,
+                "struct": 0.3073,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0493,
+                "clusterScore": 0.2998,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1200,
+                "struct": 0.2778,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0245,
+                "clusterScore": 0.2936,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1300,
+                "struct": 0.29,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0976,
+                "clusterScore": 0.3119,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1400,
+                "struct": 0.2797,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0357,
+                "clusterScore": 0.2964,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1500,
+                "struct": 0.2806,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0411,
+                "clusterScore": 0.2978,
+                "meshScore": 0.7625
+              }
+            ],
+            "avgStruct": 0.2884,
+            "structDrift": 0.001,
+            "clusterDominant": 0,
+            "meshDominant": 15,
+            "finalPop": 4,
+            "finalCodeHom": 0.5,
+            "finalLineageHom": 0.25
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 118,
+            "lowIntegrityCount": 118,
+            "avgIntegrity": 0.37,
+            "uniqueBoundaries": 4,
+            "aliveWithBoundary": 4
+          },
+          "catastrophe": {
+            "shkCount": 0,
+            "nplCount": 0,
+            "totalPulses": 0,
+            "expectedPulses": 15,
+            "pulseTicks": [],
+            "depFromPulse": 0,
+            "svvAfterPulse": [],
+            "avgSvvAfterPulse": 0
+          },
+          "pulseEnds": {
+            "pulseCount": 0,
+            "endsInWindow": 0
+          },
+          "cellEnd": {
+            "endCount": 67,
+            "endedWithMbr": 0,
+            "endedWithCel": 46,
+            "mbrEndRate": 0,
+            "celEndRate": 0.6865671641791045
+          },
+          "dna": {
+            "gen0Count": 4,
+            "aliveCount": 4,
+            "totalCount": 71,
+            "gen0Freq": {
+              "0": 0.2344,
+              "1": 0.224,
+              "2": 0.2552,
+              "3": 0.2864
+            },
+            "aliveFreq": {
+              "0": 0.2448,
+              "1": 0.1927,
+              "2": 0.2917,
+              "3": 0.2708
+            },
+            "allFreq": {
+              "0": 0.2361,
+              "1": 0.2016,
+              "2": 0.2865,
+              "3": 0.2758
+            },
+            "driftAliveVsGen0": {
+              "0": 0.0104,
+              "1": -0.0313,
+              "2": 0.0365,
+              "3": -0.0156
+            },
+            "driftAllVsGen0": {
+              "0": 0.0017,
+              "1": -0.0224,
+              "2": 0.0313,
+              "3": -0.0106
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2318,
+                  "1": 0.2194,
+                  "2": 0.2598,
+                  "3": 0.2891
+                }
+              },
+              "4-7": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2279,
+                  "1": 0.2129,
+                  "2": 0.2734,
+                  "3": 0.2858
+                }
+              },
+              "8+": {
+                "count": 39,
+                "freq": {
+                  "0": 0.2412,
+                  "1": 0.1896,
+                  "2": 0.3029,
+                  "3": 0.2663
+                }
+              }
+            },
+            "maxGeneration": 19
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.0938,
+            "maxGen": 19
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 67,
+            "lineageCount": 67,
+            "alive": 4
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": 0.001,
+            "avgIntegrity": 0.37,
+            "maxGen": 19
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.6865671641791045,
+            "pulseEnds": 0
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "evolution": {
+          "viability": {
+            "svvCount": 3519,
+            "endCount": 74,
+            "lineageCount": 74,
+            "endReasons": [
+              "compound",
+              "compound",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "compound",
+              "low_streak",
+              "stress_streak",
+              "stress_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "low_streak",
+              "stress_streak",
+              "stress_streak"
+            ],
+            "maxGeneration": 20,
+            "avgMutation": 2.8513513513513513,
+            "actCount": 1804,
+            "highStressActCount": 779,
+            "highStressActRate": 0.4318181818181818
+          },
+          "composition": {
+            "cmpCount": 15,
+            "structSeries": [
+              {
+                "tick": 100,
+                "struct": 0.28,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0375,
+                "clusterScore": 0.2969,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 200,
+                "struct": 0.2787,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0303,
+                "clusterScore": 0.2951,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 300,
+                "struct": 0.3219,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.1338,
+                "clusterScore": 0.321,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 400,
+                "struct": 0.2748,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0075,
+                "clusterScore": 0.2894,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 500,
+                "struct": 0.2738,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0016,
+                "clusterScore": 0.2879,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 600,
+                "struct": 0.2801,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0383,
+                "clusterScore": 0.2971,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 700,
+                "struct": 0.2867,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0773,
+                "clusterScore": 0.3068,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 800,
+                "struct": 0.2794,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.034,
+                "clusterScore": 0.296,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 900,
+                "struct": 0.2845,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0646,
+                "clusterScore": 0.3036,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1000,
+                "struct": 0.3043,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0328,
+                "clusterScore": 0.2957,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1100,
+                "struct": 0.2782,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0271,
+                "clusterScore": 0.2943,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1200,
+                "struct": 0.3062,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0431,
+                "clusterScore": 0.2983,
+                "meshScore": 0.675
+              },
+              {
+                "tick": 1300,
+                "struct": 0.2804,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0397,
+                "clusterScore": 0.2974,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1400,
+                "struct": 0.2845,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0645,
+                "clusterScore": 0.3036,
+                "meshScore": 0.7625
+              },
+              {
+                "tick": 1500,
+                "struct": 0.2673,
+                "pop": 4,
+                "codeHom": 0.5,
+                "lineageHom": 0.25,
+                "spread": 0.0919,
+                "clusterScore": 0.3105,
+                "meshScore": 0.85
+              }
+            ],
+            "avgStruct": 0.2854,
+            "structDrift": -0.0127,
+            "clusterDominant": 0,
+            "meshDominant": 15,
+            "finalPop": 4,
+            "finalCodeHom": 0.5,
+            "finalLineageHom": 0.25
+          },
+          "cell": {
+            "mbrCount": 0,
+            "celCount": 101,
+            "lowIntegrityCount": 101,
+            "avgIntegrity": 0.3704,
+            "uniqueBoundaries": 4,
+            "aliveWithBoundary": 4
+          },
+          "catastrophe": {
+            "shkCount": 0,
+            "nplCount": 0,
+            "totalPulses": 0,
+            "expectedPulses": 15,
+            "pulseTicks": [],
+            "depFromPulse": 0,
+            "svvAfterPulse": [],
+            "avgSvvAfterPulse": 0
+          },
+          "pulseEnds": {
+            "pulseCount": 0,
+            "endsInWindow": 0
+          },
+          "cellEnd": {
+            "endCount": 74,
+            "endedWithMbr": 0,
+            "endedWithCel": 45,
+            "mbrEndRate": 0,
+            "celEndRate": 0.6081081081081081
+          },
+          "dna": {
+            "gen0Count": 4,
+            "aliveCount": 4,
+            "totalCount": 78,
+            "gen0Freq": {
+              "0": 0.2396,
+              "1": 0.2292,
+              "2": 0.2526,
+              "3": 0.2787
+            },
+            "aliveFreq": {
+              "0": 0.2396,
+              "1": 0.2448,
+              "2": 0.2578,
+              "3": 0.2578
+            },
+            "allFreq": {
+              "0": 0.2385,
+              "1": 0.235,
+              "2": 0.261,
+              "3": 0.2655
+            },
+            "driftAliveVsGen0": {
+              "0": 0,
+              "1": 0.0156,
+              "2": 0.0052,
+              "3": -0.0209
+            },
+            "driftAllVsGen0": {
+              "0": -0.0011,
+              "1": 0.0058,
+              "2": 0.0084,
+              "3": -0.0132
+            },
+            "byGeneration": {
+              "0-3": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2389,
+                  "1": 0.2298,
+                  "2": 0.2572,
+                  "3": 0.2741
+                }
+              },
+              "4-7": {
+                "count": 16,
+                "freq": {
+                  "0": 0.2422,
+                  "1": 0.2298,
+                  "2": 0.2676,
+                  "3": 0.2604
+                }
+              },
+              "8+": {
+                "count": 46,
+                "freq": {
+                  "0": 0.2371,
+                  "1": 0.2387,
+                  "2": 0.26,
+                  "3": 0.2643
+                }
+              }
+            },
+            "maxGeneration": 20
+          }
+        },
+        "hypotheses": {
+          "H1_dnaDrift": {
+            "verdict": "support",
+            "driftMagnitude": 0.0417,
+            "maxGen": 20
+          },
+          "H2_endLineageBalance": {
+            "verdict": "support",
+            "endCount": 74,
+            "lineageCount": 74,
+            "alive": 4
+          },
+          "H3_structIntegrityShift": {
+            "verdict": "pending",
+            "structDrift": -0.0127,
+            "avgIntegrity": 0.3704,
+            "maxGen": 20
+          },
+          "H4_mbrCelEnd": {
+            "verdict": "unsupport",
+            "mbrEndRate": 0,
+            "celEndRate": 0.6081081081081081,
+            "pulseEnds": 0
+          }
+        }
+      }
+    ]
+  },
+  "crossSeed": {
+    "A": {
+      "avgDrift": 0.1354,
+      "signConsistent": true,
+      "runCount": 2
+    },
+    "B": {
+      "avgDrift": 0.0651,
+      "signConsistent": false,
+      "runCount": 2
+    },
+    "C": {
+      "avgDrift": 0.0625,
+      "signConsistent": false,
+      "runCount": 2
+    },
+    "D": {
+      "avgDrift": 0.0678,
+      "signConsistent": false,
+      "runCount": 2
+    }
+  },
+  "roadmap": "docs/EVOLUTION.md"
+}

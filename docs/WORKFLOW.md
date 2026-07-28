@@ -197,6 +197,12 @@
 - 报告输出至 `docs/REPORTS/`
 - 观察者阅读报告；重要归纳仍记入 `OBSERVATION_LOG.md`
 
+### 7.2 分支与合并（协作者）
+
+- 每个阶段在 `cursor/<描述>-ec0a` 分支开发
+- **合并 PR 后再开始下一阶段**（先 `gh pr ready` + merge，再 `git pull origin main`）
+- 已合并的远程 feature 分支及时 `git push origin --delete`
+
 ---
 
 *流程即方法。方法即项目。*
