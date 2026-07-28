@@ -184,6 +184,10 @@ button:disabled {
   color: #d7ba7d;
 }
 
+.ch-signal .ch {
+  color: #4ec9b0;
+}
+
 .ch-state .c {
   color: #808080;
 }

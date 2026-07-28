@@ -7,6 +7,7 @@ export function createWorld(name) {
     tick: 0,
     running: false,
     beings: [],
+    signalBus: [],
     createdAt: new Date().toISOString(),
   };
 }

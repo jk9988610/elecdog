@@ -59,10 +59,19 @@ export class Being {
     return [`[${kind}] 0x${op} 0x${payload} 0x${chk}`];
   }
 
-  tick(worldTick) {
+  tick(worldTick, { heardSignals = [] } = {}) {
     this.tickCount++;
     this.advanceRegisters();
     const internal = this.emitInternal();
+
+    if (heardSignals.length > 0) {
+      const mix = hashString(heardSignals.map((s) => s.content).join('|') + this.id);
+      const local = mulberry32(mix);
+      internal.push(
+        `0x${toHexByte(local())} 0x${toHexByte(local())} 0x${toHexByte(local())}`
+      );
+    }
+
     const external = this.emitExternal();
     return {
       tick: worldTick,
