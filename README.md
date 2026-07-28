@@ -42,7 +42,7 @@ https://jk9988610.github.io/elecdog/
 npm run sync-version
 ```
 
-同步目标：`src/version.js`、`index.html`、`manifest.webmanifest`
+同步目标：`src/version.js`、`index.html`
 
 ### 部署
 
