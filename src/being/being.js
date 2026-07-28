@@ -1,6 +1,7 @@
 // 公理: A2 A3 A5 — 个体内在流与对外行为；过程由 DNA 初始化，不预设语义
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { assignSocialSlot } from '../world/social.js';
 
 function dnaToRegisters(dna, count = 8) {
   const rng = mulberry32(hashString(dna));
@@ -20,6 +21,7 @@ export class Being {
     this.code = code;
     this.dna = dna;
     this.id = id;
+    this.socialSlot = assignSocialSlot(id);
     this.bornAtTick = null;
     this.registers = dnaToRegisters(dna.sequence);
     this.rng = mulberry32(hashString(`${dna.sequence}:${id}`));
