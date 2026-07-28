@@ -1,0 +1,3770 @@
+{
+  "runAt": "2026-07-28T23:20:00.219Z",
+  "phase": 26,
+  "extension": "l4_selection_observation",
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1
+  ],
+  "catastrophe": [
+    {
+      "seed": 0,
+      "catastrophe": true,
+      "viability": {
+        "svvCount": 5503,
+        "endCount": 115,
+        "lineageCount": 115,
+        "endReasons": [
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "compound"
+        ],
+        "maxGeneration": 34,
+        "avgMutation": 2.9304347826086956,
+        "actCount": 3466,
+        "highStressActCount": 997,
+        "highStressActRate": 0.2876514714368148
+      },
+      "evolution": {
+        "viability": {
+          "svvCount": 5503,
+          "endCount": 115,
+          "lineageCount": 115,
+          "endReasons": [
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "compound"
+          ],
+          "maxGeneration": 34,
+          "avgMutation": 2.9304347826086956,
+          "actCount": 3466,
+          "highStressActCount": 997,
+          "highStressActRate": 0.2876514714368148
+        },
+        "composition": {
+          "cmpCount": 30,
+          "structSeries": [
+            {
+              "tick": 100,
+              "struct": 0.2572,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0288,
+              "clusterScore": 0.2947,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 200,
+              "struct": 0.2816,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0474,
+              "clusterScore": 0.2993,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 300,
+              "struct": 0.2772,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0213,
+              "clusterScore": 0.2928,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 400,
+              "struct": 0.2763,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.016,
+              "clusterScore": 0.2915,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 500,
+              "struct": 0.2828,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0542,
+              "clusterScore": 0.3011,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 600,
+              "struct": 0.2827,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0535,
+              "clusterScore": 0.3009,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 700,
+              "struct": 0.283,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0555,
+              "clusterScore": 0.3014,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 800,
+              "struct": 0.2791,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0324,
+              "clusterScore": 0.2956,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 900,
+              "struct": 0.3017,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0182,
+              "clusterScore": 0.292,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1000,
+              "struct": 0.287,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0793,
+              "clusterScore": 0.3073,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1100,
+              "struct": 0.3057,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0404,
+              "clusterScore": 0.2976,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1200,
+              "struct": 0.263,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.065,
+              "clusterScore": 0.3037,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 1300,
+              "struct": 0.2628,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0637,
+              "clusterScore": 0.3034,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 1400,
+              "struct": 0.2788,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0307,
+              "clusterScore": 0.2952,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1500,
+              "struct": 0.2801,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0382,
+              "clusterScore": 0.297,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1600,
+              "struct": 0.2797,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0359,
+              "clusterScore": 0.2965,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1700,
+              "struct": 0.2883,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0869,
+              "clusterScore": 0.3092,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1800,
+              "struct": 0.2796,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0354,
+              "clusterScore": 0.2963,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1900,
+              "struct": 0.3107,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0687,
+              "clusterScore": 0.3047,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2000,
+              "struct": 0.3253,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1539,
+              "clusterScore": 0.326,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2100,
+              "struct": 0.2778,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0249,
+              "clusterScore": 0.2937,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2200,
+              "struct": 0.2622,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0598,
+              "clusterScore": 0.3025,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 2300,
+              "struct": 0.296,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1343,
+              "clusterScore": 0.3211,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2400,
+              "struct": 0.3073,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0497,
+              "clusterScore": 0.2999,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2500,
+              "struct": 0.3057,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0404,
+              "clusterScore": 0.2976,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2600,
+              "struct": 0.2861,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0737,
+              "clusterScore": 0.3059,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2700,
+              "struct": 0.2773,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0218,
+              "clusterScore": 0.2929,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2800,
+              "struct": 0.3108,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0694,
+              "clusterScore": 0.3048,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2900,
+              "struct": 0.3008,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0131,
+              "clusterScore": 0.2908,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 3000,
+              "struct": 0.3081,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0543,
+              "clusterScore": 0.3011,
+              "meshScore": 0.675
+            }
+          ],
+          "avgStruct": 0.2872,
+          "structDrift": 0.0509,
+          "clusterDominant": 0,
+          "meshDominant": 30,
+          "finalPop": 4,
+          "finalCodeHom": 0.5,
+          "finalLineageHom": 0.25
+        },
+        "cell": {
+          "mbrCount": 0,
+          "celCount": 201,
+          "lowIntegrityCount": 201,
+          "avgIntegrity": 0.3699,
+          "uniqueBoundaries": 4,
+          "aliveWithBoundary": 4
+        },
+        "catastrophe": {
+          "shkCount": 17,
+          "nplCount": 13,
+          "totalPulses": 30,
+          "expectedPulses": 30,
+          "pulseTicks": [
+            100,
+            200,
+            300,
+            400,
+            500,
+            600,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1300,
+            1400,
+            1500,
+            1600,
+            1700,
+            1800,
+            1900,
+            2000,
+            2100,
+            2200,
+            2300,
+            2400,
+            2500,
+            2600,
+            2700,
+            2800,
+            2900,
+            3000
+          ],
+          "depFromPulse": 0,
+          "svvAfterPulse": [
+            {
+              "pulseTick": 100,
+              "svvCount": 21
+            },
+            {
+              "pulseTick": 200,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 300,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 400,
+              "svvCount": 6
+            },
+            {
+              "pulseTick": 500,
+              "svvCount": 21
+            },
+            {
+              "pulseTick": 600,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 700,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 800,
+              "svvCount": 7
+            },
+            {
+              "pulseTick": 900,
+              "svvCount": 22
+            },
+            {
+              "pulseTick": 1000,
+              "svvCount": 12
+            },
+            {
+              "pulseTick": 1100,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 1200,
+              "svvCount": 5
+            },
+            {
+              "pulseTick": 1300,
+              "svvCount": 8
+            },
+            {
+              "pulseTick": 1400,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1500,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1600,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1700,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 1800,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 1900,
+              "svvCount": 11
+            },
+            {
+              "pulseTick": 2000,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 2100,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2200,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2300,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 2400,
+              "svvCount": 9
+            },
+            {
+              "pulseTick": 2500,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2600,
+              "svvCount": 20
+            },
+            {
+              "pulseTick": 2700,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2800,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2900,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 3000,
+              "svvCount": 0
+            }
+          ],
+          "avgSvvAfterPulse": 9.533333333333333
+        },
+        "pulseEnds": {
+          "pulseCount": 30,
+          "endsInWindow": 59
+        },
+        "cellEnd": {
+          "endCount": 115,
+          "endedWithMbr": 0,
+          "endedWithCel": 79,
+          "mbrEndRate": 0,
+          "celEndRate": 0.6869565217391305
+        },
+        "dna": {
+          "gen0Count": 4,
+          "aliveCount": 4,
+          "totalCount": 119,
+          "gen0Freq": {
+            "0": 0.2396,
+            "1": 0.2292,
+            "2": 0.2526,
+            "3": 0.2787
+          },
+          "aliveFreq": {
+            "0": 0.224,
+            "1": 0.2162,
+            "2": 0.2734,
+            "3": 0.2865
+          },
+          "allFreq": {
+            "0": 0.224,
+            "1": 0.2314,
+            "2": 0.258,
+            "3": 0.2866
+          },
+          "driftAliveVsGen0": {
+            "0": -0.0156,
+            "1": -0.013,
+            "2": 0.0208,
+            "3": 0.0078
+          },
+          "driftAllVsGen0": {
+            "0": -0.0156,
+            "1": 0.0022,
+            "2": 0.0054,
+            "3": 0.0079
+          },
+          "byGeneration": {
+            "0-3": {
+              "count": 16,
+              "freq": {
+                "0": 0.2357,
+                "1": 0.2337,
+                "2": 0.2546,
+                "3": 0.2761
+              }
+            },
+            "4-7": {
+              "count": 16,
+              "freq": {
+                "0": 0.2305,
+                "1": 0.2344,
+                "2": 0.2702,
+                "3": 0.265
+              }
+            },
+            "8+": {
+              "count": 87,
+              "freq": {
+                "0": 0.2207,
+                "1": 0.2305,
+                "2": 0.2564,
+                "3": 0.2925
+              }
+            }
+          },
+          "maxGeneration": 34
+        }
+      },
+      "selection": {
+        "selCount": 115,
+        "genBuckets": [
+          {
+            "generation": 0,
+            "count": 4,
+            "meanStress": 0.2747
+          },
+          {
+            "generation": 1,
+            "count": 4,
+            "meanStress": 0.3899
+          },
+          {
+            "generation": 2,
+            "count": 4,
+            "meanStress": 0.1991
+          },
+          {
+            "generation": 3,
+            "count": 4,
+            "meanStress": 0.2195
+          },
+          {
+            "generation": 4,
+            "count": 4,
+            "meanStress": 0.2059
+          },
+          {
+            "generation": 5,
+            "count": 4,
+            "meanStress": 0.3429
+          },
+          {
+            "generation": 6,
+            "count": 4,
+            "meanStress": 0.2334
+          },
+          {
+            "generation": 7,
+            "count": 4,
+            "meanStress": 0.2437
+          },
+          {
+            "generation": 8,
+            "count": 4,
+            "meanStress": 0.2385
+          },
+          {
+            "generation": 9,
+            "count": 4,
+            "meanStress": 0.2859
+          },
+          {
+            "generation": 10,
+            "count": 4,
+            "meanStress": 0.2098
+          },
+          {
+            "generation": 11,
+            "count": 4,
+            "meanStress": 0.2365
+          },
+          {
+            "generation": 12,
+            "count": 4,
+            "meanStress": 0.1527
+          },
+          {
+            "generation": 13,
+            "count": 4,
+            "meanStress": 0.2813
+          },
+          {
+            "generation": 14,
+            "count": 4,
+            "meanStress": 0.1486
+          },
+          {
+            "generation": 15,
+            "count": 4,
+            "meanStress": 0.1831
+          },
+          {
+            "generation": 16,
+            "count": 4,
+            "meanStress": 0.1498
+          },
+          {
+            "generation": 17,
+            "count": 4,
+            "meanStress": 0.178
+          },
+          {
+            "generation": 18,
+            "count": 4,
+            "meanStress": 0.1999
+          },
+          {
+            "generation": 19,
+            "count": 4,
+            "meanStress": 0.2684
+          },
+          {
+            "generation": 20,
+            "count": 4,
+            "meanStress": 0.2803
+          },
+          {
+            "generation": 21,
+            "count": 4,
+            "meanStress": 0.1933
+          },
+          {
+            "generation": 22,
+            "count": 4,
+            "meanStress": 0.1685
+          },
+          {
+            "generation": 23,
+            "count": 4,
+            "meanStress": 0.3142
+          },
+          {
+            "generation": 24,
+            "count": 4,
+            "meanStress": 0.279
+          },
+          {
+            "generation": 25,
+            "count": 3,
+            "meanStress": 0.195
+          },
+          {
+            "generation": 26,
+            "count": 3,
+            "meanStress": 0.1328
+          },
+          {
+            "generation": 27,
+            "count": 2,
+            "meanStress": 0.2665
+          },
+          {
+            "generation": 28,
+            "count": 2,
+            "meanStress": 0.1812
+          },
+          {
+            "generation": 29,
+            "count": 1,
+            "meanStress": 0.2812
+          },
+          {
+            "generation": 30,
+            "count": 1,
+            "meanStress": 0.3523
+          },
+          {
+            "generation": 31,
+            "count": 1,
+            "meanStress": 0.1119
+          },
+          {
+            "generation": 32,
+            "count": 1,
+            "meanStress": 0.3012
+          },
+          {
+            "generation": 33,
+            "count": 1,
+            "meanStress": 0.1863
+          }
+        ],
+        "genStressCorr": -0.14,
+        "aliveCount": 4,
+        "aliveMeanGen": 28.75,
+        "meanEndedGen0": 0.2747,
+        "meanEndedHigh": 0.2259,
+        "endedHighCount": 95
+      },
+      "hypotheses": {
+        "H1_genStressCorrelation": {
+          "verdict": "pending",
+          "corr": -0.14
+        },
+        "H2_highGenLowerStressAtEnd": {
+          "verdict": "support",
+          "meanGen0": 0.2747,
+          "meanGen5plus": 0.2259,
+          "highGenEnds": 95
+        },
+        "H3_selectionChannelComplete": {
+          "verdict": "support",
+          "selCount": 115,
+          "endCount": 115,
+          "maxGen": 34
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "catastrophe": true,
+      "viability": {
+        "svvCount": 6372,
+        "endCount": 120,
+        "lineageCount": 120,
+        "endReasons": [
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak"
+        ],
+        "maxGeneration": 39,
+        "avgMutation": 2.683333333333333,
+        "actCount": 3540,
+        "highStressActCount": 1314,
+        "highStressActRate": 0.3711864406779661
+      },
+      "evolution": {
+        "viability": {
+          "svvCount": 6372,
+          "endCount": 120,
+          "lineageCount": 120,
+          "endReasons": [
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak"
+          ],
+          "maxGeneration": 39,
+          "avgMutation": 2.683333333333333,
+          "actCount": 3540,
+          "highStressActCount": 1314,
+          "highStressActRate": 0.3711864406779661
+        },
+        "composition": {
+          "cmpCount": 30,
+          "structSeries": [
+            {
+              "tick": 100,
+              "struct": 0.2863,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.075,
+              "clusterScore": 0.3063,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 200,
+              "struct": 0.2858,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0718,
+              "clusterScore": 0.3055,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 300,
+              "struct": 0.2749,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0078,
+              "clusterScore": 0.2895,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 400,
+              "struct": 0.3054,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.039,
+              "clusterScore": 0.2973,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 500,
+              "struct": 0.2797,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0361,
+              "clusterScore": 0.2965,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 600,
+              "struct": 0.3081,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0541,
+              "clusterScore": 0.301,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 700,
+              "struct": 0.3049,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0361,
+              "clusterScore": 0.2965,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 800,
+              "struct": 0.2793,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0336,
+              "clusterScore": 0.2959,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 900,
+              "struct": 0.3112,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0718,
+              "clusterScore": 0.3054,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1000,
+              "struct": 0.2882,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0867,
+              "clusterScore": 0.3092,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1100,
+              "struct": 0.2856,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0712,
+              "clusterScore": 0.3053,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1200,
+              "struct": 0.285,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0674,
+              "clusterScore": 0.3044,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1300,
+              "struct": 0.2796,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0353,
+              "clusterScore": 0.2963,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1400,
+              "struct": 0.283,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0553,
+              "clusterScore": 0.3013,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1500,
+              "struct": 0.2813,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0452,
+              "clusterScore": 0.2988,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1600,
+              "struct": 0.296,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1339,
+              "clusterScore": 0.321,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1700,
+              "struct": 0.2815,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0466,
+              "clusterScore": 0.2992,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1800,
+              "struct": 0.2678,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0951,
+              "clusterScore": 0.3113,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 1900,
+              "struct": 0.2813,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0451,
+              "clusterScore": 0.2988,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2000,
+              "struct": 0.3067,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.046,
+              "clusterScore": 0.299,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2100,
+              "struct": 0.2795,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0348,
+              "clusterScore": 0.2962,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2200,
+              "struct": 0.2812,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.045,
+              "clusterScore": 0.2987,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2300,
+              "struct": 0.2811,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.044,
+              "clusterScore": 0.2985,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2400,
+              "struct": 0.2578,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0325,
+              "clusterScore": 0.2956,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 2500,
+              "struct": 0.3048,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0356,
+              "clusterScore": 0.2964,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2600,
+              "struct": 0.2633,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0669,
+              "clusterScore": 0.3042,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 2700,
+              "struct": 0.281,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0437,
+              "clusterScore": 0.2984,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2800,
+              "struct": 0.282,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0497,
+              "clusterScore": 0.2999,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2900,
+              "struct": 0.2856,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0711,
+              "clusterScore": 0.3053,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 3000,
+              "struct": 0.2603,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0476,
+              "clusterScore": 0.2994,
+              "meshScore": 0.85
+            }
+          ],
+          "avgStruct": 0.2849,
+          "structDrift": -0.026,
+          "clusterDominant": 0,
+          "meshDominant": 30,
+          "finalPop": 4,
+          "finalCodeHom": 0.5,
+          "finalLineageHom": 0.25
+        },
+        "cell": {
+          "mbrCount": 0,
+          "celCount": 228,
+          "lowIntegrityCount": 228,
+          "avgIntegrity": 0.3581,
+          "uniqueBoundaries": 4,
+          "aliveWithBoundary": 4
+        },
+        "catastrophe": {
+          "shkCount": 15,
+          "nplCount": 15,
+          "totalPulses": 30,
+          "expectedPulses": 30,
+          "pulseTicks": [
+            100,
+            200,
+            300,
+            400,
+            500,
+            600,
+            700,
+            800,
+            900,
+            1000,
+            1100,
+            1200,
+            1300,
+            1400,
+            1500,
+            1600,
+            1700,
+            1800,
+            1900,
+            2000,
+            2100,
+            2200,
+            2300,
+            2400,
+            2500,
+            2600,
+            2700,
+            2800,
+            2900,
+            3000
+          ],
+          "depFromPulse": 0,
+          "svvAfterPulse": [
+            {
+              "pulseTick": 100,
+              "svvCount": 13
+            },
+            {
+              "pulseTick": 200,
+              "svvCount": 23
+            },
+            {
+              "pulseTick": 300,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 400,
+              "svvCount": 6
+            },
+            {
+              "pulseTick": 500,
+              "svvCount": 11
+            },
+            {
+              "pulseTick": 600,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 700,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 800,
+              "svvCount": 6
+            },
+            {
+              "pulseTick": 900,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1000,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 1100,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1200,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1300,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 1400,
+              "svvCount": 5
+            },
+            {
+              "pulseTick": 1500,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 1600,
+              "svvCount": 14
+            },
+            {
+              "pulseTick": 1700,
+              "svvCount": 24
+            },
+            {
+              "pulseTick": 1800,
+              "svvCount": 20
+            },
+            {
+              "pulseTick": 1900,
+              "svvCount": 13
+            },
+            {
+              "pulseTick": 2000,
+              "svvCount": 20
+            },
+            {
+              "pulseTick": 2100,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2200,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2300,
+              "svvCount": 3
+            },
+            {
+              "pulseTick": 2400,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2500,
+              "svvCount": 22
+            },
+            {
+              "pulseTick": 2600,
+              "svvCount": 21
+            },
+            {
+              "pulseTick": 2700,
+              "svvCount": 6
+            },
+            {
+              "pulseTick": 2800,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 2900,
+              "svvCount": 0
+            },
+            {
+              "pulseTick": 3000,
+              "svvCount": 0
+            }
+          ],
+          "avgSvvAfterPulse": 10.1
+        },
+        "pulseEnds": {
+          "pulseCount": 30,
+          "endsInWindow": 56
+        },
+        "cellEnd": {
+          "endCount": 120,
+          "endedWithMbr": 0,
+          "endedWithCel": 84,
+          "mbrEndRate": 0,
+          "celEndRate": 0.7
+        },
+        "dna": {
+          "gen0Count": 4,
+          "aliveCount": 4,
+          "totalCount": 124,
+          "gen0Freq": {
+            "0": 0.2344,
+            "1": 0.2422,
+            "2": 0.2448,
+            "3": 0.2787
+          },
+          "aliveFreq": {
+            "0": 0.2604,
+            "1": 0.2474,
+            "2": 0.2292,
+            "3": 0.263
+          },
+          "allFreq": {
+            "0": 0.2424,
+            "1": 0.2373,
+            "2": 0.2392,
+            "3": 0.2812
+          },
+          "driftAliveVsGen0": {
+            "0": 0.026,
+            "1": 0.0052,
+            "2": -0.0156,
+            "3": -0.0157
+          },
+          "driftAllVsGen0": {
+            "0": 0.008,
+            "1": -0.0049,
+            "2": -0.0056,
+            "3": 0.0025
+          },
+          "byGeneration": {
+            "0-3": {
+              "count": 16,
+              "freq": {
+                "0": 0.2324,
+                "1": 0.2416,
+                "2": 0.2442,
+                "3": 0.2819
+              }
+            },
+            "4-7": {
+              "count": 16,
+              "freq": {
+                "0": 0.2266,
+                "1": 0.2389,
+                "2": 0.2539,
+                "3": 0.2806
+              }
+            },
+            "8+": {
+              "count": 92,
+              "freq": {
+                "0": 0.2468,
+                "1": 0.2363,
+                "2": 0.2357,
+                "3": 0.2811
+              }
+            }
+          },
+          "maxGeneration": 39
+        }
+      },
+      "selection": {
+        "selCount": 120,
+        "genBuckets": [
+          {
+            "generation": 0,
+            "count": 4,
+            "meanStress": 0.2517
+          },
+          {
+            "generation": 1,
+            "count": 4,
+            "meanStress": 0.2864
+          },
+          {
+            "generation": 2,
+            "count": 4,
+            "meanStress": 0.2963
+          },
+          {
+            "generation": 3,
+            "count": 4,
+            "meanStress": 0.3682
+          },
+          {
+            "generation": 4,
+            "count": 4,
+            "meanStress": 0.2168
+          },
+          {
+            "generation": 5,
+            "count": 4,
+            "meanStress": 0.3676
+          },
+          {
+            "generation": 6,
+            "count": 4,
+            "meanStress": 0.2957
+          },
+          {
+            "generation": 7,
+            "count": 4,
+            "meanStress": 0.2986
+          },
+          {
+            "generation": 8,
+            "count": 4,
+            "meanStress": 0.3132
+          },
+          {
+            "generation": 9,
+            "count": 4,
+            "meanStress": 0.3538
+          },
+          {
+            "generation": 10,
+            "count": 4,
+            "meanStress": 0.2619
+          },
+          {
+            "generation": 11,
+            "count": 4,
+            "meanStress": 0.2904
+          },
+          {
+            "generation": 12,
+            "count": 4,
+            "meanStress": 0.258
+          },
+          {
+            "generation": 13,
+            "count": 4,
+            "meanStress": 0.2552
+          },
+          {
+            "generation": 14,
+            "count": 4,
+            "meanStress": 0.2582
+          },
+          {
+            "generation": 15,
+            "count": 4,
+            "meanStress": 0.2478
+          },
+          {
+            "generation": 16,
+            "count": 4,
+            "meanStress": 0.3611
+          },
+          {
+            "generation": 17,
+            "count": 4,
+            "meanStress": 0.2108
+          },
+          {
+            "generation": 18,
+            "count": 4,
+            "meanStress": 0.1716
+          },
+          {
+            "generation": 19,
+            "count": 4,
+            "meanStress": 0.2157
+          },
+          {
+            "generation": 20,
+            "count": 4,
+            "meanStress": 0.189
+          },
+          {
+            "generation": 21,
+            "count": 4,
+            "meanStress": 0.1938
+          },
+          {
+            "generation": 22,
+            "count": 4,
+            "meanStress": 0.164
+          },
+          {
+            "generation": 23,
+            "count": 3,
+            "meanStress": 0.2633
+          },
+          {
+            "generation": 24,
+            "count": 3,
+            "meanStress": 0.2398
+          },
+          {
+            "generation": 25,
+            "count": 3,
+            "meanStress": 0.2524
+          },
+          {
+            "generation": 26,
+            "count": 3,
+            "meanStress": 0.353
+          },
+          {
+            "generation": 27,
+            "count": 2,
+            "meanStress": 0.1474
+          },
+          {
+            "generation": 28,
+            "count": 2,
+            "meanStress": 0.2
+          },
+          {
+            "generation": 29,
+            "count": 2,
+            "meanStress": 0.1774
+          },
+          {
+            "generation": 30,
+            "count": 2,
+            "meanStress": 0.1482
+          },
+          {
+            "generation": 31,
+            "count": 1,
+            "meanStress": 0.3185
+          },
+          {
+            "generation": 32,
+            "count": 1,
+            "meanStress": 0.291
+          },
+          {
+            "generation": 33,
+            "count": 1,
+            "meanStress": 0.1211
+          },
+          {
+            "generation": 34,
+            "count": 1,
+            "meanStress": 0.4061
+          },
+          {
+            "generation": 35,
+            "count": 1,
+            "meanStress": 0.5935
+          },
+          {
+            "generation": 36,
+            "count": 1,
+            "meanStress": 0.1864
+          },
+          {
+            "generation": 37,
+            "count": 1,
+            "meanStress": 0.1911
+          },
+          {
+            "generation": 38,
+            "count": 1,
+            "meanStress": 0.166
+          }
+        ],
+        "genStressCorr": -0.2107,
+        "aliveCount": 4,
+        "aliveMeanGen": 30,
+        "meanEndedGen0": 0.2517,
+        "meanEndedHigh": 0.2577,
+        "endedHighCount": 100
+      },
+      "hypotheses": {
+        "H1_genStressCorrelation": {
+          "verdict": "unsupport",
+          "corr": -0.2107
+        },
+        "H2_highGenLowerStressAtEnd": {
+          "verdict": "unsupport",
+          "meanGen0": 0.2517,
+          "meanGen5plus": 0.2577,
+          "highGenEnds": 100
+        },
+        "H3_selectionChannelComplete": {
+          "verdict": "support",
+          "selCount": 120,
+          "endCount": 120,
+          "maxGen": 39
+        }
+      }
+    }
+  ],
+  "control": [
+    {
+      "seed": 0,
+      "catastrophe": false,
+      "viability": {
+        "svvCount": 6013,
+        "endCount": 118,
+        "lineageCount": 118,
+        "endReasons": [
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "compound",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak"
+        ],
+        "maxGeneration": 34,
+        "avgMutation": 3.0254237288135593,
+        "actCount": 3645,
+        "highStressActCount": 1234,
+        "highStressActRate": 0.33854595336076815
+      },
+      "evolution": {
+        "viability": {
+          "svvCount": 6013,
+          "endCount": 118,
+          "lineageCount": 118,
+          "endReasons": [
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "compound",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak"
+          ],
+          "maxGeneration": 34,
+          "avgMutation": 3.0254237288135593,
+          "actCount": 3645,
+          "highStressActCount": 1234,
+          "highStressActRate": 0.33854595336076815
+        },
+        "composition": {
+          "cmpCount": 30,
+          "structSeries": [
+            {
+              "tick": 100,
+              "struct": 0.285,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0676,
+              "clusterScore": 0.3044,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 200,
+              "struct": 0.3033,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0272,
+              "clusterScore": 0.2943,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 300,
+              "struct": 0.3006,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.012,
+              "clusterScore": 0.2905,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 400,
+              "struct": 0.3002,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0098,
+              "clusterScore": 0.2899,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 500,
+              "struct": 0.2814,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0462,
+              "clusterScore": 0.299,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 600,
+              "struct": 0.2913,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1056,
+              "clusterScore": 0.3139,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 700,
+              "struct": 0.3048,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0354,
+              "clusterScore": 0.2964,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 800,
+              "struct": 0.2819,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0487,
+              "clusterScore": 0.2997,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 900,
+              "struct": 0.2609,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0514,
+              "clusterScore": 0.3003,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 1000,
+              "struct": 0.2834,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0578,
+              "clusterScore": 0.302,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1100,
+              "struct": 0.2763,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.016,
+              "clusterScore": 0.2915,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1200,
+              "struct": 0.279,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.032,
+              "clusterScore": 0.2955,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1300,
+              "struct": 0.2804,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0399,
+              "clusterScore": 0.2975,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1400,
+              "struct": 0.3057,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0404,
+              "clusterScore": 0.2976,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1500,
+              "struct": 0.3073,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0494,
+              "clusterScore": 0.2999,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1600,
+              "struct": 0.2856,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0709,
+              "clusterScore": 0.3052,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1700,
+              "struct": 0.3054,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0391,
+              "clusterScore": 0.2973,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1800,
+              "struct": 0.2812,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0447,
+              "clusterScore": 0.2987,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1900,
+              "struct": 0.3013,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0159,
+              "clusterScore": 0.2915,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2000,
+              "struct": 0.3063,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0438,
+              "clusterScore": 0.2985,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2100,
+              "struct": 0.2537,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.007,
+              "clusterScore": 0.2892,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 2200,
+              "struct": 0.2814,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.046,
+              "clusterScore": 0.299,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2300,
+              "struct": 0.2818,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.048,
+              "clusterScore": 0.2995,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2400,
+              "struct": 0.2782,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0271,
+              "clusterScore": 0.2943,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2500,
+              "struct": 0.2845,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0645,
+              "clusterScore": 0.3036,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2600,
+              "struct": 0.2833,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0571,
+              "clusterScore": 0.3018,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2700,
+              "struct": 0.2869,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0788,
+              "clusterScore": 0.3072,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2800,
+              "struct": 0.2819,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0487,
+              "clusterScore": 0.2997,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2900,
+              "struct": 0.2834,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0578,
+              "clusterScore": 0.302,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 3000,
+              "struct": 0.296,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.134,
+              "clusterScore": 0.321,
+              "meshScore": 0.7625
+            }
+          ],
+          "avgStruct": 0.2877,
+          "structDrift": 0.011,
+          "clusterDominant": 0,
+          "meshDominant": 30,
+          "finalPop": 4,
+          "finalCodeHom": 0.5,
+          "finalLineageHom": 0.25
+        },
+        "cell": {
+          "mbrCount": 0,
+          "celCount": 193,
+          "lowIntegrityCount": 193,
+          "avgIntegrity": 0.3681,
+          "uniqueBoundaries": 4,
+          "aliveWithBoundary": 4
+        },
+        "catastrophe": {
+          "shkCount": 0,
+          "nplCount": 0,
+          "totalPulses": 0,
+          "expectedPulses": 30,
+          "pulseTicks": [],
+          "depFromPulse": 0,
+          "svvAfterPulse": [],
+          "avgSvvAfterPulse": 0
+        },
+        "pulseEnds": {
+          "pulseCount": 0,
+          "endsInWindow": 0
+        },
+        "cellEnd": {
+          "endCount": 118,
+          "endedWithMbr": 0,
+          "endedWithCel": 81,
+          "mbrEndRate": 0,
+          "celEndRate": 0.6864406779661016
+        },
+        "dna": {
+          "gen0Count": 4,
+          "aliveCount": 4,
+          "totalCount": 122,
+          "gen0Freq": {
+            "0": 0.2396,
+            "1": 0.2292,
+            "2": 0.2526,
+            "3": 0.2787
+          },
+          "aliveFreq": {
+            "0": 0.263,
+            "1": 0.2292,
+            "2": 0.2552,
+            "3": 0.2526
+          },
+          "allFreq": {
+            "0": 0.2534,
+            "1": 0.2287,
+            "2": 0.2607,
+            "3": 0.2572
+          },
+          "driftAliveVsGen0": {
+            "0": 0.0234,
+            "1": 0,
+            "2": 0.0026,
+            "3": -0.0261
+          },
+          "driftAllVsGen0": {
+            "0": 0.0138,
+            "1": -0.0005,
+            "2": 0.0081,
+            "3": -0.0215
+          },
+          "byGeneration": {
+            "0-3": {
+              "count": 16,
+              "freq": {
+                "0": 0.2402,
+                "1": 0.2285,
+                "2": 0.2552,
+                "3": 0.2761
+              }
+            },
+            "4-7": {
+              "count": 16,
+              "freq": {
+                "0": 0.2363,
+                "1": 0.2305,
+                "2": 0.2637,
+                "3": 0.2695
+              }
+            },
+            "8+": {
+              "count": 90,
+              "freq": {
+                "0": 0.2588,
+                "1": 0.2285,
+                "2": 0.2611,
+                "3": 0.2516
+              }
+            }
+          },
+          "maxGeneration": 34
+        }
+      },
+      "selection": {
+        "selCount": 118,
+        "genBuckets": [
+          {
+            "generation": 0,
+            "count": 4,
+            "meanStress": 0.2739
+          },
+          {
+            "generation": 1,
+            "count": 4,
+            "meanStress": 0.43
+          },
+          {
+            "generation": 2,
+            "count": 4,
+            "meanStress": 0.2067
+          },
+          {
+            "generation": 3,
+            "count": 4,
+            "meanStress": 0.1437
+          },
+          {
+            "generation": 4,
+            "count": 4,
+            "meanStress": 0.191
+          },
+          {
+            "generation": 5,
+            "count": 4,
+            "meanStress": 0.2204
+          },
+          {
+            "generation": 6,
+            "count": 4,
+            "meanStress": 0.2633
+          },
+          {
+            "generation": 7,
+            "count": 4,
+            "meanStress": 0.2047
+          },
+          {
+            "generation": 8,
+            "count": 4,
+            "meanStress": 0.2509
+          },
+          {
+            "generation": 9,
+            "count": 4,
+            "meanStress": 0.2125
+          },
+          {
+            "generation": 10,
+            "count": 4,
+            "meanStress": 0.2742
+          },
+          {
+            "generation": 11,
+            "count": 4,
+            "meanStress": 0.3466
+          },
+          {
+            "generation": 12,
+            "count": 4,
+            "meanStress": 0.2425
+          },
+          {
+            "generation": 13,
+            "count": 4,
+            "meanStress": 0.2282
+          },
+          {
+            "generation": 14,
+            "count": 4,
+            "meanStress": 0.3225
+          },
+          {
+            "generation": 15,
+            "count": 4,
+            "meanStress": 0.3276
+          },
+          {
+            "generation": 16,
+            "count": 4,
+            "meanStress": 0.3215
+          },
+          {
+            "generation": 17,
+            "count": 4,
+            "meanStress": 0.3748
+          },
+          {
+            "generation": 18,
+            "count": 4,
+            "meanStress": 0.33
+          },
+          {
+            "generation": 19,
+            "count": 4,
+            "meanStress": 0.2325
+          },
+          {
+            "generation": 20,
+            "count": 4,
+            "meanStress": 0.2905
+          },
+          {
+            "generation": 21,
+            "count": 4,
+            "meanStress": 0.1402
+          },
+          {
+            "generation": 22,
+            "count": 4,
+            "meanStress": 0.2945
+          },
+          {
+            "generation": 23,
+            "count": 4,
+            "meanStress": 0.1891
+          },
+          {
+            "generation": 24,
+            "count": 4,
+            "meanStress": 0.2507
+          },
+          {
+            "generation": 25,
+            "count": 4,
+            "meanStress": 0.2166
+          },
+          {
+            "generation": 26,
+            "count": 4,
+            "meanStress": 0.2874
+          },
+          {
+            "generation": 27,
+            "count": 3,
+            "meanStress": 0.1761
+          },
+          {
+            "generation": 28,
+            "count": 2,
+            "meanStress": 0.1952
+          },
+          {
+            "generation": 29,
+            "count": 1,
+            "meanStress": 0.2559
+          },
+          {
+            "generation": 30,
+            "count": 1,
+            "meanStress": 0.2564
+          },
+          {
+            "generation": 31,
+            "count": 1,
+            "meanStress": 0.3558
+          },
+          {
+            "generation": 32,
+            "count": 1,
+            "meanStress": 0.335
+          },
+          {
+            "generation": 33,
+            "count": 1,
+            "meanStress": 0.1173
+          }
+        ],
+        "genStressCorr": -0.0279,
+        "aliveCount": 4,
+        "aliveMeanGen": 29.5,
+        "meanEndedGen0": 0.2739,
+        "meanEndedHigh": 0.2604,
+        "endedHighCount": 98
+      },
+      "hypotheses": {
+        "H1_genStressCorrelation": {
+          "verdict": "pending",
+          "corr": -0.0279
+        },
+        "H2_highGenLowerStressAtEnd": {
+          "verdict": "support",
+          "meanGen0": 0.2739,
+          "meanGen5plus": 0.2604,
+          "highGenEnds": 98
+        },
+        "H3_selectionChannelComplete": {
+          "verdict": "support",
+          "selCount": 118,
+          "endCount": 118,
+          "maxGen": 34
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "catastrophe": false,
+      "viability": {
+        "svvCount": 5953,
+        "endCount": 105,
+        "lineageCount": 105,
+        "endReasons": [
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "compound",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "stress_streak",
+          "stress_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak",
+          "low_streak"
+        ],
+        "maxGeneration": 28,
+        "avgMutation": 2.7523809523809524,
+        "actCount": 3592,
+        "highStressActCount": 1206,
+        "highStressActRate": 0.3357461024498886
+      },
+      "evolution": {
+        "viability": {
+          "svvCount": 5953,
+          "endCount": 105,
+          "lineageCount": 105,
+          "endReasons": [
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "compound",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "stress_streak",
+            "stress_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak",
+            "low_streak"
+          ],
+          "maxGeneration": 28,
+          "avgMutation": 2.7523809523809524,
+          "actCount": 3592,
+          "highStressActCount": 1206,
+          "highStressActRate": 0.3357461024498886
+        },
+        "composition": {
+          "cmpCount": 30,
+          "structSeries": [
+            {
+              "tick": 100,
+              "struct": 0.3029,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0248,
+              "clusterScore": 0.2937,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 200,
+              "struct": 0.3026,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0233,
+              "clusterScore": 0.2933,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 300,
+              "struct": 0.2818,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0484,
+              "clusterScore": 0.2996,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 400,
+              "struct": 0.2842,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0628,
+              "clusterScore": 0.3032,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 500,
+              "struct": 0.2917,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1078,
+              "clusterScore": 0.3145,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 600,
+              "struct": 0.2859,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.073,
+              "clusterScore": 0.3057,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 700,
+              "struct": 0.2846,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0647,
+              "clusterScore": 0.3037,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 800,
+              "struct": 0.3101,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0652,
+              "clusterScore": 0.3038,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 900,
+              "struct": 0.301,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0144,
+              "clusterScore": 0.2911,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1000,
+              "struct": 0.2861,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0736,
+              "clusterScore": 0.3059,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1100,
+              "struct": 0.307,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0478,
+              "clusterScore": 0.2995,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1200,
+              "struct": 0.3049,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.036,
+              "clusterScore": 0.2965,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1300,
+              "struct": 0.2798,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0366,
+              "clusterScore": 0.2966,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1400,
+              "struct": 0.2564,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0236,
+              "clusterScore": 0.2934,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 1500,
+              "struct": 0.2796,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0352,
+              "clusterScore": 0.2963,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1600,
+              "struct": 0.282,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0496,
+              "clusterScore": 0.2999,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1700,
+              "struct": 0.2877,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0835,
+              "clusterScore": 0.3084,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 1800,
+              "struct": 0.3067,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0464,
+              "clusterScore": 0.2991,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 1900,
+              "struct": 0.3041,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0314,
+              "clusterScore": 0.2953,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2000,
+              "struct": 0.2587,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0378,
+              "clusterScore": 0.297,
+              "meshScore": 0.85
+            },
+            {
+              "tick": 2100,
+              "struct": 0.2847,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0655,
+              "clusterScore": 0.3039,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2200,
+              "struct": 0.3071,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0484,
+              "clusterScore": 0.2996,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2300,
+              "struct": 0.3251,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1522,
+              "clusterScore": 0.3256,
+              "meshScore": 0.675
+            },
+            {
+              "tick": 2400,
+              "struct": 0.2863,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0752,
+              "clusterScore": 0.3063,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2500,
+              "struct": 0.2855,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0701,
+              "clusterScore": 0.305,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2600,
+              "struct": 0.2915,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.1067,
+              "clusterScore": 0.3142,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2700,
+              "struct": 0.2776,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0234,
+              "clusterScore": 0.2933,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2800,
+              "struct": 0.2795,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0345,
+              "clusterScore": 0.2961,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 2900,
+              "struct": 0.2855,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0702,
+              "clusterScore": 0.305,
+              "meshScore": 0.7625
+            },
+            {
+              "tick": 3000,
+              "struct": 0.2784,
+              "pop": 4,
+              "codeHom": 0.5,
+              "lineageHom": 0.25,
+              "spread": 0.0281,
+              "clusterScore": 0.2945,
+              "meshScore": 0.7625
+            }
+          ],
+          "avgStruct": 0.29,
+          "structDrift": -0.0245,
+          "clusterDominant": 0,
+          "meshDominant": 30,
+          "finalPop": 4,
+          "finalCodeHom": 0.5,
+          "finalLineageHom": 0.25
+        },
+        "cell": {
+          "mbrCount": 0,
+          "celCount": 196,
+          "lowIntegrityCount": 196,
+          "avgIntegrity": 0.3651,
+          "uniqueBoundaries": 4,
+          "aliveWithBoundary": 4
+        },
+        "catastrophe": {
+          "shkCount": 0,
+          "nplCount": 0,
+          "totalPulses": 0,
+          "expectedPulses": 30,
+          "pulseTicks": [],
+          "depFromPulse": 0,
+          "svvAfterPulse": [],
+          "avgSvvAfterPulse": 0
+        },
+        "pulseEnds": {
+          "pulseCount": 0,
+          "endsInWindow": 0
+        },
+        "cellEnd": {
+          "endCount": 105,
+          "endedWithMbr": 0,
+          "endedWithCel": 71,
+          "mbrEndRate": 0,
+          "celEndRate": 0.6761904761904762
+        },
+        "dna": {
+          "gen0Count": 4,
+          "aliveCount": 4,
+          "totalCount": 109,
+          "gen0Freq": {
+            "0": 0.2396,
+            "1": 0.237,
+            "2": 0.2526,
+            "3": 0.2709
+          },
+          "aliveFreq": {
+            "0": 0.2214,
+            "1": 0.224,
+            "2": 0.2917,
+            "3": 0.263
+          },
+          "allFreq": {
+            "0": 0.2323,
+            "1": 0.2505,
+            "2": 0.2735,
+            "3": 0.2437
+          },
+          "driftAliveVsGen0": {
+            "0": -0.0182,
+            "1": -0.013,
+            "2": 0.0391,
+            "3": -0.0079
+          },
+          "driftAllVsGen0": {
+            "0": -0.0073,
+            "1": 0.0135,
+            "2": 0.0209,
+            "3": -0.0272
+          },
+          "byGeneration": {
+            "0-3": {
+              "count": 16,
+              "freq": {
+                "0": 0.2428,
+                "1": 0.252,
+                "2": 0.2507,
+                "3": 0.2546
+              }
+            },
+            "4-7": {
+              "count": 16,
+              "freq": {
+                "0": 0.2409,
+                "1": 0.265,
+                "2": 0.2637,
+                "3": 0.2305
+              }
+            },
+            "8+": {
+              "count": 77,
+              "freq": {
+                "0": 0.2284,
+                "1": 0.2472,
+                "2": 0.2803,
+                "3": 0.2442
+              }
+            }
+          },
+          "maxGeneration": 28
+        }
+      },
+      "selection": {
+        "selCount": 105,
+        "genBuckets": [
+          {
+            "generation": 0,
+            "count": 4,
+            "meanStress": 0.1539
+          },
+          {
+            "generation": 1,
+            "count": 4,
+            "meanStress": 0.2222
+          },
+          {
+            "generation": 2,
+            "count": 4,
+            "meanStress": 0.2993
+          },
+          {
+            "generation": 3,
+            "count": 4,
+            "meanStress": 0.2407
+          },
+          {
+            "generation": 4,
+            "count": 4,
+            "meanStress": 0.3075
+          },
+          {
+            "generation": 5,
+            "count": 4,
+            "meanStress": 0.2732
+          },
+          {
+            "generation": 6,
+            "count": 4,
+            "meanStress": 0.3078
+          },
+          {
+            "generation": 7,
+            "count": 4,
+            "meanStress": 0.1956
+          },
+          {
+            "generation": 8,
+            "count": 4,
+            "meanStress": 0.2091
+          },
+          {
+            "generation": 9,
+            "count": 4,
+            "meanStress": 0.2323
+          },
+          {
+            "generation": 10,
+            "count": 4,
+            "meanStress": 0.2137
+          },
+          {
+            "generation": 11,
+            "count": 4,
+            "meanStress": 0.2765
+          },
+          {
+            "generation": 12,
+            "count": 4,
+            "meanStress": 0.2237
+          },
+          {
+            "generation": 13,
+            "count": 4,
+            "meanStress": 0.2133
+          },
+          {
+            "generation": 14,
+            "count": 4,
+            "meanStress": 0.1994
+          },
+          {
+            "generation": 15,
+            "count": 4,
+            "meanStress": 0.1918
+          },
+          {
+            "generation": 16,
+            "count": 4,
+            "meanStress": 0.1854
+          },
+          {
+            "generation": 17,
+            "count": 4,
+            "meanStress": 0.2821
+          },
+          {
+            "generation": 18,
+            "count": 4,
+            "meanStress": 0.1541
+          },
+          {
+            "generation": 19,
+            "count": 4,
+            "meanStress": 0.2201
+          },
+          {
+            "generation": 20,
+            "count": 4,
+            "meanStress": 0.2724
+          },
+          {
+            "generation": 21,
+            "count": 4,
+            "meanStress": 0.2597
+          },
+          {
+            "generation": 22,
+            "count": 4,
+            "meanStress": 0.4145
+          },
+          {
+            "generation": 23,
+            "count": 4,
+            "meanStress": 0.2099
+          },
+          {
+            "generation": 24,
+            "count": 4,
+            "meanStress": 0.2301
+          },
+          {
+            "generation": 25,
+            "count": 2,
+            "meanStress": 0.0991
+          },
+          {
+            "generation": 26,
+            "count": 2,
+            "meanStress": 0.24
+          },
+          {
+            "generation": 27,
+            "count": 1,
+            "meanStress": 0.3565
+          }
+        ],
+        "genStressCorr": 0.0106,
+        "aliveCount": 4,
+        "aliveMeanGen": 26.25,
+        "meanEndedGen0": 0.1539,
+        "meanEndedHigh": 0.2364,
+        "endedHighCount": 85
+      },
+      "hypotheses": {
+        "H1_genStressCorrelation": {
+          "verdict": "pending",
+          "corr": 0.0106
+        },
+        "H2_highGenLowerStressAtEnd": {
+          "verdict": "unsupport",
+          "meanGen0": 0.1539,
+          "meanGen5plus": 0.2364,
+          "highGenEnds": 85
+        },
+        "H3_selectionChannelComplete": {
+          "verdict": "support",
+          "selCount": 105,
+          "endCount": 105,
+          "maxGen": 28
+        }
+      }
+    }
+  ],
+  "roadmap": "docs/EVOLUTION.md"
+}

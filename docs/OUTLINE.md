@@ -1,7 +1,7 @@
 # 电子狗（ElecDog）项目大纲
 
 > 版本：v1.0  
-> 状态：方法论确立 · **扩展暂停**（见 [STATUS.md](STATUS.md)）  
+> 状态：方法论确立 · **扩展进行中**（Phase 26 L4）  
 > 平台：GitHub Pages → 安卓 APK  
 > 仓库：elecdog
 

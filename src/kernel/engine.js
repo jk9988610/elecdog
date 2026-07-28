@@ -17,6 +17,7 @@ import {
 import { assignSocialSlot } from '../world/social.js';
 import { shouldTerminate, updateStressStreak } from '../world/viability.js';
 import { spawnLineageOffspring } from '../world/lineage.js';
+import { trackStressSample, recordSelection } from '../world/selection.js';
 import { advanceCatastrophe } from '../world/catastrophe.js';
 import { accumulateBiotic, applyBioticCycle } from '../world/biotic.js';
 import { compositionSnapshot, shouldRecordComposition } from '../world/composition.js';
@@ -87,6 +88,7 @@ export function stepWorld(world, recorder) {
     });
 
     if (!result.alive) continue;
+    trackStressSample(being, result.stress);
 
     for (const sig of heard) {
       recorder.log({
@@ -273,6 +275,7 @@ export function stepWorld(world, recorder) {
         stress: result.stress,
         generation: being.generation,
       });
+      recordSelection(recorder, world, being, result.stress);
       spawnLineageOffspring(world, recorder, being);
     }
   }

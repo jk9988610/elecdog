@@ -97,6 +97,7 @@ export function buildDashboardStats(world, recorder) {
       total: world.beings.length,
       ended: entries.filter((e) => e.meta?.kind === 'END').length,
       lineage: entries.filter((e) => e.content?.includes('[LINEAGE]')).length,
+      selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,
       slots: slotCounts,
