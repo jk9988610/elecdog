@@ -1,0 +1,185 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, 'Segoe UI', sans-serif;
+  background: #0f1115;
+  color: #e6e8ec;
+  line-height: 1.5;
+}
+
+.header {
+  padding: 1.25rem 1.5rem;
+  border-bottom: 1px solid #2a2f3a;
+}
+
+.header h1 {
+  margin: 0;
+  font-size: 1.25rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0.25rem 0 0;
+  color: #8b93a7;
+  font-size: 0.875rem;
+}
+
+.panel {
+  margin: 1rem 1.5rem;
+  padding: 1rem;
+  background: #171a21;
+  border: 1px solid #2a2f3a;
+  border-radius: 8px;
+}
+
+.panel h2 {
+  margin: 0 0 0.75rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.row:last-child {
+  margin-bottom: 0;
+}
+
+label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+input[type='text'],
+input[type='number'],
+select,
+textarea {
+  background: #0f1115;
+  border: 1px solid #3a4150;
+  color: #e6e8ec;
+  border-radius: 4px;
+  padding: 0.4rem 0.5rem;
+  font: inherit;
+}
+
+button {
+  background: #2d5a8a;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.45rem 0.85rem;
+  font: inherit;
+  cursor: pointer;
+}
+
+button:hover:not(:disabled) {
+  background: #3a6fa8;
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.tick {
+  font-family: ui-monospace, monospace;
+  color: #9cdcfe;
+}
+
+.mono {
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+  color: #b5bdc9;
+}
+
+.being-card {
+  padding: 0.75rem;
+  background: #0f1115;
+  border: 1px solid #2a2f3a;
+  border-radius: 6px;
+  margin-bottom: 0.5rem;
+}
+
+.log-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.75rem;
+}
+
+.log-view {
+  height: 320px;
+  overflow: auto;
+  background: #0f1115;
+  border: 1px solid #2a2f3a;
+  border-radius: 6px;
+  padding: 0.5rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+}
+
+.log-line {
+  padding: 0.15rem 0;
+  border-bottom: 1px solid #1a1e26;
+}
+
+.log-line .t {
+  color: #6a9955;
+}
+
+.log-line .ch {
+  color: #c586c0;
+}
+
+.log-line .who {
+  color: #dcdcaa;
+}
+
+.log-line .c {
+  color: #d4d4d4;
+}
+
+.ch-ritual .ch {
+  color: #ce9178;
+}
+
+.ch-internal .ch {
+  color: #4fc1ff;
+}
+
+.ch-external .ch {
+  color: #d7ba7d;
+}
+
+.ch-state .c {
+  color: #808080;
+}
+
+.hint {
+  margin: 0 0 0.5rem;
+  font-size: 0.8rem;
+  color: #8b93a7;
+}
+
+textarea {
+  width: 100%;
+  resize: vertical;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+}
+
+pre {
+  margin: 0;
+  font-family: ui-monospace, monospace;
+  font-size: 0.85rem;
+}
