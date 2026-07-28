@@ -39,3 +39,20 @@ export function createDna(code) {
     length: seq.length,
   };
 }
+
+export function createDnaFromSequence(code, sequence) {
+  const template = generateTemplate(code);
+  let mutationCount = 0;
+  const len = Math.min(template.length, sequence.length);
+  for (let i = 0; i < len; i++) {
+    if (template[i] !== sequence[i]) mutationCount++;
+  }
+  for (let i = len; i < sequence.length; i++) mutationCount++;
+  return {
+    code,
+    template,
+    sequence,
+    mutationCount,
+    length: sequence.length,
+  };
+}

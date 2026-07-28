@@ -1,10 +1,14 @@
 // 公理: A6 — 诞生仪式；只记录事实，不解释
 
-import { createDna } from '../core/dna.js';
+import { createDna, createDnaFromSequence } from '../core/dna.js';
 import { generateId } from '../core/id.js';
 import { Being } from '../being/being.js';
 
-export function performBirthRitual(world, recorder, { name = '小狗', code = '001' } = {}) {
+export function performBirthRitual(
+  world,
+  recorder,
+  { name = '小狗', code = '001', dnaSequence = null, id: fixedId = null } = {}
+) {
   const tick = world.tick;
   const steps = [];
 
@@ -18,14 +22,14 @@ export function performBirthRitual(world, recorder, { name = '小狗', code = '0
 
   steps.push(recorder.ritual(tick, `[RITUAL] 代号载入 ${code}`, { code }));
 
-  const dna = createDna(code);
+  const dna = dnaSequence ? createDnaFromSequence(code, dnaSequence) : createDna(code);
   steps.push(
     recorder.ritual(tick, `[RITUAL] DNA 原文 ${dna.sequence}`, {
       dna,
     })
   );
 
-  const id = generateId({ birthPlace: world.birthPlace, code });
+  const id = fixedId ?? generateId({ birthPlace: world.birthPlace, code });
   steps.push(recorder.ritual(tick, `[RITUAL] 身份证 ${id}`, { id }));
 
   const being = new Being({ name, code, dna, id });
