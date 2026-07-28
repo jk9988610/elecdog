@@ -13,7 +13,8 @@
 | [OUTLINE.md](docs/OUTLINE.md) | 公理与哲学 |
 | [WORKFLOW.md](docs/WORKFLOW.md) | 强制工作流程 |
 | [OBSERVATION_LOG.md](docs/OBSERVATION_LOG.md) | L1 田野笔记 |
-| [CODEX.md](docs/CODEX.md) | L2 世界辞典（从观察生长） |
+| [CODEX.md](docs/CODEX.md) | L2 世界辞典（4 条已确立） |
+| [COMPARISON.md](docs/COMPARISON.md) | 跨观察对比归纳 |
 | [GENETICS.md](docs/GENETICS.md) | 基因观察专卷 |
 
 ## 状态
