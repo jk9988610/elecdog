@@ -1,0 +1,293 @@
+{
+  "runAt": "2026-07-28T21:38:12.730Z",
+  "phase": 9,
+  "solo": {
+    "patterns": {
+      "tickCount": 200,
+      "internalOnlyRate": 0.455,
+      "withExternalRate": 0.545,
+      "txRate": 0.24,
+      "actRate": 0.305,
+      "internalSingleRate": 0.535,
+      "internalDoubleRate": 0.465,
+      "internalTriplePlusRate": 0,
+      "withRxRate": 0,
+      "rxExtraInternalRate": null,
+      "extAfterRxPrevRate": null,
+      "raw": {
+        "internalOnly": 91,
+        "withExternal": 109,
+        "txOnly": 48,
+        "actOnly": 61,
+        "internalSingle": 107,
+        "internalDouble": 93,
+        "internalTriplePlus": 0,
+        "withRx": 0,
+        "withoutRx": 200,
+        "rxWithExtraInternal": 0,
+        "extAfterRxPrev": 0,
+        "noExtAfterRxPrev": 0
+      }
+    },
+    "birth": {
+      "pulse": "0x54 0x00 0x01",
+      "pulseMatch": true,
+      "hasRitual": false,
+      "firstExternalTick": 2,
+      "firstExternalKind": "[TX]"
+    }
+  },
+  "dual": {
+    "patterns": {
+      "tickCount": 200,
+      "internalOnlyRate": 0.455,
+      "withExternalRate": 0.545,
+      "txRate": 0.24,
+      "actRate": 0.305,
+      "internalSingleRate": 0.435,
+      "internalDoubleRate": 0.455,
+      "internalTriplePlusRate": 0.11,
+      "withRxRate": 0.21,
+      "rxExtraInternalRate": 1,
+      "extAfterRxPrevRate": 0.5476190476190477,
+      "raw": {
+        "internalOnly": 91,
+        "withExternal": 109,
+        "txOnly": 48,
+        "actOnly": 61,
+        "internalSingle": 87,
+        "internalDouble": 91,
+        "internalTriplePlus": 22,
+        "withRx": 42,
+        "withoutRx": 158,
+        "rxWithExtraInternal": 42,
+        "extAfterRxPrev": 23,
+        "noExtAfterRxPrev": 19
+      }
+    },
+    "rxDelta": {
+      "withRxAvg": 2.5238095238095237,
+      "withoutRxAvg": 1.4493670886075949,
+      "delta": 1.0744424352019288,
+      "rxTickCount": 42
+    }
+  },
+  "long": {
+    "patterns": {
+      "tickCount": 1000,
+      "internalOnlyRate": 0.442,
+      "withExternalRate": 0.558,
+      "txRate": 0.269,
+      "actRate": 0.289,
+      "internalSingleRate": 0.497,
+      "internalDoubleRate": 0.503,
+      "internalTriplePlusRate": 0,
+      "withRxRate": 0,
+      "rxExtraInternalRate": null,
+      "extAfterRxPrevRate": null,
+      "raw": {
+        "internalOnly": 442,
+        "withExternal": 558,
+        "txOnly": 269,
+        "actOnly": 289,
+        "internalSingle": 497,
+        "internalDouble": 503,
+        "internalTriplePlus": 0,
+        "withRx": 0,
+        "withoutRx": 1000,
+        "rxWithExtraInternal": 0,
+        "extAfterRxPrev": 0,
+        "noExtAfterRxPrev": 0
+      }
+    },
+    "segments": [
+      {
+        "label": "t1-200",
+        "from": 1,
+        "to": 200,
+        "rate": 0.545
+      },
+      {
+        "label": "t201-400",
+        "from": 201,
+        "to": 400,
+        "rate": 0.555
+      },
+      {
+        "label": "t401-600",
+        "from": 401,
+        "to": 600,
+        "rate": 0.57
+      },
+      {
+        "label": "t601-800",
+        "from": 601,
+        "to": 800,
+        "rate": 0.55
+      },
+      {
+        "label": "t801-1000",
+        "from": 801,
+        "to": 1000,
+        "rate": 0.57
+      }
+    ],
+    "totalExternalRate": 0.558
+  },
+  "mappingCandidates": [
+    {
+      "id": "MAP-01",
+      "condition": "tick ≥ 1，有 internal、无 external",
+      "sentence": "这一拍内在仍在运转，但没有对外输出。",
+      "stats": {
+        "rate": 0.455,
+        "n": 200
+      },
+      "obs": [
+        "OBS-20260728-01",
+        "OBS-20260729-04"
+      ]
+    },
+    {
+      "id": "MAP-02",
+      "condition": "tick 出现 [TX]",
+      "sentence": "这一拍向外界发送了信号；同世界他者可在次 tick 收到。",
+      "stats": {
+        "rate": 0.24,
+        "n": 200
+      },
+      "obs": [
+        "OBS-20260729-13",
+        "OBS-20260729-15"
+      ]
+    },
+    {
+      "id": "MAP-03",
+      "condition": "tick 出现 [ACT]（无 [TX]）",
+      "sentence": "这一拍有对外行动，但不发送可被接收的信号。",
+      "stats": {
+        "rate": 0.305,
+        "n": 200
+      },
+      "obs": [
+        "OBS-20260728-01",
+        "OBS-20260729-02"
+      ]
+    },
+    {
+      "id": "MAP-04",
+      "condition": "tick 0 首条 internal",
+      "sentence": "诞生后的意识脉冲；个体开始产生内在处理流。",
+      "stats": {
+        "pulse": "0x54 0x00 0x01"
+      },
+      "obs": [
+        "OBS-20260728-01",
+        "OBS-20260729-02"
+      ]
+    },
+    {
+      "id": "MAP-05",
+      "condition": "tick 有 2 条 internal、无 RX",
+      "sentence": "这一拍内在处理较密（两行 hex），仍属常见节律。",
+      "stats": {
+        "rate": 0.465,
+        "n": 200
+      },
+      "obs": [
+        "OBS-20260728-01",
+        "OBS-20260729-03"
+      ]
+    },
+    {
+      "id": "MAP-06",
+      "condition": "tick 收到 signal [RX]",
+      "sentence": "这一拍收到他者信号；内在思考流通常多出一行 hex。",
+      "stats": {
+        "rxRate": 0.21,
+        "avgInternalWithRx": 2.5238095238095237,
+        "delta": 1.0744424352019288
+      },
+      "obs": [
+        "OBS-20260729-15",
+        "OBS-20260729-16"
+      ]
+    },
+    {
+      "id": "MAP-07",
+      "condition": "上一 tick 收到 RX，本 tick 对外",
+      "sentence": "收到信号后的下一拍，对外输出略更常见（仍非必然）。",
+      "stats": {
+        "rate": 0.5476190476190477,
+        "n": 200
+      },
+      "obs": [
+        "OBS-20260729-15"
+      ]
+    },
+    {
+      "id": "MAP-08",
+      "condition": "同 DNA+ID，solo 与 dual 200 tick",
+      "sentence": "有无他者在场，对外节奏统计相同；差异主要在收到信号时的内在。",
+      "stats": {
+        "soloExt": 0.545,
+        "dualExt": 0.545,
+        "same": true
+      },
+      "obs": [
+        "OBS-20260729-15"
+      ]
+    },
+    {
+      "id": "MAP-09",
+      "condition": "长时运行（200–1000 tick）",
+      "sentence": "约半数以上的 tick 有对外输出；长时内对外比例在窄带内波动，不持续漂移。",
+      "stats": {
+        "rate": 0.558,
+        "segments": [
+          {
+            "label": "t1-200",
+            "from": 1,
+            "to": 200,
+            "rate": 0.545
+          },
+          {
+            "label": "t201-400",
+            "from": 201,
+            "to": 400,
+            "rate": 0.555
+          },
+          {
+            "label": "t401-600",
+            "from": 401,
+            "to": 600,
+            "rate": 0.57
+          },
+          {
+            "label": "t601-800",
+            "from": 601,
+            "to": 800,
+            "rate": 0.55
+          },
+          {
+            "label": "t801-1000",
+            "from": 801,
+            "to": 1000,
+            "rate": 0.57
+          }
+        ]
+      },
+      "obs": [
+        "OBS-20260729-04",
+        "OBS-20260729-19"
+      ]
+    }
+  ],
+  "summary": {
+    "mapCount": 9,
+    "internalOnlyPct": "45.5",
+    "externalPct": "54.5",
+    "rxInternalDelta": "1.07",
+    "longStable": true
+  }
+}

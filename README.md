@@ -13,13 +13,13 @@
 | [OUTLINE.md](docs/OUTLINE.md) | 公理与哲学 |
 | [ROADMAP.md](docs/ROADMAP.md) | 阶段规划与完善度 |
 | [OBSERVATION_LOG.md](docs/OBSERVATION_LOG.md) | L1 田野笔记 |
-| [CODEX.md](docs/CODEX.md) | L2 世界辞典（4 条已确立） |
+| [CODEX.md](docs/CODEX.md) | L2 世界辞典 |
 | [COMPARISON.md](docs/COMPARISON.md) | 跨观察对比归纳 |
 | [REPORTS/](docs/REPORTS/) | 协作者田野报告（观察者阅读） |
 | [GENETICS.md](docs/GENETICS.md) | 基因观察专卷 |
 
-## 观察台
+## 世界实况
 
 https://jk9988610.github.io/elecdog/
 
-协作者代跑田野实验；最新报告见 `docs/REPORTS/`。
+辞典统计仪表盘：环境 / 种群 / 个体三栏实况，无仪式与导出。协作者田野报告见 `docs/REPORTS/`。

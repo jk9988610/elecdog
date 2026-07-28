@@ -1,7 +1,12 @@
-// 公理: A1 A9 — 世界：平地、地点、时钟
+// 公理: A1 A9 — 世界：平地、地点、时钟、数字基底场
+
+import { initSubstrate } from './substrate.js';
+import { initNodes } from './nodes.js';
+import { initCatastrophe } from './catastrophe.js';
+import { initBiotic } from './biotic.js';
 
 export function createWorld(name) {
-  return {
+  const world = {
     name: name.trim() || '未命名世界',
     birthPlace: '01',
     tick: 0,
@@ -10,6 +15,11 @@ export function createWorld(name) {
     signalBus: [],
     createdAt: new Date().toISOString(),
   };
+  initSubstrate(world);
+  initNodes(world);
+  initCatastrophe(world);
+  initBiotic(world);
+  return world;
 }
 
 export function getWorldSnapshot(world) {

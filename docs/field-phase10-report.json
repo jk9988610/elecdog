@@ -1,0 +1,371 @@
+{
+  "runAt": "2026-07-28T21:40:42.493Z",
+  "phase": 10,
+  "longRun": {
+    "ticks": 2000,
+    "earlyProfile": {
+      "segments": [
+        {
+          "label": "t1-7",
+          "from": 1,
+          "to": 7,
+          "ticks": 7,
+          "externalRate": 0.8571428571428571,
+          "avgInternal": 1.2857142857142858,
+          "txRate": 0.14285714285714285,
+          "actRate": 0.7142857142857143,
+          "regMeans": [
+            0.28493577750874594,
+            0.2164044601452196,
+            0.17169826730604898,
+            0.2594661797806643,
+            0.12787452668936367,
+            0.8895757035471824,
+            0.3165051456429014,
+            0.5208308849176169
+          ]
+        },
+        {
+          "label": "t1-20",
+          "from": 1,
+          "to": 20,
+          "ticks": 20,
+          "externalRate": 0.6,
+          "avgInternal": 1.5,
+          "txRate": 0.1,
+          "actRate": 0.5,
+          "regMeans": [
+            0.24869851846973515,
+            0.19350478878236513,
+            0.1277498230268518,
+            0.26998509906287604,
+            0.25609731699007454,
+            0.7953022246967671,
+            0.36667457009463184,
+            0.4364803821697726
+          ]
+        },
+        {
+          "label": "t1-50",
+          "from": 1,
+          "to": 50,
+          "ticks": 50,
+          "externalRate": 0.56,
+          "avgInternal": 1.44,
+          "txRate": 0.16,
+          "actRate": 0.4,
+          "regMeans": [
+            0.18384413340782213,
+            0.15468285325908007,
+            0.1373994515247389,
+            0.3614331069145794,
+            0.4529462519126373,
+            0.6747294245403583,
+            0.46158930952362753,
+            0.3589635793822549
+          ]
+        },
+        {
+          "label": "t51-200",
+          "from": 51,
+          "to": 200,
+          "ticks": 150,
+          "externalRate": 0.54,
+          "avgInternal": 1.4733333333333334,
+          "txRate": 0.26666666666666666,
+          "actRate": 0.2733333333333333,
+          "regMeans": [
+            0.40621785033393104,
+            0.4133545385183164,
+            0.5226664874742504,
+            0.5472584570975373,
+            0.49165502618371276,
+            0.4847568666236261,
+            0.3889449407709815,
+            0.3994375896091054
+          ]
+        },
+        {
+          "label": "t201+",
+          "from": 201,
+          "to": 2000,
+          "ticks": 1800,
+          "externalRate": 0.5561111111111111,
+          "avgInternal": 1.5144444444444445,
+          "txRate": 0.27666666666666667,
+          "actRate": 0.27944444444444444,
+          "regMeans": [
+            0.4268138698704522,
+            0.4113347889559438,
+            0.4221087732833891,
+            0.39052194962122966,
+            0.3832840881932136,
+            0.3661407605194546,
+            0.3961550968257236,
+            0.4149579744950122
+          ]
+        }
+      ],
+      "earlyVsMature": {
+        "earlyExt": 0.6,
+        "matureExt": 0.5548717948717948,
+        "extDelta": 0.045128205128205146,
+        "earlyInt": 1.4333333333333333,
+        "matureInt": 1.5112820512820513
+      },
+      "earlyBurstT2to7": "6/6"
+    },
+    "regimeShiftCount": 14,
+    "regimeShifts": [
+      {
+        "atTick": 101,
+        "extDelta": 0.18,
+        "intDelta": -0.08,
+        "prevExt": 0.48,
+        "currExt": 0.66,
+        "prevInt": 1.54,
+        "currInt": 1.46
+      },
+      {
+        "atTick": 151,
+        "extDelta": -0.18,
+        "intDelta": -0.04,
+        "prevExt": 0.66,
+        "currExt": 0.48,
+        "prevInt": 1.46,
+        "currInt": 1.42
+      },
+      {
+        "atTick": 251,
+        "extDelta": 0.16,
+        "intDelta": 0.1,
+        "prevExt": 0.52,
+        "currExt": 0.68,
+        "prevInt": 1.42,
+        "currInt": 1.52
+      },
+      {
+        "atTick": 301,
+        "extDelta": -0.28,
+        "intDelta": 0.06,
+        "prevExt": 0.68,
+        "currExt": 0.4,
+        "prevInt": 1.52,
+        "currInt": 1.58
+      },
+      {
+        "atTick": 351,
+        "extDelta": 0.22,
+        "intDelta": -0.1,
+        "prevExt": 0.4,
+        "currExt": 0.62,
+        "prevInt": 1.58,
+        "currInt": 1.48
+      },
+      {
+        "atTick": 501,
+        "extDelta": -0.14,
+        "intDelta": 0.02,
+        "prevExt": 0.6,
+        "currExt": 0.46,
+        "prevInt": 1.54,
+        "currInt": 1.56
+      },
+      {
+        "atTick": 551,
+        "extDelta": 0.22,
+        "intDelta": -0.14,
+        "prevExt": 0.46,
+        "currExt": 0.68,
+        "prevInt": 1.56,
+        "currInt": 1.42
+      },
+      {
+        "atTick": 601,
+        "extDelta": -0.14,
+        "intDelta": 0.1,
+        "prevExt": 0.68,
+        "currExt": 0.54,
+        "prevInt": 1.42,
+        "currInt": 1.52
+      },
+      {
+        "atTick": 1051,
+        "extDelta": -0.2,
+        "intDelta": 0.04,
+        "prevExt": 0.66,
+        "currExt": 0.46,
+        "prevInt": 1.46,
+        "currInt": 1.5
+      },
+      {
+        "atTick": 1351,
+        "extDelta": 0.12,
+        "intDelta": 0.02,
+        "prevExt": 0.54,
+        "currExt": 0.66,
+        "prevInt": 1.52,
+        "currInt": 1.54
+      }
+    ],
+    "liberationCount": 0,
+    "liberationKinds": []
+  },
+  "cohort": [
+    {
+      "label": "001-α",
+      "code": "001",
+      "firstExternalTick": 3,
+      "firstExternalKind": "[TX]",
+      "earlyBurstT2to7": "3/6",
+      "earlyExtT1to20": 0.5,
+      "matureExtT51plus": 0.62
+    },
+    {
+      "label": "001-β",
+      "code": "001",
+      "firstExternalTick": 1,
+      "firstExternalKind": "[ACT]",
+      "earlyBurstT2to7": "3/6",
+      "earlyExtT1to20": 0.5,
+      "matureExtT51plus": 0.46
+    },
+    {
+      "label": "002-α",
+      "code": "002",
+      "firstExternalTick": 6,
+      "firstExternalKind": "[TX]",
+      "earlyBurstT2to7": "2/6",
+      "earlyExtT1to20": 0.65,
+      "matureExtT51plus": 0.59
+    },
+    {
+      "label": "002-β",
+      "code": "002",
+      "firstExternalTick": 1,
+      "firstExternalKind": "[ACT]",
+      "earlyBurstT2to7": "3/6",
+      "earlyExtT1to20": 0.7,
+      "matureExtT51plus": 0.47
+    },
+    {
+      "label": "003-α",
+      "code": "003",
+      "firstExternalTick": 1,
+      "firstExternalKind": "[TX]",
+      "earlyBurstT2to7": "4/6",
+      "earlyExtT1to20": 0.6,
+      "matureExtT51plus": 0.49
+    },
+    {
+      "label": "003-β",
+      "code": "003",
+      "firstExternalTick": 2,
+      "firstExternalKind": "[TX]",
+      "earlyBurstT2to7": "4/6",
+      "earlyExtT1to20": 0.55,
+      "matureExtT51plus": 0.58
+    }
+  ],
+  "multiBody": {
+    "ticks": 300,
+    "beings": [
+      {
+        "label": "观察者",
+        "earlyBurst": "6/6",
+        "earlyExtT1to20": 0.6,
+        "liberationCount": 0
+      },
+      {
+        "label": "002-甲",
+        "earlyBurst": "2/6",
+        "earlyExtT1to20": 0.45,
+        "liberationCount": 0
+      },
+      {
+        "label": "003-甲",
+        "earlyBurst": "3/6",
+        "earlyExtT1to20": 0.6,
+        "liberationCount": 0
+      },
+      {
+        "label": "001-乙",
+        "earlyBurst": "6/6",
+        "earlyExtT1to20": 0.6,
+        "liberationCount": 0
+      }
+    ]
+  },
+  "summary": {
+    "earlyWindow": {
+      "observerEarlyVsMature": {
+        "earlyExt": 0.6,
+        "matureExt": 0.5548717948717948,
+        "extDelta": 0.045128205128205146,
+        "earlyInt": 1.4333333333333333,
+        "matureInt": 1.5112820512820513
+      },
+      "cohortAvgEarlyExtDelta": 0.007777777777777735,
+      "cohortEarlyBurst": [
+        {
+          "label": "001-α",
+          "t2to7": "3/6"
+        },
+        {
+          "label": "001-β",
+          "t2to7": "3/6"
+        },
+        {
+          "label": "002-α",
+          "t2to7": "2/6"
+        },
+        {
+          "label": "002-β",
+          "t2to7": "3/6"
+        },
+        {
+          "label": "003-α",
+          "t2to7": "4/6"
+        },
+        {
+          "label": "003-β",
+          "t2to7": "4/6"
+        }
+      ]
+    },
+    "liberation": {
+      "pulseRepeatCount": 0,
+      "newExternalPrefixCount": 0,
+      "emptyInternalCount": 0,
+      "registerJumpCount": 0,
+      "regimeShiftCount": 14,
+      "verdict": "no_liberation_event"
+    },
+    "namableEvents": [
+      {
+        "id": "PHASE-E03",
+        "name": "分段指标波动（非解放）",
+        "description": "50 tick 窗之间对外率/内在密度有跳跃，但双向波动、无不可逆转变",
+        "observable": "14 次窗间跳跃 / 2000 tick",
+        "repeatable": 1,
+        "codexReady": false,
+        "note": "不构成「解放」事件"
+      },
+      {
+        "id": "PHASE-N01",
+        "name": "解放事件（阴性）",
+        "description": "未观察到：新对外类型、意识脉冲再现、内在空 tick、不可逆行为相变",
+        "observable": "脉冲再现 0；新前缀 0；空内在 0；register_jump 为正常漂移",
+        "repeatable": "N/A",
+        "codexReady": false,
+        "note": "解放假说在本引擎尺度下未获证据"
+      }
+    ]
+  },
+  "saturationNote": {
+    "phase9NewCodex": 0,
+    "phase10NewCodex": 0,
+    "consecutiveNoCodex": 2,
+    "baselineNearComplete": true
+  }
+}

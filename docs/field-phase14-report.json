@@ -1,0 +1,78 @@
+{
+  "runAt": "2026-07-28T21:53:00.246Z",
+  "phase": 14,
+  "extension": "substrate_metabolic_exchange",
+  "gap": "GAP-04",
+  "solo500": {
+    "metabolism": {
+      "drawCount": 489,
+      "drawPerTick": 0.978,
+      "lowCount": 163,
+      "lowChannels": [
+        7,
+        6
+      ],
+      "avgDrawAmount": 0.008169657280481182,
+      "ticksWithLow": 163,
+      "internalTicks": 748,
+      "externalTicks": 277
+    },
+    "depletion": {
+      "e0start": 0.16247640197630972,
+      "e0end": 0.4525044259627436,
+      "minChannels": [
+        0.1625,
+        0,
+        0.3401,
+        0.3118,
+        0.0462,
+        0.0337,
+        0,
+        0.0329
+      ],
+      "lowestChannel": 1,
+      "lowestValue": 0
+    },
+    "external": {
+      "externalRate": 0.554,
+      "txCount": 129,
+      "actCount": 148
+    }
+  },
+  "dual200": {
+    "observerMetabolism": {
+      "drawCount": 188,
+      "drawPerTick": 0.94,
+      "lowCount": 112,
+      "lowChannels": [
+        6,
+        5
+      ],
+      "avgDrawAmount": 0.008571754665691454,
+      "ticksWithLow": 112,
+      "internalTicks": 349,
+      "externalTicks": 109
+    },
+    "depletion": {
+      "e0start": 0.16247640197630972,
+      "e0end": 0.7277149069865071,
+      "minChannels": [
+        0.1625,
+        0,
+        0.3665,
+        0.3135,
+        0.0462,
+        0.015,
+        0,
+        0.4208
+      ],
+      "lowestChannel": 1,
+      "lowestValue": 0
+    }
+  },
+  "codexCandidate": {
+    "name": "基底代谢",
+    "ready": false,
+    "note": "不设需求类别；仅 DRW/LOW 可观测事件"
+  }
+}

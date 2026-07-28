@@ -34,6 +34,12 @@ export function performBirthRitual(
 
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
+  steps.push(
+    recorder.ritual(tick, `[RITUAL] 社会位 ${being.socialSlot}`, {
+      beingId: id,
+      socialSlot: being.socialSlot,
+    })
+  );
 
   const pulse = being.firstPulse();
   recorder.internal(tick, id, pulse);

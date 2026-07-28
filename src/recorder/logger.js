@@ -50,6 +50,47 @@ export class Recorder {
     });
   }
 
+  environment(tick, content, meta = {}) {
+    return this.log({ tick, channel: 'environment', content, meta });
+  }
+
+  memory(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'memory', beingId, content, meta });
+  }
+
+  substrate(tick, channels, meta = {}) {
+    return this.log({
+      tick,
+      channel: 'substrate',
+      content: channels.map((v, i) => `e${i}=${v.toFixed(4)}`).join(' '),
+      meta: { channels, ...meta },
+    });
+  }
+
+  metabolism(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'metabolism', beingId, content, meta });
+  }
+
+  nodes(tick, content, meta = {}) {
+    return this.log({ tick, channel: 'nodes', content, meta });
+  }
+
+  social(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'social', beingId, content, meta });
+  }
+
+  viability(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'viability', beingId, content, meta });
+  }
+
+  population(tick, content, meta = {}) {
+    return this.log({ tick, channel: 'population', content, meta });
+  }
+
+  cell(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'cell', beingId, content, meta });
+  }
+
   query({ channel, beingId, tickFrom, tickTo, limit = 500 }) {
     let result = this.entries;
     if (channel) result = result.filter((e) => e.channel === channel);

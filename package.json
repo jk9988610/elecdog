@@ -10,6 +10,19 @@
     "field:phase5": "node scripts/field-batch-phase5.mjs",
     "field:phase6": "node scripts/field-batch-phase6.mjs",
     "field:phase7": "node scripts/field-batch-phase7.mjs",
+    "field:phase8": "node scripts/field-batch-phase8.mjs",
+    "field:phase9": "node scripts/field-batch-phase9.mjs",
+    "field:phase10": "node scripts/field-batch-phase10.mjs",
+    "field:phase11": "node scripts/field-batch-phase11.mjs",
+    "field:phase12": "node scripts/field-batch-phase12.mjs",
+    "field:phase13": "node scripts/field-batch-phase13.mjs",
+    "field:phase14": "node scripts/field-batch-phase14.mjs",
+    "field:phase15": "node scripts/field-batch-phase15.mjs",
+    "field:phase16": "node scripts/field-batch-phase16.mjs",
+    "field:phase17": "node scripts/field-batch-phase17.mjs",
+    "field:phase18": "node scripts/field-batch-phase18.mjs",
+    "field:phase19": "node scripts/field-batch-phase19.mjs",
+    "field:phase20": "node scripts/field-batch-phase20.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   }
 }

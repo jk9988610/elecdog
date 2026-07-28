@@ -1,0 +1,67 @@
+{
+  "runAt": "2026-07-28T22:08:08.333Z",
+  "phase": 17,
+  "extension": "viability_feedback_end_lineage",
+  "solo800": {
+    "viability": {
+      "svvCount": 35,
+      "endCount": 1,
+      "lineageCount": 1,
+      "endReasons": [
+        "low_streak"
+      ],
+      "maxGeneration": 1,
+      "avgMutation": 2,
+      "actCount": 226,
+      "highStressActCount": 7,
+      "highStressActRate": 0.030973451327433628
+    },
+    "population": {
+      "births": 2,
+      "ends": 1,
+      "net": 1
+    },
+    "alive": 1,
+    "maxGen": 1
+  },
+  "four300": {
+    "viability": {
+      "svvCount": 925,
+      "endCount": 23,
+      "lineageCount": 23,
+      "endReasons": [
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "compound",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 7,
+      "avgMutation": 2.652173913043478,
+      "actCount": 395,
+      "highStressActCount": 248,
+      "highStressActRate": 0.6278481012658228
+    },
+    "alive": 4,
+    "dead": 23
+  },
+  "roadmap": "docs/EVOLUTION.md"
+}

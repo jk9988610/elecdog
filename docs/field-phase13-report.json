@@ -1,0 +1,76 @@
+{
+  "runAt": "2026-07-28T21:50:18.536Z",
+  "phase": 13,
+  "extension": "digital_substrate_field",
+  "proposal": "docs/ENVIRONMENT.md",
+  "solo": {
+    "substrate": {
+      "substrateLogsPerTick": 1,
+      "ambCount": 200,
+      "ambPerTick": 1,
+      "ptbCount": 61,
+      "resCount": 61,
+      "actCount": 61,
+      "ptbActPairing": 1,
+      "resActPairing": 1,
+      "e0drift": 0.4747,
+      "maxDrift": 0.7341
+    },
+    "external": {
+      "externalRate": 0.545,
+      "txCount": 48,
+      "actCount": 61
+    },
+    "coupling": {
+      "avgChannelGap": 0.10418971102882246,
+      "samples": 200
+    },
+    "e0atBirth": 0.6372132283384825
+  },
+  "dual": {
+    "substrate": {
+      "substrateLogsPerTick": 1,
+      "ambCount": 200,
+      "ambPerTick": 1,
+      "ptbCount": 129,
+      "resCount": 129,
+      "actCount": 129,
+      "ptbActPairing": 1,
+      "resActPairing": 1,
+      "e0drift": 0.7035,
+      "maxDrift": 0.9637
+    },
+    "observerCoupling": {
+      "avgChannelGap": 0.10929047501735589,
+      "samples": 200
+    },
+    "sharedSubstrate": true
+  },
+  "baselineCompare": {
+    "obs04ExternalRate": 0.545,
+    "soloExternalRate": 0.545,
+    "delta": 0
+  },
+  "codexCandidates": [
+    {
+      "name": "基底脉搏",
+      "check": true,
+      "detail": "200/200 tick 有 [AMB]"
+    },
+    {
+      "name": "基底漂移",
+      "check": true,
+      "detail": "e0 漂移 0.4747, max 0.7341"
+    },
+    {
+      "name": "行动扰动",
+      "check": true,
+      "detail": "PTB 61 / ACT 61"
+    },
+    {
+      "name": "基底耦合",
+      "check": true,
+      "detail": "avg |e-r| gap 0.1042"
+    }
+  ]
+}
