@@ -51,7 +51,7 @@
 
 - 脚本：`npm run field` / `npm run field:phase2`
 - 报告：`docs/REPORTS/`
-- 最新： [2026-07-29-phase2.md](REPORTS/2026-07-29-phase2.md)
+- 最新： [2026-07-29-phase3.md](REPORTS/2026-07-29-phase3.md)（含信号耦合）
 
 ---
 
