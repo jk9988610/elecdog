@@ -1,0 +1,364 @@
+{
+  "runAt": "2026-07-28T21:35:34.858Z",
+  "ticks": 200,
+  "individuals": [
+    {
+      "code": "004",
+      "name": "004-甲",
+      "id": "28040001",
+      "pulse": "0x38 0x00 0x01",
+      "externalRate": 0.59,
+      "r4": "rising",
+      "r4range": [
+        0.5024987367354334,
+        0.8779658946545211
+      ],
+      "txRatio": 0.3728813559322034,
+      "mutations": 0
+    },
+    {
+      "code": "004",
+      "name": "004-乙",
+      "id": "28040002",
+      "pulse": "0xB5 0x00 0x01",
+      "externalRate": 0.52,
+      "r4": "rising",
+      "r4range": [
+        0.21456916506402196,
+        0.7466621315734413
+      ],
+      "txRatio": 0.49038461538461536,
+      "mutations": 2
+    },
+    {
+      "code": "004",
+      "name": "004-丙",
+      "id": "28040003",
+      "pulse": "0x9C 0x00 0x01",
+      "externalRate": 0.57,
+      "r4": "rising",
+      "r4range": [
+        0.10754456369206308,
+        0.4312781557429171
+      ],
+      "txRatio": 0.5087719298245614,
+      "mutations": 2
+    },
+    {
+      "code": "005",
+      "name": "005-甲",
+      "id": "28050001",
+      "pulse": "0x4D 0x00 0x01",
+      "externalRate": 0.6,
+      "r4": "stable",
+      "r4range": [
+        0.24381715642753987,
+        0.2706703937051444
+      ],
+      "txRatio": 0.48333333333333334,
+      "mutations": 4
+    },
+    {
+      "code": "005",
+      "name": "005-乙",
+      "id": "28050002",
+      "pulse": "0x2F 0x00 0x01",
+      "externalRate": 0.52,
+      "r4": "falling",
+      "r4range": [
+        0.8062547833705321,
+        0.33042100748348924
+      ],
+      "txRatio": 0.5865384615384616,
+      "mutations": 2
+    },
+    {
+      "code": "005",
+      "name": "005-丙",
+      "id": "28050003",
+      "pulse": "0xA2 0x00 0x01",
+      "externalRate": 0.565,
+      "r4": "rising",
+      "r4range": [
+        0.09131543208379297,
+        0.5671732266595565
+      ],
+      "txRatio": 0.5486725663716814,
+      "mutations": 2
+    },
+    {
+      "code": "006",
+      "name": "006-甲",
+      "id": "28060001",
+      "pulse": "0x0F 0x00 0x01",
+      "externalRate": 0.59,
+      "r4": "falling",
+      "r4range": [
+        0.3562344171456061,
+        0.17987593997639076
+      ],
+      "txRatio": 0.4915254237288136,
+      "mutations": 2
+    },
+    {
+      "code": "006",
+      "name": "006-乙",
+      "id": "28060002",
+      "pulse": "0x20 0x00 0x01",
+      "externalRate": 0.535,
+      "r4": "rising",
+      "r4range": [
+        0.019712890512309962,
+        0.691710270978155
+      ],
+      "txRatio": 0.4953271028037383,
+      "mutations": 1
+    },
+    {
+      "code": "006",
+      "name": "006-丙",
+      "id": "28060003",
+      "pulse": "0x69 0x00 0x01",
+      "externalRate": 0.525,
+      "r4": "rising",
+      "r4range": [
+        0.2497949247993529,
+        0.7789061500631965
+      ],
+      "txRatio": 0.5238095238095238,
+      "mutations": 2
+    }
+  ],
+  "byCode": {
+    "004": [
+      {
+        "code": "004",
+        "name": "004-甲",
+        "id": "28040001",
+        "pulse": "0x38 0x00 0x01",
+        "externalRate": 0.59,
+        "r4": "rising",
+        "r4range": [
+          0.5024987367354334,
+          0.8779658946545211
+        ],
+        "txRatio": 0.3728813559322034,
+        "mutations": 0
+      },
+      {
+        "code": "004",
+        "name": "004-乙",
+        "id": "28040002",
+        "pulse": "0xB5 0x00 0x01",
+        "externalRate": 0.52,
+        "r4": "rising",
+        "r4range": [
+          0.21456916506402196,
+          0.7466621315734413
+        ],
+        "txRatio": 0.49038461538461536,
+        "mutations": 2
+      },
+      {
+        "code": "004",
+        "name": "004-丙",
+        "id": "28040003",
+        "pulse": "0x9C 0x00 0x01",
+        "externalRate": 0.57,
+        "r4": "rising",
+        "r4range": [
+          0.10754456369206308,
+          0.4312781557429171
+        ],
+        "txRatio": 0.5087719298245614,
+        "mutations": 2
+      }
+    ],
+    "005": [
+      {
+        "code": "005",
+        "name": "005-甲",
+        "id": "28050001",
+        "pulse": "0x4D 0x00 0x01",
+        "externalRate": 0.6,
+        "r4": "stable",
+        "r4range": [
+          0.24381715642753987,
+          0.2706703937051444
+        ],
+        "txRatio": 0.48333333333333334,
+        "mutations": 4
+      },
+      {
+        "code": "005",
+        "name": "005-乙",
+        "id": "28050002",
+        "pulse": "0x2F 0x00 0x01",
+        "externalRate": 0.52,
+        "r4": "falling",
+        "r4range": [
+          0.8062547833705321,
+          0.33042100748348924
+        ],
+        "txRatio": 0.5865384615384616,
+        "mutations": 2
+      },
+      {
+        "code": "005",
+        "name": "005-丙",
+        "id": "28050003",
+        "pulse": "0xA2 0x00 0x01",
+        "externalRate": 0.565,
+        "r4": "rising",
+        "r4range": [
+          0.09131543208379297,
+          0.5671732266595565
+        ],
+        "txRatio": 0.5486725663716814,
+        "mutations": 2
+      }
+    ],
+    "006": [
+      {
+        "code": "006",
+        "name": "006-甲",
+        "id": "28060001",
+        "pulse": "0x0F 0x00 0x01",
+        "externalRate": 0.59,
+        "r4": "falling",
+        "r4range": [
+          0.3562344171456061,
+          0.17987593997639076
+        ],
+        "txRatio": 0.4915254237288136,
+        "mutations": 2
+      },
+      {
+        "code": "006",
+        "name": "006-乙",
+        "id": "28060002",
+        "pulse": "0x20 0x00 0x01",
+        "externalRate": 0.535,
+        "r4": "rising",
+        "r4range": [
+          0.019712890512309962,
+          0.691710270978155
+        ],
+        "txRatio": 0.4953271028037383,
+        "mutations": 1
+      },
+      {
+        "code": "006",
+        "name": "006-丙",
+        "id": "28060003",
+        "pulse": "0x69 0x00 0x01",
+        "externalRate": 0.525,
+        "r4": "rising",
+        "r4range": [
+          0.2497949247993529,
+          0.7789061500631965
+        ],
+        "txRatio": 0.5238095238095238,
+        "mutations": 2
+      }
+    ]
+  },
+  "templateStats": {
+    "004": {
+      "n": 3,
+      "avgExternal": 0.5599999999999999,
+      "minExternal": 0.52,
+      "maxExternal": 0.59,
+      "r4": {
+        "rising": 3,
+        "falling": 0,
+        "stable": 0
+      },
+      "avgTxRatio": 0.4573459670471267
+    },
+    "005": {
+      "n": 3,
+      "avgExternal": 0.5616666666666666,
+      "minExternal": 0.52,
+      "maxExternal": 0.6,
+      "r4": {
+        "rising": 1,
+        "falling": 1,
+        "stable": 1
+      },
+      "avgTxRatio": 0.5395147870811587
+    },
+    "006": {
+      "n": 3,
+      "avgExternal": 0.5499999999999999,
+      "minExternal": 0.525,
+      "maxExternal": 0.59,
+      "r4": {
+        "rising": 2,
+        "falling": 1,
+        "stable": 0
+      },
+      "avgTxRatio": 0.5035540167806919
+    }
+  },
+  "templates": {
+    "004": "3223313133112313…",
+    "005": "1132031033312202…",
+    "006": "0211010031023201…"
+  },
+  "templateDiffs": {
+    "004_001": 71,
+    "005_001": 76,
+    "006_001": 76
+  },
+  "baselineComparison": {
+    "001": {
+      "avgExternal": 0.545,
+      "source": "OBS-01~05 综合"
+    },
+    "002": {
+      "avgExternal": 0.571,
+      "source": "OBS-06~12 五只均值"
+    },
+    "003": {
+      "avgExternal": 0.541,
+      "source": "OBS Phase4-5 五只"
+    },
+    "004": {
+      "n": 3,
+      "avgExternal": 0.5599999999999999,
+      "minExternal": 0.52,
+      "maxExternal": 0.59,
+      "r4": {
+        "rising": 3,
+        "falling": 0,
+        "stable": 0
+      },
+      "avgTxRatio": 0.4573459670471267
+    },
+    "005": {
+      "n": 3,
+      "avgExternal": 0.5616666666666666,
+      "minExternal": 0.52,
+      "maxExternal": 0.6,
+      "r4": {
+        "rising": 1,
+        "falling": 1,
+        "stable": 1
+      },
+      "avgTxRatio": 0.5395147870811587
+    },
+    "006": {
+      "n": 3,
+      "avgExternal": 0.5499999999999999,
+      "minExternal": 0.525,
+      "maxExternal": 0.59,
+      "r4": {
+        "rising": 2,
+        "falling": 1,
+        "stable": 0
+      },
+      "avgTxRatio": 0.5035540167806919
+    }
+  }
+}
