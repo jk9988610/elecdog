@@ -49,10 +49,9 @@
 
 ## 四、协作者观察机制
 
-- 脚本：`node scripts/field-batch.mjs`
-- 报告：`docs/REPORTS/YYYY-MM-DD-*.md`
-- 数据：`docs/field-batch-report.json`
-- 观察者：阅读报告即可
+- 脚本：`npm run field` / `npm run field:phase2`
+- 报告：`docs/REPORTS/`
+- 最新： [2026-07-29-phase2.md](REPORTS/2026-07-29-phase2.md)
 
 ---
 
