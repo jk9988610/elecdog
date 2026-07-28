@@ -11,7 +11,7 @@
 | 文档 | 作用 |
 |------|------|
 | [OUTLINE.md](docs/OUTLINE.md) | 公理与哲学 |
-| [WORKFLOW.md](docs/WORKFLOW.md) | 强制工作流程 |
+| [ROADMAP.md](docs/ROADMAP.md) | 阶段规划与完善度 |
 | [OBSERVATION_LOG.md](docs/OBSERVATION_LOG.md) | L1 田野笔记 |
 | [CODEX.md](docs/CODEX.md) | L2 世界辞典（4 条已确立） |
 | [COMPARISON.md](docs/COMPARISON.md) | 跨观察对比归纳 |
