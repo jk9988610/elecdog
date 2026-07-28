@@ -1,0 +1,67 @@
+{
+  "runAt": "2026-07-28T21:46:15.008Z",
+  "phase": 12,
+  "extension": "memory_trace_on_RX_TX_ACT",
+  "gap": "GAP-03",
+  "solo": {
+    "memory": {
+      "memTotal": 109,
+      "memRx": 0,
+      "memTx": 48,
+      "memAct": 61,
+      "rxCount": 0,
+      "txCount": 48,
+      "actCount": 61,
+      "expected": 109,
+      "pairingRate": 1,
+      "rxPaired": true,
+      "txPaired": true,
+      "actPaired": true,
+      "uniqueRefTicks": 109
+    },
+    "external": {
+      "externalRate": 0.545,
+      "txCount": 48,
+      "actCount": 61
+    },
+    "actRes": {
+      "actCount": 61,
+      "resCount": 61,
+      "txCount": 48,
+      "matched": 61,
+      "pairingRate": 1,
+      "resOnTxTicks": 0,
+      "orphanRes": 0
+    },
+    "noRxMem": true
+  },
+  "dual": {
+    "observerMemory": {
+      "memTotal": 168,
+      "memRx": 59,
+      "memTx": 48,
+      "memAct": 61,
+      "rxCount": 59,
+      "txCount": 48,
+      "actCount": 61,
+      "expected": 168,
+      "pairingRate": 1,
+      "rxPaired": true,
+      "txPaired": true,
+      "actPaired": true,
+      "uniqueRefTicks": 140
+    },
+    "hasRxMem": true,
+    "rxMemEqualsRx": true
+  },
+  "codexCandidate": {
+    "name": "事件记忆迹",
+    "definition": "RX/TX/ACT 发生时，memory 通道记录 [MEM] 跨 tick 引用；不改变个体内在或对外统计",
+    "ready": true
+  },
+  "behaviorUnchanged": {
+    "soloExternalRate": 0.545,
+    "obs04ExternalRate": 0.545,
+    "match": true
+  }
+}

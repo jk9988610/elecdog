@@ -17,6 +17,11 @@ export function stepWorld(world, recorder) {
         content: `[RX] ${sig.fromId} ${sig.content}`,
         meta: { fromId: sig.fromId, emittedAt: sig.emittedAt },
       });
+      recorder.memory(world.tick, being.id, `[MEM] RX t${sig.emittedAt} ${sig.fromId}`, {
+        kind: 'RX',
+        refTick: sig.emittedAt,
+        fromId: sig.fromId,
+      });
     }
 
     recorder.internal(world.tick, being.id, result.internal);
@@ -30,12 +35,20 @@ export function stepWorld(world, recorder) {
             emittedAt: world.tick,
             deliverAt: world.tick + 1,
           });
+          recorder.memory(world.tick, being.id, `[MEM] TX t${world.tick}`, {
+            kind: 'TX',
+            refTick: world.tick,
+          });
         } else if (line.startsWith('[ACT]')) {
           const payload = line.slice(5);
           recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
             fromId: being.id,
             act: line,
             place: world.birthPlace,
+          });
+          recorder.memory(world.tick, being.id, `[MEM] ACT t${world.tick}`, {
+            kind: 'ACT',
+            refTick: world.tick,
           });
         }
       }

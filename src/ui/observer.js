@@ -72,6 +72,7 @@ export class ObserverApp {
             <option value="external">external（对外）</option>
             <option value="signal">signal（外来信号）</option>
             <option value="environment">environment（环境回响）</option>
+            <option value="memory">memory（事件记忆迹）</option>
             <option value="state">state</option>
           </select>
           </div>

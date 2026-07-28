@@ -54,6 +54,10 @@ export class Recorder {
     return this.log({ tick, channel: 'environment', content, meta });
   }
 
+  memory(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'memory', beingId, content, meta });
+  }
+
   query({ channel, beingId, tickFrom, tickTo, limit = 500 }) {
     let result = this.entries;
     if (channel) result = result.filter((e) => e.channel === channel);
