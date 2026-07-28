@@ -21,3 +21,5 @@
 **Phase 0 最小内核已实现。** 可进行第一次运行与田野记录。
 
 本地预览：`npx serve .` 或任意静态服务器打开 `index.html`。
+
+**GitHub Pages**：https://jk9988610.github.io/elecdog/
