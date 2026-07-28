@@ -1,0 +1,247 @@
+{
+  "runAt": "2026-07-28T22:17:39.871Z",
+  "phase": 19,
+  "extension": "biotic_feedback_composition_trace",
+  "principle": "environment-led; no Earth-organism labels",
+  "solo500": {
+    "biotic": {
+      "bioCount": 66,
+      "pulseTicks": 10,
+      "avgPopAtBio": 1,
+      "netSubstrateDelta": 0.2536,
+      "channelHits": {
+        "0": 9,
+        "1": 10,
+        "2": 8,
+        "3": 8,
+        "4": 6,
+        "5": 10,
+        "6": 7,
+        "7": 8
+      },
+      "bioAfterShkAvg": 7.333333333333333
+    },
+    "composition": {
+      "cmpCount": 5,
+      "structSeries": [
+        {
+          "tick": 100,
+          "struct": 0.631,
+          "pop": 1,
+          "codeHom": 1,
+          "lineageHom": 1,
+          "spread": 0,
+          "clusterScore": 0.75,
+          "meshScore": 0.4375
+        },
+        {
+          "tick": 200,
+          "struct": 0.631,
+          "pop": 1,
+          "codeHom": 1,
+          "lineageHom": 1,
+          "spread": 0,
+          "clusterScore": 0.75,
+          "meshScore": 0.4375
+        },
+        {
+          "tick": 300,
+          "struct": 0.631,
+          "pop": 1,
+          "codeHom": 1,
+          "lineageHom": 1,
+          "spread": 0,
+          "clusterScore": 0.75,
+          "meshScore": 0.4375
+        },
+        {
+          "tick": 400,
+          "struct": 0.631,
+          "pop": 1,
+          "codeHom": 1,
+          "lineageHom": 1,
+          "spread": 0,
+          "clusterScore": 0.75,
+          "meshScore": 0.4375
+        },
+        {
+          "tick": 500,
+          "struct": 0.631,
+          "pop": 1,
+          "codeHom": 1,
+          "lineageHom": 1,
+          "spread": 0,
+          "clusterScore": 0.75,
+          "meshScore": 0.4375
+        }
+      ],
+      "avgStruct": 0.631,
+      "structDrift": 0,
+      "clusterDominant": 5,
+      "meshDominant": 0,
+      "finalPop": 1,
+      "finalCodeHom": 1,
+      "finalLineageHom": 1
+    },
+    "viability": {
+      "svvCount": 106,
+      "endCount": 3,
+      "lineageCount": 3,
+      "endReasons": [
+        "low_streak",
+        "low_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 3,
+      "avgMutation": 5.333333333333333,
+      "actCount": 150,
+      "highStressActCount": 21,
+      "highStressActRate": 0.14
+    }
+  },
+  "four400": {
+    "biotic": {
+      "bioCount": 156,
+      "pulseTicks": 20,
+      "avgPopAtBio": 4,
+      "netSubstrateDelta": -0.7419,
+      "channelHits": {
+        "0": 19,
+        "1": 20,
+        "2": 20,
+        "3": 19,
+        "4": 19,
+        "5": 20,
+        "6": 19,
+        "7": 20
+      },
+      "bioAfterShkAvg": 7.5
+    },
+    "composition": {
+      "cmpCount": 4,
+      "structSeries": [
+        {
+          "tick": 100,
+          "struct": 0.3068,
+          "pop": 4,
+          "codeHom": 0.5,
+          "lineageHom": 0.25,
+          "spread": 0.0468,
+          "clusterScore": 0.2992,
+          "meshScore": 0.675
+        },
+        {
+          "tick": 200,
+          "struct": 0.2919,
+          "pop": 4,
+          "codeHom": 0.5,
+          "lineageHom": 0.25,
+          "spread": 0.1089,
+          "clusterScore": 0.3147,
+          "meshScore": 0.7625
+        },
+        {
+          "tick": 300,
+          "struct": 0.2595,
+          "pop": 4,
+          "codeHom": 0.5,
+          "lineageHom": 0.25,
+          "spread": 0.0426,
+          "clusterScore": 0.2981,
+          "meshScore": 0.85
+        },
+        {
+          "tick": 400,
+          "struct": 0.2824,
+          "pop": 4,
+          "codeHom": 0.5,
+          "lineageHom": 0.25,
+          "spread": 0.0517,
+          "clusterScore": 0.3004,
+          "meshScore": 0.7625
+        }
+      ],
+      "avgStruct": 0.2852,
+      "structDrift": -0.0244,
+      "clusterDominant": 0,
+      "meshDominant": 4,
+      "finalPop": 4,
+      "finalCodeHom": 0.5,
+      "finalLineageHom": 0.25
+    },
+    "viability": {
+      "svvCount": 1100,
+      "endCount": 20,
+      "lineageCount": 20,
+      "endReasons": [
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 6,
+      "avgMutation": 2.8,
+      "actCount": 507,
+      "highStressActCount": 273,
+      "highStressActRate": 0.5384615384615384
+    },
+    "catastrophe": {
+      "shkCount": 2,
+      "nplCount": 2,
+      "totalPulses": 4,
+      "expectedPulses": 4,
+      "pulseTicks": [
+        100,
+        200,
+        300,
+        400
+      ],
+      "depFromPulse": 0,
+      "svvAfterPulse": [
+        {
+          "pulseTick": 100,
+          "svvCount": 7
+        },
+        {
+          "pulseTick": 200,
+          "svvCount": 24
+        },
+        {
+          "pulseTick": 300,
+          "svvCount": 24
+        },
+        {
+          "pulseTick": 400,
+          "svvCount": 4
+        }
+      ],
+      "avgSvvAfterPulse": 14.75
+    },
+    "alive": 4,
+    "total": 24
+  },
+  "comparison": {
+    "soloAvgStruct": 0.631,
+    "multiAvgStruct": 0.2852,
+    "structGap": -0.3458,
+    "multiMoreCluster": false,
+    "multiMoreMesh": true
+  },
+  "roadmap": "docs/EVOLUTION.md"
+}

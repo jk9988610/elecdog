@@ -3,6 +3,7 @@
 import { initSubstrate } from './substrate.js';
 import { initNodes } from './nodes.js';
 import { initCatastrophe } from './catastrophe.js';
+import { initBiotic } from './biotic.js';
 
 export function createWorld(name) {
   const world = {
@@ -17,6 +18,7 @@ export function createWorld(name) {
   initSubstrate(world);
   initNodes(world);
   initCatastrophe(world);
+  initBiotic(world);
   return world;
 }
 

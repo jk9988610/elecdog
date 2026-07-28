@@ -1,4 +1,4 @@
-// 公理: A9 — 时钟；场压自助反馈；存续终止与谱系续行；环境剧变脉冲
+// 公理: A9 — 时钟；场压自助反馈；存续终止与谱系续行；环境剧变；生物圈反馈；种群结构迹
 
 import {
   advanceSubstrate,
@@ -18,6 +18,8 @@ import { assignSocialSlot } from '../world/social.js';
 import { shouldTerminate, updateStressStreak } from '../world/viability.js';
 import { spawnLineageOffspring } from '../world/lineage.js';
 import { advanceCatastrophe } from '../world/catastrophe.js';
+import { accumulateBiotic, applyBioticCycle } from '../world/biotic.js';
+import { compositionSnapshot, shouldRecordComposition } from '../world/composition.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -184,6 +186,11 @@ export function stepWorld(world, recorder) {
         }
       }
     }
+    accumulateBiotic(world, being, {
+      internalCount: result.internal.length,
+      hadExternal: result.external.length > 0,
+    });
+
     const met = metabolicExchange(world, being, {
       internalCount: result.internal.length,
       hadExternal: result.external.length > 0,
@@ -246,6 +253,36 @@ export function stepWorld(world, recorder) {
         null,
         `[SOC] contest ${nodeId} ${slots.join(' ')}`,
         { kind: 'CONTEST', nodeId, slots }
+      );
+    }
+  }
+
+  const biotic = applyBioticCycle(world);
+  if (biotic) {
+    for (const evt of biotic.events) {
+      const sign = evt.delta >= 0 ? '+' : '';
+      recorder.environment(
+        world.tick,
+        `[BIO] pop ${biotic.alive} e${evt.idx} ${sign}${evt.delta.toFixed(4)} after ${evt.after.toFixed(4)}`,
+        { kind: 'BIO', place: world.birthPlace, pop: biotic.alive, ...evt }
+      );
+    }
+    if (biotic.events.length) {
+      recorder.substrate(world.tick, substrateSnapshot(world), {
+        place: world.birthPlace,
+        afterBiotic: true,
+        pop: biotic.alive,
+      });
+    }
+  }
+
+  if (shouldRecordComposition(world)) {
+    const cmp = compositionSnapshot(world);
+    if (cmp) {
+      recorder.population(
+        world.tick,
+        `[CMP] pop ${cmp.pop} codes ${cmp.codes} roots ${cmp.lineageRoots} genMax ${cmp.maxGen} hom ${cmp.codeHom} lhom ${cmp.lineageHom} spread ${cmp.spread} struct ${cmp.structIdx}`,
+        { kind: 'CMP', place: world.birthPlace, ...cmp }
       );
     }
   }
