@@ -136,3 +136,14 @@
 - **备注**：Phase 3 验证
 
 ---
+
+## OBS-20260729-15
+
+- **世界**：01；观察者 001 solo 200 tick vs 001+002 dual 200 tick（同 DNA+ID）
+- **事实**：
+  - solo 与 dual 对外率均为 54.5%，TX 占外部 44%，r4 升（完全相同）
+  - dual 中有 RX 的 tick：internal 均值 2.55；无 RX：1.44（差约 +1.1）
+  - 002 同伴有 RX 2.56 vs 无 RX 1.52
+- **备注**：Phase 4；003 三只见 field-phase4-report.json
+
+---
