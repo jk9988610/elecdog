@@ -3,49 +3,57 @@
   <head>
     <meta charset="UTF-8" />
     <script>
-      /* 清除旧版 Service Worker（曾导致空白页） */
+      /* 仅当存在旧 SW 时注销并刷新一次，不再注册新 SW */
       (function () {
-        var key = 'elecdog-sw-cleared';
-        function clearAll() {
-          var p = Promise.resolve();
-          if ('serviceWorker' in navigator) {
-            p = p.then(function () {
-              return navigator.serviceWorker.getRegistrations().then(function (regs) {
-                return Promise.all(regs.map(function (r) { return r.unregister(); }));
-              });
-            });
-            p = p.then(function () {
-              return navigator.serviceWorker.register('sw.js').catch(function () {});
-            });
-          }
-          if ('caches' in window) {
-            p = p.then(function () {
-              return caches.keys().then(function (keys) {
-                return Promise.all(keys.map(function (k) { return caches.delete(k); }));
-              });
-            });
-          }
-          return p;
+        var KEY = 'elecdog-sw-gone';
+        if (sessionStorage.getItem(KEY) === '1') return;
+        if (!('serviceWorker' in navigator)) {
+          sessionStorage.setItem(KEY, '1');
+          return;
         }
-        clearAll().then(function () {
-          if (sessionStorage.getItem(key) !== '1') {
-            sessionStorage.setItem(key, '1');
-            location.reload();
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          if (!regs.length) {
+            sessionStorage.setItem(KEY, '1');
+            return;
           }
+          return Promise.all(regs.map(function (r) { return r.unregister(); }))
+            .then(function () {
+              if ('caches' in window) {
+                return caches.keys().then(function (keys) {
+                  return Promise.all(keys.map(function (k) { return caches.delete(k); }));
+                });
+              }
+            })
+            .then(function () {
+              sessionStorage.setItem(KEY, '1');
+              location.reload();
+            });
         });
       })();
     </script>
-    <meta name="elecdog-version" content="0.25.3" />
+    <meta name="elecdog-version" content="0.25.4" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="manifest" href="manifest.webmanifest" />
     <meta name="theme-color" content="#0d1018" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <link rel="icon" href="icons/icon.svg" type="image/svg+xml" />
     <title>ElecDog · 世界实况</title>
-    <link rel="stylesheet" href="style.css?v=0.25.3" />
+    <link rel="stylesheet" href="style.css?v=0.25.4" />
   </head>
   <body style="background:#080a0e;color:#e8eaef;margin:0">
     <div id="app"><p style="padding:1.5rem;font-family:system-ui,sans-serif">加载中…</p></div>
-    <script type="module" src="src/main.js?v=0.25.3"></script>
+    <script type="module">
+      import('./src/main.js?v=0.25.4').catch(function (err) {
+        var el = document.getElementById('app');
+        var msg = err && err.message ? err.message : String(err);
+        if (el) {
+          el.innerHTML =
+            '<pre style="padding:1.5rem;color:#f87171;white-space:pre-wrap">ElecDog 模块加载失败：' +
+            msg +
+            '\n\n请尝试：Ctrl+Shift+R 硬刷新，或清除站点数据。</pre>';
+        }
+        console.error(err);
+      });
+    </script>
   </body>
 </html>

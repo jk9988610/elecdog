@@ -2,7 +2,7 @@
 
 给予电子狗意识。属性与描述**只来自对世界的观察**，不来自事先编造。
 
-> **当前状态：暂停扩展 · v0.25.1** — 详见 [STATUS.md](docs/STATUS.md)
+> **当前状态：暂停扩展 · v0.25.4** — 详见 [STATUS.md](docs/STATUS.md)
 
 ## 方法
 
@@ -27,11 +27,12 @@ https://jk9988610.github.io/elecdog/
 
 标题栏显示 **v{版本号}**（读自 `index.html` meta 标签）。
 
-### 版本显示过旧？
+### 页面空白？
+
+访问后若曾安装旧版 SW，会**自动注销并刷新一次**。v0.25.4 起不再部署 Service Worker。
 
 1. 硬刷新（Ctrl+Shift+R）
 2. DevTools → Application → Service Workers → Unregister → 刷新
-3. v0.25.1+ 会自动清除版本不一致的旧缓存
 
 ### 版本号（唯一维护处）
 
@@ -41,7 +42,7 @@ https://jk9988610.github.io/elecdog/
 npm run sync-version
 ```
 
-同步目标：`src/version.js`、`index.html`、`manifest.webmanifest`、`sw.js`
+同步目标：`src/version.js`、`index.html`、`manifest.webmanifest`
 
 ### 部署
 
