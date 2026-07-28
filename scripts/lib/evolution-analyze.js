@@ -208,3 +208,37 @@ export function compareRuns(runs) {
     signs.every((s) => s && signs[0].every((v, i) => v === s[i] || v === 0 || signs[0][i] === 0));
   return { avgDrift: +avgDrift.toFixed(4), signConsistent: consistent, runCount: runs.length };
 }
+
+/** 多种子多数票：各碱基漂移方向的跨运行共识 */
+export function majorityDriftConsensus(runs) {
+  const votes = Object.fromEntries(BASES.map((b) => [b, { pos: 0, neg: 0, zero: 0 }]));
+  for (const run of runs) {
+    const d = run.evolution?.dna?.driftAliveVsGen0;
+    if (!d) continue;
+    for (const b of BASES) {
+      const s = Math.sign(d[b]);
+      if (s > 0) votes[b].pos++;
+      else if (s < 0) votes[b].neg++;
+      else votes[b].zero++;
+    }
+  }
+  const consensus = {};
+  let unanimousBases = 0;
+  for (const b of BASES) {
+    const v = votes[b];
+    const active = v.pos + v.neg;
+    let sign = 0;
+    if (v.pos > v.neg) sign = 1;
+    else if (v.neg > v.pos) sign = -1;
+    const unanimous = active > 0 && (v.pos === 0 || v.neg === 0);
+    if (unanimous) unanimousBases++;
+    consensus[b] = { sign, unanimous, ...v };
+  }
+  return {
+    votes,
+    consensus,
+    unanimousBases,
+    allUnanimous: unanimousBases === BASES.length,
+    runCount: runs.length,
+  };
+}
