@@ -1,8 +1,11 @@
 {
   "name": "elecdog",
+  "version": "0.22.0",
   "private": true,
   "type": "module",
   "scripts": {
+    "sync-version": "node scripts/sync-version.mjs",
+    "predeploy": "npm run sync-version",
     "field": "node scripts/field-batch.mjs",
     "field:phase2": "node scripts/field-batch-phase2.mjs",
     "field:phase3": "node scripts/field-batch-phase3.mjs",
@@ -24,6 +27,7 @@
     "field:phase19": "node scripts/field-batch-phase19.mjs",
     "field:phase20": "node scripts/field-batch-phase20.mjs",
     "field:phase21": "node scripts/field-batch-phase21.mjs",
+    "field:phase22": "node scripts/field-batch-phase22.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   }
 }
