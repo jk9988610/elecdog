@@ -53,7 +53,10 @@ writeFileSync(join(root, 'manifest.webmanifest'), JSON.stringify(manifest, null,
 
 let html = readFileSync(join(root, 'index.html'), 'utf8');
 html = html.replace(/href="style\.css(\?v=[^"]*)?"/, `href="style.css?v=${version}"`);
-html = html.replace(/src="src\/main\.js(\?v=[^"]*)?"/, `src="src/main.js?v=${version}"`);
+html = html.replace(/import\('\.\/src\/main\.js(\?v=[^"]*)?'\)/, `import('./src/main.js?v=${version}')`);
+if (html.includes('src="src/main.js')) {
+  html = html.replace(/src="src\/main\.js(\?v=[^"]*)?"/, `src="src/main.js?v=${version}"`);
+}
 if (html.includes('name="elecdog-version"')) {
   html = html.replace(
     /(<meta[^>]*name="elecdog-version"[^>]*content=")[^"]*(")/,
