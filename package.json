@@ -1,11 +1,12 @@
 {
   "name": "elecdog",
-  "version": "0.25.4",
   "private": true,
   "type": "module",
   "scripts": {
-    "sync-version": "node scripts/sync-version.mjs",
-    "predeploy": "npm run sync-version",
+    "prepare:www": "node scripts/prepare-www.mjs",
+    "cap:sync": "npm run prepare:www && npx cap sync android",
+    "cap:open": "npx cap open android",
+    "apk:debug": "npm run cap:sync && cd android && ./gradlew assembleDebug",
     "field": "node scripts/field-batch.mjs",
     "field:phase2": "node scripts/field-batch-phase2.mjs",
     "field:phase3": "node scripts/field-batch-phase3.mjs",
@@ -30,6 +31,14 @@
     "field:phase22": "node scripts/field-batch-phase22.mjs",
     "field:phase23": "node scripts/field-batch-phase23.mjs",
     "field:phase24": "node scripts/field-batch-phase24.mjs",
+    "field:phase26": "node scripts/field-batch-phase26.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
+  },
+  "devDependencies": {
+    "@capacitor/android": "^7.2.0",
+    "@capacitor/cli": "^7.2.0"
+  },
+  "dependencies": {
+    "@capacitor/core": "^7.2.0"
   }
 }

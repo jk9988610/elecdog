@@ -1,0 +1,8 @@
+{
+  "appId": "com.elecdog.observer",
+  "appName": "ElecDog",
+  "webDir": "www",
+  "server": {
+    "androidScheme": "https"
+  }
+}

@@ -30,22 +30,6 @@ body {
   font-size: 0.8125rem;
 }
 
-.version {
-  font-size: 0.75rem;
-  opacity: 0.8;
-  font-variant-numeric: tabular-nums;
-}
-
-.offline-badge {
-  margin-left: 0.5rem;
-  padding: 0.1rem 0.4rem;
-  font-size: 0.7rem;
-  border-radius: 4px;
-  background: #3d2a14;
-  color: #fbbf24;
-  border: 1px solid #5c4218;
-}
-
 .toolbar {
   display: flex;
   flex-wrap: wrap;

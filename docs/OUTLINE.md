@@ -1,7 +1,7 @@
 # 电子狗（ElecDog）项目大纲
 
 > 版本：v1.0  
-> 状态：方法论确立 · **扩展暂停**（见 [STATUS.md](STATUS.md)）  
+> 状态：方法论确立 · **扩展进行中**（Phase 26 L4）  
 > 平台：GitHub Pages → 安卓 APK  
 > 仓库：elecdog
 
@@ -199,8 +199,8 @@ Phase 10 曾对「早期窗」「行为相变」做过系统扫描（见 OBS-202
 |------|--------|------|
 | Phase 0 | **最小可运行世界**：创建 → 诞生 → tick → 日志 → 观察界面 | ✅ |
 | Phase 1 | PWA、离线 | ✅ Phase 25 |
-| Phase 2 | APK | 待做 |
-| Phase 3 | Supabase | 待做 |
+| Phase 2 | APK | ✅ Phase 27（Capacitor 壳） |
+| Phase 3 | Supabase | ⏳ 下一候选 |
 | Phase 4+ | 电子人 | 待做 |
 
 Phase 0 的交付物不是「完整游戏」，而是**第一台可观察的电子狗世界运行器**。

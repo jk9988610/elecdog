@@ -3,7 +3,6 @@ import { performBirthRitual } from '../birth/ritual.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
-import { getAppVersion } from '../version.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -24,7 +23,7 @@ export class ObserverApp {
     this.root.innerHTML = `
       <header class="header">
         <h1>ElecDog</h1>
-        <p class="subtitle">世界实况 · 辞典统计 <span class="version">v${getAppVersion()}</span> <span id="offline-badge" class="offline-badge" hidden>离线</span></p>
+        <p class="subtitle">世界实况 · 辞典统计</p>
       </header>
 
       <section class="toolbar">
@@ -167,6 +166,7 @@ export class ObserverApp {
           <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
           <div class="stat-row"><span>终止 END</span><strong>${s.population.ended}</strong></div>
           <div class="stat-row"><span>续行 LINEAGE</span><strong>${s.population.lineage}</strong></div>
+          <div class="stat-row"><span>筛选 SEL</span><strong>${s.population.selection}</strong></div>
           <div class="stat-row"><span>争夺 contest</span><strong>${s.population.contest}</strong></div>
         </div>
         <h3 class="term">社会位</h3>

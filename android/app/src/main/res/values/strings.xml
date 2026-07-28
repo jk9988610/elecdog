@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">ElecDog</string>
+    <string name="title_activity_main">ElecDog</string>
+    <string name="package_name">com.elecdog.observer</string>
+    <string name="custom_url_scheme">com.elecdog.observer</string>
+</resources>
