@@ -3,7 +3,7 @@ import { performBirthRitual } from '../birth/ritual.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
-import { getAppVersion } from '../version.js';
+import { VERSION } from '../version.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -24,7 +24,7 @@ export class ObserverApp {
     this.root.innerHTML = `
       <header class="header">
         <h1>ElecDog</h1>
-        <p class="subtitle">世界实况 · 辞典统计 <span class="version">v${getAppVersion()}</span> <span id="offline-badge" class="offline-badge" hidden>离线</span></p>
+        <p class="subtitle">世界实况 · 辞典统计 <span class="version">v${VERSION}</span> <span id="offline-badge" class="offline-badge" hidden>离线</span></p>
       </header>
 
       <section class="toolbar">
