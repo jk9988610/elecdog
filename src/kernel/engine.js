@@ -5,6 +5,7 @@ import {
   ambienceLine,
   perturbFromAct,
   substrateSnapshot,
+  metabolicExchange,
 } from '../world/substrate.js';
 
 export function stepWorld(world, recorder) {
@@ -79,6 +80,26 @@ export function stepWorld(world, recorder) {
           });
         }
       }
+    }
+    const met = metabolicExchange(world, being, {
+      internalCount: result.internal.length,
+      hadExternal: result.external.length > 0,
+    });
+    if (met.draw) {
+      recorder.metabolism(
+        world.tick,
+        being.id,
+        `[DRW] e${met.draw.idx} -${met.draw.amount.toFixed(4)} act${met.draw.activity}`,
+        { kind: 'DRW', ...met.draw }
+      );
+    }
+    if (met.low) {
+      recorder.metabolism(
+        world.tick,
+        being.id,
+        `[LOW] e${met.low.idx} ${met.low.value.toFixed(4)}`,
+        { kind: 'LOW', ...met.low }
+      );
     }
     recorder.state(world.tick, being.id, result.registers);
   }

@@ -60,3 +60,32 @@ export function couplingDelta(substrate, registers) {
   if (!substrate || substrate.length !== registers.length) return null;
   return substrate.map((e, i) => (e - registers[i]) * COUPLING_STRENGTH);
 }
+
+/** 代谢：从基底摄取，不写「需求」语义 */
+export const MET_DRAW_BASE = 0.004;
+export const MET_LOW_THRESHOLD = 0.12;
+
+export function metabolicExchange(world, being, { internalCount = 1, hadExternal = false } = {}) {
+  const ch = world.substrate.channels;
+  const regs = being.registers;
+  let idx = 0;
+  let maxGap = 0;
+  for (let i = 0; i < SUBSTRATE_CHANNELS; i++) {
+    const gap = Math.abs(regs[i] - ch[i]);
+    if (gap > maxGap) {
+      maxGap = gap;
+      idx = i;
+    }
+  }
+  const activity = internalCount + (hadExternal ? 1 : 0);
+  const amount = Math.min(ch[idx], MET_DRAW_BASE * activity);
+  if (amount <= 0.0001) return { draw: null, low: null };
+
+  ch[idx] = Math.max(0, ch[idx] - amount);
+  being.registers[idx] = Math.max(0, Math.min(1, being.registers[idx] + amount * 0.3));
+
+  const draw = { idx, amount, activity, channelAfter: ch[idx] };
+  const low =
+    ch[idx] < MET_LOW_THRESHOLD ? { idx, value: ch[idx], threshold: MET_LOW_THRESHOLD } : null;
+  return { draw, low };
+}
