@@ -34,7 +34,8 @@
 | **22** | 多体漂移可重复性验证 | ✅ |
 | **23** | 种群层资源压力与存续（L3） | ✅ |
 | **24** | GAP-02 寄存器语义田野 | ✅ |
-| **25+** | 由新 OBS / GAP 驱动 | 见 [EVOLUTION.md](EVOLUTION.md) |
+| **25** | PWA 离线（OUTLINE Phase 1） | ✅ |
+| **26+** | APK / Supabase… | 见 [OUTLINE.md](OUTLINE.md) §八 |
 
 **粗估：核心田野约 10–12 个阶段**，之后进入「扩展世界能力」而非「补数据」。
 
@@ -125,7 +126,7 @@
 | 细胞边界 | ✅ | Phase 20 · 代谢域 [CEL]/[MBR] |
 | Pages 仪表盘 | ✅ | 辞典统计 · 无仪式/导出 |
 
-**Phase 24 完成：GAP-02 仍开放，|r−e|↔stress 可观察但无稳定寄存器语义映射。**
+**Phase 25 完成：PWA 离线壳（manifest + service worker）。田野扩展由 GAP/OBS 驱动。**
 
 ---
 

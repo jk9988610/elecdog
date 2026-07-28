@@ -24,7 +24,7 @@ export class ObserverApp {
     this.root.innerHTML = `
       <header class="header">
         <h1>ElecDog</h1>
-        <p class="subtitle">世界实况 · 辞典统计 <span class="version">v${VERSION}</span></p>
+        <p class="subtitle">世界实况 · 辞典统计 <span class="version">v${VERSION}</span> <span id="offline-badge" class="offline-badge" hidden>离线</span></p>
       </header>
 
       <section class="toolbar">
