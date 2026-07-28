@@ -9,6 +9,7 @@
     "field:phase4": "node scripts/field-batch-phase4.mjs",
     "field:phase5": "node scripts/field-batch-phase5.mjs",
     "field:phase6": "node scripts/field-batch-phase6.mjs",
+    "field:phase7": "node scripts/field-batch-phase7.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   }
 }
