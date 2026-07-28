@@ -51,7 +51,7 @@
 
 - 脚本：`npm run field` / `npm run field:phase2`
 - 报告：`docs/REPORTS/`
-- 最新： [2026-07-29-phase4.md](REPORTS/2026-07-29-phase4.md)（003 初探、信号/同态）
+- 最新： [2026-07-29-phase5.md](REPORTS/2026-07-29-phase5.md)（003×5、hex可决、三体信号链）
 
 ---
 
