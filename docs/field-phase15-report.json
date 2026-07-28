@@ -1,0 +1,97 @@
+{
+  "runAt": "2026-07-28T21:55:09.977Z",
+  "phase": 15,
+  "extension": "world_nodes_N0_N3",
+  "gap": "GAP-05",
+  "nodeCount": 4,
+  "solo": {
+    "targeting": {
+      "tgtCount": 61,
+      "actCount": 61,
+      "pairingRate": 1,
+      "depCount": 0,
+      "depletedIds": [],
+      "targetDistribution": {
+        "N3": 13,
+        "N2": 17,
+        "N0": 17,
+        "N1": 14
+      },
+      "finalLevels": [
+        {
+          "id": "N0",
+          "place": "01",
+          "level": 0.45009412176907054
+        },
+        {
+          "id": "N1",
+          "place": "01",
+          "level": 0.5439497782671824
+        },
+        {
+          "id": "N2",
+          "place": "01",
+          "level": 0.3152472404353324
+        },
+        {
+          "id": "N3",
+          "place": "01",
+          "level": 0.701465409355238
+        }
+      ],
+      "nodeLogsPerTick": 1
+    },
+    "external": {
+      "externalRate": 0.545,
+      "txCount": 48,
+      "actCount": 61
+    }
+  },
+  "dual": {
+    "targeting": {
+      "tgtCount": 118,
+      "actCount": 118,
+      "pairingRate": 1,
+      "depCount": 3,
+      "depletedIds": [
+        "N1",
+        "N3",
+        "N2"
+      ],
+      "targetDistribution": {
+        "N3": 34,
+        "N2": 25,
+        "N1": 35,
+        "N0": 24
+      },
+      "finalLevels": [
+        {
+          "id": "N0",
+          "place": "01",
+          "level": 0.19209412176907062
+        },
+        {
+          "id": "N1",
+          "place": "01",
+          "level": 0.004
+        },
+        {
+          "id": "N2",
+          "place": "01",
+          "level": 0.017247240435332423
+        },
+        {
+          "id": "N3",
+          "place": "01",
+          "level": 0.02600000000000001
+        }
+      ],
+      "nodeLogsPerTick": 1
+    }
+  },
+  "codexCandidate": {
+    "name": "行动标靶",
+    "ready": true,
+    "depObserved": true
+  }
+}

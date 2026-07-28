@@ -7,13 +7,25 @@ import {
   substrateSnapshot,
   metabolicExchange,
 } from '../world/substrate.js';
+import {
+  advanceNodes,
+  selectActTarget,
+  applyActToNode,
+  formatNodesState,
+  nodesSnapshot,
+} from '../world/nodes.js';
 
 export function stepWorld(world, recorder) {
   world.tick++;
 
   advanceSubstrate(world);
+  advanceNodes(world);
   const substrateSnap = substrateSnapshot(world);
   recorder.substrate(world.tick, substrateSnap, { place: world.birthPlace });
+  recorder.nodes(world.tick, formatNodesState(world.nodes), {
+    place: world.birthPlace,
+    nodes: nodesSnapshot(world),
+  });
   recorder.environment(world.tick, ambienceLine(world), { kind: 'AMB', place: world.birthPlace });
 
   const delivered = world.signalBus.filter((s) => s.deliverAt === world.tick);
@@ -57,11 +69,33 @@ export function stepWorld(world, recorder) {
           });
         } else if (line.startsWith('[ACT]')) {
           const payload = line.slice(5);
+          const target = selectActTarget(world, line, being.id);
+          const hit = applyActToNode(target, line, being.id, world.tick);
           recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
             fromId: being.id,
             act: line,
             place: world.birthPlace,
             kind: 'RES',
+            targetId: hit.nodeId,
+          });
+          recorder.environment(
+            world.tick,
+            `[TGT] ${hit.nodeId} -${hit.delta.toFixed(3)} ref ${being.id} lvl ${hit.after.toFixed(3)}`,
+            { kind: 'TGT', ...hit, fromId: being.id, place: world.birthPlace }
+          );
+          if (hit.depleted) {
+            recorder.environment(world.tick, `[DEP] ${hit.nodeId} at ${world.birthPlace}`, {
+              kind: 'DEP',
+              nodeId: hit.nodeId,
+              fromId: being.id,
+              place: world.birthPlace,
+            });
+          }
+          recorder.nodes(world.tick, formatNodesState(world.nodes), {
+            place: world.birthPlace,
+            nodes: nodesSnapshot(world),
+            afterAct: true,
+            fromId: being.id,
           });
           const ptb = perturbFromAct(world, line, being.id);
           recorder.environment(

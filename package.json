@@ -17,6 +17,7 @@
     "field:phase12": "node scripts/field-batch-phase12.mjs",
     "field:phase13": "node scripts/field-batch-phase13.mjs",
     "field:phase14": "node scripts/field-batch-phase14.mjs",
+    "field:phase15": "node scripts/field-batch-phase15.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   }
 }

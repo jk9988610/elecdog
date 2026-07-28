@@ -1,6 +1,7 @@
 // 公理: A1 A9 — 世界：平地、地点、时钟、数字基底场
 
 import { initSubstrate } from './substrate.js';
+import { initNodes } from './nodes.js';
 
 export function createWorld(name) {
   const world = {
@@ -13,6 +14,7 @@ export function createWorld(name) {
     createdAt: new Date().toISOString(),
   };
   initSubstrate(world);
+  initNodes(world);
   return world;
 }
 
