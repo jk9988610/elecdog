@@ -29,6 +29,7 @@
 | 24 | GAP-02 寄存器 | [2026-07-29-phase24.md](2026-07-29-phase24.md) |
 | 25 | PWA 离线 | [2026-07-29-phase25-pwa.md](2026-07-29-phase25-pwa.md) |
 | 26 | L4 环境筛选 | [2026-07-29-phase26.md](2026-07-29-phase26.md) |
+| 27 | 安卓 APK 壳 | [2026-07-29-phase27-apk.md](2026-07-29-phase27-apk.md) |
 
 原始 JSON：`docs/field-phase*.json`
 

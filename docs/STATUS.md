@@ -1,22 +1,23 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **扩展已恢复**
+> 更新：2026-07-29 · **扩展进行中**
 
 ---
 
 ## 一、当前状态（一句话）
 
-田野基线（Phase 0–10）已结案；世界能力扩展至 **Phase 26（L4 环境筛选观察层）**；**开放 GAP 2 条**；已移除版本号与 PWA/浏览器加载壳层。
+世界能力扩展至 **Phase 27（安卓 APK 壳）**；观察台为静态 ES module，经 Capacitor 打包为 Android 应用；**开放 GAP 2 条**。
 
 ---
 
-## 二、观察台
+## 二、观察台与 APK
 
 | 项 | 值 |
 |----|-----|
-| 入口 | `index.html` + `src/main.js`（静态 ES module） |
-| 线上（可选） | https://jk9988610.github.io/elecdog/ |
-| 版本号 | **已移除** — 不再维护或显示 |
+| Web 入口 | `index.html` + `src/main.js` |
+| APK 工程 | `android/`（Capacitor 7） |
+| 同步命令 | `npm run cap:sync` |
+| 构建 debug APK | `npm run apk:debug`（需本机 Android SDK） |
 
 ---
 
@@ -25,47 +26,22 @@
 | 区块 | 阶段 | 状态 |
 |------|------|------|
 | 田野基线 | 0–10 | ✅ 结案 |
-| 世界能力 | 11–20 | ✅ 环境/代谢/社会/谱系/细胞 |
-| 进化田野 | 21–22 | ✅ DNA 漂移可观察；多体不可重复（GAP-10） |
-| 种群 L3 | 23 | ✅ 资源压力与存续 |
-| 寄存器 GAP-02 | 24 | ✅ 田野完成；**仍开放** |
-| PWA | 25 | ⚠️ 实验后撤销 |
-| **L4 筛选** | **26** | ✅ `[SEL]` 通道 |
-| **下一扩展** | **27+** | **进行中** |
+| 世界能力 | 11–20 | ✅ |
+| 进化 / 种群 | 21–24 | ✅ |
+| L4 筛选 | 26 | ✅ `[SEL]` |
+| **APK 壳** | **27** | ✅ Capacitor 工程 |
+| **下一** | **28** | Supabase（OUTLINE Phase 3） |
 
 ---
 
-## 四、文档资产
-
-| 层 | 文档 | 数量 / 状态 |
-|----|------|-------------|
-| L0 公理 | [OUTLINE.md](OUTLINE.md) | 稳定 |
-| L1 田野 | [OBSERVATION_LOG.md](OBSERVATION_LOG.md) | **63 条** OBS |
-| L2 辞典 | [CODEX.md](CODEX.md) | **22 条**（Phase 8 后饱和） |
-| 映射 | [MAPPING.md](MAPPING.md) | 9 条 MAP |
-| 基因 | [GENETICS.md](GENETICS.md) | 8 条 G-OBS |
-| 缺口 | [GAPS.md](GAPS.md) | 10 条登记（2 开放） |
-| 报告 | [REPORTS/](REPORTS/) | Phase 2–26 田野报告 |
-
----
-
-## 五、开放缺口（仅 2 条）
-
-| GAP | 说明 | 下一步 |
-|-----|------|--------|
-| **GAP-02** | 寄存器无语义映射 | 禁止预制；Phase 24 已补充田野 |
-| **GAP-10** | 多体 DNA 漂移跨运行不可重复 | 观察结论，非引擎缺陷 |
-
----
-
-## 六、技术路线（OUTLINE §八）
+## 四、技术路线（OUTLINE §八）
 
 | 阶段 | 内容 | 状态 |
 |------|------|------|
 | Phase 0 | 最小内核 + 观察台 | ✅ |
 | Phase 1 PWA | 离线壳 | ⚠️ 已撤销 |
-| Phase 2 | APK | ⏳ 下一候选 |
-| Phase 3 | Supabase | 待做 |
+| Phase 2 | APK | ✅ Phase 27 |
+| Phase 3 | Supabase | ⏳ 下一 |
 
 ---
 

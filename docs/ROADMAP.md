@@ -36,7 +36,8 @@
 | **24** | GAP-02 寄存器语义田野 | ✅ |
 | **25** | PWA 离线（已撤销壳层） | ⚠️ |
 | **26** | L4 环境筛选观察层 `[SEL]` | ✅ |
-| **27+** | APK / Supabase… | 见 [OUTLINE.md](OUTLINE.md) §八 |
+| **27** | 安卓 APK 壳（Capacitor） | ✅ 工程就绪 |
+| **28+** | Supabase… | 见 [OUTLINE.md](OUTLINE.md) §八 |
 
 **粗估：核心田野约 10–12 个阶段**，之后进入「扩展世界能力」而非「补数据」。
 
@@ -118,7 +119,7 @@
 | OBS | **63 条** | 达标 |
 | 田野报告 | Phase 2–26 | [索引](REPORTS/README.md) |
 | 开放 GAP | **2** | GAP-02、GAP-10 |
-| 下一扩展 | **进行中** | Phase 27+（APK / Supabase / 新 OBS） |
+| 下一扩展 | **进行中** | Phase 28（Supabase） |
 
 ---
 

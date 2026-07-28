@@ -2,7 +2,7 @@
 
 给予电子狗意识。属性与描述**只来自对世界的观察**，不来自事先编造。
 
-> **当前：Phase 26 L4 环境筛选观察层** — 详见 [STATUS.md](docs/STATUS.md)
+> **当前：Phase 27 安卓 APK 壳** — 详见 [STATUS.md](docs/STATUS.md)
 
 ## 方法
 
@@ -28,6 +28,17 @@
 ```bash
 npx --yes serve .
 ```
+
+## 安卓 APK（Phase 27）
+
+```bash
+npm install
+npm run cap:sync      # 同步 Web → android/
+npm run cap:open      # Android Studio
+npm run apk:debug     # 本机 SDK 就绪后构建 debug APK
+```
+
+详见 [docs/REPORTS/2026-07-29-phase27-apk.md](docs/REPORTS/2026-07-29-phase27-apk.md)。
 
 ## 田野批次
 
