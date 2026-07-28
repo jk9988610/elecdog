@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "prepare:www": "node scripts/prepare-www.mjs",
-    "cap:sync": "npm run prepare:www && npx cap sync android",
-    "cap:open": "npx cap open android",
+    "cap:sync": "npm run prepare:www && node node_modules/@capacitor/cli/bin/capacitor sync android",
+    "cap:open": "node node_modules/@capacitor/cli/bin/capacitor open android",
     "apk:debug": "npm run cap:sync && cd android && ./gradlew assembleDebug",
     "field": "node scripts/field-batch.mjs",
     "field:phase2": "node scripts/field-batch-phase2.mjs",
