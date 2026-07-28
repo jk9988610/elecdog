@@ -1,0 +1,175 @@
+{
+  "runAt": "2026-07-28T21:31:36.722Z",
+  "ticks": 200,
+  "exp003追加": [
+    {
+      "name": "003-丁",
+      "externalRate": 0.505,
+      "r4": "rising",
+      "pulse": "0x8E 0x00 0x01"
+    },
+    {
+      "name": "003-戊",
+      "externalRate": 0.53,
+      "r4": "falling",
+      "pulse": "0x62 0x00 0x01"
+    }
+  ],
+  "exp003累计5只均值": 0.541,
+  "hexPredictability": {
+    "小狗": {
+      "rxCount": 111,
+      "match": 83,
+      "mismatch": 28,
+      "fullyPredictable": false,
+      "mismatchSamples": [
+        {
+          "tick": 2,
+          "predicted": "0x2D 0x68 0x52",
+          "internals": [
+            "0x4A 0x47 0xB9",
+            "0x44 0xB0 0x22"
+          ]
+        },
+        {
+          "tick": 2,
+          "predicted": "0xFE 0x7D 0xF2",
+          "internals": [
+            "0x4A 0x47 0xB9",
+            "0x44 0xB0 0x22"
+          ]
+        }
+      ]
+    },
+    "002-壬": {
+      "rxCount": 102,
+      "match": 80,
+      "mismatch": 22,
+      "fullyPredictable": false,
+      "mismatchSamples": [
+        {
+          "tick": 14,
+          "predicted": "0x8E 0xAE 0x3E",
+          "internals": [
+            "0xD7 0x4A 0xC3",
+            "0xCA 0x46 0x78"
+          ]
+        },
+        {
+          "tick": 14,
+          "predicted": "0x26 0x56 0x4F",
+          "internals": [
+            "0xD7 0x4A 0xC3",
+            "0xCA 0x46 0x78"
+          ]
+        }
+      ]
+    },
+    "003-己": {
+      "rxCount": 105,
+      "match": 69,
+      "mismatch": 36,
+      "fullyPredictable": false,
+      "mismatchSamples": [
+        {
+          "tick": 14,
+          "predicted": "0xF5 0x10 0x75",
+          "internals": [
+            "0xD5 0xCB 0x8E",
+            "0x55 0x3D 0x02"
+          ]
+        },
+        {
+          "tick": 14,
+          "predicted": "0xEA 0x8E 0x01",
+          "internals": [
+            "0xD5 0xCB 0x8E",
+            "0x55 0x3D 0x02"
+          ]
+        }
+      ]
+    }
+  },
+  "tripleWorld": {
+    "beings": [
+      "小狗",
+      "002-壬",
+      "003-己"
+    ],
+    "ids": [
+      "29010001",
+      "28020001",
+      "28030003"
+    ],
+    "externalRates": [
+      {
+        "name": "小狗",
+        "rate": 0.545
+      },
+      {
+        "name": "002-壬",
+        "rate": 0.565
+      },
+      {
+        "name": "003-己",
+        "rate": 0.6
+      }
+    ],
+    "signalChains": {
+      "totalLinks": 318,
+      "hopDistribution": {
+        "1": 245,
+        "2": 0,
+        "3": 73
+      },
+      "threeHopCount": 73,
+      "samples": [
+        {
+          "startTick": 1,
+          "path": [
+            "0001",
+            "0001",
+            "0001"
+          ],
+          "hops": 3
+        },
+        {
+          "startTick": 1,
+          "path": [
+            "0003",
+            "0001",
+            "0001"
+          ],
+          "hops": 3
+        },
+        {
+          "startTick": 8,
+          "path": [
+            "0001",
+            "0003",
+            "0001"
+          ],
+          "hops": 3
+        },
+        {
+          "startTick": 34,
+          "path": [
+            "0001",
+            "0003",
+            "0001"
+          ],
+          "hops": 3
+        },
+        {
+          "startTick": 36,
+          "path": [
+            "0003",
+            "0001",
+            "0001"
+          ],
+          "hops": 3
+        }
+      ]
+    }
+  }
+}
