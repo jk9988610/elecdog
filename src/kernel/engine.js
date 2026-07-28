@@ -1,4 +1,4 @@
-// 公理: A9 — 时钟；场压自助反馈；存续终止与谱系续行
+// 公理: A9 — 时钟；场压自助反馈；存续终止与谱系续行；环境剧变脉冲
 
 import {
   advanceSubstrate,
@@ -17,6 +17,7 @@ import {
 import { assignSocialSlot } from '../world/social.js';
 import { shouldTerminate, updateStressStreak } from '../world/viability.js';
 import { spawnLineageOffspring } from '../world/lineage.js';
+import { advanceCatastrophe } from '../world/catastrophe.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -27,6 +28,42 @@ export function stepWorld(world, recorder) {
 
   advanceSubstrate(world);
   advanceNodes(world);
+  const catastrophes = advanceCatastrophe(world);
+  for (const evt of catastrophes) {
+    if (evt.kind === 'SHK') {
+      const sign = evt.delta >= 0 ? '+' : '';
+      recorder.environment(
+        world.tick,
+        `[SHK] ${world.birthPlace} e${evt.idx} ${sign}${evt.delta.toFixed(3)} after ${evt.after.toFixed(3)}`,
+        { kind: 'SHK', place: world.birthPlace, ...evt }
+      );
+      recorder.substrate(world.tick, substrateSnapshot(world), {
+        place: world.birthPlace,
+        afterShock: true,
+        pulse: evt.pulse,
+      });
+    } else if (evt.kind === 'NPL') {
+      const sign = evt.delta >= 0 ? '+' : '';
+      recorder.environment(
+        world.tick,
+        `[NPL] ${evt.nodeId} ${sign}${evt.delta.toFixed(3)} lvl ${evt.after.toFixed(3)}`,
+        { kind: 'NPL', place: world.birthPlace, ...evt }
+      );
+      if (evt.depleted) {
+        recorder.environment(world.tick, `[DEP] ${evt.nodeId} at ${world.birthPlace}`, {
+          kind: 'DEP',
+          nodeId: evt.nodeId,
+          place: world.birthPlace,
+          fromPulse: true,
+        });
+      }
+      recorder.nodes(world.tick, formatNodesState(world.nodes), {
+        place: world.birthPlace,
+        afterPulse: true,
+        pulse: evt.pulse,
+      });
+    }
+  }
   const substrateSnap = substrateSnapshot(world);
   recorder.substrate(world.tick, substrateSnap, { place: world.birthPlace });
   recorder.nodes(world.tick, formatNodesState(world.nodes), {

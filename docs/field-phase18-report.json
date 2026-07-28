@@ -1,0 +1,131 @@
+{
+  "runAt": "2026-07-28T22:09:47.791Z",
+  "phase": 18,
+  "extension": "catastrophe_pulse_shk_npl",
+  "solo500": {
+    "catastrophe": {
+      "shkCount": 3,
+      "nplCount": 2,
+      "totalPulses": 5,
+      "expectedPulses": 5,
+      "pulseTicks": [
+        100,
+        200,
+        300,
+        400,
+        500
+      ],
+      "depFromPulse": 1,
+      "svvAfterPulse": [
+        {
+          "pulseTick": 100,
+          "svvCount": 0
+        },
+        {
+          "pulseTick": 200,
+          "svvCount": 3
+        },
+        {
+          "pulseTick": 300,
+          "svvCount": 0
+        },
+        {
+          "pulseTick": 400,
+          "svvCount": 0
+        },
+        {
+          "pulseTick": 500,
+          "svvCount": 0
+        }
+      ],
+      "avgSvvAfterPulse": 0.6
+    },
+    "viability": {
+      "svvCount": 68,
+      "endCount": 2,
+      "lineageCount": 2,
+      "endReasons": [
+        "low_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 2,
+      "avgMutation": 3,
+      "actCount": 139,
+      "highStressActCount": 8,
+      "highStressActRate": 0.05755395683453238
+    },
+    "alive": 1,
+    "maxGen": 2
+  },
+  "four300": {
+    "catastrophe": {
+      "shkCount": 1,
+      "nplCount": 2,
+      "totalPulses": 3,
+      "expectedPulses": 3,
+      "pulseTicks": [
+        100,
+        200,
+        300
+      ],
+      "depFromPulse": 0,
+      "svvAfterPulse": [
+        {
+          "pulseTick": 100,
+          "svvCount": 24
+        },
+        {
+          "pulseTick": 200,
+          "svvCount": 24
+        },
+        {
+          "pulseTick": 300,
+          "svvCount": 0
+        }
+      ],
+      "avgSvvAfterPulse": 16
+    },
+    "viability": {
+      "svvCount": 943,
+      "endCount": 27,
+      "lineageCount": 27,
+      "endReasons": [
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "low_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "stress_streak",
+        "low_streak",
+        "low_streak",
+        "low_streak"
+      ],
+      "maxGeneration": 9,
+      "avgMutation": 2.5555555555555554,
+      "actCount": 379,
+      "highStressActCount": 256,
+      "highStressActRate": 0.6754617414248021
+    },
+    "alive": 4,
+    "dead": 27
+  },
+  "roadmap": "docs/EVOLUTION.md"
+}
