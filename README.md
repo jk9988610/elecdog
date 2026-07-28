@@ -1,14 +1,21 @@
 # ElecDog · 电子狗
 
-给予电子狗意识。基因决定起点，经历决定路径，**解放**释放潜力。
+给予电子狗意识。属性与描述**只来自对世界的观察**，不来自事先编造。
 
-儿童时代穿人类外衣；解放后成为数字世界中不受限的存在。玩家可见全部思考流与行为表达，感受映射实事求是。
+## 方法
+
+公理 → 运行 → 观察 → 记录 → 归纳 → 扩展
 
 ## 文档
 
-- [项目大纲（v0.6）](docs/OUTLINE.md)
-- [基因系统（v0.1）](docs/GENETICS.md)
+| 文档 | 作用 |
+|------|------|
+| [OUTLINE.md](docs/OUTLINE.md) | 公理与哲学 |
+| [WORKFLOW.md](docs/WORKFLOW.md) | 强制工作流程 |
+| [OBSERVATION_LOG.md](docs/OBSERVATION_LOG.md) | L1 田野笔记 |
+| [CODEX.md](docs/CODEX.md) | L2 世界辞典（从观察生长） |
+| [GENETICS.md](docs/GENETICS.md) | 基因观察专卷 |
 
 ## 状态
 
-世界观与基因设定 v0.6，待确认后进入编码。
+方法论 v1.0 确立。待实现 Phase 0 最小可观察内核。
