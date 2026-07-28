@@ -1,6 +1,6 @@
 {
   "name": "elecdog",
-  "version": "0.22.0",
+  "version": "0.23.0",
   "private": true,
   "type": "module",
   "scripts": {
@@ -28,6 +28,7 @@
     "field:phase20": "node scripts/field-batch-phase20.mjs",
     "field:phase21": "node scripts/field-batch-phase21.mjs",
     "field:phase22": "node scripts/field-batch-phase22.mjs",
+    "field:phase23": "node scripts/field-batch-phase23.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   }
 }
