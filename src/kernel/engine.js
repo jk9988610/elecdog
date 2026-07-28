@@ -30,6 +30,13 @@ export function stepWorld(world, recorder) {
             emittedAt: world.tick,
             deliverAt: world.tick + 1,
           });
+        } else if (line.startsWith('[ACT]')) {
+          const payload = line.slice(5);
+          recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
+            fromId: being.id,
+            act: line,
+            place: world.birthPlace,
+          });
         }
       }
     }

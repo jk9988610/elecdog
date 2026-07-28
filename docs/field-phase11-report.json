@@ -1,0 +1,71 @@
+{
+  "runAt": "2026-07-28T21:43:38.027Z",
+  "phase": 11,
+  "extension": "environment_echo_on_ACT",
+  "solo": {
+    "pairing": {
+      "actCount": 61,
+      "resCount": 61,
+      "txCount": 48,
+      "matched": 61,
+      "pairingRate": 1,
+      "resOnTxTicks": 0,
+      "orphanRes": 0
+    },
+    "external": {
+      "externalRate": 0.545,
+      "txCount": 48,
+      "actCount": 61
+    },
+    "compareObs04": {
+      "externalRate": 0.545,
+      "actCount": 61
+    }
+  },
+  "dual": {
+    "observer": {
+      "actCount": 61,
+      "resCount": 61,
+      "txCount": 48,
+      "matched": 61,
+      "pairingRate": 1,
+      "resOnTxTicks": 0,
+      "orphanRes": 0
+    },
+    "mate": {
+      "actCount": 52,
+      "resCount": 52,
+      "txCount": 52,
+      "matched": 52,
+      "pairingRate": 1,
+      "resOnTxTicks": 0,
+      "orphanRes": 0
+    },
+    "totalRes": 113,
+    "totalAct": 113,
+    "resEqualsAct": true
+  },
+  "codexCandidate": {
+    "name": "行动回响",
+    "definition": "个体发出 [ACT] 时，同 tick 环境通道记录 [RES] {地点} {身份证} {ACT载荷}",
+    "soloPairing": 1,
+    "dualPairing": 1,
+    "ready": true
+  },
+  "baseline": {
+    "phaseReports": 9,
+    "files": [
+      "field-phase10-report.json",
+      "field-phase2-report.json",
+      "field-phase3-report.json",
+      "field-phase4-report.json",
+      "field-phase5-report.json",
+      "field-phase6-report.json",
+      "field-phase7-report.json",
+      "field-phase8-report.json",
+      "field-phase9-report.json"
+    ],
+    "obsTarget": 30,
+    "gapsDocumented": 7
+  }
+}
