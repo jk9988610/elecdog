@@ -36,4 +36,4 @@ https://jk9988610.github.io/elecdog/
 npm run sync-version
 ```
 
-将自动更新 `src/version.js`、`index.html` 资源缓存参数与页面显示。
+将自动更新 `src/version.js`、`index.html` 资源缓存参数、`manifest.webmanifest` 与 `sw.js`（PWA 离线缓存）。
