@@ -1,12 +1,6 @@
-/** PWA 注册与离线状态 — 轻量，不阻塞应用启动 */
+/** 离线状态徽章 — 不注册 Service Worker */
 
-export function initPwa() {
-  if ('serviceWorker' in navigator) {
-    const swUrl = new URL('../sw.js', import.meta.url);
-    const scope = new URL('../', import.meta.url).pathname;
-    navigator.serviceWorker.register(swUrl, { scope }).catch(() => {});
-  }
-
+export function initOfflineBadge() {
   const badge = document.getElementById('offline-badge');
   if (!badge) return;
   const sync = () => {
