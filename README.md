@@ -15,12 +15,11 @@
 | [OBSERVATION_LOG.md](docs/OBSERVATION_LOG.md) | L1 田野笔记 |
 | [CODEX.md](docs/CODEX.md) | L2 世界辞典（4 条已确立） |
 | [COMPARISON.md](docs/COMPARISON.md) | 跨观察对比归纳 |
+| [REPORTS/](docs/REPORTS/) | 协作者田野报告（观察者阅读） |
 | [GENETICS.md](docs/GENETICS.md) | 基因观察专卷 |
 
-## 状态
+## 观察台
 
-**Phase 0 最小内核已实现。** 可进行第一次运行与田野记录。
+https://jk9988610.github.io/elecdog/
 
-本地预览：`npx serve .` 或任意静态服务器打开 `index.html`。
-
-**GitHub Pages**：https://jk9988610.github.io/elecdog/
+协作者代跑田野实验；最新报告见 `docs/REPORTS/`。
