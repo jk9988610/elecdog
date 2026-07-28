@@ -2,7 +2,7 @@
   "name": "ElecDog · 电子狗世界实况",
   "short_name": "ElecDog",
   "description": "电子狗世界观察台 — 环境 / 种群 / 个体辞典统计",
-  "version": "0.25.0",
+  "version": "0.25.1",
   "start_url": "./",
   "scope": "./",
   "display": "standalone",

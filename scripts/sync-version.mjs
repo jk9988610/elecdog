@@ -24,7 +24,8 @@ function walkJs(dir, prefix = '') {
     if (statSync(full).isDirectory()) {
       files.push(...walkJs(full, join(prefix, name)));
     } else if (name.endsWith('.js')) {
-      files.push(`./src/${join(prefix, name).replace(/\\/g, '/')}`);
+      const rel = `./src/${join(prefix, name).replace(/\\/g, '/')}`;
+      files.push(`${rel}?v=${version}`);
     }
   }
   return files;
@@ -38,7 +39,7 @@ const precache = [
   `./src/main.js?v=${version}`,
   './manifest.webmanifest',
   './icons/icon.svg',
-  ...srcFiles.filter((f) => f !== './src/main.js'),
+  ...srcFiles.filter((f) => !f.startsWith('./src/main.js')),
 ];
 
 writeFileSync(

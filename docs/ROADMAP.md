@@ -106,27 +106,19 @@
 
 ---
 
-## 四、进度仪表盘（2026-07-29）
+## 四、进度仪表盘（2026-07-29 · 整理期）
+
+> **⏸ 暂停扩展** — 详见 [STATUS.md](STATUS.md)
 
 | 维度 | 进度 | 说明 |
 |------|------|------|
-| 辞典 | 11 条 · **饱和** | Phase 8 后 2 阶段无新条 |
-| 多体链 | 三体✅ 四体✅ | Phase 6 |
-| OBS 条数 | **30** | Phase 11 ✅ |
-| 行动回响 | ✅ | Phase 11 · GAP-01 |
-| 事件记忆迹 | ✅ | Phase 12 · GAP-03 |
-| 数字基底场 | ✅ | Phase 13 |
-| 基底代谢 | ✅ | Phase 14 |
-| 行动标靶 | ✅ | Phase 15 |
-| 社会位/迹 | ✅ | Phase 16 |
-| 自助求生 | ✅ | Phase 17 · [EVOLUTION.md](EVOLUTION.md) |
-| 环境剧变 | ✅ | Phase 18 · SHK/NPL 脉冲 |
-| 生物圈反馈 | ✅ | Phase 19 · [BIO] |
-| 种群结构迹 | ✅ | Phase 19 · [CMP] structIdx |
-| 细胞边界 | ✅ | Phase 20 · 代谢域 [CEL]/[MBR] |
-| Pages 仪表盘 | ✅ | 辞典统计 · 无仪式/导出 |
-
-**Phase 25 完成：PWA 离线壳（manifest + service worker）。田野扩展由 GAP/OBS 驱动。**
+| 版本 | **0.25.1** | `package.json` 单源 |
+| 辞典 CODEX | **22 条** · 饱和 | Phase 8 后无新条 |
+| OBS | **61 条** | 达标 |
+| 田野报告 | Phase 2–25 | [索引](REPORTS/README.md) |
+| 开放 GAP | **2** | GAP-02、GAP-10 |
+| PWA 离线 | ✅ | Phase 25 / OUTLINE Phase 1 |
+| 下一扩展 | ⏸ | 待观察者新方向 |
 
 ---
 
