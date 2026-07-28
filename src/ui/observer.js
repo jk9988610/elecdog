@@ -75,6 +75,7 @@ export class ObserverApp {
             <option value="substrate">substrate（基底场态）</option>
             <option value="nodes">nodes（世界节点）</option>
             <option value="social">social（社会迹）</option>
+            <option value="viability">viability（存续/场压）</option>
             <option value="metabolism">metabolism（基底代谢）</option>
             <option value="memory">memory（事件记忆迹）</option>
             <option value="state">state</option>

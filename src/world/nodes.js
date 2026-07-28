@@ -24,7 +24,10 @@ export function advanceNodes(world) {
   }
 }
 
-export function selectActTarget(world, actLine, beingId) {
+export function selectActTarget(world, actLine, beingId, { stress = 0 } = {}) {
+  if (stress > 0.28 && world.nodes?.length) {
+    return world.nodes.reduce((best, n) => (n.level > best.level ? n : best));
+  }
   const h = hashString(`${actLine}|${beingId}|${world.tick}`);
   const idx = h % world.nodes.length;
   return world.nodes[idx];

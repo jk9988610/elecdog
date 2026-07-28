@@ -79,6 +79,10 @@ export class Recorder {
     return this.log({ tick, channel: 'social', beingId, content, meta });
   }
 
+  viability(tick, beingId, content, meta = {}) {
+    return this.log({ tick, channel: 'viability', beingId, content, meta });
+  }
+
   query({ channel, beingId, tickFrom, tickTo, limit = 500 }) {
     let result = this.entries;
     if (channel) result = result.filter((e) => e.channel === channel);

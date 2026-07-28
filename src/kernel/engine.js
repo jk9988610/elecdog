@@ -1,4 +1,4 @@
-// 公理: A9 — 时钟与 tick；A1 基底场；TX 次 tick 投递
+// 公理: A9 — 时钟；场压自助反馈；存续终止与谱系续行
 
 import {
   advanceSubstrate,
@@ -15,6 +15,8 @@ import {
   nodesSnapshot,
 } from '../world/nodes.js';
 import { assignSocialSlot } from '../world/social.js';
+import { shouldTerminate, updateStressStreak } from '../world/viability.js';
+import { spawnLineageOffspring } from '../world/lineage.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -35,13 +37,16 @@ export function stepWorld(world, recorder) {
 
   const delivered = world.signalBus.filter((s) => s.deliverAt === world.tick);
   const tickNodeHits = new Map();
+  const activeBeings = world.beings.filter((b) => b.alive);
 
-  for (const being of world.beings) {
+  for (const being of activeBeings) {
     const heard = delivered.filter((s) => s.fromId !== being.id);
     const result = being.tick(world.tick, {
       heardSignals: heard,
       substrate: substrateSnap,
     });
+
+    if (!result.alive) continue;
 
     for (const sig of heard) {
       recorder.log({
@@ -87,7 +92,7 @@ export function stepWorld(world, recorder) {
           });
         } else if (line.startsWith('[ACT]')) {
           const payload = line.slice(5);
-          const target = selectActTarget(world, line, being.id);
+          const target = selectActTarget(world, line, being.id, { stress: result.stress });
           const hit = applyActToNode(target, line, being.id, world.tick);
           recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
             fromId: being.id,
@@ -155,14 +160,46 @@ export function stepWorld(world, recorder) {
       );
     }
     if (met.low) {
+      being.lowStreak++;
       recorder.metabolism(
         world.tick,
         being.id,
         `[LOW] e${met.low.idx} ${met.low.value.toFixed(4)}`,
         { kind: 'LOW', ...met.low }
       );
+    } else {
+      being.lowStreak = 0;
     }
+
+    updateStressStreak(being, result.stress);
+
+    if (result.stress > 0.12 || met.low) {
+      recorder.viability(
+        world.tick,
+        being.id,
+        `[SVV] stress ${result.stress.toFixed(3)} lowStreak ${being.lowStreak}`,
+        {
+          kind: 'SVV',
+          stress: result.stress,
+          lowStreak: being.lowStreak,
+          stressStreak: being.stressStreak,
+        }
+      );
+    }
+
     recorder.state(world.tick, being.id, result.registers);
+
+    const term = shouldTerminate(being, result.stress);
+    if (term) {
+      being.alive = false;
+      recorder.viability(world.tick, being.id, `[END] ${term.reason}`, {
+        kind: 'END',
+        ...term,
+        stress: result.stress,
+        generation: being.generation,
+      });
+      spawnLineageOffspring(world, recorder, being);
+    }
   }
 
   for (const [nodeId, slots] of tickNodeHits) {
