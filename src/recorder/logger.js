@@ -74,6 +74,25 @@ export class Recorder {
     );
   }
 
+  exportText({ world = null } = {}) {
+    const lines = [];
+    if (world) {
+      lines.push(`# ElecDog 观察输出`);
+      lines.push(`世界: ${world.name}`);
+      lines.push(`地点: ${world.birthPlace}`);
+      lines.push(`tick: ${world.tick}`);
+      lines.push(`个体数: ${world.beings.length}`);
+      lines.push(`导出条目: ${this.entries.length}`);
+      lines.push(`时间: ${new Date().toISOString()}`);
+      lines.push('');
+    }
+    for (const e of this.entries) {
+      const who = e.beingId ? ` ${e.beingId}` : '';
+      lines.push(`t${e.tick}\t${e.channel}${who}\t${e.content}`);
+    }
+    return lines.join('\n');
+  }
+
   clear() {
     this.entries = [];
     this.seq = 0;

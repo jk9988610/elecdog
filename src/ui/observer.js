@@ -42,8 +42,10 @@ export class ObserverApp {
           <span id="tick-display" class="tick">tick: 0</span>
         </div>
         <div class="row" id="export-row" hidden>
+          <button id="btn-copy-log" type="button">复制全部输出</button>
           <button id="btn-export" type="button">导出日志 JSON</button>
           <button id="btn-clear-log" type="button">清空日志</button>
+          <span id="copy-feedback" class="copy-feedback" hidden>已复制</span>
         </div>
       </section>
 
@@ -60,7 +62,9 @@ export class ObserverApp {
       <section class="panel log-panel">
         <div class="log-header">
           <h2>观察日志</h2>
-          <select id="channel-filter">
+          <div class="log-actions">
+            <button id="btn-copy-visible" type="button" class="btn-small">复制当前视图</button>
+            <select id="channel-filter">
             <option value="all">全部通道</option>
             <option value="ritual">ritual</option>
             <option value="system">system</option>
@@ -68,6 +72,7 @@ export class ObserverApp {
             <option value="external">external（对外）</option>
             <option value="state">state</option>
           </select>
+          </div>
         </div>
         <div id="log-view" class="log-view"></div>
       </section>
@@ -111,6 +116,9 @@ export class ObserverApp {
       fieldNotes: this.root.querySelector('#field-notes'),
       btnSaveNotes: this.root.querySelector('#btn-save-notes'),
       btnCopyNotes: this.root.querySelector('#btn-copy-notes'),
+      btnCopyLog: this.root.querySelector('#btn-copy-log'),
+      btnCopyVisible: this.root.querySelector('#btn-copy-visible'),
+      copyFeedback: this.root.querySelector('#copy-feedback'),
       btnExport: this.root.querySelector('#btn-export'),
       btnClearLog: this.root.querySelector('#btn-clear-log'),
     };
@@ -126,6 +134,8 @@ export class ObserverApp {
     });
     this.$.btnSaveNotes.addEventListener('click', () => this.saveNotes());
     this.$.btnCopyNotes.addEventListener('click', () => this.copyNotes());
+    this.$.btnCopyLog.addEventListener('click', () => this.copyAllLog());
+    this.$.btnCopyVisible.addEventListener('click', () => this.copyVisibleLog());
     this.$.btnExport.addEventListener('click', () => this.exportLog());
     this.$.btnClearLog.addEventListener('click', () => this.clearLog());
   }
@@ -235,7 +245,32 @@ export class ObserverApp {
   }
 
   async copyNotes() {
-    await navigator.clipboard.writeText(this.$.fieldNotes.value);
+    await this.copyText(this.$.fieldNotes.value);
+  }
+
+  async copyAllLog() {
+    const text = this.recorder.exportText({ world: this.world });
+    await this.copyText(text);
+  }
+
+  async copyVisibleLog() {
+    const channel = this.filterChannel === 'all' ? null : this.filterChannel;
+    const entries = this.recorder.query({ channel, limit: 100000 });
+    const lines = entries.map((e) => {
+      const who = e.beingId ? ` ${e.beingId}` : '';
+      return `t${e.tick}\t${e.channel}${who}\t${e.content}`;
+    });
+    await this.copyText(lines.join('\n'));
+  }
+
+  async copyText(text) {
+    if (!text) return;
+    await navigator.clipboard.writeText(text);
+    this.$.copyFeedback.hidden = false;
+    clearTimeout(this._copyTimer);
+    this._copyTimer = setTimeout(() => {
+      this.$.copyFeedback.hidden = true;
+    }, 2000);
   }
 
   exportLog() {
