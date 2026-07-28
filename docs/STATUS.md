@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · 版本 **0.25.1** · **暂停扩展**
+> 更新：2026-07-29 · 版本 **0.26.0** · **暂停扩展**
 
 ---
 
 ## 一、当前状态（一句话）
 
-田野基线（Phase 0–10）已结案；世界能力扩展至 Phase 25（含 PWA）；**开放 GAP 2 条**；**暂停新阶段扩展**，以整理与稳定为主。
+田野基线（Phase 0–10）已结案；世界能力扩展至 Phase 25；**开放 GAP 2 条**；**暂停新阶段扩展**，以整理与稳定为主。前端已回退至 Phase 22 简洁部署（无 PWA / Service Worker）。
 
 ---
 
@@ -15,15 +15,16 @@
 | 项 | 值 |
 |----|-----|
 | 唯一版本源 | `package.json` → `npm run sync-version` |
-| 当前版本 | **0.25.4** |
+| 当前版本 | **0.26.0** |
 | 线上实况 | https://jk9988610.github.io/elecdog/ |
 | 版本显示 | 标题栏 `v*` + `<meta name="elecdog-version">` |
+| 部署方式 | GitHub Actions → `_site`（`index.html` + `src/`） |
 
-### 若版本显示过旧（如 v0.23.0）
+### 若页面异常或版本过旧
 
 1. **硬刷新**：Ctrl+Shift+R（Mac：Cmd+Shift+R）
-2. DevTools → Application → Service Workers → **Unregister**，再刷新
-3. v0.25.4 起：**不再部署 Service Worker**；仅首次检测到旧 SW 时自动注销并刷新
+2. 若曾访问 v0.25.x PWA 版：DevTools → Application → Service Workers → **Unregister**，清除站点数据后再刷新
+3. v0.26.0 起：**不再部署或注册 Service Worker**；入口恢复为静态 `<script type="module" src="src/main.js">`
 
 ---
 
@@ -36,7 +37,7 @@
 | 进化田野 | 21–22 | ✅ DNA 漂移可观察；多体不可重复（GAP-10） |
 | 种群 L3 | 23 | ✅ 资源压力与存续 |
 | 寄存器 GAP-02 | 24 | ✅ 田野完成；**仍开放** |
-| PWA 离线 | 25 | ✅ OUTLINE Phase 1 |
+| PWA 离线 | 25 | ⚠️ 已实验；v0.26.0 回退移除 SW |
 | **下一扩展** | 26+ | **⏸ 暂停** |
 
 ---
@@ -94,7 +95,7 @@
 | OUTLINE 阶段 | 内容 | 状态 |
 |--------------|------|------|
 | Phase 0 | 最小内核 + 观察台 | ✅ |
-| Phase 1 | PWA 离线 | ✅ |
+| Phase 1 | PWA 离线 | ⚠️ 已回退（v0.26.0） |
 | Phase 2 | APK | ⏸ 未开始 |
 | Phase 3 | Supabase | ⏸ 未开始 |
 
@@ -108,7 +109,6 @@ elecdog/
 ├── scripts/       # 田野批次 field:phase*
 ├── docs/          # 田野文档体系
 ├── index.html     # 观察台入口
-├── sw.js          # PWA（sync-version 生成）
 └── package.json   # 版本唯一源
 ```
 
