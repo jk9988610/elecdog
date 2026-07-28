@@ -15,7 +15,7 @@
 | 项 | 值 |
 |----|-----|
 | 唯一版本源 | `package.json` → `npm run sync-version` |
-| 当前版本 | **0.25.1** |
+| 当前版本 | **0.25.2** |
 | 线上实况 | https://jk9988610.github.io/elecdog/ |
 | 版本显示 | 标题栏 `v*` + `<meta name="elecdog-version">` |
 
@@ -23,7 +23,7 @@
 
 1. **硬刷新**：Ctrl+Shift+R（Mac：Cmd+Shift+R）
 2. DevTools → Application → Service Workers → **Unregister**，再刷新
-3. v0.25.1 起：页面会自动检测 meta 与缓存版本不一致并清除旧缓存
+3. v0.25.2 起：SW 已简化；若仍空白请 Unregister Service Worker 后硬刷新
 
 ---
 
