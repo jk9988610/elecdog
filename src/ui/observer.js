@@ -71,7 +71,8 @@ export class ObserverApp {
             <option value="internal">internal（对内）</option>
             <option value="external">external（对外）</option>
             <option value="signal">signal（外来信号）</option>
-            <option value="environment">environment（环境回响）</option>
+            <option value="environment">environment（环境脉搏/回响）</option>
+            <option value="substrate">substrate（基底场态）</option>
             <option value="memory">memory（事件记忆迹）</option>
             <option value="state">state</option>
           </select>

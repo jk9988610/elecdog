@@ -26,11 +26,15 @@ export class Being {
     this.tickCount = 0;
   }
 
-  advanceRegisters() {
+  advanceRegisters(substrate = null) {
     for (let i = 0; i < this.registers.length; i++) {
       const mix = this.registers[(i + 1) % this.registers.length];
       const noise = (this.rng() - 0.5) * 0.08;
-      this.registers[i] = Math.max(0, Math.min(1, this.registers[i] * 0.97 + mix * 0.03 + noise));
+      let next = this.registers[i] * 0.97 + mix * 0.03 + noise;
+      if (substrate && substrate.length === this.registers.length) {
+        next += (substrate[i] - this.registers[i]) * 0.02;
+      }
+      this.registers[i] = Math.max(0, Math.min(1, next));
     }
   }
 
@@ -59,9 +63,9 @@ export class Being {
     return [`[${kind}] 0x${op} 0x${payload} 0x${chk}`];
   }
 
-  tick(worldTick, { heardSignals = [] } = {}) {
+  tick(worldTick, { heardSignals = [], substrate = null } = {}) {
     this.tickCount++;
-    this.advanceRegisters();
+    this.advanceRegisters(substrate);
     const internal = this.emitInternal();
 
     if (heardSignals.length > 0) {

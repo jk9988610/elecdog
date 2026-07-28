@@ -1,13 +1,28 @@
-// 公理: A9 — 时钟与 tick；观察驱动：TX 信号次 tick 投递他者
+// 公理: A9 — 时钟与 tick；A1 基底场；TX 次 tick 投递
+
+import {
+  advanceSubstrate,
+  ambienceLine,
+  perturbFromAct,
+  substrateSnapshot,
+} from '../world/substrate.js';
 
 export function stepWorld(world, recorder) {
   world.tick++;
+
+  advanceSubstrate(world);
+  const substrateSnap = substrateSnapshot(world);
+  recorder.substrate(world.tick, substrateSnap, { place: world.birthPlace });
+  recorder.environment(world.tick, ambienceLine(world), { kind: 'AMB', place: world.birthPlace });
 
   const delivered = world.signalBus.filter((s) => s.deliverAt === world.tick);
 
   for (const being of world.beings) {
     const heard = delivered.filter((s) => s.fromId !== being.id);
-    const result = being.tick(world.tick, { heardSignals: heard });
+    const result = being.tick(world.tick, {
+      heardSignals: heard,
+      substrate: substrateSnap,
+    });
 
     for (const sig of heard) {
       recorder.log({
@@ -45,6 +60,18 @@ export function stepWorld(world, recorder) {
             fromId: being.id,
             act: line,
             place: world.birthPlace,
+            kind: 'RES',
+          });
+          const ptb = perturbFromAct(world, line, being.id);
+          recorder.environment(
+            world.tick,
+            `[PTB] ${world.birthPlace} e${ptb.idx} +${ptb.delta.toFixed(3)} ref ${being.id}`,
+            { kind: 'PTB', ...ptb, fromId: being.id, place: world.birthPlace }
+          );
+          recorder.substrate(world.tick, substrateSnapshot(world), {
+            place: world.birthPlace,
+            afterAct: true,
+            fromId: being.id,
           });
           recorder.memory(world.tick, being.id, `[MEM] ACT t${world.tick}`, {
             kind: 'ACT',

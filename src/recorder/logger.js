@@ -58,6 +58,15 @@ export class Recorder {
     return this.log({ tick, channel: 'memory', beingId, content, meta });
   }
 
+  substrate(tick, channels, meta = {}) {
+    return this.log({
+      tick,
+      channel: 'substrate',
+      content: channels.map((v, i) => `e${i}=${v.toFixed(4)}`).join(' '),
+      meta: { channels, ...meta },
+    });
+  }
+
   query({ channel, beingId, tickFrom, tickTo, limit = 500 }) {
     let result = this.entries;
     if (channel) result = result.filter((e) => e.channel === channel);
