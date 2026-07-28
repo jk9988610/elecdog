@@ -1,0 +1,103 @@
+{
+  "runAt": "2026-07-28T21:29:06.295Z",
+  "ticks": 200,
+  "templates": {
+    "diff001_003": 66,
+    "diff002_003": 64,
+    "prefix003": "221321332001030232102231…"
+  },
+  "exp003": [
+    {
+      "label": "003-甲",
+      "id": "0120260728030001",
+      "pulse": "0xB4 0x00 0x01",
+      "externalRate": 0.58,
+      "r4": "rising",
+      "txAct": {
+        "tx": 55,
+        "act": 61,
+        "txRatio": 0.47413793103448276
+      }
+    },
+    {
+      "label": "003-乙",
+      "id": "0120260728030002",
+      "pulse": "0x29 0x00 0x01",
+      "externalRate": 0.55,
+      "r4": "rising",
+      "txAct": {
+        "tx": 55,
+        "act": 55,
+        "txRatio": 0.5
+      }
+    },
+    {
+      "label": "003-丙",
+      "id": "0120260728030003",
+      "pulse": "0x29 0x00 0x01",
+      "externalRate": 0.54,
+      "r4": "stable",
+      "txAct": {
+        "tx": 53,
+        "act": 55,
+        "txRatio": 0.49074074074074076
+      }
+    }
+  ],
+  "observerCompare": {
+    "solo": {
+      "tx": 48,
+      "act": 61,
+      "txRatio": 0.44036697247706424,
+      "externalRate": 0.545
+    },
+    "dual": {
+      "tx": 48,
+      "act": 61,
+      "txRatio": 0.44036697247706424,
+      "externalRate": 0.545
+    },
+    "soloR4": "rising",
+    "dualR4": "rising"
+  },
+  "signalImpact": {
+    "observer": {
+      "rxTicks": 51,
+      "withRx": {
+        "ticks": 51,
+        "avgInternal": 2.549019607843137,
+        "externalRate": 0.6274509803921569,
+        "txRate": 0.29411764705882354,
+        "actRate": 0.3333333333333333,
+        "txOfExternal": 0.46875
+      },
+      "withoutRx": {
+        "ticks": 149,
+        "avgInternal": 1.436241610738255,
+        "externalRate": 0.5167785234899329,
+        "txRate": 0.2214765100671141,
+        "actRate": 0.2953020134228188,
+        "txOfExternal": 0.42857142857142855
+      }
+    },
+    "other002": {
+      "rxTicks": 48,
+      "withRx": {
+        "ticks": 48,
+        "avgInternal": 2.5208333333333335,
+        "externalRate": 0.5,
+        "txRate": 0.22916666666666666,
+        "actRate": 0.2708333333333333,
+        "txOfExternal": 0.4583333333333333
+      },
+      "withoutRx": {
+        "ticks": 152,
+        "avgInternal": 1.519736842105263,
+        "externalRate": 0.5263157894736842,
+        "txRate": 0.26973684210526316,
+        "actRate": 0.2565789473684211,
+        "txOfExternal": 0.5125
+      }
+    }
+  }
+}
