@@ -4,6 +4,11 @@ import { hashString } from './hash.js';
 
 const birthCounters = new Map();
 
+/** 田野批处理每轮运行前重置，避免序号跨种子/global 累积 */
+export function resetBirthCounters() {
+  birthCounters.clear();
+}
+
 function pad(n, len) {
   return String(n).padStart(len, '0');
 }

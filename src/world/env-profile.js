@@ -1456,6 +1456,32 @@ export const PHASE63_TREATMENTS = {
   },
 };
 
+/** Phase 65 — 意识交叉验证：EHU × 长时 × 多体信号链 */
+export const PHASE65_TREATMENTS = {
+  cn_xv_quad_3840: {
+    id: 'cn_xv_quad_3840',
+    label: '意识×四体×3840',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    fieldLongStudy: true,
+    cohort: 'quad',
+  },
+  cn_xv_ehu_off_quad: {
+    id: 'cn_xv_ehu_off_quad',
+    label: '四体无EHU×3840（对照）',
+    envId: 'consciousness_full',
+    electronicHumanEnabled: false,
+    ...REN_BASE,
+    ...PLG_BASE,
+    fieldLongStudy: true,
+    cohort: 'quad',
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1828,6 +1854,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase65Treatment(world, treatmentId) {
+  const treatment = PHASE65_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase65 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 65, treatmentId, ...treatment };
   return world.envProfile;
 }
 

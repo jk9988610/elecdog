@@ -8,6 +8,21 @@ export const FIELD_LONG_TICKS = 1920;
 export const FIELD_XLONG_TICKS = 3840;
 export const FIELD_SEEDS = [0, 1, 2, 3];
 
+/** 四体信号链田野 — 001–004（每种子固定 16 位身份证，不依赖全局序号） */
+export function buildQuadChainCohort(seed = 0) {
+  const dateStr = '20260729';
+  return ['001', '002', '003', '004'].map((code, i) => {
+    const breed = code.slice(-2);
+    const seq = String(seed * 4 + i + 1).padStart(4, '0');
+    return {
+      name: code === '001' ? '观察者' : code,
+      code,
+      dnaSequence: code === '001' ? OBSERVER_DNA : null,
+      id: `01${dateStr}${breed}${seq}`,
+    };
+  });
+}
+
 /** 12 体：001–006 各 2（模板多样性） */
 export function buildFieldCohort(seed = 0) {
   const codes = ['001', '002', '003', '004', '005', '006'];

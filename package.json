@@ -99,6 +99,8 @@
     "field:phase63:cloud": "node scripts/field-batch-phase63.mjs --cloud",
     "codex:publish": "node scripts/codex-cloud-publish.mjs",
     "codex:verify": "node scripts/codex-cloud-verify.mjs",
+    "field:phase65": "node scripts/field-batch-phase65.mjs",
+    "field:phase65:cloud": "node scripts/field-batch-phase65.mjs --cloud",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

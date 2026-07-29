@@ -28,6 +28,9 @@ export function buildConsciousnessSummary(beingStats, world, population = {}) {
 
   const n = alive.length || 1;
   const h3 = stages.H3 ?? 0;
+  const multiBody = alive.length >= 2;
+  const crossRxSum = alive.reduce((s, b) => s + (b.socCrossRx ?? 0), 0);
+  const txSum = alive.reduce((s, b) => s + (b.tx ?? 0), 0);
 
   return {
     active: true,
@@ -44,6 +47,10 @@ export function buildConsciousnessSummary(beingStats, world, population = {}) {
     ehuRen: population.ehuRen ?? 0,
     renTrace,
     narrativeReady: h3 >= 1 && (population.ehu ?? 0) >= 1,
+    multiBody,
+    crossRxSum,
+    txSum,
+    crossValidateReady: multiBody && h3 >= 1 && crossRxSum >= 1,
   };
 }
 
@@ -68,11 +75,18 @@ export function renderConsciousnessPanel(c, { label }) {
     ? '<span class="consciousness-badge active">叙事可观察</span>'
     : '<span class="consciousness-badge">积累中</span>';
 
+  const crossTag = c.crossValidateReady
+    ? '<span class="consciousness-badge active">多体交叉</span>'
+    : c.multiBody
+      ? '<span class="consciousness-badge">信号积累中</span>'
+      : '';
+
   return `
     <section class="panel consciousness-panel">
       <div class="consciousness-head">
         <h2>意识观察</h2>
         ${narrativeTag}
+        ${crossTag}
       </div>
       <p class="panel-hint">对内节律 · 自我连续阶段 · 谱系回响 · 续行交叉迹（非分类/非预制人格）</p>
       <h3 class="term">${label('ehuStage')}</h3>
@@ -86,6 +100,8 @@ export function renderConsciousnessPanel(c, { label }) {
         <div class="stat-row"><span>${label('ehuLin')}</span><strong>${c.ehuLin}</strong></div>
         <div class="stat-row"><span>${label('ehuRen')}</span><strong>${c.ehuRen}</strong></div>
         <div class="stat-row"><span>${label('psn')}</span><strong>${c.meanPersona}/体</strong></div>
+        ${c.multiBody ? `<div class="stat-row"><span>跨位 RX</span><strong>${c.crossRxSum}</strong></div>` : ''}
+        ${c.multiBody ? `<div class="stat-row"><span>TX 合计</span><strong>${c.txSum}</strong></div>` : ''}
       </div>
     </section>
   `;
