@@ -77,7 +77,7 @@ Phase 0–12 已证明：个体可运行，但世界几乎是**平地 + 时钟**
 
 ## 六、未实现（仍属 GAPS）
 
-- 多地点 / 迁徙 → **GAP-ENV Phase 85**：`{band}-{patch}`（E/M/P）、`[DLC]` 日相 — 见 [PHASE85_DLC_DIURNAL.md](PHASE85_DLC_DIURNAL.md)
+- 多地点 / 迁徙 → **GAP-ENV Phase 85–86**：`{band}-{patch}-{L|O}`、`[DLC]`、`[PCP]` — 见 [PHASE86_PCP_TERRAIN.md](PHASE86_PCP_TERRAIN.md)
 - ~~代谢、需求（GAP-04）~~ → Phase 14 基底代谢（不设需求表）
 - 狩猎目标物（GAP-05 部分缓解）
 - 社会分工（GAP-07）
