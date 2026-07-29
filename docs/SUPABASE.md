@@ -9,7 +9,7 @@
 | **Postgres 表** | 田野归档索引、OBS 笔记 | Beat-Battle `seasons` / `submissions` |
 | **Storage 桶** | 全量运行日志 JSON | Beat-Battle `audio` 桶；Card-World `art` 桶 |
 | **REST API** | 无打包器、Capacitor 内可用 | Beat-Battle `remote-rest.js` |
-| **Realtime** | 多设备同步观察（后续） | Beat-Battle `subscribeSeasonChanges` |
+| **Realtime** | 多设备自动刷新归档/笔记列表 | ✅ Phase 31 |
 | **多项目共库** | 同一 anon key，不同表/桶 | Card-World `art_shop_works` + HarmonyForge `published_works` |
 
 ### ElecDog 当前已接入（Phase 28–30）
@@ -31,11 +31,20 @@ npm run field:cloud-upload -- 26
 
 环境变量：`FIELD_CLOUD=1` 或 `--cloud` 标志；可选 `SUPABASE_URL` / `SUPABASE_ANON_KEY` 覆盖内置配置。
 
+### 多设备观察同步（Phase 31）
+
+**不是**多台设备看同一个正在运行的世界 tick。  
+**是**：任一设备上传归档或保存 OBS 笔记后，其他已打开观察台的设备通过 Supabase Realtime **自动刷新列表**并提示。
+
+观察台显示 **「云 · 实时」** 表示订阅成功。
+
+一次性配置：SQL Editor 执行 [`supabase/schema-realtime.sql`](../supabase/schema-realtime.sql)。
+
 ### 后续可扩展（未实现）
 
 | 方向 | 说明 |
 |------|------|
-| Realtime 订阅 | 多观察者同时看同一世界 tick 流 |
+| 共享世界 tick 流 | 需引擎反序列化 + 状态广播，远期 |
 | 世界快照恢复 | 从 Storage 日志回放/续跑（需引擎反序列化） |
 | 田野批处理同步 | `scripts/field-batch-*.mjs` 结果自动入库 | ✅ Phase 30（phase26） |
 | 认证与 RLS | 替换开放策略，按观察者身份读写 |
@@ -60,6 +69,7 @@ Dashboard → **Storage** → **New bucket**
 
 1. [`supabase/schema.sql`](../supabase/schema.sql) — 表 `field_runs`、`field_notes` 与 RLS
 2. [`supabase/schema-storage-policies.sql`](../supabase/schema-storage-policies.sql) — 桶 `elecdog-logs` 策略
+3. [`supabase/schema-realtime.sql`](../supabase/schema-realtime.sql) — Realtime 发布（Phase 31）
 
 ### 3. 客户端
 

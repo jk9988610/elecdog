@@ -20,6 +20,7 @@ import {
 } from '../cloud/field-sync.js';
 import { formatSupabaseError } from '../cloud/supabase-error.js';
 import { getLogPublicUrl } from '../cloud/rest.js';
+import { subscribeFieldCloud, stopFieldCloudSubscription } from '../cloud/realtime.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -37,10 +38,13 @@ export class ObserverApp {
     this.speed = 200;
     this.cloudBusy = false;
     this.otaBusy = false;
+    this.cloudRealtime = false;
+    this.cloudUnsub = null;
     this.lastArchiveId = null;
     this.render();
     this.bootstrapWorld();
     this.refreshCloudPanel();
+    this.startCloudRealtime();
   }
 
   render() {
@@ -80,7 +84,7 @@ export class ObserverApp {
           </div>
           <div class="cloud-card cloud-card-wide">
             <h3>Supabase 连接</h3>
-            <p class="cloud-hint">${hasBuiltInCloudConfig() ? '已内置与 Beat-Battle / Card-World 共用的 Supabase 项目。' : '请填写 Supabase URL 与 anon key。'}</p>
+            <p class="cloud-hint">${hasBuiltInCloudConfig() ? '已内置与 Beat-Battle / Card-World 共用的 Supabase 项目。开启 Realtime 后，其他设备上传归档或笔记会自动刷新列表。' : '请填写 Supabase URL 与 anon key。'}</p>
             <label class="cloud-field">Project URL <input id="sb-url" type="url" value="${escapeHtml(getCloudConfig().url)}" placeholder="https://xxx.supabase.co" /></label>
             <label class="cloud-field">anon key <input id="sb-key" type="password" value="${escapeHtml(getCloudConfig().anonKey)}" autocomplete="off" /></label>
             <div class="cloud-actions">
@@ -253,9 +257,57 @@ export class ObserverApp {
 
   updateCloudStatus() {
     const enabled = isCloudEnabled();
-    this.$.cloudStatus.textContent = enabled ? '云 · 已连接' : '云 · 未配置';
+    if (enabled) {
+      this.$.cloudStatus.textContent = this.cloudRealtime ? '云 · 实时' : '云 · 已连接';
+    } else {
+      this.$.cloudStatus.textContent = '云 · 未配置';
+    }
     this.$.cloudStatus.classList.toggle('online', enabled);
+    this.$.cloudStatus.classList.toggle('realtime', enabled && this.cloudRealtime);
     this.$.btnCloudArchive.disabled = !enabled || this.cloudBusy || !this.world;
+  }
+
+  async startCloudRealtime() {
+    if (!isCloudEnabled()) return;
+    try {
+      this.cloudUnsub = await subscribeFieldCloud({
+        onArchive: (row) => this.onRealtimeArchive(row),
+        onNote: (row) => this.onRealtimeNote(row),
+        onStatus: (status) => {
+          if (status === 'SUBSCRIBED') {
+            this.cloudRealtime = true;
+            this.updateCloudStatus();
+          } else if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
+            this.cloudRealtime = false;
+            this.updateCloudStatus();
+          }
+        },
+      });
+    } catch {
+      this.cloudRealtime = false;
+      this.updateCloudStatus();
+    }
+  }
+
+  stopCloudRealtime() {
+    stopFieldCloudSubscription();
+    this.cloudUnsub = null;
+    this.cloudRealtime = false;
+    this.updateCloudStatus();
+  }
+
+  onRealtimeArchive(row) {
+    const title = row?.world_name || '归档';
+    const who = row?.observer_label || '—';
+    this.setCloudMessage(`实时：${who} 上传了 ${title} · tick ${row?.tick ?? '—'}`);
+    this.refreshCloudPanel();
+  }
+
+  onRealtimeNote(row) {
+    const id = row?.obs_id || '笔记';
+    const who = row?.author_label || '—';
+    this.setCloudMessage(`实时：${who} 保存了 ${id}`);
+    this.refreshCloudPanel();
   }
 
   async refreshCloudPanel() {
@@ -371,9 +423,11 @@ export class ObserverApp {
 
   saveCloudConfig() {
     setCloudConfig({ url: this.$.sbUrl.value, anonKey: this.$.sbKey.value });
+    this.stopCloudRealtime();
     this.updateCloudStatus();
     this.setCloudMessage('云配置已保存');
     this.refreshCloudPanel();
+    this.startCloudRealtime();
   }
 
   async uploadArchive() {

@@ -12,6 +12,7 @@ import { Recorder } from '../src/recorder/logger.js';
 import { runTicks } from './lib/analyze.js';
 import { analyzeRegisters } from './lib/register-analyze.js';
 import { analyzeViability } from './lib/viability-analyze.js';
+import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 
 const OBSERVER_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -92,3 +93,5 @@ function logRun(label, runs) {
 console.log('Phase 24 GAP-02 寄存器田野完成');
 logRun('solo 2000', soloRuns);
 logRun('四体 2000', fourRuns);
+
+await maybeUploadFieldReport({ phase: 24, report });
