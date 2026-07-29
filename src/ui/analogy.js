@@ -67,6 +67,7 @@ const LABELS = {
   intra: { native: '胞内 INTRA', analogy: '子单元内协作' },
   org: { native: '形态 ORG', analogy: '个体结构类型' },
   fiss: { native: '分裂 FISS', analogy: '存活复制（DNA 分裂）' },
+  rpl: { native: '复制 RPL', analogy: 'DNA 剩余复制次数' },
 };
 
 export function label(key) {

@@ -1,0 +1,674 @@
+{
+  "runAt": "2026-07-29T04:21:46.753Z",
+  "phase": 37,
+  "extension": "rpl_replication_limit",
+  "gap": "GAP-17",
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "profiles": {
+    "fertile_field_open": {
+      "id": "fertile_field_open",
+      "label": "富足分裂场（无复制上限）",
+      "substrateDrainMult": 0.52,
+      "substrateBoost": 0.02,
+      "substrateFloor": 0.54,
+      "catastropheDisabled": true,
+      "fissionEnabled": true,
+      "fissionMinSubstrate": 0.44,
+      "fissionMaxStress": 0.28,
+      "fissionMinIntegrity": 0.48,
+      "fissionCooldown": 52,
+      "fissionMinAge": 36,
+      "fissionBaseProb": 0.46,
+      "fissionMutationRate": 0.012,
+      "fissionMaxPop": 36,
+      "rplEnabled": false
+    },
+    "fertile_field": {
+      "id": "fertile_field",
+      "label": "富足分裂场",
+      "substrateDrainMult": 0.52,
+      "substrateBoost": 0.02,
+      "substrateFloor": 0.54,
+      "catastropheDisabled": true,
+      "fissionEnabled": true,
+      "fissionMinSubstrate": 0.44,
+      "fissionMaxStress": 0.28,
+      "fissionMinIntegrity": 0.48,
+      "fissionCooldown": 52,
+      "fissionMinAge": 36,
+      "fissionBaseProb": 0.46,
+      "fissionMutationRate": 0.012,
+      "fissionMaxPop": 36,
+      "rplEnabled": true,
+      "rplBaseMax": 2,
+      "rplMaxSpread": 1,
+      "rplSenescenceEnd": false,
+      "rplTickCapEnabled": false
+    },
+    "fertile_field_strict": {
+      "id": "fertile_field_strict",
+      "label": "富足场+复制耗尽终止",
+      "substrateDrainMult": 0.52,
+      "substrateBoost": 0.02,
+      "substrateFloor": 0.54,
+      "catastropheDisabled": true,
+      "fissionEnabled": true,
+      "fissionMinSubstrate": 0.44,
+      "fissionMaxStress": 0.28,
+      "fissionMinIntegrity": 0.48,
+      "fissionCooldown": 52,
+      "fissionMinAge": 36,
+      "fissionBaseProb": 0.46,
+      "fissionMutationRate": 0.012,
+      "fissionMaxPop": 36,
+      "rplEnabled": true,
+      "rplBaseMax": 2,
+      "rplMaxSpread": 1,
+      "rplSenescenceEnd": true,
+      "rplTickCapEnabled": true,
+      "rplTickCapBase": 220,
+      "rplTickCapSpread": 180
+    }
+  },
+  "aggregate": {
+    "fertile_field_open": {
+      "label": "富足分裂场（无复制上限）",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanExhausted": 0,
+      "meanRplEnds": 0,
+      "meanRplRemaining": null,
+      "runs": [
+        {
+          "profileId": "fertile_field_open",
+          "seed": 0,
+          "profile": {
+            "id": "fertile_field_open",
+            "label": "富足分裂场（无复制上限）",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 0,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": null,
+            "beingsWithRpl": 0
+          },
+          "entries": 3588858
+        },
+        {
+          "profileId": "fertile_field_open",
+          "seed": 1,
+          "profile": {
+            "id": "fertile_field_open",
+            "label": "富足分裂场（无复制上限）",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 0,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": null,
+            "beingsWithRpl": 0
+          },
+          "entries": 3600603
+        },
+        {
+          "profileId": "fertile_field_open",
+          "seed": 2,
+          "profile": {
+            "id": "fertile_field_open",
+            "label": "富足分裂场（无复制上限）",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 0,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": null,
+            "beingsWithRpl": 0
+          },
+          "entries": 3608469
+        },
+        {
+          "profileId": "fertile_field_open",
+          "seed": 3,
+          "profile": {
+            "id": "fertile_field_open",
+            "label": "富足分裂场（无复制上限）",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 0,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": null,
+            "beingsWithRpl": 0
+          },
+          "entries": 3626846
+        }
+      ]
+    },
+    "fertile_field": {
+      "label": "富足分裂场",
+      "meanFiss": 12,
+      "meanAlive": 16,
+      "meanExhausted": 16,
+      "meanRplEnds": 0,
+      "meanRplRemaining": 0,
+      "runs": [
+        {
+          "profileId": "fertile_field",
+          "seed": 0,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": false,
+            "rplTickCapEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16
+          },
+          "entries": 879380
+        },
+        {
+          "profileId": "fertile_field",
+          "seed": 1,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": false,
+            "rplTickCapEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16
+          },
+          "entries": 871481
+        },
+        {
+          "profileId": "fertile_field",
+          "seed": 2,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": false,
+            "rplTickCapEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16
+          },
+          "entries": 880445
+        },
+        {
+          "profileId": "fertile_field",
+          "seed": 3,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": false,
+            "rplTickCapEnabled": false
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16
+          },
+          "entries": 879405
+        }
+      ]
+    },
+    "fertile_field_strict": {
+      "label": "富足场+复制耗尽终止",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanExhausted": 56,
+      "meanRplEnds": 369.75,
+      "meanRplRemaining": 1,
+      "runs": [
+        {
+          "profileId": "fertile_field_strict",
+          "seed": 0,
+          "profile": {
+            "id": "fertile_field_strict",
+            "label": "富足场+复制耗尽终止",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": true,
+            "rplTickCapEnabled": true,
+            "rplTickCapBase": 220,
+            "rplTickCapSpread": 180
+          },
+          "metrics": {
+            "rplEventCount": 826,
+            "rplInitCount": 401,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 56,
+            "rplEndCount": 365,
+            "rplTickCapEnds": 309,
+            "rplExhaustedEnds": 56,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 401
+          },
+          "entries": 3558897
+        },
+        {
+          "profileId": "fertile_field_strict",
+          "seed": 1,
+          "profile": {
+            "id": "fertile_field_strict",
+            "label": "富足场+复制耗尽终止",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": true,
+            "rplTickCapEnabled": true,
+            "rplTickCapBase": 220,
+            "rplTickCapSpread": 180
+          },
+          "metrics": {
+            "rplEventCount": 838,
+            "rplInitCount": 407,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 56,
+            "rplEndCount": 371,
+            "rplTickCapEnds": 315,
+            "rplExhaustedEnds": 56,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 407
+          },
+          "entries": 3527584
+        },
+        {
+          "profileId": "fertile_field_strict",
+          "seed": 2,
+          "profile": {
+            "id": "fertile_field_strict",
+            "label": "富足场+复制耗尽终止",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": true,
+            "rplTickCapEnabled": true,
+            "rplTickCapBase": 220,
+            "rplTickCapSpread": 180
+          },
+          "metrics": {
+            "rplEventCount": 852,
+            "rplInitCount": 414,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 56,
+            "rplEndCount": 378,
+            "rplTickCapEnds": 322,
+            "rplExhaustedEnds": 56,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 414
+          },
+          "entries": 3577728
+        },
+        {
+          "profileId": "fertile_field_strict",
+          "seed": 3,
+          "profile": {
+            "id": "fertile_field_strict",
+            "label": "富足场+复制耗尽终止",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36,
+            "rplEnabled": true,
+            "rplBaseMax": 2,
+            "rplMaxSpread": 1,
+            "rplSenescenceEnd": true,
+            "rplTickCapEnabled": true,
+            "rplTickCapBase": 220,
+            "rplTickCapSpread": 180
+          },
+          "metrics": {
+            "rplEventCount": 826,
+            "rplInitCount": 401,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 56,
+            "rplEndCount": 365,
+            "rplTickCapEnds": 309,
+            "rplExhaustedEnds": 56,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 401
+          },
+          "entries": 3591583
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "vsOpen": {
+        "H1_popBelowCap": {
+          "verdict": "support",
+          "open": 36,
+          "limited": 16,
+          "delta": -20
+        },
+        "H2_fissSlows": {
+          "verdict": "support",
+          "open": 32,
+          "limited": 12,
+          "delta": -20
+        },
+        "H3_exhaustionObservable": {
+          "verdict": "support",
+          "exhausted": 16,
+          "events": 8
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "vsOpen": {
+        "H1_popBelowCap": {
+          "verdict": "support",
+          "open": 36,
+          "limited": 16,
+          "delta": -20
+        },
+        "H2_fissSlows": {
+          "verdict": "support",
+          "open": 32,
+          "limited": 12,
+          "delta": -20
+        },
+        "H3_exhaustionObservable": {
+          "verdict": "support",
+          "exhausted": 16,
+          "events": 8
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "vsOpen": {
+        "H1_popBelowCap": {
+          "verdict": "support",
+          "open": 36,
+          "limited": 16,
+          "delta": -20
+        },
+        "H2_fissSlows": {
+          "verdict": "support",
+          "open": 32,
+          "limited": 12,
+          "delta": -20
+        },
+        "H3_exhaustionObservable": {
+          "verdict": "support",
+          "exhausted": 16,
+          "events": 8
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "vsOpen": {
+        "H1_popBelowCap": {
+          "verdict": "support",
+          "open": 36,
+          "limited": 16,
+          "delta": -20
+        },
+        "H2_fissSlows": {
+          "verdict": "support",
+          "open": 32,
+          "limited": 12,
+          "delta": -20
+        },
+        "H3_exhaustionObservable": {
+          "verdict": "support",
+          "exhausted": 16,
+          "events": 8
+        }
+      }
+    }
+  ],
+  "roadmap": "docs/PHASE37_RPL.md"
+}

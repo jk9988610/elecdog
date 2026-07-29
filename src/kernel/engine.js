@@ -25,6 +25,7 @@ import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { runMetabolism } from '../world/organism.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
+import { checkReplicationTermination } from '../world/replication.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -330,7 +331,9 @@ export function stepWorld(world, recorder) {
       recorder.state(world.tick, being.id, result.registers);
     }
 
-    const term = shouldTerminate(being, result.stress);
+    const term =
+      shouldTerminate(being, result.stress) ??
+      checkReplicationTermination(being, world.envProfile);
     if (term) {
       being.alive = false;
       recorder.viability(world.tick, being.id, `[END] ${term.reason}`, {

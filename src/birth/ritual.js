@@ -4,6 +4,7 @@ import { createDna, createDnaFromSequence } from '../core/dna.js';
 import { generateId } from '../core/id.js';
 import { Being } from '../being/being.js';
 import { initOrganism } from '../world/organism.js';
+import { initReplicationQuota, recordReplicationInit } from '../world/replication.js';
 
 export function performBirthRitual(
   world,
@@ -67,6 +68,9 @@ export function performBirthRitual(
       boundary: being.cellBoundary,
     });
   }
+
+  initReplicationQuota(being, world.envProfile);
+  recordReplicationInit(recorder, tick, being);
 
   const pulse = being.firstPulse();
   recorder.internal(tick, id, pulse);
