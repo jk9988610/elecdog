@@ -30,13 +30,14 @@ export function tickReservoir(
     return null;
   }
 
+  const synthScale = profile.synthEnabled ? (profile.reservoirSynthScale ?? 0.4) : 1;
   const storeMaxStress = profile.reservoirStoreMaxStress ?? 0.28;
   const outStress = profile.reservoirOutStress ?? 0.32;
   const outLowStreak = profile.reservoirOutLowStreak ?? 2;
-  const storeFrac = profile.reservoirStoreFrac ?? 0.06;
+  const storeFrac = (profile.reservoirStoreFrac ?? 0.06) * synthScale;
   const outFrac = profile.reservoirOutFrac ?? 0.12;
   const storeRegMin = profile.reservoirStoreRegMin ?? 0.22;
-  const drwBranchFrac = profile.reservoirDrwBranchFrac ?? 0.12;
+  const drwBranchFrac = (profile.reservoirDrwBranchFrac ?? 0.12) * synthScale;
 
   const events = [];
 

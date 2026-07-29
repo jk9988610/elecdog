@@ -28,6 +28,7 @@ import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { runMetabolism } from '../world/organism.js';
 import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
+import { tickSynth, synthEnabled } from '../world/synth.js';
 import { tickDiurnal, diurnalEnabled, recordDiurnalLow, initDiurnalStats } from '../world/diurnal.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
@@ -425,6 +426,26 @@ export function stepWorld(world, recorder) {
             being.id,
             `[RSV] ${evt.phase} e${evt.idx} ${sign}${evt.amount.toFixed(4)} sum ${rsv.reservoirSum}${via}`,
             { kind: 'RSV', ...evt, reservoirSum: rsv.reservoirSum }
+          );
+        }
+      }
+    }
+
+    if (synthEnabled(profile)) {
+      const sym = tickSynth(being, profile, {
+        stress: result.stress,
+        solar: dlc?.solar ?? 0,
+        night: dlc?.night ?? false,
+        substrate: substrateSnap.channels,
+      });
+      if (sym?.events?.length && !stat) {
+        for (const evt of sym.events) {
+          const sign = evt.kind === 'synth-a' ? '+' : '→';
+          recorder.cell(
+            world.tick,
+            being.id,
+            `[SYM] ${evt.kind} e${evt.idx} ${sign}${evt.amount.toFixed(4)} rsv ${sym.reservoirSum}`,
+            { kind: 'SYM', ...evt, reservoirSum: sym.reservoirSum }
           );
         }
       }
