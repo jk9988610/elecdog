@@ -14,6 +14,7 @@ import { initAdvState } from './adv.js';
 import { initLunarStats } from './ltc.js';
 import { initArtState } from './art.js';
 import { initVentState } from './vent.js';
+import { initMigState } from './mig.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -2189,6 +2190,53 @@ export const PHASE93_TREATMENTS = {
   },
 };
 
+const MIG_ENV_BASE = {
+  ...VENT_ENV_BASE,
+  placeBand: 'M',
+  placePatch: '00',
+  placeTerrain: 'L',
+  ventEnabled: false,
+  migEnabled: true,
+  migTargetPatch: '11',
+  migStressMin: 0.14,
+  migInterval: 48,
+};
+
+/** Phase 94 — GAP-ENV patch 迁徙 + alt 税 */
+export const PHASE94_TREATMENTS = {
+  mig_off_ref: {
+    id: 'mig_off_ref',
+    label: '无迁徙',
+    envId: 'wisdom_evolution',
+    ...MIG_ENV_BASE,
+    migEnabled: false,
+  },
+  mig_on_ref: {
+    id: 'mig_on_ref',
+    label: 'patch迁徙',
+    envId: 'wisdom_evolution',
+    ...MIG_ENV_BASE,
+    migEnabled: true,
+  },
+  mig_on_block: {
+    id: 'mig_on_block',
+    label: '迁徙高压阻断',
+    envId: 'wisdom_evolution',
+    ...MIG_ENV_BASE,
+    migEnabled: true,
+    migStressMin: 0.95,
+  },
+  mig_on_fast: {
+    id: 'mig_on_fast',
+    label: '迁徙加速',
+    envId: 'wisdom_evolution',
+    ...MIG_ENV_BASE,
+    migEnabled: true,
+    migInterval: 32,
+    migStressMin: 0.1,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2741,6 +2789,34 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase94Treatment(world, treatmentId) {
+  const treatment = PHASE94_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase94 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 94, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  initAdvState(world);
+  initLunarStats(world);
+  initArtState(world, world.envProfile);
+  initVentState(world, world.envProfile);
+  initMigState(world);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
