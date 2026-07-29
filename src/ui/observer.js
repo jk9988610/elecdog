@@ -631,6 +631,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('rco')}</span><strong>${s.population.rco ?? 0}</strong></div>
           <div class="stat-row"><span>${label('mei')}</span><strong>${s.population.mei ?? 0}</strong></div>
           <div class="stat-row"><span>${label('fus')}</span><strong>${s.population.fus ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('bcn')}</span><strong>${s.population.bcn ?? 0}</strong></div>
           <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
           <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
         </div>

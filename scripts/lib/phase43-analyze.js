@@ -1,17 +1,15 @@
 /** Phase 43 — 重组 × 续行 + live-donor */
 
 import { analyzeRecombination } from './phase42-analyze.js';
+import { evoCount, evoWithMeta } from './event-stats.js';
 
-export function analyzeRecombRenew(entries, beings) {
-  const base = analyzeRecombination(entries, beings);
-  const ren = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'REN');
-  const fus = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FUS');
-  const liveFus = fus.filter((e) => e.meta?.liveDonor === true);
-
+export function analyzeRecombRenew(recorder, beings) {
+  const base = analyzeRecombination(recorder, beings);
   return {
     ...base,
-    renEventCount: ren.length,
-    liveFusCount: liveFus.length,
+    renEventCount: evoCount(recorder, 'REN'),
+    liveFusCount: evoWithMeta(recorder, 'FUS', (m) => m.liveDonor === true),
+    plgEventCount: evoCount(recorder, 'PLG'),
     packetBacklog: base.withMeiPacket,
     fusPerMei: base.meiEventCount > 0 ? +(base.fusEventCount / base.meiEventCount).toFixed(3) : null,
   };

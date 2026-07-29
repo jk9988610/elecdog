@@ -2,21 +2,19 @@
 
 import { analyzeReplication } from './rpl-analyze.js';
 import { dnaDiversity } from '../../src/world/recombination.js';
+import { evoCount } from './event-stats.js';
 
-export function analyzeRecombination(entries, beings) {
-  const base = analyzeReplication(entries, beings);
-  const mei = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'MEI');
-  const fus = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FUS');
-  const fiss = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS');
+export function analyzeRecombination(recorder, beings) {
+  const base = analyzeReplication(recorder, beings);
   const diversity = dnaDiversity(beings);
   const alive = beings.filter((b) => b.alive);
   const recombined = alive.filter((b) => b.recombined || b.fusParentA);
 
   return {
     ...base,
-    meiEventCount: mei.length,
-    fusEventCount: fus.length,
-    fissCount: fiss.length,
+    meiEventCount: evoCount(recorder, 'MEI'),
+    fusEventCount: evoCount(recorder, 'FUS'),
+    fissCount: evoCount(recorder, 'FISS'),
     uniqueDnaSeqs: diversity.uniqueSeqs,
     recombinedAlive: recombined.length,
     withMeiPacket: alive.filter((b) => b.meiPacket).length,

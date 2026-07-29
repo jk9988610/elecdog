@@ -279,6 +279,36 @@ export const ENV_PROFILES = {
     rplRenewCooldown: 64,
     rplRenewBaseProb: 0.5,
   },
+  fertile_mei_fus_fix: {
+    id: 'fertile_mei_fus_fix',
+    label: '富足重组+瓶颈修复',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusOrphanPoolMax: 12,
+    fusSocialAffinity: true,
+    fusAggressivePairing: true,
+    fusPacketMaxAge: 200,
+    fusPairCooldown: 24,
+  },
 };
 
 const REN_BASE = {
@@ -335,6 +365,53 @@ const MEI_FUS_ONLY = {
   fissionEnabled: false,
   ...MEI_BASE,
   ...FUS_BASE,
+};
+
+const FUS_BOTTLENECK_FIX = {
+  fusLiveDonorEnabled: true,
+  fusBeaconEnabled: true,
+  fusOrphanPoolEnabled: true,
+  fusOrphanPoolMax: 12,
+  fusSocialAffinity: true,
+  fusAggressivePairing: true,
+  fusMaxPairPasses: 3,
+  fusMaxPairsPerTick: 8,
+  fusPacketMaxAge: 200,
+  fusPairCooldown: 24,
+};
+
+/** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
+export const PHASE44_TREATMENTS = {
+  mei_strict: {
+    id: 'mei_strict',
+    label: '严格重组（无修复）',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+  },
+  mei_strict_beacon: {
+    id: 'mei_strict_beacon',
+    label: '严格+信标+延长packet',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    fusBeaconEnabled: true,
+    fusPacketMaxAge: 160,
+    fusPairCooldown: 48,
+  },
+  mei_strict_fix: {
+    id: 'mei_strict_fix',
+    label: '严格+瓶颈全套修复',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
+  mei_strict_fix_ren: {
+    id: 'mei_strict_fix_ren',
+    label: '严格+修复+续行',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+    ...REN_BASE,
+  },
 };
 
 /** Phase 43 — 重组 × 续行 + live-donor 配对 */
@@ -609,6 +686,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase44Treatment(world, treatmentId) {
+  const treatment = PHASE44_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase44 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 44, treatmentId, ...treatment };
   return world.envProfile;
 }
 

@@ -1,0 +1,1142 @@
+{
+  "runAt": "2026-07-29T12:58:28.381Z",
+  "phase": 44,
+  "extension": "fus_bottleneck_fix",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "mei_strict": {
+      "id": "mei_strict",
+      "label": "严格重组（无修复）",
+      "envId": "fertile_field_strict",
+      "fissionEnabled": false,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 90,
+      "fusPacketMaxAge": 56,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36
+    },
+    "mei_strict_beacon": {
+      "id": "mei_strict_beacon",
+      "label": "严格+信标+延长packet",
+      "envId": "fertile_field_strict",
+      "fissionEnabled": false,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 48,
+      "fusPacketMaxAge": 160,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusBeaconEnabled": true
+    },
+    "mei_strict_fix": {
+      "id": "mei_strict_fix",
+      "label": "严格+瓶颈全套修复",
+      "envId": "fertile_field_strict",
+      "fissionEnabled": false,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8
+    },
+    "mei_strict_fix_ren": {
+      "id": "mei_strict_fix_ren",
+      "label": "严格+修复+续行",
+      "envId": "fertile_field_strict",
+      "fissionEnabled": false,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46
+    }
+  },
+  "aggregate": {
+    "mei_strict": {
+      "label": "严格重组（无修复）",
+      "meanMei": 354,
+      "meanFus": 21,
+      "meanOrphanFus": 0,
+      "meanBcn": 0,
+      "meanAlive": 22.5,
+      "meanFusPerMei": 0.06,
+      "meanEntriesKept": 1779,
+      "runs": [
+        {
+          "treatmentId": "mei_strict",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 730,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 23,
+            "exhaustedCount": 353,
+            "rplEndCount": 354,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 353,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 377,
+            "meiEventCount": 365,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.06,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 354
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 355,
+            "evolution:RPL": 730,
+            "evolution:MEI": 365,
+            "evolution:FUS": 22,
+            "viability:END": 354,
+            "evolution:SEL": 354,
+            "population:CMP": 9
+          },
+          "entriesKept": 1834
+        },
+        {
+          "treatmentId": "mei_strict",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 678,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 22,
+            "exhaustedCount": 327,
+            "rplEndCount": 329,
+            "rplTickCapEnds": 2,
+            "rplExhaustedEnds": 327,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 351,
+            "meiEventCount": 339,
+            "fusEventCount": 20,
+            "uniqueDnaSeqs": 22,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.059,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 329
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 330,
+            "evolution:RPL": 678,
+            "evolution:MEI": 339,
+            "evolution:FUS": 20,
+            "viability:END": 329,
+            "evolution:SEL": 329,
+            "population:CMP": 9
+          },
+          "entriesKept": 1704
+        },
+        {
+          "treatmentId": "mei_strict",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 702,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 22,
+            "exhaustedCount": 339,
+            "rplEndCount": 341,
+            "rplTickCapEnds": 2,
+            "rplExhaustedEnds": 339,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 363,
+            "meiEventCount": 351,
+            "fusEventCount": 20,
+            "uniqueDnaSeqs": 22,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.057,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 341
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 342,
+            "evolution:RPL": 702,
+            "evolution:MEI": 351,
+            "evolution:FUS": 20,
+            "viability:END": 341,
+            "evolution:SEL": 341,
+            "population:CMP": 9
+          },
+          "entriesKept": 1764
+        },
+        {
+          "treatmentId": "mei_strict",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 722,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 23,
+            "exhaustedCount": 349,
+            "rplEndCount": 350,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 349,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 373,
+            "meiEventCount": 361,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.061,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 350
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 351,
+            "evolution:RPL": 722,
+            "evolution:MEI": 361,
+            "evolution:FUS": 22,
+            "viability:END": 350,
+            "evolution:SEL": 350,
+            "population:CMP": 9
+          },
+          "entriesKept": 1814
+        }
+      ]
+    },
+    "mei_strict_beacon": {
+      "label": "严格+信标+延长packet",
+      "meanMei": 368.75,
+      "meanFus": 22,
+      "meanOrphanFus": 0,
+      "meanBcn": 368.75,
+      "meanAlive": 23,
+      "meanFusPerMei": 0.06,
+      "meanEntriesKept": 2221.5,
+      "runs": [
+        {
+          "treatmentId": "mei_strict_beacon",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 740,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 23,
+            "exhaustedCount": 358,
+            "rplEndCount": 359,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 358,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 382,
+            "meiEventCount": 370,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.059,
+            "bcnEventCount": 370,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 359
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 360,
+            "evolution:RPL": 740,
+            "evolution:MEI": 370,
+            "evolution:BCN": 370,
+            "evolution:FUS": 22,
+            "viability:END": 359,
+            "evolution:SEL": 359,
+            "population:CMP": 9
+          },
+          "entriesKept": 2229
+        },
+        {
+          "treatmentId": "mei_strict_beacon",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 734,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 23,
+            "exhaustedCount": 355,
+            "rplEndCount": 356,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 355,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 379,
+            "meiEventCount": 367,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.06,
+            "bcnEventCount": 367,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 356
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 357,
+            "evolution:RPL": 734,
+            "evolution:MEI": 367,
+            "evolution:BCN": 367,
+            "evolution:FUS": 22,
+            "viability:END": 356,
+            "evolution:SEL": 356,
+            "population:CMP": 9
+          },
+          "entriesKept": 2211
+        },
+        {
+          "treatmentId": "mei_strict_beacon",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 734,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 23,
+            "exhaustedCount": 355,
+            "rplEndCount": 356,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 355,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 379,
+            "meiEventCount": 367,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.06,
+            "bcnEventCount": 367,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 356
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 357,
+            "evolution:RPL": 734,
+            "evolution:MEI": 367,
+            "evolution:BCN": 367,
+            "evolution:FUS": 22,
+            "viability:END": 356,
+            "evolution:SEL": 356,
+            "population:CMP": 9
+          },
+          "entriesKept": 2211
+        },
+        {
+          "treatmentId": "mei_strict_beacon",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 742,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 23,
+            "exhaustedCount": 359,
+            "rplEndCount": 360,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 359,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 383,
+            "meiEventCount": 371,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 0,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 0.059,
+            "bcnEventCount": 371,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 360
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 361,
+            "evolution:RPL": 742,
+            "evolution:MEI": 371,
+            "evolution:BCN": 371,
+            "evolution:FUS": 22,
+            "viability:END": 360,
+            "evolution:SEL": 360,
+            "population:CMP": 9
+          },
+          "entriesKept": 2235
+        }
+      ]
+    },
+    "mei_strict_fix": {
+      "label": "严格+瓶颈全套修复",
+      "meanMei": 34.5,
+      "meanFus": 48,
+      "meanOrphanFus": 35.5,
+      "meanBcn": 34.5,
+      "meanAlive": 36,
+      "meanFusPerMei": 1.4,
+      "meanEntriesKept": 111560,
+      "runs": [
+        {
+          "treatmentId": "mei_strict_fix",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 55026,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 27513,
+            "rplEndCount": 27477,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 27477,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 27513,
+            "meiEventCount": 36,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 36,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.333,
+            "bcnEventCount": 36,
+            "orphanFusCount": 32,
+            "orphanPoolSize": 6,
+            "totalEnds": 27477
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 27478,
+            "evolution:RPL": 55026,
+            "evolution:MEI": 36,
+            "evolution:BCN": 36,
+            "evolution:FUS": 48,
+            "viability:END": 27477,
+            "evolution:SEL": 27477,
+            "population:CMP": 9
+          },
+          "entriesKept": 110109
+        },
+        {
+          "treatmentId": "mei_strict_fix",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 57110,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 28555,
+            "rplEndCount": 28519,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 28519,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 28555,
+            "meiEventCount": 34,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 40,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.412,
+            "bcnEventCount": 34,
+            "orphanFusCount": 34,
+            "orphanPoolSize": 9,
+            "totalEnds": 28519
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 28520,
+            "evolution:RPL": 57110,
+            "evolution:MEI": 34,
+            "evolution:BCN": 34,
+            "evolution:FUS": 48,
+            "viability:END": 28519,
+            "evolution:SEL": 28519,
+            "population:CMP": 9
+          },
+          "entriesKept": 114273
+        },
+        {
+          "treatmentId": "mei_strict_fix",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 54694,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 27347,
+            "rplEndCount": 27311,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 27311,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 27347,
+            "meiEventCount": 30,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 46,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 30,
+            "orphanFusCount": 42,
+            "orphanPoolSize": 8,
+            "totalEnds": 27311
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 27312,
+            "evolution:RPL": 54694,
+            "evolution:MEI": 30,
+            "evolution:BCN": 30,
+            "evolution:FUS": 48,
+            "viability:END": 27311,
+            "evolution:SEL": 27311,
+            "population:CMP": 9
+          },
+          "entriesKept": 109433
+        },
+        {
+          "treatmentId": "mei_strict_fix",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 56182,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 28091,
+            "rplEndCount": 28055,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 28055,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 28091,
+            "meiEventCount": 38,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 0,
+            "liveFusCount": 40,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.263,
+            "bcnEventCount": 38,
+            "orphanFusCount": 34,
+            "orphanPoolSize": 12,
+            "totalEnds": 28055
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 28056,
+            "evolution:RPL": 56182,
+            "evolution:MEI": 38,
+            "evolution:BCN": 38,
+            "evolution:FUS": 48,
+            "viability:END": 28055,
+            "evolution:SEL": 28055,
+            "population:CMP": 9
+          },
+          "entriesKept": 112425
+        }
+      ]
+    },
+    "mei_strict_fix_ren": {
+      "label": "严格+修复+续行",
+      "meanMei": 28.75,
+      "meanFus": 48,
+      "meanOrphanFus": 34.5,
+      "meanBcn": 28.75,
+      "meanAlive": 36,
+      "meanFusPerMei": 1.73,
+      "meanEntriesKept": 106048,
+      "runs": [
+        {
+          "treatmentId": "mei_strict_fix_ren",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 54161,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 25475,
+            "rplEndCount": 25439,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 25439,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 25475,
+            "meiEventCount": 25,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 3211,
+            "liveFusCount": 44,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.92,
+            "bcnEventCount": 25,
+            "orphanFusCount": 38,
+            "orphanPoolSize": 10,
+            "totalEnds": 25439
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 25440,
+            "evolution:RPL": 54161,
+            "evolution:MEI": 25,
+            "evolution:BCN": 25,
+            "evolution:FUS": 48,
+            "viability:END": 25439,
+            "evolution:SEL": 25439,
+            "evolution:REN": 3211,
+            "population:CMP": 9
+          },
+          "entriesKept": 108357
+        },
+        {
+          "treatmentId": "mei_strict_fix_ren",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 52075,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 24436,
+            "rplEndCount": 24400,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 24400,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 24436,
+            "meiEventCount": 26,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 3203,
+            "liveFusCount": 42,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.846,
+            "bcnEventCount": 26,
+            "orphanFusCount": 36,
+            "orphanPoolSize": 3,
+            "totalEnds": 24400
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 24401,
+            "evolution:RPL": 52075,
+            "evolution:MEI": 26,
+            "evolution:BCN": 26,
+            "evolution:FUS": 48,
+            "viability:END": 24400,
+            "evolution:SEL": 24400,
+            "evolution:REN": 3203,
+            "population:CMP": 9
+          },
+          "entriesKept": 104187
+        },
+        {
+          "treatmentId": "mei_strict_fix_ren",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 51853,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 24369,
+            "rplEndCount": 24333,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 24333,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 24369,
+            "meiEventCount": 39,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 3115,
+            "liveFusCount": 40,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.231,
+            "bcnEventCount": 39,
+            "orphanFusCount": 30,
+            "orphanPoolSize": 11,
+            "totalEnds": 24333
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 24334,
+            "evolution:RPL": 51853,
+            "evolution:MEI": 39,
+            "evolution:BCN": 39,
+            "evolution:FUS": 48,
+            "viability:END": 24333,
+            "evolution:SEL": 24333,
+            "evolution:REN": 3115,
+            "population:CMP": 9
+          },
+          "entriesKept": 103769
+        },
+        {
+          "treatmentId": "mei_strict_fix_ren",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 53922,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 0,
+            "fissCount": 0,
+            "aliveTotal": 36,
+            "exhaustedCount": 25339,
+            "rplEndCount": 25303,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 25303,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 25339,
+            "meiEventCount": 25,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 36,
+            "recombinedAlive": 0,
+            "withMeiPacket": 0,
+            "totalMeiCount": 0,
+            "totalFusCount": 0,
+            "diversityRatio": 1,
+            "renEventCount": 3244,
+            "liveFusCount": 42,
+            "plgEventCount": 0,
+            "packetBacklog": 0,
+            "fusPerMei": 1.92,
+            "bcnEventCount": 25,
+            "orphanFusCount": 34,
+            "orphanPoolSize": 2,
+            "totalEnds": 25303
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 25304,
+            "evolution:RPL": 53922,
+            "evolution:MEI": 25,
+            "evolution:BCN": 25,
+            "evolution:FUS": 48,
+            "evolution:REN": 3244,
+            "viability:END": 25303,
+            "evolution:SEL": 25303,
+            "population:CMP": 9
+          },
+          "entriesKept": 107879
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "beacon": {
+        "H5_beaconHelps": {
+          "verdict": "unsupport",
+          "baselineFus": 22,
+          "beaconFus": 22,
+          "bcnEvents": 370
+        }
+      },
+      "fix": {
+        "H1_fixRaisesFus": {
+          "verdict": "support",
+          "baseline": 22,
+          "fixed": 48,
+          "delta": 26
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 0.06,
+          "fixed": 1.333,
+          "delta": 1.273
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 32,
+          "bcn": 36
+        },
+        "H4_populationRecovery": {
+          "verdict": "support",
+          "baseline": 23,
+          "fixed": 36
+        }
+      },
+      "fixRen": {
+        "H1_fixRaisesFus": {
+          "verdict": "unsupport",
+          "baseline": 48,
+          "fixed": 48,
+          "delta": 0
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 1.333,
+          "fixed": 1.92,
+          "delta": 0.587
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 38,
+          "bcn": 25
+        },
+        "H4_populationRecovery": {
+          "verdict": "weak",
+          "baseline": 36,
+          "fixed": 36
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "beacon": {
+        "H5_beaconHelps": {
+          "verdict": "support",
+          "baselineFus": 20,
+          "beaconFus": 22,
+          "bcnEvents": 367
+        }
+      },
+      "fix": {
+        "H1_fixRaisesFus": {
+          "verdict": "support",
+          "baseline": 20,
+          "fixed": 48,
+          "delta": 28
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 0.059,
+          "fixed": 1.412,
+          "delta": 1.353
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 34,
+          "bcn": 34
+        },
+        "H4_populationRecovery": {
+          "verdict": "support",
+          "baseline": 22,
+          "fixed": 36
+        }
+      },
+      "fixRen": {
+        "H1_fixRaisesFus": {
+          "verdict": "unsupport",
+          "baseline": 48,
+          "fixed": 48,
+          "delta": 0
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 1.412,
+          "fixed": 1.846,
+          "delta": 0.43400000000000016
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 36,
+          "bcn": 26
+        },
+        "H4_populationRecovery": {
+          "verdict": "weak",
+          "baseline": 36,
+          "fixed": 36
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "beacon": {
+        "H5_beaconHelps": {
+          "verdict": "support",
+          "baselineFus": 20,
+          "beaconFus": 22,
+          "bcnEvents": 367
+        }
+      },
+      "fix": {
+        "H1_fixRaisesFus": {
+          "verdict": "support",
+          "baseline": 20,
+          "fixed": 48,
+          "delta": 28
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 0.057,
+          "fixed": 1.6,
+          "delta": 1.5430000000000001
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 42,
+          "bcn": 30
+        },
+        "H4_populationRecovery": {
+          "verdict": "support",
+          "baseline": 22,
+          "fixed": 36
+        }
+      },
+      "fixRen": {
+        "H1_fixRaisesFus": {
+          "verdict": "unsupport",
+          "baseline": 48,
+          "fixed": 48,
+          "delta": 0
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "unsupport",
+          "baseline": 1.6,
+          "fixed": 1.231,
+          "delta": -0.369
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 30,
+          "bcn": 39
+        },
+        "H4_populationRecovery": {
+          "verdict": "weak",
+          "baseline": 36,
+          "fixed": 36
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "beacon": {
+        "H5_beaconHelps": {
+          "verdict": "unsupport",
+          "baselineFus": 22,
+          "beaconFus": 22,
+          "bcnEvents": 371
+        }
+      },
+      "fix": {
+        "H1_fixRaisesFus": {
+          "verdict": "support",
+          "baseline": 22,
+          "fixed": 48,
+          "delta": 26
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 0.061,
+          "fixed": 1.263,
+          "delta": 1.202
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 34,
+          "bcn": 38
+        },
+        "H4_populationRecovery": {
+          "verdict": "support",
+          "baseline": 23,
+          "fixed": 36
+        }
+      },
+      "fixRen": {
+        "H1_fixRaisesFus": {
+          "verdict": "unsupport",
+          "baseline": 48,
+          "fixed": 48,
+          "delta": 0
+        },
+        "H2_improvesFusMeiRatio": {
+          "verdict": "support",
+          "baseline": 1.263,
+          "fixed": 1.92,
+          "delta": 0.657
+        },
+        "H3_orphanFusObservable": {
+          "verdict": "support",
+          "orphanFus": 34,
+          "bcn": 25
+        },
+        "H4_populationRecovery": {
+          "verdict": "weak",
+          "baseline": 36,
+          "fixed": 36
+        }
+      }
+    }
+  ],
+  "design": {
+    "fieldStatMode": "无诞生仪式；StatsRecorder 聚合计数",
+    "bcn": "MEI 后信标广播",
+    "orphan": "END 时 packet 入池"
+  },
+  "roadmap": "docs/PHASE44_FUS_BOTTLENECK.md"
+}

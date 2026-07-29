@@ -225,6 +225,15 @@
   - 克隆对照：FISS 12，FUS 0
   - 双路径并存：FISS 8.25 + FUS 3.5 — **并存 support**
 - **状态**：**部分结案** — 减数/汇合可观察；配子性别语义仍禁止
-- **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)
+- **Phase 43**：重组×续行 — REN 提升 MEI（40→68）；live-donor 严格环境微弱改善 FUS；**汇合仍为瓶颈**
+- **Phase 44 扩展**：
+  - `[BCN]` 信标、孤儿池、live-donor FUS、激进配对、社会位亲和
+  - 统计田野：12 体 × 960 tick（无诞生仪式、`StatsRecorder` 聚合）
+- **Phase 44 田野**：
+  - 严格无修复：F/M ≈ **0.06**，FUS 21，存活 22
+  - 仅信标：F/M 仍 **0.06** — 信标 alone **unsupport**
+  - **全套修复**：FUS **48**，orphan FUS **35**，F/M **1.4**，存活 **36** — **汇合瓶颈突破**
+- **状态**：**部分结案** — 双源重组路径在修复包下可规模化；配子性别语义仍禁止
+- **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)、[PHASE43_RECOMB_RENEW.md](PHASE43_RECOMB_RENEW.md)、[PHASE44_FUS_BOTTLENECK.md](PHASE44_FUS_BOTTLENECK.md)
 
 ---

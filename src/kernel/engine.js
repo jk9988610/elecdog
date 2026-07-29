@@ -27,7 +27,7 @@ import { runMetabolism } from '../world/organism.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
-import { tryMeiosis, processFusions } from '../world/recombination.js';
+import { tryMeiosis, processFusions, collectOrphanPacket } from '../world/recombination.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -76,7 +76,8 @@ export function stepWorld(world, recorder) {
   }
   const substrateSnap = substrateSnapshot(world);
   const lite = world.envProfile?.fieldLiteLog;
-  if (!lite) {
+  const stat = world.envProfile?.fieldStatMode;
+  if (!lite && !stat) {
     recorder.substrate(world.tick, substrateSnap, { place: world.birthPlace });
     recorder.nodes(world.tick, formatNodesState(world.nodes), {
       place: world.birthPlace,
@@ -100,31 +101,33 @@ export function stepWorld(world, recorder) {
     trackStressSample(being, result.stress);
 
     for (const sig of heard) {
-      recorder.log({
-        tick: world.tick,
-        channel: 'signal',
-        beingId: being.id,
-        content: `[RX] ${sig.fromId} ${sig.content}`,
-        meta: { fromId: sig.fromId, emittedAt: sig.emittedAt },
-      });
-      recorder.memory(world.tick, being.id, `[MEM] RX t${sig.emittedAt} ${sig.fromId}`, {
-        kind: 'RX',
-        refTick: sig.emittedAt,
-        fromId: sig.fromId,
-      });
-      const recvSlot = being.socialSlot;
-      const emitSlot = slotOf(world, sig.fromId);
-      recorder.social(
-        world.tick,
-        being.id,
-        `[SOC] ${recvSlot} RX ${emitSlot} t${sig.emittedAt}`,
-        { kind: 'RX', recvSlot, emitSlot, fromId: sig.fromId, emittedAt: sig.emittedAt }
-      );
+      if (!stat) {
+        recorder.log({
+          tick: world.tick,
+          channel: 'signal',
+          beingId: being.id,
+          content: `[RX] ${sig.fromId} ${sig.content}`,
+          meta: { fromId: sig.fromId, emittedAt: sig.emittedAt },
+        });
+        recorder.memory(world.tick, being.id, `[MEM] RX t${sig.emittedAt} ${sig.fromId}`, {
+          kind: 'RX',
+          refTick: sig.emittedAt,
+          fromId: sig.fromId,
+        });
+        const recvSlot = being.socialSlot;
+        const emitSlot = slotOf(world, sig.fromId);
+        recorder.social(
+          world.tick,
+          being.id,
+          `[SOC] ${recvSlot} RX ${emitSlot} t${sig.emittedAt}`,
+          { kind: 'RX', recvSlot, emitSlot, fromId: sig.fromId, emittedAt: sig.emittedAt }
+        );
+      }
     }
 
-    recorder.internal(world.tick, being.id, result.internal);
+    if (!stat) recorder.internal(world.tick, being.id, result.internal);
     if (result.external.length > 0) {
-      recorder.external(world.tick, being.id, result.external);
+      if (!stat) recorder.external(world.tick, being.id, result.external);
       for (const line of result.external) {
         if (line.startsWith('[TX]')) {
           world.signalBus.push({
@@ -133,65 +136,71 @@ export function stepWorld(world, recorder) {
             emittedAt: world.tick,
             deliverAt: world.tick + 1,
           });
-          recorder.memory(world.tick, being.id, `[MEM] TX t${world.tick}`, {
-            kind: 'TX',
-            refTick: world.tick,
-          });
-          recorder.social(world.tick, being.id, `[SOC] ${being.socialSlot} TX`, {
-            kind: 'TX',
-            slot: being.socialSlot,
-          });
+          if (!stat) {
+            recorder.memory(world.tick, being.id, `[MEM] TX t${world.tick}`, {
+              kind: 'TX',
+              refTick: world.tick,
+            });
+            recorder.social(world.tick, being.id, `[SOC] ${being.socialSlot} TX`, {
+              kind: 'TX',
+              slot: being.socialSlot,
+            });
+          }
         } else if (line.startsWith('[ACT]')) {
           const payload = line.slice(5);
           const target = selectActTarget(world, line, being.id, { stress: result.stress });
           const hit = applyActToNode(target, line, being.id, world.tick);
-          recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
-            fromId: being.id,
-            act: line,
-            place: world.birthPlace,
-            kind: 'RES',
-            targetId: hit.nodeId,
-          });
-          recorder.environment(
-            world.tick,
-            `[TGT] ${hit.nodeId} -${hit.delta.toFixed(3)} ref ${being.id} lvl ${hit.after.toFixed(3)}`,
-            { kind: 'TGT', ...hit, fromId: being.id, place: world.birthPlace }
-          );
-          if (hit.depleted) {
-            recorder.environment(world.tick, `[DEP] ${hit.nodeId} at ${world.birthPlace}`, {
-              kind: 'DEP',
-              nodeId: hit.nodeId,
+          if (!stat) {
+            recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
               fromId: being.id,
+              act: line,
               place: world.birthPlace,
+              kind: 'RES',
+              targetId: hit.nodeId,
             });
+            recorder.environment(
+              world.tick,
+              `[TGT] ${hit.nodeId} -${hit.delta.toFixed(3)} ref ${being.id} lvl ${hit.after.toFixed(3)}`,
+              { kind: 'TGT', ...hit, fromId: being.id, place: world.birthPlace }
+            );
+            if (hit.depleted) {
+              recorder.environment(world.tick, `[DEP] ${hit.nodeId} at ${world.birthPlace}`, {
+                kind: 'DEP',
+                nodeId: hit.nodeId,
+                fromId: being.id,
+                place: world.birthPlace,
+              });
+            }
+            recorder.nodes(world.tick, formatNodesState(world.nodes), {
+              place: world.birthPlace,
+              nodes: nodesSnapshot(world),
+              afterAct: true,
+              fromId: being.id,
+            });
+            const ptb = perturbFromAct(world, line, being.id);
+            recorder.environment(
+              world.tick,
+              `[PTB] ${world.birthPlace} e${ptb.idx} +${ptb.delta.toFixed(3)} ref ${being.id}`,
+              { kind: 'PTB', ...ptb, fromId: being.id, place: world.birthPlace }
+            );
+            recorder.substrate(world.tick, substrateSnapshot(world), {
+              place: world.birthPlace,
+              afterAct: true,
+              fromId: being.id,
+            });
+            recorder.memory(world.tick, being.id, `[MEM] ACT t${world.tick}`, {
+              kind: 'ACT',
+              refTick: world.tick,
+            });
+            recorder.social(
+              world.tick,
+              being.id,
+              `[SOC] ${being.socialSlot} TGT ${hit.nodeId}`,
+              { kind: 'TGT', slot: being.socialSlot, nodeId: hit.nodeId }
+            );
+          } else {
+            perturbFromAct(world, line, being.id);
           }
-          recorder.nodes(world.tick, formatNodesState(world.nodes), {
-            place: world.birthPlace,
-            nodes: nodesSnapshot(world),
-            afterAct: true,
-            fromId: being.id,
-          });
-          const ptb = perturbFromAct(world, line, being.id);
-          recorder.environment(
-            world.tick,
-            `[PTB] ${world.birthPlace} e${ptb.idx} +${ptb.delta.toFixed(3)} ref ${being.id}`,
-            { kind: 'PTB', ...ptb, fromId: being.id, place: world.birthPlace }
-          );
-          recorder.substrate(world.tick, substrateSnapshot(world), {
-            place: world.birthPlace,
-            afterAct: true,
-            fromId: being.id,
-          });
-          recorder.memory(world.tick, being.id, `[MEM] ACT t${world.tick}`, {
-            kind: 'ACT',
-            refTick: world.tick,
-          });
-          recorder.social(
-            world.tick,
-            being.id,
-            `[SOC] ${being.socialSlot} TGT ${hit.nodeId}`,
-            { kind: 'TGT', slot: being.socialSlot, nodeId: hit.nodeId }
-          );
           const hits = tickNodeHits.get(hit.nodeId) ?? [];
           hits.push(being.socialSlot);
           tickNodeHits.set(hit.nodeId, hits);
@@ -204,7 +213,7 @@ export function stepWorld(world, recorder) {
     });
 
     const nurtureEvt = tickNurture(world, being);
-    if (nurtureEvt?.transfers?.length) {
+    if (!stat && nurtureEvt?.transfers?.length) {
       for (const t of nurtureEvt.transfers) {
         recorder.metabolism(
           world.tick,
@@ -233,7 +242,7 @@ export function stepWorld(world, recorder) {
       hadExternal: result.external.length > 0,
       drawMult: juvenileDrawMultiplier(being, world.envProfile),
     });
-    if (met.draw) {
+    if (met.draw && !stat) {
       recorder.metabolism(
         world.tick,
         being.id,
@@ -270,17 +279,19 @@ export function stepWorld(world, recorder) {
     }
     if (met.low) {
       being.lowStreak++;
-      recorder.metabolism(
-        world.tick,
-        being.id,
-        `[LOW] e${met.low.idx} ${met.low.value.toFixed(4)}`,
-        { kind: 'LOW', ...met.low }
-      );
+      if (!stat) {
+        recorder.metabolism(
+          world.tick,
+          being.id,
+          `[LOW] e${met.low.idx} ${met.low.value.toFixed(4)}`,
+          { kind: 'LOW', ...met.low }
+        );
+      }
     } else {
       being.lowStreak = 0;
     }
 
-    if (met.intra?.transfers?.length) {
+    if (!stat && met.intra?.transfers?.length) {
       for (const tr of met.intra.transfers) {
         recorder.cell(
           world.tick,
@@ -301,6 +312,7 @@ export function stepWorld(world, recorder) {
     tryMeiosis(world, recorder, being, { stress: result.stress, integrity: met.integrity });
 
     if (
+      !stat &&
       met.integrity != null &&
       (met.crossBoundary || (met.integrity < CELL_INTEGRITY_LOW && world.tick % 25 === 0))
     ) {
@@ -319,7 +331,7 @@ export function stepWorld(world, recorder) {
 
     updateStressStreak(being, result.stress);
 
-    if (result.stress > 0.12 || met.low) {
+    if (!stat && (result.stress > 0.12 || met.low)) {
       recorder.viability(
         world.tick,
         being.id,
@@ -341,6 +353,7 @@ export function stepWorld(world, recorder) {
       shouldTerminate(being, result.stress) ??
       checkReplicationTermination(being, world.envProfile);
     if (term) {
+      collectOrphanPacket(world, being, world.envProfile);
       being.alive = false;
       recorder.viability(world.tick, being.id, `[END] ${term.reason}`, {
         kind: 'END',
@@ -356,19 +369,21 @@ export function stepWorld(world, recorder) {
   processPledgeRenewals(world, recorder);
   processFusions(world, recorder);
 
-  for (const [nodeId, slots] of tickNodeHits) {
-    if (slots.length >= 2) {
-      recorder.social(
-        world.tick,
-        null,
-        `[SOC] contest ${nodeId} ${slots.join(' ')}`,
-        { kind: 'CONTEST', nodeId, slots }
-      );
+  if (!stat) {
+    for (const [nodeId, slots] of tickNodeHits) {
+      if (slots.length >= 2) {
+        recorder.social(
+          world.tick,
+          null,
+          `[SOC] contest ${nodeId} ${slots.join(' ')}`,
+          { kind: 'CONTEST', nodeId, slots }
+        );
+      }
     }
   }
 
   const biotic = applyBioticCycle(world);
-  if (biotic) {
+  if (!stat && biotic) {
     for (const evt of biotic.events) {
       const sign = evt.delta >= 0 ? '+' : '';
       recorder.environment(

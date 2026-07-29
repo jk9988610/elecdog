@@ -2,7 +2,7 @@
 
 import { hashString, mulberry32 } from '../core/hash.js';
 import { mutate } from '../core/dna.js';
-import { performBirthRitual } from '../birth/ritual.js';
+import { birthIntoWorld } from '../birth/spawn.js';
 import { applyFissionReplication, hasReplicationRemaining } from './replication.js';
 
 export function dnaFissionParams(being) {
@@ -68,7 +68,7 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
   const seed = hashString(`${parent.id}:${world.tick}:fission`);
   const { seq, mutationCount } = mutate(parent.dna.sequence, rate, seed);
 
-  const born = performBirthRitual(world, recorder, {
+  const born = birthIntoWorld(world, recorder, {
     name: `${parent.name.slice(0, 5)}裂`,
     code: parent.code,
     dnaSequence: seq,

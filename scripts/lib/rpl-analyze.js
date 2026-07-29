@@ -1,10 +1,10 @@
 /** Phase 37 — 复制配额 [RPL] 与分裂上限 */
 
-export function analyzeReplication(entries, beings) {
-  const rpl = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RPL');
-  const fiss = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS');
-  const ends = entries.filter((e) => e.channel === 'viability' && e.meta?.kind === 'END');
+import { evoCount, endCount } from './event-stats.js';
 
+export function analyzeReplication(recorder, beings) {
+  const entries = recorder.entries ?? [];
+  const ends = entries.filter((e) => e.channel === 'viability' && e.meta?.kind === 'END');
   const alive = beings.filter((b) => b.alive);
   const withRpl = beings.filter((b) => b.rplMax != null);
   const exhausted = withRpl.filter((b) => (b.rplRemaining ?? 0) <= 0);
@@ -16,15 +16,15 @@ export function analyzeReplication(entries, beings) {
     : null;
 
   return {
-    rplEventCount: rpl.length,
-    rplInitCount: rpl.filter((e) => e.meta?.phase === 'init').length,
-    rplExhaustedEvents: rpl.filter((e) => e.meta?.phase === 'exhausted').length,
-    fissCount: fiss.length,
+    rplEventCount: evoCount(recorder, 'RPL'),
+    rplInitCount: recorder.entries?.filter((e) => e.meta?.kind === 'RPL' && e.meta?.phase === 'init').length ?? 0,
+    rplExhaustedEvents: recorder.entries?.filter((e) => e.meta?.kind === 'RPL' && e.meta?.phase === 'exhausted').length ?? 0,
+    fissCount: evoCount(recorder, 'FISS'),
     aliveTotal: alive.length,
     exhaustedCount: exhausted.length,
-    rplEndCount: rplEnds.length,
-    rplTickCapEnds: ends.filter((e) => e.meta?.reason === 'rpl_tick_cap').length,
-    rplExhaustedEnds: ends.filter((e) => e.meta?.reason === 'rpl_exhausted').length,
+    rplEndCount: rplEnds.length || endCount(recorder, 'rpl_exhausted') + endCount(recorder, 'rpl_tick_cap'),
+    rplTickCapEnds: endCount(recorder, 'rpl_tick_cap'),
+    rplExhaustedEnds: endCount(recorder, 'rpl_exhausted'),
     meanRplRemaining,
     beingsWithRpl: withRpl.length,
   };

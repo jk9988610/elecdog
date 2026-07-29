@@ -128,6 +128,7 @@ export function buildDashboardStats(world, recorder) {
       rco: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RCO').length,
       mei: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'MEI').length,
       fus: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FUS').length,
+      bcn: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'BCN').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

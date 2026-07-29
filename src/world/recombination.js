@@ -1,8 +1,9 @@
-// 减数缩减 + 双源汇合 — [MEI] / [FUS]（不设配子/性别名称）
+// 减数缩减 + 双源汇合 — [MEI] / [FUS] / [BCN] 信标（不设配子/性别名称）
 
 import { hashString, mulberry32 } from '../core/hash.js';
 import { reduceDna, recombineDna, mutate } from '../core/dna.js';
-import { performBirthRitual } from '../birth/ritual.js';
+import { birthIntoWorld } from '../birth/spawn.js';
+import { slotIndex, SLOT_COUNT } from './social.js';
 import {
   hasReplicationRemaining,
   replicationEnabled,
@@ -25,6 +26,68 @@ export function meiEnabled(profile) {
 
 export function fusEnabled(profile) {
   return profile?.fusEnabled === true;
+}
+
+function slotDistance(a, b) {
+  const ia = slotIndex(a?.socialSlot ?? 'S0');
+  const ib = slotIndex(b?.socialSlot ?? 'S0');
+  const d = Math.abs(ia - ib);
+  return Math.min(d, SLOT_COUNT - d);
+}
+
+function sortByAffinity(candidates, anchor, profile) {
+  if (!profile?.fusSocialAffinity) return candidates;
+  return [...candidates].sort((x, y) => slotDistance(anchor, x) - slotDistance(anchor, y));
+}
+
+function packetFresh(packet, world, profile) {
+  if (!packet) return false;
+  const maxAge = profile.fusPacketMaxAge ?? 48;
+  return world.tick - packet.atTick <= maxAge;
+}
+
+function pairOnCooldown(world, profile, idA, idB) {
+  const pairKey = [idA, idB].sort().join(':');
+  if (!world.fusPairCooldown?.has(pairKey)) return false;
+  const last = world.fusPairCooldown.get(pairKey);
+  return world.tick - last < (profile.fusPairCooldown ?? 100);
+}
+
+function markPairCooldown(world, idA, idB) {
+  const pairKey = [idA, idB].sort().join(':');
+  if (!world.fusPairCooldown) world.fusPairCooldown = new Map();
+  world.fusPairCooldown.set(pairKey, world.tick);
+}
+
+function logBeacon(recorder, world, being) {
+  recorder.evolution(
+    world.tick,
+    being.id,
+    `[BCN] packet slot ${being.socialSlot} wait 0`,
+    {
+      kind: 'BCN',
+      socialSlot: being.socialSlot,
+      packetAt: being.meiPacket.atTick,
+    }
+  );
+}
+
+/** 个体终止时 packet 进入孤儿池 */
+export function collectOrphanPacket(world, being, profile) {
+  if (!profile?.fusOrphanPoolEnabled || !being.meiPacket) return null;
+  if (!world.orphanPackets) world.orphanPackets = [];
+  const max = profile.fusOrphanPoolMax ?? 12;
+  const entry = {
+    seq: being.meiPacket.seq,
+    fromId: being.id,
+    atTick: being.meiPacket.atTick,
+    socialSlot: being.socialSlot,
+    collectedAt: world.tick,
+  };
+  world.orphanPackets.push(entry);
+  if (world.orphanPackets.length > max) world.orphanPackets.shift();
+  being.meiPacket = null;
+  return entry;
 }
 
 /** 富足场 + 低胁迫 + 有 RPL → 产生 meiPacket */
@@ -86,6 +149,10 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
     }
   );
 
+  if (profile.fusBeaconEnabled) {
+    logBeacon(recorder, world, being);
+  }
+
   return { packetSeq, bias };
 }
 
@@ -98,13 +165,15 @@ function exchangeRegisterFlux(a, b, frac = 0.04) {
   }
 }
 
-function packetFresh(packet, world, profile) {
-  if (!packet) return false;
-  const maxAge = profile.fusPacketMaxAge ?? 48;
-  return world.tick - packet.atTick <= maxAge;
-}
-
-function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { liveDonor = false } = {}) {
+function spawnFusionFromSeqs(
+  world,
+  recorder,
+  parentA,
+  parentB,
+  seqA,
+  seqB,
+  { liveDonor = false, orphan = false, orphanFromId = null } = {}
+) {
   const profile = world.envProfile ?? {};
   const maxPop = profile.fusionMaxPop ?? profile.fissionMaxPop ?? 36;
   if (world.beings.filter((b) => b.alive).length >= maxPop) return null;
@@ -114,7 +183,7 @@ function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { li
   const rate = profile.fusionMutationRate ?? 0.015;
   const { seq, mutationCount } = mutate(combined, rate, seed + 1);
 
-  const born = performBirthRitual(world, recorder, {
+  const born = birthIntoWorld(world, recorder, {
     name: `${parentA.name.slice(0, 3)}${parentB.name.slice(0, 3)}汇`,
     code: parentA.code,
     dnaSequence: seq,
@@ -127,7 +196,7 @@ function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { li
   child.bornAtTick = world.tick;
   child.recombined = true;
 
-  parentA.meiPacket = null;
+  if (!orphan) parentA.meiPacket = null;
   parentA.fusCount = (parentA.fusCount ?? 0) + 1;
   parentB.fusCount = (parentB.fusCount ?? 0) + 1;
 
@@ -150,9 +219,11 @@ function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { li
       parentA: parentA.id,
       parentB: parentB.id,
       liveDonor,
+      orphan,
     });
   }
 
+  const tag = `${liveDonor ? ' live' : ''}${orphan ? ' orphan' : ''}`;
   for (const [who, partner] of [
     [parentA, parentB],
     [parentB, parentA],
@@ -160,7 +231,7 @@ function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { li
     recorder.evolution(
       world.tick,
       who.id,
-      `[FUS] ${partner.id} → ${child.id} mut ${mutationCount}${liveDonor ? ' live' : ''}`,
+      `[FUS] ${partner.id} → ${child.id} mut ${mutationCount}${tag}`,
       {
         kind: 'FUS',
         partnerId: partner.id,
@@ -168,6 +239,8 @@ function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { li
         mutationCount,
         generation: child.generation,
         liveDonor,
+        orphan,
+        orphanFromId,
       }
     );
   }
@@ -180,7 +253,6 @@ function spawnFusionOffspring(world, recorder, parentA, parentB) {
 }
 
 function applyLiveDonorRpl(world, recorder, donor) {
-  const profile = world.envProfile;
   const before = donor.rplRemaining ?? 0;
   if (donor.rplScope === 'subunit' && donor.rplSub?.length) {
     for (const unit of donor.rplSub) {
@@ -210,7 +282,143 @@ function tryLiveDonorFusion(world, recorder, holder, donor) {
   });
 }
 
-/** 双体 meiPacket 汇合；可选 live-donor 配对 */
+function tryOrphanFusion(world, recorder, orphan, donor) {
+  const profile = world.envProfile;
+  if (!profile?.fusOrphanPoolEnabled || !hasReplicationRemaining(donor, profile)) return null;
+  if (!packetFresh(orphan, world, profile)) return null;
+
+  const donorSeq = reduceDna(donor.dna.sequence, hashString(`${donor.id}:${world.tick}:orphan`));
+  applyLiveDonorRpl(world, recorder, donor);
+  return spawnFusionFromSeqs(world, recorder, donor, donor, orphan.seq, donorSeq, {
+    liveDonor: true,
+    orphan: true,
+    orphanFromId: orphan.fromId,
+  });
+}
+
+function pairAllPackets(world, recorder, profile, paired, events) {
+  const maxPasses = profile.fusAggressivePairing ? (profile.fusMaxPairPasses ?? 3) : 1;
+  const maxPairs = profile.fusMaxPairsPerTick ?? 8;
+  let pairsDone = 0;
+
+  for (let pass = 0; pass < maxPasses && pairsDone < maxPairs; pass++) {
+    let pairedThisPass = false;
+    let ready = world.beings.filter(
+      (b) => b.alive && b.meiPacket && packetFresh(b.meiPacket, world, profile) && !paired.has(b.id)
+    );
+    if (ready.length < 2) break;
+
+    if (profile.fusBeaconEnabled) {
+      ready = [...ready].sort((a, b) => a.meiPacket.atTick - b.meiPacket.atTick);
+    }
+
+    for (let i = 0; i < ready.length && pairsDone < maxPairs; i++) {
+      const a = ready[i];
+      if (paired.has(a.id)) continue;
+
+      const candidates = sortByAffinity(
+        ready.filter((b) => b.id !== a.id && !paired.has(b.id)),
+        a,
+        profile
+      );
+
+      for (const b of candidates) {
+        if (pairsDone >= maxPairs) break;
+        if (a.code !== b.code && profile.fusSameCodeOnly) continue;
+        if (pairOnCooldown(world, profile, a.id, b.id)) continue;
+
+        const result = spawnFusionOffspring(world, recorder, a, b);
+        if (!result) continue;
+
+        markPairCooldown(world, a.id, b.id);
+        paired.add(a.id);
+        paired.add(b.id);
+        pairsDone++;
+        pairedThisPass = true;
+        events.push({ aId: a.id, bId: b.id, childId: result.child.id, liveDonor: false, orphan: false });
+        break;
+      }
+    }
+    if (!pairedThisPass) break;
+  }
+}
+
+function pairLiveDonors(world, recorder, profile, paired, events) {
+  if (!profile.fusLiveDonorEnabled) return;
+
+  let holders = world.beings.filter(
+    (b) => b.alive && b.meiPacket && packetFresh(b.meiPacket, world, profile) && !paired.has(b.id)
+  );
+  if (profile.fusBeaconEnabled) {
+    holders = [...holders].sort((a, b) => a.meiPacket.atTick - b.meiPacket.atTick);
+  }
+
+  for (const holder of holders) {
+    if (paired.has(holder.id)) continue;
+    const donors = sortByAffinity(
+      world.beings.filter(
+        (b) => b.alive && !b.meiPacket && !paired.has(b.id) && hasReplicationRemaining(b, profile)
+      ),
+      holder,
+      profile
+    );
+
+    for (const donor of donors) {
+      if (paired.has(donor.id) || holder.id === donor.id) continue;
+      if (pairOnCooldown(world, profile, holder.id, donor.id)) continue;
+
+      const result = tryLiveDonorFusion(world, recorder, holder, donor);
+      if (!result) continue;
+
+      markPairCooldown(world, holder.id, donor.id);
+      paired.add(holder.id);
+      paired.add(donor.id);
+      events.push({ aId: holder.id, bId: donor.id, childId: result.child.id, liveDonor: true, orphan: false });
+      if (!profile.fusAggressivePairing) break;
+    }
+  }
+}
+
+function pairOrphanPool(world, recorder, profile, paired, events) {
+  if (!profile.fusOrphanPoolEnabled || !world.orphanPackets?.length) return;
+
+  const remaining = [];
+  for (const orphan of world.orphanPackets) {
+    if (!packetFresh(orphan, world, profile)) continue;
+
+    const anchor = { socialSlot: orphan.socialSlot };
+    const donors = sortByAffinity(
+      world.beings.filter(
+        (b) => b.alive && !paired.has(b.id) && hasReplicationRemaining(b, profile)
+      ),
+      anchor,
+      profile
+    );
+
+    let fused = false;
+    for (const donor of donors) {
+      if (pairOnCooldown(world, profile, orphan.fromId, donor.id)) continue;
+      const result = tryOrphanFusion(world, recorder, orphan, donor);
+      if (!result) continue;
+
+      markPairCooldown(world, orphan.fromId, donor.id);
+      paired.add(donor.id);
+      events.push({
+        aId: orphan.fromId,
+        bId: donor.id,
+        childId: result.child.id,
+        liveDonor: true,
+        orphan: true,
+      });
+      fused = true;
+      if (!profile.fusAggressivePairing) break;
+    }
+    if (!fused) remaining.push(orphan);
+  }
+  world.orphanPackets = remaining;
+}
+
+/** 双体 meiPacket 汇合；live-donor；孤儿池；信标优先 */
 export function processFusions(world, recorder) {
   const profile = world.envProfile;
   if (!fusEnabled(profile) || !replicationEnabled(profile)) return [];
@@ -218,75 +426,9 @@ export function processFusions(world, recorder) {
   const events = [];
   const paired = new Set();
 
-  const ready = world.beings.filter(
-    (b) => b.alive && b.meiPacket && packetFresh(b.meiPacket, world, profile)
-  );
-
-  for (let i = 0; i < ready.length; i++) {
-    const a = ready[i];
-    if (paired.has(a.id)) continue;
-
-    for (let j = i + 1; j < ready.length; j++) {
-      const b = ready[j];
-      if (paired.has(b.id) || a.id === b.id) continue;
-      if (a.code !== b.code && profile.fusSameCodeOnly) continue;
-
-      const pairKey = [a.id, b.id].sort().join(':');
-      if (world.fusPairCooldown?.has(pairKey)) {
-        const last = world.fusPairCooldown.get(pairKey);
-        if (world.tick - last < (profile.fusPairCooldown ?? 100)) continue;
-      }
-
-      const result = spawnFusionOffspring(world, recorder, a, b);
-      if (!result) continue;
-
-      if (!world.fusPairCooldown) world.fusPairCooldown = new Map();
-      world.fusPairCooldown.set(pairKey, world.tick);
-
-      paired.add(a.id);
-      paired.add(b.id);
-      events.push({ aId: a.id, bId: b.id, childId: result.child.id, liveDonor: false });
-      break;
-    }
-  }
-
-  if (profile.fusLiveDonorEnabled) {
-    const holders = world.beings.filter(
-      (b) => b.alive && b.meiPacket && packetFresh(b.meiPacket, world, profile) && !paired.has(b.id)
-    );
-    const donors = world.beings.filter(
-      (b) => b.alive && !b.meiPacket && !paired.has(b.id) && hasReplicationRemaining(b, profile)
-    );
-
-    for (const holder of holders) {
-      if (paired.has(holder.id)) continue;
-      for (const donor of donors) {
-        if (paired.has(donor.id) || holder.id === donor.id) continue;
-
-        const pairKey = [holder.id, donor.id].sort().join(':');
-        if (world.fusPairCooldown?.has(pairKey)) {
-          const last = world.fusPairCooldown.get(pairKey);
-          if (world.tick - last < (profile.fusPairCooldown ?? 100)) continue;
-        }
-
-        const result = tryLiveDonorFusion(world, recorder, holder, donor);
-        if (!result) continue;
-
-        if (!world.fusPairCooldown) world.fusPairCooldown = new Map();
-        world.fusPairCooldown.set(pairKey, world.tick);
-
-        paired.add(holder.id);
-        paired.add(donor.id);
-        events.push({
-          aId: holder.id,
-          bId: donor.id,
-          childId: result.child.id,
-          liveDonor: true,
-        });
-        break;
-      }
-    }
-  }
+  pairAllPackets(world, recorder, profile, paired, events);
+  pairLiveDonors(world, recorder, profile, paired, events);
+  pairOrphanPool(world, recorder, profile, paired, events);
 
   return events;
 }
