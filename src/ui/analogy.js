@@ -76,6 +76,8 @@ const LABELS = {
   bcn: { native: '信标 BCN', analogy: 'packet 就绪广播' },
   exp: { native: '阅历 EXP', analogy: '经历阶段（非地球年龄）' },
   expStage: { native: '阅历阶段', analogy: '经历阶段' },
+  reg: { native: '寄存器 REG', analogy: 'r–e 耦合模式' },
+  regMode: { native: '寄存器模式', analogy: '场对齐模式' },
 };
 
 export function label(key) {
@@ -99,6 +101,12 @@ export function formatExpStage(stage) {
   const labels = { E0: '初态', E1: '积累', E2: '稳态', E3: '磨损' };
   if (!isAnalogyMode()) return stage ?? 'E0';
   return labels[stage] ?? stage ?? '初态';
+}
+
+export function formatRegMode(mode) {
+  const labels = { SYNC: '同步', LAG: '滞后', SCATTER: '离散', LOCK: '锁定' };
+  if (!isAnalogyMode()) return mode ?? 'SYNC';
+  return labels[mode] ?? mode ?? '同步';
 }
 
 export function viewModeHint() {

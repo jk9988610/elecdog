@@ -4,6 +4,7 @@ import { hashString, mulberry32 } from '../core/hash.js';
 import { assignSocialSlot } from '../world/social.js';
 import { assessStress, externalThreshold, preferAct } from '../world/viability.js';
 import { assignCellBoundary } from '../world/cell.js';
+import { effectiveCoupling } from '../world/register-profile.js';
 
 function dnaToRegisters(dna, count = 8) {
   const rng = mulberry32(hashString(dna));
@@ -57,15 +58,27 @@ export class Being {
     this.expAct = 0;
     this.expStageAt = 0;
     this.expTransitions = 0;
+    this.regMode = 'SYNC';
+    this.regModeAt = 0;
+    this.regTransitions = 0;
+    this.regPrevRegisters = null;
+    this.regGapMean = 0;
+    this.regDriftVel = 0;
+    this.regVariance = 0;
+    this.regDomReg = 0;
+    this.regDomSub = 0;
   }
 
-  advanceRegisters(substrate = null) {
+  advanceRegisters(substrate = null, profile = null) {
+    const coupling = profile?.registerProfileEnabled
+      ? effectiveCoupling(profile, this)
+      : (profile?.registerCouplingBase ?? 0.02);
     for (let i = 0; i < this.registers.length; i++) {
       const mix = this.registers[(i + 1) % this.registers.length];
       const noise = (this.rng() - 0.5) * 0.08;
       let next = this.registers[i] * 0.97 + mix * 0.03 + noise;
       if (substrate && substrate.length === this.registers.length) {
-        next += (substrate[i] - this.registers[i]) * 0.02;
+        next += (substrate[i] - this.registers[i]) * coupling;
       }
       this.registers[i] = Math.max(0, Math.min(1, next));
     }
@@ -101,7 +114,7 @@ export class Being {
     return [`[${kind}] 0x${op} 0x${payload} 0x${chk}`];
   }
 
-  tick(worldTick, { heardSignals = [], substrate = null, experienceBias = null } = {}) {
+  tick(worldTick, { heardSignals = [], substrate = null, experienceBias = null, profile = null } = {}) {
     if (!this.alive) {
       return {
         tick: worldTick,
@@ -114,7 +127,7 @@ export class Being {
       };
     }
     this.tickCount++;
-    this.advanceRegisters(substrate);
+    this.advanceRegisters(substrate, profile);
     const stress = assessStress(this.registers, substrate);
     const internal = this.emitInternal();
 
