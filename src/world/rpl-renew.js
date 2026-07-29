@@ -32,6 +32,57 @@ export function grantRplRenewal(being, grant, profile) {
   return being.rplRemaining - before;
 }
 
+function renewalBudgetLeft(being, profile) {
+  const max = profile.rplRenewMaxCount;
+  if (max == null) return Infinity;
+  return max - ((being.renCount ?? 0) + (being.plgCount ?? 0));
+}
+
+function applyRenewalCost(being, profile, { via = 'REN', mult = 1 } = {}) {
+  if (!profile?.rplRenewCostEnabled) return null;
+
+  const stressBump = Math.ceil((profile.rplRenewStressBump ?? 3) * mult);
+  being.stressStreak = (being.stressStreak || 0) + stressBump;
+
+  const drain = (profile.rplRenewRegisterDrain ?? 0.06) * mult;
+  if (drain > 0) {
+    for (let i = 0; i < being.registers.length; i++) {
+      being.registers[i] = Math.max(0, being.registers[i] - drain);
+    }
+  }
+
+  const tickDebt = Math.ceil((profile.rplRenewTickDebt ?? 32) * mult);
+  if (tickDebt > 0) {
+    being.renewTickDebt = (being.renewTickDebt ?? 0) + tickDebt;
+    if (being.rplTickCap != null) {
+      being.rplTickCap = Math.max(being.tickCount + 12, being.rplTickCap - tickDebt);
+    }
+  }
+
+  being.renewCostCount = (being.renewCostCount ?? 0) + 1;
+
+  return { stressBump, registerDrain: drain, tickDebt, via };
+}
+
+function logRenewalCost(recorder, world, being, cost) {
+  if (!cost) return;
+  recorder.evolution(
+    world.tick,
+    being.id,
+    `[RCO] ${cost.via} stress+${cost.stressBump} tickDebt+${cost.tickDebt}`,
+    {
+      kind: 'RCO',
+      via: cost.via,
+      stressBump: cost.stressBump,
+      tickDebt: cost.tickDebt,
+      registerDrain: cost.registerDrain,
+      renewTickDebt: being.renewTickDebt,
+      rplTickCap: being.rplTickCap,
+      renewCostCount: being.renewCostCount,
+    }
+  );
+}
+
 function dnaRenewBias(being) {
   return mulberry32(hashString(`${being.dna.sequence}:${being.id}:ren`))();
 }
@@ -60,8 +111,11 @@ export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
   const since = world.tick - (being.lastRenTick ?? -cooldown);
   if (since < cooldown) return null;
 
+  if (renewalBudgetLeft(being, profile) <= 0) return null;
+
   const bias = dnaRenewBias(being);
-  const prob = Math.min(0.92, (profile.rplRenewBaseProb ?? 0.42) + bias * 0.35);
+  const decay = (being.renCount ?? 0) * (profile.rplRenewProbDecay ?? 0);
+  const prob = Math.min(0.92, Math.max(0.04, (profile.rplRenewBaseProb ?? 0.42) + bias * 0.35 - decay));
   const roll = mulberry32(hashString(`${being.id}:${world.tick}:ren`))();
   if (roll > prob) return null;
 
@@ -71,6 +125,9 @@ export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
 
   being.lastRenTick = world.tick;
   being.renCount = (being.renCount ?? 0) + 1;
+
+  const cost = applyRenewalCost(being, profile, { via: 'REN' });
+  logRenewalCost(recorder, world, being, cost);
 
   recorder.evolution(
     world.tick,
@@ -131,10 +188,18 @@ export function processPledgeRenewals(world, recorder) {
         if (world.tick - last < (profile.plgPairCooldown ?? 120)) continue;
       }
 
+      if (renewalBudgetLeft(a, profile) <= 0 || renewalBudgetLeft(b, profile) <= 0) continue;
+
       const grant = profile.plgRenewGrant ?? 1;
       const addedA = grantRplRenewal(a, grant, profile);
       const addedB = grantRplRenewal(b, grant, profile);
       if (addedA <= 0 && addedB <= 0) continue;
+
+      const plgMult = profile.plgRenewCostMult ?? 1.15;
+      const costA = applyRenewalCost(a, profile, { via: 'PLG', mult: plgMult });
+      const costB = applyRenewalCost(b, profile, { via: 'PLG', mult: plgMult });
+      logRenewalCost(recorder, world, a, costA);
+      logRenewalCost(recorder, world, b, costB);
 
       exchangeRegisterFlux(a, b);
       a.plgCount = (a.plgCount ?? 0) + 1;

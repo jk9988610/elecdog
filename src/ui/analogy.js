@@ -70,6 +70,7 @@ const LABELS = {
   rpl: { native: '复制 RPL', analogy: 'DNA 剩余复制次数' },
   ren: { native: '续行 REN', analogy: '环境重置复制配额' },
   plg: { native: '汇合 PLG', analogy: '双体通量汇合续行' },
+  rco: { native: '代价 RCO', analogy: '续行代谢/寿命代价' },
 };
 
 export function label(key) {

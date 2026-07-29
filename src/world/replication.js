@@ -190,6 +190,18 @@ export function checkReplicationTermination(being, profile) {
     return { reason: 'rpl_tick_cap', rplTickCap: being.rplTickCap, tickCount: being.tickCount };
   }
 
+  if (profile.rplRenewCostEnabled && (being.renewTickDebt ?? 0) > 0) {
+    const debtLimit = profile.rplRenewDebtLimit ?? 220;
+    if (being.tickCount + being.renewTickDebt >= debtLimit) {
+      return {
+        reason: 'renew_tick_debt',
+        renewTickDebt: being.renewTickDebt,
+        tickCount: being.tickCount,
+        debtLimit,
+      };
+    }
+  }
+
   if (profile.rplSenescenceEnd && !hasReplicationRemaining(being, profile) && (being.rplMax ?? 0) > 0) {
     return {
       reason: 'rpl_exhausted',

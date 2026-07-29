@@ -81,6 +81,8 @@ export function buildDashboardStats(world, recorder) {
       rplTickCap: b.rplTickCap,
       renCount: b.renCount ?? 0,
       plgCount: b.plgCount ?? 0,
+      renewCostCount: b.renewCostCount ?? 0,
+      renewTickDebt: b.renewTickDebt ?? 0,
       ...es,
     };
   });
@@ -120,6 +122,7 @@ export function buildDashboardStats(world, recorder) {
       rplExhausted: entries.filter((e) => e.meta?.kind === 'RPL' && e.meta?.phase === 'exhausted').length,
       ren: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'REN').length,
       plg: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'PLG').length,
+      rco: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RCO').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

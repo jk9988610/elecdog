@@ -40,6 +40,8 @@ export class Being {
     this.lastRenTick = -999;
     this.renCount = 0;
     this.plgCount = 0;
+    this.renewTickDebt = 0;
+    this.renewCostCount = 0;
     this.cellBoundary = assignCellBoundary(dna.sequence, id);
   }
 

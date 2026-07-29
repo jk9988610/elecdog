@@ -207,7 +207,8 @@
   - `fertile_rpl`：FISS 12，存活 16，耗尽 16（Phase 37 复现）
   - `fertile_ren`：FISS **32**，存活 **36**，REN 56 — **续行 support**
   - `fertile_ren_plg`：FISS 32，PLG 36.5，REN 19.5 — **双路径 support**
+- **Phase 40**：多细胞 × 续行 — 子域无续行 7.5 FISS → 有 REN **32 FISS**；续行消除子域瓶颈
 - **状态**：**部分结案** — 续行机制可观察；减数/配子仍开放
-- **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)
+- **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)、[PHASE40_MULTICELL_RENEW.md](PHASE40_MULTICELL_RENEW.md)
 
 ---

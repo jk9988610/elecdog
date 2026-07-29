@@ -187,6 +187,44 @@ export const ENV_PROFILES = {
     plgRenewGrant: 1,
     plgPairCooldown: 100,
   },
+  fertile_renew_cost: {
+    id: 'fertile_renew_cost',
+    label: '富足+RPL续行（有代价）',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+    rplRenewCostEnabled: true,
+    rplRenewStressBump: 3,
+    rplRenewRegisterDrain: 0.05,
+    rplRenewTickDebt: 28,
+    rplRenewMaxCount: 14,
+    rplRenewProbDecay: 0.035,
+    rplRenewDebtLimit: 260,
+    rplTickCapEnabled: true,
+    rplTickCapBase: 300,
+    rplTickCapSpread: 120,
+    plgRenewCostMult: 1.2,
+  },
 };
 
 const REN_BASE = {
@@ -204,6 +242,50 @@ const PLG_BASE = {
   plgRenewGrant: 1,
   plgPairCooldown: 100,
   plgExhaustedAt: 0,
+};
+
+/** Phase 41 — 续行代价 [RCO] */
+const REN_COST = {
+  rplRenewCostEnabled: true,
+  rplRenewStressBump: 3,
+  rplRenewRegisterDrain: 0.05,
+  rplRenewTickDebt: 28,
+  rplRenewMaxCount: 14,
+  rplRenewProbDecay: 0.035,
+  rplRenewDebtLimit: 260,
+  rplTickCapEnabled: true,
+  rplTickCapBase: 300,
+  rplTickCapSpread: 120,
+  plgRenewCostMult: 1.2,
+};
+
+export const PHASE41_TREATMENTS = {
+  fertile_rpl: {
+    id: 'fertile_rpl',
+    label: '富足+RPL（无续行）',
+    envId: 'fertile_field',
+  },
+  fertile_ren_free: {
+    id: 'fertile_ren_free',
+    label: '富足+RPL+[REN]（无代价）',
+    envId: 'fertile_field',
+    ...REN_BASE,
+  },
+  fertile_ren_cost: {
+    id: 'fertile_ren_cost',
+    label: '富足+RPL+[REN]+[RCO]',
+    envId: 'fertile_field',
+    ...REN_BASE,
+    ...REN_COST,
+  },
+  fertile_ren_plg_cost: {
+    id: 'fertile_ren_plg_cost',
+    label: '富足+RPL+[REN]+[PLG]+[RCO]',
+    envId: 'fertile_field',
+    ...REN_BASE,
+    ...PLG_BASE,
+    ...REN_COST,
+  },
 };
 
 /** Phase 40 — 多细胞 × RPL 续行 */
@@ -383,6 +465,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase41Treatment(world, treatmentId) {
+  const treatment = PHASE41_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase41 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 41, treatmentId, ...treatment };
   return world.envProfile;
 }
 
