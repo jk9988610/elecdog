@@ -73,7 +73,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'W1 field review → CODEX revision; GAP-10 selection pressure',
+  next: 'GAP-10 selection pressure cross-seed repeatability',
 };
 
 writeFileSync(

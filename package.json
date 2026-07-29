@@ -119,6 +119,7 @@
     "field:phase76": "node scripts/field-batch-phase76.mjs",
     "field:phase77": "node scripts/field-batch-phase77.mjs",
     "field:phase78": "node scripts/field-batch-phase78.mjs",
+    "field:phase80": "node scripts/field-batch-phase80.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

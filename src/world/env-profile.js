@@ -1609,6 +1609,44 @@ const W5_WISDOM_FULL = {
   fieldLongStudy: true,
 };
 
+/** Phase 80 — GAP-10 选择压跨种子可重复性攻坚（3840 tick × 多节律剧变） */
+export const PHASE80_TREATMENTS = {
+  w2_gap10_ref3840: {
+    id: 'w2_gap10_ref3840',
+    label: '基线×3840tick',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+  },
+  w2_gap10_shk3840: {
+    id: 'w2_gap10_shk3840',
+    label: '剧变×3840tick',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    pulseInterval: 50,
+    substrateDrainMult: 0.88,
+    substrateFloor: 0.4,
+  },
+  w2_gap10_mild80: {
+    id: 'w2_gap10_mild80',
+    label: '温和剧变×3840',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    pulseInterval: 80,
+    substrateDrainMult: 0.62,
+    substrateFloor: 0.48,
+  },
+  w2_gap10_rhythm60: {
+    id: 'w2_gap10_rhythm60',
+    label: '节律剧变×3840',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    pulseInterval: 60,
+    substrateDrainMult: 0.72,
+    substrateFloor: 0.45,
+    substrateBoost: 0.02,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2161,6 +2199,21 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase80Treatment(world, treatmentId) {
+  const treatment = PHASE80_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase80 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 80, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
