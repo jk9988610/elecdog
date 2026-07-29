@@ -350,3 +350,15 @@
 - **报告**：[PHASE78_CONTEXT_GENERALIZATION.md](PHASE78_CONTEXT_GENERALIZATION.md) · `field-phase78-report.json`
 
 ---
+
+## GAP-W06 · 信号约定与文化层（智慧 L5c）
+
+- **缺口**：`[TX]`/`[RX]` 仅有协议层可达与衍生 hex 可决；载荷与可核对后果之间无稳定、可继承的**约定迹**；不能区分「噪声信号」与「可重复发–收型」
+- **依据**：WISDOM.md L5「文化层❌」；观察者关于「实质性对话」之问（2026-07-29）
+- **与 GAP-13/W4 区分**：合作/社会知识是频次与模式档案；本 GAP 问**载荷共现–回复条件**是否可积累，不命名角色/联盟/语言
+- **提议**：`semEnabled` + `[SEM]` 记录层 → on/off 田野（Phase 100–101）；类比 UI 仅展示统计，不写辞典
+- **禁止**：词汇表、句法、地球式「说话/无线电」CODEX 条；脚本化「变聪明」
+- **状态**：**立项** — 假说与田野设计见 [PHASE100_SEMANTIC_SIGNAL.md](PHASE100_SEMANTIC_SIGNAL.md)
+- **关联**：次 tick 信号可达、RX 衍生 hex 可决、SOC-ENC、COOP
+
+---
