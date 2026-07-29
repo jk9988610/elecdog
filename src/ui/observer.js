@@ -47,7 +47,7 @@ import {
   VIEW_NATIVE,
 } from './analogy.js';
 import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
-import { renderConsciousnessPanel } from './consciousness.js';
+import { renderImmersionPanel } from './immersion.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 
 const SEED_DNA =
@@ -726,7 +726,7 @@ export class ObserverApp {
       .join('');
 
     return `
-      ${renderConsciousnessPanel(s.consciousness, { label })}
+      ${renderImmersionPanel(s.consciousness, this.recorder, { label })}
       <section class="panel env-panel">
         <h2>环境</h2>
         ${s.world.envHint ? `<p class="panel-hint">${escapeHtml(s.world.envHint)}</p>` : ''}
