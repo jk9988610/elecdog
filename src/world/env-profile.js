@@ -13,6 +13,7 @@ import { initAirState } from './air.js';
 import { initAdvState } from './adv.js';
 import { initLunarStats } from './ltc.js';
 import { initArtState } from './art.js';
+import { initVentState } from './vent.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -2138,6 +2139,56 @@ export const PHASE92_TREATMENTS = {
   },
 };
 
+const VENT_ENV_BASE = {
+  ...ADV_LTC_BASE,
+  artEnabled: false,
+  advEnabled: true,
+  ltcEnabled: true,
+  airEnabled: true,
+  airInit: 0.5,
+  placeBand: 'P',
+  placePatch: '11',
+  placeTerrain: 'L',
+  ventPatch: '11',
+  synthEnabled: false,
+};
+
+/** Phase 93 — GAP-ENV 地热 vent + 极带生存缝 */
+export const PHASE93_TREATMENTS = {
+  vent_off_ref: {
+    id: 'vent_off_ref',
+    label: '极带无vent',
+    envId: 'wisdom_evolution',
+    ...VENT_ENV_BASE,
+    ventEnabled: false,
+  },
+  vent_on_ref: {
+    id: 'vent_on_ref',
+    label: '极带vent',
+    envId: 'wisdom_evolution',
+    ...VENT_ENV_BASE,
+    ventEnabled: true,
+  },
+  vent_on_mismatch: {
+    id: 'vent_on_mismatch',
+    label: 'vent错位',
+    envId: 'wisdom_evolution',
+    ...VENT_ENV_BASE,
+    ventEnabled: true,
+    ventPatch: '00',
+    placePatch: '11',
+  },
+  vent_on_boost: {
+    id: 'vent_on_boost',
+    label: 'vent强化',
+    envId: 'wisdom_evolution',
+    ...VENT_ENV_BASE,
+    ventEnabled: true,
+    ventInjectAmp: 0.032,
+    ventBoostMult: 1.14,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2690,6 +2741,33 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase93Treatment(world, treatmentId) {
+  const treatment = PHASE93_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase93 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 93, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  initAdvState(world);
+  initLunarStats(world);
+  initArtState(world, world.envProfile);
+  initVentState(world, world.envProfile);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 

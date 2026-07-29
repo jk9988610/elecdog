@@ -121,11 +121,12 @@ export function effectiveSubstrateModifiers(world, profile) {
     ? Math.max(0.75, 1 - world.artMods.drainReduce * 0.15)
     : 1;
   const floor =
-    Math.max(profile?.substrateFloor ?? 0, bp?.floor ?? 0, tp?.floor ?? 0) * floorMult;
+    Math.max(profile?.substrateFloor ?? 0, bp?.floor ?? 0, tp?.floor ?? 0) * floorMult +
+    (world.ventMods?.floorAdd ?? 0);
   return {
     drainMult: drainMult * drainSeason * airDrain * artDrain,
     floor,
-    boostMult: sm?.boostMult ?? 1,
+    boostMult: (sm?.boostMult ?? 1) * (world.ventMods?.boostMult ?? 1),
     solarMult: sm?.solarMult ?? 1,
     band: band ?? 'M',
     terrain: terrain ?? null,

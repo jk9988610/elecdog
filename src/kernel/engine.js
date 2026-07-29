@@ -35,6 +35,7 @@ import { prepAirDiurnal, airEnabled } from '../world/air.js';
 import { tickLunar, ltcEnabled } from '../world/ltc.js';
 import { tickAdv, advEnabled } from '../world/adv.js';
 import { tickArt, tryArtDeposit, artEnabled, artDrawBonus } from '../world/art.js';
+import { tickVent, ventEnabled } from '../world/vent.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -108,6 +109,7 @@ export function stepWorld(world, recorder) {
   const ltc = tickLunar(world, profile);
   const adv = tickAdv(world, profile);
   const art = tickArt(world, profile);
+  const vtn = tickVent(world, profile);
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -206,6 +208,14 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[ART] ${world.birthPlace} active ${art.active} draw+${art.drawBonus} inject ${art.inject}`,
         { kind: 'ART', place: world.birthPlace, ...art }
+      );
+    }
+    if (vtn?.fired && world.tick % 60 === 0) {
+      const t0 = vtn.transfers?.[0];
+      recorder.environment(
+        world.tick,
+        `[VTN] ${world.birthPlace} inject ${vtn.inject} boost×${vtn.boostMult} e${t0?.idx ?? 0}`,
+        { kind: 'VTN', place: world.birthPlace, ...vtn }
       );
     }
   }
