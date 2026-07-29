@@ -269,6 +269,15 @@ input[type='number'] {
   border: 1px solid #3a3450;
 }
 
+.ota-status {
+  font-size: 0.68rem;
+  color: #8b93a8;
+  max-width: 12rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 .btn-secondary {
   background: #1e2a3a;
 }
