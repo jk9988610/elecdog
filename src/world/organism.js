@@ -4,6 +4,7 @@ import { hashString, mulberry32 } from '../core/hash.js';
 import { SUBSTRATE_CHANNELS } from './substrate.js';
 import { assignCellBoundary, assessCellIntegrity, pickMetabolicChannel } from './cell.js';
 import { MET_DRAW_BASE, MET_LOW_THRESHOLD } from './substrate.js';
+import { applyDissipation } from './dissip.js';
 
 export const MULTICELL_SUB_COUNT = 3;
 const SUB_ROLES = ['draw', 'act', 'balance'];
@@ -83,7 +84,7 @@ export function multicellMetabolicExchange(world, being, opts = {}) {
   }
 
   ch[idx] = Math.max(0, ch[idx] - amount);
-  being.registers[idx] = Math.max(0, Math.min(1, being.registers[idx] + amount * 0.3));
+  const dsp = applyDissipation(world, being, { idx, amount }, world.envProfile ?? {});
 
   const draw = {
     idx,
@@ -93,6 +94,7 @@ export function multicellMetabolicExchange(world, being, opts = {}) {
     crossBoundary,
     subCellId: sub.id,
     subRole: sub.role,
+    dsp,
   };
   const low =
     ch[idx] < MET_LOW_THRESHOLD ? { idx, value: ch[idx], threshold: MET_LOW_THRESHOLD } : null;
@@ -112,8 +114,8 @@ function metabolicExchangeUnicell(world, being, opts) {
   if (amount <= 0.0001) return { draw: null, low: null, crossBoundary, integrity, intra: null };
 
   ch[idx] = Math.max(0, ch[idx] - amount);
-  being.registers[idx] = Math.max(0, Math.min(1, being.registers[idx] + amount * 0.3));
-  const draw = { idx, amount, activity, channelAfter: ch[idx], crossBoundary };
+  const dsp = applyDissipation(world, being, { idx, amount }, world.envProfile ?? {});
+  const draw = { idx, amount, activity, channelAfter: ch[idx], crossBoundary, dsp };
   const low =
     ch[idx] < MET_LOW_THRESHOLD ? { idx, value: ch[idx], threshold: MET_LOW_THRESHOLD } : null;
   return { draw, low, crossBoundary, integrity, intra: null };
