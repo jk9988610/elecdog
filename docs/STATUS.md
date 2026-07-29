@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 91 GAP-ENV [ADV] + [LTC]**
+> 更新：2026-07-29 · **Phase 92 GAP-ART · 路线图 §10.2 结案**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 91 交付**；GAP-ENV `[ADV]` 平流 + `[LTC]` 月相田野 **support**（4/4）；下一步 Phase 92 GAP-ART 原型。
+**智慧演化线 Phase 84–92 中期路线全部交付**；GAP-ART `[ART]` 田野 **support**（4/4）；下一步 Phase 93+ 世界厚度。
 
 ---
 
@@ -96,6 +96,7 @@
 | **GAP-ORG SYM** | **89** | ✅ FUS module capture support |
 | **GAP-ENV air** | **90** | ⚠️ 大气标量 weak |
 | **GAP-ENV ADV/LTC** | **91** | ✅ 平流+月相 support |
+| **GAP-ART** | **92** | ✅ ART 场态 support |
 
 ---
 
