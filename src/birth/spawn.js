@@ -23,12 +23,21 @@ import { initMemoryFeedback, memoryFeedbackEnabled } from '../world/memory-feedb
 import { initPrediction, predictionEnabled } from '../world/prediction.js';
 import { initSocialKnowledge, socialKnowledgeEnabled } from '../world/social-knowledge.js';
 import { initReservoir, reservoirEnabled } from '../world/reservoir.js';
+import { assignBeingPlace, applyPlaceBirthBias, placeEnabled } from '../world/place.js';
+import { SOLAR_CHANNEL } from '../world/diurnal.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
   world,
   recorder,
-  { name = '个体', code = '001', dnaSequence = null, id: fixedId = null } = {}
+  {
+    name = '个体',
+    code = '001',
+    dnaSequence = null,
+    id: fixedId = null,
+    placeBand = null,
+    placePatch = null,
+  } = {}
 ) {
   const tick = world.tick;
   const dna = dnaSequence ? createDnaFromSequence(code, dnaSequence) : createDna(code);
@@ -36,6 +45,17 @@ export function spawnBeing(
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
   initOrganism(being, world.envProfile);
+  if (placeBand) {
+    assignBeingPlace(being, { band: placeBand, patch: placePatch ?? '00' });
+  } else if (placeEnabled(world.envProfile)) {
+    assignBeingPlace(being, {
+      band: world.place?.band ?? world.envProfile.placeBand ?? 'M',
+      patch: placePatch ?? world.place?.patch ?? '00',
+    });
+  }
+  if (being.place || placeEnabled(world.envProfile)) {
+    applyPlaceBirthBias(being, SOLAR_CHANNEL);
+  }
   initReplicationQuota(being, world.envProfile);
   if (experienceEnabled(world.envProfile)) {
     initExperience(being);

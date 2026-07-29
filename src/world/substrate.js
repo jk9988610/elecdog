@@ -1,6 +1,7 @@
 // 公理: A1 — 数字基底场；世界环境的最小可观测实现
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { effectiveSubstrateModifiers } from './place.js';
 
 export const SUBSTRATE_CHANNELS = 8;
 
@@ -22,11 +23,11 @@ export function initSubstrate(world) {
 
 export function advanceSubstrate(world) {
   const { channels, rng } = world.substrate;
-  const drainMult = world.envProfile?.substrateDrainMult ?? 1;
+  const profile = world.envProfile ?? {};
+  const { drainMult, floor } = effectiveSubstrateModifiers(world, profile);
   const retain = Math.max(0.9, 0.98 / drainMult);
   const mixW = 0.02 / drainMult;
-  const boost = world.envProfile?.substrateBoost ?? 0;
-  const floor = world.envProfile?.substrateFloor ?? 0;
+  const boost = profile.substrateBoost ?? 0;
   for (let i = 0; i < SUBSTRATE_CHANNELS; i++) {
     const mix = channels[(i + 1) % SUBSTRATE_CHANNELS];
     const noise = (rng() - 0.5) * 0.05;
