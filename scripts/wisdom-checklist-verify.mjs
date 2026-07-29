@@ -34,7 +34,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 72 W2 — selection pressure reinforcement environment',
+  next: 'Phase 73 W3 — prediction error recording [PRD]',
 };
 
 writeFileSync(

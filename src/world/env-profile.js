@@ -1550,6 +1550,51 @@ export const PHASE71_TREATMENTS = {
   },
 };
 
+const W2_REIN_COMMON = {
+  ...W2_WISDOM_BASE,
+  catastropheDisabled: false,
+  substrateBoost: 0,
+};
+
+/** Phase 72 — W2 选择压强化环境（攻坚 GAP-10 / GAP-W02） */
+export const PHASE72_TREATMENTS = {
+  w2_p71_ref: {
+    id: 'w2_p71_ref',
+    label: 'Phase71基线（富足无剧变）',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+  },
+  w2_rein_shk: {
+    id: 'w2_rein_shk',
+    label: '强化+高频剧变',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    pulseInterval: 50,
+    substrateDrainMult: 0.88,
+    substrateFloor: 0.4,
+  },
+  w2_rein_harsh: {
+    id: 'w2_rein_harsh',
+    label: '强化+组合高压',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    pulseInterval: 50,
+    juvenileTicks: 80,
+    juvenileDrawMult: 0.48,
+    juvenileMinGen: 1,
+    substrateDrainMult: 1.12,
+    substrateFloor: 0.36,
+  },
+  w2_rein_sparse: {
+    id: 'w2_rein_sparse',
+    label: '强化+基底耗竭',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    substrateDrainMult: 1.22,
+    substrateFloor: 0.32,
+  },
+};
+
 /** Phase 66 — 意识可持续：谱系×续行×H3 跨代并存 */
 export const PHASE66_TREATMENTS = {
   cn_sustain_full_3840: {
@@ -1949,6 +1994,21 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase72Treatment(world, treatmentId) {
+  const treatment = PHASE72_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase72 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 72, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 

@@ -105,8 +105,8 @@
 
 - **缺口**：四体多代运行中，存活谱系 vs 代 0 的 DNA 频率偏移**方向因种子而异**，延长 tick（2500）与加倍种子（4）仍无法 unanimous
 - **依据**：Phase 21 OBS-55；Phase 22 OBS-56、OBS-57
-- **状态**：**开放（观察结论）** — 非引擎缺陷；禁止为「可重复」而脚本化选择压力
-- **备注**：solo 场景跨种子仍可重复（Phase 21 OBS-54）；多体漂移为运行依赖事实
+- **状态**：**部分结案** — Phase 72 智慧演化场 3000 tick 达 3/4 unanimous；碱基 1 仍跨种子分歧
+- **备注**：solo 场景跨种子仍可重复（Phase 21 OBS-54）；过度 harsh/sparse 导致种群崩溃（可证伪）
 
 ---
 
@@ -274,8 +274,8 @@
 
 - **缺口**：多体 DNA 漂移跨种子方向不一致（继承 GAP-10）
 - **目标**：不脚本化选择，但使适应性差异跨运行可核对
-- **状态**：**度量已就绪** — Phase 71 基线 unanimousBases 1/4；Phase 72 环境攻坚
-- **报告**：[PHASE71_SELECTION_METRICS.md](PHASE71_SELECTION_METRICS.md) · `field-phase71-report.json`
+- **状态**：**部分结案** — Phase 72 田野 3/4 unanimous（碱基 0/2/3）；碱基 1 仍开放
+- **报告**：[PHASE72_SELECTION_REINFORCE.md](PHASE72_SELECTION_REINFORCE.md) · `field-phase72-report.json`
 
 ---
 

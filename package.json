@@ -110,6 +110,7 @@
     "wisdom:mem:verify": "node scripts/wisdom-mem-verify.mjs",
     "field:phase70": "node scripts/field-batch-phase70.mjs",
     "field:phase71": "node scripts/field-batch-phase71.mjs",
+    "field:phase72": "node scripts/field-batch-phase72.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {
