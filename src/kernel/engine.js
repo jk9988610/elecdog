@@ -58,6 +58,12 @@ import {
   electronicHumanActBias,
   processElectronicHumanTick,
 } from '../world/electronic-human-profile.js';
+import {
+  memoryFeedbackEnabled,
+  memoryActBias,
+  decayMemoryLoads,
+  accumulateMemoryLoads,
+} from '../world/memory-feedback.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -124,11 +130,15 @@ export function stepWorld(world, recorder) {
   for (const being of activeBeings) {
     const heard = delivered.filter((s) => s.fromId !== being.id);
     const profile = world.envProfile;
+    if (memoryFeedbackEnabled(profile)) {
+      decayMemoryLoads(being);
+    }
     const experienceBias = mergeActBias(
       experienceEnabled(profile) ? experienceActBias(being, profile) : null,
       cooperationProfileEnabled(profile) ? cooperationActBias(being, profile) : null,
       reproductionProfileEnabled(profile) ? reproductionActBias(being, profile) : null,
-      electronicHumanEnabled(profile) ? electronicHumanActBias(being, profile) : null
+      electronicHumanEnabled(profile) ? electronicHumanActBias(being, profile) : null,
+      memoryFeedbackEnabled(profile) ? memoryActBias(being, profile) : null
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,
@@ -180,6 +190,13 @@ export function stepWorld(world, recorder) {
     if (!stat) recorder.internal(world.tick, being.id, result.internal);
     if (result.external.length > 0) {
       if (!stat) recorder.external(world.tick, being.id, result.external);
+      else {
+        being.fieldExtTicks = (being.fieldExtTicks ?? 0) + 1;
+        for (const line of result.external) {
+          if (line.startsWith('[ACT]')) being.fieldActCount = (being.fieldActCount ?? 0) + 1;
+          else if (line.startsWith('[TX]')) being.fieldTxCount = (being.fieldTxCount ?? 0) + 1;
+        }
+      }
       for (const line of result.external) {
         if (line.startsWith('[TX]')) {
           world.signalBus.push({
@@ -362,6 +379,16 @@ export function stepWorld(world, recorder) {
         },
         { fieldStat: stat }
       );
+    }
+
+    if (memoryFeedbackEnabled(profile)) {
+      const hadTx = result.external.some((l) => l.startsWith('[TX]'));
+      const hadAct = result.external.some((l) => l.startsWith('[ACT]'));
+      accumulateMemoryLoads(being, {
+        hadRx: heard.length > 0,
+        hadTx,
+        hadAct,
+      });
     }
 
     if (registerProfileEnabled(profile)) {

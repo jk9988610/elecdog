@@ -1294,6 +1294,19 @@ ENV_PROFILES.consciousness_full = {
   ehuBindNarrative: true,
 };
 
+/** Phase 70 — 智慧演化默认环境：完整栈 + W1 记忆→行为闭环 */
+ENV_PROFILES.wisdom_evolution = {
+  id: 'wisdom_evolution',
+  label: '智慧演化场',
+  ...CONSCIOUSNESS_FIELD_BASE,
+  ...EHU_DEEP_FULL,
+  ...REN_BASE,
+  ...PLG_BASE,
+  ehuDistinctionErosionMult: 0.3,
+  ehuBindNarrative: true,
+  memoryFeedbackEnabled: true,
+};
+
 /** Phase 58 — CODEX 归纳 + 长时田野（1920 tick） */
 export const PHASE58_TREATMENTS = {
   long_deep_960: {
@@ -1479,6 +1492,34 @@ export const PHASE65_TREATMENTS = {
     ...PLG_BASE,
     fieldLongStudy: true,
     cohort: 'quad',
+  },
+};
+
+/** Phase 70 — W1 记忆→行为闭环（mem on/off 对照） */
+export const PHASE70_TREATMENTS = {
+  wisdom_mem_off: {
+    id: 'wisdom_mem_off',
+    label: '完整栈无记忆反馈×1920',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    memoryFeedbackEnabled: false,
+    fieldLongStudy: true,
+  },
+  wisdom_mem_on: {
+    id: 'wisdom_mem_on',
+    label: '完整栈+记忆反馈×1920',
+    envId: 'wisdom_evolution',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    memoryFeedbackEnabled: true,
+    fieldLongStudy: true,
   },
 };
 
@@ -1881,6 +1922,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase70Treatment(world, treatmentId) {
+  const treatment = PHASE70_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase70 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 70, treatmentId, ...treatment };
   return world.envProfile;
 }
 
