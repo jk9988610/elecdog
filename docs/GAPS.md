@@ -118,8 +118,13 @@
 
 - **缺口**：有 `generation`（谱系代次）与 `tickCount`（存活拍数），但无结构化阅历、无因经历而变的行为层、无「年龄阶段」
 - **依据**：Phase 12 记忆迹不反馈行为；观察者 Phase 32 问题
-- **状态**：**开放**
-- **备注**：`generation` ≠ 地球年龄；类比版 UI 称「谱系代次」而非「岁」
+- **Phase 48 田野**（12 体 960 tick × 4 种子 × 4 处理组）：
+  - `[EXP]` 阶段跃迁可观察（E0→E3）
+  - `experienceFeedback: true` 时 ACT 偏置可调制对外行为
+  - 与双路径繁殖可并存
+- **状态**：**部分结案** — 阅历层已立项；非地球式年龄语义已区分
+- **报告**：[PHASE48_EXPERIENCE.md](PHASE48_EXPERIENCE.md) · `field-phase48-report.json`
+- **备注**：`generation` ≠ 地球年龄；类比版 UI 称「谱系代次」「经历阶段」而非「岁」
 
 ---
 

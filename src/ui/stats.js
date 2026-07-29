@@ -5,6 +5,7 @@ import { formatNodesState } from '../world/nodes.js';
 import { assessCellIntegrity } from '../world/cell.js';
 import { compositionSnapshot } from '../world/composition.js';
 import { observerEnvHint, observerEnvLabel } from './env-select.js';
+import { formatExpStage } from './analogy.js';
 
 function countEnv(entries, kind) {
   return entries.filter((e) => e.channel === 'environment' && e.meta?.kind === kind).length;
@@ -86,6 +87,14 @@ export function buildDashboardStats(world, recorder) {
       meiCount: b.meiCount ?? 0,
       fusCount: b.fusCount ?? 0,
       hasMeiPacket: Boolean(b.meiPacket),
+      expStage: b.expStage ?? 'E0',
+      expTransitions: b.expTransitions ?? 0,
+      expLoad: +(
+        (b.expStress ?? 0) +
+        (b.expLow ?? 0) +
+        (b.expSocial ?? 0) +
+        (b.expAct ?? 0)
+      ).toFixed(3),
       ...es,
     };
   });
@@ -129,6 +138,11 @@ export function buildDashboardStats(world, recorder) {
       mei: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'MEI').length,
       fus: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FUS').length,
       bcn: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'BCN').length,
+      exp: entries.filter(
+        (e) =>
+          (e.channel === 'experience' && e.meta?.kind === 'EXP') ||
+          (e.channel === 'evolution' && e.meta?.kind === 'EXP')
+      ).length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

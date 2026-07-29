@@ -6,6 +6,7 @@ import { Being } from '../being/being.js';
 import { initOrganism } from '../world/organism.js';
 import { initReplicationQuota, recordReplicationInit } from '../world/replication.js';
 import { performBirthRitual } from './ritual.js';
+import { initExperience, experienceEnabled } from '../world/experience.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -20,6 +21,9 @@ export function spawnBeing(
   being.bornAtTick = tick;
   initOrganism(being, world.envProfile);
   initReplicationQuota(being, world.envProfile);
+  if (experienceEnabled(world.envProfile)) {
+    initExperience(being);
+  }
 
   if (!world.envProfile?.fieldStatMode) {
     recordReplicationInit(recorder, tick, being);

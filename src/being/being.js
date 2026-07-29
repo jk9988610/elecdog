@@ -50,6 +50,13 @@ export class Being {
     this.fusParentB = null;
     this.recombined = false;
     this.cellBoundary = assignCellBoundary(dna.sequence, id);
+    this.expStage = 'E0';
+    this.expStress = 0;
+    this.expLow = 0;
+    this.expSocial = 0;
+    this.expAct = 0;
+    this.expStageAt = 0;
+    this.expTransitions = 0;
   }
 
   advanceRegisters(substrate = null) {
@@ -77,8 +84,10 @@ export class Being {
     return lines;
   }
 
-  emitExternal({ stress = 0, lowStreak = 0 } = {}) {
-    const threshold = externalThreshold(stress, lowStreak);
+  emitExternal({ stress = 0, lowStreak = 0, experienceBias = null } = {}) {
+    const actBoost = experienceBias?.actBoost ?? 0;
+    const thresholdDelta = experienceBias?.thresholdDelta ?? 0;
+    const threshold = Math.max(0.18, Math.min(0.95, externalThreshold(stress, lowStreak) + thresholdDelta));
     if (this.rng() > threshold) {
       return [];
     }
@@ -87,11 +96,12 @@ export class Being {
     const payload = toHexByte(this.rng());
     const chk = toHexByte(this.rng());
     const actBias = preferAct(stress, lowStreak);
-    const kind = actBias && this.rng() > 0.32 ? 'ACT' : this.rng() > 0.5 ? 'TX' : 'ACT';
+    const actRoll = 0.32 - actBoost;
+    const kind = actBias && this.rng() > actRoll ? 'ACT' : this.rng() > 0.5 ? 'TX' : 'ACT';
     return [`[${kind}] 0x${op} 0x${payload} 0x${chk}`];
   }
 
-  tick(worldTick, { heardSignals = [], substrate = null } = {}) {
+  tick(worldTick, { heardSignals = [], substrate = null, experienceBias = null } = {}) {
     if (!this.alive) {
       return {
         tick: worldTick,
@@ -116,7 +126,11 @@ export class Being {
       );
     }
 
-    const external = this.emitExternal({ stress, lowStreak: this.lowStreak });
+    const external = this.emitExternal({
+      stress,
+      lowStreak: this.lowStreak,
+      experienceBias,
+    });
     return {
       tick: worldTick,
       beingId: this.id,
