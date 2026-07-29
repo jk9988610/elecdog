@@ -27,7 +27,8 @@ async function fetchJson(url) {
 async function currentBundleVersion() {
   try {
     const cur = await CapacitorUpdater.current();
-    return cur?.bundle?.version || cur?.native || '0.0.0';
+    // 只比较网页 bundle 版本，不用 APK 壳 versionName（如 1.0），否则 0.29.x 永远判为更旧
+    return cur?.bundle?.version || '0.0.0';
   } catch {
     return '0.0.0';
   }

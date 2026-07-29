@@ -32,6 +32,7 @@ jobs:
           cp index.html style.css .nojekyll _site/
           cp -r src _site/
           cp -r updates _site/updates
+          node scripts/stamp-site-cache.mjs _site
 
       - name: Setup Pages
         uses: actions/configure-pages@v4
