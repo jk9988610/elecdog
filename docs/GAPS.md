@@ -196,3 +196,18 @@
 - **文档**：[PHASE37_RPL.md](PHASE37_RPL.md)
 
 ---
+
+## GAP-18 · 复制配额续行 / 环境重置
+
+- **缺口**：RPL 耗尽后是否存在可观察的「重置」或「汇合」路径（地球端粒酶/双亲通量类比）
+- **Phase 39 扩展**：
+  - `[REN]`：富足场 + 低胁迫 + RPL≤0 → 概率 +1 配额
+  - `[PLG]`：同 tick 双体耗尽 → 互赋配额 + 寄存器通量交换
+- **Phase 39 田野**（富足三对照）：
+  - `fertile_rpl`：FISS 12，存活 16，耗尽 16（Phase 37 复现）
+  - `fertile_ren`：FISS **32**，存活 **36**，REN 56 — **续行 support**
+  - `fertile_ren_plg`：FISS 32，PLG 36.5，REN 19.5 — **双路径 support**
+- **状态**：**部分结案** — 续行机制可观察；减数/配子仍开放
+- **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)
+
+---

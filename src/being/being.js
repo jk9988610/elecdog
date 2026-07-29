@@ -37,6 +37,9 @@ export class Being {
     this.fissionCount = 0;
     this.fissionParent = null;
     this.fissionLine = null;
+    this.lastRenTick = -999;
+    this.renCount = 0;
+    this.plgCount = 0;
     this.cellBoundary = assignCellBoundary(dna.sequence, id);
   }
 

@@ -26,6 +26,7 @@ import { tickNurture } from '../world/nurture.js';
 import { runMetabolism } from '../world/organism.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
+import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -294,6 +295,8 @@ export function stepWorld(world, recorder) {
       spawnFissionOffspring(world, recorder, being, fis);
     }
 
+    tryRplRenew(world, recorder, being, { stress: result.stress });
+
     if (
       met.integrity != null &&
       (met.crossBoundary || (met.integrity < CELL_INTEGRITY_LOW && world.tick % 25 === 0))
@@ -346,6 +349,8 @@ export function stepWorld(world, recorder) {
       spawnLineageOffspring(world, recorder, being);
     }
   }
+
+  processPledgeRenewals(world, recorder);
 
   for (const [nodeId, slots] of tickNodeHits) {
     if (slots.length >= 2) {

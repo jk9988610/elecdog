@@ -79,6 +79,8 @@ export function buildDashboardStats(world, recorder) {
       rplMax: b.rplMax,
       rplScope: b.rplScope,
       rplTickCap: b.rplTickCap,
+      renCount: b.renCount ?? 0,
+      plgCount: b.plgCount ?? 0,
       ...es,
     };
   });
@@ -116,6 +118,8 @@ export function buildDashboardStats(world, recorder) {
       fission: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS').length,
       rpl: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RPL').length,
       rplExhausted: entries.filter((e) => e.meta?.kind === 'RPL' && e.meta?.phase === 'exhausted').length,
+      ren: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'REN').length,
+      plg: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'PLG').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

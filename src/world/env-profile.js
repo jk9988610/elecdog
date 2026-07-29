@@ -131,6 +131,70 @@ export const ENV_PROFILES = {
     organismMode: 'multicell',
     rplScope: 'organism',
   },
+  fertile_renew_plg: {
+    id: 'fertile_renew_plg',
+    label: '富足+RPL续行+双体汇合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+  },
+};
+
+/** Phase 39 — [REN] 环境重置 / [PLG] 双体通量汇合 */
+export const PHASE39_TREATMENTS = {
+  fertile_rpl: {
+    id: 'fertile_rpl',
+    label: '富足+RPL（无续行）',
+    envId: 'fertile_field',
+  },
+  fertile_ren: {
+    id: 'fertile_ren',
+    label: '富足+RPL+[REN]',
+    envId: 'fertile_field',
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    rplRenewAtOrBelow: 0,
+    rplRenewMaxStress: 0.24,
+    rplRenewMinSubstrate: 0.46,
+  },
+  fertile_ren_plg: {
+    id: 'fertile_ren_plg',
+    label: '富足+RPL+[REN]+[PLG]',
+    envId: 'fertile_field',
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    rplRenewAtOrBelow: 0,
+    rplRenewMaxStress: 0.24,
+    rplRenewMinSubstrate: 0.46,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+    plgExhaustedAt: 0,
+  },
 };
 
 /** Phase 38 — 多细胞 × RPL 共享 vs 子域分摊 */
@@ -231,6 +295,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase39Treatment(world, treatmentId) {
+  const treatment = PHASE39_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase39 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 39, treatmentId, ...treatment };
   return world.envProfile;
 }
 
