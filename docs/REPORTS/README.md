@@ -31,6 +31,7 @@
 | 26 | L4 环境筛选 | [2026-07-29-phase26.md](2026-07-29-phase26.md) |
 | 27 | 安卓 APK 壳 | [2026-07-29-phase27-apk.md](2026-07-29-phase27-apk.md) |
 | 28 | Supabase 田野云同步 | [2026-07-29-phase28-supabase.md](2026-07-29-phase28-supabase.md) |
+| 29 | 网页 OTA 热更新 | [2026-07-29-phase29-ota.md](2026-07-29-phase29-ota.md) |
 
 原始 JSON：`docs/field-phase*.json`
 

@@ -7,6 +7,7 @@
     "cap:sync": "npm run prepare:www && node node_modules/@capacitor/cli/bin/capacitor sync android",
     "cap:open": "node node_modules/@capacitor/cli/bin/capacitor open android",
     "apk:debug": "npm run cap:sync && cd android && ./gradlew assembleDebug",
+    "ota:build": "node scripts/build-ota.mjs",
     "field": "node scripts/field-batch.mjs",
     "field:phase2": "node scripts/field-batch-phase2.mjs",
     "field:phase3": "node scripts/field-batch-phase3.mjs",
@@ -36,9 +37,12 @@
   },
   "devDependencies": {
     "@capacitor/android": "^7.2.0",
-    "@capacitor/cli": "^7.2.0"
+    "@capacitor/cli": "^7.2.0",
+    "@capgo/cli": "^7.125.4"
   },
   "dependencies": {
-    "@capacitor/core": "^7.2.0"
+    "@capacitor/app": "^7.1.2",
+    "@capacitor/core": "^7.2.0",
+    "@capgo/capacitor-updater": "^7.50.2"
   }
 }

@@ -1,23 +1,23 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 28 Supabase 已交付**
+> 更新：2026-07-29 · **Phase 29 OTA 已交付**
 
 ---
 
 ## 一、当前状态（一句话）
 
-世界能力扩展至 **Phase 28（Supabase 田野云同步）**；观察台可上传田野归档与 OBS 笔记至云端；**开放 GAP 2 条**。
+**Phase 29**：APK 内网页热更新（合并 main 后自动拉 zip）；**Phase 28** Supabase 云同步；开放 GAP 2 条。
 
 ---
 
-## 二、观察台与 APK
+## 二、观察台、APK 与更新
 
 | 项 | 值 |
 |----|-----|
 | Web 入口 | `index.html` + `src/main.js` |
-| APK 工程 | `android/`（Capacitor 7） |
-| 同步命令 | `npm run cap:sync` |
-| 构建 debug APK | `npm run apk:debug`（需本机 Android SDK） |
+| **网页热更新** | [OTA.md](OTA.md) · Pages `/updates/www.json` |
+| APK 整包 | 仅壳层变更时；见 `updates/apk.json` |
+| 打 APK | `npm run apk:debug` |
 
 ---
 
@@ -25,24 +25,17 @@
 
 | 区块 | 阶段 | 状态 |
 |------|------|------|
-| 田野基线 | 0–10 | ✅ 结案 |
-| 世界能力 | 11–20 | ✅ |
-| 进化 / 种群 | 21–24 | ✅ |
-| L4 筛选 | 26 | ✅ `[SEL]` |
-| **APK 壳** | **27** | ✅ Capacitor 工程 |
-| **云同步** | **28** | ✅ Supabase 田野归档 + OBS |
-| **下一** | **29** | Realtime / 批处理入库（候选） |
+| APK 壳 | 27 | ✅ |
+| 云同步 | 28 | ✅ Supabase |
+| **OTA 热更新** | **29** | ✅ Capgo zip |
+| **下一** | 30+ | Realtime / 田野批处理（候选） |
 
 ---
 
-## 四、技术路线（OUTLINE §八）
+## 四、用户操作（APK）
 
-| 阶段 | 内容 | 状态 |
-|------|------|------|
-| Phase 0 | 最小内核 + 观察台 | ✅ |
-| Phase 1 PWA | 离线壳 | ⚠️ 已撤销 |
-| Phase 2 | APK | ✅ Phase 27 |
-| Phase 3 | Supabase | ✅ Phase 28 |
+1. **首次**：安装含 OTA 的 APK（需重打一次并入 Phase 29）
+2. **之后**：打开 App + 联网 → 自动更新观察台，**无需 Termux**
 
 ---
 
