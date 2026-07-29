@@ -8,6 +8,7 @@ import { initNodes } from './nodes.js';
 import { initWorldPlace, applyTerrainSubstrateBias } from './place.js';
 import { initDiurnalStats } from './diurnal.js';
 import { initPcpState } from './pcp.js';
+import { initSeasonalStats } from './seasonal.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -1867,6 +1868,48 @@ export const PHASE86_TREATMENTS = {
   },
 };
 
+const SCL_ENV_BASE = {
+  ...PCP_ENV_BASE,
+  placeTerrain: 'L',
+  pcpEnabled: true,
+};
+
+/** Phase 87 — GAP-ENV [SCL] 季相四相田野 */
+export const PHASE87_TREATMENTS = {
+  scl_off_ref: {
+    id: 'scl_off_ref',
+    label: '无季相·基线',
+    envId: 'wisdom_evolution',
+    ...SCL_ENV_BASE,
+    seasonalEnabled: false,
+  },
+  scl_on_ref: {
+    id: 'scl_on_ref',
+    label: '季相·标准年',
+    envId: 'wisdom_evolution',
+    ...SCL_ENV_BASE,
+    seasonalEnabled: true,
+    seasonalPeriod: 960,
+  },
+  scl_on_fast: {
+    id: 'scl_on_fast',
+    label: '季相·快周期',
+    envId: 'wisdom_evolution',
+    ...SCL_ENV_BASE,
+    seasonalEnabled: true,
+    seasonalPeriod: 480,
+  },
+  scl_on_cold: {
+    id: 'scl_on_cold',
+    label: '季相·冷相偏重',
+    envId: 'wisdom_evolution',
+    ...SCL_ENV_BASE,
+    seasonalEnabled: true,
+    seasonalPeriod: 960,
+    substrateDrainMult: 1.05,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2419,6 +2462,24 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase87Treatment(world, treatmentId) {
+  const treatment = PHASE87_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase87 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 87, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
   return world.envProfile;
 }
 

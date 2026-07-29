@@ -24,10 +24,10 @@ export function initSubstrate(world) {
 export function advanceSubstrate(world) {
   const { channels, rng } = world.substrate;
   const profile = world.envProfile ?? {};
-  const { drainMult, floor } = effectiveSubstrateModifiers(world, profile);
+  const { drainMult, floor, boostMult } = effectiveSubstrateModifiers(world, profile);
   const retain = Math.max(0.9, 0.98 / drainMult);
   const mixW = 0.02 / drainMult;
-  const boost = profile.substrateBoost ?? 0;
+  const boost = (profile.substrateBoost ?? 0) * (boostMult ?? 1);
   for (let i = 0; i < SUBSTRATE_CHANNELS; i++) {
     const mix = channels[(i + 1) % SUBSTRATE_CHANNELS];
     const noise = (rng() - 0.5) * 0.05;

@@ -58,7 +58,7 @@ export function tickDiurnal(world, profile) {
   const idx = profile.solarChannel ?? SOLAR_CHANNEL;
   const night = isNightPhase(solar, profile.diurnalNightThreshold ?? 0.08);
 
-  const inject = solar * peak * amp * (bp.diurnalAmp ?? 1);
+  const inject = solar * peak * amp * (bp.diurnalAmp ?? 1) * (world.seasonal?.mods?.solarMult ?? 1);
   const ch = world.substrate.channels;
   const before = ch[idx];
   ch[idx] = Math.max(0, Math.min(1, before + inject));

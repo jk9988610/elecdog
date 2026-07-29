@@ -113,12 +113,20 @@ export function effectiveSubstrateModifiers(world, profile) {
   const tp = terrain ? terrainParams(terrain) : null;
   const drainMult =
     (profile?.substrateDrainMult ?? 1) * (bp?.drainMult ?? 1) * (tp?.drainMult ?? 1);
-  const floor = Math.max(
-    profile?.substrateFloor ?? 0,
-    bp?.floor ?? 0,
-    tp?.floor ?? 0
-  );
-  return { drainMult, floor, band: band ?? 'M', terrain: terrain ?? null };
+  const sm = world.seasonal?.mods;
+  const floorMult = sm?.floorMult ?? 1;
+  const drainSeason = sm?.drainMult ?? 1;
+  const floor =
+    Math.max(profile?.substrateFloor ?? 0, bp?.floor ?? 0, tp?.floor ?? 0) * floorMult;
+  return {
+    drainMult: drainMult * drainSeason,
+    floor,
+    boostMult: sm?.boostMult ?? 1,
+    solarMult: sm?.solarMult ?? 1,
+    band: band ?? 'M',
+    terrain: terrain ?? null,
+    seasonPhase: world.seasonal?.phase ?? null,
+  };
 }
 
 export function terrainNodeRegenMult(world, profile) {
