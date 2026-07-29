@@ -14,7 +14,7 @@ const appId = 'com.elecdog.observer';
 const pagesBase = 'https://jk9988610.github.io/elecdog/updates';
 
 const runNo = process.env.GITHUB_RUN_NUMBER || '0';
-const version = process.env.OTA_VERSION || `0.30.${runNo}`;
+const version = process.env.OTA_VERSION || `1.0.${runNo}`;
 const zipName = `www-${version}`;
 
 mkdirSync(updatesDir, { recursive: true });
