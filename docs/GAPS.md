@@ -156,7 +156,8 @@
 - **Phase 86**：terrain L/O + `[PCP]` 水循环已落地；PCP **support** — 见 [PHASE86_PCP_TERRAIN.md](PHASE86_PCP_TERRAIN.md)
 - **Phase 87**：`[SCL]` 季相四相已落地；田野 **support** — 见 [PHASE87_SCL_SEASONAL.md](PHASE87_SCL_SEASONAL.md)
 - **Phase 90**：`air` 标量 + 日相耦合；田野 **weak** — 见 [PHASE90_AIR_DIURNAL.md](PHASE90_AIR_DIURNAL.md)
-- **状态**：**部分开放**（band+DLC+terrain+PCP+SCL+air ✓；月相/ADV 待 Phase 91+）
+- **Phase 91**：`[ADV]` 邻格平流 + `[LTC]` 月相；田野 **support** — 见 [PHASE91_ADV_LTC.md](PHASE91_ADV_LTC.md)
+- **状态**：**部分开放**（band+DLC+terrain+PCP+SCL+air+ADV+LTC ✓；GAP-ART 待 Phase 92）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
