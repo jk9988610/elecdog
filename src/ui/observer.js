@@ -25,8 +25,9 @@ const SEED_DNA =
 const SEED_ID = '0120260729010001';
 
 export class ObserverApp {
-  constructor(root) {
+  constructor(root, options = {}) {
     this.root = root;
+    this.otaLabel = options.otaLabel || '';
     this.world = null;
     this.recorder = new Recorder();
     this.timer = null;
@@ -51,6 +52,7 @@ export class ObserverApp {
         <label class="speed-label">间隔 <input id="speed" type="number" value="200" min="50" max="2000" step="50" /></label>
         <span id="tick-display" class="tick">tick 0</span>
         <span id="place-display" class="place"></span>
+        ${this.otaLabel ? `<span id="ota-version" class="ota-version" title="当前网页热更新版本">${escapeHtml(this.otaLabel)}</span>` : ''}
         <span class="toolbar-spacer"></span>
         <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
