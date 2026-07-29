@@ -1,0 +1,372 @@
+{
+  "runAt": "2026-07-29T17:55:44.519Z",
+  "phase": 82,
+  "extension": "wisdom_species_acceptance",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 1920,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "w82_accept_std": {
+      "id": "w82_accept_std",
+      "label": "验收标准情境",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55,
+      "wisdomAcceptance": true,
+      "wisdomContextId": "accept_std"
+    },
+    "w82_accept_audit": {
+      "id": "w82_accept_audit",
+      "label": "验收审计情境（剧变）",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55,
+      "wisdomAcceptance": true,
+      "wisdomContextId": "accept_audit",
+      "catastropheDisabled": false,
+      "pulseInterval": 50,
+      "substrateDrainMult": 0.88,
+      "substrateFloor": 0.4
+    }
+  },
+  "batchVerdict": {
+    "seedsCompared": 8,
+    "supportByGoal": {
+      "W1_memoryLoop": 8,
+      "W3_prediction": 8,
+      "W4_social": 8,
+      "W5_openScale": 8
+    },
+    "perSeed": [
+      {
+        "treatmentId": "w82_accept_std",
+        "seed": 0,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.6321
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 196
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75603,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 64
+        }
+      },
+      {
+        "treatmentId": "w82_accept_std",
+        "seed": 1,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.6175
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 220
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75488,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 64
+        }
+      },
+      {
+        "treatmentId": "w82_accept_std",
+        "seed": 2,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.5916
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 212
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75525,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 64
+        }
+      },
+      {
+        "treatmentId": "w82_accept_std",
+        "seed": 3,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.6322
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 184
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75610,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 64
+        }
+      },
+      {
+        "treatmentId": "w82_accept_audit",
+        "seed": 0,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.625
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 250
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75623,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 71
+        }
+      },
+      {
+        "treatmentId": "w82_accept_audit",
+        "seed": 1,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.597
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 259
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75407,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 64
+        }
+      },
+      {
+        "treatmentId": "w82_accept_audit",
+        "seed": 2,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.6032
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 245
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75732,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 70
+        }
+      },
+      {
+        "treatmentId": "w82_accept_audit",
+        "seed": 3,
+        "W1_memoryLoop": {
+          "verdict": "support",
+          "meanMemLoad": 1.589
+        },
+        "W3_prediction": {
+          "verdict": "support",
+          "prdCount": 252
+        },
+        "W4_social": {
+          "verdict": "support",
+          "socEncCount": 75569,
+          "memLinCount": 52
+        },
+        "W5_openScale": {
+          "verdict": "support",
+          "aliveTotal": 64,
+          "coopCount": 64
+        }
+      }
+    ],
+    "verdict": "support",
+    "acceptanceReady": true
+  },
+  "shortTermGoal": "智慧物种田野验收准备",
+  "roadmap": "docs/PHASE82_WISDOM_ACCEPTANCE.md",
+  "runBudgetMs": 180000
+}

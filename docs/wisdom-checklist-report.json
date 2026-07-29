@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-29T17:52:06.571Z",
+  "runAt": "2026-07-29T17:56:01.283Z",
   "phase": 81,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
@@ -132,8 +132,8 @@
       "total": 14
     },
     "progressPct": 86,
-    "currentPhase": 81,
-    "currentGoal": "W2",
+    "currentPhase": 82,
+    "currentGoal": "验收",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "GAP-10 generation depth or W2-only stack assault"
+  "next": "Wisdom species field acceptance preparation"
 }

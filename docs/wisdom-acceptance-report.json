@@ -1,0 +1,112 @@
+{
+  "runAt": "2026-07-29T17:55:44.652Z",
+  "phase": 82,
+  "extension": "wisdom_acceptance_summary",
+  "goals": [
+    {
+      "goal": "W1",
+      "phase": 70,
+      "label": "记忆→行为闭环",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase70-report.json"
+    },
+    {
+      "goal": "W2",
+      "phase": 72,
+      "label": "可重复选择压",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase72-report.json"
+    },
+    {
+      "goal": "W3",
+      "phase": 74,
+      "label": "预测–校正",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase74-report.json"
+    },
+    {
+      "goal": "W4a",
+      "phase": 75,
+      "label": "社会知识累积",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase75-report.json"
+    },
+    {
+      "goal": "W4b",
+      "phase": 76,
+      "label": "谱系记忆回响",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase76-report.json"
+    },
+    {
+      "goal": "W5a",
+      "phase": 77,
+      "label": "长时开放演化",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase77-report.json"
+    },
+    {
+      "goal": "W5b",
+      "phase": 78,
+      "label": "多情境泛化",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase78-report.json"
+    },
+    {
+      "goal": "ACC",
+      "phase": 82,
+      "label": "综合验收田野",
+      "verdict": "support",
+      "status": "support",
+      "report": "field-phase82-report.json"
+    }
+  ],
+  "checklist": {
+    "complete": 12,
+    "partial": 2,
+    "total": 14,
+    "progressPct": 86,
+    "openItems": [
+      {
+        "id": "L2b-selection",
+        "label": "非随机存续差异（END/SEL）"
+      },
+      {
+        "id": "L2c-repeatable",
+        "label": "选择压跨种子可重复",
+        "gap": "GAP-10"
+      }
+    ]
+  },
+  "integratedField": {
+    "phase": 82,
+    "verdict": "support",
+    "acceptanceReady": true,
+    "supportByGoal": {
+      "W1_memoryLoop": 8,
+      "W3_prediction": 8,
+      "W4_social": 8,
+      "W5_openScale": 8
+    }
+  },
+  "summary": {
+    "wGoalsSupport": 8,
+    "wGoalsPartial": 0,
+    "wGoalsTotal": 7
+  },
+  "verdict": "prepared",
+  "knownGaps": [
+    "GAP-10",
+    "L2b-selection",
+    "L2c-repeatable"
+  ],
+  "roadmap": "docs/PHASE82_WISDOM_ACCEPTANCE.md",
+  "obs": "OBS-20260729-93"
+}
