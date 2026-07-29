@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-29T17:14:36.240Z",
+  "runAt": "2026-07-29T17:18:10.900Z",
   "phase": 70,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
@@ -84,8 +84,8 @@
       {
         "id": "L4c-predict",
         "label": "预测–校正回路",
-        "status": "pending",
-        "phase": "73-74",
+        "status": "partial",
+        "phase": "73",
         "goal": "W3",
         "layer": "L4",
         "layerLabel": "认知闭环"
@@ -127,13 +127,13 @@
     ],
     "summary": {
       "complete": 9,
-      "partial": 2,
-      "open": 3,
+      "partial": 3,
+      "open": 2,
       "total": 14
     },
     "progressPct": 64,
-    "currentPhase": 73,
-    "currentGoal": "W3",
+    "currentPhase": 74,
+    "currentGoal": "W3-feedback",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -233,8 +233,8 @@
         {
           "id": "L4c-predict",
           "label": "预测–校正回路",
-          "status": "pending",
-          "phase": "73-74",
+          "status": "partial",
+          "phase": "73",
           "goal": "W3",
           "layer": "L4",
           "layerLabel": "认知闭环"
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "Phase 73 W3 — prediction error recording [PRD]"
+  "next": "Phase 74 W3 — prediction error feedback to behavior"
 }

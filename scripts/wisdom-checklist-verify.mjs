@@ -34,7 +34,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 73 W3 — prediction error recording [PRD]',
+  next: 'Phase 74 W3 — prediction error feedback to behavior',
 };
 
 writeFileSync(

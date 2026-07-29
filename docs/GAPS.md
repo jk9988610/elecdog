@@ -282,7 +282,7 @@
 ## GAP-W03 · 预测–校正回路（智慧 W3）
 
 - **缺口**：无环境结构预测与误差驱动的行为修正
-- **状态**：**待启动** — Phase 73–74
-- **路线**：[WISDOM.md](WISDOM.md) §五
+- **状态**：**部分结案** — Phase 73 `[PRD]` 记录层 support；校正反馈待 Phase 74
+- **报告**：[PHASE73_PREDICTION_RECORD.md](PHASE73_PREDICTION_RECORD.md) · `field-phase73-report.json`
 
 ---
