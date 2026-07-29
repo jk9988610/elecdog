@@ -1,6 +1,6 @@
 {
-  "runAt": "2026-07-29T17:56:01.283Z",
-  "phase": 81,
+  "runAt": "2026-07-29T17:58:25.304Z",
+  "phase": 83,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
   "assessment": {
@@ -132,8 +132,8 @@
       "total": 14
     },
     "progressPct": 86,
-    "currentPhase": 82,
-    "currentGoal": "验收",
+    "currentPhase": 83,
+    "currentGoal": "结案",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "Wisdom species field acceptance preparation"
+  "next": "L2/GAP-10 closure decision or CODEX wisdom species entry"
 }

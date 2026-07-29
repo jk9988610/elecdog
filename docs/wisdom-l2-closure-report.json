@@ -1,0 +1,39 @@
+{
+  "runAt": "2026-07-29T17:58:25.206Z",
+  "phase": 83,
+  "extension": "l2_gap10_closure",
+  "decision": "accepted_partial_ceiling",
+  "evidence": {
+    "phase72BestUnanimous": 3,
+    "phase80BestUnanimous": 2,
+    "phase81BestUnanimous": 2,
+    "acceptanceVerdict": "prepared",
+    "assaultFailed": true
+  },
+  "gap10": {
+    "status": "closed_partial",
+    "ceiling": "3/4 unanimous (Phase 72)",
+    "openBase": "碱基 1",
+    "prohibition": "禁止脚本化选择压"
+  },
+  "l2": {
+    "L2b_selection": {
+      "status": "partial",
+      "note": "SEL 信号弱；接受观测上限"
+    },
+    "L2c_repeatable": {
+      "status": "partial",
+      "gap": "GAP-10",
+      "closure": "accepted_partial_ceiling"
+    }
+  },
+  "codex": {
+    "entry": "智慧演化物种验收",
+    "ready": true
+  },
+  "obs": [
+    "OBS-20260729-93",
+    "OBS-20260729-94"
+  ],
+  "roadmap": "docs/PHASE83_L2_CODEX_CLOSURE.md"
+}

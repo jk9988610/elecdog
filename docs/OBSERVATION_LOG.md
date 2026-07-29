@@ -732,4 +732,14 @@
   - 检查表 **12/14**；L2b/L2c 仍 partial
 - **备注**：`docs/wisdom-acceptance-report.json`
 
+## OBS-20260729-94
+
+- **世界**：智慧演化场（Phase 83 · L2/GAP-10 结案）
+- **决策**：`accepted_partial_ceiling` — Phase 72 **3/4** 为观测上限
+- **事实**：
+  - Phase 80–81 攻坚未超越 Phase 72
+  - GAP-10 / GAP-W02 **正式部分结案（上限接受）**
+  - CODEX 新条「智慧演化物种验收」立项
+- **备注**：`docs/wisdom-l2-closure-report.json`
+
 ---

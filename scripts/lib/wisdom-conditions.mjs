@@ -67,6 +67,7 @@ export const WISDOM_PHASE_ROADMAP = [
   { phase: 80, goal: 'W2', label: 'GAP-10 选择压攻坚' },
   { phase: 81, goal: 'W2', label: 'GAP-10 W2 深度攻坚' },
   { phase: 82, goal: '验收', label: '智慧物种田野验收' },
+  { phase: 83, goal: '结案', label: 'L2/GAP-10 结案 + CODEX' },
 ];
 
 /**
@@ -104,8 +105,8 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 82,
-    currentGoal: '验收',
+    currentPhase: 83,
+    currentGoal: '结案',
     roadmap: 'docs/WISDOM.md',
   };
 }
