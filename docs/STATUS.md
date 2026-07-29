@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 86 GAP-ENV terrain L/O + [PCP]**
+> 更新：2026-07-29 · **Phase 87 GAP-ENV [SCL] 季相四相**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 86 交付**；GAP-ENV terrain + `[PCP]` 田野 **weak**（PCP 4/4 support）；下一步 Phase 87 季相 `[SCL]`。
+**智慧演化线 Phase 87 交付**；GAP-ENV `[SCL]` 季相田野 **support**（4/4 四相可观测）；下一步 Phase 88 Synth-A/B。
 
 ---
 

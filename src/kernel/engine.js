@@ -15,6 +15,7 @@ import {
 } from '../world/nodes.js';
 import { terrainNodeHitMult } from '../world/place.js';
 import { tickPcp, pcpEnabled, recordPcpLow, recordPcpDrw } from '../world/pcp.js';
+import { tickSeasonal, recordSeasonalLow } from '../world/seasonal.js';
 import { assignSocialSlot } from '../world/social.js';
 import { shouldTerminate, updateStressStreak } from '../world/viability.js';
 import { spawnLineageOffspring } from '../world/lineage.js';
@@ -85,6 +86,7 @@ export function stepWorld(world, recorder) {
   world.tick++;
 
   const profile = world.envProfile ?? {};
+  const scl = tickSeasonal(world, profile);
   const dlc = tickDiurnal(world, profile);
   const pcp = tickPcp(world, profile, { solar: dlc?.solar ?? 0, night: dlc?.night ?? false });
   advanceSubstrate(world);
@@ -149,6 +151,13 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[PCP] ${world.birthPlace} burst ${pcp.burst} atmo ${pcp.atmoStore} e${t0?.idx ?? 1} +${t0?.delta ?? 0}`,
         { kind: 'PCP', place: world.birthPlace, ...pcp }
+      );
+    }
+    if (scl?.changed) {
+      recorder.environment(
+        world.tick,
+        `[SCL] ${world.birthPlace} phase ${scl.phase} floor×${scl.floorMult} boost×${scl.boostMult}`,
+        { kind: 'SCL', place: world.birthPlace, ...scl }
       );
     }
   }
@@ -388,6 +397,7 @@ export function stepWorld(world, recorder) {
       being.lowStreak++;
       if (dlc) recordDiurnalLow(world, { night: dlc.night });
       recordPcpLow(world, { idx: met.low.idx });
+      if (scl) recordSeasonalLow(world, scl.phase);
       if (!stat) {
         recorder.metabolism(
           world.tick,

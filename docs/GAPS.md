@@ -151,8 +151,9 @@
 - **依据**：ENVIRONMENT.md §六；智慧演化讨论（2026-07-29）
 - **提议**：区带 `E|M|P` + patch、`[DLC]` 日相、`[SCL]` 季相、`[LTC]` 月相 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) §六
 - **Phase 85**：band E/M/P + `[DLC]` 日相已落地；田野 **weak** — 见 [PHASE85_DLC_DIURNAL.md](PHASE85_DLC_DIURNAL.md)
-- **Phase 86**：terrain L/O + `[PCP]` 水循环已落地；PCP **support**、陆海 **weak** — 见 [PHASE86_PCP_TERRAIN.md](PHASE86_PCP_TERRAIN.md)
-- **状态**：**部分开放**（band+DLC+terrain+PCP ✓；季相/月相/air 待 Phase 87+）
+- **Phase 86**：terrain L/O + `[PCP]` 水循环已落地；PCP **support** — 见 [PHASE86_PCP_TERRAIN.md](PHASE86_PCP_TERRAIN.md)
+- **Phase 87**：`[SCL]` 季相四相已落地；田野 **support** — 见 [PHASE87_SCL_SEASONAL.md](PHASE87_SCL_SEASONAL.md)
+- **状态**：**部分开放**（band+DLC+terrain+PCP+SCL ✓；月相/air/ADV 待 Phase 88+）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
