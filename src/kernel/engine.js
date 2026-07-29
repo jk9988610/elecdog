@@ -80,6 +80,7 @@ import {
   accumulateMemoryLoads,
 } from '../world/memory-feedback.js';
 import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
+import { semEnabled, recordSemRx, recordSemTx } from '../world/sem.js';
 import {
   socialKnowledgeEnabled,
   socialKnowledgeFeedbackEnabled,
@@ -302,6 +303,10 @@ export function stepWorld(world, recorder) {
       }
     }
 
+    if (semEnabled(profile)) {
+      recordSemRx(being, heard, world.tick);
+    }
+
     if (!stat) recorder.internal(world.tick, being.id, result.internal);
     if (result.external.length > 0) {
       if (!stat) recorder.external(world.tick, being.id, result.external);
@@ -320,6 +325,9 @@ export function stepWorld(world, recorder) {
             emittedAt: world.tick,
             deliverAt: world.tick + 1,
           });
+          if (semEnabled(profile)) {
+            recordSemTx(world, recorder, being, profile, line, { fieldStat: stat });
+          }
           if (!stat) {
             recorder.memory(world.tick, being.id, `[MEM] TX t${world.tick}`, {
               kind: 'TX',

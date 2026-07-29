@@ -22,6 +22,7 @@ import {
 import { initMemoryFeedback, memoryFeedbackEnabled } from '../world/memory-feedback.js';
 import { initPrediction, predictionEnabled } from '../world/prediction.js';
 import { initSocialKnowledge, socialKnowledgeEnabled } from '../world/social-knowledge.js';
+import { initSemState, semEnabled } from '../world/sem.js';
 import { initReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { initSynthCounters, synthEnabled } from '../world/synth.js';
 import { initSymModules } from '../world/sym.js';
@@ -92,6 +93,9 @@ export function spawnBeing(
   }
   if (socialKnowledgeEnabled(world.envProfile)) {
     initSocialKnowledge(being);
+  }
+  if (semEnabled(world.envProfile)) {
+    initSemState(being);
   }
   if (reservoirEnabled(world.envProfile)) {
     initReservoir(being, world.envProfile);
