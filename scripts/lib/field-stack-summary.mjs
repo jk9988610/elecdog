@@ -26,6 +26,7 @@ export const PHASE_FEEDBACK_TREATMENT = {
   55: 'stack_ehu_feedback',
   56: 'persona_feedback',
   57: 'ehu_deep_full',
+  58: { key: 'meanH3', label: 'H3' },
 };
 
 export const STACK_PHASES = [48, 49, 50, 51, 52, 53];
