@@ -1,0 +1,528 @@
+{
+  "runAt": "2026-07-29T17:11:04.212Z",
+  "phase": 71,
+  "extension": "w2_selection_repeatability",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 2500,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "w2_evo_cat": {
+      "id": "w2_evo_cat",
+      "label": "智慧演化+剧变选择压",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true
+    },
+    "w2_evo_ctrl": {
+      "id": "w2_evo_ctrl",
+      "label": "智慧演化+无剧变对照",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "catastropheDisabled": true
+    }
+  },
+  "batchVerdict": {
+    "treatments": {
+      "w2_evo_cat": {
+        "compare": {
+          "avgDrift": 0.0155,
+          "signConsistent": false,
+          "runCount": 4
+        },
+        "consensus": {
+          "votes": {
+            "0": {
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "3": {
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            }
+          },
+          "consensus": {
+            "0": {
+              "sign": 1,
+              "unanimous": true,
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "sign": -1,
+              "unanimous": false,
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "sign": 1,
+              "unanimous": false,
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "3": {
+              "sign": -1,
+              "unanimous": false,
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            }
+          },
+          "unanimousBases": 1,
+          "allUnanimous": false,
+          "runCount": 4
+        },
+        "meanDrift": 0.0155,
+        "meanSel": 0,
+        "perSeed": [
+          {
+            "seed": 0,
+            "drift": {
+              "0": 0.0039,
+              "1": 0.002,
+              "2": 0.0011,
+              "3": -0.0071
+            },
+            "driftMag": 0.0141,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0141,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 1,
+            "drift": {
+              "0": 0.0022,
+              "1": -0.0028,
+              "2": 0.004,
+              "3": -0.0035
+            },
+            "driftMag": 0.0125,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0125,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 2,
+            "drift": {
+              "0": 0.0067,
+              "1": -0.0036,
+              "2": -0.0044,
+              "3": 0.0013
+            },
+            "driftMag": 0.016,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.016,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 3,
+            "drift": {
+              "0": 0.0092,
+              "1": -0.0044,
+              "2": 0.0005,
+              "3": -0.0054
+            },
+            "driftMag": 0.0195,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0195,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          }
+        ]
+      },
+      "w2_evo_ctrl": {
+        "compare": {
+          "avgDrift": 0.0187,
+          "signConsistent": false,
+          "runCount": 4
+        },
+        "consensus": {
+          "votes": {
+            "0": {
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "3": {
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            }
+          },
+          "consensus": {
+            "0": {
+              "sign": 1,
+              "unanimous": true,
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "sign": -1,
+              "unanimous": false,
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "sign": 0,
+              "unanimous": false,
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "3": {
+              "sign": -1,
+              "unanimous": false,
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            }
+          },
+          "unanimousBases": 1,
+          "allUnanimous": false,
+          "runCount": 4
+        },
+        "meanDrift": 0.0187,
+        "meanSel": 0,
+        "perSeed": [
+          {
+            "seed": 0,
+            "drift": {
+              "0": 0.0062,
+              "1": 0.002,
+              "2": -0.0003,
+              "3": -0.0078
+            },
+            "driftMag": 0.0163,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0163,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 1,
+            "drift": {
+              "0": 0.0072,
+              "1": -0.0001,
+              "2": 0.0014,
+              "3": -0.0085
+            },
+            "driftMag": 0.0172,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0172,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 2,
+            "drift": {
+              "0": 0.005,
+              "1": -0.0049,
+              "2": -0.0006,
+              "3": 0.0005
+            },
+            "driftMag": 0.011,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.011,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 3,
+            "drift": {
+              "0": 0.0051,
+              "1": -0.0113,
+              "2": 0.0101,
+              "3": -0.0039
+            },
+            "driftMag": 0.0304,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0304,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "metricsEstablished": true,
+    "signConsistentCat": false,
+    "signConsistentCtrl": false,
+    "unanimousBasesCat": 1,
+    "unanimousBasesCtrl": 1,
+    "bestUnanimousBases": 1,
+    "w2Repeatable": false,
+    "gap10Status": "open",
+    "verdict": "gap10_persists",
+    "phase72Target": "≥2 碱基 unanimous（当前基线 1/4）"
+  },
+  "shortTermGoal": "W2 选择压可重复性度量",
+  "roadmap": "docs/PHASE71_SELECTION_METRICS.md",
+  "runBudgetMs": 180000
+}

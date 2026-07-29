@@ -274,8 +274,8 @@
 
 - **缺口**：多体 DNA 漂移跨种子方向不一致（继承 GAP-10）
 - **目标**：不脚本化选择，但使适应性差异跨运行可核对
-- **状态**：**开放** — Phase 71–72
-- **路线**：[WISDOM.md](WISDOM.md) §五
+- **状态**：**度量已就绪** — Phase 71 基线 unanimousBases 1/4；Phase 72 环境攻坚
+- **报告**：[PHASE71_SELECTION_METRICS.md](PHASE71_SELECTION_METRICS.md) · `field-phase71-report.json`
 
 ---
 
