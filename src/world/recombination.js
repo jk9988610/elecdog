@@ -1,6 +1,7 @@
 // 减数缩减 + 双源汇合 — [MEI] / [FUS] / [BCN] 信标（不设配子/性别名称）
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { captureSymOnFus, symCaptureEnabled } from './sym.js';
 import { reduceDna, recombineDna, mutate } from '../core/dna.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
@@ -241,6 +242,24 @@ function spawnFusionFromSeqs(
 
   applyEhuLineageEcho(world, recorder, child, [parentA, parentB], profile);
   applyMemLineageEcho(world, recorder, child, [parentA, parentB], profile, { via: 'FUS' });
+
+  const symMod = captureSymOnFus(world, child, parentA, parentB, profile);
+  if (symMod && !profile.fieldStatMode) {
+    recorder.cell(
+      world.tick,
+      child.id,
+      `[SYM] module ${symMod.id} capture ${symMod.role} from ${parentA.id}+${parentB.id}`,
+      {
+        kind: 'SYM',
+        phase: 'capture',
+        moduleId: symMod.id,
+        role: symMod.role,
+        parentA: parentA.id,
+        parentB: parentB.id,
+        childId: child.id,
+      }
+    );
+  }
 
   if (!orphan) parentA.meiPacket = null;
   parentA.fusCount = (parentA.fusCount ?? 0) + 1;

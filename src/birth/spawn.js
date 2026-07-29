@@ -24,6 +24,7 @@ import { initPrediction, predictionEnabled } from '../world/prediction.js';
 import { initSocialKnowledge, socialKnowledgeEnabled } from '../world/social-knowledge.js';
 import { initReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { initSynthCounters, synthEnabled } from '../world/synth.js';
+import { initSymModules } from '../world/sym.js';
 import { assignBeingPlace, applyPlaceBirthBias, placeEnabled } from '../world/place.js';
 import { SOLAR_CHANNEL } from '../world/diurnal.js';
 
@@ -98,6 +99,7 @@ export function spawnBeing(
   if (synthEnabled(world.envProfile)) {
     initSynthCounters(being);
   }
+  initSymModules(being);
 
   if (!world.envProfile?.fieldStatMode) {
     recordReplicationInit(recorder, tick, being);
