@@ -23,11 +23,11 @@
 ```
 协议层 TX/RX（已有）
         ↓
-WL0  Phase 100  [SEM] 载荷共现记录层          ← 当前
+WL0  Phase 100  [SEM] 载荷共现记录层          ✅ support
         ↓
-WL1  Phase 101  semFeedbackEnabled 行为偏置   （100 support 后）
+WL1  Phase 101  semFeedbackEnabled 行为偏置   ✅ weak
         ↓
-WL2  Phase 102+ 跨 tick / 跨代约定持久
+WL2  Phase 102+ 跨 tick / 跨代约定持久          ← 当前
         ↓
 WL3  Phase 103+ 与 W4 社会知识正交对照田野
         ↓
@@ -46,14 +46,15 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 | 假说 | H1 可观察、H3 记录无行为偏差、H4 RX→次 tick TX 条件模式 |
 | 文档 | [PHASE100_SEMANTIC_SIGNAL.md](PHASE100_SEMANTIC_SIGNAL.md) |
 
-### WL1 · 反馈层（Phase 101，待立项）
+### WL1 · 反馈层（Phase 101）
 
 | 项 | 内容 |
 |----|------|
-| 前提 | Phase 100 批次 **support** 或 **weak** 且 H3 全种子达标 |
-| 机制 | `semFeedbackEnabled`：高共现对 → 微弱 TX 载荷偏置（非词典查询） |
-| 田野 | on/off 对照：约定迹是否放大传递优势 |
-| 禁止 | 直接写「懂了」「对话」 |
+| 前提 | Phase 100 support ✅ |
+| 机制 | `semFeedbackEnabled`：高共现对 → 微弱 TX 载荷偏置 |
+| 田野 | `npm run field:phase101` — record vs feedback |
+| 结果 | **weak**（H2/H3/H5 达标） |
+| 文档 | [PHASE101_SEM_FEEDBACK.md](PHASE101_SEM_FEEDBACK.md) |
 
 ### WL2 · 持久层（Phase 102+）
 
@@ -92,7 +93,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 
 | ID | 名称 | Phase | 状态 |
 |----|------|-------|------|
-| GAP-W06 | 信号约定/文化层 | 100–101 | 100 实现中 |
+| GAP-W06 | 信号约定/文化层 | 100–102 | WL0 support · WL1 weak |
 | — | 持久约定 | 102+ | 未启动 |
 | — | 社会正交 | 103+ | 未启动 |
 | — | 类比 UI | 104+ | 设计就绪，等田野 |
@@ -104,8 +105,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 
 ```
 观察 TX/RX 链 → OBS
-  → WL0 [SEM] 记录 + field:phase100
-  → 若 support → WL1 反馈
+  → WL0 [SEM] 记录 ✅ → WL1 反馈 ✅ weak
   → WL2 持久 → WL3 社会正交 → WL4 UI → WL5 CODEX
 ```
 

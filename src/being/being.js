@@ -5,6 +5,7 @@ import { assignSocialSlot } from '../world/social.js';
 import { assessStress, externalThreshold, preferAct } from '../world/viability.js';
 import { assignCellBoundary } from '../world/cell.js';
 import { effectiveCoupling } from '../world/register-profile.js';
+import { applySemPayloadHint } from '../world/sem.js';
 
 function dnaToRegisters(dna, count = 8) {
   const rng = mulberry32(hashString(dna));
@@ -121,17 +122,39 @@ export class Being {
   emitExternal({ stress = 0, lowStreak = 0, experienceBias = null } = {}) {
     const actBoost = experienceBias?.actBoost ?? 0;
     const thresholdDelta = experienceBias?.thresholdDelta ?? 0;
+    const txBoost = experienceBias?.txBoost ?? 0;
     const threshold = Math.max(0.18, Math.min(0.95, externalThreshold(stress, lowStreak) + thresholdDelta));
     if (this.rng() > threshold) {
       return [];
     }
     const r = this.registers[Math.floor(this.rng() * this.registers.length)];
-    const op = toHexByte(r);
-    const payload = toHexByte(this.rng());
-    const chk = toHexByte(this.rng());
+    let op = toHexByte(r);
+    let payload = toHexByte(this.rng());
+    let chk = toHexByte(this.rng());
     const actBias = preferAct(stress, lowStreak);
     const actRoll = 0.32 - actBoost;
-    const kind = actBias && this.rng() > actRoll ? 'ACT' : this.rng() > 0.5 ? 'TX' : 'ACT';
+    let kind;
+    if (actBias && this.rng() > actRoll) {
+      kind = 'ACT';
+    } else {
+      kind = this.rng() > 0.5 - txBoost ? 'TX' : 'ACT';
+    }
+    if (kind === 'TX' && experienceBias?.txPayloadHint) {
+      const hinted = applySemPayloadHint(
+        op,
+        payload,
+        chk,
+        experienceBias.txPayloadHint,
+        experienceBias.semLoad ?? 0,
+        () => this.rng()
+      );
+      op = hinted.op;
+      payload = hinted.payload;
+      chk = hinted.chk;
+      if (hinted.applied) {
+        this.semFbHits = (this.semFbHits ?? 0) + 1;
+      }
+    }
     return [`[${kind}] 0x${op} 0x${payload} 0x${chk}`];
   }
 

@@ -1,0 +1,1786 @@
+{
+  "runAt": "2026-07-29T21:17:57.978Z",
+  "phase": 101,
+  "extension": "wl1_sem_feedback",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 1920,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "sem_record": {
+      "id": "sem_record",
+      "label": "SEM记录无反馈",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55,
+      "semEnabled": true,
+      "semWindow": 1,
+      "semMinCount": 8,
+      "semFeedbackEnabled": false
+    },
+    "sem_feedback": {
+      "id": "sem_feedback",
+      "label": "SEM记录+反馈偏置",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55,
+      "semEnabled": true,
+      "semWindow": 1,
+      "semMinCount": 8,
+      "semFeedbackEnabled": true,
+      "semFeedbackStrength": 0.05,
+      "semFeedbackMinPairs": 2,
+      "semFeedbackSaturation": 32
+    },
+    "sem_fb_dense": {
+      "id": "sem_fb_dense",
+      "label": "SEM反馈+宽窗口",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55,
+      "semEnabled": true,
+      "semWindow": 2,
+      "semMinCount": 8,
+      "semFeedbackEnabled": true,
+      "semFeedbackStrength": 0.06,
+      "semFeedbackMinPairs": 2,
+      "semFeedbackSaturation": 24,
+      "substrateBoost": 0.02
+    },
+    "sem_fb_sk": {
+      "id": "sem_fb_sk",
+      "label": "SEM反馈+剧变",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55,
+      "semEnabled": true,
+      "semWindow": 1,
+      "semMinCount": 8,
+      "semFeedbackEnabled": true,
+      "semFeedbackStrength": 0.05,
+      "semFeedbackMinPairs": 2,
+      "semFeedbackSaturation": 32,
+      "pulseInterval": 50,
+      "substrateDrainMult": 0.88,
+      "substrateFloor": 0.4
+    }
+  },
+  "aggregate": {
+    "sem_record": {
+      "label": "SEM记录无反馈",
+      "meanSemCount": 0,
+      "meanTop1Cond": 0.875,
+      "meanFbHits": 0,
+      "meanTxRatio": 0.4987,
+      "meanExternalRate": 0.3679,
+      "meanPairEvents": 263228,
+      "runs": [
+        {
+          "treatmentId": "sem_record",
+          "seed": 0,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 265015,
+            "totalPairEvents": 265601,
+            "top1CondProb": 1,
+            "externalRate": 0.3677,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 4150.0156,
+            "meanFbHits": 0,
+            "txActRatio": 0.5015,
+            "semFeedbackEnabled": false,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 5366,
+                "bufferSize": 26,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5420,
+                "bufferSize": 53,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4939,
+                "bufferSize": 59,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5170,
+                "bufferSize": 44,
+                "fbHits": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 4130.522794,
+          "durationLabel": "4.13s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2873,
+            "evolution:PRD": 191,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75673,
+            "evolution:MTB": 3398,
+            "evolution:RPL": 11103,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 15,
+            "evolution:FUS": 24,
+            "evolution:REN": 165,
+            "evolution:EHU-REN": 3717,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:PLG": 3552,
+            "evolution:EHU": 102,
+            "population:CMP": 19
+          },
+          "entriesKept": 101365
+        },
+        {
+          "treatmentId": "sem_record",
+          "seed": 1,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 265710,
+            "totalPairEvents": 266131,
+            "top1CondProb": 1,
+            "externalRate": 0.3713,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 4158.2969,
+            "meanFbHits": 0,
+            "txActRatio": 0.4975,
+            "semFeedbackEnabled": false,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 5542,
+                "bufferSize": 20,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5097,
+                "bufferSize": 95,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5277,
+                "bufferSize": 116,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4803,
+                "bufferSize": 56,
+                "fbHits": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 4132.071135,
+          "durationLabel": "4.13s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3404,
+            "evolution:PRD": 175,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75752,
+            "evolution:MTB": 3715,
+            "evolution:RPL": 11076,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 16,
+            "evolution:FUS": 24,
+            "evolution:REN": 159,
+            "evolution:EHU-REN": 3709,
+            "evolution:PLG": 3550,
+            "evolution:EXP": 64,
+            "evolution:RPR": 70,
+            "evolution:EHU": 103,
+            "population:CMP": 19
+          },
+          "entriesKept": 102236
+        },
+        {
+          "treatmentId": "sem_record",
+          "seed": 2,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 280522,
+            "totalPairEvents": 281067,
+            "top1CondProb": 1,
+            "externalRate": 0.3813,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 4391.6719,
+            "meanFbHits": 0,
+            "txActRatio": 0.4965,
+            "semFeedbackEnabled": false,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 5405,
+                "bufferSize": 71,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5362,
+                "bufferSize": 50,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5336,
+                "bufferSize": 37,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 5375,
+                "bufferSize": 185,
+                "fbHits": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 4094.9654530000007,
+          "durationLabel": "4.09s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2619,
+            "evolution:PRD": 190,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75716,
+            "evolution:MTB": 3185,
+            "evolution:RPL": 11686,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 15,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:REN": 181,
+            "evolution:EHU-REN": 3929,
+            "evolution:PLG": 3748,
+            "evolution:EXP": 64,
+            "evolution:RPR": 70,
+            "evolution:EHU": 98,
+            "population:CMP": 19
+          },
+          "entriesKept": 101944
+        },
+        {
+          "treatmentId": "sem_record",
+          "seed": 3,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 239882,
+            "totalPairEvents": 240113,
+            "top1CondProb": 0.5,
+            "externalRate": 0.3513,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 3751.7656,
+            "meanFbHits": 0,
+            "txActRatio": 0.4993,
+            "semFeedbackEnabled": false,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 4777,
+                "bufferSize": 18,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4911,
+                "bufferSize": 41,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4848,
+                "bufferSize": 52,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4878,
+                "bufferSize": 27,
+                "fbHits": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 3848.3117009999987,
+          "durationLabel": "3.85s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2868,
+            "evolution:PRD": 243,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75494,
+            "evolution:MTB": 4268,
+            "evolution:RPL": 10991,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:REN": 162,
+            "evolution:EHU-REN": 3696,
+            "evolution:ISPL": 12,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3534,
+            "evolution:EXP": 64,
+            "evolution:RPR": 70,
+            "evolution:EHU": 100,
+            "population:CMP": 19
+          },
+          "entriesKept": 101945
+        }
+      ]
+    },
+    "sem_feedback": {
+      "label": "SEM记录+反馈偏置",
+      "meanSemCount": 4083,
+      "meanTop1Cond": 1,
+      "meanFbHits": 82.2539,
+      "meanTxRatio": 0.5166,
+      "meanExternalRate": 0.3694,
+      "meanPairEvents": 284616,
+      "runs": [
+        {
+          "treatmentId": "sem_feedback",
+          "seed": 0,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 3945,
+            "pairKinds": 204454,
+            "totalPairEvents": 290077,
+            "top1CondProb": 1,
+            "externalRate": 0.3729,
+            "semEnabled": true,
+            "meanLogCount": 61.6406,
+            "meanPairTally": 4532.4531,
+            "meanFbHits": 80.1406,
+            "txActRatio": 0.5166,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 55,
+                "pairTally": 5810,
+                "bufferSize": 85,
+                "fbHits": 95
+              },
+              {
+                "logCount": 48,
+                "pairTally": 5301,
+                "bufferSize": 39,
+                "fbHits": 95
+              },
+              {
+                "logCount": 58,
+                "pairTally": 5501,
+                "bufferSize": 19,
+                "fbHits": 100
+              },
+              {
+                "logCount": 49,
+                "pairTally": 5323,
+                "bufferSize": 52,
+                "fbHits": 104
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 4147.214047999998,
+          "durationLabel": "4.15s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3251,
+            "evolution:PRD": 212,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75782,
+            "evolution:MTB": 4105,
+            "evolution:RPL": 10141,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 22,
+            "evolution:FUS": 24,
+            "evolution:REN": 153,
+            "evolution:EHU-REN": 3397,
+            "evolution:PLG": 3244,
+            "evolution:EXP": 64,
+            "evolution:RPR": 68,
+            "evolution:EHU": 104,
+            "population:CMP": 19,
+            "evolution:SEM": 3945
+          },
+          "entriesKept": 104931
+        },
+        {
+          "treatmentId": "sem_feedback",
+          "seed": 1,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 5077,
+            "pairKinds": 169048,
+            "totalPairEvents": 282305,
+            "top1CondProb": 1,
+            "externalRate": 0.3626,
+            "semEnabled": true,
+            "meanLogCount": 79.3281,
+            "meanPairTally": 4411.0156,
+            "meanFbHits": 106.75,
+            "txActRatio": 0.524,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 68,
+                "pairTally": 5510,
+                "bufferSize": 68,
+                "fbHits": 144
+              },
+              {
+                "logCount": 80,
+                "pairTally": 5927,
+                "bufferSize": 39,
+                "fbHits": 133
+              },
+              {
+                "logCount": 76,
+                "pairTally": 5564,
+                "bufferSize": 50,
+                "fbHits": 142
+              },
+              {
+                "logCount": 66,
+                "pairTally": 5247,
+                "bufferSize": 168,
+                "fbHits": 109
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 3885.551715999998,
+          "durationLabel": "3.89s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3143,
+            "evolution:PRD": 143,
+            "evolution:COOP": 68,
+            "evolution:SOC-ENC": 75549,
+            "evolution:MTB": 3773,
+            "evolution:RPL": 10603,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 19,
+            "evolution:FUS": 24,
+            "evolution:REN": 167,
+            "evolution:EHU-REN": 3551,
+            "evolution:PLG": 3384,
+            "evolution:EXP": 64,
+            "evolution:RPR": 66,
+            "evolution:EHU": 98,
+            "population:CMP": 19,
+            "evolution:SEM": 5077
+          },
+          "entriesKept": 106084
+        },
+        {
+          "treatmentId": "sem_feedback",
+          "seed": 2,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 1881,
+            "pairKinds": 234075,
+            "totalPairEvents": 273053,
+            "top1CondProb": 1,
+            "externalRate": 0.3698,
+            "semEnabled": true,
+            "meanLogCount": 29.3906,
+            "meanPairTally": 4266.4531,
+            "meanFbHits": 37.6563,
+            "txActRatio": 0.5055,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 22,
+                "pairTally": 5245,
+                "bufferSize": 25,
+                "fbHits": 46
+              },
+              {
+                "logCount": 25,
+                "pairTally": 5645,
+                "bufferSize": 36,
+                "fbHits": 52
+              },
+              {
+                "logCount": 25,
+                "pairTally": 5687,
+                "bufferSize": 46,
+                "fbHits": 47
+              },
+              {
+                "logCount": 19,
+                "pairTally": 5453,
+                "bufferSize": 46,
+                "fbHits": 51
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 4119.339976000003,
+          "durationLabel": "4.12s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3041,
+            "evolution:PRD": 188,
+            "evolution:COOP": 70,
+            "evolution:SOC-ENC": 75780,
+            "evolution:MTB": 3740,
+            "evolution:RPL": 10381,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 16,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3328,
+            "evolution:EHU-REN": 3492,
+            "evolution:REN": 164,
+            "evolution:EXP": 64,
+            "evolution:RPR": 68,
+            "evolution:EHU": 101,
+            "population:CMP": 19,
+            "evolution:SEM": 1881
+          },
+          "entriesKept": 102693
+        },
+        {
+          "treatmentId": "sem_feedback",
+          "seed": 3,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 5429,
+            "pairKinds": 180110,
+            "totalPairEvents": 293029,
+            "top1CondProb": 1,
+            "externalRate": 0.3721,
+            "semEnabled": true,
+            "meanLogCount": 84.8281,
+            "meanPairTally": 4578.5781,
+            "meanFbHits": 104.4688,
+            "txActRatio": 0.5203,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 70,
+                "pairTally": 5347,
+                "bufferSize": 46,
+                "fbHits": 126
+              },
+              {
+                "logCount": 60,
+                "pairTally": 5360,
+                "bufferSize": 60,
+                "fbHits": 111
+              },
+              {
+                "logCount": 73,
+                "pairTally": 5569,
+                "bufferSize": 95,
+                "fbHits": 132
+              },
+              {
+                "logCount": 80,
+                "pairTally": 5581,
+                "bufferSize": 150,
+                "fbHits": 141
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 3868.0775329999997,
+          "durationLabel": "3.87s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3484,
+            "evolution:PRD": 158,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75860,
+            "evolution:MTB": 3639,
+            "evolution:RPL": 10679,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 16,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3416,
+            "evolution:EHU-REN": 3580,
+            "evolution:REN": 164,
+            "evolution:EXP": 64,
+            "evolution:RPR": 67,
+            "evolution:EHU": 90,
+            "population:CMP": 19,
+            "evolution:SEM": 5429
+          },
+          "entriesKept": 107089
+        }
+      ]
+    },
+    "sem_fb_dense": {
+      "label": "SEM反馈+宽窗口",
+      "meanSemCount": 18134.75,
+      "meanTop1Cond": 0.869,
+      "meanFbHits": 179.6719,
+      "meanTxRatio": 0.552,
+      "meanExternalRate": 0.3592,
+      "meanPairEvents": 615421,
+      "runs": [
+        {
+          "treatmentId": "sem_fb_dense",
+          "seed": 0,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 16904,
+            "pairKinds": 218973,
+            "totalPairEvents": 596788,
+            "top1CondProb": 0.8636,
+            "externalRate": 0.3571,
+            "semEnabled": true,
+            "meanLogCount": 264.125,
+            "meanPairTally": 9324.8125,
+            "meanFbHits": 167.7813,
+            "txActRatio": 0.5468,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 348,
+                "pairTally": 12113,
+                "bufferSize": 57,
+                "fbHits": 215
+              },
+              {
+                "logCount": 367,
+                "pairTally": 12410,
+                "bufferSize": 44,
+                "fbHits": 216
+              },
+              {
+                "logCount": 343,
+                "pairTally": 11849,
+                "bufferSize": 70,
+                "fbHits": 205
+              },
+              {
+                "logCount": 330,
+                "pairTally": 11183,
+                "bufferSize": 116,
+                "fbHits": 199
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 4167.078017,
+          "durationLabel": "4.17s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2610,
+            "evolution:PRD": 197,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75684,
+            "evolution:MTB": 4222,
+            "evolution:RPL": 11482,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:REN": 175,
+            "evolution:EHU-REN": 3849,
+            "evolution:ISPL": 17,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3674,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 102,
+            "population:CMP": 19,
+            "evolution:SEM": 16904
+          },
+          "entriesKept": 119492
+        },
+        {
+          "treatmentId": "sem_fb_dense",
+          "seed": 1,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 18753,
+            "pairKinds": 196791,
+            "totalPairEvents": 625335,
+            "top1CondProb": 0.9091,
+            "externalRate": 0.3591,
+            "semEnabled": true,
+            "meanLogCount": 293.0156,
+            "meanPairTally": 9770.8594,
+            "meanFbHits": 186.375,
+            "txActRatio": 0.5569,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 367,
+                "pairTally": 12098,
+                "bufferSize": 30,
+                "fbHits": 247
+              },
+              {
+                "logCount": 370,
+                "pairTally": 11804,
+                "bufferSize": 43,
+                "fbHits": 215
+              },
+              {
+                "logCount": 434,
+                "pairTally": 12635,
+                "bufferSize": 110,
+                "fbHits": 259
+              },
+              {
+                "logCount": 358,
+                "pairTally": 11930,
+                "bufferSize": 56,
+                "fbHits": 230
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 4356.603685000002,
+          "durationLabel": "4.36s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2860,
+            "evolution:PRD": 223,
+            "evolution:COOP": 70,
+            "evolution:SOC-ENC": 75698,
+            "evolution:MTB": 4060,
+            "evolution:RPL": 10454,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 17,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3352,
+            "evolution:EHU-REN": 3506,
+            "evolution:REN": 154,
+            "evolution:EXP": 64,
+            "evolution:RPR": 68,
+            "evolution:EHU": 103,
+            "population:CMP": 19,
+            "evolution:SEM": 18753
+          },
+          "entriesKept": 119761
+        },
+        {
+          "treatmentId": "sem_fb_dense",
+          "seed": 2,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 19124,
+            "pairKinds": 180669,
+            "totalPairEvents": 613828,
+            "top1CondProb": 0.8571,
+            "externalRate": 0.3595,
+            "semEnabled": true,
+            "meanLogCount": 298.8125,
+            "meanPairTally": 9591.0625,
+            "meanFbHits": 190.4219,
+            "txActRatio": 0.5513,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 357,
+                "pairTally": 11876,
+                "bufferSize": 38,
+                "fbHits": 244
+              },
+              {
+                "logCount": 403,
+                "pairTally": 12490,
+                "bufferSize": 48,
+                "fbHits": 250
+              },
+              {
+                "logCount": 357,
+                "pairTally": 11922,
+                "bufferSize": 58,
+                "fbHits": 224
+              },
+              {
+                "logCount": 435,
+                "pairTally": 12340,
+                "bufferSize": 71,
+                "fbHits": 254
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 4206.303236,
+          "durationLabel": "4.21s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3109,
+            "evolution:PRD": 244,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75709,
+            "evolution:MTB": 3246,
+            "evolution:RPL": 11521,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 18,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3692,
+            "evolution:EHU-REN": 3863,
+            "evolution:REN": 171,
+            "evolution:EXP": 64,
+            "evolution:RPR": 71,
+            "evolution:EHU": 98,
+            "population:CMP": 19,
+            "evolution:SEM": 19124
+          },
+          "entriesKept": 121373
+        },
+        {
+          "treatmentId": "sem_fb_dense",
+          "seed": 3,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 17758,
+            "pairKinds": 224846,
+            "totalPairEvents": 625733,
+            "top1CondProb": 0.8462,
+            "externalRate": 0.3613,
+            "semEnabled": true,
+            "meanLogCount": 277.4688,
+            "meanPairTally": 9777.0781,
+            "meanFbHits": 174.1094,
+            "txActRatio": 0.5529,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 342,
+                "pairTally": 11668,
+                "bufferSize": 72,
+                "fbHits": 223
+              },
+              {
+                "logCount": 374,
+                "pairTally": 11742,
+                "bufferSize": 82,
+                "fbHits": 219
+              },
+              {
+                "logCount": 368,
+                "pairTally": 11969,
+                "bufferSize": 62,
+                "fbHits": 215
+              },
+              {
+                "logCount": 361,
+                "pairTally": 11343,
+                "bufferSize": 38,
+                "fbHits": 218
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 4357.871237000007,
+          "durationLabel": "4.36s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3025,
+            "evolution:PRD": 200,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75544,
+            "evolution:MTB": 3518,
+            "evolution:RPL": 12182,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 20,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3902,
+            "evolution:EHU-REN": 4083,
+            "evolution:REN": 181,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 98,
+            "population:CMP": 19,
+            "evolution:SEM": 17758
+          },
+          "entriesKept": 121087
+        }
+      ]
+    },
+    "sem_fb_sk": {
+      "label": "SEM反馈+剧变",
+      "meanSemCount": 0,
+      "meanTop1Cond": 1,
+      "meanFbHits": 0.6524,
+      "meanTxRatio": 0.4793,
+      "meanExternalRate": 0.3571,
+      "meanPairEvents": 230294,
+      "runs": [
+        {
+          "treatmentId": "sem_fb_sk",
+          "seed": 0,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 211247,
+            "totalPairEvents": 211344,
+            "top1CondProb": 1,
+            "externalRate": 0.3519,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 3302.25,
+            "meanFbHits": 0.25,
+            "txActRatio": 0.4654,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 3854,
+                "bufferSize": 63,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4210,
+                "bufferSize": 76,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4487,
+                "bufferSize": 23,
+                "fbHits": 1
+              },
+              {
+                "logCount": 0,
+                "pairTally": 3980,
+                "bufferSize": 24,
+                "fbHits": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 3962.344403000003,
+          "durationLabel": "3.96s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 5157,
+            "evolution:PRD": 308,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75495,
+            "evolution:MTB": 570,
+            "evolution:RPL": 11639,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 10,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3742,
+            "evolution:EHU-REN": 3911,
+            "evolution:REN": 169,
+            "evolution:EXP": 64,
+            "evolution:RPR": 70,
+            "evolution:EHU": 99,
+            "population:CMP": 19
+          },
+          "entriesKept": 101677
+        },
+        {
+          "treatmentId": "sem_fb_sk",
+          "seed": 1,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 243153,
+            "totalPairEvents": 243487,
+            "top1CondProb": 1,
+            "externalRate": 0.3539,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 3804.4844,
+            "meanFbHits": 0.7188,
+            "txActRatio": 0.4999,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 4950,
+                "bufferSize": 25,
+                "fbHits": 1
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4678,
+                "bufferSize": 120,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4903,
+                "bufferSize": 157,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4845,
+                "bufferSize": 132,
+                "fbHits": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 4194.110654999997,
+          "durationLabel": "4.19s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 6106,
+            "evolution:PRD": 254,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75606,
+            "evolution:MTB": 1055,
+            "evolution:RPL": 11435,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:REN": 178,
+            "evolution:EHU-REN": 3834,
+            "evolution:ISPL": 10,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3656,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 99,
+            "population:CMP": 19
+          },
+          "entriesKept": 102809
+        },
+        {
+          "treatmentId": "sem_fb_sk",
+          "seed": 2,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 231336,
+            "totalPairEvents": 231572,
+            "top1CondProb": 1,
+            "externalRate": 0.3584,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 3618.3125,
+            "meanFbHits": 0.6719,
+            "txActRatio": 0.4784,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 4471,
+                "bufferSize": 24,
+                "fbHits": 1
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4846,
+                "bufferSize": 34,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4192,
+                "bufferSize": 33,
+                "fbHits": 1
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4786,
+                "bufferSize": 33,
+                "fbHits": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 3893.315576000001,
+          "durationLabel": "3.89s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 4764,
+            "evolution:PRD": 218,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75733,
+            "evolution:MTB": 763,
+            "evolution:RPL": 10888,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 18,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:REN": 176,
+            "evolution:EHU-REN": 3668,
+            "evolution:PLG": 3492,
+            "evolution:EXP": 64,
+            "evolution:RPR": 70,
+            "evolution:EHU": 106,
+            "population:CMP": 19
+          },
+          "entriesKept": 100403
+        },
+        {
+          "treatmentId": "sem_fb_sk",
+          "seed": 3,
+          "phase": 101,
+          "metrics": {
+            "aliveTotal": 64,
+            "semCount": 0,
+            "pairKinds": 234495,
+            "totalPairEvents": 234773,
+            "top1CondProb": 1,
+            "externalRate": 0.3643,
+            "semEnabled": true,
+            "meanLogCount": 0,
+            "meanPairTally": 3668.3281,
+            "meanFbHits": 0.9688,
+            "txActRatio": 0.4733,
+            "semFeedbackEnabled": true,
+            "snapshots": [
+              {
+                "logCount": 0,
+                "pairTally": 4336,
+                "bufferSize": 34,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4144,
+                "bufferSize": 35,
+                "fbHits": 0
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4499,
+                "bufferSize": 47,
+                "fbHits": 1
+              },
+              {
+                "logCount": 0,
+                "pairTally": 4379,
+                "bufferSize": 34,
+                "fbHits": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 3928.169955000005,
+          "durationLabel": "3.93s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 4852,
+            "evolution:PRD": 242,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75632,
+            "evolution:MTB": 689,
+            "evolution:RPL": 11671,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:REN": 181,
+            "evolution:EHU-REN": 3911,
+            "evolution:ISPL": 16,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3730,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 92,
+            "population:CMP": 19
+          },
+          "entriesKept": 101592
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "H1_condAmplified": {
+        "verdict": "unsupport",
+        "recordCond": 1,
+        "feedbackCond": 1,
+        "ratio": 1
+      },
+      "H2_txBiasObservable": {
+        "verdict": "support",
+        "recordTxRatio": 0.5015,
+        "feedbackTxRatio": 0.5166,
+        "txRatioDelta": 0.0151,
+        "meanFbHits": 80.1406
+      },
+      "H3_semStillObservable": {
+        "verdict": "support",
+        "recordSem": 0,
+        "feedbackSem": 3945
+      },
+      "H4_pairEventsGrow": {
+        "verdict": "support",
+        "recordEvents": 265601,
+        "feedbackEvents": 290077
+      },
+      "H5_noRunawayExt": {
+        "verdict": "support",
+        "recordExternal": 0.3677,
+        "feedbackExternal": 0.3729,
+        "delta": 0.0052
+      }
+    },
+    {
+      "seed": 1,
+      "H1_condAmplified": {
+        "verdict": "unsupport",
+        "recordCond": 1,
+        "feedbackCond": 1,
+        "ratio": 1
+      },
+      "H2_txBiasObservable": {
+        "verdict": "support",
+        "recordTxRatio": 0.4975,
+        "feedbackTxRatio": 0.524,
+        "txRatioDelta": 0.0265,
+        "meanFbHits": 106.75
+      },
+      "H3_semStillObservable": {
+        "verdict": "support",
+        "recordSem": 0,
+        "feedbackSem": 5077
+      },
+      "H4_pairEventsGrow": {
+        "verdict": "support",
+        "recordEvents": 266131,
+        "feedbackEvents": 282305
+      },
+      "H5_noRunawayExt": {
+        "verdict": "support",
+        "recordExternal": 0.3713,
+        "feedbackExternal": 0.3626,
+        "delta": -0.0087
+      }
+    },
+    {
+      "seed": 2,
+      "H1_condAmplified": {
+        "verdict": "unsupport",
+        "recordCond": 1,
+        "feedbackCond": 1,
+        "ratio": 1
+      },
+      "H2_txBiasObservable": {
+        "verdict": "support",
+        "recordTxRatio": 0.4965,
+        "feedbackTxRatio": 0.5055,
+        "txRatioDelta": 0.009,
+        "meanFbHits": 37.6563
+      },
+      "H3_semStillObservable": {
+        "verdict": "support",
+        "recordSem": 0,
+        "feedbackSem": 1881
+      },
+      "H4_pairEventsGrow": {
+        "verdict": "unsupport",
+        "recordEvents": 281067,
+        "feedbackEvents": 273053
+      },
+      "H5_noRunawayExt": {
+        "verdict": "support",
+        "recordExternal": 0.3813,
+        "feedbackExternal": 0.3698,
+        "delta": -0.0115
+      }
+    },
+    {
+      "seed": 3,
+      "H1_condAmplified": {
+        "verdict": "support",
+        "recordCond": 0.5,
+        "feedbackCond": 1,
+        "ratio": 2
+      },
+      "H2_txBiasObservable": {
+        "verdict": "support",
+        "recordTxRatio": 0.4993,
+        "feedbackTxRatio": 0.5203,
+        "txRatioDelta": 0.021,
+        "meanFbHits": 104.4688
+      },
+      "H3_semStillObservable": {
+        "verdict": "support",
+        "recordSem": 0,
+        "feedbackSem": 5429
+      },
+      "H4_pairEventsGrow": {
+        "verdict": "support",
+        "recordEvents": 240113,
+        "feedbackEvents": 293029
+      },
+      "H5_noRunawayExt": {
+        "verdict": "support",
+        "recordExternal": 0.3513,
+        "feedbackExternal": 0.3721,
+        "delta": 0.0208
+      }
+    }
+  ],
+  "batchVerdict": {
+    "seedsCompared": 4,
+    "h1Support": 1,
+    "h2Support": 4,
+    "h3Support": 4,
+    "h4Support": 3,
+    "h5Support": 4,
+    "verdict": "weak"
+  },
+  "shortTermGoal": "WL1 semFeedbackEnabled 行为偏置",
+  "roadmap": "docs/PHASE101_SEM_FEEDBACK.md",
+  "wisdomLanguage": "docs/WISDOM_LANGUAGE.md",
+  "runBudgetMs": 180000
+}
