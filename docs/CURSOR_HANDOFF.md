@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-29 · Phase 84 储备池 [RSV] 记录层
+> 更新：2026-07-29 · Phase 85 band + [DLC] 日相
 
 ---
 
@@ -19,6 +19,7 @@
 | W1–W5 + 物种验收 | ✅ prepared（Phase 82–83） |
 | GAP-10 | ⚠️ 正式部分结案（上限接受） |
 | **GAP-ORG 记录层** | ✅ Phase 84 `reservoir` + `[RSV]`（weak） |
+| **GAP-ENV 记录层** | ✅ Phase 85 band + `[DLC]`（weak） |
 | **后续路线** | ✅ [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) |
 
 ---
@@ -28,18 +29,18 @@
 | GAP | 主题 |
 |-----|------|
 | GAP-11+ | 基底耗散、消耗物用于什么 |
-| GAP-ORG | Synth 模块、FUS `[SYM]` 捕获（记录层已交付） |
-| GAP-ENV | 区带/日季月/陆海/雨/大气/风（P0–P1 分阶） |
+| GAP-ORG | Synth 模块、FUS `[SYM]` 捕获 |
+| GAP-ENV | 季相/terrain/水循环（band+DLC 已交付） |
 | GAP-ART | 环境硬工具与创造力 |
 
 ---
 
-## 下次更新（Phase 85–86）
+## 下次更新（Phase 86+）
 
 | Phase | 目标 |
 |-------|------|
-| 85 | band + `[DLC]` 日相 |
 | 86 | terrain L/O + `[PCP]` 水循环 |
+| 87 | `[SCL]` 季相四相 |
 
 ## 中期（87–92）
 
@@ -58,6 +59,7 @@ npm run wisdom:acceptance
 npm run wisdom:l2:closure
 npm run wisdom:checklist
 npm run field:phase84
+npm run field:phase85
 ```
 
 ---

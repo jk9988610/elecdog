@@ -145,12 +145,13 @@
 
 ---
 
-## GAP-ENV · 地球式环境周期与空间梯度（待立项）
+## GAP-ENV · 地球式环境周期与空间梯度（部分开放）
 
 - **缺口**：仅单点 `birthPlace`、无日相/季相/月相、无赤道–极地梯度；环境不像地球那样随时间与空间变化
 - **依据**：ENVIRONMENT.md §六；智慧演化讨论（2026-07-29）
 - **提议**：区带 `E|M|P` + patch、`[DLC]` 日相、`[SCL]` 季相、`[LTC]` 月相 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) §六
-- **状态**：**开放**
+- **Phase 85**：band E/M/P + `[DLC]` 日相已落地；田野 **weak** — 见 [PHASE85_DLC_DIURNAL.md](PHASE85_DLC_DIURNAL.md)
+- **状态**：**部分开放**（band+DLC ✓；季相/月相/terrain 待 Phase 86+）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---

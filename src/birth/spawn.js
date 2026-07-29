@@ -30,7 +30,14 @@ import { SOLAR_CHANNEL } from '../world/diurnal.js';
 export function spawnBeing(
   world,
   recorder,
-  { name = '个体', code = '001', dnaSequence = null, id: fixedId = null } = {}
+  {
+    name = '个体',
+    code = '001',
+    dnaSequence = null,
+    id: fixedId = null,
+    placeBand = null,
+    placePatch = null,
+  } = {}
 ) {
   const tick = world.tick;
   const dna = dnaSequence ? createDnaFromSequence(code, dnaSequence) : createDna(code);
@@ -38,12 +45,12 @@ export function spawnBeing(
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
   initOrganism(being, world.envProfile);
-  if (spec.placeBand) {
-    assignBeingPlace(being, { band: spec.placeBand, patch: spec.placePatch ?? '00' });
+  if (placeBand) {
+    assignBeingPlace(being, { band: placeBand, patch: placePatch ?? '00' });
   } else if (placeEnabled(world.envProfile)) {
     assignBeingPlace(being, {
       band: world.place?.band ?? world.envProfile.placeBand ?? 'M',
-      patch: spec.placePatch ?? world.place?.patch ?? '00',
+      patch: placePatch ?? world.place?.patch ?? '00',
     });
   }
   if (being.place || placeEnabled(world.envProfile)) {

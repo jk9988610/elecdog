@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 84 GAP-ORG 储备池 [RSV] 记录层**
+> 更新：2026-07-29 · **Phase 85 GAP-ENV band + [DLC] 日相**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 84 交付**；GAP-ORG 记录层（`reservoir` + `[RSV]`）田野 **weak**；下一步 Phase 85 日相 `[DLC]`。
+**智慧演化线 Phase 85 交付**；GAP-ENV 记录层（band E/M/P + `[DLC]`）田野 **weak**；下一步 Phase 86 terrain + `[PCP]`。
 
 ---
 
