@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 89 GAP-ORG FUS [SYM] module**
+> 更新：2026-07-29 · **Phase 90 GAP-ENV air 标量 + 日相耦合**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 89 交付**；GAP-ORG FUS 捕获 `[SYM]` module 田野 **support**（4/4 captureΔ=12）；下一步 Phase 90 `air` 标量。
+**智慧演化线 Phase 90 交付**；GAP-ENV `air` 标量田野 **weak**（4/4 injectΔ 可观测）；下一步 Phase 91 `[ADV]` + `[LTC]`。
 
 ---
 
@@ -94,6 +94,7 @@
 | **GAP-ENV SCL** | **87** | ✅ 季相四相 support |
 | **GAP-ORG Synth** | **88** | ✅ Synth-A/B support |
 | **GAP-ORG SYM** | **89** | ✅ FUS module capture support |
+| **GAP-ENV air** | **90** | ⚠️ 大气标量 weak |
 
 ---
 

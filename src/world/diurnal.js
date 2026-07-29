@@ -46,19 +46,21 @@ export function recordDiurnalLow(world, { night }) {
 /**
  * 日相注能：solar × bandSolarPeak → 注入 e☉（默认 e2）
  */
-export function tickDiurnal(world, profile) {
+export function tickDiurnal(world, profile, { solar: solarIn, night: nightIn, airSolarMult = 1 } = {}) {
   if (!diurnalEnabled(profile)) return null;
 
   const period = profile.diurnalPeriod ?? T_DAY;
-  const solar = solarPhase(world.tick, period);
+  const solar = solarIn ?? solarPhase(world.tick, period);
   const band = world.place?.band ?? profile.placeBand ?? 'M';
   const bp = bandParams(band);
   const peak = profile.diurnalSolarPeak ?? bp.solarPeak;
   const amp = profile.diurnalInjectAmp ?? 0.038;
   const idx = profile.solarChannel ?? SOLAR_CHANNEL;
-  const night = isNightPhase(solar, profile.diurnalNightThreshold ?? 0.08);
+  const night = nightIn ?? isNightPhase(solar, profile.diurnalNightThreshold ?? 0.08);
+  const atten = airSolarMult ?? 1;
 
-  const inject = solar * peak * amp * (bp.diurnalAmp ?? 1) * (world.seasonal?.mods?.solarMult ?? 1);
+  const inject =
+    solar * atten * peak * amp * (bp.diurnalAmp ?? 1) * (world.seasonal?.mods?.solarMult ?? 1);
   const ch = world.substrate.channels;
   const before = ch[idx];
   ch[idx] = Math.max(0, Math.min(1, before + inject));
@@ -73,6 +75,8 @@ export function tickDiurnal(world, profile) {
   const quarter = Math.floor(((world.tick % period) / period) * 4);
   return {
     solar: +solar.toFixed(4),
+    effectiveSolar: +(solar * atten).toFixed(4),
+    airSolarMult: +atten.toFixed(4),
     inject: +inject.toFixed(4),
     idx,
     before,
