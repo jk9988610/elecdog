@@ -76,8 +76,6 @@ export async function runOtaBootstrap() {
     await maybePromptApkUpdate();
   } catch (err) {
     console.warn('[ota]', err);
-  } finally {
-    await CapacitorUpdater.notifyAppReady();
   }
 }
 
