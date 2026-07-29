@@ -7,6 +7,7 @@ import { compositionSnapshot } from '../world/composition.js';
 import { beingLayerTransitions } from '../world/profile-stack.js';
 import { beingPersonaTransitions } from '../world/persona-stack.js';
 import { observerEnvHint, observerEnvLabel } from './env-select.js';
+import { buildConsciousnessSummary } from './consciousness.js';
 
 function countEnv(entries, kind) {
   return entries.filter((e) => e.channel === 'environment' && e.meta?.kind === kind).length;
@@ -204,11 +205,19 @@ export function buildDashboardStats(world, recorder) {
             (e.channel === 'evolution' && e.meta?.kind === 'COOP')
         ).length,
       rpr: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RPR').length,
+      ehu: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU').length,
+      ehuLin: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU-LIN').length,
+      ehuRen: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU-REN').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,
       slots: slotCounts,
     },
     beings,
+    consciousness: buildConsciousnessSummary(beings, world, {
+      ehu: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU').length,
+      ehuLin: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU-LIN').length,
+      ehuRen: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU-REN').length,
+    }),
   };
 }

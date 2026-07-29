@@ -1262,6 +1262,38 @@ const EHU_DEEP_FULL = {
   ehuArcNarrative: 14,
 };
 
+/** Phase 61 — 意识完整栈（六层 + EHU 深化 + 续行汇合） */
+const CONSCIOUSNESS_FIELD_BASE = {
+  substrateDrainMult: 0.52,
+  substrateBoost: 0.02,
+  substrateFloor: 0.54,
+  catastropheDisabled: true,
+  rplEnabled: true,
+  rplBaseMax: 5,
+  rplMaxSpread: 3,
+  organismMode: 'multicell',
+  rplScope: 'subunit',
+  meiRplDeduct: 'active',
+  fissionEnabled: true,
+  meiEnabled: true,
+  fusEnabled: true,
+  fusLiveDonorEnabled: true,
+  fusBeaconEnabled: true,
+  fusOrphanPoolEnabled: true,
+  fusSubunitRouteEnabled: true,
+};
+
+ENV_PROFILES.consciousness_full = {
+  id: 'consciousness_full',
+  label: '意识完整栈',
+  ...CONSCIOUSNESS_FIELD_BASE,
+  ...EHU_DEEP_FULL,
+  ...REN_BASE,
+  ...PLG_BASE,
+  ehuDistinctionErosionMult: 0.3,
+  ehuBindNarrative: true,
+};
+
 /** Phase 58 — CODEX 归纳 + 长时田野（1920 tick） */
 export const PHASE58_TREATMENTS = {
   long_deep_960: {
@@ -1335,6 +1367,41 @@ export const PHASE60_TREATMENTS = {
     ...EHU_DEEP_FULL,
     ...REN_BASE,
     ...PLG_BASE,
+  },
+};
+
+/** Phase 61 — 意识收敛长时田野 */
+export const PHASE61_TREATMENTS = {
+  cn_full_960: {
+    id: 'cn_full_960',
+    label: '意识完整栈×960',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+  },
+  cn_full_1920: {
+    id: 'cn_full_1920',
+    label: '意识完整栈×1920',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    fieldLongStudy: true,
+    ehuBindNarrative: true,
+  },
+  cn_deep_1920: {
+    id: 'cn_deep_1920',
+    label: 'EHU深化无续行×1920',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    rplRenewEnabled: false,
+    plgEnabled: false,
+    ehuRenewTraceEnabled: false,
+    fieldLongStudy: true,
   },
 };
 
@@ -1710,6 +1777,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase61Treatment(world, treatmentId) {
+  const treatment = PHASE61_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase61 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 61, treatmentId, ...treatment };
   return world.envProfile;
 }
 

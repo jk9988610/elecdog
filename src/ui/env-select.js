@@ -9,6 +9,7 @@ const LS_ENV = 'elecdog-env-profile';
 
 /** 观察台可选环境（田野配置子集） */
 export const OBSERVER_ENV_IDS = [
+  'consciousness_full',
   'baseline',
   'fertile_field',
   'fertile_multicell_rpl',
@@ -37,6 +38,7 @@ export const OBSERVER_ENV_IDS = [
 ];
 
 const ANALOGY_LABELS = {
+  consciousness_full: '意识完整栈（默认）',
   baseline: '基线（现行）',
   fertile_field: '富足分裂场（有复制上限）',
   fertile_multicell_rpl: '富足多子域+复制配额（共享）',
@@ -75,7 +77,7 @@ export function getObserverEnvId() {
   } catch {
     /* ignore */
   }
-  return 'baseline';
+  return 'consciousness_full';
 }
 
 export function setObserverEnvId(id) {
@@ -94,6 +96,7 @@ export function observerEnvLabel(id) {
 
 export function observerEnvHint(id) {
   const hints = {
+    consciousness_full: '六层人格 + EHU 深化 + 谱系回响 + 社会绑定 + 续行汇合；意识观察默认',
     baseline: '默认规则；剧变脉冲；无存活分裂',
     fertile_field: '富足场 + [FISS]；DNA [RPL] 复制次数上限',
     fertile_multicell_rpl: '多子域 organism + 共享 [RPL]；[INTRA] 分工',

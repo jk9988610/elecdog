@@ -729,3 +729,47 @@ input[type='number'] {
   color: #7ec8e3;
   border-color: #3a4a60;
 }
+
+/* —— 意识观察面板（Phase 61） —— */
+.consciousness-panel {
+  grid-column: 1 / -1;
+  border-color: #2a3548;
+  background: linear-gradient(135deg, #0f1219 0%, #12182a 100%);
+}
+
+.consciousness-head {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  margin-bottom: 0.35rem;
+}
+
+.consciousness-head h2 {
+  margin: 0;
+}
+
+.consciousness-badge {
+  font-size: 0.65rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 4px;
+  background: #1a2430;
+  color: #6b7385;
+  letter-spacing: 0.04em;
+}
+
+.consciousness-badge.active {
+  background: #1a2f3a;
+  color: #7ec8a8;
+}
+
+.consciousness-stages {
+  margin-bottom: 0.5rem;
+}
+
+.consciousness-stage strong {
+  color: #c8a0e8;
+}
+
+.consciousness-inactive {
+  opacity: 0.85;
+}

@@ -46,6 +46,7 @@ import {
   VIEW_NATIVE,
 } from './analogy.js';
 import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
+import { renderConsciousnessPanel } from './consciousness.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -78,7 +79,7 @@ export class ObserverApp {
     this.root.innerHTML = `
       <header class="header">
         <h1>ElecDoge-电子狗-v1.0.3</h1>
-        <p class="subtitle">世界实况 · 辞典统计</p>
+        <p class="subtitle">世界实况 · 意识观察</p>
       </header>
 
       <section class="toolbar">
@@ -684,6 +685,7 @@ export class ObserverApp {
       .join('');
 
     return `
+      ${renderConsciousnessPanel(s.consciousness, { label })}
       <section class="panel env-panel">
         <h2>环境</h2>
         ${s.world.envHint ? `<p class="panel-hint">${escapeHtml(s.world.envHint)}</p>` : ''}
