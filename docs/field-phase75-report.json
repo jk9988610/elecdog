@@ -1,0 +1,1094 @@
+{
+  "runAt": "2026-07-29T17:26:49.987Z",
+  "phase": 75,
+  "extension": "w4_social_knowledge",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 1920,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "w4_soc_off": {
+      "id": "w4_soc_off",
+      "label": "智慧演化无社会知识累积",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": false
+    },
+    "w4_soc_on": {
+      "id": "w4_soc_on",
+      "label": "智慧演化+社会知识累积",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true
+    }
+  },
+  "aggregate": {
+    "w4_soc_off": {
+      "label": "智慧演化无社会知识累积",
+      "meanSocEnc": 0,
+      "meanSocLin": 0,
+      "meanTraceIntensity": 0,
+      "meanExternalRate": 0.4722,
+      "meanOffspringRate": 0.4719,
+      "runs": [
+        {
+          "treatmentId": "w4_soc_off",
+          "seed": 0,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "withTraceCount": 0,
+            "meanSocLoad": 0,
+            "meanEncodeIntensity": 0,
+            "meanTraceIntensity": 0,
+            "externalRate": 0.4727,
+            "offspringExternalRate": 0.4719,
+            "seedExternalRate": 0.4741,
+            "socialKnowledgeEnabled": false,
+            "snapshots": [
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 2222.5401429999997,
+          "durationLabel": "2.22s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3120,
+            "evolution:PRD": 205,
+            "evolution:COOP": 64,
+            "evolution:MTB": 2563,
+            "evolution:RPL": 11249,
+            "evolution:EHU-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:PLG": 3600,
+            "evolution:EHU-REN": 3768,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 12,
+            "evolution:FUS": 24,
+            "evolution:REN": 168,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 97,
+            "population:CMP": 19
+          },
+          "entriesKept": 25266
+        },
+        {
+          "treatmentId": "w4_soc_off",
+          "seed": 1,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "withTraceCount": 0,
+            "meanSocLoad": 0,
+            "meanEncodeIntensity": 0,
+            "meanTraceIntensity": 0,
+            "externalRate": 0.4698,
+            "offspringExternalRate": 0.471,
+            "seedExternalRate": 0.4679,
+            "socialKnowledgeEnabled": false,
+            "snapshots": [
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 2183.2137909999997,
+          "durationLabel": "2.18s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2949,
+            "evolution:PRD": 208,
+            "evolution:COOP": 66,
+            "evolution:MTB": 2818,
+            "evolution:RPL": 12313,
+            "evolution:EHU-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 9,
+            "evolution:FUS": 24,
+            "evolution:REN": 186,
+            "evolution:EHU-REN": 4150,
+            "evolution:PLG": 3964,
+            "evolution:EXP": 64,
+            "evolution:RPR": 71,
+            "evolution:EHU": 83,
+            "population:CMP": 19
+          },
+          "entriesKept": 27168
+        },
+        {
+          "treatmentId": "w4_soc_off",
+          "seed": 2,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "withTraceCount": 0,
+            "meanSocLoad": 0,
+            "meanEncodeIntensity": 0,
+            "meanTraceIntensity": 0,
+            "externalRate": 0.4737,
+            "offspringExternalRate": 0.4724,
+            "seedExternalRate": 0.4759,
+            "socialKnowledgeEnabled": false,
+            "snapshots": [
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 2139.6005889999997,
+          "durationLabel": "2.14s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2958,
+            "evolution:PRD": 211,
+            "evolution:COOP": 64,
+            "evolution:MTB": 3072,
+            "evolution:RPL": 10985,
+            "evolution:EHU-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 19,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3518,
+            "evolution:EHU-REN": 3684,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:REN": 166,
+            "evolution:EHU": 94,
+            "population:CMP": 19
+          },
+          "entriesKept": 25191
+        },
+        {
+          "treatmentId": "w4_soc_off",
+          "seed": 3,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "withTraceCount": 0,
+            "meanSocLoad": 0,
+            "meanEncodeIntensity": 0,
+            "meanTraceIntensity": 0,
+            "externalRate": 0.4728,
+            "offspringExternalRate": 0.4725,
+            "seedExternalRate": 0.4732,
+            "socialKnowledgeEnabled": false,
+            "snapshots": [
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              },
+              {
+                "encode": [
+                  0,
+                  0,
+                  0
+                ],
+                "socEncRx": 0,
+                "socEncCross": 0,
+                "linCount": 0,
+                "logCount": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 2164.060334,
+          "durationLabel": "2.16s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2307,
+            "evolution:PRD": 184,
+            "evolution:COOP": 64,
+            "evolution:MTB": 2626,
+            "evolution:RPL": 12250,
+            "evolution:EHU-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:PLG": 3936,
+            "evolution:EHU-REN": 4113,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 10,
+            "evolution:FUS": 24,
+            "evolution:REN": 177,
+            "evolution:EXP": 64,
+            "evolution:RPR": 72,
+            "evolution:EHU": 95,
+            "population:CMP": 19
+          },
+          "entriesKept": 26185
+        }
+      ]
+    },
+    "w4_soc_on": {
+      "label": "智慧演化+社会知识累积",
+      "meanSocEnc": 75632.25,
+      "meanSocLin": 40,
+      "meanTraceIntensity": 0.3241,
+      "meanExternalRate": 0.3713,
+      "meanOffspringRate": 0.3119,
+      "runs": [
+        {
+          "treatmentId": "w4_soc_on",
+          "seed": 0,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 75663,
+            "socLinCount": 40,
+            "withTraceCount": 40,
+            "meanSocLoad": 0.8237,
+            "meanEncodeIntensity": 1,
+            "meanTraceIntensity": 0.3237,
+            "externalRate": 0.3767,
+            "offspringExternalRate": 0.3207,
+            "seedExternalRate": 0.4701,
+            "socialKnowledgeEnabled": true,
+            "snapshots": [
+              {
+                "encode": [
+                  0.9995,
+                  8.8447,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1919,
+                "socEncCross": 16973,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.999,
+                  8.9343,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 17136,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.9995,
+                  9.2517,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1919,
+                "socEncCross": 17754,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.999,
+                  8.9343,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 17136,
+                "linCount": 0,
+                "logCount": 38
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 2293.52052,
+          "durationLabel": "2.29s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3178,
+            "evolution:PRD": 230,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75663,
+            "evolution:MTB": 2909,
+            "evolution:RPL": 11383,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 10,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3640,
+            "evolution:EHU-REN": 3809,
+            "evolution:EXP": 64,
+            "evolution:RPR": 68,
+            "evolution:REN": 169,
+            "evolution:EHU": 97,
+            "population:CMP": 19
+          },
+          "entriesKept": 101611
+        },
+        {
+          "treatmentId": "w4_soc_on",
+          "seed": 1,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 75606,
+            "socLinCount": 40,
+            "withTraceCount": 40,
+            "meanSocLoad": 0.8416,
+            "meanEncodeIntensity": 1,
+            "meanTraceIntensity": 0.3416,
+            "externalRate": 0.3729,
+            "offspringExternalRate": 0.3162,
+            "seedExternalRate": 0.4674,
+            "socialKnowledgeEnabled": true,
+            "snapshots": [
+              {
+                "encode": [
+                  0.999,
+                  8.6971,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 16681,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.999,
+                  8.6971,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 16681,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.9995,
+                  8.8562,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1919,
+                "socEncCross": 16995,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.999,
+                  8.6971,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 16681,
+                "linCount": 0,
+                "logCount": 38
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 2107.8323069999988,
+          "durationLabel": "2.11s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3271,
+            "evolution:PRD": 231,
+            "evolution:COOP": 65,
+            "evolution:SOC-ENC": 75606,
+            "evolution:MTB": 2397,
+            "evolution:RPL": 11898,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 11,
+            "evolution:FUS": 24,
+            "evolution:REN": 175,
+            "evolution:EHU-REN": 4001,
+            "evolution:PLG": 3826,
+            "evolution:EXP": 64,
+            "evolution:RPR": 71,
+            "evolution:EHU": 99,
+            "population:CMP": 19
+          },
+          "entriesKept": 102042
+        },
+        {
+          "treatmentId": "w4_soc_on",
+          "seed": 2,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 75609,
+            "socLinCount": 40,
+            "withTraceCount": 40,
+            "meanSocLoad": 0.8325,
+            "meanEncodeIntensity": 1,
+            "meanTraceIntensity": 0.3325,
+            "externalRate": 0.3662,
+            "offspringExternalRate": 0.3038,
+            "seedExternalRate": 0.4702,
+            "socialKnowledgeEnabled": true,
+            "snapshots": [
+              {
+                "encode": [
+                  0.9995,
+                  8.5492,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1919,
+                "socEncCross": 16406,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.9995,
+                  8.7092,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1919,
+                "socEncCross": 16713,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.999,
+                  8.5537,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 16406,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.999,
+                  8.7138,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1918,
+                "socEncCross": 16713,
+                "linCount": 0,
+                "logCount": 38
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 2171.809381000001,
+          "durationLabel": "2.17s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2970,
+            "evolution:PRD": 208,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75609,
+            "evolution:MTB": 3143,
+            "evolution:RPL": 11023,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:REN": 159,
+            "evolution:EHU-REN": 3703,
+            "evolution:ISPL": 17,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3544,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 99,
+            "population:CMP": 19
+          },
+          "entriesKept": 100999
+        },
+        {
+          "treatmentId": "w4_soc_on",
+          "seed": 3,
+          "phase": 75,
+          "metrics": {
+            "aliveTotal": 64,
+            "socEncCount": 75651,
+            "socLinCount": 40,
+            "withTraceCount": 40,
+            "meanSocLoad": 0.7987,
+            "meanEncodeIntensity": 1,
+            "meanTraceIntensity": 0.2987,
+            "externalRate": 0.3694,
+            "offspringExternalRate": 0.3067,
+            "seedExternalRate": 0.4739,
+            "socialKnowledgeEnabled": true,
+            "snapshots": [
+              {
+                "encode": [
+                  0.9979,
+                  8.8168,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1916,
+                "socEncCross": 16893,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.9979,
+                  8.7677,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1916,
+                "socEncCross": 16799,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.9974,
+                  8.73,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1915,
+                "socEncCross": 16718,
+                "linCount": 0,
+                "logCount": 38
+              },
+              {
+                "encode": [
+                  0.9979,
+                  8.7677,
+                  1
+                ],
+                "trace": null,
+                "via": null,
+                "socEncRx": 1916,
+                "socEncCross": 16799,
+                "linCount": 0,
+                "logCount": 38
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 2186.5269080000016,
+          "durationLabel": "2.19s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3202,
+            "evolution:PRD": 211,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75651,
+            "evolution:MTB": 3561,
+            "evolution:RPL": 11611,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 12,
+            "evolution:FUS": 24,
+            "evolution:REN": 173,
+            "evolution:EHU-REN": 3903,
+            "evolution:PLG": 3730,
+            "evolution:EXP": 64,
+            "evolution:RPR": 72,
+            "evolution:EHU": 101,
+            "population:CMP": 19
+          },
+          "entriesKept": 102682
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "H1_socEncObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 75663
+      },
+      "H2_inheritanceEvents": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 40
+      },
+      "H3_behaviorModulated": {
+        "verdict": "support",
+        "offExternal": 0.4727,
+        "onExternal": 0.3767,
+        "delta": -0.096
+      },
+      "H4_offspringDifference": {
+        "verdict": "support",
+        "onOffspring": 0.3207,
+        "onSeed": 0.4701,
+        "offOffspring": 0.4719,
+        "offSeed": 0.4741,
+        "delta": -0.1494
+      }
+    },
+    {
+      "seed": 1,
+      "H1_socEncObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 75606
+      },
+      "H2_inheritanceEvents": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 40
+      },
+      "H3_behaviorModulated": {
+        "verdict": "support",
+        "offExternal": 0.4698,
+        "onExternal": 0.3729,
+        "delta": -0.0969
+      },
+      "H4_offspringDifference": {
+        "verdict": "support",
+        "onOffspring": 0.3162,
+        "onSeed": 0.4674,
+        "offOffspring": 0.471,
+        "offSeed": 0.4679,
+        "delta": -0.1512
+      }
+    },
+    {
+      "seed": 2,
+      "H1_socEncObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 75609
+      },
+      "H2_inheritanceEvents": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 40
+      },
+      "H3_behaviorModulated": {
+        "verdict": "support",
+        "offExternal": 0.4737,
+        "onExternal": 0.3662,
+        "delta": -0.1075
+      },
+      "H4_offspringDifference": {
+        "verdict": "support",
+        "onOffspring": 0.3038,
+        "onSeed": 0.4702,
+        "offOffspring": 0.4724,
+        "offSeed": 0.4759,
+        "delta": -0.1664
+      }
+    },
+    {
+      "seed": 3,
+      "H1_socEncObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 75651
+      },
+      "H2_inheritanceEvents": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 40
+      },
+      "H3_behaviorModulated": {
+        "verdict": "support",
+        "offExternal": 0.4728,
+        "onExternal": 0.3694,
+        "delta": -0.1034
+      },
+      "H4_offspringDifference": {
+        "verdict": "support",
+        "onOffspring": 0.3067,
+        "onSeed": 0.4739,
+        "offOffspring": 0.4725,
+        "offSeed": 0.4732,
+        "delta": -0.1672
+      }
+    }
+  ],
+  "batchVerdict": {
+    "seedsCompared": 4,
+    "h1Support": 4,
+    "h2Support": 4,
+    "h3Support": 4,
+    "h4Support": 4,
+    "verdict": "support"
+  },
+  "shortTermGoal": "W4 社会知识累积",
+  "roadmap": "docs/PHASE75_SOCIAL_KNOWLEDGE.md",
+  "runBudgetMs": 180000
+}

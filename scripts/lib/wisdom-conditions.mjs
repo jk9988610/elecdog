@@ -42,7 +42,7 @@ export const WISDOM_LAYERS = [
     label: '社会放大',
     items: [
       { id: 'L5a-signal', label: '跨个体信号链', status: 'complete', phase: '3-6' },
-      { id: 'L5b-culture', label: '非遗传信息累积', status: 'pending', phase: '75+', goal: 'W4' },
+      { id: 'L5b-culture', label: '非遗传信息累积', status: 'complete', phase: '75', goal: 'W4' },
     ],
   },
   {
@@ -67,7 +67,7 @@ export const WISDOM_PHASE_ROADMAP = [
 ];
 
 /**
- * @param {{ memoryFeedbackInCode?: boolean, phase70FieldVerdict?: string }} [opts]
+ * @param {{ memoryFeedbackInCode?: boolean, phase70FieldVerdict?: string, phase75FieldVerdict?: string }} [opts]
  */
 export function assessWisdomConditions(opts = {}) {
   const items = WISDOM_LAYERS.flatMap((layer) =>
@@ -80,6 +80,9 @@ export function assessWisdomConditions(opts = {}) {
         opts.phase70FieldVerdict === 'support' &&
         (item.id === 'L4a-mem-fb' || item.id === 'L4b-mem-field')
       ) {
+        status = 'complete';
+      }
+      if (opts.phase75FieldVerdict === 'support' && item.id === 'L5b-culture') {
         status = 'complete';
       }
       return { ...item, layer: layer.id, layerLabel: layer.label, status };
@@ -95,7 +98,7 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 75,
+    currentPhase: 76,
     currentGoal: 'W4',
     roadmap: 'docs/WISDOM.md',
   };

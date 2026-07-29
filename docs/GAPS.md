@@ -286,3 +286,12 @@
 - **报告**：[PHASE74_PREDICTION_FEEDBACK.md](PHASE74_PREDICTION_FEEDBACK.md) · `field-phase74-report.json`
 
 ---
+
+## GAP-W04 · 社会知识累积（智慧 W4）
+
+- **缺口**：RX 频次不编码为可继承社会迹；子代/邻居行为无传递对照
+- **Phase 75 扩展**：`socialKnowledgeEnabled` + `social-knowledge.js`；`[SOC-ENC]` / `[SOC-LIN]`
+- **状态**：**部分结案** — 编码+继承+行为反馈田野 4/4 support；谱系回响（Phase 76）待续
+- **报告**：[PHASE75_SOCIAL_KNOWLEDGE.md](PHASE75_SOCIAL_KNOWLEDGE.md) · `field-phase75-report.json`
+
+---

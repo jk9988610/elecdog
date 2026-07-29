@@ -1,6 +1,6 @@
 {
-  "runAt": "2026-07-29T17:22:28.588Z",
-  "phase": 70,
+  "runAt": "2026-07-29T17:27:33.167Z",
+  "phase": 75,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
   "assessment": {
@@ -101,8 +101,8 @@
       {
         "id": "L5b-culture",
         "label": "非遗传信息累积",
-        "status": "pending",
-        "phase": "75+",
+        "status": "complete",
+        "phase": "75",
         "goal": "W4",
         "layer": "L5",
         "layerLabel": "社会放大"
@@ -126,14 +126,14 @@
       }
     ],
     "summary": {
-      "complete": 10,
+      "complete": 11,
       "partial": 2,
-      "open": 2,
+      "open": 1,
       "total": 14
     },
-    "progressPct": 71,
-    "currentPhase": 74,
-    "currentGoal": "W3-feedback",
+    "progressPct": 79,
+    "currentPhase": 76,
+    "currentGoal": "W4",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -255,8 +255,8 @@
         {
           "id": "L5b-culture",
           "label": "非遗传信息累积",
-          "status": "pending",
-          "phase": "75+",
+          "status": "complete",
+          "phase": "75",
           "goal": "W4",
           "layer": "L5",
           "layerLabel": "社会放大"
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "Phase 74 W3 — prediction error feedback to behavior"
+  "next": "Phase 76 W4 — lineage memory echo"
 }
