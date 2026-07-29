@@ -6,6 +6,8 @@ import { birthIntoWorld } from '../birth/spawn.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import {
   hasReplicationRemaining,
+  hasMeiReplicationBudget,
+  consumeReplicationForMei,
   replicationEnabled,
   logReplication,
 } from './replication.js';
@@ -96,7 +98,7 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
   if (!meiEnabled(profile) || !replicationEnabled(profile) || !being.alive) return null;
   if (being.independent === false) return null;
   if (being.meiPacket) return null;
-  if (!hasReplicationRemaining(being, profile)) return null;
+  if (!hasMeiReplicationBudget(being, profile)) return null;
 
   if (being.tickCount < (profile.meiMinAge ?? 40)) return null;
   if (stress > (profile.meiMaxStress ?? 0.26)) return null;
@@ -118,22 +120,16 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
   being.lastMeiTick = world.tick;
   being.meiCount = (being.meiCount ?? 0) + 1;
 
-  const before = being.rplRemaining ?? 0;
-  if (being.rplScope === 'subunit' && being.rplSub?.length) {
-    for (const unit of being.rplSub) {
-      unit.remaining = Math.max(0, unit.remaining - 1);
-    }
-    being.rplRemaining = being.rplSub.reduce((s, u) => s + u.remaining, 0);
-  } else {
-    being.rplRemaining = Math.max(0, before - 1);
-  }
+  const rpl = consumeReplicationForMei(being, profile);
 
   logReplication(recorder, world.tick, being.id, `[RPL] mei ${being.rplRemaining}/${being.rplMax}`, {
     phase: 'mei',
-    before,
-    after: being.rplRemaining,
+    before: rpl.before,
+    after: rpl.after,
     rplMax: being.rplMax,
-    rplScope: being.rplScope,
+    rplScope: rpl.rplScope,
+    meiRplDeduct: rpl.mode,
+    subId: rpl.subId,
   });
 
   recorder.evolution(
@@ -146,6 +142,10 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
       dnaBias: +bias.toFixed(4),
       rplRemaining: being.rplRemaining,
       stress,
+      organismType: being.organismType ?? 'unicell',
+      rplScope: being.rplScope,
+      meiRplDeduct: rpl.mode,
+      subId: rpl.subId,
     }
   );
 
@@ -238,6 +238,7 @@ function spawnFusionFromSeqs(
         childId: child.id,
         mutationCount,
         generation: child.generation,
+        organismType: child.organismType ?? 'unicell',
         liveDonor,
         orphan,
         orphanFromId,

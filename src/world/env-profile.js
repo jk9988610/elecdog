@@ -309,6 +309,39 @@ export const ENV_PROFILES = {
     fusPacketMaxAge: 200,
     fusPairCooldown: 24,
   },
+  fertile_multicell_mei_fus_fix: {
+    id: 'fertile_multicell_mei_fus_fix',
+    label: '富足多子域重组+瓶颈修复',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusOrphanPoolMax: 12,
+    fusSocialAffinity: true,
+    fusAggressivePairing: true,
+    fusPacketMaxAge: 200,
+    fusPairCooldown: 24,
+  },
 };
 
 const REN_BASE = {
@@ -378,6 +411,65 @@ const FUS_BOTTLENECK_FIX = {
   fusMaxPairsPerTick: 8,
   fusPacketMaxAge: 200,
   fusPairCooldown: 24,
+};
+
+/** Phase 45 — 多细胞 × 重组 [MEI]/[FUS] */
+export const PHASE45_TREATMENTS = {
+  multicell_org_mei: {
+    id: 'multicell_org_mei',
+    label: '多细胞+共享RPL+重组',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+    fissionEnabled: false,
+    meiRplDeduct: 'organism',
+    ...MEI_FUS_ONLY,
+  },
+  multicell_sub_mei: {
+    id: 'multicell_sub_mei',
+    label: '多细胞+子域RPL+重组',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    fissionEnabled: false,
+    meiRplDeduct: 'active',
+    ...MEI_FUS_ONLY,
+  },
+  multicell_org_mei_fix: {
+    id: 'multicell_org_mei_fix',
+    label: '多细胞+共享RPL+重组+修复包',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+    fissionEnabled: false,
+    meiRplDeduct: 'organism',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
+  multicell_sub_mei_fix: {
+    id: 'multicell_sub_mei_fix',
+    label: '多细胞+子域RPL+重组+修复包',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    fissionEnabled: false,
+    meiRplDeduct: 'active',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
+  unicell_mei_fix: {
+    id: 'unicell_mei_fix',
+    label: '单细胞+重组+修复包（锚定）',
+    envId: 'fertile_field',
+    organismMode: 'unicell',
+    fissionEnabled: false,
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
 };
 
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
@@ -686,6 +778,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase45Treatment(world, treatmentId) {
+  const treatment = PHASE45_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase45 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 45, treatmentId, ...treatment };
   return world.envProfile;
 }
 

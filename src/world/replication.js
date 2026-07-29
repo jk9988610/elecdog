@@ -66,6 +66,66 @@ export function hasReplicationRemaining(being, profile) {
   return (being.rplRemaining ?? 0) > 0;
 }
 
+/** 多细胞 MEI：当前轮值子域索引 */
+export function activeSubunitIndex(being) {
+  if (!being.subCells?.length) return null;
+  return (being.intraTick ?? 0) % being.subCells.length;
+}
+
+export function resolveMeiRplDeduct(being, profile) {
+  if (profile?.meiRplDeduct) return profile.meiRplDeduct;
+  if (being.rplScope === 'subunit' && being.rplSub?.length) return 'active';
+  return 'organism';
+}
+
+/** MEI 可用配额：子域模式默认仅扣当前子域 */
+export function hasMeiReplicationBudget(being, profile) {
+  if (!replicationEnabled(profile)) return true;
+  const mode = resolveMeiRplDeduct(being, profile);
+  if (being.rplScope === 'subunit' && being.rplSub?.length) {
+    if (mode === 'all') return being.rplSub.every((u) => u.remaining > 0);
+    if (mode === 'active') {
+      const idx = activeSubunitIndex(being);
+      return (being.rplSub[idx]?.remaining ?? 0) > 0;
+    }
+    return being.rplSub.some((u) => u.remaining > 0);
+  }
+  return (being.rplRemaining ?? 0) > 0;
+}
+
+/** MEI 扣减 RPL；返回扣减前后与子域信息 */
+export function consumeReplicationForMei(being, profile) {
+  const before = being.rplRemaining ?? 0;
+  const mode = resolveMeiRplDeduct(being, profile);
+  let subId = null;
+
+  if (being.rplScope === 'subunit' && being.rplSub?.length) {
+    if (mode === 'all') {
+      for (const unit of being.rplSub) {
+        unit.remaining = Math.max(0, unit.remaining - 1);
+      }
+    } else {
+      const idx = mode === 'active' ? activeSubunitIndex(being) : being.rplSub.findIndex((u) => u.remaining > 0);
+      const unit = being.rplSub[idx >= 0 ? idx : 0];
+      if (unit) {
+        subId = unit.subId;
+        unit.remaining = Math.max(0, unit.remaining - 1);
+      }
+    }
+    syncRplRemaining(being);
+  } else {
+    being.rplRemaining = Math.max(0, before - 1);
+  }
+
+  return {
+    before,
+    after: being.rplRemaining ?? 0,
+    mode,
+    subId,
+    rplScope: being.rplScope,
+  };
+}
+
 export function logReplication(recorder, tick, beingId, content, meta) {
   recorder.evolution(tick, beingId, content, { kind: 'RPL', ...meta });
 }
