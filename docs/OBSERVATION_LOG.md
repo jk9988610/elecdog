@@ -598,4 +598,16 @@
   - H1 支持 **3/4** 种子，方向一致；批次综合 **support**
 - **备注**：报告见 `docs/field-phase70-report.json`；CODEX 修订待复核
 
+## OBS-20260729-82
+
+- **世界**：智慧演化场（Phase 71 · W2）
+- **处理组**：`w2_evo_cat` vs `w2_evo_ctrl`
+- **田野**：12体 × 2500 tick × 4 种子
+- **事实**：
+  - 剧变组 signConsistent **false**，unanimousBases **1/4**，meanDrift **0.016**
+  - 对照组 signConsistent **false**，unanimousBases **1/4**，meanDrift **0.019**
+  - SEL 计数均为 **0**（智慧栈短代深）；GAP-10 **仍开放**
+  - W2 度量通道已建立；综合 **gap10_persists**
+- **备注**：报告见 `docs/field-phase71-report.json`；Phase 72 目标 ≥2/4 unanimous
+
 ---

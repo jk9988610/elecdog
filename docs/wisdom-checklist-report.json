@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-29T17:07:14.292Z",
+  "runAt": "2026-07-29T17:11:27.903Z",
   "phase": 70,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
@@ -36,6 +36,7 @@
         "status": "open",
         "gap": "GAP-10",
         "goal": "W2",
+        "phase": "71-metrics",
         "layer": "L2",
         "layerLabel": "演化"
       },
@@ -131,8 +132,8 @@
       "total": 14
     },
     "progressPct": 64,
-    "currentPhase": 71,
-    "currentGoal": "W2",
+    "currentPhase": 72,
+    "currentGoal": "W2-env",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -174,6 +175,7 @@
           "status": "open",
           "gap": "GAP-10",
           "goal": "W2",
+          "phase": "71-metrics",
           "layer": "L2",
           "layerLabel": "演化"
         }
@@ -284,5 +286,5 @@
       ]
     }
   },
-  "next": "Phase 71 W2 — selection pressure repeatability metrics"
+  "next": "Phase 72 W2 — selection pressure reinforcement environment"
 }

@@ -1523,6 +1523,33 @@ export const PHASE70_TREATMENTS = {
   },
 };
 
+const W2_WISDOM_BASE = {
+  ...EHU_DEEP_FULL,
+  ...REN_BASE,
+  ...PLG_BASE,
+  ehuDistinctionErosionMult: 0.3,
+  ehuBindNarrative: true,
+  memoryFeedbackEnabled: true,
+  fieldLongStudy: true,
+};
+
+/** Phase 71 — W2 选择压可重复性度量（智慧演化场 × 剧变对照） */
+export const PHASE71_TREATMENTS = {
+  w2_evo_cat: {
+    id: 'w2_evo_cat',
+    label: '智慧演化+剧变选择压',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+  },
+  w2_evo_ctrl: {
+    id: 'w2_evo_ctrl',
+    label: '智慧演化+无剧变对照',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    catastropheDisabled: true,
+  },
+};
+
 /** Phase 66 — 意识可持续：谱系×续行×H3 跨代并存 */
 export const PHASE66_TREATMENTS = {
   cn_sustain_full_3840: {
@@ -1922,6 +1949,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase71Treatment(world, treatmentId) {
+  const treatment = PHASE71_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase71 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 71, treatmentId, ...treatment };
   return world.envProfile;
 }
 

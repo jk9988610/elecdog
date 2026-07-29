@@ -1,14 +1,14 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-29 · Phase 70 W1 田野验收完成
+> 更新：2026-07-29 · Phase 71 W2 度量基线完成
 
 ---
 
 ## 先读什么
 
 1. **[WISDOM.md](WISDOM.md)** — 北极星、诞生条件检查表、Phase 70–77 路线图  
-2. **[PHASE70_MEMORY_FEEDBACK.md](PHASE70_MEMORY_FEEDBACK.md)** — 当前开工项 W1  
-3. **[GAPS.md](GAPS.md)** — GAP-W01 ~ W03  
+2. **[PHASE71_SELECTION_METRICS.md](PHASE71_SELECTION_METRICS.md)** — W2 度量与基线  
+3. **[GAPS.md](GAPS.md)** — GAP-W02 ~ W03  
 
 ---
 
@@ -25,29 +25,30 @@
 
 | 项 | 状态 |
 |----|------|
-| 文档对齐 | ✅ OUTLINE / WISDOM / STATUS / ROADMAP / GAPS |
-| W1 记忆闭环代码 | ✅ `memory-feedback.js` + `wisdom_evolution` |
-| W1 田野验收 | ✅ `field:phase70` support（3/4 种子） |
+| W1 记忆闭环 | ✅ Phase 70 support |
+| W2 度量基线 | ✅ `field:phase71` · unanimousBases 1/4 |
+| GAP-10 | ⬜ 仍开放（gap10_persists） |
 
 ---
 
 ## 验证命令
 
 ```bash
+npm run field:phase71
+npm run field:phase70
 npm run wisdom:checklist
-npm run wisdom:mem:verify
 ```
 
 ---
 
 ## 建议下一对话任务
 
-1. ~~实现 `field-batch-phase70.mjs` 多种子田野（mem on/off 对照）~~ ✅
-2. 根据田野结果更新 OBS + 决定是否修订 CODEX「事件记忆迹」
-3. 启动 Phase 71：选择压可重复性度量（攻坚 GAP-10 / GAP-W02）  
+1. ~~启动 Phase 71：选择压可重复性度量~~ ✅
+2. Phase 72：选择压强化环境（目标 ≥2/4 碱基 unanimous）
+3. 根据 W1 田野复核 CODEX「事件记忆迹」修订
 
 ---
 
 ## 分支约定
 
-`cursor/<descriptive-name>-65c2`
+`cursor/<descriptive-name>-a3f2`
