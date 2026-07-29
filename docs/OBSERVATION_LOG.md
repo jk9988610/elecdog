@@ -709,4 +709,16 @@
   - 批次综合 **weak**；GAP-10 **仍开放**
 - **备注**：报告见 `docs/field-phase80-report.json`；延长 tick 未改善共识
 
+## OBS-20260729-92
+
+- **世界**：智慧演化场（Phase 81 · GAP-10 W2 深度）
+- **处理组**：`w2_p81_replay_ref/shk` / `core_shk` / `depth_shk`
+- **田野**：12体 × 3000 tick × 4 种子
+- **事实**：
+  - Phase 72 复现仅 **1–2/4** unanimous（未复现 3/4）
+  - 最佳 `w2_p81_core_shk` **2/4**；depth_shk 碱基 1 **3+/1-**
+  - meanMaxGen **2.0–2.5**（未达 ≥4 目标）
+  - 批次综合 **unsupport**；GAP-10 **仍开放**
+- **备注**：报告见 `docs/field-phase81-report.json`
+
 ---

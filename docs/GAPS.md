@@ -105,8 +105,8 @@
 
 - **缺口**：四体多代运行中，存活谱系 vs 代 0 的 DNA 频率偏移**方向因种子而异**，延长 tick（2500）与加倍种子（4）仍无法 unanimous
 - **依据**：Phase 21 OBS-55；Phase 22 OBS-56、OBS-57
-- **状态**：**部分结案** — Phase 72 智慧演化场 3000 tick 达 **3/4** unanimous（当前最佳）；Phase 80 3840 tick 攻坚仅 2/4，未超越 Phase 72
-- **备注**：solo 场景跨种子仍可重复（Phase 21 OBS-54）；碱基 1 持续跨种子分歧；过度 harsh/sparse 导致种群崩溃（可证伪）
+- **状态**：**部分结案** — Phase 72 智慧演化场 3000 tick 达 **3/4** unanimous（历史最佳，复现不稳定）；Phase 80–81 攻坚未超越
+- **备注**：solo 场景跨种子仍可重复（Phase 21 OBS-54）；碱基 1 在 Phase 81 depth_shk 达 3+/1- 但整体未闭合；Phase 81 复现 Phase 72 仅 1–2/4
 
 ---
 
@@ -274,8 +274,8 @@
 
 - **缺口**：多体 DNA 漂移跨种子方向不一致（继承 GAP-10）
 - **目标**：不脚本化选择，但使适应性差异跨运行可核对
-- **状态**：**部分结案** — Phase 72 田野 3/4 unanimous（碱基 0/2/3）；Phase 80 3840 tick 仅 2/4；碱基 1 仍开放
-- **报告**：[PHASE72_SELECTION_REINFORCE.md](PHASE72_SELECTION_REINFORCE.md) · [PHASE80_GAP10_SELECTION.md](PHASE80_GAP10_SELECTION.md) · `field-phase72-report.json`
+- **状态**：**部分结案** — Phase 72 田野 3/4 unanimous；Phase 80–81 未超越；碱基 1 在 depth_shk 达 3+/1-
+- **报告**：[PHASE72_SELECTION_REINFORCE.md](PHASE72_SELECTION_REINFORCE.md) · [PHASE80_GAP10_SELECTION.md](PHASE80_GAP10_SELECTION.md) · [PHASE81_GAP10_W2DEPTH.md](PHASE81_GAP10_W2DEPTH.md)
 
 ---
 

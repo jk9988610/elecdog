@@ -64,7 +64,7 @@ const assessment = assessWisdomConditions({
 
 const report = {
   runAt: new Date().toISOString(),
-  phase: 80,
+  phase: 81,
   extension: 'wisdom_checklist',
   kind: 'wisdom-birth-conditions',
   assessment,
@@ -73,7 +73,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'GAP-10 generation depth or W2-only stack assault',
+  next: 'Wisdom species field acceptance preparation',
 };
 
 writeFileSync(
