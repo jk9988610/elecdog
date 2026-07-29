@@ -135,7 +135,124 @@ subCell 分工（已有 draw/act/balance）
 
 ---
 
-## 五、文档索引
+## 六、地球式环境周期与空间梯度（GAP-ENV 方向）
+
+> 目标：**简化模拟**赤道–两极差异、四季、日夜、日月影响；**不叫温度/季节/太阳/月亮**；细胞有**可观察的诞生区位**。
+
+### 6.1 现状与缺口
+
+| 地球现象 | 今日实现 | 缺口 |
+|----------|----------|------|
+| 全球只有一个地点 | `birthPlace: '01'` | 无空间梯度、无迁徙（ENVIRONMENT §六） |
+| 温度带 | 处理组静态 `substrateFloor`/`DrainMult` | 无 lat 连续变化 |
+| 日夜 | 每 tick `[AMB]`（非日相） | 无昼夜周期调制 |
+| 四季 | 无 | 无慢周期 |
+| 月亮潮汐 | 无 | 无次要长周期 |
+| 灾害 | `[SHK]`/`[NPL]` 每 100 tick | 类似突变，非季节 |
+
+### 6.2 空间：细胞最初在哪里
+
+**今日**：所有个体在 **`birthPlace` 单点**（默认 `01`）诞生；基底场由 `hash(world.name : birthPlace : substrate)` 初始化；`cellBoundary` 由 `hash(dna : id : cell)` 分配——**与地点无关，只与 DNA 有关**。
+
+**提议（GAP-ENV）**：扩展 `birthPlace` 为 **区带 + 局域格**（仍不用经纬度地名）：
+
+```
+birthPlace = "{band}-{patch}"
+  band  = E | M | P     （赤道带 / 中带 / 极带 的操作性代号，UI 可比作「赤道/温带/极地」）
+  patch = 00–99         （同带内局域格，可共享或独立场态）
+```
+
+- 诞生仪式：从**该格当前基底快照**采样，给寄存器微弱初值偏置（个体「生在当前环境里」）
+- `cellBoundary` 仍由 DNA 决定；**同一 DNA 不同 band** → 不同场压初条件 → 可观察存活差异
+- 多体田野：不同 being 可赋不同 `patch`，同 patch 内共享局部 `e`（为 GAP-ORG「叶片」打基础）
+
+### 6.3 时间周期：日月与四季的简化映射
+
+用 **世界时钟** 三个正交相位（均可从 `tick` 确定性导出，便于复现）：
+
+| 相位 | 周期（提议） | 地球类比 | 数字表现 | 日志（提议） |
+|------|--------------|----------|----------|--------------|
+| **日相** `diurnal` | `T_day = 240` tick | 自转 → 日夜 | 调制 **注能通道** `e☉` 的 AMB 注入幅值：`solar = max(0, sin(2π·tick/T_day))` | `[DLC] phase solar` |
+| **季相** `seasonal` | `T_year = 4×T_day` | 公转 → 四季 | 慢变 `substrateFloor`、`substrateBoost`、`pulseInterval` | `[SCL] phase band floor boost` |
+| **月相** `lunar` | `T_moon = 28` tick（≠日相整数倍） | 月球 → 潮汐 | 微弱调制 **节点再生率** 或 `e◐` 通道（潮汐类比） | `[LTC] phase tide` |
+
+**不叫「太阳/月亮/春夏秋冬」**——只记相位标量与场参变化事实。
+
+#### 日相（日夜）
+
+```
+solarInput = solar × substrateBoost_diurnal
+  → 注入 e☉（如 e2）或作为 Synth-A（GAP-ORG）的乘子
+night: solar ≈ 0 → 储备池个体存活 ↓；直接 DRW 者压力 ↑
+```
+
+连接内共生路线：**有 reservoir 的个体** 在夜间靠 `[RSV] out` 维持；**无储备** 者体现「夜間胁迫」。
+
+#### 季相（四季简化）
+
+四相 `seasonPhase ∈ {0,1,2,3}`，各 1/4 年：
+
+| 相 | 数字参数倾向 | 地球类比（仅 UI） |
+|----|--------------|-------------------|
+| 0 | floor↑ boost↑ | 暖季 |
+| 1 | floor→ boost→ | 过渡 |
+| 2 | floor↓ drain↑ | 冷季 |
+| 3 | floor→ pulse↓ | 复苏 |
+
+#### 月相（次要）
+
+- 振幅小（如 ±0.02），避免盖过日相/季相
+- 主要影响 `nodes` 再生与 `[DEP]` 频率 — **潮汐式资源脉动**
+
+### 6.4 空间 × 时间：赤道到两极
+
+**区带静态梯度**（不随季相变 lat，季相只调幅值）：
+
+| band | substrateFloor | substrateDrainMult | 日相 solar 峰值 | 类比 |
+|------|----------------|--------------------|-----------------|------|
+| E | 高 | 低 | 高 | 赤道：富足、热、昼夜差小* |
+| M | 中 | 中 | 中 | 温带 |
+| P | 低 | 高 | 低 | 极地：耗竭快、冬季长* |
+
+\* 昼夜差：通过 `diurnal` 振幅按 band 缩放实现（赤道 day≈night 幅差小；极地夏季长昼用 asymmetry 可选）
+
+**公式示意**：
+
+```
+effectiveFloor = bandFloor[place.band] × seasonalMod(seasonPhase)
+effectiveSolar = solar(diurnal) × bandSolar[place.band] × seasonalSolarMod(seasonPhase)
+```
+
+### 6.5 与现有机制的关系
+
+```
+         [DLC] 日相 ──→ e☉ 注入 ──→ Synth-A → reservoir（GAP-ORG）
+              ↓
+         [DRW] 直接摄取 ←── 基底 e0–e7 ←── [SCL] 季相调 floor/boost
+              ↑
+         [LTC] 月相 ──→ 节点再生 / e◐
+              ↑
+         band 区带（E/M/P）静态梯度
+              ↑
+         birthPlace 诞生采样 → 个体初条件
+```
+
+- `[SHK]`/`[NPL]` **保留**为剧变脉冲，与季相独立（类似极端天气 ≠ 季节）
+- `[BIO]` 种群反馈仍作用于**局域 patch** 的基底
+
+### 6.6 最小可交付路径（建议 Phase 85+）
+
+1. **place band**：`birthPlace` 解析 `E|M|P` + patch；band 静态参数
+2. **日相 `[DLC]`**：`T_day=240`，调制 e☉ 注入；田野日/夜存活对比
+3. **季相 `[SCL]`**：`T_year=960`，四相调 floor/boost
+4. **月相 `[LTC]`**：节点潮汐；可选
+5. 与 **GAP-ORG** 汇合：日相 × Synth-A × reservoir 夜間生存
+
+每步 on/off 田野；**不立项「温度」「季节」CODEX 条**，先观察相位–场参–END 率关系。
+
+---
+
+## 七、文档索引
 
 | 文档 | 角色 |
 |------|------|

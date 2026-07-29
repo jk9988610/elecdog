@@ -20,6 +20,7 @@
 |-----|------|
 | GAP-11+ | 基底耗散定律、消耗物用于什么 |
 | GAP-ORG | 内共生模块 + 储备池（线粒体/叶绿体类比） |
+| GAP-ENV | 区带/日相/季相/月相（地球环境简化） |
 | GAP-ART | 环境硬工具与创造力 |
 
 ---
@@ -37,8 +38,8 @@ npm run wisdom:checklist
 ## 建议下一对话任务
 
 1. Phase 84 原型：`reservoir` + `[RSV]` 储备池记录层
-2. Synth 模块（AMB→储备）田野对照
-3. FUS 捕获 module packet（内共生）
+2. Phase 85 原型：区带 birthPlace + `[DLC]` 日相
+3. Synth 模块（日相→储备）田野对照
 
 ---
 
