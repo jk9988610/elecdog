@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 92 GAP-ART · 路线图 §10.2 结案**
+> 更新：2026-07-29 · **Phase 93 GAP-ENV vent [VTN]**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 84–92 中期路线全部交付**；GAP-ART `[ART]` 田野 **support**（4/4）；下一步 Phase 93+ 世界厚度。
+**Phase 93 交付**；极带地热 vent 田野 **support**（4/4）；下一步 Phase 94 patch 迁徙 / alt。
 
 ---
 
@@ -97,6 +97,7 @@
 | **GAP-ENV air** | **90** | ⚠️ 大气标量 weak |
 | **GAP-ENV ADV/LTC** | **91** | ✅ 平流+月相 support |
 | **GAP-ART** | **92** | ✅ ART 场态 support |
+| **GAP-ENV vent** | **93** | ✅ 地热 VTN support |
 
 ---
 
