@@ -1,0 +1,1282 @@
+{
+  "runAt": "2026-07-29T17:32:02.895Z",
+  "phase": 76,
+  "extension": "w4_mem_lineage_echo",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 1920,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "w4_mem_echo_off": {
+      "id": "w4_mem_echo_off",
+      "label": "社会知识无记忆回响",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": false
+    },
+    "w4_mem_echo_on": {
+      "id": "w4_mem_echo_on",
+      "label": "社会知识+谱系记忆回响",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "predictionEnabled": true,
+      "predictionAlpha": 0.35,
+      "predictionLogThreshold": 0.06,
+      "predictionHighThreshold": 0.12,
+      "predictionLateStart": 960,
+      "predictionLateMid": 1440,
+      "predictionFeedbackEnabled": true,
+      "socialKnowledgeEnabled": true,
+      "socialKnowledgeFeedbackEnabled": true,
+      "memLineageEchoEnabled": true,
+      "memLineageEchoBlend": 0.55
+    }
+  },
+  "aggregate": {
+    "w4_mem_echo_off": {
+      "label": "社会知识无记忆回响",
+      "meanMemLin": 0,
+      "meanWithEcho": 0,
+      "meanEchoAct": 0,
+      "meanExternalRate": 0.3669,
+      "meanEchoOffspringRate": null,
+      "runs": [
+        {
+          "treatmentId": "w4_mem_echo_off",
+          "seed": 0,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 0,
+            "withEchoCount": 0,
+            "meanEchoAct": 0,
+            "meanMemLoad": 1.5887,
+            "externalRate": 0.3656,
+            "echoOffspringRate": null,
+            "seedExternalRate": 0.3656,
+            "memLineageEchoEnabled": false,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.362,
+                  "memActLoad": 0.469
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.362,
+                    "act": 0.4685
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.354,
+                  "memActLoad": 0.653
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3542,
+                    "act": 0.653
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.39,
+                  "memActLoad": 0.593
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3903,
+                    "act": 0.5929
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.279,
+                  "memActLoad": 0.644
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2788,
+                    "act": 0.6437
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 2297.8538209999997,
+          "durationLabel": "2.30s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2738,
+            "evolution:PRD": 207,
+            "evolution:COOP": 65,
+            "evolution:SOC-ENC": 75406,
+            "evolution:MTB": 3241,
+            "evolution:RPL": 11922,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 10,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3846,
+            "evolution:EHU-REN": 4011,
+            "evolution:REN": 165,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 114,
+            "population:CMP": 19
+          },
+          "entriesKept": 102185
+        },
+        {
+          "treatmentId": "w4_mem_echo_off",
+          "seed": 1,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 0,
+            "withEchoCount": 0,
+            "meanEchoAct": 0,
+            "meanMemLoad": 1.5666,
+            "externalRate": 0.3618,
+            "echoOffspringRate": null,
+            "seedExternalRate": 0.3618,
+            "memLineageEchoEnabled": false,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.527,
+                  "memActLoad": 0.487
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.5269,
+                    "act": 0.4866
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.43,
+                  "memActLoad": 0.576
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.4298,
+                    "act": 0.5761
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.275,
+                  "memActLoad": 0.96
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2754,
+                    "act": 0.96
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.241,
+                  "memActLoad": 0.593
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2408,
+                    "act": 0.5927
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 2210.552101,
+          "durationLabel": "2.21s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3173,
+            "evolution:PRD": 205,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75589,
+            "evolution:MTB": 3761,
+            "evolution:RPL": 12014,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 19,
+            "evolution:FUS": 24,
+            "evolution:REN": 174,
+            "evolution:EHU-REN": 4040,
+            "evolution:PLG": 3866,
+            "evolution:EXP": 64,
+            "evolution:RPR": 71,
+            "evolution:EHU": 109,
+            "population:CMP": 19
+          },
+          "entriesKept": 103476
+        },
+        {
+          "treatmentId": "w4_mem_echo_off",
+          "seed": 2,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 0,
+            "withEchoCount": 0,
+            "meanEchoAct": 0,
+            "meanMemLoad": 1.5672,
+            "externalRate": 0.3664,
+            "echoOffspringRate": null,
+            "seedExternalRate": 0.3664,
+            "memLineageEchoEnabled": false,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.325,
+                  "memActLoad": 0.594
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3246,
+                    "act": 0.5938
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.27,
+                  "memActLoad": 0.589
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2698,
+                    "act": 0.5889
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.413,
+                  "memActLoad": 0.446
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.4131,
+                    "act": 0.4459
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.356,
+                  "memActLoad": 0.607
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3557,
+                    "act": 0.6066
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 2316.3773919999994,
+          "durationLabel": "2.32s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2627,
+            "evolution:PRD": 218,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75724,
+            "evolution:MTB": 3487,
+            "evolution:RPL": 10970,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:PLG": 3520,
+            "evolution:EHU-REN": 3685,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 17,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:REN": 165,
+            "evolution:EXP": 64,
+            "evolution:RPR": 71,
+            "evolution:EHU": 104,
+            "population:CMP": 19
+          },
+          "entriesKept": 101043
+        },
+        {
+          "treatmentId": "w4_mem_echo_off",
+          "seed": 3,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 0,
+            "withEchoCount": 0,
+            "meanEchoAct": 0,
+            "meanMemLoad": 1.6046,
+            "externalRate": 0.3737,
+            "echoOffspringRate": null,
+            "seedExternalRate": 0.3737,
+            "memLineageEchoEnabled": false,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.418,
+                  "memActLoad": 0.495
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.418,
+                    "act": 0.4953
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.286,
+                  "memActLoad": 0.687
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2864,
+                    "act": 0.6873
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.218,
+                  "memActLoad": 0.63
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2183,
+                    "act": 0.6298
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.281,
+                  "memActLoad": 0.575
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.281,
+                    "act": 0.5754
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 2185.885579,
+          "durationLabel": "2.19s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3266,
+            "evolution:PRD": 190,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75729,
+            "evolution:MTB": 3632,
+            "evolution:RPL": 11189,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 12,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3576,
+            "evolution:EHU-REN": 3745,
+            "evolution:EXP": 64,
+            "evolution:REN": 169,
+            "evolution:RPR": 69,
+            "evolution:EHU": 109,
+            "population:CMP": 19
+          },
+          "entriesKept": 102141
+        }
+      ]
+    },
+    "w4_mem_echo_on": {
+      "label": "社会知识+谱系记忆回响",
+      "meanMemLin": 52,
+      "meanWithEcho": 52,
+      "meanEchoAct": 0.2769,
+      "meanExternalRate": 0.3663,
+      "meanEchoOffspringRate": 0.343,
+      "runs": [
+        {
+          "treatmentId": "w4_mem_echo_on",
+          "seed": 0,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 52,
+            "withEchoCount": 52,
+            "meanEchoAct": 0.2708,
+            "meanMemLoad": 1.6046,
+            "externalRate": 0.3673,
+            "echoOffspringRate": 0.343,
+            "seedExternalRate": 0.4728,
+            "memLineageEchoEnabled": true,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.362,
+                  "memActLoad": 0.469
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.362,
+                    "act": 0.4685
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.576,
+                  "memActLoad": 0.366
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.5756,
+                    "act": 0.3656
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.3,
+                  "memActLoad": 0.625
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3002,
+                    "act": 0.6254
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.334,
+                  "memActLoad": 0.375
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3343,
+                    "act": 0.3755
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010000"
+          ],
+          "durationMs": 2335.6984589999993,
+          "durationLabel": "2.34s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3274,
+            "evolution:PRD": 194,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75580,
+            "evolution:MTB": 2691,
+            "evolution:RPL": 11398,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 14,
+            "evolution:FUS": 24,
+            "evolution:REN": 170,
+            "evolution:EHU-REN": 3820,
+            "evolution:PLG": 3650,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:EHU": 103,
+            "population:CMP": 19
+          },
+          "entriesKept": 101470
+        },
+        {
+          "treatmentId": "w4_mem_echo_on",
+          "seed": 1,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 52,
+            "withEchoCount": 52,
+            "meanEchoAct": 0.2825,
+            "meanMemLoad": 1.6255,
+            "externalRate": 0.3763,
+            "echoOffspringRate": 0.3551,
+            "seedExternalRate": 0.4681,
+            "memLineageEchoEnabled": true,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.527,
+                  "memActLoad": 0.487
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.5269,
+                    "act": 0.4866
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.301,
+                  "memActLoad": 0.902
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3012,
+                    "act": 0.902
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.27,
+                  "memActLoad": 0.615
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2701,
+                    "act": 0.6154
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.187,
+                  "memActLoad": 1
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.1867,
+                    "act": 1
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010001"
+          ],
+          "durationMs": 2260.273902000001,
+          "durationLabel": "2.26s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2536,
+            "evolution:PRD": 234,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 75688,
+            "evolution:MTB": 3096,
+            "evolution:RPL": 11661,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 18,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3726,
+            "evolution:EHU-REN": 3902,
+            "evolution:REN": 176,
+            "evolution:EXP": 64,
+            "evolution:RPR": 68,
+            "evolution:EHU": 104,
+            "population:CMP": 19
+          },
+          "entriesKept": 101716
+        },
+        {
+          "treatmentId": "w4_mem_echo_on",
+          "seed": 2,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 52,
+            "withEchoCount": 52,
+            "meanEchoAct": 0.2731,
+            "meanMemLoad": 1.6035,
+            "externalRate": 0.3547,
+            "echoOffspringRate": 0.3292,
+            "seedExternalRate": 0.4652,
+            "memLineageEchoEnabled": true,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.325,
+                  "memActLoad": 0.594
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3246,
+                    "act": 0.5938
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.225,
+                  "memActLoad": 0.692
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.225,
+                    "act": 0.6923
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.202,
+                  "memActLoad": 0.729
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.2022,
+                    "act": 0.729
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.382,
+                  "memActLoad": 0.454
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3816,
+                    "act": 0.4538
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010002"
+          ],
+          "durationMs": 2275.239585000001,
+          "durationLabel": "2.28s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 3707,
+            "evolution:PRD": 205,
+            "evolution:COOP": 66,
+            "evolution:SOC-ENC": 75559,
+            "evolution:MTB": 3835,
+            "evolution:RPL": 12145,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:ISPL": 13,
+            "evolution:XBCN": 76,
+            "evolution:FUS": 24,
+            "evolution:REN": 184,
+            "evolution:EHU-REN": 4086,
+            "evolution:PLG": 3902,
+            "evolution:EXP": 64,
+            "evolution:RPR": 71,
+            "evolution:EHU": 101,
+            "population:CMP": 19
+          },
+          "entriesKept": 104317
+        },
+        {
+          "treatmentId": "w4_mem_echo_on",
+          "seed": 3,
+          "phase": 76,
+          "metrics": {
+            "aliveTotal": 64,
+            "memLinCount": 52,
+            "withEchoCount": 52,
+            "meanEchoAct": 0.2812,
+            "meanMemLoad": 1.6335,
+            "externalRate": 0.3667,
+            "echoOffspringRate": 0.3447,
+            "seedExternalRate": 0.4621,
+            "memLineageEchoEnabled": true,
+            "snapshots": [
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.418,
+                  "memActLoad": 0.495
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.418,
+                    "act": 0.4953
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.378,
+                  "memActLoad": 0.442
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.3781,
+                    "act": 0.4421
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.417,
+                  "memActLoad": 0.759
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.4171,
+                    "act": 0.7595
+                  }
+                }
+              },
+              {
+                "mem": {
+                  "memRxLoad": 1,
+                  "memTxLoad": 0.217,
+                  "memActLoad": 0.768
+                },
+                "echo": {
+                  "echoRx": 0,
+                  "echoTx": 0,
+                  "echoAct": 0,
+                  "linCount": 0,
+                  "current": {
+                    "rx": 1,
+                    "tx": 0.217,
+                    "act": 0.7682
+                  }
+                }
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "cohortIds": [
+            "0120260729010003"
+          ],
+          "durationMs": 2258.721341999999,
+          "durationLabel": "2.26s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 2993,
+            "evolution:PRD": 182,
+            "evolution:COOP": 80,
+            "evolution:SOC-ENC": 75610,
+            "evolution:MTB": 4559,
+            "evolution:RPL": 10923,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 40,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 40,
+            "evolution:MEI": 76,
+            "evolution:XBCN": 76,
+            "evolution:ISPL": 13,
+            "evolution:FUS": 24,
+            "evolution:PLG": 3504,
+            "evolution:EHU-REN": 3672,
+            "evolution:EXP": 64,
+            "evolution:RPR": 69,
+            "evolution:REN": 168,
+            "evolution:EHU": 100,
+            "population:CMP": 19
+          },
+          "entriesKept": 102316
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "H1_memLinObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 52
+      },
+      "H2_echoSeeded": {
+        "verdict": "support",
+        "offWithEcho": 0,
+        "onWithEcho": 52,
+        "onMeanEchoAct": 0.2708
+      },
+      "H3_w1BehaviorLinked": {
+        "verdict": "weak",
+        "offExternal": 0.3656,
+        "onExternal": 0.3673,
+        "delta": 0.0017
+      },
+      "H4_offspringEchoDiff": {
+        "verdict": "support",
+        "onEcho": 0.343,
+        "onSeed": 0.4728,
+        "delta": -0.1298
+      }
+    },
+    {
+      "seed": 1,
+      "H1_memLinObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 52
+      },
+      "H2_echoSeeded": {
+        "verdict": "support",
+        "offWithEcho": 0,
+        "onWithEcho": 52,
+        "onMeanEchoAct": 0.2825
+      },
+      "H3_w1BehaviorLinked": {
+        "verdict": "support",
+        "offExternal": 0.3618,
+        "onExternal": 0.3763,
+        "delta": 0.0145
+      },
+      "H4_offspringEchoDiff": {
+        "verdict": "support",
+        "onEcho": 0.3551,
+        "onSeed": 0.4681,
+        "delta": -0.113
+      }
+    },
+    {
+      "seed": 2,
+      "H1_memLinObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 52
+      },
+      "H2_echoSeeded": {
+        "verdict": "support",
+        "offWithEcho": 0,
+        "onWithEcho": 52,
+        "onMeanEchoAct": 0.2731
+      },
+      "H3_w1BehaviorLinked": {
+        "verdict": "support",
+        "offExternal": 0.3664,
+        "onExternal": 0.3547,
+        "delta": -0.0117
+      },
+      "H4_offspringEchoDiff": {
+        "verdict": "support",
+        "onEcho": 0.3292,
+        "onSeed": 0.4652,
+        "delta": -0.136
+      }
+    },
+    {
+      "seed": 3,
+      "H1_memLinObservable": {
+        "verdict": "support",
+        "offCount": 0,
+        "onCount": 52
+      },
+      "H2_echoSeeded": {
+        "verdict": "support",
+        "offWithEcho": 0,
+        "onWithEcho": 52,
+        "onMeanEchoAct": 0.2812
+      },
+      "H3_w1BehaviorLinked": {
+        "verdict": "support",
+        "offExternal": 0.3737,
+        "onExternal": 0.3667,
+        "delta": -0.007
+      },
+      "H4_offspringEchoDiff": {
+        "verdict": "support",
+        "onEcho": 0.3447,
+        "onSeed": 0.4621,
+        "delta": -0.1174
+      }
+    }
+  ],
+  "batchVerdict": {
+    "seedsCompared": 4,
+    "h1Support": 4,
+    "h2Support": 4,
+    "h3Support": 3,
+    "h4Support": 4,
+    "verdict": "support"
+  },
+  "shortTermGoal": "W4 谱系记忆回响",
+  "roadmap": "docs/PHASE76_LINEAGE_MEMORY.md",
+  "runBudgetMs": 180000
+}

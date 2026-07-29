@@ -14,6 +14,7 @@ import {
   logReplication,
 } from './replication.js';
 import { applyEhuLineageEcho } from './electronic-human-profile.js';
+import { applyMemLineageEcho } from './lineage-memory.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -239,6 +240,7 @@ function spawnFusionFromSeqs(
   child.recombined = true;
 
   applyEhuLineageEcho(world, recorder, child, [parentA, parentB], profile);
+  applyMemLineageEcho(world, recorder, child, [parentA, parentB], profile, { via: 'FUS' });
 
   if (!orphan) parentA.meiPacket = null;
   parentA.fusCount = (parentA.fusCount ?? 0) + 1;

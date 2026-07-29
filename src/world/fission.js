@@ -7,6 +7,7 @@ import { applyFissionReplication, hasFissReplicationBudget } from './replication
 import { recordReproductionPathEvent, reproductionProfileEnabled } from './reproduction-profile.js';
 import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applySocialKnowledgeInheritance } from './social-knowledge.js';
+import { applyMemLineageEcho } from './lineage-memory.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -93,6 +94,7 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
   applySocialKnowledgeInheritance(world, recorder, born.being, [parent], world.envProfile, {
     via: 'FISS',
   });
+  applyMemLineageEcho(world, recorder, born.being, [parent], world.envProfile, { via: 'FISS' });
 
   const retain = profile.fissionRegisterRetain ?? 0.82;
   for (let i = 0; i < parent.registers.length; i++) {

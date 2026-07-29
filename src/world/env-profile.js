@@ -1593,6 +1593,32 @@ const W4_SOC_BASE = {
   socialKnowledgeEnabled: false,
 };
 
+const W4_MEM_BASE = {
+  ...W4_SOC_BASE,
+  socialKnowledgeEnabled: true,
+  socialKnowledgeFeedbackEnabled: true,
+  memLineageEchoEnabled: false,
+};
+
+/** Phase 76 — W4 谱系记忆回响（亲代 mem 摘要 → [MEM-LIN] → W1 闭环） */
+export const PHASE76_TREATMENTS = {
+  w4_mem_echo_off: {
+    id: 'w4_mem_echo_off',
+    label: '社会知识无记忆回响',
+    envId: 'wisdom_evolution',
+    ...W4_MEM_BASE,
+    memLineageEchoEnabled: false,
+  },
+  w4_mem_echo_on: {
+    id: 'w4_mem_echo_on',
+    label: '社会知识+谱系记忆回响',
+    envId: 'wisdom_evolution',
+    ...W4_MEM_BASE,
+    memLineageEchoEnabled: true,
+    memLineageEchoBlend: 0.55,
+  },
+};
+
 /** Phase 75 — W4 社会知识累积（RX 频次编码 → 可继承社会迹） */
 export const PHASE75_TREATMENTS = {
   w4_soc_off: {
@@ -2068,6 +2094,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase76Treatment(world, treatmentId) {
+  const treatment = PHASE76_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase76 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 76, treatmentId, ...treatment };
   return world.envProfile;
 }
 

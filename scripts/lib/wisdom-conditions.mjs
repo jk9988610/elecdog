@@ -98,8 +98,8 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 76,
-    currentGoal: 'W4',
+    currentPhase: 77,
+    currentGoal: 'W5',
     roadmap: 'docs/WISDOM.md',
   };
 }
