@@ -36,6 +36,8 @@
 | 31 | Realtime 多设备同步 | [2026-07-29-phase31-realtime.md](2026-07-29-phase31-realtime.md) |
 | 32 | 原版/类比双呈现 | [2026-07-29-phase32-analogy.md](2026-07-29-phase32-analogy.md) |
 | 33 | 社会合作田野 GAP-13 | [2026-07-29-phase33-social.md](2026-07-29-phase33-social.md) |
+| 34 | 环境选择压 GAP-14 | [2026-07-29-phase34-selection-pressure.md](2026-07-29-phase34-selection-pressure.md) |
+| 35 | 多细胞 / 延迟独立 GAP-15 | [2026-07-29-phase35-multicell.md](2026-07-29-phase35-multicell.md) |
 | — | OTA 踩坑结案（验收） | [2026-07-29-ota-lessons.md](2026-07-29-ota-lessons.md) |
 
 原始 JSON：`docs/field-phase*.json`

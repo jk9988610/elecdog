@@ -63,6 +63,9 @@ const LABELS = {
   lineage: { native: '续行 LINEAGE', analogy: '后代诞生' },
   sel: { native: '筛选 SEL', analogy: '环境筛选' },
   contest: { native: '争夺 contest', analogy: '同点争夺' },
+  nur: { native: '通量 NUR', analogy: '亲代通量扶持' },
+  intra: { native: '胞内 INTRA', analogy: '子单元内协作' },
+  org: { native: '形态 ORG', analogy: '个体结构类型' },
 };
 
 export function label(key) {

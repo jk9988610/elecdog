@@ -5,7 +5,6 @@ import {
   ambienceLine,
   perturbFromAct,
   substrateSnapshot,
-  metabolicExchange,
 } from '../world/substrate.js';
 import {
   advanceNodes,
@@ -23,6 +22,8 @@ import { accumulateBiotic, applyBioticCycle } from '../world/biotic.js';
 import { compositionSnapshot, shouldRecordComposition } from '../world/composition.js';
 import { CELL_INTEGRITY_LOW } from '../world/cell.js';
 import { juvenileDrawMultiplier } from '../world/env-profile.js';
+import { tickNurture } from '../world/nurture.js';
+import { runMetabolism } from '../world/organism.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -195,7 +196,32 @@ export function stepWorld(world, recorder) {
       hadExternal: result.external.length > 0,
     });
 
-    const met = metabolicExchange(world, being, {
+    const nurtureEvt = tickNurture(world, being);
+    if (nurtureEvt?.transfers?.length) {
+      for (const t of nurtureEvt.transfers) {
+        recorder.metabolism(
+          world.tick,
+          being.id,
+          `[NUR] e${t.idx} +${t.amount.toFixed(4)} reserve ${nurtureEvt.reserveLeft}`,
+          {
+            kind: 'NUR',
+            phase: 'tick',
+            ...t,
+            reserveLeft: nurtureEvt.reserveLeft,
+            parentId: nurtureEvt.parentId,
+          }
+        );
+      }
+      if (nurtureEvt.becameIndependent) {
+        recorder.metabolism(world.tick, being.id, `[NUR] independent t${being.tickCount}`, {
+          kind: 'NUR',
+          phase: 'independent',
+          tickCount: being.tickCount,
+        });
+      }
+    }
+
+    const met = runMetabolism(world, being, {
       internalCount: result.internal.length,
       hadExternal: result.external.length > 0,
       drawMult: juvenileDrawMultiplier(being, world.envProfile),
@@ -207,6 +233,20 @@ export function stepWorld(world, recorder) {
         `[DRW] e${met.draw.idx} -${met.draw.amount.toFixed(4)} act${met.draw.activity}`,
         { kind: 'DRW', ...met.draw }
       );
+      if (met.draw.subCellId) {
+        recorder.cell(
+          world.tick,
+          being.id,
+          `[INTRA] ${met.draw.subCellId}/${met.draw.subRole} draw e${met.draw.idx}`,
+          {
+            kind: 'INTRA',
+            phase: 'draw',
+            subCellId: met.draw.subCellId,
+            subRole: met.draw.subRole,
+            idx: met.draw.idx,
+          }
+        );
+      }
       if (met.crossBoundary) {
         recorder.cell(
           world.tick,
@@ -231,6 +271,17 @@ export function stepWorld(world, recorder) {
       );
     } else {
       being.lowStreak = 0;
+    }
+
+    if (met.intra?.transfers?.length) {
+      for (const tr of met.intra.transfers) {
+        recorder.cell(
+          world.tick,
+          being.id,
+          `[INTRA] ${tr.fromSub}→${tr.toSub} e${tr.srcIdx}→e${tr.dstIdx} ${tr.amount.toFixed(4)}`,
+          { kind: 'INTRA', phase: 'transfer', ...tr }
+        );
+      }
     }
 
     if (

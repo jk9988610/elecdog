@@ -1,7 +1,9 @@
 /**
- * 田野环境配置 — Phase 34 选择压验证
+ * 田野环境配置 — Phase 34–35 选择压 / 繁殖 / 个体形态
  * 仅用于 field-batch；观察台默认不启用
  */
+
+import { juvenileDrawMultiplier as nurtureJuvenileDraw } from './nurture.js';
 
 export const ENV_PROFILES = {
   baseline: {
@@ -36,6 +38,48 @@ export const ENV_PROFILES = {
   },
 };
 
+/** Phase 35 田野处理组（固定 harsh_combined 基底） */
+export const PHASE35_TREATMENTS = {
+  unicell_instant: {
+    id: 'unicell_instant',
+    label: '单域即时独立',
+    envId: 'harsh_combined',
+    organismMode: 'unicell',
+    reproMode: 'instant',
+  },
+  unicell_nursed: {
+    id: 'unicell_nursed',
+    label: '单域延迟独立+通量',
+    envId: 'harsh_combined',
+    organismMode: 'unicell',
+    reproMode: 'nursed',
+    nurtureTicks: 80,
+    nurtureSeedFrac: 0.35,
+    nurtureTickGrant: 0.012,
+    dependentDrawMult: 0.55,
+    independenceTicks: 80,
+  },
+  multicell_instant: {
+    id: 'multicell_instant',
+    label: '多子域即时独立',
+    envId: 'harsh_combined',
+    organismMode: 'multicell',
+    reproMode: 'instant',
+  },
+  multicell_nursed: {
+    id: 'multicell_nursed',
+    label: '多子域延迟独立+通量',
+    envId: 'harsh_combined',
+    organismMode: 'multicell',
+    reproMode: 'nursed',
+    nurtureTicks: 80,
+    nurtureSeedFrac: 0.35,
+    nurtureTickGrant: 0.012,
+    dependentDrawMult: 0.55,
+    independenceTicks: 80,
+  },
+};
+
 export function applyEnvProfile(world, profileId) {
   const profile = ENV_PROFILES[profileId] ?? ENV_PROFILES.baseline;
   world.envProfile = { ...profile };
@@ -46,12 +90,17 @@ export function applyEnvProfile(world, profileId) {
   return profile;
 }
 
+export function applyFieldTreatment(world, treatmentId) {
+  const treatment = PHASE35_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知田野处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 35, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
 export function juvenileDrawMultiplier(being, profile) {
-  if (!profile?.juvenileDrawMult || being.generation < (profile.juvenileMinGen ?? 1)) {
-    return 1;
-  }
-  if (being.tickCount <= (profile.juvenileTicks ?? 0)) {
-    return profile.juvenileDrawMult;
-  }
-  return 1;
+  return nurtureJuvenileDraw(being, profile);
 }

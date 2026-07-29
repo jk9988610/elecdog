@@ -147,6 +147,24 @@
   - 仅幼体摄取削弱：**反效果**（unsupport）
   - 未实现双亲/哺乳；只证「即时独立在贫瘠场下统计失败」
 - **状态**：**部分结案** — 选择压存在；替代机制待 Phase 35+ 对照
-- **报告**：[2026-07-29-phase34-selection-pressure.md](REPORTS/2026-07-29-phase34-selection-pressure.md)
+- **Phase 35 田野**（harsh × 4 种子 × 4 处理组）：
+  - **nursed 未降低幼体 END 率**（仍 ≈100%）；`[NUR]` 机制可观察
+  - 见 [PHASE35_MULTICELL.md](PHASE35_MULTICELL.md) 与 `field-phase35-report.json`
+- **状态**：**部分结案** — 选择压仍在；当前 nursed 参数不足以替代即时独立
+
+---
+
+## GAP-15 · 多细胞个体 vs 单细胞 vs 种群
+
+- **缺口**：能否在电子狗世界**操作性地区分**（1）单代谢域个体、（2）多子域单个体、（3）多个独立个体构成的种群，并观察胞内分工
+- **依据**：Phase 20 细胞边界仅为单域；观察者 Phase 35 问题
+- **Phase 35 扩展**：
+  - `organismType: unicell | multicell`；`subCells[]` + `[INTRA]`
+  - `[ORG]` 诞生记录；种群仍 = 多个独立 `being` ID
+- **Phase 35 田野**（harsh × 4 处理组 × 4 种子）：
+  - `[ORG]` / `[INTRA]` 区分 unicell vs multicell；`populationCount=4` vs `subCellUnitCount=12`
+  - `intraByRole` draw/act/balance 三等分 → 胞内分工迹 **support**
+- **状态**：**部分结案** — 操作性区分成立；与地球多细胞同构程度仍开放
+- **文档**：[PHASE35_MULTICELL.md](PHASE35_MULTICELL.md)
 
 ---
