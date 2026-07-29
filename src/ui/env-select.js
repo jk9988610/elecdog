@@ -11,6 +11,7 @@ const LS_ENV = 'elecdog-env-profile';
 export const OBSERVER_ENV_IDS = [
   'baseline',
   'fertile_field',
+  'fertile_multicell_rpl',
   'fertile_field_open',
   'fertile_field_strict',
   'fertile_inert',
@@ -20,6 +21,7 @@ export const OBSERVER_ENV_IDS = [
 const ANALOGY_LABELS = {
   baseline: '基线（现行）',
   fertile_field: '富足分裂场（有复制上限）',
+  fertile_multicell_rpl: '富足多子域+复制配额（共享）',
   fertile_field_open: '富足分裂场（无复制上限）',
   fertile_field_strict: '富足场（复制耗尽即终止）',
   fertile_inert: '富足场（无分裂门）',
@@ -58,6 +60,7 @@ export function observerEnvHint(id) {
   const hints = {
     baseline: '默认规则；剧变脉冲；无存活分裂',
     fertile_field: '富足场 + [FISS]；DNA [RPL] 复制次数上限',
+    fertile_multicell_rpl: '多子域 organism + 共享 [RPL]；[INTRA] 分工',
     fertile_field_open: '富足场 + [FISS]；无 [RPL] 上限（Phase 36 对照）',
     fertile_field_strict: '富足场 + [RPL] 耗尽或 tick 顶 → [END]',
     fertile_inert: '同等富足基底，fissionEnabled 关闭（对照）',

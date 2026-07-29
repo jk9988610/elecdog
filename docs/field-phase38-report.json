@@ -1,0 +1,531 @@
+{
+  "runAt": "2026-07-29T04:27:02.617Z",
+  "phase": 38,
+  "extension": "multicell_rpl_scope",
+  "gaps": [
+    "GAP-15",
+    "GAP-17"
+  ],
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "unicell_rpl": {
+      "id": "unicell_rpl",
+      "label": "单域+复制配额",
+      "envId": "fertile_field",
+      "organismMode": "unicell",
+      "rplScope": "organism"
+    },
+    "multicell_rpl": {
+      "id": "multicell_rpl",
+      "label": "多子域+有机体共享RPL",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplScope": "organism"
+    },
+    "multicell_subrpl": {
+      "id": "multicell_subrpl",
+      "label": "多子域+子域分摊RPL",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplScope": "subunit",
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3
+    }
+  },
+  "aggregate": {
+    "unicell_rpl": {
+      "label": "单域+复制配额",
+      "meanFiss": 12,
+      "meanAlive": 16,
+      "meanIntra": 0,
+      "meanMulticell": 0,
+      "meanSubUnits": 0,
+      "meanExhausted": 16,
+      "runs": [
+        {
+          "treatmentId": "unicell_rpl",
+          "seed": 0,
+          "treatment": {
+            "id": "unicell_rpl",
+            "label": "单域+复制配额",
+            "envId": "fertile_field",
+            "organismMode": "unicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 0,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 0,
+            "unicellAlive": 16,
+            "subCellUnits": 0,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 875301
+        },
+        {
+          "treatmentId": "unicell_rpl",
+          "seed": 1,
+          "treatment": {
+            "id": "unicell_rpl",
+            "label": "单域+复制配额",
+            "envId": "fertile_field",
+            "organismMode": "unicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 0,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 0,
+            "unicellAlive": 16,
+            "subCellUnits": 0,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 872244
+        },
+        {
+          "treatmentId": "unicell_rpl",
+          "seed": 2,
+          "treatment": {
+            "id": "unicell_rpl",
+            "label": "单域+复制配额",
+            "envId": "fertile_field",
+            "organismMode": "unicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 0,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 0,
+            "unicellAlive": 16,
+            "subCellUnits": 0,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 878834
+        },
+        {
+          "treatmentId": "unicell_rpl",
+          "seed": 3,
+          "treatment": {
+            "id": "unicell_rpl",
+            "label": "单域+复制配额",
+            "envId": "fertile_field",
+            "organismMode": "unicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 0,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 0,
+            "unicellAlive": 16,
+            "subCellUnits": 0,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 867365
+        }
+      ]
+    },
+    "multicell_rpl": {
+      "label": "多子域+有机体共享RPL",
+      "meanFiss": 12,
+      "meanAlive": 16,
+      "meanIntra": 141547.5,
+      "meanMulticell": 16,
+      "meanSubUnits": 48,
+      "meanExhausted": 16,
+      "runs": [
+        {
+          "treatmentId": "multicell_rpl",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_rpl",
+            "label": "多子域+有机体共享RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 141444,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 16,
+            "unicellAlive": 0,
+            "subCellUnits": 48,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 1025363
+        },
+        {
+          "treatmentId": "multicell_rpl",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_rpl",
+            "label": "多子域+有机体共享RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 141579,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 16,
+            "unicellAlive": 0,
+            "subCellUnits": 48,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 1022999
+        },
+        {
+          "treatmentId": "multicell_rpl",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_rpl",
+            "label": "多子域+有机体共享RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 141495,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 16,
+            "unicellAlive": 0,
+            "subCellUnits": 48,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 1031683
+        },
+        {
+          "treatmentId": "multicell_rpl",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_rpl",
+            "label": "多子域+有机体共享RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism"
+          },
+          "metrics": {
+            "fissCount": 12,
+            "intraCount": 141672,
+            "rplEventCount": 36,
+            "aliveTotal": 16,
+            "multicellAlive": 16,
+            "unicellAlive": 0,
+            "subCellUnits": 48,
+            "populationIds": 16,
+            "exhaustedAlive": 16,
+            "rplSubScopeEvents": 0,
+            "rplOrganismScopeEvents": 36,
+            "meanRplRemaining": 0
+          },
+          "entries": 1032305
+        }
+      ]
+    },
+    "multicell_subrpl": {
+      "label": "多子域+子域分摊RPL",
+      "meanFiss": 7.5,
+      "meanAlive": 11.5,
+      "meanIntra": 102130.5,
+      "meanMulticell": 11.5,
+      "meanSubUnits": 34.5,
+      "meanExhausted": 5,
+      "runs": [
+        {
+          "treatmentId": "multicell_subrpl",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_subrpl",
+            "label": "多子域+子域分摊RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3
+          },
+          "metrics": {
+            "fissCount": 6,
+            "intraCount": 89016,
+            "rplEventCount": 21,
+            "aliveTotal": 10,
+            "multicellAlive": 10,
+            "unicellAlive": 0,
+            "subCellUnits": 30,
+            "populationIds": 10,
+            "exhaustedAlive": 4,
+            "rplSubScopeEvents": 21,
+            "rplOrganismScopeEvents": 0,
+            "meanRplRemaining": 1.2
+          },
+          "entries": 502049
+        },
+        {
+          "treatmentId": "multicell_subrpl",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_subrpl",
+            "label": "多子域+子域分摊RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3
+          },
+          "metrics": {
+            "fissCount": 8,
+            "intraCount": 106608,
+            "rplEventCount": 26,
+            "aliveTotal": 12,
+            "multicellAlive": 12,
+            "unicellAlive": 0,
+            "subCellUnits": 36,
+            "populationIds": 12,
+            "exhaustedAlive": 4,
+            "rplSubScopeEvents": 26,
+            "rplOrganismScopeEvents": 0,
+            "meanRplRemaining": 1
+          },
+          "entries": 666278
+        },
+        {
+          "treatmentId": "multicell_subrpl",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_subrpl",
+            "label": "多子域+子域分摊RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3
+          },
+          "metrics": {
+            "fissCount": 8,
+            "intraCount": 106449,
+            "rplEventCount": 26,
+            "aliveTotal": 12,
+            "multicellAlive": 12,
+            "unicellAlive": 0,
+            "subCellUnits": 36,
+            "populationIds": 12,
+            "exhaustedAlive": 8,
+            "rplSubScopeEvents": 26,
+            "rplOrganismScopeEvents": 0,
+            "meanRplRemaining": 0.67
+          },
+          "entries": 654989
+        },
+        {
+          "treatmentId": "multicell_subrpl",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_subrpl",
+            "label": "多子域+子域分摊RPL",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3
+          },
+          "metrics": {
+            "fissCount": 8,
+            "intraCount": 106449,
+            "rplEventCount": 26,
+            "aliveTotal": 12,
+            "multicellAlive": 12,
+            "unicellAlive": 0,
+            "subCellUnits": 36,
+            "populationIds": 12,
+            "exhaustedAlive": 4,
+            "rplSubScopeEvents": 26,
+            "rplOrganismScopeEvents": 0,
+            "meanRplRemaining": 1
+          },
+          "entries": 655959
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "unicellVsMulticell": {
+        "H1_intraOnlyMulticell": {
+          "verdict": "support",
+          "unicellIntra": 0,
+          "multicellIntra": 141444
+        },
+        "H2_sharedRplLimitsPop": {
+          "verdict": "weak",
+          "unicellAlive": 16,
+          "multicellAlive": 16
+        },
+        "H3_populationVsSubunits": {
+          "verdict": "support",
+          "populationIds": 16,
+          "subCellUnits": 48
+        }
+      },
+      "organismVsSubunit": {
+        "H4_subunitStricter": {
+          "verdict": "support",
+          "organismFiss": 12,
+          "subunitFiss": 6,
+          "delta": -6
+        },
+        "H5_subunitScopeLogged": {
+          "verdict": "support",
+          "events": 21
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "unicellVsMulticell": {
+        "H1_intraOnlyMulticell": {
+          "verdict": "support",
+          "unicellIntra": 0,
+          "multicellIntra": 141579
+        },
+        "H2_sharedRplLimitsPop": {
+          "verdict": "weak",
+          "unicellAlive": 16,
+          "multicellAlive": 16
+        },
+        "H3_populationVsSubunits": {
+          "verdict": "support",
+          "populationIds": 16,
+          "subCellUnits": 48
+        }
+      },
+      "organismVsSubunit": {
+        "H4_subunitStricter": {
+          "verdict": "support",
+          "organismFiss": 12,
+          "subunitFiss": 8,
+          "delta": -4
+        },
+        "H5_subunitScopeLogged": {
+          "verdict": "support",
+          "events": 26
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "unicellVsMulticell": {
+        "H1_intraOnlyMulticell": {
+          "verdict": "support",
+          "unicellIntra": 0,
+          "multicellIntra": 141495
+        },
+        "H2_sharedRplLimitsPop": {
+          "verdict": "weak",
+          "unicellAlive": 16,
+          "multicellAlive": 16
+        },
+        "H3_populationVsSubunits": {
+          "verdict": "support",
+          "populationIds": 16,
+          "subCellUnits": 48
+        }
+      },
+      "organismVsSubunit": {
+        "H4_subunitStricter": {
+          "verdict": "support",
+          "organismFiss": 12,
+          "subunitFiss": 8,
+          "delta": -4
+        },
+        "H5_subunitScopeLogged": {
+          "verdict": "support",
+          "events": 26
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "unicellVsMulticell": {
+        "H1_intraOnlyMulticell": {
+          "verdict": "support",
+          "unicellIntra": 0,
+          "multicellIntra": 141672
+        },
+        "H2_sharedRplLimitsPop": {
+          "verdict": "weak",
+          "unicellAlive": 16,
+          "multicellAlive": 16
+        },
+        "H3_populationVsSubunits": {
+          "verdict": "support",
+          "populationIds": 16,
+          "subCellUnits": 48
+        }
+      },
+      "organismVsSubunit": {
+        "H4_subunitStricter": {
+          "verdict": "support",
+          "organismFiss": 12,
+          "subunitFiss": 8,
+          "delta": -4
+        },
+        "H5_subunitScopeLogged": {
+          "verdict": "support",
+          "events": 26
+        }
+      }
+    }
+  ],
+  "design": {
+    "organism": "1 being 共享一套 rplRemaining（多子域不单独计数）",
+    "subunit": "每个 subCell 分摊 rpl；任一子域归零则不可 FISS"
+  },
+  "roadmap": "docs/PHASE38_MULTICELL_RPL.md"
+}

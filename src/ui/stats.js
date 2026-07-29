@@ -77,6 +77,7 @@ export function buildDashboardStats(world, recorder) {
       organismType: b.organismType ?? 'unicell',
       rplRemaining: b.rplRemaining,
       rplMax: b.rplMax,
+      rplScope: b.rplScope,
       rplTickCap: b.rplTickCap,
       ...es,
     };

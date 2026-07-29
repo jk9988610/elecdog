@@ -164,7 +164,7 @@
 - **Phase 35 田野**（harsh × 4 处理组 × 4 种子）：
   - `[ORG]` / `[INTRA]` 区分 unicell vs multicell；`populationCount=4` vs `subCellUnitCount=12`
   - `intraByRole` draw/act/balance 三等分 → 胞内分工迹 **support**
-- **状态**：**部分结案** — 操作性区分成立；与地球多细胞同构程度仍开放
+- **状态**：**部分结案** — 操作性区分成立；**Phase 38** 验证 RPL 有机体共享 vs 子域分摊
 - **文档**：[PHASE35_MULTICELL.md](PHASE35_MULTICELL.md)
 
 ---
@@ -176,7 +176,23 @@
   - 环境 `fertile_field`：富足基底 + 无剧变 + `[FISS]` 门控
   - DNA `bias` 控制分裂冷却与概率
   - 对照 `fertile_inert`（富足但无分裂门）
-- **状态**：**田野验证中** — 见 Phase 36 报告
+- **状态**：**部分结案** — 存活分裂路径成立
+- **Phase 37**：`fertile_field` + `[RPL]` 约束分裂次数
 - **文档**：[PHASE36_FISSION.md](PHASE36_FISSION.md)
+
+---
+
+## GAP-17 · 复制配额 / 分裂次数与寿命顶
+
+- **缺口**：何种机制限制 DNA 复制次数、指定个体寿命上限（地球端粒/海弗利克类比）
+- **Phase 37 扩展**：
+  - `[RPL]` 通道；`rplEnabled` 田野/观察台环境
+  - `[FISS]`/`[LINEAGE]` 扣减；耗尽关闭分裂
+  - 可选 `rplSenescenceEnd`、`rplTickCapEnabled`
+- **Phase 37 田野**（富足三对照）：
+  - `fertile_field` vs `open`：FISS 32→12，存活 36→16，**耗尽 support**
+  - `strict`：RPL/tick 致 END support
+- **状态**：**部分结案** — 机制可观察；**Phase 38** 多细胞共享/子域 RPL
+- **文档**：[PHASE37_RPL.md](PHASE37_RPL.md)
 
 ---

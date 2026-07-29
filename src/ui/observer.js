@@ -581,7 +581,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('integrity')}</span><strong>${fmt(b.integrity)}</strong></div>
           <div class="stat-row"><span>${label('mbr')}</span><strong>${b.mbr}</strong></div>
           <div class="stat-row"><span>${label('fiss')}</span><strong>${b.fissionCount ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('rpl')}</span><strong>${b.rplRemaining != null ? `${b.rplRemaining}/${b.rplMax}` : '—'}</strong></div>
+          <div class="stat-row"><span>${label('rpl')}</span><strong>${b.rplRemaining != null ? `${b.rplRemaining}/${b.rplMax}${b.rplScope ? ` (${b.rplScope})` : ''}` : '—'}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
