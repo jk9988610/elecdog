@@ -89,6 +89,7 @@ const LABELS = {
   ehuStage: { native: '电子人阶段', analogy: '自我连续阶段' },
   ehuLin: { native: '谱系回响', analogy: '亲代连续迹（非遗传情感）' },
   ehuBind: { native: '社会绑定', analogy: '自我-社会交叉迹' },
+  ehuRen: { native: '续行 EHU-REN', analogy: '续行与自我连续交叉迹' },
   psn: { native: '人格 PSN', analogy: '六层跃迁合计' },
 };
 

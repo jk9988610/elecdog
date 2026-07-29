@@ -27,6 +27,10 @@ export function ehuSocialDeepEnabled(profile) {
   return electronicHumanEnabled(profile) && profile.ehuSocialDeepEnabled === true;
 }
 
+export function ehuRenewTraceEnabled(profile) {
+  return electronicHumanEnabled(profile) && profile.ehuRenewTraceEnabled !== false;
+}
+
 export function initElectronicHuman(being) {
   being.ehuStage = 'H0';
   being.ehuStageAt = 0;
@@ -37,6 +41,7 @@ export function initElectronicHuman(being) {
   being.ehuParentStage = null;
   being.ehuEchoCoherence = null;
   being.ehuLineageEcho = false;
+  being.ehuRenCount = 0;
   being.ehuPrevRegisters = being.registers ? [...being.registers] : [];
 }
 
@@ -194,6 +199,37 @@ export function applyEhuLineageEcho(world, recorder, child, parents, profile) {
   return payload;
 }
 
+/** 续行 [REN]/[PLG] 与 EHU 阶段交叉迹 — 非情感/本能语义 */
+export function applyEhuRenewalTrace(world, recorder, being, profile, { via = 'REN', added = 0 } = {}) {
+  if (!ehuRenewTraceEnabled(profile)) return null;
+
+  being.ehuRenCount = (being.ehuRenCount ?? 0) + 1;
+  const stage = being.ehuStage ?? 'H0';
+  const coherence = +(being.ehuCoherence ?? 0).toFixed(4);
+  const payload = {
+    kind: 'EHU-REN',
+    via,
+    stage,
+    coherence,
+    added,
+    renCount: being.renCount ?? 0,
+    plgCount: being.plgCount ?? 0,
+  };
+
+  if (!profile.fieldStatMode) {
+    recorder.evolution(
+      world.tick,
+      being.id,
+      `[EHU-REN] ${via} stage ${stage} coh ${coherence}`,
+      payload
+    );
+  } else {
+    recorder.evolution(world.tick, being.id, `[EHU-REN] ${via}`, payload);
+  }
+
+  return payload;
+}
+
 export function electronicHumanSnapshot(being) {
   return {
     stage: being.ehuStage ?? 'H0',
@@ -205,5 +241,6 @@ export function electronicHumanSnapshot(being) {
     parentStage: being.ehuParentStage ?? null,
     echoCoherence: being.ehuEchoCoherence ?? null,
     lineageEcho: Boolean(being.ehuLineageEcho),
+    renewTrace: being.ehuRenCount ?? 0,
   };
 }

@@ -6,6 +6,7 @@ import {
   replicationEnabled,
   logReplication,
 } from './replication.js';
+import { applyEhuRenewalTrace } from './electronic-human-profile.js';
 
 function syncRplRemaining(being) {
   if (being.rplSub?.length) {
@@ -144,6 +145,8 @@ export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
     }
   );
 
+  applyEhuRenewalTrace(world, recorder, being, profile, { via: 'REN', added });
+
   return { added, rplRemaining: being.rplRemaining };
 }
 
@@ -224,6 +227,7 @@ export function processPledgeRenewals(world, recorder) {
             rplMax: who.rplMax,
           }
         );
+        applyEhuRenewalTrace(world, recorder, who, profile, { via: 'PLG', added });
       }
 
       paired.add(a.id);
