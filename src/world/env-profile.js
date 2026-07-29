@@ -2332,6 +2332,7 @@ ENV_PROFILES.observer_w6_stack = {
   label: '观察台·环境栈',
   ...W5_WISDOM_FULL,
   organismMode: 'multicell',
+  ...W6_TOOL_ORG_STACK,
   ...W6_ENV_STACK,
 };
 

@@ -163,7 +163,8 @@
 - **Phase 94**：patch 迁徙 `[MIG]` + alt 税；田野 **support** — 见 [PHASE94_PATCH_MIGRATION.md](PHASE94_PATCH_MIGRATION.md)
 - **Phase 96**：W6 全栈耦合验收田野 — 见 [PHASE96_W6_STACK.md](PHASE96_W6_STACK.md)
 - **Phase 98**：观察台区带/地形/相位可视化 — 见 [PHASE98_ENV_STACK_UI.md](PHASE98_ENV_STACK_UI.md)
-- **状态**：**部分开放**（时空环境栈 ✓；观察台 UI ✓；W6 CODEX 待深化）
+- **Phase 99**：观察台工具/储备层扩展 — 见 [PHASE99_ENV_STACK_TOOLS.md](PHASE99_ENV_STACK_TOOLS.md)
+- **状态**：**部分开放**（时空环境栈 ✓；观察台 W6 UI ✓）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
