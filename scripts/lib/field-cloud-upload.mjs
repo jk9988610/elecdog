@@ -16,6 +16,11 @@ import {
   FULL_STACK_PHASES,
   summarizeAggregateReport,
 } from './field-stack-summary.mjs';
+import {
+  buildConsciousnessManifest,
+  CONSCIOUSNESS_PHASES,
+  enrichConsciousnessSummary,
+} from './field-consciousness-summary.mjs';
 
 function headers(contentType = 'application/json') {
   const { anonKey } = getCloudConfig();
@@ -97,11 +102,13 @@ export function summarizeBatchReport(phase, report) {
 
   const summary = {
     kind:
-      report.kind === 'field-full-stack-manifest'
-        ? 'field-full-stack-manifest'
-        : report.kind === 'field-stack-manifest'
-          ? 'field-stack-manifest'
-          : 'field-batch',
+      report.kind === 'field-consciousness-manifest'
+        ? 'field-consciousness-manifest'
+        : report.kind === 'field-full-stack-manifest'
+          ? 'field-full-stack-manifest'
+          : report.kind === 'field-stack-manifest'
+            ? 'field-stack-manifest'
+            : 'field-batch',
     phase,
     extension: report.extension ?? null,
     ticks,
@@ -123,6 +130,20 @@ export function summarizeBatchReport(phase, report) {
   if (report.kind === 'field-stack-manifest' || report.kind === 'field-full-stack-manifest') {
     summary.stackPhases = report.stackPhases ?? [];
     summary.headlines = report.headlines ?? [];
+  }
+
+  if (report.kind === 'field-consciousness-manifest') {
+    summary.stackPhases = report.stackPhases ?? [];
+    summary.headlines = report.headlines ?? [];
+    summary.shortTermGoal = report.shortTermGoal ?? null;
+  }
+
+  if (CONSCIOUSNESS_PHASES.includes(phase) && !summary.headline) {
+    const extra = enrichConsciousnessSummary(report, phase);
+    if (extra.headline) summary.headline = extra.headline;
+    if (extra.cohort) summary.cohort = extra.cohort;
+    if (extra.seedCount) summary.seedCount = extra.seedCount;
+    if (extra.shortTermGoal) summary.shortTermGoal = extra.shortTermGoal;
   }
 
   return summary;
@@ -150,11 +171,15 @@ export async function uploadFieldReport({ phase, report, label = 'field-batch' }
   await uploadJson(logPath, archive);
 
   const worldName =
-    summary.kind === 'field-full-stack-manifest'
-      ? `Phase ${phase} 六层人格栈云归档`
-      : summary.kind === 'field-stack-manifest'
-        ? `Phase ${phase} 四层栈云归档`
-        : `Phase ${phase} 田野批处理`;
+    summary.kind === 'field-consciousness-manifest'
+      ? `Phase ${phase} 意识线云归档`
+      : summary.kind === 'field-full-stack-manifest'
+        ? `Phase ${phase} 六层人格栈云归档`
+        : summary.kind === 'field-stack-manifest'
+          ? `Phase ${phase} 四层栈云归档`
+          : CONSCIOUSNESS_PHASES.includes(phase)
+            ? `Phase ${phase} 意识田野`
+            : `Phase ${phase} 田野批处理`;
 
   const row = await insertFieldRun({
     id,
@@ -219,6 +244,40 @@ export async function uploadFieldStack({
   console.log(`\n☁ 栈归档清单 Phase ${manifestPhase} → ${manifestResult.logPath}`);
 
   return { uploads, manifest: manifestResult };
+}
+
+export async function uploadConsciousnessStack({
+  phases = CONSCIOUSNESS_PHASES,
+  label = 'field-consciousness-batch',
+  manifestPhase = 68,
+} = {}) {
+  const uploads = [];
+  for (const phase of phases) {
+    const report = readLocalFieldReport(phase);
+    const result = await uploadFieldReport({ phase, report, label });
+    uploads.push({
+      phase,
+      logPath: result.logPath,
+      publicUrl: result.publicUrl,
+      summary: result.summary,
+    });
+    console.log(`  Phase ${phase} → ${result.logPath}`);
+  }
+
+  const manifest = buildConsciousnessManifest(uploads);
+  const manifestResult = await uploadFieldReport({
+    phase: manifestPhase,
+    report: manifest,
+    label: 'field-consciousness-manifest',
+  });
+  console.log(`\n☁ 意识线归档清单 Phase ${manifestPhase} → ${manifestResult.logPath}`);
+
+  return { uploads, manifest: manifestResult };
+}
+
+export async function maybeUploadConsciousnessStack(opts) {
+  if (!shouldUploadFieldCloud()) return null;
+  return uploadConsciousnessStack(opts);
 }
 
 export async function uploadFullFieldStack(opts = {}) {

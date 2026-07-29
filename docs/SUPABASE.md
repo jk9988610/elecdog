@@ -75,6 +75,20 @@ Realtime 推送 `codex_entries` 变更时自动刷新。
 
 详见 [PHASE64_CODEX_CLOUD.md](PHASE64_CODEX_CLOUD.md)。
 
+### 意识线田野云归档（Phase 68）
+
+```bash
+# 校验本地报告
+npm run field:consciousness:verify
+
+# 批量上传 Phase 61–63、65–66 + 意识线清单
+npm run field:consciousness:cloud
+```
+
+观察台云列表可预览 **意识线指标**（各 Phase H3% / 可持续等）。
+
+详见 [PHASE68_CONSCIOUSNESS_CLOUD.md](PHASE68_CONSCIOUSNESS_CLOUD.md)。
+
 ### 多设备观察同步（Phase 31）
 
 **不是**多台设备看同一个正在运行的世界 tick。  
