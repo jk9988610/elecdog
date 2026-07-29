@@ -83,6 +83,8 @@ const LABELS = {
   coop: { native: '合作 COOP', analogy: '社会迹模式' },
   coopMode: { native: '合作模式', analogy: '社会互动模式' },
   lay: { native: '档案 LAY', analogy: '四层跃迁合计' },
+  rpr: { native: '繁殖 RPR', analogy: '繁殖路径档案' },
+  rprMode: { native: '繁殖模式', analogy: '繁殖路径模式' },
 };
 
 export function label(key) {
@@ -123,6 +125,19 @@ export function formatMetProfile(profile) {
 export function formatCoopMode(mode) {
   const labels = { S0: '初态', SOLO: '孤立', MESH: '交叉接收', RIVAL: '争夺', ECHO: '广播' };
   if (!isAnalogyMode()) return mode ?? 'S0';
+  return labels[mode] ?? mode ?? '初态';
+}
+
+export function formatRprMode(mode) {
+  const labels = {
+    R0: '初态',
+    SEED_DOM: '种子代',
+    LIN_DOM: '谱系路径',
+    FIS_DOM: '分裂路径',
+    RCM_DOM: '重组路径',
+    MULTI: '多路径',
+  };
+  if (!isAnalogyMode()) return mode ?? 'R0';
   return labels[mode] ?? mode ?? '初态';
 }
 

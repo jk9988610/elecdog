@@ -82,6 +82,12 @@ export class Being {
     this.socTx = 0;
     this.socAct = 0;
     this.socContest = 0;
+    this.rprOrigin = 'SEED';
+    this.rprMode = 'R0';
+    this.rprModeAt = 0;
+    this.rprTransitions = 0;
+    this.rprFissAsParent = 0;
+    this.rprLineageAsParent = 0;
   }
 
   advanceRegisters(substrate = null, profile = null) {

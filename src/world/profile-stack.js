@@ -33,6 +33,8 @@ export function stackFeedbackConfig() {
   };
 }
 
+export const STACK_FEEDBACK = stackFeedbackConfig();
+
 export function profileStackSnapshot(being) {
   const exp = experienceSnapshot(being);
   const reg = registerSnapshot(being);

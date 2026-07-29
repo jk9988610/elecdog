@@ -167,7 +167,11 @@
 - **Phase 35 田野**（harsh × 4 种子 × 4 处理组）：
   - **nursed 未降低幼体 END 率**（仍 ≈100%）；`[NUR]` 机制可观察
   - 见 [PHASE35_MULTICELL.md](PHASE35_MULTICELL.md) 与 `field-phase35-report.json`
-- **状态**：**部分结案** — 选择压仍在；当前 nursed 参数不足以替代即时独立
+- **Phase 53 扩展**：
+  - `[RPR]` 繁殖路径档案：SEED/LIN/FIS/RCM 起源 + 亲代活动
+  - 与四层档案栈并存；三路径田野 12 体 × 960 tick
+- **状态**：**部分结案** — 路径可区分追踪；替代机制优劣仍开放
+- **报告**：[PHASE53_REPRO_PATH.md](PHASE53_REPRO_PATH.md) · `field-phase53-report.json`
 
 ---
 

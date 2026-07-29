@@ -106,6 +106,9 @@ export function buildDashboardStats(world, recorder) {
       socCrossRx: b.socCrossRx ?? 0,
       socContest: b.socContest ?? 0,
       layerTransitions: beingLayerTransitions(b),
+      rprMode: b.rprMode ?? 'R0',
+      rprOrigin: b.rprOrigin ?? 'SEED',
+      rprTransitions: b.rprTransitions ?? 0,
       ...es,
     };
   });
@@ -190,6 +193,7 @@ export function buildDashboardStats(world, recorder) {
             (e.channel === 'social' && e.meta?.kind === 'COOP') ||
             (e.channel === 'evolution' && e.meta?.kind === 'COOP')
         ).length,
+      rpr: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RPR').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

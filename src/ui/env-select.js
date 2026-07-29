@@ -28,6 +28,7 @@ export const OBSERVER_ENV_IDS = [
   'fertile_mtb_feedback',
   'fertile_coop_feedback',
   'fertile_stack_full',
+  'fertile_stack_rpr_tri',
   'fertile_inert',
   'harsh_combined',
 ];
@@ -52,6 +53,7 @@ const ANALOGY_LABELS = {
   fertile_mtb_feedback: '富足场（代谢通道分布+摄取反馈）',
   fertile_coop_feedback: '富足场（社会合作模式+行为反馈）',
   fertile_stack_full: '富足场（四层档案整合反馈）',
+  fertile_stack_rpr_tri: '富足四层+繁殖路径追踪+三路径',
   fertile_inert: '富足场（无分裂门）',
   harsh_combined: '组合高压（死亡续行）',
 };
@@ -105,6 +107,7 @@ export function observerEnvHint(id) {
     fertile_mtb_feedback: '富足场 + [MTB] 摄取档案（DOM/BAL/SCAR）调制 DRW 倍率',
     fertile_coop_feedback: '富足场 + [COOP] 社会迹模式（MESH/RIVAL 等）调制 ACT',
     fertile_stack_full: '富足场 + [EXP]+[REG]+[MTB]+[COOP] 四层档案同时反馈',
+    fertile_stack_rpr_tri: '四层档案 + [RPR] 繁殖路径（LINEAGE/FISS/RCM）追踪',
     fertile_inert: '同等富足基底，fissionEnabled 关闭（对照）',
     harsh_combined: '耗竭 + 脉冲 + 幼体脆弱；[END]→[LINEAGE] 高周转',
   };
