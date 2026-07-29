@@ -2326,6 +2326,15 @@ export const PHASE96_TREATMENTS = {
   },
 };
 
+/** 观察台默认环境 — W6 环境栈可视化 */
+ENV_PROFILES.observer_w6_stack = {
+  id: 'observer_w6_stack',
+  label: '观察台·环境栈',
+  ...W5_WISDOM_FULL,
+  organismMode: 'multicell',
+  ...W6_ENV_STACK,
+};
+
 /** Phase 95 — GAP-11+ [DSP] 耗散定律记录层 */
 export const PHASE95_TREATMENTS = {
   dsp_off_ref: {
@@ -2914,6 +2923,24 @@ export function applyPhase52Treatment(world, treatmentId) {
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
   return world.envProfile;
+}
+
+export function initEnvStackModules(world, profile = world?.envProfile) {
+  if (!profile) return;
+  if (profile.placeEnabled || profile.placeBand != null) {
+    initWorldPlace(world, profile);
+    applyTerrainSubstrateBias(world);
+  }
+  if (profile.pcpEnabled) initPcpState(world, profile);
+  if (profile.diurnalEnabled) initDiurnalStats(world);
+  if (profile.seasonalEnabled) initSeasonalStats(world);
+  if (profile.airEnabled) initAirState(world, profile);
+  if (profile.advEnabled) initAdvState(world);
+  if (profile.ltcEnabled) initLunarStats(world);
+  if (profile.artEnabled) initArtState(world, profile);
+  if (profile.ventEnabled) initVentState(world, profile);
+  if (profile.migEnabled) initMigState(world);
+  if (profile.dissipationEnabled) initDissipationStats(world);
 }
 
 export function applyPhase96Treatment(world, treatmentId) {

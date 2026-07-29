@@ -91,6 +91,26 @@ const LABELS = {
   ehuBind: { native: '社会绑定', analogy: '自我-社会交叉迹' },
   ehuRen: { native: '续行 EHU-REN', analogy: '续行与自我连续交叉迹' },
   psn: { native: '人格 PSN', analogy: '六层跃迁合计' },
+  envStack: { native: '环境栈', analogy: '区带·地形·相位（类比）' },
+  envStackOff: {
+    native: '当前环境未启用区带/相位栈 — 可选「观察台·环境栈」环境',
+    analogy: '当前环境未启用区带/相位 — 请切换至环境栈观察配置',
+  },
+  envPlace: { native: '区位', analogy: '诞生区位' },
+  envPhases: { native: '相位', analogy: '周期相位（类比）' },
+  envLogs: { native: '通道计数', analogy: '环境通道记录' },
+  birthPlace: { native: 'birthPlace', analogy: '诞生区位码' },
+  envBand: { native: '区带', analogy: '纬度带（类比）' },
+  envPatch: { native: 'patch', analogy: '局域格点' },
+  envTerrain: { native: '地形', analogy: '陆海格（类比）' },
+  envDiurnal: { native: '日相 DLC', analogy: '日相（类比）' },
+  envSeasonal: { native: '季相 SCL', analogy: '季相（类比）' },
+  envLunar: { native: '月相 LTC', analogy: '潮汐相（类比）' },
+  envAir: { native: '大气 AIR', analogy: '大气标量（类比）' },
+  envPcp: { native: '水循环 PCP', analogy: '相态储库（类比）' },
+  envDay: { native: '昼相', analogy: '白昼' },
+  envNight: { native: '夜相', analogy: '夜相' },
+  envDiurnalStats: { native: '昼/夜 tick', analogy: '明/暗拍计数' },
 };
 
 export function label(key) {
@@ -157,4 +177,41 @@ export function viewModeHint() {
   return isAnalogyMode()
     ? '类比呈现：用常见词辅助理解，非世界辞典定义'
     : '原版呈现：机器语言与田野标签';
+}
+
+export function formatBand(band) {
+  if (!band) return '—';
+  if (!isAnalogyMode()) return `区带 ${band}`;
+  const labels = { E: '赤道带 (E)', M: '中带 (M)', P: '极带 (P)' };
+  return labels[band] ?? band;
+}
+
+export function formatTerrain(terrain) {
+  if (!terrain) return '—';
+  if (!isAnalogyMode()) return `地形 ${terrain}`;
+  return terrain === 'O' ? '海格 (O)' : '陆格 (L)';
+}
+
+export function formatPatch(patch) {
+  if (patch == null) return '—';
+  if (!isAnalogyMode()) return `patch ${patch}`;
+  return `格点 ${patch}`;
+}
+
+export function formatDiurnalQuarter(q) {
+  if (!isAnalogyMode()) return `q${q ?? 0}`;
+  const labels = ['夜相', '晨相', '昼相', '暮相'];
+  return labels[q] ?? `q${q}`;
+}
+
+export function formatSeasonPhase(phase) {
+  if (!isAnalogyMode()) return `相${phase ?? 0}`;
+  const labels = ['暖相', '基准相', '冷相', '过渡相'];
+  return labels[phase] ?? `相${phase}`;
+}
+
+export function formatLunarPhase(phase) {
+  if (!isAnalogyMode()) return `潮${phase ?? 0}`;
+  const labels = ['低潮', '上潮', '高潮', '下潮'];
+  return labels[phase] ?? `潮${phase}`;
 }

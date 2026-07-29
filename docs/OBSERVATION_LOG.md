@@ -762,4 +762,14 @@
   - GAP-11+ **部分结案** — 通量账本可观察；资源地球名仍禁止
 - **备注**：`docs/gap11-dsp-codex-report.json`
 
+## OBS-20260729-97
+
+- **世界**：观察台（Phase 98 · 环境栈 UI）
+- **环境**：`observer_w6_stack`（W6 环境栈）
+- **事实**：
+  - 仪表盘新增「环境栈」面板：区带 E/M/P、patch、地形 L/O
+  - DLC/SCL/LTC/AIR/PCP 相位与通道计数可实时观测
+  - 原版/类比双呈现；**未写入 CODEX**
+- **备注**：`npm run observer:env-stack`
+
 ---

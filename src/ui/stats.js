@@ -8,6 +8,7 @@ import { beingLayerTransitions } from '../world/profile-stack.js';
 import { beingPersonaTransitions } from '../world/persona-stack.js';
 import { observerEnvHint, observerEnvLabel } from './env-select.js';
 import { buildConsciousnessSummary } from './consciousness.js';
+import { buildEnvStackSummary } from './env-stack.js';
 
 function countEnv(entries, kind) {
   return entries.filter((e) => e.channel === 'environment' && e.meta?.kind === kind).length;
@@ -219,5 +220,6 @@ export function buildDashboardStats(world, recorder) {
       ehuLin: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU-LIN').length,
       ehuRen: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EHU-REN').length,
     }),
+    envStack: buildEnvStackSummary(world, recorder),
   };
 }
