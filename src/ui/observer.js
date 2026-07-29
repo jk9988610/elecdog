@@ -47,6 +47,7 @@ import {
 } from './analogy.js';
 import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
 import { renderConsciousnessPanel } from './consciousness.js';
+import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -106,6 +107,7 @@ export class ObserverApp {
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
         <button id="btn-cloud-toggle" type="button" class="btn-ghost">云设置</button>
         <button id="btn-codex-toggle" type="button" class="btn-ghost">辞典</button>
+        <button id="btn-mind-stream-toggle" type="button" class="btn-ghost">内在流</button>
       </section>
 
       <section id="cloud-panel" class="cloud-panel hidden">
@@ -154,6 +156,8 @@ export class ObserverApp {
 
       ${renderCodexPanelHTML()}
 
+      ${renderMindStreamPanelHTML()}
+
       <main class="dashboard" id="dashboard"></main>
     `;
 
@@ -192,10 +196,17 @@ export class ObserverApp {
       envProfile: this.root.querySelector('#env-profile'),
       btnResetWorld: this.root.querySelector('#btn-reset-world'),
       btnCodexToggle: this.root.querySelector('#btn-codex-toggle'),
+      btnMindStreamToggle: this.root.querySelector('#btn-mind-stream-toggle'),
     };
 
     this.codexPanel = initCodexPanel(this.root, {
       onClose: () => this.closeCodexPanel(),
+    });
+
+    this.mindStreamPanel = initMindStreamPanel(this.root, {
+      getRecorder: () => this.recorder,
+      getWorld: () => this.world,
+      onClose: () => this.closeMindStreamPanel(),
     });
 
     this.renderEnvOptions();
@@ -218,6 +229,24 @@ export class ObserverApp {
     this.$.envProfile?.addEventListener('change', () => this.onEnvProfileChange());
     this.$.btnResetWorld?.addEventListener('click', () => this.resetWorld());
     this.$.btnCodexToggle?.addEventListener('click', () => this.toggleCodexPanel());
+    this.$.btnMindStreamToggle?.addEventListener('click', () => this.toggleMindStreamPanel());
+  }
+
+  toggleMindStreamPanel() {
+    if (!this.mindStreamPanel) return;
+    if (this.mindStreamPanel.isOpen()) {
+      this.closeMindStreamPanel();
+    } else {
+      this.$.cloudPanel?.classList.add('hidden');
+      this.closeCodexPanel();
+      this.mindStreamPanel.open();
+      this.$.btnMindStreamToggle?.classList.add('active');
+    }
+  }
+
+  closeMindStreamPanel() {
+    this.mindStreamPanel?.close();
+    this.$.btnMindStreamToggle?.classList.remove('active');
   }
 
   toggleCodexPanel() {
@@ -226,6 +255,7 @@ export class ObserverApp {
       this.closeCodexPanel();
     } else {
       this.$.cloudPanel?.classList.add('hidden');
+      this.closeMindStreamPanel();
       this.codexPanel.open();
       this.$.btnCodexToggle?.classList.add('active');
     }
@@ -322,6 +352,7 @@ export class ObserverApp {
     const envTag = s.world.envLabel ? ` · ${s.world.envLabel}` : '';
     this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}${envTag}`;
     this.$.dashboard.innerHTML = this.renderDashboard(s);
+    this.mindStreamPanel?.refresh();
     this.updateCloudStatus();
   }
 
@@ -329,6 +360,7 @@ export class ObserverApp {
     this.$.cloudPanel.classList.toggle('hidden');
     if (!this.$.cloudPanel.classList.contains('hidden')) {
       this.closeCodexPanel();
+      this.closeMindStreamPanel();
       this.refreshCloudPanel();
     }
   }
