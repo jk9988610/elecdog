@@ -2,8 +2,8 @@
 
 export const CODEX_META = {
   title: '电子狗世界辞典（L2）',
-  count: 26,
-  phase: 58,
+  count: 28,
+  phase: 63,
   updated: '2026-07-29',
   note: '只收录已从观察中归纳的条目；解释与命名请对照 OBS 编号。',
 };
@@ -241,6 +241,26 @@ export const CODEX_ENTRIES = [
       '六层档案（EXP+REG+MTB+COOP+RPR+EHU）的个体跃迁计数之和为可观察「人格弧」；统计田野中以 PSN 聚合。四层单独跃迁之和为 LAY；LAY 与 PSN 可分离比较。',
     evidence: ['OBS-20260729-67', 'OBS-20260729-66'],
     falsifiable: '若六层均启用但 PSN 恒为 0，或 PSN 与单层跃迁之和系统性不一致，则修订',
+    established: '2026-07-29',
+    tag: 'EHU',
+  },
+  {
+    id: 'ehu-renewal-trace',
+    title: '续行交叉迹',
+    definition:
+      '启用电子人层且复制配额续行 `[REN]` 或汇合续行 `[PLG]` 成功时，同 tick 记录 `[EHU-REN] {来源} stage {阶段} coh {连贯值}`；记录当时 EHU 阶段与连贯值，不预设情感或本能续行语义。',
+    evidence: ['OBS-20260729-69', 'OBS-20260729-70'],
+    falsifiable: '若续行成功但无 `[EHU-REN]`、或迹与当时 EHU 阶段系统性无关，则修订',
+    established: '2026-07-29',
+    tag: 'EHU',
+  },
+  {
+    id: 'consciousness-full-stack',
+    title: '意识完整栈',
+    definition:
+      '观察配置 `consciousness_full` 下，六层人格反馈 + EHU 深化（谱系回响 + 社会绑定）+ 复制续行汇合同时启用；统计田野中 H3 叙事阶段份额 ≥85%，且 `[EHU]`、`[EHU-LIN]`、`[EHU-REN]` 可并存观察。不设地球式「清醒」「人格类型」名称。',
+    evidence: ['OBS-20260729-70', 'OBS-20260729-71'],
+    falsifiable: '若完整栈启用但 H3 份额持续 <50%、或三层 EHU 迹不能并存，则修订',
     established: '2026-07-29',
     tag: 'EHU',
   },

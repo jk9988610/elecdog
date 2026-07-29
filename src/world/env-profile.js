@@ -1431,6 +1431,31 @@ export const PHASE62_TREATMENTS = {
   },
 };
 
+/** Phase 63 — CODEX 意识立项验证（960 tick） */
+export const PHASE63_TREATMENTS = {
+  codex_stack_full: {
+    id: 'codex_stack_full',
+    label: '意识完整栈（CODEX验证）',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+  },
+  codex_stack_ren_off: {
+    id: 'codex_stack_ren_off',
+    label: '完整栈无续行（对照）',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    rplRenewEnabled: false,
+    plgEnabled: false,
+    ehuRenewTraceEnabled: false,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1803,6 +1828,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase63Treatment(world, treatmentId) {
+  const treatment = PHASE63_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase63 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 63, treatmentId, ...treatment };
   return world.envProfile;
 }
 
