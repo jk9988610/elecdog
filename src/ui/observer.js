@@ -41,7 +41,7 @@ export class ObserverApp {
   render() {
     this.root.innerHTML = `
       <header class="header">
-        <h1>ElecDog</h1>
+        <h1>ElecDog-电子狗</h1>
         <p class="subtitle">世界实况 · 辞典统计</p>
       </header>
 
