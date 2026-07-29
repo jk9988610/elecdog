@@ -109,6 +109,55 @@ export const ENV_PROFILES = {
     catastropheDisabled: true,
     fissionEnabled: false,
   },
+  fertile_multicell_rpl: {
+    id: 'fertile_multicell_rpl',
+    label: '富足多子域+复制配额',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    organismMode: 'multicell',
+    rplScope: 'organism',
+  },
+};
+
+/** Phase 38 — 多细胞 × RPL 共享 vs 子域分摊 */
+export const PHASE38_TREATMENTS = {
+  unicell_rpl: {
+    id: 'unicell_rpl',
+    label: '单域+复制配额',
+    envId: 'fertile_field',
+    organismMode: 'unicell',
+    rplScope: 'organism',
+  },
+  multicell_rpl: {
+    id: 'multicell_rpl',
+    label: '多子域+有机体共享RPL',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+  },
+  multicell_subrpl: {
+    id: 'multicell_subrpl',
+    label: '多子域+子域分摊RPL',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+  },
 };
 
 /** Phase 35 田野处理组（固定 harsh_combined 基底） */
@@ -171,6 +220,17 @@ export function applyFieldTreatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 35, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase38Treatment(world, treatmentId) {
+  const treatment = PHASE38_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase38 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 38, treatmentId, ...treatment };
   return world.envProfile;
 }
 
