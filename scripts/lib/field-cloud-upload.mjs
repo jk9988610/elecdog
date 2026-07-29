@@ -64,6 +64,12 @@ function summarizeBatchReport(phase, report) {
     const last = report.catastrophe[report.catastrophe.length - 1];
     alive = last?.viability?.aliveAtEnd ?? last?.selection?.aliveCount ?? 0;
     total = last?.viability?.totalBeings ?? 4;
+  } else if (report.runs?.length) {
+    const last = report.runs[report.runs.length - 1];
+    alive = last?.cooperation?.bySlot
+      ? Object.values(last.cooperation.bySlot).reduce((s, x) => s + (x.aliveAtEnd ?? 0), 0)
+      : last?.viability?.endCount ?? 0;
+    total = 4;
   } else if (report.four?.length) {
     const last = report.four[report.four.length - 1];
     alive = last?.selection?.aliveCount ?? 0;
