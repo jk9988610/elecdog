@@ -520,4 +520,10 @@
 - **事实**：`ehu_ren_off` EHU-REN **0**；`ehu_ren_only` REN **≈122**、EHU-REN **≈122**；`ehu_ren_plg` PLG **≈1143**、EHU-REN **≈1236**、H3-R **≈32**
 - **备注**：`[EHU-REN]` 交叉迹依据；续行与谱系回响可并存
 
+## OBS-20260729-70
+
+- **世界**：01；意识完整栈 **960/1920 tick** × 4 种子（Phase 61）
+- **事实**：`cn_full_1920` H3 份额 **≈92%**（59/64）；EHU-REN **≈3687**、LIN **≈52** 长时并存；`cn_deep_1920` 无续行时 H3 **≈93%** 但 EHU-REN **0**
+- **备注**：观察台默认 `consciousness_full`；收敛路线图见 CONSCIOUSNESS.md
+
 ---

@@ -66,12 +66,16 @@ export function accumulateElectronicHuman(being, ctx, profile = {}) {
   const social = Math.min(1, (ctx.crossRx ?? 0) * 0.04);
   const socialWeight = ehuSocialDeepEnabled(profile) ? 0.022 : 0.015;
   const bindWeight = ehuSocialDeepEnabled(profile) ? 0.05 : 0;
+  const erosionMult = profile.ehuDistinctionErosionMult ?? 1;
 
   if (selfAct > 0) {
     being.ehuDistinction = Math.min(1, (being.ehuDistinction ?? 0) + selfAct * 0.03);
   }
   if (social > 0) {
-    being.ehuDistinction = Math.max(0, (being.ehuDistinction ?? 0) - social * socialWeight);
+    being.ehuDistinction = Math.max(
+      0,
+      (being.ehuDistinction ?? 0) - social * socialWeight * erosionMult
+    );
   }
   if (bindWeight > 0 && ctx.crossRx > 0 && ctx.hadTx) {
     being.ehuSocialBind = Math.min(1, (being.ehuSocialBind ?? 0) + bindWeight);
@@ -97,6 +101,14 @@ export function resolveElectronicHumanStage(being, profile) {
   const bindOk = (being.ehuSocialBind ?? 0) >= bindNeed;
   if (distinction >= 0.22 && arc >= arcNarrative && bindOk) return 'H3';
   if (ehuSocialDeepEnabled(profile) && distinction >= 0.18 && arc >= arcNarrative - 2 && bindOk) {
+    return 'H3';
+  }
+  if (
+    profile.ehuBindNarrative &&
+    bindOk &&
+    (being.ehuSocialBind ?? 0) >= 0.5 &&
+    arc >= arcNarrative
+  ) {
     return 'H3';
   }
   return 'H2';
