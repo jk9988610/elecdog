@@ -162,7 +162,8 @@
   - `organismType: unicell | multicell`；`subCells[]` + `[INTRA]`
   - `[ORG]` 诞生记录；种群仍 = 多个独立 `being` ID
 - **Phase 45**：多细胞 × 重组 — MEI 48–60、FUS 48；重组子代全为 multicell；子域 RPL 积压 36 vs 共享 24
-- **状态**：**部分结案** — 操作性区分成立；重组路径已交叉；子域积压深化待 Phase 46
+- **Phase 46**：子域路由 `[ISPL]`/`[XBCN]` — 积压 30→**6**；F/M 0.89→**1.6**；REN+路由反而恶化积压
+- **状态**：**部分结案** — 操作性区分成立；子域积压大幅缓解；REN 叠加仍开放
 - **文档**：[PHASE35_MULTICELL.md](PHASE35_MULTICELL.md)
 
 ---
@@ -231,7 +232,8 @@
   - 严格无修复：F/M ≈ **0.06**，FUS 21，存活 22
   - 仅信标：F/M 仍 **0.06** — 信标 alone **unsupport**
   - **全套修复**：FUS **48**，orphan FUS **35**，F/M **1.4**，存活 **36** — **汇合瓶颈突破**
-- **状态**：**部分结案** — 双源重组路径在修复包下可规模化；**Phase 45** 多细胞重组成立（F/M≈1.8 共享）；子域积压仍开放
-- **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)、[PHASE43_RECOMB_RENEW.md](PHASE43_RECOMB_RENEW.md)、[PHASE44_FUS_BOTTLENECK.md](PHASE44_FUS_BOTTLENECK.md)、[PHASE45_MULTICELL_RECOMB.md](PHASE45_MULTICELL_RECOMB.md)
+- **Phase 45** 多细胞重组成立（F/M≈1.8 共享）；**Phase 46** 子域路由积压 30→6
+- **状态**：**部分结案** — 双源重组路径在修复包下可规模化；子域积压大幅缓解
+- **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)、[PHASE43_RECOMB_RENEW.md](PHASE43_RECOMB_RENEW.md)、[PHASE44_FUS_BOTTLENECK.md](PHASE44_FUS_BOTTLENECK.md)、[PHASE45_MULTICELL_RECOMB.md](PHASE45_MULTICELL_RECOMB.md)、[PHASE46_SUBUNIT_ROUTE.md](PHASE46_SUBUNIT_ROUTE.md)
 
 ---

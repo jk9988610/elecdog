@@ -126,6 +126,76 @@ export function consumeReplicationForMei(being, profile) {
   };
 }
 
+/** FUS live-donor：子域模式默认任一子域有配额即可 */
+export function hasDonorReplicationBudget(being, profile) {
+  if (!replicationEnabled(profile)) return true;
+  if (being.rplScope === 'subunit' && being.rplSub?.length) {
+    if (profile.fusSubunitDonorMode === 'any' || profile.fusIntraSubPlgEnabled) {
+      return being.rplSub.some((u) => u.remaining > 0);
+    }
+    return being.rplSub.every((u) => u.remaining > 0);
+  }
+  return (being.rplRemaining ?? 0) > 0;
+}
+
+/** live-donor / 孤儿供体扣减：子域仅扣 1 个有配额子域 */
+export function consumeReplicationForDonor(being, profile) {
+  const before = being.rplRemaining ?? 0;
+  let subId = null;
+
+  if (being.rplScope === 'subunit' && being.rplSub?.length) {
+    const idx = being.rplSub.findIndex((u) => u.remaining > 0);
+    const unit = being.rplSub[idx >= 0 ? idx : 0];
+    if (unit) {
+      subId = unit.subId;
+      unit.remaining = Math.max(0, unit.remaining - 1);
+    }
+    syncRplRemaining(being);
+  } else {
+    being.rplRemaining = Math.max(0, before - 1);
+  }
+
+  return {
+    before,
+    after: being.rplRemaining ?? 0,
+    mode: 'donor',
+    subId,
+    rplScope: being.rplScope,
+  };
+}
+
+/** 胞内子域 RPL 通量：富子域 → 枯竭子域 */
+export function tryIntraSubunitPlg(world, recorder, being, profile) {
+  if (!profile?.fusIntraSubPlgEnabled) return null;
+  if (being.organismType !== 'multicell' || being.rplScope !== 'subunit' || !being.rplSub?.length) {
+    return null;
+  }
+
+  const depleted = being.rplSub.filter((u) => u.remaining <= 0);
+  const rich = being.rplSub.filter((u) => u.remaining >= 2);
+  if (!depleted.length || !rich.length) return null;
+
+  const from = rich.reduce((a, b) => (a.remaining >= b.remaining ? a : b));
+  const to = depleted[0];
+  from.remaining -= 1;
+  to.remaining += 1;
+  syncRplRemaining(being);
+
+  recorder.evolution(
+    world.tick,
+    being.id,
+    `[ISPL] ${from.subId}→${to.subId} flux 1`,
+    {
+      kind: 'ISPL',
+      fromSub: from.subId,
+      toSub: to.subId,
+      grant: 1,
+      rplRemaining: being.rplRemaining,
+    }
+  );
+  return { fromSub: from.subId, toSub: to.subId };
+}
+
 export function logReplication(recorder, tick, beingId, content, meta) {
   recorder.evolution(tick, beingId, content, { kind: 'RPL', ...meta });
 }

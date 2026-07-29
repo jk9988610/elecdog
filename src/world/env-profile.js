@@ -342,6 +342,42 @@ export const ENV_PROFILES = {
     fusPacketMaxAge: 200,
     fusPairCooldown: 24,
   },
+  fertile_multicell_mei_fus_route: {
+    id: 'fertile_multicell_mei_fus_route',
+    label: '富足多子域重组+子域路由',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusOrphanPoolMax: 12,
+    fusSocialAffinity: true,
+    fusAggressivePairing: true,
+    fusPacketMaxAge: 200,
+    fusPairCooldown: 24,
+    fusSubunitDonorMode: 'any',
+    fusIntraSubPlgEnabled: true,
+    fusSubunitRouteEnabled: true,
+  },
 };
 
 const REN_BASE = {
@@ -413,6 +449,13 @@ const FUS_BOTTLENECK_FIX = {
   fusPairCooldown: 24,
 };
 
+/** Phase 46 — 子域积压路由 [ISPL]/[XBCN] */
+const FUS_SUBUNIT_ROUTE = {
+  fusSubunitDonorMode: 'any',
+  fusIntraSubPlgEnabled: true,
+  fusSubunitRouteEnabled: true,
+};
+
 /** Phase 45 — 多细胞 × 重组 [MEI]/[FUS] */
 export const PHASE45_TREATMENTS = {
   multicell_org_mei: {
@@ -464,6 +507,61 @@ export const PHASE45_TREATMENTS = {
   unicell_mei_fix: {
     id: 'unicell_mei_fix',
     label: '单细胞+重组+修复包（锚定）',
+    envId: 'fertile_field',
+    organismMode: 'unicell',
+    fissionEnabled: false,
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
+};
+
+/** Phase 46 — 子域积压路由 [ISPL]/[XBCN] */
+export const PHASE46_TREATMENTS = {
+  multicell_sub_fix: {
+    id: 'multicell_sub_fix',
+    label: '子域+修复包（基线）',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    fissionEnabled: false,
+    meiRplDeduct: 'active',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
+  multicell_sub_route: {
+    id: 'multicell_sub_route',
+    label: '子域+修复包+路由',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    fissionEnabled: false,
+    meiRplDeduct: 'active',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+    ...FUS_SUBUNIT_ROUTE,
+  },
+  multicell_sub_route_ren: {
+    id: 'multicell_sub_route_ren',
+    label: '子域+修复+路由+REN',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    fissionEnabled: false,
+    meiRplDeduct: 'active',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+    ...FUS_SUBUNIT_ROUTE,
+    ...REN_BASE,
+  },
+  unicell_mei_fix: {
+    id: 'unicell_mei_fix',
+    label: '单细胞+修复包（锚定）',
     envId: 'fertile_field',
     organismMode: 'unicell',
     fissionEnabled: false,
@@ -778,6 +876,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase46Treatment(world, treatmentId) {
+  const treatment = PHASE46_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase46 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 46, treatmentId, ...treatment };
   return world.envProfile;
 }
 
