@@ -2,7 +2,7 @@
 
 给予电子狗意识。属性与描述**只来自对世界的观察**，不来自事先编造。
 
-> **当前：Phase 30 田野云闭环** — 详见 [STATUS.md](docs/STATUS.md) · [SUPABASE.md](docs/SUPABASE.md) · [OTA.md](docs/OTA.md)
+> **当前：Phase 35 多细胞 / 延迟独立田野** — 详见 [STATUS.md](docs/STATUS.md) · [PHASE35_MULTICELL.md](docs/PHASE35_MULTICELL.md)
 
 ## 方法
 
@@ -47,7 +47,8 @@ npm run apk:debug     # 本机 SDK 就绪后构建 debug APK
 ```bash
 npm run field:phase26        # L4 环境筛选
 npm run field:phase33        # 社会合作田野（四体 3000×4 种子）
-npm run field:phase33:cloud  # 同上 + 上传 Supabase
+npm run field:phase35        # 多细胞 / 延迟独立（harsh × 4 处理组）
+npm run field:phase35:cloud  # 同上 + 上传 Supabase
 npm run field:cloud-upload -- 26  # 手动上传已有报告
 ```
 
