@@ -13,6 +13,8 @@ import {
   formatNodesState,
   nodesSnapshot,
 } from '../world/nodes.js';
+import { terrainNodeHitMult } from '../world/place.js';
+import { tickPcp, pcpEnabled, recordPcpLow, recordPcpDrw } from '../world/pcp.js';
 import { assignSocialSlot } from '../world/social.js';
 import { shouldTerminate, updateStressStreak } from '../world/viability.js';
 import { spawnLineageOffspring } from '../world/lineage.js';
@@ -84,6 +86,7 @@ export function stepWorld(world, recorder) {
 
   const profile = world.envProfile ?? {};
   const dlc = tickDiurnal(world, profile);
+  const pcp = tickPcp(world, profile, { solar: dlc?.solar ?? 0, night: dlc?.night ?? false });
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -138,6 +141,14 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[DLC] ${world.birthPlace} solar ${dlc.solar.toFixed(3)} e${dlc.idx} q${dlc.quarter}`,
         { kind: 'DLC', place: world.birthPlace, ...dlc }
+      );
+    }
+    if (pcp?.fired) {
+      const t0 = pcp.transfers?.[0];
+      recorder.environment(
+        world.tick,
+        `[PCP] ${world.birthPlace} burst ${pcp.burst} atmo ${pcp.atmoStore} e${t0?.idx ?? 1} +${t0?.delta ?? 0}`,
+        { kind: 'PCP', place: world.birthPlace, ...pcp }
       );
     }
   }
@@ -240,7 +251,9 @@ export function stepWorld(world, recorder) {
         } else if (line.startsWith('[ACT]')) {
           const payload = line.slice(5);
           const target = selectActTarget(world, line, being.id, { stress: result.stress });
-          const hit = applyActToNode(target, line, being.id, world.tick);
+          const hit = applyActToNode(target, line, being.id, world.tick, {
+            hitMult: terrainNodeHitMult(world, profile),
+          });
           if (!stat) {
             recorder.environment(world.tick, `[RES] ${world.birthPlace} ${being.id} ${payload}`, {
               fromId: being.id,
@@ -336,6 +349,7 @@ export function stepWorld(world, recorder) {
         (metabolicProfileEnabled(profile) ? metabolicDrawMultAdjust(being, profile) : 0),
     });
     if (met.draw && !stat) {
+      recordPcpDrw(world, { idx: met.draw.idx });
       recorder.metabolism(
         world.tick,
         being.id,
@@ -373,6 +387,7 @@ export function stepWorld(world, recorder) {
     if (met.low) {
       being.lowStreak++;
       if (dlc) recordDiurnalLow(world, { night: dlc.night });
+      recordPcpLow(world, { idx: met.low.idx });
       if (!stat) {
         recorder.metabolism(
           world.tick,

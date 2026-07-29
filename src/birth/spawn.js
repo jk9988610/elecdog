@@ -37,6 +37,7 @@ export function spawnBeing(
     id: fixedId = null,
     placeBand = null,
     placePatch = null,
+    placeTerrain = null,
   } = {}
 ) {
   const tick = world.tick;
@@ -45,12 +46,17 @@ export function spawnBeing(
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
   initOrganism(being, world.envProfile);
-  if (placeBand) {
-    assignBeingPlace(being, { band: placeBand, patch: placePatch ?? '00' });
+  if (placeBand || placeTerrain) {
+    assignBeingPlace(being, {
+      band: placeBand ?? world.envProfile.placeBand ?? 'M',
+      patch: placePatch ?? '00',
+      terrain: placeTerrain ?? world.envProfile.placeTerrain ?? null,
+    });
   } else if (placeEnabled(world.envProfile)) {
     assignBeingPlace(being, {
       band: world.place?.band ?? world.envProfile.placeBand ?? 'M',
       patch: placePatch ?? world.place?.patch ?? '00',
+      terrain: world.place?.terrain ?? world.envProfile.placeTerrain ?? null,
     });
   }
   if (being.place || placeEnabled(world.envProfile)) {
