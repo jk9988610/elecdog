@@ -118,8 +118,8 @@
   - `[MTB]` 运行时档案 N0/DOM/BAL/SCAR（通道索引分布）
   - 可选摄取倍率反馈；不命名资源类型
   - 统计田野 12 体 × 960 tick × 4 处理组
-- **状态**：**部分结案** — 通道分布可观察；资源本体命名仍禁止
-- **后续（讨论归纳）**：基底耗散定律（DRW 约 30%→r、其余耗散）、内共生模块与储备池 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) **GAP-11+ / GAP-ORG**
+- **Phase 95**：`[DSP]` 耗散定律（toReg/lost 分流）；田野 **support** — 见 [PHASE95_DSP_DISSIPATION.md](PHASE95_DSP_DISSIPATION.md)
+- **状态**：**部分结案** — 通道分布可观察 + 耗散账本；资源本体命名仍禁止
 - **报告**：[PHASE50_METABOLIC.md](PHASE50_METABOLIC.md) · `field-phase50-report.json`
 
 ---
