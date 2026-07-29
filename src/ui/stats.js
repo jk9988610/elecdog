@@ -97,6 +97,9 @@ export function buildDashboardStats(world, recorder) {
       regMode: b.regMode ?? 'SYNC',
       regTransitions: b.regTransitions ?? 0,
       regGapMean: +(b.regGapMean ?? 0).toFixed(3),
+      metProfile: b.metProfile ?? 'N0',
+      metTransitions: b.metTransitions ?? 0,
+      metDomIdx: b.metDominantIdx ?? 0,
       ...es,
     };
   });
@@ -149,6 +152,11 @@ export function buildDashboardStats(world, recorder) {
         (e) =>
           (e.channel === 'register' && e.meta?.kind === 'REG') ||
           (e.channel === 'evolution' && e.meta?.kind === 'REG')
+      ).length,
+      mtb: entries.filter(
+        (e) =>
+          (e.channel === 'metabolism' && e.meta?.kind === 'MTB') ||
+          (e.channel === 'evolution' && e.meta?.kind === 'MTB')
       ).length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
