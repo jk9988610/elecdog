@@ -586,4 +586,16 @@
 - **事实**：北极星升级为「诞生智慧生命」；`wisdom_evolution` 默认环境；`memory-feedback.js` 接入引擎
 - **备注**：见 docs/WISDOM.md · docs/PHASE70_MEMORY_FEEDBACK.md
 
+## OBS-20260729-81
+
+- **世界**：智慧演化场（Phase 70 · W1）
+- **处理组**：`wisdom_mem_off` vs `wisdom_mem_on`
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - mem_off 均值对外率 **0.493**；mem_on **0.472**（Δ≈−0.021）
+  - mem_on 均值 memAct 负载 **0.606**；mem_off **0**
+  - H3 占比两组均 **96%**；存活均值 **64**
+  - H1 支持 **3/4** 种子，方向一致；批次综合 **support**
+- **备注**：报告见 `docs/field-phase70-report.json`；CODEX 修订待复核
+
 ---

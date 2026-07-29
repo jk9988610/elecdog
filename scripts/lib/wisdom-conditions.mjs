@@ -32,8 +32,8 @@ export const WISDOM_LAYERS = [
     id: 'L4',
     label: '认知闭环',
     items: [
-      { id: 'L4a-mem-fb', label: '记忆影响行为', status: 'in_progress', phase: '70', goal: 'W1' },
-      { id: 'L4b-mem-field', label: '记忆反馈田野可对照', status: 'pending', phase: '70' },
+      { id: 'L4a-mem-fb', label: '记忆影响行为', status: 'complete', phase: '70', goal: 'W1' },
+      { id: 'L4b-mem-field', label: '记忆反馈田野可对照', status: 'complete', phase: '70' },
       { id: 'L4c-predict', label: '预测–校正回路', status: 'pending', phase: '73-74', goal: 'W3' },
     ],
   },
@@ -67,14 +67,20 @@ export const WISDOM_PHASE_ROADMAP = [
 ];
 
 /**
- * @param {{ memoryFeedbackInCode?: boolean }} [opts]
+ * @param {{ memoryFeedbackInCode?: boolean, phase70FieldVerdict?: string }} [opts]
  */
 export function assessWisdomConditions(opts = {}) {
   const items = WISDOM_LAYERS.flatMap((layer) =>
     layer.items.map((item) => {
       let status = item.status;
-      if (item.id === 'L4a-mem-fb' && opts.memoryFeedbackInCode) {
+      if (item.id === 'L4a-mem-fb' && opts.memoryFeedbackInCode && status !== 'complete') {
         status = 'in_progress';
+      }
+      if (
+        opts.phase70FieldVerdict === 'support' &&
+        (item.id === 'L4a-mem-fb' || item.id === 'L4b-mem-field')
+      ) {
+        status = 'complete';
       }
       return { ...item, layer: layer.id, layerLabel: layer.label, status };
     })
@@ -89,8 +95,8 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 70,
-    currentGoal: 'W1',
+    currentPhase: 71,
+    currentGoal: 'W2',
     roadmap: 'docs/WISDOM.md',
   };
 }

@@ -265,7 +265,7 @@
 - **缺口**：`[MEM]` 事件记忆迹不反馈至个体内在/对外行为，无法闭合认知层
 - **依据**：GAP-03 备注；[WISDOM.md](WISDOM.md) L4
 - **Phase 70 扩展**：`memoryFeedbackEnabled` + `memory-feedback.js`；环境 `wisdom_evolution`
-- **状态**：**进行中** — 机制已接入；田野 H1–H3 待验证
+- **状态**：**部分结案** — H1 田野 support（3/4 种子、方向一致）；待 OBS 复核后 CODEX 立项
 - **文档**：[PHASE70_MEMORY_FEEDBACK.md](PHASE70_MEMORY_FEEDBACK.md)
 
 ---

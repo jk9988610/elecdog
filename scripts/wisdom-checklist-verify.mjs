@@ -2,7 +2,7 @@
 /**
  * 智慧诞生条件检查表 — 输出 docs/wisdom-checklist-report.json
  */
-import { existsSync } from 'fs';
+import { existsSync, readFileSync } from 'fs';
 import { writeFileSync } from 'fs';
 import { assessWisdomConditions } from './lib/wisdom-conditions.mjs';
 
@@ -10,7 +10,18 @@ const memoryFeedbackInCode = existsSync(
   new URL('../src/world/memory-feedback.js', import.meta.url)
 );
 
-const assessment = assessWisdomConditions({ memoryFeedbackInCode });
+let phase70FieldVerdict;
+const fieldReportPath = new URL('../docs/field-phase70-report.json', import.meta.url);
+if (existsSync(fieldReportPath)) {
+  try {
+    const fieldReport = JSON.parse(readFileSync(fieldReportPath, 'utf8'));
+    phase70FieldVerdict = fieldReport.batchVerdict?.verdict;
+  } catch {
+    /* ignore */
+  }
+}
+
+const assessment = assessWisdomConditions({ memoryFeedbackInCode, phase70FieldVerdict });
 
 const report = {
   runAt: new Date().toISOString(),
@@ -23,7 +34,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 70 W1 — memory feedback field + npm run wisdom:mem:verify',
+  next: 'Phase 71 W2 — selection pressure repeatability metrics',
 };
 
 writeFileSync(

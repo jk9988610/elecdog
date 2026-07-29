@@ -190,6 +190,13 @@ export function stepWorld(world, recorder) {
     if (!stat) recorder.internal(world.tick, being.id, result.internal);
     if (result.external.length > 0) {
       if (!stat) recorder.external(world.tick, being.id, result.external);
+      else {
+        being.fieldExtTicks = (being.fieldExtTicks ?? 0) + 1;
+        for (const line of result.external) {
+          if (line.startsWith('[ACT]')) being.fieldActCount = (being.fieldActCount ?? 0) + 1;
+          else if (line.startsWith('[TX]')) being.fieldTxCount = (being.fieldTxCount ?? 0) + 1;
+        }
+      }
       for (const line of result.external) {
         if (line.startsWith('[TX]')) {
           world.signalBus.push({

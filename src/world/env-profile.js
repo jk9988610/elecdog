@@ -1495,6 +1495,34 @@ export const PHASE65_TREATMENTS = {
   },
 };
 
+/** Phase 70 — W1 记忆→行为闭环（mem on/off 对照） */
+export const PHASE70_TREATMENTS = {
+  wisdom_mem_off: {
+    id: 'wisdom_mem_off',
+    label: '完整栈无记忆反馈×1920',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    memoryFeedbackEnabled: false,
+    fieldLongStudy: true,
+  },
+  wisdom_mem_on: {
+    id: 'wisdom_mem_on',
+    label: '完整栈+记忆反馈×1920',
+    envId: 'wisdom_evolution',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    memoryFeedbackEnabled: true,
+    fieldLongStudy: true,
+  },
+};
+
 /** Phase 66 — 意识可持续：谱系×续行×H3 跨代并存 */
 export const PHASE66_TREATMENTS = {
   cn_sustain_full_3840: {
@@ -1894,6 +1922,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase70Treatment(world, treatmentId) {
+  const treatment = PHASE70_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase70 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 70, treatmentId, ...treatment };
   return world.envProfile;
 }
 
