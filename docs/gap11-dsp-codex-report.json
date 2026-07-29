@@ -1,0 +1,17 @@
+{
+  "runAt": "2026-07-29T20:00:54.939Z",
+  "phase": 97,
+  "extension": "gap11_dsp_codex",
+  "fieldPhase": 95,
+  "fieldVerdict": "support",
+  "yieldSupport": 4,
+  "dspObserved": true,
+  "codexEntry": "耗散分流",
+  "codexReady": true,
+  "gap11Status": "partial_closed",
+  "obs": [
+    "OBS-20260729-95",
+    "OBS-20260729-96"
+  ],
+  "roadmap": "docs/PHASE97_DSP_CODEX.md"
+}
