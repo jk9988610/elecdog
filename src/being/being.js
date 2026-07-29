@@ -67,6 +67,13 @@ export class Being {
     this.regVariance = 0;
     this.regDomReg = 0;
     this.regDomSub = 0;
+    this.metProfile = 'N0';
+    this.metDrawByChannel = null;
+    this.metLowByChannel = null;
+    this.metProfileAt = 0;
+    this.metTransitions = 0;
+    this.metDrawTotal = 0;
+    this.metDominantIdx = 0;
   }
 
   advanceRegisters(substrate = null, profile = null) {

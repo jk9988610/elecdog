@@ -1,0 +1,2507 @@
+{
+  "runAt": "2026-07-29T13:35:17.838Z",
+  "phase": 50,
+  "extension": "metabolic_channel_layer",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "fertile_no_mtb": {
+      "id": "fertile_no_mtb",
+      "label": "富足场（无代谢层）",
+      "envId": "fertile_field"
+    },
+    "fertile_mtb_observe": {
+      "id": "fertile_mtb_observe",
+      "label": "富足场+代谢观测",
+      "envId": "fertile_field",
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": false
+    },
+    "fertile_mtb_feedback": {
+      "id": "fertile_mtb_feedback",
+      "label": "富足场+代谢反馈",
+      "envId": "fertile_field",
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true
+    },
+    "harsh_mtb_feedback": {
+      "id": "harsh_mtb_feedback",
+      "label": "组合高压+代谢反馈",
+      "envId": "harsh_combined",
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true
+    }
+  },
+  "aggregate": {
+    "fertile_no_mtb": {
+      "label": "富足场（无代谢层）",
+      "meanMtbTransitions": 0,
+      "meanDomShare": null,
+      "meanLowTotal": 0,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_no_mtb",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 0,
+            "metProfiles": {
+              "N0": 36,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 0,
+            "meanDomShare": null,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 0,
+            "mtbSnapshots": [
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_mtb",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 0,
+            "metProfiles": {
+              "N0": 36,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 0,
+            "meanDomShare": null,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 0,
+            "mtbSnapshots": [
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_mtb",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 0,
+            "metProfiles": {
+              "N0": 36,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 0,
+            "meanDomShare": null,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 0,
+            "mtbSnapshots": [
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_mtb",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 0,
+            "metProfiles": {
+              "N0": 36,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 0,
+            "meanDomShare": null,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 0,
+            "mtbSnapshots": [
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "N0",
+                "domIdx": 0,
+                "domShare": 0,
+                "drawTotal": 0,
+                "lowTotal": 0,
+                "transitions": 0,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        }
+      ]
+    },
+    "fertile_mtb_observe": {
+      "label": "富足场+代谢观测",
+      "meanMtbTransitions": 269.5,
+      "meanDomShare": 0.3,
+      "meanLowTotal": 0.01,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_mtb_observe",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 275,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 1,
+              "BAL": 35,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 919.3889,
+            "meanDomShare": 0.3051,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 7.6389,
+            "mtbSnapshots": [
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.326,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 12,
+                "channelShares": [
+                  0,
+                  0,
+                  0.326,
+                  0,
+                  0.196,
+                  0.252,
+                  0,
+                  0.225
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.28,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 12,
+                "channelShares": [
+                  0.249,
+                  0,
+                  0.273,
+                  0,
+                  0.28,
+                  0.199,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 3,
+                "domShare": 0.333,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 14,
+                "channelShares": [
+                  0.228,
+                  0.254,
+                  0,
+                  0.333,
+                  0,
+                  0,
+                  0,
+                  0.185
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.279,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0.259,
+                  0,
+                  0.279,
+                  0.219,
+                  0,
+                  0.243,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 0,
+                "domShare": 0.273,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0.273,
+                  0,
+                  0,
+                  0.231,
+                  0,
+                  0.231,
+                  0.265,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.324,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.202,
+                  0.248,
+                  0,
+                  0.227,
+                  0,
+                  0,
+                  0.324,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 275,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 344
+        },
+        {
+          "treatmentId": "fertile_mtb_observe",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 283,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 3,
+              "BAL": 33,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 914.4167,
+            "meanDomShare": 0.2979,
+            "meanLowTotal": 0.0556,
+            "meanMtbTransitions": 7.8611,
+            "mtbSnapshots": [
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.285,
+                "drawTotal": 960,
+                "lowTotal": 1,
+                "transitions": 6,
+                "channelShares": [
+                  0,
+                  0,
+                  0.215,
+                  0,
+                  0,
+                  0.251,
+                  0.285,
+                  0.25
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.282,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 6,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0.218,
+                  0.282,
+                  0.238,
+                  0.262,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 1,
+                "domShare": 0.266,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.262,
+                  0.266,
+                  0,
+                  0,
+                  0,
+                  0.212,
+                  0.26,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.291,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 4,
+                "channelShares": [
+                  0.218,
+                  0,
+                  0.282,
+                  0,
+                  0,
+                  0.209,
+                  0.291,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 0,
+                "domShare": 0.284,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 18,
+                "channelShares": [
+                  0.284,
+                  0,
+                  0.239,
+                  0.251,
+                  0.226,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.275,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0.252,
+                  0.256,
+                  0,
+                  0,
+                  0.275,
+                  0,
+                  0.218,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 283,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 352
+        },
+        {
+          "treatmentId": "fertile_mtb_observe",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 303,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 1,
+              "BAL": 35,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 919.3611,
+            "meanDomShare": 0.3085,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 8.4167,
+            "mtbSnapshots": [
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.28,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 8,
+                "channelShares": [
+                  0,
+                  0.255,
+                  0.28,
+                  0,
+                  0,
+                  0.187,
+                  0.278,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 5,
+                "domShare": 0.289,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0,
+                  0.277,
+                  0.216,
+                  0.218,
+                  0.289,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.28,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 6,
+                "channelShares": [
+                  0,
+                  0,
+                  0.224,
+                  0.236,
+                  0.28,
+                  0,
+                  0,
+                  0.26
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 0,
+                "domShare": 0.325,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 18,
+                "channelShares": [
+                  0.325,
+                  0,
+                  0.173,
+                  0.224,
+                  0.277,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 1,
+                "domShare": 0.331,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 22,
+                "channelShares": [
+                  0,
+                  0.331,
+                  0.213,
+                  0,
+                  0,
+                  0,
+                  0.194,
+                  0.263
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 7,
+                "domShare": 0.324,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0.229,
+                  0,
+                  0.214,
+                  0.233,
+                  0,
+                  0,
+                  0,
+                  0.324
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 303,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 373
+        },
+        {
+          "treatmentId": "fertile_mtb_observe",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 217,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 3,
+              "BAL": 33,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 913.8333,
+            "meanDomShare": 0.3037,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 6.0278,
+            "mtbSnapshots": [
+              {
+                "profile": "DOM",
+                "domIdx": 1,
+                "domShare": 0.386,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0.386,
+                  0,
+                  0,
+                  0.262,
+                  0.182,
+                  0.17,
+                  0
+                ]
+              },
+              {
+                "profile": "DOM",
+                "domIdx": 3,
+                "domShare": 0.374,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 7,
+                "channelShares": [
+                  0.129,
+                  0.213,
+                  0,
+                  0.374,
+                  0,
+                  0,
+                  0.284,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 0,
+                "domShare": 0.279,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 6,
+                "channelShares": [
+                  0.279,
+                  0.261,
+                  0,
+                  0.236,
+                  0,
+                  0,
+                  0,
+                  0.224
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.3,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0.21,
+                  0.3,
+                  0,
+                  0,
+                  0.24,
+                  0.251,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.308,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 4,
+                "channelShares": [
+                  0,
+                  0,
+                  0.308,
+                  0,
+                  0.221,
+                  0.255,
+                  0.216,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.346,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 22,
+                "channelShares": [
+                  0,
+                  0,
+                  0.222,
+                  0.235,
+                  0.346,
+                  0,
+                  0,
+                  0.197
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 217,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 286
+        }
+      ]
+    },
+    "fertile_mtb_feedback": {
+      "label": "富足场+代谢反馈",
+      "meanMtbTransitions": 252.25,
+      "meanDomShare": 0.31,
+      "meanLowTotal": 0.01,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_mtb_feedback",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 266,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 4,
+              "BAL": 32,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 916.4722,
+            "meanDomShare": 0.3099,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 7.3889,
+            "mtbSnapshots": [
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.327,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 8,
+                "channelShares": [
+                  0,
+                  0,
+                  0.327,
+                  0,
+                  0.197,
+                  0.253,
+                  0,
+                  0.223
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.285,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.244,
+                  0,
+                  0,
+                  0,
+                  0.261,
+                  0.21,
+                  0.285,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.311,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 4,
+                "channelShares": [
+                  0,
+                  0.177,
+                  0.311,
+                  0,
+                  0,
+                  0,
+                  0.25,
+                  0.263
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.298,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 12,
+                "channelShares": [
+                  0.266,
+                  0,
+                  0.149,
+                  0,
+                  0.298,
+                  0.286,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 3,
+                "domShare": 0.307,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 6,
+                "channelShares": [
+                  0,
+                  0.24,
+                  0.219,
+                  0.307,
+                  0.234,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 1,
+                "domShare": 0.288,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 8,
+                "channelShares": [
+                  0,
+                  0.288,
+                  0,
+                  0,
+                  0.282,
+                  0.246,
+                  0,
+                  0.183
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 266,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 336
+        },
+        {
+          "treatmentId": "fertile_mtb_feedback",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 231,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 3,
+              "BAL": 33,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 912.3611,
+            "meanDomShare": 0.3036,
+            "meanLowTotal": 0.0556,
+            "meanMtbTransitions": 6.4167,
+            "mtbSnapshots": [
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.286,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 6,
+                "channelShares": [
+                  0,
+                  0,
+                  0.214,
+                  0,
+                  0,
+                  0.249,
+                  0.286,
+                  0.251
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 1,
+                "domShare": 0.302,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 16,
+                "channelShares": [
+                  0,
+                  0.302,
+                  0,
+                  0,
+                  0.22,
+                  0.231,
+                  0.247,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.303,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0.191,
+                  0.224,
+                  0,
+                  0.303,
+                  0,
+                  0.282,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.285,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.253,
+                  0.23,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0.285,
+                  0.232
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.262,
+                "drawTotal": 960,
+                "lowTotal": 1,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0,
+                  0.262,
+                  0,
+                  0.224,
+                  0.255,
+                  0,
+                  0.259
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.328,
+                "drawTotal": 960,
+                "lowTotal": 1,
+                "transitions": 8,
+                "channelShares": [
+                  0.279,
+                  0.158,
+                  0.328,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0.234
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 231,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 301
+        },
+        {
+          "treatmentId": "fertile_mtb_feedback",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 251,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 5,
+              "BAL": 31,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 917.1667,
+            "meanDomShare": 0.3038,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 6.9722,
+            "mtbSnapshots": [
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.281,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 8,
+                "channelShares": [
+                  0,
+                  0.256,
+                  0.281,
+                  0,
+                  0,
+                  0.186,
+                  0.278,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 7,
+                "domShare": 0.313,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 4,
+                "channelShares": [
+                  0.239,
+                  0.2,
+                  0,
+                  0,
+                  0,
+                  0.248,
+                  0,
+                  0.313
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 2,
+                "domShare": 0.305,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 20,
+                "channelShares": [
+                  0.196,
+                  0,
+                  0.305,
+                  0,
+                  0,
+                  0.265,
+                  0.235,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 3,
+                "domShare": 0.333,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 4,
+                "channelShares": [
+                  0,
+                  0.308,
+                  0,
+                  0.333,
+                  0,
+                  0.196,
+                  0,
+                  0.163
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 3,
+                "domShare": 0.298,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 18,
+                "channelShares": [
+                  0,
+                  0.267,
+                  0,
+                  0.298,
+                  0,
+                  0,
+                  0.178,
+                  0.257
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 3,
+                "domShare": 0.307,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.282,
+                  0,
+                  0,
+                  0.307,
+                  0,
+                  0.197,
+                  0,
+                  0.214
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 251,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 320
+        },
+        {
+          "treatmentId": "fertile_mtb_feedback",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "mtbTransitionCount": 261,
+            "metProfiles": {
+              "N0": 0,
+              "DOM": 3,
+              "BAL": 33,
+              "SCAR": 0
+            },
+            "meanDrawTotal": 912.7222,
+            "meanDomShare": 0.3082,
+            "meanLowTotal": 0,
+            "meanMtbTransitions": 7.25,
+            "mtbSnapshots": [
+              {
+                "profile": "DOM",
+                "domIdx": 1,
+                "domShare": 0.381,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0.381,
+                  0,
+                  0,
+                  0.257,
+                  0.183,
+                  0.179,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 7,
+                "domShare": 0.327,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 4,
+                "channelShares": [
+                  0.157,
+                  0,
+                  0.274,
+                  0,
+                  0,
+                  0.242,
+                  0,
+                  0.327
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 4,
+                "domShare": 0.28,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.251,
+                  0,
+                  0,
+                  0,
+                  0.28,
+                  0.26,
+                  0,
+                  0.208
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 3,
+                "domShare": 0.276,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 2,
+                "channelShares": [
+                  0.256,
+                  0,
+                  0.275,
+                  0.276,
+                  0,
+                  0,
+                  0,
+                  0.193
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.311,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.208,
+                  0.257,
+                  0,
+                  0,
+                  0,
+                  0.224,
+                  0.311,
+                  0
+                ]
+              },
+              {
+                "profile": "BAL",
+                "domIdx": 6,
+                "domShare": 0.276,
+                "drawTotal": 960,
+                "lowTotal": 0,
+                "transitions": 10,
+                "channelShares": [
+                  0.26,
+                  0,
+                  0,
+                  0,
+                  0.275,
+                  0.189,
+                  0.276,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:MTB": 261,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 331
+        }
+      ]
+    },
+    "harsh_mtb_feedback": {
+      "label": "组合高压+代谢反馈",
+      "meanMtbTransitions": 181.75,
+      "meanDomShare": 0.56,
+      "meanLowTotal": 24.63,
+      "meanAlive": 12,
+      "meanFiss": 0,
+      "runs": [
+        {
+          "treatmentId": "harsh_mtb_feedback",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "mtbTransitionCount": 184,
+            "metProfiles": {
+              "N0": 2,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 10
+            },
+            "meanDrawTotal": 53.75,
+            "meanDomShare": 0.5291,
+            "meanLowTotal": 21.6667,
+            "meanMtbTransitions": 1.1667,
+            "mtbSnapshots": [
+              {
+                "profile": "SCAR",
+                "domIdx": 5,
+                "domShare": 0.675,
+                "drawTotal": 117,
+                "lowTotal": 49,
+                "transitions": 1,
+                "channelShares": [
+                  0.083,
+                  0.056,
+                  0.186,
+                  0,
+                  0,
+                  0.675,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 3,
+                "domShare": 0.34,
+                "drawTotal": 82,
+                "lowTotal": 23,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0.206,
+                  0,
+                  0.34,
+                  0,
+                  0.193,
+                  0.262,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 7,
+                "domShare": 0.451,
+                "drawTotal": 60,
+                "lowTotal": 15,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0,
+                  0.163,
+                  0,
+                  0,
+                  0,
+                  0.387,
+                  0.451
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 1,
+                "domShare": 0.358,
+                "drawTotal": 60,
+                "lowTotal": 11,
+                "transitions": 2,
+                "channelShares": [
+                  0,
+                  0.358,
+                  0.255,
+                  0,
+                  0,
+                  0.321,
+                  0.066,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 2,
+                "domShare": 0.615,
+                "drawTotal": 59,
+                "lowTotal": 24,
+                "transitions": 2,
+                "channelShares": [
+                  0.029,
+                  0.262,
+                  0.615,
+                  0.093,
+                  0,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 1,
+                "domShare": 0.36,
+                "drawTotal": 56,
+                "lowTotal": 29,
+                "transitions": 1,
+                "channelShares": [
+                  0.322,
+                  0.36,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0.144,
+                  0.174
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 232,
+            "evolution:MTB": 184,
+            "viability:END": 231,
+            "evolution:SEL": 231,
+            "environment:NPL": 9,
+            "environment:SHK": 10,
+            "population:CMP": 9
+          },
+          "entriesKept": 655
+        },
+        {
+          "treatmentId": "harsh_mtb_feedback",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "mtbTransitionCount": 171,
+            "metProfiles": {
+              "N0": 1,
+              "DOM": 1,
+              "BAL": 0,
+              "SCAR": 10
+            },
+            "meanDrawTotal": 53.4167,
+            "meanDomShare": 0.6166,
+            "meanLowTotal": 19.25,
+            "meanMtbTransitions": 1,
+            "mtbSnapshots": [
+              {
+                "profile": "SCAR",
+                "domIdx": 2,
+                "domShare": 0.445,
+                "drawTotal": 86,
+                "lowTotal": 45,
+                "transitions": 1,
+                "channelShares": [
+                  0.085,
+                  0.294,
+                  0.445,
+                  0,
+                  0,
+                  0,
+                  0.176,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 6,
+                "domShare": 0.604,
+                "drawTotal": 83,
+                "lowTotal": 31,
+                "transitions": 1,
+                "channelShares": [
+                  0.171,
+                  0,
+                  0.065,
+                  0,
+                  0.16,
+                  0,
+                  0.604,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 3,
+                "domShare": 0.623,
+                "drawTotal": 73,
+                "lowTotal": 14,
+                "transitions": 2,
+                "channelShares": [
+                  0.107,
+                  0,
+                  0.07,
+                  0.623,
+                  0.2,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 5,
+                "domShare": 0.74,
+                "drawTotal": 72,
+                "lowTotal": 35,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0.053,
+                  0.187,
+                  0.74,
+                  0,
+                  0.021
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 2,
+                "domShare": 0.39,
+                "drawTotal": 71,
+                "lowTotal": 29,
+                "transitions": 1,
+                "channelShares": [
+                  0.011,
+                  0,
+                  0.39,
+                  0,
+                  0,
+                  0,
+                  0.249,
+                  0.35
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 6,
+                "domShare": 0.871,
+                "drawTotal": 62,
+                "lowTotal": 28,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0.071,
+                  0,
+                  0.871,
+                  0.059
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 254,
+            "viability:END": 253,
+            "evolution:SEL": 253,
+            "evolution:MTB": 171,
+            "environment:SHK": 11,
+            "population:CMP": 9,
+            "environment:NPL": 8
+          },
+          "entriesKept": 686
+        },
+        {
+          "treatmentId": "harsh_mtb_feedback",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "mtbTransitionCount": 188,
+            "metProfiles": {
+              "N0": 6,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 6
+            },
+            "meanDrawTotal": 50.6667,
+            "meanDomShare": 0.3345,
+            "meanLowTotal": 30.3333,
+            "meanMtbTransitions": 0.75,
+            "mtbSnapshots": [
+              {
+                "profile": "SCAR",
+                "domIdx": 6,
+                "domShare": 0.367,
+                "drawTotal": 174,
+                "lowTotal": 78,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0.154,
+                  0,
+                  0.264,
+                  0.367,
+                  0.215
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 0,
+                "domShare": 0.423,
+                "drawTotal": 107,
+                "lowTotal": 72,
+                "transitions": 1,
+                "channelShares": [
+                  0.423,
+                  0,
+                  0.17,
+                  0.297,
+                  0,
+                  0,
+                  0,
+                  0.109
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 1,
+                "domShare": 0.434,
+                "drawTotal": 93,
+                "lowTotal": 59,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0.434,
+                  0,
+                  0,
+                  0.158,
+                  0.221,
+                  0,
+                  0.187
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 1,
+                "domShare": 0.549,
+                "drawTotal": 85,
+                "lowTotal": 67,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0.549,
+                  0.121,
+                  0.165,
+                  0.165,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 3,
+                "domShare": 0.417,
+                "drawTotal": 49,
+                "lowTotal": 37,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0.154,
+                  0,
+                  0.417,
+                  0.09,
+                  0,
+                  0,
+                  0.339
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 3,
+                "domShare": 0.824,
+                "drawTotal": 41,
+                "lowTotal": 4,
+                "transitions": 4,
+                "channelShares": [
+                  0,
+                  0,
+                  0.05,
+                  0.824,
+                  0.126,
+                  0,
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 284,
+            "viability:END": 283,
+            "evolution:SEL": 283,
+            "evolution:MTB": 188,
+            "environment:SHK": 11,
+            "environment:NPL": 8,
+            "population:CMP": 9
+          },
+          "entriesKept": 763
+        },
+        {
+          "treatmentId": "harsh_mtb_feedback",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "mtbTransitionCount": 184,
+            "metProfiles": {
+              "N0": 1,
+              "DOM": 0,
+              "BAL": 0,
+              "SCAR": 11
+            },
+            "meanDrawTotal": 53,
+            "meanDomShare": 0.7724,
+            "meanLowTotal": 27.25,
+            "meanMtbTransitions": 1.0833,
+            "mtbSnapshots": [
+              {
+                "profile": "SCAR",
+                "domIdx": 7,
+                "domShare": 0.4,
+                "drawTotal": 201,
+                "lowTotal": 112,
+                "transitions": 1,
+                "channelShares": [
+                  0.099,
+                  0,
+                  0,
+                  0,
+                  0.294,
+                  0.208,
+                  0,
+                  0.4
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 3,
+                "domShare": 0.532,
+                "drawTotal": 45,
+                "lowTotal": 35,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0,
+                  0.086,
+                  0.532,
+                  0.382,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 4,
+                "domShare": 0.729,
+                "drawTotal": 48,
+                "lowTotal": 25,
+                "transitions": 1,
+                "channelShares": [
+                  0.074,
+                  0,
+                  0.197,
+                  0,
+                  0.729,
+                  0,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 7,
+                "domShare": 0.739,
+                "drawTotal": 46,
+                "lowTotal": 7,
+                "transitions": 3,
+                "channelShares": [
+                  0.13,
+                  0.124,
+                  0,
+                  0,
+                  0,
+                  0,
+                  0.008,
+                  0.739
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 1,
+                "domShare": 0.61,
+                "drawTotal": 46,
+                "lowTotal": 28,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0.61,
+                  0,
+                  0,
+                  0.329,
+                  0.061,
+                  0,
+                  0
+                ]
+              },
+              {
+                "profile": "SCAR",
+                "domIdx": 5,
+                "domShare": 1,
+                "drawTotal": 46,
+                "lowTotal": 36,
+                "transitions": 1,
+                "channelShares": [
+                  0,
+                  0,
+                  0,
+                  0,
+                  0,
+                  1,
+                  0,
+                  0
+                ]
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 246,
+            "viability:END": 245,
+            "evolution:SEL": 245,
+            "evolution:MTB": 184,
+            "environment:SHK": 13,
+            "population:CMP": 9,
+            "environment:NPL": 6
+          },
+          "entriesKept": 683
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "observeVsNone": {
+        "H1_observeHasMtb": {
+          "verdict": "support",
+          "noMtb": 0,
+          "observe": 275
+        },
+        "H2_domChannelObservable": {
+          "verdict": "weak",
+          "domShare": 0.3051,
+          "profiles": {
+            "N0": 0,
+            "DOM": 1,
+            "BAL": 35,
+            "SCAR": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreDom": {
+          "verdict": "weak",
+          "observe": 0.3051,
+          "feedback": 0.3099,
+          "delta": 0.0048
+        },
+        "H4_scarProfile": {
+          "verdict": "weak",
+          "observeScar": 0,
+          "feedbackScar": 0,
+          "delta": 0
+        },
+        "H5_noResourceLabels": {
+          "verdict": "support",
+          "note": "仅通道索引 e0–e7 分布，无资源类型命名"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshMoreScar": {
+          "verdict": "support",
+          "fertile": 0,
+          "harsh": 10,
+          "delta": 10
+        },
+        "H7_harshStillDraws": {
+          "verdict": "weak",
+          "fertileDraws": 916.4722,
+          "harshDraws": 53.75
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "observeVsNone": {
+        "H1_observeHasMtb": {
+          "verdict": "support",
+          "noMtb": 0,
+          "observe": 283
+        },
+        "H2_domChannelObservable": {
+          "verdict": "weak",
+          "domShare": 0.2979,
+          "profiles": {
+            "N0": 0,
+            "DOM": 3,
+            "BAL": 33,
+            "SCAR": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreDom": {
+          "verdict": "weak",
+          "observe": 0.2979,
+          "feedback": 0.3036,
+          "delta": 0.0057
+        },
+        "H4_scarProfile": {
+          "verdict": "weak",
+          "observeScar": 0,
+          "feedbackScar": 0,
+          "delta": 0
+        },
+        "H5_noResourceLabels": {
+          "verdict": "support",
+          "note": "仅通道索引 e0–e7 分布，无资源类型命名"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshMoreScar": {
+          "verdict": "support",
+          "fertile": 0,
+          "harsh": 10,
+          "delta": 10
+        },
+        "H7_harshStillDraws": {
+          "verdict": "weak",
+          "fertileDraws": 912.3611,
+          "harshDraws": 53.4167
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "observeVsNone": {
+        "H1_observeHasMtb": {
+          "verdict": "support",
+          "noMtb": 0,
+          "observe": 303
+        },
+        "H2_domChannelObservable": {
+          "verdict": "weak",
+          "domShare": 0.3085,
+          "profiles": {
+            "N0": 0,
+            "DOM": 1,
+            "BAL": 35,
+            "SCAR": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreDom": {
+          "verdict": "unsupport",
+          "observe": 0.3085,
+          "feedback": 0.3038,
+          "delta": -0.0047
+        },
+        "H4_scarProfile": {
+          "verdict": "weak",
+          "observeScar": 0,
+          "feedbackScar": 0,
+          "delta": 0
+        },
+        "H5_noResourceLabels": {
+          "verdict": "support",
+          "note": "仅通道索引 e0–e7 分布，无资源类型命名"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshMoreScar": {
+          "verdict": "support",
+          "fertile": 0,
+          "harsh": 6,
+          "delta": 6
+        },
+        "H7_harshStillDraws": {
+          "verdict": "weak",
+          "fertileDraws": 917.1667,
+          "harshDraws": 50.6667
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "observeVsNone": {
+        "H1_observeHasMtb": {
+          "verdict": "support",
+          "noMtb": 0,
+          "observe": 217
+        },
+        "H2_domChannelObservable": {
+          "verdict": "weak",
+          "domShare": 0.3037,
+          "profiles": {
+            "N0": 0,
+            "DOM": 3,
+            "BAL": 33,
+            "SCAR": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreDom": {
+          "verdict": "weak",
+          "observe": 0.3037,
+          "feedback": 0.3082,
+          "delta": 0.0045
+        },
+        "H4_scarProfile": {
+          "verdict": "weak",
+          "observeScar": 0,
+          "feedbackScar": 0,
+          "delta": 0
+        },
+        "H5_noResourceLabels": {
+          "verdict": "support",
+          "note": "仅通道索引 e0–e7 分布，无资源类型命名"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshMoreScar": {
+          "verdict": "support",
+          "fertile": 0,
+          "harsh": 11,
+          "delta": 11
+        },
+        "H7_harshStillDraws": {
+          "verdict": "weak",
+          "fertileDraws": 912.7222,
+          "harshDraws": 53
+        }
+      }
+    }
+  ],
+  "design": {
+    "profiles": "N0 初采 / DOM 单通道主导 / BAL 均衡 / SCAR 匮乏型",
+    "feedback": "档案调制摄取倍率（非资源命名）"
+  },
+  "roadmap": "docs/PHASE50_METABOLIC.md"
+}

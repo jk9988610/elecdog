@@ -472,6 +472,30 @@ export const ENV_PROFILES = {
     registerFeedback: true,
     registerCouplingBase: 0.02,
   },
+  fertile_mtb_feedback: {
+    id: 'fertile_mtb_feedback',
+    label: '富足场+代谢通道反馈',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplSenescenceEnd: false,
+    rplTickCapEnabled: false,
+    metabolicProfileEnabled: true,
+    metabolicFeedback: true,
+  },
 };
 
 const REN_BASE = {
@@ -794,6 +818,39 @@ export const PHASE49_TREATMENTS = {
     label: '组合高压+寄存器耦合',
     envId: 'harsh_combined',
     ...REG_BASE,
+  },
+};
+
+const MTB_BASE = {
+  metabolicProfileEnabled: true,
+  metabolicFeedback: true,
+};
+
+/** Phase 50 — 代谢通道层 [MTB] 摄取分布与反馈 */
+export const PHASE50_TREATMENTS = {
+  fertile_no_mtb: {
+    id: 'fertile_no_mtb',
+    label: '富足场（无代谢层）',
+    envId: 'fertile_field',
+  },
+  fertile_mtb_observe: {
+    id: 'fertile_mtb_observe',
+    label: '富足场+代谢观测',
+    envId: 'fertile_field',
+    metabolicProfileEnabled: true,
+    metabolicFeedback: false,
+  },
+  fertile_mtb_feedback: {
+    id: 'fertile_mtb_feedback',
+    label: '富足场+代谢反馈',
+    envId: 'fertile_field',
+    ...MTB_BASE,
+  },
+  harsh_mtb_feedback: {
+    id: 'harsh_mtb_feedback',
+    label: '组合高压+代谢反馈',
+    envId: 'harsh_combined',
+    ...MTB_BASE,
   },
 };
 
@@ -1136,6 +1193,17 @@ export function applyPhase49Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 49, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase50Treatment(world, treatmentId) {
+  const treatment = PHASE50_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase50 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 50, treatmentId, ...treatment };
   return world.envProfile;
 }
 

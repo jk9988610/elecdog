@@ -78,6 +78,8 @@ const LABELS = {
   expStage: { native: '阅历阶段', analogy: '经历阶段' },
   reg: { native: '寄存器 REG', analogy: 'r–e 耦合模式' },
   regMode: { native: '寄存器模式', analogy: '场对齐模式' },
+  mtb: { native: '代谢 MTB', analogy: '摄取通道档案' },
+  metProfile: { native: '代谢档案', analogy: '通道摄取模式' },
 };
 
 export function label(key) {
@@ -107,6 +109,12 @@ export function formatRegMode(mode) {
   const labels = { SYNC: '同步', LAG: '滞后', SCATTER: '离散', LOCK: '锁定' };
   if (!isAnalogyMode()) return mode ?? 'SYNC';
   return labels[mode] ?? mode ?? '同步';
+}
+
+export function formatMetProfile(profile) {
+  const labels = { N0: '初采', DOM: '单通道主导', BAL: '多通道均衡', SCAR: '匮乏型' };
+  if (!isAnalogyMode()) return profile ?? 'N0';
+  return labels[profile] ?? profile ?? '初采';
 }
 
 export function viewModeHint() {

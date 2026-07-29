@@ -37,6 +37,11 @@ import {
   registerProfileEnabled,
   processRegisterTick,
 } from '../world/register-profile.js';
+import {
+  metabolicProfileEnabled,
+  metabolicDrawMultAdjust,
+  processMetabolicProfileTick,
+} from '../world/metabolic-profile.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -253,7 +258,9 @@ export function stepWorld(world, recorder) {
     const met = runMetabolism(world, being, {
       internalCount: result.internal.length,
       hadExternal: result.external.length > 0,
-      drawMult: juvenileDrawMultiplier(being, world.envProfile),
+      drawMult:
+        juvenileDrawMultiplier(being, world.envProfile) +
+        (metabolicProfileEnabled(profile) ? metabolicDrawMultAdjust(being, profile) : 0),
     });
     if (met.draw && !stat) {
       recorder.metabolism(
@@ -327,6 +334,22 @@ export function stepWorld(world, recorder) {
       processRegisterTick(world, recorder, being, profile, substrateSnap.channels, {
         fieldStat: stat,
       });
+    }
+
+    if (metabolicProfileEnabled(profile) && met.draw) {
+      processMetabolicProfileTick(
+        world,
+        recorder,
+        being,
+        profile,
+        {
+          idx: met.draw.idx,
+          amount: met.draw.amount ?? 0,
+          hadLow: Boolean(met.low),
+          lowIdx: met.low?.idx ?? null,
+        },
+        { fieldStat: stat }
+      );
     }
 
     if (!stat && met.intra?.transfers?.length) {
