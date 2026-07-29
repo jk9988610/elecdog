@@ -103,6 +103,8 @@
     "field:phase65:cloud": "node scripts/field-batch-phase65.mjs --cloud",
     "field:phase66": "node scripts/field-batch-phase66.mjs",
     "field:phase66:cloud": "node scripts/field-batch-phase66.mjs --cloud",
+    "field:consciousness:cloud": "node scripts/field-consciousness-cloud.mjs",
+    "field:consciousness:verify": "node scripts/consciousness-cloud-verify.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {
