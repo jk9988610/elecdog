@@ -4,7 +4,6 @@ export function analyzeSynthField(recorder, beings, world, { ticks } = {}) {
   const entries = recorder.entries ?? [];
   const ends = entries.filter((e) => e.channel === 'viability' && e.meta?.kind === 'END');
   const sym = entries.filter((e) => e.meta?.kind === 'SYM');
-  const symA = sym.filter((e) => e.meta?.kind === 'SYM' && e.meta?.kind === 'synth-a'); // fix below
   const alive = beings.filter((b) => b.alive);
 
   const synthAIn = beings.reduce((s, b) => s + (b.synthAInTotal ?? 0), 0);
