@@ -63,7 +63,7 @@ export const WISDOM_PHASE_ROADMAP = [
   { phase: 74, goal: 'W3', label: '预测–校正反馈' },
   { phase: 75, goal: 'W4', label: '社会知识累积' },
   { phase: 76, goal: 'W4', label: '谱系记忆回响' },
-  { phase: 78, goal: 'W5', label: '多情境开放泛化' },
+  { phase: 79, goal: 'W1', label: '田野复核 + CODEX 修订' },
 ];
 
 /**

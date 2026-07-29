@@ -2,8 +2,8 @@
 
 export const CODEX_META = {
   title: '电子狗世界辞典（L2）',
-  count: 28,
-  phase: 63,
+  count: 29,
+  phase: 79,
   updated: '2026-07-29',
   note: '只收录已从观察中归纳的条目；解释与命名请对照 OBS 编号。主目标：诞生智慧生命（见 docs/WISDOM.md）。',
 };
@@ -120,8 +120,18 @@ export const CODEX_ENTRIES = [
     definition:
       '个体发生 RX（收 signal）、TX 或 ACT 时，同 tick 的 `memory` 通道记录 `[MEM]` 行，含事件类型与引用 tick（如 `[MEM] RX t12 {fromId}`）；不改动对内/对外行为。',
     evidence: ['OBS-20260729-32', 'OBS-20260729-33'],
-    falsifiable: '若事件无对应 `[MEM]`，或 `[MEM]` 改变对外统计，则修订',
+    falsifiable: '若事件无对应 `[MEM]`；在 memoryFeedbackEnabled 关闭时 `[MEM]` 不改变对外统计，则修订',
     established: '2026-07-29',
+  },
+  {
+    id: 'memory-behavior-modulation',
+    title: '记忆行为调制',
+    definition:
+      '启用 `memoryFeedbackEnabled` 时，个体维护衰减负载 memRxLoad / memTxLoad / memActLoad；每 tick 经 actBoost / thresholdDelta 调制对外行为。与「事件记忆迹」记录层独立；不设地球式「记得」「遗忘」语义。',
+    evidence: ['OBS-20260729-81', 'OBS-20260729-90'],
+    falsifiable: '若 mem on/off 田野对外率无稳定差异、或负载与偏置无系统性相关，则修订',
+    established: '2026-07-29',
+    tag: 'W1',
   },
   {
     id: 'digital-substrate',
