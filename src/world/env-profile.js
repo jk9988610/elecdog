@@ -1255,6 +1255,40 @@ export const PHASE57_TREATMENTS = {
   },
 };
 
+const EHU_DEEP_FULL = {
+  ...PERSONA_TRI_FEEDBACK,
+  ehuSocialDeepEnabled: true,
+  ehuLineageEchoEnabled: true,
+  ehuArcNarrative: 14,
+};
+
+/** Phase 58 — CODEX 归纳 + 长时田野（1920 tick） */
+export const PHASE58_TREATMENTS = {
+  long_deep_960: {
+    id: 'long_deep_960',
+    label: 'EHU深化×960tick',
+    envId: 'fertile_field',
+    ...EHU_DEEP_FULL,
+    fieldLongStudy: true,
+  },
+  long_deep_1920: {
+    id: 'long_deep_1920',
+    label: 'EHU深化×1920tick',
+    envId: 'fertile_field',
+    ...EHU_DEEP_FULL,
+    fieldLongStudy: true,
+  },
+  long_observe_1920: {
+    id: 'long_observe_1920',
+    label: '六层观测×1920tick',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    ...PERSONA_OBSERVE,
+    fieldLongStudy: true,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1627,6 +1661,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase58Treatment(world, treatmentId) {
+  const treatment = PHASE58_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase58 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 58, treatmentId, ...treatment };
   return world.envProfile;
 }
 
