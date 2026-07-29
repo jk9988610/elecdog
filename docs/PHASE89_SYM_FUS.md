@@ -66,7 +66,7 @@
 ## 四、出口与下一步
 
 - **已交付**：GAP-ORG Phase C（FUS 捕获 `[SYM]` module）
-- **下一步**：Phase 90 `air` 标量 + 日相耦合
+- **下一步**：Phase 91 `[ADV]` 邻格平流 + `[LTC]` 月相
 
 ---
 
