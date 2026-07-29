@@ -158,7 +158,8 @@
 - **Phase 87**：`[SCL]` 季相四相已落地；田野 **support** — 见 [PHASE87_SCL_SEASONAL.md](PHASE87_SCL_SEASONAL.md)
 - **Phase 90**：`air` 标量 + 日相耦合；田野 **weak** — 见 [PHASE90_AIR_DIURNAL.md](PHASE90_AIR_DIURNAL.md)
 - **Phase 91**：`[ADV]` 邻格平流 + `[LTC]` 月相；田野 **support** — 见 [PHASE91_ADV_LTC.md](PHASE91_ADV_LTC.md)
-- **状态**：**部分开放**（band+DLC+terrain+PCP+SCL+air+ADV+LTC ✓；GAP-ART 待 Phase 92）
+- **Phase 93**：地热 `vent` `[VTN]`；田野 **support** — 见 [PHASE93_VENT_GEOTHERMAL.md](PHASE93_VENT_GEOTHERMAL.md)
+- **状态**：**部分开放**（时空环境栈 ✓；迁徙/alt 待 Phase 94+）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
