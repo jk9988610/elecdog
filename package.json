@@ -109,6 +109,7 @@
     "wisdom:checklist": "node scripts/wisdom-checklist-verify.mjs",
     "wisdom:mem:verify": "node scripts/wisdom-mem-verify.mjs",
     "wisdom:w1:review": "node scripts/wisdom-w1-review.mjs",
+    "wisdom:acceptance": "node scripts/wisdom-acceptance-verify.mjs",
     "wisdom:prd:verify": "node scripts/wisdom-prd-verify.mjs",
     "field:phase70": "node scripts/field-batch-phase70.mjs",
     "field:phase71": "node scripts/field-batch-phase71.mjs",
@@ -121,6 +122,7 @@
     "field:phase78": "node scripts/field-batch-phase78.mjs",
     "field:phase80": "node scripts/field-batch-phase80.mjs",
     "field:phase81": "node scripts/field-batch-phase81.mjs",
+    "field:phase82": "node scripts/field-batch-phase82.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

@@ -1708,6 +1708,30 @@ export const PHASE81_TREATMENTS = {
   },
 };
 
+/** Phase 82 — 智慧物种田野验收（完整栈 × 标准/审计情境） */
+export const PHASE82_TREATMENTS = {
+  w82_accept_std: {
+    id: 'w82_accept_std',
+    label: '验收标准情境',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    wisdomAcceptance: true,
+    wisdomContextId: 'accept_std',
+  },
+  w82_accept_audit: {
+    id: 'w82_accept_audit',
+    label: '验收审计情境（剧变）',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    wisdomAcceptance: true,
+    wisdomContextId: 'accept_audit',
+    catastropheDisabled: false,
+    pulseInterval: 50,
+    substrateDrainMult: 0.88,
+    substrateFloor: 0.4,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2260,6 +2284,21 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase82Treatment(world, treatmentId) {
+  const treatment = PHASE82_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase82 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 82, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
