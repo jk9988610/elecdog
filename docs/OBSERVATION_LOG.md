@@ -642,4 +642,15 @@
   - 批次综合 **support**；GAP-W03 结案
 - **备注**：报告见 `docs/field-phase74-report.json`
 
+## OBS-20260729-86
+
+- **世界**：智慧演化场（Phase 75 · W4 社会知识）
+- **处理组**：`w4_soc_off` vs `w4_soc_on`
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - on 组 SOC-ENC 均值 **75632**；SOC-LIN **40**；trace intensity **0.324**
+  - 对外率 on **0.371** vs off **0.472**；子代率 **0.312**
+  - H1–H4 均 **4/4 support**；批次 **support**
+- **备注**：报告见 `docs/field-phase75-report.json`；L5b 可标记 complete
+
 ---

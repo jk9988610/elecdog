@@ -21,11 +21,22 @@ if (existsSync(fieldReportPath)) {
   }
 }
 
-const assessment = assessWisdomConditions({ memoryFeedbackInCode, phase70FieldVerdict });
+let phase75FieldVerdict;
+const field75Path = new URL('../docs/field-phase75-report.json', import.meta.url);
+if (existsSync(field75Path)) {
+  try {
+    const fieldReport = JSON.parse(readFileSync(field75Path, 'utf8'));
+    phase75FieldVerdict = fieldReport.batchVerdict?.verdict;
+  } catch {
+    /* ignore */
+  }
+}
+
+const assessment = assessWisdomConditions({ memoryFeedbackInCode, phase70FieldVerdict, phase75FieldVerdict });
 
 const report = {
   runAt: new Date().toISOString(),
-  phase: 70,
+  phase: 75,
   extension: 'wisdom_checklist',
   kind: 'wisdom-birth-conditions',
   assessment,
@@ -34,7 +45,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 75 W4 — social knowledge accumulation',
+  next: 'Phase 76 W4 — lineage memory echo',
 };
 
 writeFileSync(

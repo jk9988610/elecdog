@@ -65,6 +65,13 @@ import {
   accumulateMemoryLoads,
 } from '../world/memory-feedback.js';
 import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
+import {
+  socialKnowledgeEnabled,
+  socialKnowledgeFeedbackEnabled,
+  socialKnowledgeActBias,
+  accumulateSocialEncode,
+  processSocialKnowledgeTick,
+} from '../world/social-knowledge.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -140,7 +147,8 @@ export function stepWorld(world, recorder) {
       reproductionProfileEnabled(profile) ? reproductionActBias(being, profile) : null,
       electronicHumanEnabled(profile) ? electronicHumanActBias(being, profile) : null,
       memoryFeedbackEnabled(profile) ? memoryActBias(being, profile) : null,
-      predictionFeedbackEnabled(profile) ? predictionActBias(being, profile) : null
+      predictionFeedbackEnabled(profile) ? predictionActBias(being, profile) : null,
+      socialKnowledgeFeedbackEnabled(profile) ? socialKnowledgeActBias(being, profile) : null
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,
@@ -403,6 +411,15 @@ export function stepWorld(world, recorder) {
       processPredictionTick(world, recorder, being, profile, substrateSnap.channels, {
         fieldStat: stat,
       });
+    }
+
+    if (socialKnowledgeEnabled(profile)) {
+      const ctx = socialTickCtx.get(being.id);
+      accumulateSocialEncode(being, {
+        hadRx: ctx?.hadRx ?? heard.length > 0,
+        crossRx: ctx?.crossRx ?? 0,
+      });
+      processSocialKnowledgeTick(world, recorder, being, profile, { fieldStat: stat });
     }
 
     if (metabolicProfileEnabled(profile) && met.draw) {
