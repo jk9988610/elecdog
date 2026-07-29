@@ -721,4 +721,15 @@
   - 批次综合 **unsupport**；GAP-10 **仍开放**
 - **备注**：报告见 `docs/field-phase81-report.json`
 
+## OBS-20260729-93
+
+- **世界**：智慧演化场（Phase 82 · 物种验收）
+- **处理组**：`w82_accept_std` / `w82_accept_audit`
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - W1/W3/W4/W5 验收层均 **8/8 support**
+  - 综合田野 **support**；验收状态 **prepared**
+  - 检查表 **12/14**；L2b/L2c 仍 partial
+- **备注**：`docs/wisdom-acceptance-report.json`
+
 ---

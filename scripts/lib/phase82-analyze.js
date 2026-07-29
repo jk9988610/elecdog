@@ -10,7 +10,7 @@ export function evaluateAcceptancePerRun(metrics) {
   const soc = metrics.socEncCount ?? 0;
   const lin = metrics.memLinCount ?? 0;
   const alive = metrics.aliveTotal ?? 0;
-  const modes = metrics.modeDiversity ?? 0;
+  const coop = metrics.coopCount ?? 0;
 
   return {
     W1_memoryLoop: {
@@ -27,9 +27,9 @@ export function evaluateAcceptancePerRun(metrics) {
       memLinCount: lin,
     },
     W5_openScale: {
-      verdict: alive >= 4 && modes >= 2 ? 'support' : alive >= 2 ? 'weak' : 'unsupport',
+      verdict: alive >= 8 && coop >= 5 ? 'support' : alive >= 4 ? 'weak' : 'unsupport',
       aliveTotal: alive,
-      modeDiversity: modes,
+      coopCount: coop,
     },
   };
 }
