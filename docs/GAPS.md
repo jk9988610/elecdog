@@ -164,7 +164,7 @@
 - **Phase 35 田野**（harsh × 4 处理组 × 4 种子）：
   - `[ORG]` / `[INTRA]` 区分 unicell vs multicell；`populationCount=4` vs `subCellUnitCount=12`
   - `intraByRole` draw/act/balance 三等分 → 胞内分工迹 **support**
-- **状态**：**部分结案** — 操作性区分成立；与地球多细胞同构程度仍开放
+- **状态**：**部分结案** — 操作性区分成立；**Phase 38** 验证 RPL 有机体共享 vs 子域分摊
 - **文档**：[PHASE35_MULTICELL.md](PHASE35_MULTICELL.md)
 
 ---
@@ -192,7 +192,7 @@
 - **Phase 37 田野**（富足三对照）：
   - `fertile_field` vs `open`：FISS 32→12，存活 36→16，**耗尽 support**
   - `strict`：RPL/tick 致 END support
-- **状态**：**部分结案** — 机制可观察；与多细胞共享 RPL 待 Phase 38
+- **状态**：**部分结案** — 机制可观察；**Phase 38** 多细胞共享/子域 RPL
 - **文档**：[PHASE37_RPL.md](PHASE37_RPL.md)
 
 ---

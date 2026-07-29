@@ -40,6 +40,7 @@
 | 35 | 多细胞 / 延迟独立 GAP-15 | [2026-07-29-phase35-multicell.md](2026-07-29-phase35-multicell.md) |
 | 36 | 富足分裂场 GAP-16 | [2026-07-29-phase36-fission.md](2026-07-29-phase36-fission.md) |
 | 37 | 复制配额 GAP-17 | [2026-07-29-phase37-rpl.md](2026-07-29-phase37-rpl.md) |
+| 38 | 多细胞 × RPL GAP-15/17 | [2026-07-29-phase38-multicell-rpl.md](2026-07-29-phase38-multicell-rpl.md) |
 | — | OTA 踩坑结案（验收） | [2026-07-29-ota-lessons.md](2026-07-29-ota-lessons.md) |
 
 原始 JSON：`docs/field-phase*.json`
