@@ -1959,6 +1959,52 @@ export const PHASE88_TREATMENTS = {
   },
 };
 
+const SYM_FUS_BASE = {
+  ...SYNTH_ENV_BASE,
+  synthEnabled: true,
+  meiMinAge: 28,
+  meiCooldown: 44,
+  meiBaseProb: 0.5,
+  fusPairCooldown: 36,
+  fusPacketMaxAge: 160,
+};
+
+/** Phase 89 — GAP-ORG FUS 捕获 [SYM] module 田野 */
+export const PHASE89_TREATMENTS = {
+  sym_off_fus: {
+    id: 'sym_off_fus',
+    label: 'FUS无捕获',
+    envId: 'wisdom_evolution',
+    ...SYM_FUS_BASE,
+    symCaptureEnabled: false,
+  },
+  sym_on_fus: {
+    id: 'sym_on_fus',
+    label: 'FUS+SYM捕获',
+    envId: 'wisdom_evolution',
+    ...SYM_FUS_BASE,
+    symCaptureEnabled: true,
+  },
+  sym_on_boost: {
+    id: 'sym_on_boost',
+    label: 'FUS+SYM+激进配对',
+    envId: 'wisdom_evolution',
+    ...SYM_FUS_BASE,
+    symCaptureEnabled: true,
+    meiBaseProb: 0.62,
+    fusAggressivePairing: true,
+    fusMaxPairPasses: 3,
+  },
+  sym_on_nosynth: {
+    id: 'sym_on_nosynth',
+    label: 'SYM捕获无Synth',
+    envId: 'wisdom_evolution',
+    ...SYM_FUS_BASE,
+    symCaptureEnabled: true,
+    synthEnabled: false,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2511,6 +2557,29 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase89Treatment(world, treatmentId) {
+  const treatment = PHASE89_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase89 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 89, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  world.symCaptureTotal = 0;
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 

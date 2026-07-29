@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-29 · Phase 87 [SCL] 季相
+> 更新：2026-07-29 · Phase 89 FUS `[SYM]` module
 
 ---
 
@@ -18,7 +18,7 @@
 |----|------|
 | W1–W5 + 物种验收 | ✅ prepared（Phase 82–83） |
 | GAP-10 | ⚠️ 正式部分结案（上限接受） |
-| **GAP-ORG 记录层** | ✅ Phase 84 `reservoir` + `[RSV]`（weak） |
+| **GAP-ORG 记录层** | ✅ Phase 84–89 reservoir/Synth/SYM（84/85/86 weak，87–89 support） |
 | **GAP-ENV 记录层** | ✅ Phase 85–87 band/DLC/terrain/PCP/SCL |
 | **后续路线** | ✅ [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) |
 
@@ -29,22 +29,22 @@
 | GAP | 主题 |
 |-----|------|
 | GAP-11+ | 基底耗散、消耗物用于什么 |
-| GAP-ORG | Synth 模块、FUS `[SYM]` 捕获 |
+| GAP-ORG | 模块演化、生存优势深化 |
 | GAP-ENV | 月相/air/ADV（SCL 已交付） |
 | GAP-ART | 环境硬工具与创造力 |
 
 ---
 
-## 下次更新（Phase 88+）
+## 下次更新（Phase 90+）
 
 | Phase | 目标 |
 |-------|------|
-| 88 | Synth-A/B + reservoir 耦合 |
-| 89 | FUS 捕获 `[SYM]` module |
+| 90 | `air` 标量 + 日相耦合 |
+| 91 | ADV/LTC 月相 |
 
-## 中期（87–92）
+## 中期（90–92）
 
-季相、Synth 模块、FUS 捕获、air、ADV/LTC、GAP-ART 原型
+air、ADV/LTC、GAP-ART 原型
 
 ## 长期（93+）
 
@@ -63,6 +63,7 @@ npm run field:phase85
 npm run field:phase86
 npm run field:phase87
 npm run field:phase88
+npm run field:phase89
 ```
 
 ---

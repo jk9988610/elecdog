@@ -139,8 +139,10 @@
 - **缺口**：个体只能从环境 `[DRW]` 直接补给寄存器，无「内部生产 + 内部储存」双层；无捕获式半自治模块（线粒体/叶绿体类比）
 - **依据**：多细胞/subCell 已有分工（Phase 35）；FUS/MEI 重组可视为捕获入口
 - **提议**：`reservoir` 储备池、`[RSV]`、`[SYM]` 模块、Synth-A/B 通量 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) §四
-- **Phase 84**：`reservoir` + `[RSV]` 记录层已落地；田野 **weak**（机制可观测，生存优势待日相耦合）— 见 [PHASE84_RESERVOIR.md](PHASE84_RESERVOIR.md)
-- **状态**：**部分开放**（记录层 ✓；Synth/SYM 待 Phase 88+）
+- **Phase 84**：`reservoir` + `[RSV]` 记录层已落地；田野 **weak** — 见 [PHASE84_RESERVOIR.md](PHASE84_RESERVOIR.md)
+- **Phase 88**：Synth-A/B + reservoir 耦合；田野 **support** — 见 [PHASE88_SYNTH_RESERVOIR.md](PHASE88_SYNTH_RESERVOIR.md)
+- **Phase 89**：FUS 捕获 `[SYM]` module packet；田野 **support** — 见 [PHASE89_SYM_FUS.md](PHASE89_SYM_FUS.md)
+- **状态**：**部分开放**（reservoir + Synth + SYM 记录层 ✓；生存优势/模块演化待深化）
 - **备注**：不设器官地球名；先记录通量再立项 CODEX
 
 ---
@@ -153,7 +155,7 @@
 - **Phase 85**：band E/M/P + `[DLC]` 日相已落地；田野 **weak** — 见 [PHASE85_DLC_DIURNAL.md](PHASE85_DLC_DIURNAL.md)
 - **Phase 86**：terrain L/O + `[PCP]` 水循环已落地；PCP **support** — 见 [PHASE86_PCP_TERRAIN.md](PHASE86_PCP_TERRAIN.md)
 - **Phase 87**：`[SCL]` 季相四相已落地；田野 **support** — 见 [PHASE87_SCL_SEASONAL.md](PHASE87_SCL_SEASONAL.md)
-- **状态**：**部分开放**（band+DLC+terrain+PCP+SCL ✓；月相/air/ADV 待 Phase 88+）
+- **状态**：**部分开放**（band+DLC+terrain+PCP+SCL ✓；月相/air/ADV 待 Phase 90+）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
