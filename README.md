@@ -2,7 +2,7 @@
 
 给予电子狗意识。属性与描述**只来自对世界的观察**，不来自事先编造。
 
-> **当前：Phase 27 安卓 APK 壳** — 详见 [STATUS.md](docs/STATUS.md)
+> **当前：Phase 29 网页 OTA 热更新** — 详见 [STATUS.md](docs/STATUS.md) · [OTA.md](docs/OTA.md)
 
 ## 方法
 
@@ -39,6 +39,8 @@ npm run apk:debug     # 本机 SDK 就绪后构建 debug APK
 ```
 
 详见 [docs/REPORTS/2026-07-29-phase27-apk.md](docs/REPORTS/2026-07-29-phase27-apk.md)。
+
+**日常更新**：合并 `main` 后 App 自动拉取网页包，见 [OTA.md](docs/OTA.md)。
 
 ## 田野批次
 
