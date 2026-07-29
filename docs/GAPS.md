@@ -134,12 +134,13 @@
 
 ---
 
-## GAP-ORG · 内共生模块与能量储备（待立项）
+## GAP-ORG · 内共生模块与能量储备（部分开放）
 
 - **缺口**：个体只能从环境 `[DRW]` 直接补给寄存器，无「内部生产 + 内部储存」双层；无捕获式半自治模块（线粒体/叶绿体类比）
 - **依据**：多细胞/subCell 已有分工（Phase 35）；FUS/MEI 重组可视为捕获入口
 - **提议**：`reservoir` 储备池、`[RSV]`、`[SYM]` 模块、Synth-A/B 通量 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) §四
-- **状态**：**开放**
+- **Phase 84**：`reservoir` + `[RSV]` 记录层已落地；田野 **weak**（机制可观测，生存优势待日相耦合）— 见 [PHASE84_RESERVOIR.md](PHASE84_RESERVOIR.md)
+- **状态**：**部分开放**（记录层 ✓；Synth/SYM 待 Phase 88+）
 - **备注**：不设器官地球名；先记录通量再立项 CODEX
 
 ---
