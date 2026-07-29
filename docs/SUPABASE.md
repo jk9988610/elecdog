@@ -12,11 +12,24 @@
 | **Realtime** | 多设备同步观察（后续） | Beat-Battle `subscribeSeasonChanges` |
 | **多项目共库** | 同一 anon key，不同表/桶 | Card-World `art_shop_works` + HarmonyForge `published_works` |
 
-### ElecDog 当前已接入（Phase 28）
+### ElecDog 当前已接入（Phase 28–30）
 
-1. **田野归档 `field_runs`** — 上传当前世界的 tick、存活数、仪表盘摘要；完整日志进 Storage。
-2. **田野笔记 `field_notes`** — 按 OBS 编号保存 L1 观察笔记，可关联最近一次归档。
-3. **观察台 UI** — 工具栏「上传田野归档」「云设置」面板；列表展示最近归档与笔记。
+1. **田野归档 `field_runs`** — 观察台手动上传 + 田野批处理自动入库
+2. **田野笔记 `field_notes`** — 按 OBS 编号保存 L1 观察笔记
+3. **Storage `elecdog-logs`** — `runs/` 观察台日志 · `field-reports/` 批处理报告
+4. **观察台 UI** — 上传、云设置、归档列表、**预览**日志片段
+
+### 田野批处理上传（Phase 30）
+
+```bash
+# 跑 phase26 并自动上传
+npm run field:phase26:cloud
+
+# 或手动上传已有报告
+npm run field:cloud-upload -- 26
+```
+
+环境变量：`FIELD_CLOUD=1` 或 `--cloud` 标志；可选 `SUPABASE_URL` / `SUPABASE_ANON_KEY` 覆盖内置配置。
 
 ### 后续可扩展（未实现）
 
@@ -24,7 +37,7 @@
 |------|------|
 | Realtime 订阅 | 多观察者同时看同一世界 tick 流 |
 | 世界快照恢复 | 从 Storage 日志回放/续跑（需引擎反序列化） |
-| 田野批处理同步 | `scripts/field-batch-*.mjs` 结果自动入库 |
+| 田野批处理同步 | `scripts/field-batch-*.mjs` 结果自动入库 | ✅ Phase 30（phase26） |
 | 认证与 RLS | 替换开放策略，按观察者身份读写 |
 | 与 elecat 联动 | 跨仓库共享观察数据 |
 

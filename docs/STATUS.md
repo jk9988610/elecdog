@@ -1,24 +1,23 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 29 OTA 已验收（热更 1.0.44 ✅）**
+> 更新：2026-07-29 · **Phase 30 田野云闭环**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**Phase 29**：APK 网页热更新已在真机验收；合并 `main` 后用户打开 App 即可拉 zip。**Phase 28** Supabase 云同步；开放 GAP 2 条。
+世界内核 Phase 0–26 结案；平台层至 **Phase 30**（田野批处理自动入库 + 云归档预览）；**开放 GAP 2 条**。
 
 ---
 
-## 二、观察台、APK 与更新
+## 二、观察台与分发
 
 | 项 | 值 |
 |----|-----|
-| Web 入口 | `index.html` + `src/main.js` |
-| **网页热更新** | [OTA.md](OTA.md)（含踩坑经验）· Pages `/updates/www.json` |
-| 热更验收 | 工具栏 **检查热更** · 徽章 `热更 1.0.xx` |
-| APK 整包 | 仅壳层变更时；见 `updates/apk.json` |
-| 打 APK | `npm run apk:debug` |
+| Web | https://jk9988610.github.io/elecdog/ |
+| APK | `android/`（Capacitor 7） |
+| OTA 热更 | `updates/www.json` · 见 [OTA.md](OTA.md) |
+| 云同步 | Supabase · 见 [SUPABASE.md](SUPABASE.md) |
 
 ---
 
@@ -26,18 +25,27 @@
 
 | 区块 | 阶段 | 状态 |
 |------|------|------|
+| 田野基线 | 0–10 | ✅ 结案 |
+| 世界能力 | 11–20 | ✅ |
+| 进化 / 种群 | 21–24 | ✅ |
+| L4 筛选 | 26 | ✅ `[SEL]` |
 | APK 壳 | 27 | ✅ |
-| 云同步 | 28 | ✅ Supabase |
-| **OTA 热更新** | **29** | ✅ 真机验收 |
-| **下一** | 30+ | Realtime / 田野批处理（候选） |
+| Supabase | 28 | ✅ 田野归档 + OBS |
+| OTA 热更 | 29 | ✅ 真机验收 |
+| **田野云闭环** | **30** | ✅ 批处理入库 + 预览 |
+| **下一** | **31+** | Realtime / 电子人（候选） |
 
 ---
 
-## 四、用户操作（APK）
+## 四、技术路线（OUTLINE §八）
 
-1. **首次**：安装含 OTA 的 APK（`npm run apk:debug`）
-2. **之后**：打开 App + 联网 → 自动热更，或点 **检查热更**；**无需 Termux**
-3. **仅当**：改 `android/` 或 OTA 引导逻辑时需重装 APK
+| 阶段 | 内容 | 状态 |
+|------|------|------|
+| Phase 0 | 最小内核 + 观察台 | ✅ |
+| Phase 1 PWA | 离线壳 | ⚠️ 已撤销 |
+| Phase 2 | APK | ✅ Phase 27 |
+| Phase 3 | Supabase | ✅ Phase 28–30 |
+| Phase 4+ | 电子人 | 待做 |
 
 ---
 
