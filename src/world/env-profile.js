@@ -2250,6 +2250,82 @@ const DSP_ENV_BASE = {
   dspYieldFrac: 0.3,
 };
 
+const W6_TOOL_ORG_STACK = {
+  reservoirEnabled: true,
+  synthEnabled: true,
+  symCaptureEnabled: true,
+  meiMinAge: 28,
+  meiCooldown: 44,
+  meiBaseProb: 0.5,
+  fusPairCooldown: 36,
+  fusPacketMaxAge: 160,
+};
+
+const W6_ENV_STACK = {
+  placeEnabled: true,
+  placeBand: 'M',
+  placePatch: '00',
+  placeTerrain: 'L',
+  diurnalEnabled: true,
+  diurnalPeriod: 240,
+  pcpEnabled: true,
+  seasonalEnabled: true,
+  seasonalPeriod: 960,
+  airEnabled: true,
+  airInit: 0.5,
+  advEnabled: true,
+  ltcEnabled: true,
+  artEnabled: true,
+  ventEnabled: true,
+  ventPatch: '11',
+  migEnabled: true,
+  migTargetPatch: '11',
+  migStressMin: 0.14,
+  migInterval: 48,
+  dissipationEnabled: true,
+  dspYieldFrac: 0.3,
+};
+
+const W6_STACK_OFF = {
+  reservoirEnabled: false,
+  synthEnabled: false,
+  symCaptureEnabled: false,
+  placeEnabled: false,
+  diurnalEnabled: false,
+  pcpEnabled: false,
+  seasonalEnabled: false,
+  airEnabled: false,
+  advEnabled: false,
+  ltcEnabled: false,
+  artEnabled: false,
+  ventEnabled: false,
+  migEnabled: false,
+  dissipationEnabled: false,
+};
+
+/** Phase 96 — W6 全栈耦合验收（W5 基线 vs 84–95 统一栈） */
+export const PHASE96_TREATMENTS = {
+  w6_stack_off: {
+    id: 'w6_stack_off',
+    label: 'W5智慧栈（无84+机制）',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    organismMode: 'multicell',
+    w6StackEnabled: false,
+    ...W6_STACK_OFF,
+  },
+  w6_stack_on: {
+    id: 'w6_stack_on',
+    label: 'W6统一全栈',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    organismMode: 'multicell',
+    w6StackEnabled: true,
+    ...W6_TOOL_ORG_STACK,
+    ...W6_ENV_STACK,
+  },
+};
+
 /** Phase 95 — GAP-11+ [DSP] 耗散定律记录层 */
 export const PHASE95_TREATMENTS = {
   dsp_off_ref: {
@@ -2837,6 +2913,36 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase96Treatment(world, treatmentId) {
+  const treatment = PHASE96_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase96 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 96, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  initAdvState(world);
+  initLunarStats(world);
+  initArtState(world, world.envProfile);
+  initVentState(world, world.envProfile);
+  initMigState(world);
+  initDissipationStats(world);
+  world.symCaptureTotal = 0;
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
