@@ -1,6 +1,7 @@
 // 公理: A1 — 世界节点；ACT 可指向的独立标靶（不预制猎物语义）
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { terrainNodeRegenMult } from './place.js';
 
 export const NODE_COUNT = 4;
 export const NODE_REGEN = 0.002;
@@ -17,9 +18,10 @@ export function initNodes(world) {
 }
 
 export function advanceNodes(world) {
+  const regen = NODE_REGEN * terrainNodeRegenMult(world, world.envProfile ?? {});
   for (const node of world.nodes) {
     if (node.level < 1) {
-      node.level = Math.min(1, node.level + NODE_REGEN);
+      node.level = Math.min(1, node.level + regen);
     }
   }
 }
@@ -33,9 +35,9 @@ export function selectActTarget(world, actLine, beingId, { stress = 0 } = {}) {
   return world.nodes[idx];
 }
 
-export function applyActToNode(node, actLine, beingId, tick) {
+export function applyActToNode(node, actLine, beingId, tick, { hitMult = 1 } = {}) {
   const h = hashString(`${actLine}|${beingId}|${tick}|hit`);
-  const delta = NODE_HIT_BASE + ((h >>> 8) % 20) / 1000;
+  const delta = (NODE_HIT_BASE + ((h >>> 8) % 20) / 1000) * hitMult;
   const before = node.level;
   node.level = Math.max(0, node.level - delta);
   const depleted = before >= NODE_DEP_THRESHOLD && node.level < NODE_DEP_THRESHOLD;

@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 85 GAP-ENV band + [DLC] 日相**
+> 更新：2026-07-29 · **Phase 86 GAP-ENV terrain L/O + [PCP]**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 85 交付**；GAP-ENV 记录层（band E/M/P + `[DLC]`）田野 **weak**；下一步 Phase 86 terrain + `[PCP]`。
+**智慧演化线 Phase 86 交付**；GAP-ENV terrain + `[PCP]` 田野 **weak**（PCP 4/4 support）；下一步 Phase 87 季相 `[SCL]`。
 
 ---
 

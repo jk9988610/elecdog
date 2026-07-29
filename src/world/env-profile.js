@@ -4,8 +4,10 @@
 
 import { juvenileDrawMultiplier as nurtureJuvenileDraw } from './nurture.js';
 import { initSubstrate } from './substrate.js';
-import { initWorldPlace } from './place.js';
+import { initNodes } from './nodes.js';
+import { initWorldPlace, applyTerrainSubstrateBias } from './place.js';
 import { initDiurnalStats } from './diurnal.js';
+import { initPcpState } from './pcp.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -1821,6 +1823,50 @@ export const PHASE85_TREATMENTS = {
   },
 };
 
+const PCP_ENV_BASE = {
+  ...W2_WISDOM_BASE,
+  placeBand: 'M',
+  placePatch: '00',
+  placeEnabled: true,
+  ...DLC_BASE,
+};
+
+/** Phase 86 — GAP-ENV terrain L/O + [PCP] 简化水循环田野 */
+export const PHASE86_TREATMENTS = {
+  pcp_off_L: {
+    id: 'pcp_off_L',
+    label: '无PCP·陆格',
+    envId: 'wisdom_evolution',
+    ...PCP_ENV_BASE,
+    placeTerrain: 'L',
+    pcpEnabled: false,
+  },
+  pcp_off_O: {
+    id: 'pcp_off_O',
+    label: '无PCP·海格',
+    envId: 'wisdom_evolution',
+    ...PCP_ENV_BASE,
+    placeTerrain: 'O',
+    pcpEnabled: false,
+  },
+  pcp_on_L: {
+    id: 'pcp_on_L',
+    label: 'PCP·陆格',
+    envId: 'wisdom_evolution',
+    ...PCP_ENV_BASE,
+    placeTerrain: 'L',
+    pcpEnabled: true,
+  },
+  pcp_on_O: {
+    id: 'pcp_on_O',
+    label: 'PCP·海格',
+    envId: 'wisdom_evolution',
+    ...PCP_ENV_BASE,
+    placeTerrain: 'O',
+    pcpEnabled: true,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2373,6 +2419,23 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase86Treatment(world, treatmentId) {
+  const treatment = PHASE86_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase86 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 86, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
   return world.envProfile;
 }
 
