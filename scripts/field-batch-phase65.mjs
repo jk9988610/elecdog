@@ -13,12 +13,14 @@ import {
   verifyConsciousnessCrossValidate,
 } from './lib/phase65-analyze.js';
 import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
+import { formatFieldDuration, getFieldRunMaxMs } from './lib/field-budget.js';
 
 const TREATMENT_IDS = Object.keys(PHASE65_TREATMENTS);
 const TICKS = FIELD_XLONG_TICKS;
+const MAX_MS = getFieldRunMaxMs();
 
 function runOne(treatmentId, seed) {
-  return runFieldScenario({
+  const run = runFieldScenario({
     createWorld,
     applyTreatment: applyPhase65Treatment,
     treatmentId,
@@ -28,12 +30,16 @@ function runOne(treatmentId, seed) {
     analyze: (recorder, beings, world, ctx) =>
       analyzeConsciousnessCrossValidate(recorder, beings, world, { ...ctx, ticks: TICKS }),
   });
+  process.stdout.write(` ✓ ${run.durationLabel}\n`);
+  return run;
 }
 
 console.log(
-  `Phase 65 意识交叉验证：四体 ${TICKS} tick × ${FIELD_SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`
+  `Phase 65 意识交叉验证：四体 ${TICKS} tick × ${FIELD_SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组`
 );
+console.log(`单次实验上限：${formatFieldDuration(MAX_MS)}（超时即不通过，可拆多次实验）\n`);
 
+const batchStartedAt = performance.now();
 const byTreatment = {};
 for (const tid of TREATMENT_IDS) {
   byTreatment[tid] = [];
@@ -91,6 +97,8 @@ const report = {
     crossValidate: 'EHU 完整栈 × 3840 tick × 四体信号链',
     control: '同队列无 EHU 对照',
     signalMetrics: '初始四体 socTx/socRx/socCrossRx（无全量日志）',
+    runBudgetMs: MAX_MS,
+    runBudgetRule: '单次 runFieldScenario ≤ 3 分钟，超时视为不通过',
   },
   roadmap: 'docs/PHASE65_CONSCIOUSNESS_CROSSVAL.md',
 };
@@ -128,4 +136,17 @@ for (const tid of TREATMENT_IDS) {
 }
 
 console.log('\n报告已写入 docs/field-phase65-report.json');
+
+const allRuns = TREATMENT_IDS.flatMap((tid) => byTreatment[tid]);
+const maxRunMs = Math.max(...allRuns.map((r) => r.durationMs ?? 0));
+const totalBatchMs = performance.now() - batchStartedAt;
+console.log(
+  `\n时长：单次最慢 ${formatFieldDuration(maxRunMs)} · 批处理合计 ${formatFieldDuration(totalBatchMs)} · 上限 ${formatFieldDuration(MAX_MS)}/次`
+);
+if (maxRunMs > MAX_MS) {
+  console.error(`\n✗ 存在超时单次实验（>${formatFieldDuration(MAX_MS)}），田野不通过`);
+  process.exit(1);
+}
+console.log('✓ 全部单次实验在预算内');
+
 await maybeUploadFieldReport({ phase: 65, report });

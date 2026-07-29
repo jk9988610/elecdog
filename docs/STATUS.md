@@ -18,6 +18,7 @@
 | APK | `android/`（Capacitor 7） |
 | OTA 热更 | `updates/www.json` · 见 [OTA.md](OTA.md) |
 | 云同步 | Supabase · 见 [SUPABASE.md](SUPABASE.md) |
+| 田野预算 | 单次实验 ≤ 3 分钟 · 见 [FIELD_BUDGET.md](FIELD_BUDGET.md) |
 
 ---
 

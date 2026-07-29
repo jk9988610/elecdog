@@ -5,6 +5,7 @@ import { StatsRecorder } from '../../src/recorder/stats-recorder.js';
 import { resetBirthCounters } from '../../src/core/id.js';
 import { spawnBeing } from '../../src/birth/spawn.js';
 import { buildFieldCohort, buildQuadChainCohort, FIELD_TICKS } from './field-cohort.js';
+import { checkFieldRunBudget, formatFieldDuration, getFieldRunMaxMs } from './field-budget.js';
 
 export function runFieldTicks(world, recorder, ticks, { label, onProgress } = {}) {
   const step = ticks > 1920 ? 960 : 0;
@@ -41,7 +42,9 @@ export function runFieldScenario({
   ticks = FIELD_TICKS,
   analyze,
   onProgress,
+  enforceBudget = true,
 }) {
+  const startedAt = performance.now();
   resetBirthCounters();
   const world = createWorld(`01-p${phase}-${treatmentId}-${seed}`);
   applyTreatment(world, treatmentId);
@@ -55,12 +58,22 @@ export function runFieldScenario({
     },
   });
   const metrics = analyze(recorder, world.beings, world, { cohortIds, ticks });
+  const durationMs = performance.now() - startedAt;
+  const maxMs = getFieldRunMaxMs();
+  const budgetPass = durationMs <= maxMs;
+  if (enforceBudget && !budgetPass) {
+    checkFieldRunBudget(durationMs, { label, phase });
+  }
   return {
     treatmentId,
     seed,
+    phase,
     metrics,
     cohortSize: cohort.length,
     cohortIds,
+    durationMs,
+    durationLabel: formatFieldDuration(durationMs),
+    budgetPass,
     totalCounts: recorder.counts,
     entriesKept: recorder.entries.length,
   };

@@ -8,6 +8,8 @@ export const FIELD_LONG_TICKS = 1920;
 export const FIELD_XLONG_TICKS = 3840;
 export const FIELD_SEEDS = [0, 1, 2, 3];
 
+/** 单次田野实验时长上限：见 scripts/lib/field-budget.js（默认 3 分钟，超时即不通过） */
+
 /** 四体信号链田野 — 001–004（每种子固定 16 位身份证，不依赖全局序号） */
 export function buildQuadChainCohort(seed = 0) {
   const dateStr = '20260729';
