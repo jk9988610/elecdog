@@ -112,6 +112,9 @@ function renderConsciousnessCompact(c, { label }) {
 
 export function renderImmersionPanel(consciousness, recorder, { label }) {
   const ehuCount = CODEX_ENTRIES.filter((e) => e.tag === 'EHU').length;
+  const closureTag = consciousness?.lineClosed
+    ? '<span class="consciousness-badge active">意识线结案</span>'
+    : '';
 
   return `
     <section class="panel immersion-panel" id="immersion-panel" aria-label="意识沉浸">
@@ -120,6 +123,7 @@ export function renderImmersionPanel(consciousness, recorder, { label }) {
           <h2>意识沉浸</h2>
           <p class="panel-hint">意识 · 内在流 · 辞典同屏 — 工具栏可展开完整辞典 / 内在流</p>
         </div>
+        <div class="immersion-head-badges">${closureTag}</div>
         <span class="immersion-meta">${CODEX_META.count} 条辞典 · EHU ${ehuCount} 条</span>
       </div>
       <div class="immersion-grid">
