@@ -1,0 +1,1021 @@
+{
+  "runAt": "2026-07-29T13:41:23.080Z",
+  "phase": 52,
+  "extension": "profile_stack_integration",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "fertile_no_stack": {
+      "id": "fertile_no_stack",
+      "label": "富足场（无档案层）",
+      "envId": "fertile_field"
+    },
+    "fertile_stack_observe": {
+      "id": "fertile_stack_observe",
+      "label": "富足场+四层观测",
+      "envId": "fertile_field",
+      "experienceEnabled": true,
+      "experienceFeedback": false,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": false,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": false,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": false
+    },
+    "fertile_stack_feedback": {
+      "id": "fertile_stack_feedback",
+      "label": "富足场+四层反馈",
+      "envId": "fertile_field",
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true
+    },
+    "fertile_stack_dual": {
+      "id": "fertile_stack_dual",
+      "label": "富足四层+双路径",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true
+    }
+  },
+  "aggregate": {
+    "fertile_no_stack": {
+      "label": "富足场（无档案层）",
+      "meanTotalLayers": 0,
+      "meanExp": 0,
+      "meanReg": 0,
+      "meanMtb": 0,
+      "meanCoop": 0,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "meanFus": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_no_stack",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 0,
+            "regTransitions": 0,
+            "mtbTransitions": 0,
+            "coopTransitions": 0,
+            "totalLayerTransitions": 0,
+            "meanLayerTransitions": 0,
+            "meanExpTransitions": 0,
+            "meanRegTransitions": 0,
+            "meanMtbTransitions": 0,
+            "meanCoopTransitions": 0
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_stack",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 0,
+            "regTransitions": 0,
+            "mtbTransitions": 0,
+            "coopTransitions": 0,
+            "totalLayerTransitions": 0,
+            "meanLayerTransitions": 0,
+            "meanExpTransitions": 0,
+            "meanRegTransitions": 0,
+            "meanMtbTransitions": 0,
+            "meanCoopTransitions": 0
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_stack",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 0,
+            "regTransitions": 0,
+            "mtbTransitions": 0,
+            "coopTransitions": 0,
+            "totalLayerTransitions": 0,
+            "meanLayerTransitions": 0,
+            "meanExpTransitions": 0,
+            "meanRegTransitions": 0,
+            "meanMtbTransitions": 0,
+            "meanCoopTransitions": 0
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_stack",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 0,
+            "regTransitions": 0,
+            "mtbTransitions": 0,
+            "coopTransitions": 0,
+            "totalLayerTransitions": 0,
+            "meanLayerTransitions": 0,
+            "meanExpTransitions": 0,
+            "meanRegTransitions": 0,
+            "meanMtbTransitions": 0,
+            "meanCoopTransitions": 0
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        }
+      ]
+    },
+    "fertile_stack_observe": {
+      "label": "富足场+四层观测",
+      "meanTotalLayers": 429.5,
+      "meanExp": 36,
+      "meanReg": 56,
+      "meanMtb": 297.5,
+      "meanCoop": 40,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "meanFus": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_stack_observe",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 58,
+            "mtbTransitions": 303,
+            "coopTransitions": 44,
+            "totalLayerTransitions": 441,
+            "meanLayerTransitions": 12.25,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.61,
+            "meanMtbTransitions": 8.42,
+            "meanCoopTransitions": 1.22
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 58,
+            "evolution:COOP": 44,
+            "evolution:MTB": 303,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 510
+        },
+        {
+          "treatmentId": "fertile_stack_observe",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 56,
+            "mtbTransitions": 298,
+            "coopTransitions": 42,
+            "totalLayerTransitions": 432,
+            "meanLayerTransitions": 12,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.56,
+            "meanMtbTransitions": 8.28,
+            "meanCoopTransitions": 1.17
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 56,
+            "evolution:COOP": 42,
+            "evolution:MTB": 298,
+            "evolution:RPL": 38,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 503
+        },
+        {
+          "treatmentId": "fertile_stack_observe",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 44,
+            "mtbTransitions": 275,
+            "coopTransitions": 37,
+            "totalLayerTransitions": 392,
+            "meanLayerTransitions": 10.89,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.22,
+            "meanMtbTransitions": 7.64,
+            "meanCoopTransitions": 1.03
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 44,
+            "evolution:COOP": 37,
+            "evolution:MTB": 275,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 461
+        },
+        {
+          "treatmentId": "fertile_stack_observe",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 66,
+            "mtbTransitions": 314,
+            "coopTransitions": 37,
+            "totalLayerTransitions": 453,
+            "meanLayerTransitions": 12.58,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.83,
+            "meanMtbTransitions": 8.72,
+            "meanCoopTransitions": 1.03
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 66,
+            "evolution:COOP": 37,
+            "evolution:MTB": 314,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 522
+        }
+      ]
+    },
+    "fertile_stack_feedback": {
+      "label": "富足场+四层反馈",
+      "meanTotalLayers": 373,
+      "meanExp": 36,
+      "meanReg": 65,
+      "meanMtb": 235.25,
+      "meanCoop": 36.75,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "meanFus": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_stack_feedback",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 74,
+            "mtbTransitions": 203,
+            "coopTransitions": 39,
+            "totalLayerTransitions": 352,
+            "meanLayerTransitions": 9.78,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 2.06,
+            "meanMtbTransitions": 5.64,
+            "meanCoopTransitions": 1.08
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 74,
+            "evolution:COOP": 39,
+            "evolution:MTB": 203,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 422
+        },
+        {
+          "treatmentId": "fertile_stack_feedback",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 64,
+            "mtbTransitions": 248,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 384,
+            "meanLayerTransitions": 10.67,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.78,
+            "meanMtbTransitions": 6.89,
+            "meanCoopTransitions": 1
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 64,
+            "evolution:COOP": 36,
+            "evolution:MTB": 248,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 453
+        },
+        {
+          "treatmentId": "fertile_stack_feedback",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 58,
+            "mtbTransitions": 270,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 400,
+            "meanLayerTransitions": 11.11,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.61,
+            "meanMtbTransitions": 7.5,
+            "meanCoopTransitions": 1
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 58,
+            "evolution:COOP": 36,
+            "evolution:MTB": 270,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 470
+        },
+        {
+          "treatmentId": "fertile_stack_feedback",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "fusEventCount": 0,
+            "expTransitions": 36,
+            "regTransitions": 64,
+            "mtbTransitions": 220,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 356,
+            "meanLayerTransitions": 9.89,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 1.78,
+            "meanMtbTransitions": 6.11,
+            "meanCoopTransitions": 1
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 64,
+            "evolution:COOP": 36,
+            "evolution:MTB": 220,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 426
+        }
+      ]
+    },
+    "fertile_stack_dual": {
+      "label": "富足四层+双路径",
+      "meanTotalLayers": 2573,
+      "meanExp": 36,
+      "meanReg": 859.5,
+      "meanMtb": 1638.5,
+      "meanCoop": 39,
+      "meanAlive": 36,
+      "meanFiss": 12,
+      "meanFus": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_stack_dual",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 167,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.44,
+            "beingsWithRpl": 36,
+            "meiEventCount": 17,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 26,
+            "recombinedAlive": 12,
+            "withMeiPacket": 5,
+            "totalMeiCount": 17,
+            "totalFusCount": 24,
+            "diversityRatio": 0.722,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 5,
+            "fusPerMei": 1.412,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 17,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 17,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 13,
+            "xbcnEventCount": 17,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 29,
+            "expTransitions": 36,
+            "regTransitions": 862,
+            "mtbTransitions": 1607,
+            "coopTransitions": 42,
+            "totalLayerTransitions": 2547,
+            "meanLayerTransitions": 70.75,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 23.94,
+            "meanMtbTransitions": 44.64,
+            "meanCoopTransitions": 1.17
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 862,
+            "evolution:COOP": 42,
+            "evolution:MTB": 1607,
+            "evolution:RPL": 167,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 13,
+            "evolution:MEI": 17,
+            "evolution:XBCN": 17,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 2806
+        },
+        {
+          "treatmentId": "fertile_stack_dual",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 169,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 3,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 31,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.42,
+            "beingsWithRpl": 36,
+            "meiEventCount": 17,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 5,
+            "totalMeiCount": 17,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 8,
+            "plgEventCount": 0,
+            "packetBacklog": 5,
+            "fusPerMei": 1.412,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 17,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 17,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 21,
+            "xbcnEventCount": 17,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 29,
+            "expTransitions": 36,
+            "regTransitions": 934,
+            "mtbTransitions": 1952,
+            "coopTransitions": 37,
+            "totalLayerTransitions": 2959,
+            "meanLayerTransitions": 82.19,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 25.94,
+            "meanMtbTransitions": 54.22,
+            "meanCoopTransitions": 1.03
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 934,
+            "evolution:COOP": 37,
+            "evolution:MTB": 1952,
+            "evolution:RPL": 169,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 21,
+            "evolution:MEI": 17,
+            "evolution:XBCN": 17,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 3228
+        },
+        {
+          "treatmentId": "fertile_stack_dual",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 160,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 5,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 31,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.861,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 18,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitions": 36,
+            "regTransitions": 745,
+            "mtbTransitions": 1551,
+            "coopTransitions": 37,
+            "totalLayerTransitions": 2369,
+            "meanLayerTransitions": 65.81,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 20.69,
+            "meanMtbTransitions": 43.08,
+            "meanCoopTransitions": 1.03
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 745,
+            "evolution:COOP": 37,
+            "evolution:MTB": 1551,
+            "evolution:RPL": 160,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 18,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 2622
+        },
+        {
+          "treatmentId": "fertile_stack_dual",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 160,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.42,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 14,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitions": 36,
+            "regTransitions": 897,
+            "mtbTransitions": 1444,
+            "coopTransitions": 40,
+            "totalLayerTransitions": 2417,
+            "meanLayerTransitions": 67.14,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 24.92,
+            "meanMtbTransitions": 40.11,
+            "meanCoopTransitions": 1.11
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 897,
+            "evolution:COOP": 40,
+            "evolution:MTB": 1444,
+            "evolution:RPL": 160,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 14,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 2668
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "observeVsNone": {
+        "H1_allLayersFire": {
+          "verdict": "support",
+          "exp": 36,
+          "reg": 58,
+          "mtb": 303,
+          "coop": 44
+        },
+        "H2_totalTransitions": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 441,
+          "delta": 441
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackSurvival": {
+          "verdict": "support",
+          "observe": 36,
+          "feedback": 36,
+          "delta": 0
+        },
+        "H4_feedbackFiss": {
+          "verdict": "support",
+          "observe": 24,
+          "feedback": 24,
+          "delta": 0
+        },
+        "H5_layerCoexist": {
+          "verdict": "weak",
+          "observe": 441,
+          "feedback": 352
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualHasFus": {
+          "verdict": "support",
+          "dualFus": 24,
+          "dualFiss": 12
+        },
+        "H7_stackWithDual": {
+          "verdict": "support",
+          "layers": 2547,
+          "repro": 36,
+          "layerDelta": 2195,
+          "fusDelta": 24
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "observeVsNone": {
+        "H1_allLayersFire": {
+          "verdict": "support",
+          "exp": 36,
+          "reg": 56,
+          "mtb": 298,
+          "coop": 42
+        },
+        "H2_totalTransitions": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 432,
+          "delta": 432
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackSurvival": {
+          "verdict": "support",
+          "observe": 36,
+          "feedback": 36,
+          "delta": 0
+        },
+        "H4_feedbackFiss": {
+          "verdict": "support",
+          "observe": 24,
+          "feedback": 24,
+          "delta": 0
+        },
+        "H5_layerCoexist": {
+          "verdict": "support",
+          "observe": 432,
+          "feedback": 384
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualHasFus": {
+          "verdict": "support",
+          "dualFus": 24,
+          "dualFiss": 12
+        },
+        "H7_stackWithDual": {
+          "verdict": "support",
+          "layers": 2959,
+          "repro": 36,
+          "layerDelta": 2575,
+          "fusDelta": 24
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "observeVsNone": {
+        "H1_allLayersFire": {
+          "verdict": "support",
+          "exp": 36,
+          "reg": 44,
+          "mtb": 275,
+          "coop": 37
+        },
+        "H2_totalTransitions": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 392,
+          "delta": 392
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackSurvival": {
+          "verdict": "support",
+          "observe": 36,
+          "feedback": 36,
+          "delta": 0
+        },
+        "H4_feedbackFiss": {
+          "verdict": "support",
+          "observe": 24,
+          "feedback": 24,
+          "delta": 0
+        },
+        "H5_layerCoexist": {
+          "verdict": "support",
+          "observe": 392,
+          "feedback": 400
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualHasFus": {
+          "verdict": "support",
+          "dualFus": 24,
+          "dualFiss": 12
+        },
+        "H7_stackWithDual": {
+          "verdict": "support",
+          "layers": 2369,
+          "repro": 36,
+          "layerDelta": 1969,
+          "fusDelta": 24
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "observeVsNone": {
+        "H1_allLayersFire": {
+          "verdict": "support",
+          "exp": 36,
+          "reg": 66,
+          "mtb": 314,
+          "coop": 37
+        },
+        "H2_totalTransitions": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 453,
+          "delta": 453
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackSurvival": {
+          "verdict": "support",
+          "observe": 36,
+          "feedback": 36,
+          "delta": 0
+        },
+        "H4_feedbackFiss": {
+          "verdict": "support",
+          "observe": 24,
+          "feedback": 24,
+          "delta": 0
+        },
+        "H5_layerCoexist": {
+          "verdict": "weak",
+          "observe": 453,
+          "feedback": 356
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualHasFus": {
+          "verdict": "support",
+          "dualFus": 24,
+          "dualFiss": 12
+        },
+        "H7_stackWithDual": {
+          "verdict": "support",
+          "layers": 2417,
+          "repro": 36,
+          "layerDelta": 2061,
+          "fusDelta": 24
+        }
+      }
+    }
+  ],
+  "design": {
+    "layers": "EXP + REG + MTB + COOP 同时启用",
+    "dual": "四层 + 多细胞双路径竞争"
+  },
+  "roadmap": "docs/PHASE52_PROFILE_STACK.md"
+}

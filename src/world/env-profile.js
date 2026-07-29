@@ -520,6 +520,38 @@ export const ENV_PROFILES = {
     cooperationProfileEnabled: true,
     cooperationFeedback: true,
   },
+  fertile_stack_full: {
+    id: 'fertile_stack_full',
+    label: '富足场+四层档案整合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplSenescenceEnd: false,
+    rplTickCapEnabled: false,
+    experienceEnabled: true,
+    experienceFeedback: true,
+    expJuvenileTicks: 48,
+    registerProfileEnabled: true,
+    registerFeedback: true,
+    registerCouplingBase: 0.02,
+    metabolicProfileEnabled: true,
+    metabolicFeedback: true,
+    cooperationProfileEnabled: true,
+    cooperationFeedback: true,
+  },
 };
 
 const REN_BASE = {
@@ -912,6 +944,62 @@ export const PHASE51_TREATMENTS = {
   },
 };
 
+/** Phase 52 — 四层档案整合 EXP+REG+MTB+COOP */
+export const PHASE52_TREATMENTS = {
+  fertile_no_stack: {
+    id: 'fertile_no_stack',
+    label: '富足场（无档案层）',
+    envId: 'fertile_field',
+  },
+  fertile_stack_observe: {
+    id: 'fertile_stack_observe',
+    label: '富足场+四层观测',
+    envId: 'fertile_field',
+    experienceEnabled: true,
+    experienceFeedback: false,
+    expJuvenileTicks: 48,
+    registerProfileEnabled: true,
+    registerFeedback: false,
+    registerCouplingBase: 0.02,
+    metabolicProfileEnabled: true,
+    metabolicFeedback: false,
+    cooperationProfileEnabled: true,
+    cooperationFeedback: false,
+  },
+  fertile_stack_feedback: {
+    id: 'fertile_stack_feedback',
+    label: '富足场+四层反馈',
+    envId: 'fertile_field',
+    experienceEnabled: true,
+    experienceFeedback: true,
+    expJuvenileTicks: 48,
+    registerProfileEnabled: true,
+    registerFeedback: true,
+    registerCouplingBase: 0.02,
+    metabolicProfileEnabled: true,
+    metabolicFeedback: true,
+    cooperationProfileEnabled: true,
+    cooperationFeedback: true,
+  },
+  fertile_stack_dual: {
+    id: 'fertile_stack_dual',
+    label: '富足四层+双路径',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    experienceEnabled: true,
+    experienceFeedback: true,
+    expJuvenileTicks: 48,
+    registerProfileEnabled: true,
+    registerFeedback: true,
+    registerCouplingBase: 0.02,
+    metabolicProfileEnabled: true,
+    metabolicFeedback: true,
+    cooperationProfileEnabled: true,
+    cooperationFeedback: true,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1273,6 +1361,17 @@ export function applyPhase51Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 51, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase52Treatment(world, treatmentId) {
+  const treatment = PHASE52_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase52 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 52, treatmentId, ...treatment };
   return world.envProfile;
 }
 
