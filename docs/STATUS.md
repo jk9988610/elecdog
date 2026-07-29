@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 94 GAP-ENV patch 迁徙 [MIG]**
+> 更新：2026-07-29 · **Phase 95 GAP-11+ [DSP] 耗散定律**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**Phase 94 交付**；patch 迁徙田野 **support**（4/4）；路线图 §10.3 空间项 vent+迁徙 完成；下一步 W6 / GAP-11+。
+**Phase 95 交付**；DRW 耗散分流田野 **support**（4/4 yieldΔ=0.20）；下一步 W6 全栈耦合验收。
 
 ---
 
@@ -99,6 +99,7 @@
 | **GAP-ART** | **92** | ✅ ART 场态 support |
 | **GAP-ENV vent** | **93** | ✅ 地热 VTN support |
 | **GAP-ENV MIG** | **94** | ✅ patch 迁徙 support |
+| **GAP-11+ DSP** | **95** | ✅ 耗散定律 support |
 
 ---
 

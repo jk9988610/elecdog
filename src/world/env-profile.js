@@ -15,6 +15,7 @@ import { initLunarStats } from './ltc.js';
 import { initArtState } from './art.js';
 import { initVentState } from './vent.js';
 import { initMigState } from './mig.js';
+import { initDissipationStats } from './dissip.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -2237,6 +2238,53 @@ export const PHASE94_TREATMENTS = {
   },
 };
 
+const DSP_ENV_BASE = {
+  ...MIG_ENV_BASE,
+  migEnabled: false,
+  ventEnabled: false,
+  artEnabled: false,
+  advEnabled: false,
+  ltcEnabled: false,
+  placePatch: '11',
+  dissipationEnabled: true,
+  dspYieldFrac: 0.3,
+};
+
+/** Phase 95 — GAP-11+ [DSP] 耗散定律记录层 */
+export const PHASE95_TREATMENTS = {
+  dsp_off_ref: {
+    id: 'dsp_off_ref',
+    label: '无DSP账本',
+    envId: 'wisdom_evolution',
+    ...DSP_ENV_BASE,
+    dissipationEnabled: false,
+  },
+  dsp_on_ref: {
+    id: 'dsp_on_ref',
+    label: 'DSP y=0.3',
+    envId: 'wisdom_evolution',
+    ...DSP_ENV_BASE,
+    dissipationEnabled: true,
+    dspYieldFrac: 0.3,
+  },
+  dsp_on_low: {
+    id: 'dsp_on_low',
+    label: 'DSP y=0.2',
+    envId: 'wisdom_evolution',
+    ...DSP_ENV_BASE,
+    dissipationEnabled: true,
+    dspYieldFrac: 0.2,
+  },
+  dsp_on_high: {
+    id: 'dsp_on_high',
+    label: 'DSP y=0.4',
+    envId: 'wisdom_evolution',
+    ...DSP_ENV_BASE,
+    dissipationEnabled: true,
+    dspYieldFrac: 0.4,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2789,6 +2837,35 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase95Treatment(world, treatmentId) {
+  const treatment = PHASE95_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase95 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 95, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  initAdvState(world);
+  initLunarStats(world);
+  initArtState(world, world.envProfile);
+  initVentState(world, world.envProfile);
+  initMigState(world);
+  initDissipationStats(world);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 

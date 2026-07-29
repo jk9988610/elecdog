@@ -38,6 +38,7 @@ import { tickArt, tryArtDeposit, artEnabled, artDrawBonus } from '../world/art.j
 import { tickVent, ventEnabled } from '../world/vent.js';
 import { tickMigration } from '../world/mig.js';
 import { meanStress } from '../world/selection.js';
+import { dissipationEnabled } from '../world/dissip.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -447,6 +448,15 @@ export function stepWorld(world, recorder) {
         `[DRW] e${met.draw.idx} -${met.draw.amount.toFixed(4)} act${met.draw.activity}`,
         { kind: 'DRW', ...met.draw }
       );
+      if (met.draw.dsp && dissipationEnabled(profile)) {
+        const d = met.draw.dsp;
+        recorder.metabolism(
+          world.tick,
+          being.id,
+          `[DSP] e${d.idx} +${d.toReg.toFixed(4)} lost ${d.lost.toFixed(4)} y${d.frac}`,
+          { kind: 'DSP', ...d }
+        );
+      }
       if (met.draw.subCellId) {
         recorder.cell(
           world.tick,
