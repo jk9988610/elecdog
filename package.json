@@ -77,6 +77,7 @@
     "field:phase53": "node scripts/field-batch-phase53.mjs",
     "field:phase53:cloud": "node scripts/field-batch-phase53.mjs --cloud",
     "field:cloud-upload": "node scripts/field-cloud-upload.mjs",
+    "field:stack:cloud": "node scripts/field-stack-cloud.mjs --cloud",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

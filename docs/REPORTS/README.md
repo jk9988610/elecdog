@@ -33,6 +33,7 @@
 | 28 | Supabase 田野云同步 | [2026-07-29-phase28-supabase.md](2026-07-29-phase28-supabase.md) |
 | 29 | 网页 OTA 热更新 | [2026-07-29-phase29-ota.md](2026-07-29-phase29-ota.md) |
 | 30 | 田野云闭环 | [2026-07-29-phase30-field-cloud.md](2026-07-29-phase30-field-cloud.md) |
+| 54 | 四层栈云归档 | [PHASE54_CLOUD_ARCHIVE.md](../PHASE54_CLOUD_ARCHIVE.md) |
 | 31 | Realtime 多设备同步 | [2026-07-29-phase31-realtime.md](2026-07-29-phase31-realtime.md) |
 | 32 | 原版/类比双呈现 | [2026-07-29-phase32-analogy.md](2026-07-29-phase32-analogy.md) |
 | 33 | 社会合作田野 GAP-13 | [2026-07-29-phase33-social.md](2026-07-29-phase33-social.md) |

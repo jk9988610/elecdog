@@ -1,13 +1,19 @@
 /**
- * 田野批处理报告上传 Supabase（Phase 30）
+ * 田野批处理报告上传 Supabase（Phase 30 / 54 扩展）
  */
 import { randomUUID } from 'crypto';
+import { readFileSync } from 'fs';
 import {
   getCloudConfig,
   isCloudEnabled,
   LOG_BUCKET,
   shouldUploadFieldCloud,
 } from './cloud-config.mjs';
+import {
+  buildStackManifest,
+  STACK_PHASES,
+  summarizeAggregateReport,
+} from './field-stack-summary.mjs';
 
 function headers(contentType = 'application/json') {
   const { anonKey } = getCloudConfig();
@@ -55,12 +61,17 @@ async function uploadJson(path, payload) {
   return path;
 }
 
-function summarizeBatchReport(phase, report) {
+export function summarizeBatchReport(phase, report) {
   const ticks = report.ticks ?? report.tick ?? 0;
   let alive = 0;
   let total = 0;
+  let aggregateSummary = null;
 
-  if (report.catastrophe?.length) {
+  if (report.aggregate && typeof report.aggregate === 'object') {
+    aggregateSummary = summarizeAggregateReport({ ...report, phase });
+    alive = aggregateSummary.aliveAtEnd;
+    total = aggregateSummary.totalBeings;
+  } else if (report.catastrophe?.length) {
     const last = report.catastrophe[report.catastrophe.length - 1];
     alive = last?.viability?.aliveAtEnd ?? last?.selection?.aliveCount ?? 0;
     total = last?.viability?.totalBeings ?? 4;
@@ -82,8 +93,8 @@ function summarizeBatchReport(phase, report) {
     total = report.experiments.length;
   }
 
-  return {
-    kind: 'field-batch',
+  const summary = {
+    kind: report.kind === 'field-stack-manifest' ? 'field-stack-manifest' : 'field-batch',
     phase,
     extension: report.extension ?? null,
     ticks,
@@ -92,6 +103,22 @@ function summarizeBatchReport(phase, report) {
     totalBeings: total,
     keys: Object.keys(report).filter((k) => !['runAt'].includes(k)),
   };
+
+  if (aggregateSummary) {
+    summary.mode = aggregateSummary.mode;
+    summary.cohort = aggregateSummary.cohort;
+    summary.seedCount = aggregateSummary.seedCount;
+    summary.treatmentCount = aggregateSummary.treatmentCount;
+    summary.treatments = aggregateSummary.treatments;
+    summary.headline = aggregateSummary.headline;
+  }
+
+  if (report.kind === 'field-stack-manifest') {
+    summary.stackPhases = report.stackPhases ?? [];
+    summary.headlines = report.headlines ?? [];
+  }
+
+  return summary;
 }
 
 /**
@@ -107,17 +134,23 @@ export async function uploadFieldReport({ phase, report, label = 'field-batch' }
   const summary = summarizeBatchReport(phase, report);
   const archive = {
     exportedAt: new Date().toISOString(),
-    kind: 'field-batch',
+    kind: summary.kind ?? 'field-batch',
     phase,
+    summary,
     report,
   };
 
   await uploadJson(logPath, archive);
 
+  const worldName =
+    summary.kind === 'field-stack-manifest'
+      ? `Phase ${phase} 四层栈云归档`
+      : `Phase ${phase} 田野批处理`;
+
   const row = await insertFieldRun({
     id,
     place: '01',
-    world_name: `Phase ${phase} 田野批处理`,
+    world_name: worldName,
     tick: summary.ticks,
     alive_count: summary.aliveAtEnd,
     total_beings: summary.totalBeings,
@@ -126,7 +159,12 @@ export async function uploadFieldReport({ phase, report, label = 'field-batch' }
     log_path: logPath,
   });
 
-  return { ...row, logPath, publicUrl: `${getCloudConfig().url.replace(/\/$/, '')}/storage/v1/object/public/${LOG_BUCKET}/${logPath}` };
+  return {
+    ...row,
+    logPath,
+    publicUrl: `${getCloudConfig().url.replace(/\/$/, '')}/storage/v1/object/public/${LOG_BUCKET}/${logPath}`,
+    summary,
+  };
 }
 
 export async function maybeUploadFieldReport(opts) {
@@ -134,4 +172,42 @@ export async function maybeUploadFieldReport(opts) {
   const result = await uploadFieldReport(opts);
   console.log(`\n☁ 已上传田野批处理 Phase ${opts.phase} → ${result.logPath}`);
   return result;
+}
+
+export function readLocalFieldReport(phase) {
+  const reportPath = new URL(`../../docs/field-phase${phase}-report.json`, import.meta.url);
+  return JSON.parse(readFileSync(reportPath, 'utf8'));
+}
+
+/**
+ * @param {{ phases?: number[], label?: string }} [opts]
+ */
+export async function uploadFieldStack({ phases = STACK_PHASES, label = 'field-stack-batch' } = {}) {
+  const uploads = [];
+  for (const phase of phases) {
+    const report = readLocalFieldReport(phase);
+    const result = await uploadFieldReport({ phase, report, label });
+    uploads.push({
+      phase,
+      logPath: result.logPath,
+      publicUrl: result.publicUrl,
+      summary: result.summary,
+    });
+    console.log(`  Phase ${phase} → ${result.logPath}`);
+  }
+
+  const manifest = buildStackManifest(uploads);
+  const manifestResult = await uploadFieldReport({
+    phase: 54,
+    report: manifest,
+    label: 'field-stack-manifest',
+  });
+  console.log(`\n☁ 四层栈归档清单 Phase 54 → ${manifestResult.logPath}`);
+
+  return { uploads, manifest: manifestResult };
+}
+
+export async function maybeUploadFieldStack(opts) {
+  if (!shouldUploadFieldCloud()) return null;
+  return uploadFieldStack(opts);
 }

@@ -31,6 +31,20 @@ npm run field:cloud-upload -- 26
 
 环境变量：`FIELD_CLOUD=1` 或 `--cloud` 标志；可选 `SUPABASE_URL` / `SUPABASE_ANON_KEY` 覆盖内置配置。
 
+### 四层栈批量归档（Phase 54）
+
+```bash
+# 批量上传 Phase 48–53 + 生成栈清单
+npm run field:stack:cloud
+
+# 范围补传
+node scripts/field-cloud-upload.mjs 48-53
+```
+
+Phase 48–53 统计田野的 `aggregate` 格式会在 `field_runs.summary` 中写入处理组均值与头指标；观察台预览可直接阅读。
+
+详见 [PHASE54_CLOUD_ARCHIVE.md](PHASE54_CLOUD_ARCHIVE.md)。
+
 ### 多设备观察同步（Phase 31）
 
 **不是**多台设备看同一个正在运行的世界 tick。  
@@ -46,7 +60,7 @@ npm run field:cloud-upload -- 26
 |------|------|
 | 共享世界 tick 流 | 需引擎反序列化 + 状态广播，远期 |
 | 世界快照恢复 | 从 Storage 日志回放/续跑（需引擎反序列化） |
-| 田野批处理同步 | `scripts/field-batch-*.mjs` 结果自动入库 | ✅ Phase 30（phase26） |
+| 田野批处理同步 | `scripts/field-batch-*.mjs` 结果自动入库 | ✅ Phase 30–54 |
 | 认证与 RLS | 替换开放策略，按观察者身份读写 |
 | 与 elecat 联动 | 跨仓库共享观察数据 |
 

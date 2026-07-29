@@ -424,7 +424,12 @@ export class ObserverApp {
         const link = logUrl
           ? `<a href="${escapeHtml(logUrl)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">原始 JSON</a>`
           : '';
-        const kind = r.summary?.kind === 'field-batch' ? '批处理' : '观察台';
+        const kind =
+          r.summary?.kind === 'field-stack-manifest'
+            ? '栈归档'
+            : r.summary?.kind === 'field-batch'
+              ? '批处理'
+              : '观察台';
         return `<li class="cloud-run-item" data-log-path="${escapeHtml(r.log_path || '')}" data-run-title="${escapeHtml(r.world_name || '归档')}">
           <span class="cloud-list-title">${escapeHtml(r.world_name || '世界')} · tick ${r.tick} <span class="cloud-tag">${kind}</span></span>
           <span class="cloud-list-meta">${escapeHtml(r.observer_label || '—')} · 存活 ${r.alive_count}/${r.total_beings} · ${fmtDate(r.created_at)} · ${link} · <button type="button" class="link-btn" data-preview>预览</button></span>
@@ -460,16 +465,49 @@ export class ObserverApp {
       if (preview.world) {
         lines.push(`世界: ${preview.world.name} · tick ${preview.world.tick} · 存活 ${preview.world.aliveCount ?? '—'}/${preview.world.beingCount ?? '—'}`);
       }
-      if (preview.summary?.phase) {
-        lines.push(`Phase: ${preview.summary.phase} · ${preview.summary.extension ?? ''}`);
-        lines.push(`键: ${(preview.summary.keys || []).join(', ')}`);
+      const sum = preview.summary ?? preview.report?.summary;
+      if (sum?.phase) {
+        lines.push(`Phase: ${sum.phase} · ${sum.extension ?? ''}`);
+        if (sum.cohort) lines.push(`队列: ${sum.cohort} · ${sum.seedCount ?? '—'} 种子`);
+        if (sum.headline) {
+          lines.push(
+            `指标: ${sum.headline.metric}=${sum.headline.value} (${sum.headline.treatmentLabel ?? sum.headline.treatmentId})`
+          );
+        }
+        if (sum.headlines?.length) {
+          lines.push('— 四层栈指标 —');
+          for (const h of sum.headlines) {
+            lines.push(`  P${h.phase} ${h.metric}=${h.value} · ${h.treatment}`);
+          }
+        }
+        if (sum.treatments?.length) {
+          lines.push('— 处理组均值 —');
+          for (const t of sum.treatments) {
+            const bits = Object.entries(t)
+              .filter(([k, v]) => k.startsWith('mean') && v != null)
+              .map(([k, v]) => `${k.replace(/^mean/, '').toUpperCase()}=${v}`);
+            lines.push(`  ${t.label ?? t.id}: ${bits.join(' · ')}`);
+          }
+        } else if (sum.keys?.length) {
+          lines.push(`键: ${sum.keys.join(', ')}`);
+        }
       }
       lines.push(`日志条目: ${preview.entryCount}`);
       lines.push('');
-      if (preview.report) {
+      if (preview.report && !sum?.treatments?.length && !sum?.headlines?.length) {
         lines.push('— 批处理报告摘要 —');
-        lines.push(JSON.stringify(preview.report, null, 2).slice(0, 4000));
-        if (JSON.stringify(preview.report).length > 4000) lines.push('…（已截断，点「原始 JSON」查看完整）');
+        const body =
+          preview.report.phases || preview.report.aggregate
+            ? {
+                phase: preview.report.phase,
+                extension: preview.report.extension,
+                aggregate: preview.report.aggregate,
+                headlines: preview.report.headlines,
+                phases: preview.report.phases,
+              }
+            : preview.report;
+        lines.push(JSON.stringify(body, null, 2).slice(0, 4000));
+        if (JSON.stringify(body).length > 4000) lines.push('…（已截断，点「原始 JSON」查看完整）');
       }
       if (preview.previewEntries.length) {
         lines.push('');
