@@ -36,7 +36,7 @@ const assessment = assessWisdomConditions({ memoryFeedbackInCode, phase70FieldVe
 
 const report = {
   runAt: new Date().toISOString(),
-  phase: 75,
+  phase: 76,
   extension: 'wisdom_checklist',
   kind: 'wisdom-birth-conditions',
   assessment,
@@ -45,7 +45,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 76 W4 — lineage memory echo',
+  next: 'Phase 77+ W5 — long-horizon open evolution field',
 };
 
 writeFileSync(

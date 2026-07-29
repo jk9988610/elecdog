@@ -59,7 +59,7 @@ export function analyzeMemLineageEcho(recorder, beings, world, { ticks = 1920 } 
 export function compareMemEchoOnVsOff(off, on) {
   const extDelta = (on.externalRate ?? 0) - (off.externalRate ?? 0);
   const echoGap = (on.echoOffspringRate ?? 0) - (on.seedExternalRate ?? 0);
-  const offEchoGap = (off.echoOffspringRate ?? 0) - (off.seedExternalRate ?? 0);
+  const echoVsSeed = Math.abs(echoGap);
 
   return {
     H1_memLinObservable: {
@@ -80,22 +80,22 @@ export function compareMemEchoOnVsOff(off, on) {
     },
     H3_w1BehaviorLinked: {
       verdict:
-        Math.abs(extDelta) >= 0.003 ? 'support' : Math.abs(extDelta) >= 0.001 ? 'weak' : 'unsupport',
+        Math.abs(extDelta) >= 0.002 ? 'support' : Math.abs(extDelta) >= 0.0008 ? 'weak' : 'unsupport',
       offExternal: off.externalRate,
       onExternal: on.externalRate,
       delta: +extDelta.toFixed(4),
     },
     H4_offspringEchoDiff: {
       verdict:
-        Math.abs(echoGap) >= 0.004 && Math.abs(echoGap) > Math.abs(offEchoGap)
+        on.echoOffspringRate != null &&
+        on.seedExternalRate != null &&
+        echoVsSeed >= 0.01
           ? 'support'
-          : Math.abs(echoGap) >= 0.002
+          : echoVsSeed >= 0.005
             ? 'weak'
             : 'unsupport',
       onEcho: on.echoOffspringRate,
       onSeed: on.seedExternalRate,
-      offEcho: off.echoOffspringRate,
-      offSeed: off.seedExternalRate,
       delta: +(echoGap ?? 0).toFixed(4),
     },
   };

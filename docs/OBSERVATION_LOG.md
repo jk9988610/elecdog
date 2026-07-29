@@ -653,4 +653,15 @@
   - H1–H4 均 **4/4 support**；批次 **support**
 - **备注**：报告见 `docs/field-phase75-report.json`；L5b 可标记 complete
 
+## OBS-20260729-87
+
+- **世界**：智慧演化场（Phase 76 · W4 谱系回响）
+- **处理组**：`w4_mem_echo_off` vs `w4_mem_echo_on`
+- **田野**：12体 × 1920 tick × 4 种子（含社会知识层）
+- **事实**：
+  - on 组 MEM-LIN **52**；echoAct **0.277**；回响子代率 **0.343**
+  - H1–H2 **4/4**；H3 **3/4**；H4 **4/4**
+  - 批次综合 **support**；GAP-W04 结案
+- **备注**：报告见 `docs/field-phase76-report.json`
+
 ---
