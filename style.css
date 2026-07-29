@@ -260,6 +260,15 @@ input[type='number'] {
   background: #0f1a14;
 }
 
+.ota-version {
+  font-size: 0.72rem;
+  padding: 0.2rem 0.5rem;
+  border-radius: 999px;
+  background: #1a1828;
+  color: #a89ad4;
+  border: 1px solid #3a3450;
+}
+
 .btn-secondary {
   background: #1e2a3a;
 }

@@ -80,3 +80,15 @@ export async function runOtaBootstrap() {
     await CapacitorUpdater.notifyAppReady();
   }
 }
+
+/** 供界面显示当前网页 bundle 版本（仅原生壳） */
+export async function getBundleVersionLabel() {
+  if (!Capacitor.isNativePlatform()) return '';
+  try {
+    const cur = await CapacitorUpdater.current();
+    const v = cur?.bundle?.version;
+    return v ? `热更 ${v}` : '热更 内置';
+  } catch {
+    return '';
+  }
+}
