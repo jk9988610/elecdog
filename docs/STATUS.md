@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 87 GAP-ENV [SCL] 季相四相**
+> 更新：2026-07-29 · **Phase 89 GAP-ORG FUS [SYM] module**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**智慧演化线 Phase 87 交付**；GAP-ENV `[SCL]` 季相田野 **support**（4/4 四相可观测）；下一步 Phase 88 Synth-A/B。
+**智慧演化线 Phase 89 交付**；GAP-ORG FUS 捕获 `[SYM]` module 田野 **support**（4/4 captureΔ=12）；下一步 Phase 90 `air` 标量。
 
 ---
 
@@ -88,6 +88,12 @@
 | **智慧物种验收** | **82** | ✅ prepared（12/14 检查表） |
 | **L2/GAP-10 结案** | **83** | ⚠️ 上限接受 3/4 + CODEX 第 30 条 |
 | **后续路线** | **—** | [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) |
+| **GAP-ORG reservoir** | **84** | ⚠️ `[RSV]` weak |
+| **GAP-ENV DLC** | **85** | ⚠️ band+日相 weak |
+| **GAP-ENV PCP** | **86** | ⚠️ terrain+水循环 weak（PCP 4/4 support） |
+| **GAP-ENV SCL** | **87** | ✅ 季相四相 support |
+| **GAP-ORG Synth** | **88** | ✅ Synth-A/B support |
+| **GAP-ORG SYM** | **89** | ✅ FUS module capture support |
 
 ---
 
