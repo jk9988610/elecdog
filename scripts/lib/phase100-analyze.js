@@ -59,33 +59,53 @@ export function jaccardBigrams(a, b) {
 export function analyzeSem(recorder, beings, world, { ticks = 1920 } = {}) {
   const alive = beings.filter((b) => b.alive);
   const pairCounts = extractPairCounts(recorder);
+  if (world.semPairCounts?.size) {
+    for (const [pk, c] of world.semPairCounts) {
+      pairCounts[pk] = Math.max(pairCounts[pk] ?? 0, c);
+    }
+  }
   const bigrams = bigramSet(pairCounts);
+  const totalPairEvents = Object.values(pairCounts).reduce((s, c) => s + c, 0);
 
   return {
     aliveTotal: alive.length,
     semCount: evoCount(recorder, 'SEM'),
     pairKinds: bigrams.length,
+    totalPairEvents,
     top1CondProb: topCondProb(pairCounts),
-    bigrams,
     externalRate: cohortExternalRate(beings, ticks),
     semEnabled: world.envProfile?.semEnabled === true,
     meanLogCount: meanField(beings, (b) => b.semLogCount ?? 0),
     meanPairTally: meanField(beings, (b) => b.semPairTally ?? 0),
-    snapshots: alive.slice(0, 4).map((b) => semSnapshot(b)),
+    _bigrams: bigrams,
   };
+}
+
+/** 田野报告用：去掉大数组 */
+export function slimSemMetrics(metrics) {
+  if (!metrics) return metrics;
+  const { _bigrams, ...rest } = metrics;
+  return rest;
+}
+
+export function semMetricsWithBigrams(metrics) {
+  return metrics;
 }
 
 export function compareSemOffVsOn(off, on) {
   const extDelta = Math.abs((on.externalRate ?? 0) - (off.externalRate ?? 0));
-  const jaccard = jaccardBigrams(off.bigrams, on.bigrams);
+  const jaccard = jaccardBigrams(off._bigrams ?? off.bigrams ?? [], on._bigrams ?? on.bigrams ?? []);
   const baselineCond = off.top1CondProb || 0.001;
   const condRatio = (on.top1CondProb ?? 0) / baselineCond;
+  const observable = on.semCount >= 50 || on.pairKinds >= 50 || (on.totalPairEvents ?? 0) >= 500;
 
   return {
     H1_semObservable: {
-      verdict: on.semCount >= 50 ? 'support' : on.semCount >= 10 ? 'weak' : 'unsupport',
+      verdict: observable ? 'support' : on.semCount >= 10 || on.pairKinds >= 10 ? 'weak' : 'unsupport',
       offCount: off.semCount,
       onCount: on.semCount,
+      onPairKinds: on.pairKinds,
+      onTotalEvents: on.totalPairEvents,
     },
     H2_bigramStability: {
       verdict: jaccard >= 0.08 ? 'support' : jaccard >= 0.03 ? 'weak' : 'unsupport',

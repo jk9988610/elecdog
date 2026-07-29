@@ -2342,7 +2342,7 @@ export const PHASE100_TREATMENTS = {
     ...W5_WISDOM_FULL,
     semEnabled: true,
     semWindow: 1,
-    semMinCount: 3,
+    semMinCount: 1,
     semFeedbackEnabled: false,
   },
   sem_on_dense: {
@@ -2363,7 +2363,7 @@ export const PHASE100_TREATMENTS = {
     ...W5_WISDOM_FULL,
     semEnabled: true,
     semWindow: 1,
-    semMinCount: 3,
+    semMinCount: 1,
     semFeedbackEnabled: false,
     pulseInterval: 50,
     substrateDrainMult: 0.88,

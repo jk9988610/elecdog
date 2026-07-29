@@ -12,6 +12,7 @@ import {
   analyzeSem,
   compareSemOffVsOn,
   verifySemFieldBatch,
+  slimSemMetrics,
 } from './lib/phase100-analyze.js';
 import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 import { formatFieldDuration, getFieldRunMaxMs } from './lib/field-budget.js';
@@ -33,6 +34,10 @@ function runOne(treatmentId, seed) {
   });
   process.stdout.write(` ✓ ${run.durationLabel}\n`);
   return run;
+}
+
+function slimRun(run) {
+  return { ...run, metrics: slimSemMetrics(run.metrics) };
 }
 
 console.log(
@@ -63,7 +68,7 @@ for (const [tid, runs] of Object.entries(byTreatment)) {
     meanPairKinds: meanTreatment(runs, (r) => r.metrics.pairKinds),
     meanTop1Cond: meanTreatment(runs, (r) => r.metrics.top1CondProb),
     meanExternalRate: meanTreatment(runs, (r) => r.metrics.externalRate),
-    runs,
+    runs: runs.map(slimRun),
   };
 }
 
