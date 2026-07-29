@@ -34,7 +34,7 @@ export function compareMigOnOff(offMetrics, onMetrics) {
   const logDelta = onMetrics.migLogCount - offMetrics.migLogCount;
 
   let verdict = 'pending';
-  if (moveDelta >= 2 && logDelta >= 2) verdict = 'support';
+  if (moveDelta >= 2 && (logDelta >= 2 || taxDelta > 0.5)) verdict = 'support';
   else if (moveDelta >= 1 || logDelta >= 1) verdict = 'weak';
   else if (!onMetrics.migEnabled) verdict = 'no_mig';
   else verdict = 'unsupport';

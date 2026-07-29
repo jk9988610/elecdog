@@ -56,7 +56,7 @@
 ## 四、出口与下一步
 
 - **已交付**：GAP-ENV Phase 93（地热 vent 记录层）
-- **下一步**：Phase 94 patch 迁徙 / 高程 `alt`
+- **下一步**：W6 验收 / GAP-11+ 耗散 CODEX
 
 ---
 
