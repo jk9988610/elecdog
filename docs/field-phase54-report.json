@@ -1,0 +1,143 @@
+{
+  "runAt": "2026-07-29T13:52:44.300Z",
+  "phase": 54,
+  "extension": "field_stack_cloud_archive",
+  "kind": "field-stack-manifest",
+  "stackPhases": [
+    48,
+    49,
+    50,
+    51,
+    52,
+    53
+  ],
+  "phases": [
+    {
+      "phase": 48,
+      "extension": "experience_layer",
+      "logPath": "(local)",
+      "publicUrl": null,
+      "headline": {
+        "treatmentId": "fertile_exp_feedback",
+        "treatmentLabel": "富足场+阅历反馈",
+        "metric": "EXP",
+        "value": 36
+      },
+      "aliveAtEnd": 36,
+      "treatmentCount": 4
+    },
+    {
+      "phase": 49,
+      "extension": "register_semantics_layer",
+      "logPath": "(local)",
+      "publicUrl": null,
+      "headline": {
+        "treatmentId": "fertile_reg_couple",
+        "treatmentLabel": "富足场+寄存器耦合反馈",
+        "metric": "REG",
+        "value": 63.5
+      },
+      "aliveAtEnd": 36,
+      "treatmentCount": 4
+    },
+    {
+      "phase": 50,
+      "extension": "metabolic_channel_layer",
+      "logPath": "(local)",
+      "publicUrl": null,
+      "headline": {
+        "treatmentId": "fertile_mtb_feedback",
+        "treatmentLabel": "富足场+代谢反馈",
+        "metric": "MTB",
+        "value": 252.25
+      },
+      "aliveAtEnd": 36,
+      "treatmentCount": 4
+    },
+    {
+      "phase": 51,
+      "extension": "social_cooperation_layer",
+      "logPath": "(local)",
+      "publicUrl": null,
+      "headline": {
+        "treatmentId": "fertile_coop_feedback",
+        "treatmentLabel": "富足场+合作反馈",
+        "metric": "COOP",
+        "value": 39.5
+      },
+      "aliveAtEnd": 48,
+      "treatmentCount": 4
+    },
+    {
+      "phase": 52,
+      "extension": "profile_stack_integration",
+      "logPath": "(local)",
+      "publicUrl": null,
+      "headline": {
+        "treatmentId": "fertile_stack_feedback",
+        "treatmentLabel": "富足场+四层反馈",
+        "metric": "LAY",
+        "value": 373
+      },
+      "aliveAtEnd": 36,
+      "treatmentCount": 4
+    },
+    {
+      "phase": 53,
+      "extension": "reproduction_path_layer",
+      "logPath": "(local)",
+      "publicUrl": null,
+      "headline": {
+        "treatmentId": "stack_rpr_observe",
+        "treatmentLabel": "四层+RPR观测",
+        "metric": "RPR",
+        "value": 42.25
+      },
+      "aliveAtEnd": 36,
+      "treatmentCount": 4
+    }
+  ],
+  "headlines": [
+    {
+      "phase": 48,
+      "metric": "EXP",
+      "value": 36,
+      "treatment": "富足场+阅历反馈"
+    },
+    {
+      "phase": 49,
+      "metric": "REG",
+      "value": 63.5,
+      "treatment": "富足场+寄存器耦合反馈"
+    },
+    {
+      "phase": 50,
+      "metric": "MTB",
+      "value": 252.25,
+      "treatment": "富足场+代谢反馈"
+    },
+    {
+      "phase": 51,
+      "metric": "COOP",
+      "value": 39.5,
+      "treatment": "富足场+合作反馈"
+    },
+    {
+      "phase": 52,
+      "metric": "LAY",
+      "value": 373,
+      "treatment": "富足场+四层反馈"
+    },
+    {
+      "phase": 53,
+      "metric": "RPR",
+      "value": 42.25,
+      "treatment": "四层+RPR观测"
+    }
+  ],
+  "design": {
+    "scope": "EXP + REG + MTB + COOP + 四层整合 + RPR 统计田野云归档",
+    "source": "docs/field-phase{N}-report.json"
+  },
+  "roadmap": "docs/PHASE54_CLOUD_ARCHIVE.md"
+}
