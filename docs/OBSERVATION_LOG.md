@@ -664,4 +664,15 @@
   - 批次综合 **support**；GAP-W04 结案
 - **备注**：报告见 `docs/field-phase76-report.json`
 
+## OBS-20260729-88
+
+- **世界**：智慧演化场（Phase 77 · W5 长时开放）
+- **处理组**：`w5_std_1920` vs `w5_open_8192`
+- **田野**：12体 × 1920/8192 tick × 4 种子（W1–W4 完整栈）
+- **事实**：
+  - 8192 tick 存活 **64**；PRD **380**；SOC-ENC **327341**
+  - layerScale **~6**；单次最慢 **8.03s**
+  - H1–H3 **4/4**；H4 **2/4**；批次 **support**
+- **备注**：报告见 `docs/field-phase77-report.json`；L6b partial
+
 ---

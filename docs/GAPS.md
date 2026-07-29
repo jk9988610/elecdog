@@ -295,3 +295,12 @@
 - **报告**：[PHASE76_LINEAGE_MEMORY.md](PHASE76_LINEAGE_MEMORY.md) · `field-phase76-report.json`
 
 ---
+
+## GAP-W05 · 开放尺度泛化（智慧 W5）
+
+- **缺口**：长时田野下行为是否非有限状态枚举、新情境可泛化
+- **Phase 77 扩展**：`FIELD_WISDOM_OPEN_TICKS=8192`；`w5_std_1920` vs `w5_open_8192` 完整智慧栈
+- **状态**：**部分结案** — 8192 tick 田野 support；L6b partial；多情境待续
+- **报告**：[PHASE77_LONGFIELD_OPEN.md](PHASE77_LONGFIELD_OPEN.md) · `field-phase77-report.json`
+
+---
