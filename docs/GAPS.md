@@ -119,7 +119,38 @@
   - 可选摄取倍率反馈；不命名资源类型
   - 统计田野 12 体 × 960 tick × 4 处理组
 - **状态**：**部分结案** — 通道分布可观察；资源本体命名仍禁止
+- **后续（讨论归纳）**：基底耗散定律（DRW 约 30%→r、其余耗散）、内共生模块与储备池 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) **GAP-11+ / GAP-ORG**
 - **报告**：[PHASE50_METABOLIC.md](PHASE50_METABOLIC.md) · `field-phase50-report.json`
+
+---
+
+## GAP-ART · 环境人工物与效率闭环（待立项）
+
+- **缺口**：个体不能**故意**造出持久世界结构并使后续 DRW/存活/繁殖效率可测提升；创造力仅停留在 W4 行为传递
+- **依据**：智慧演化讨论（2026-07-29）；WISDOM_FUTURE_ROADMAP §三
+- **目标**：持久场态/节点结构 + on/off 对照田野；禁止脚本化「造工具」
+- **状态**：**开放**
+- **关联**：GAP-ORG 储备池、内共生 Synth 模块
+
+---
+
+## GAP-ORG · 内共生模块与能量储备（待立项）
+
+- **缺口**：个体只能从环境 `[DRW]` 直接补给寄存器，无「内部生产 + 内部储存」双层；无捕获式半自治模块（线粒体/叶绿体类比）
+- **依据**：多细胞/subCell 已有分工（Phase 35）；FUS/MEI 重组可视为捕获入口
+- **提议**：`reservoir` 储备池、`[RSV]`、`[SYM]` 模块、Synth-A/B 通量 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) §四
+- **状态**：**开放**
+- **备注**：不设器官地球名；先记录通量再立项 CODEX
+
+---
+
+## GAP-ENV · 地球式环境周期与空间梯度（待立项）
+
+- **缺口**：仅单点 `birthPlace`、无日相/季相/月相、无赤道–极地梯度；环境不像地球那样随时间与空间变化
+- **依据**：ENVIRONMENT.md §六；智慧演化讨论（2026-07-29）
+- **提议**：区带 `E|M|P` + patch、`[DLC]` 日相、`[SCL]` 季相、`[LTC]` 月相 — 见 [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) §六
+- **状态**：**开放**
+- **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
 

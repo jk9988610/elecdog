@@ -103,6 +103,8 @@ W4 社会/谱系知识累积（Phase 75–76）
 W5 开放尺度长时演化（Phase 77+）
         ↓
 智慧物种田野验收（条件检查表全绿 + 新 CODEX）
+        ↓
+基底本体论 / 内共生模块 / 环境工具（GAP-11+ · GAP-ORG · GAP-ART）→ 见 WISDOM_FUTURE_ROADMAP.md
 ```
 
 ### 分阶段目标
@@ -135,7 +137,8 @@ W5 开放尺度长时演化（Phase 77+）
 | [CONSCIOUSNESS.md](CONSCIOUSNESS.md) | 意识子层（Phase 61–69 归档） |
 | [EVOLUTION.md](EVOLUTION.md) | 演化层级 L0–L5 |
 | [GAPS.md](GAPS.md) | 缺口登记（含 GAP-W01+） |
-| [PHASE70_MEMORY_FEEDBACK.md](PHASE70_MEMORY_FEEDBACK.md) | Phase 70 开工文档 |
+| [PHASE83_L2_CODEX_CLOSURE.md](PHASE83_L2_CODEX_CLOSURE.md) | L2 上限接受 |
+| [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) | 后续 GAP：基底本体论、内共生、工具创造 |
 | [WORKFLOW.md](WORKFLOW.md) | 强制工作循环 |
 
 ---
