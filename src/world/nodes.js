@@ -18,7 +18,9 @@ export function initNodes(world) {
 }
 
 export function advanceNodes(world) {
-  const regen = NODE_REGEN * terrainNodeRegenMult(world, world.envProfile ?? {});
+  const profile = world.envProfile ?? {};
+  const lunarMult = world.lunarMods?.regenMult ?? 1;
+  const regen = NODE_REGEN * terrainNodeRegenMult(world, profile) * lunarMult;
   for (const node of world.nodes) {
     if (node.level < 1) {
       node.level = Math.min(1, node.level + regen);

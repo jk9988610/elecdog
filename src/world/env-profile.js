@@ -10,6 +10,8 @@ import { initDiurnalStats } from './diurnal.js';
 import { initPcpState } from './pcp.js';
 import { initSeasonalStats } from './seasonal.js';
 import { initAirState } from './air.js';
+import { initAdvState } from './adv.js';
+import { initLunarStats } from './ltc.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -2048,6 +2050,50 @@ export const PHASE90_TREATMENTS = {
   },
 };
 
+const ADV_LTC_BASE = {
+  ...AIR_ENV_BASE,
+  airEnabled: true,
+  airInit: 0.5,
+  synthEnabled: false,
+  symCaptureEnabled: false,
+};
+
+/** Phase 91 — GAP-ENV [ADV] 邻格平流 + [LTC] 月相 */
+export const PHASE91_TREATMENTS = {
+  adv_ltc_off: {
+    id: 'adv_ltc_off',
+    label: '无ADV/LTC',
+    envId: 'wisdom_evolution',
+    ...ADV_LTC_BASE,
+    advEnabled: false,
+    ltcEnabled: false,
+  },
+  adv_ltc_on: {
+    id: 'adv_ltc_on',
+    label: 'ADV+LTC全开',
+    envId: 'wisdom_evolution',
+    ...ADV_LTC_BASE,
+    advEnabled: true,
+    ltcEnabled: true,
+  },
+  adv_on_only: {
+    id: 'adv_on_only',
+    label: '仅ADV',
+    envId: 'wisdom_evolution',
+    ...ADV_LTC_BASE,
+    advEnabled: true,
+    ltcEnabled: false,
+  },
+  ltc_on_only: {
+    id: 'ltc_on_only',
+    label: '仅LTC',
+    envId: 'wisdom_evolution',
+    ...ADV_LTC_BASE,
+    advEnabled: false,
+    ltcEnabled: true,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2600,6 +2646,31 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase91Treatment(world, treatmentId) {
+  const treatment = PHASE91_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase91 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 91, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  initAdvState(world);
+  initLunarStats(world);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 

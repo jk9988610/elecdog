@@ -32,6 +32,8 @@ import { tickSynth, synthEnabled } from '../world/synth.js';
 import { tickSymModules, symCaptureEnabled } from '../world/sym.js';
 import { tickDiurnal, diurnalEnabled, recordDiurnalLow, initDiurnalStats } from '../world/diurnal.js';
 import { prepAirDiurnal, airEnabled } from '../world/air.js';
+import { tickLunar, ltcEnabled } from '../world/ltc.js';
+import { tickAdv, advEnabled } from '../world/adv.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -102,6 +104,8 @@ export function stepWorld(world, recorder) {
     solar: effectiveSolar,
     night: dlc?.night ?? airPrep.night,
   });
+  const ltc = tickLunar(world, profile);
+  const adv = tickAdv(world, profile);
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -179,6 +183,20 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[SCL] ${world.birthPlace} phase ${scl.phase} floor×${scl.floorMult} boost×${scl.boostMult}`,
         { kind: 'SCL', place: world.birthPlace, ...scl }
+      );
+    }
+    if (ltc?.changed) {
+      recorder.environment(
+        world.tick,
+        `[LTC] ${world.birthPlace} phase ${ltc.phase} tide ${ltc.tide} regen×${ltc.regenMult}`,
+        { kind: 'LTC', place: world.birthPlace, ...ltc }
+      );
+    }
+    if (adv?.fired) {
+      recorder.environment(
+        world.tick,
+        `[ADV] ${world.birthPlace} ←${adv.neighbor} e${adv.idx} ${adv.delta >= 0 ? '+' : ''}${adv.delta} flux ${adv.flux}`,
+        { kind: 'ADV', place: world.birthPlace, ...adv }
       );
     }
   }

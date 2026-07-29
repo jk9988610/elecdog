@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-29 · Phase 90 `air` 标量
+> 更新：2026-07-29 · Phase 91 ADV + LTC
 
 ---
 
@@ -19,7 +19,7 @@
 | W1–W5 + 物种验收 | ✅ prepared（Phase 82–83） |
 | GAP-10 | ⚠️ 正式部分结案（上限接受） |
 | **GAP-ORG 记录层** | ✅ Phase 84–89 reservoir/Synth/SYM |
-| **GAP-ENV 记录层** | ✅ Phase 85–90 band/DLC/terrain/PCP/SCL/air |
+| **GAP-ENV 记录层** | ✅ Phase 85–91 band/DLC/PCP/SCL/air/ADV/LTC |
 | **后续路线** | ✅ [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) |
 
 ---
@@ -30,21 +30,16 @@
 |-----|------|
 | GAP-11+ | 基底耗散、消耗物用于什么 |
 | GAP-ORG | 模块演化、生存优势深化 |
-| GAP-ENV | 月相/ADV/LTC |
+| GAP-ENV | 多 patch 网格、vent（ADV/LTC 已交付） |
 | GAP-ART | 环境硬工具与创造力 |
 
 ---
 
-## 下次更新（Phase 91+）
+## 下次更新（Phase 92+）
 
 | Phase | 目标 |
 |-------|------|
-| 91 | `[ADV]` 邻格平流 + `[LTC]` 月相 |
-| 92 | GAP-ART 原型 |
-
-## 中期（91–92）
-
-ADV/LTC、GAP-ART 原型
+| 92 | GAP-ART 原型：持久 `[ART]` 场态 + 效率田野 |
 
 ## 长期（93+）
 
@@ -65,6 +60,7 @@ npm run field:phase87
 npm run field:phase88
 npm run field:phase89
 npm run field:phase90
+npm run field:phase91
 ```
 
 ---
