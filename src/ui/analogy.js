@@ -68,6 +68,12 @@ const LABELS = {
   org: { native: '形态 ORG', analogy: '个体结构类型' },
   fiss: { native: '分裂 FISS', analogy: '存活复制（DNA 分裂）' },
   rpl: { native: '复制 RPL', analogy: 'DNA 剩余复制次数' },
+  ren: { native: '续行 REN', analogy: '环境重置复制配额' },
+  plg: { native: '汇合 PLG', analogy: '双体通量汇合续行' },
+  rco: { native: '代价 RCO', analogy: '续行代谢/寿命代价' },
+  mei: { native: '减数 MEI', analogy: 'DNA 单源缩减包' },
+  fus: { native: '汇合 FUS', analogy: '双源 DNA 重组诞生' },
+  bcn: { native: '信标 BCN', analogy: 'packet 就绪广播' },
 };
 
 export function label(key) {

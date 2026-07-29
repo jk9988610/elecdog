@@ -2,14 +2,14 @@
 
 import { hashString } from '../core/hash.js';
 import { mutate } from '../core/dna.js';
-import { performBirthRitual } from '../birth/ritual.js';
+import { birthIntoWorld } from '../birth/spawn.js';
 import { applyNurtureAtBirth } from './nurture.js';
 import { applyLineageReplication } from './replication.js';
 
 export function spawnLineageOffspring(world, recorder, parent) {
   const seed = hashString(`${parent.id}:${world.tick}:offspring`);
   const { seq, mutationCount } = mutate(parent.dna.sequence, 0.03, seed);
-  const born = performBirthRitual(world, recorder, {
+  const born = birthIntoWorld(world, recorder, {
     name: `${parent.name.slice(0, 6)}嗣`,
     code: parent.code,
     dnaSequence: seq,

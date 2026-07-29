@@ -56,3 +56,25 @@ export function createDnaFromSequence(code, sequence) {
     length: sequence.length,
   };
 }
+
+/** 减数式缩减：各位点从原文随机解析（不设配子名称） */
+export function reduceDna(seq, seed) {
+  const rng = mulberry32(seed);
+  return seq
+    .split('')
+    .map((c) => (rng() > 0.5 ? c : BASES[Math.floor(rng() * 4)]))
+    .join('');
+}
+
+/** 双源汇合：各位点随机取自 A 或 B */
+export function recombineDna(seqA, seqB, seed) {
+  const rng = mulberry32(seed);
+  const len = Math.max(seqA.length, seqB.length);
+  let out = '';
+  for (let i = 0; i < len; i++) {
+    const a = seqA[i % seqA.length];
+    const b = seqB[i % seqB.length];
+    out += rng() > 0.5 ? a : b;
+  }
+  return out;
+}

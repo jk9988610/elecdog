@@ -131,6 +131,461 @@ export const ENV_PROFILES = {
     organismMode: 'multicell',
     rplScope: 'organism',
   },
+  fertile_renew_plg: {
+    id: 'fertile_renew_plg',
+    label: '富足+RPL续行+双体汇合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+  },
+  fertile_multicell_renew_plg: {
+    id: 'fertile_multicell_renew_plg',
+    label: '富足多子域+子域RPL+续行汇合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+  },
+  fertile_renew_cost: {
+    id: 'fertile_renew_cost',
+    label: '富足+RPL续行（有代价）',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+    rplRenewCostEnabled: true,
+    rplRenewStressBump: 3,
+    rplRenewRegisterDrain: 0.05,
+    rplRenewTickDebt: 28,
+    rplRenewMaxCount: 14,
+    rplRenewProbDecay: 0.035,
+    rplRenewDebtLimit: 260,
+    rplTickCapEnabled: true,
+    rplTickCapBase: 300,
+    rplTickCapSpread: 120,
+    plgRenewCostMult: 1.2,
+  },
+  fertile_mei_fus: {
+    id: 'fertile_mei_fus',
+    label: '富足+减数缩减+双源汇合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusPairCooldown: 90,
+    fusPacketMaxAge: 56,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+  },
+  fertile_mei_fus_ren: {
+    id: 'fertile_mei_fus_ren',
+    label: '富足重组+续行+live-donor',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusPairCooldown: 90,
+    fusPacketMaxAge: 120,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+  },
+  fertile_mei_fus_fix: {
+    id: 'fertile_mei_fus_fix',
+    label: '富足重组+瓶颈修复',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusOrphanPoolMax: 12,
+    fusSocialAffinity: true,
+    fusAggressivePairing: true,
+    fusPacketMaxAge: 200,
+    fusPairCooldown: 24,
+  },
+};
+
+const REN_BASE = {
+  rplRenewEnabled: true,
+  rplRenewGrant: 1,
+  rplRenewCooldown: 64,
+  rplRenewBaseProb: 0.5,
+  rplRenewAtOrBelow: 0,
+  rplRenewMaxStress: 0.24,
+  rplRenewMinSubstrate: 0.46,
+};
+
+const PLG_BASE = {
+  plgEnabled: true,
+  plgRenewGrant: 1,
+  plgPairCooldown: 100,
+  plgExhaustedAt: 0,
+};
+
+/** Phase 41 — 续行代价 [RCO] */
+const REN_COST = {
+  rplRenewCostEnabled: true,
+  rplRenewStressBump: 3,
+  rplRenewRegisterDrain: 0.05,
+  rplRenewTickDebt: 28,
+  rplRenewMaxCount: 14,
+  rplRenewProbDecay: 0.035,
+  rplRenewDebtLimit: 260,
+  rplTickCapEnabled: true,
+  rplTickCapBase: 300,
+  rplTickCapSpread: 120,
+  plgRenewCostMult: 1.2,
+};
+
+const MEI_BASE = {
+  meiEnabled: true,
+  meiMinAge: 40,
+  meiMaxStress: 0.26,
+  meiMinIntegrity: 0.5,
+  meiMinSubstrate: 0.44,
+  meiCooldown: 72,
+  meiBaseProb: 0.42,
+};
+
+const FUS_BASE = {
+  fusEnabled: true,
+  fusPairCooldown: 90,
+  fusPacketMaxAge: 56,
+  fusionMutationRate: 0.015,
+  fusionMaxPop: 36,
+};
+
+const MEI_FUS_ONLY = {
+  fissionEnabled: false,
+  ...MEI_BASE,
+  ...FUS_BASE,
+};
+
+const FUS_BOTTLENECK_FIX = {
+  fusLiveDonorEnabled: true,
+  fusBeaconEnabled: true,
+  fusOrphanPoolEnabled: true,
+  fusOrphanPoolMax: 12,
+  fusSocialAffinity: true,
+  fusAggressivePairing: true,
+  fusMaxPairPasses: 3,
+  fusMaxPairsPerTick: 8,
+  fusPacketMaxAge: 200,
+  fusPairCooldown: 24,
+};
+
+/** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
+export const PHASE44_TREATMENTS = {
+  mei_strict: {
+    id: 'mei_strict',
+    label: '严格重组（无修复）',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+  },
+  mei_strict_beacon: {
+    id: 'mei_strict_beacon',
+    label: '严格+信标+延长packet',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    fusBeaconEnabled: true,
+    fusPacketMaxAge: 160,
+    fusPairCooldown: 48,
+  },
+  mei_strict_fix: {
+    id: 'mei_strict_fix',
+    label: '严格+瓶颈全套修复',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+  },
+  mei_strict_fix_ren: {
+    id: 'mei_strict_fix_ren',
+    label: '严格+修复+续行',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    ...FUS_BOTTLENECK_FIX,
+    ...REN_BASE,
+  },
+};
+
+/** Phase 43 — 重组 × 续行 + live-donor 配对 */
+export const PHASE43_TREATMENTS = {
+  mei_fus: {
+    id: 'mei_fus',
+    label: '重组基线',
+    envId: 'fertile_field',
+    ...MEI_FUS_ONLY,
+  },
+  mei_fus_ren: {
+    id: 'mei_fus_ren',
+    label: '重组+[REN]',
+    envId: 'fertile_field',
+    ...MEI_FUS_ONLY,
+    ...REN_BASE,
+  },
+  mei_strict: {
+    id: 'mei_strict',
+    label: '重组+严格耗尽',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+  },
+  mei_strict_ren_donor: {
+    id: 'mei_strict_ren_donor',
+    label: '严格+续行+live-donor',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    ...REN_BASE,
+    fusLiveDonorEnabled: true,
+    fusPacketMaxAge: 120,
+  },
+};
+
+/** Phase 42 — [MEI] 减数缩减 / [FUS] 双源汇合 */
+export const PHASE42_TREATMENTS = {
+  fertile_clonal: {
+    id: 'fertile_clonal',
+    label: '富足+克隆分裂（对照）',
+    envId: 'fertile_field',
+    meiEnabled: false,
+    fusEnabled: false,
+  },
+  fertile_mei_fus: {
+    id: 'fertile_mei_fus',
+    label: '富足+减数+汇合（无克隆）',
+    envId: 'fertile_field',
+    fissionEnabled: false,
+    ...MEI_BASE,
+    ...FUS_BASE,
+  },
+  fertile_both: {
+    id: 'fertile_both',
+    label: '富足+克隆+重组并存',
+    envId: 'fertile_field',
+    ...MEI_BASE,
+    ...FUS_BASE,
+  },
+  fertile_mei_fus_strict: {
+    id: 'fertile_mei_fus_strict',
+    label: '重组+复制耗尽终止',
+    envId: 'fertile_field_strict',
+    fissionEnabled: false,
+    ...MEI_BASE,
+    ...FUS_BASE,
+  },
+};
+
+export const PHASE41_TREATMENTS = {
+  fertile_rpl: {
+    id: 'fertile_rpl',
+    label: '富足+RPL（无续行）',
+    envId: 'fertile_field',
+  },
+  fertile_ren_free: {
+    id: 'fertile_ren_free',
+    label: '富足+RPL+[REN]（无代价）',
+    envId: 'fertile_field',
+    ...REN_BASE,
+  },
+  fertile_ren_cost: {
+    id: 'fertile_ren_cost',
+    label: '富足+RPL+[REN]+[RCO]',
+    envId: 'fertile_field',
+    ...REN_BASE,
+    ...REN_COST,
+  },
+  fertile_ren_plg_cost: {
+    id: 'fertile_ren_plg_cost',
+    label: '富足+RPL+[REN]+[PLG]+[RCO]',
+    envId: 'fertile_field',
+    ...REN_BASE,
+    ...PLG_BASE,
+    ...REN_COST,
+  },
+};
+
+/** Phase 40 — 多细胞 × RPL 续行 */
+export const PHASE40_TREATMENTS = {
+  multicell_org_ren: {
+    id: 'multicell_org_ren',
+    label: '多细胞+共享RPL+[REN]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+    ...REN_BASE,
+  },
+  multicell_org_ren_plg: {
+    id: 'multicell_org_ren_plg',
+    label: '多细胞+共享RPL+[REN]+[PLG]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+    ...REN_BASE,
+    ...PLG_BASE,
+  },
+  multicell_sub_ren: {
+    id: 'multicell_sub_ren',
+    label: '多细胞+子域RPL+[REN]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    ...REN_BASE,
+  },
+  multicell_sub_ren_plg: {
+    id: 'multicell_sub_ren_plg',
+    label: '多细胞+子域RPL+[REN]+[PLG]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    ...REN_BASE,
+    ...PLG_BASE,
+  },
+};
+
+/** Phase 39 — [REN] 环境重置 / [PLG] 双体通量汇合 */
+export const PHASE39_TREATMENTS = {
+  fertile_rpl: {
+    id: 'fertile_rpl',
+    label: '富足+RPL（无续行）',
+    envId: 'fertile_field',
+  },
+  fertile_ren: {
+    id: 'fertile_ren',
+    label: '富足+RPL+[REN]',
+    envId: 'fertile_field',
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    rplRenewAtOrBelow: 0,
+    rplRenewMaxStress: 0.24,
+    rplRenewMinSubstrate: 0.46,
+  },
+  fertile_ren_plg: {
+    id: 'fertile_ren_plg',
+    label: '富足+RPL+[REN]+[PLG]',
+    envId: 'fertile_field',
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    rplRenewAtOrBelow: 0,
+    rplRenewMaxStress: 0.24,
+    rplRenewMinSubstrate: 0.46,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+    plgExhaustedAt: 0,
+  },
 };
 
 /** Phase 38 — 多细胞 × RPL 共享 vs 子域分摊 */
@@ -231,6 +686,72 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase44Treatment(world, treatmentId) {
+  const treatment = PHASE44_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase44 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 44, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase43Treatment(world, treatmentId) {
+  const treatment = PHASE43_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase43 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 43, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase42Treatment(world, treatmentId) {
+  const treatment = PHASE42_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase42 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 42, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase41Treatment(world, treatmentId) {
+  const treatment = PHASE41_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase41 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 41, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase40Treatment(world, treatmentId) {
+  const treatment = PHASE40_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase40 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 40, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase39Treatment(world, treatmentId) {
+  const treatment = PHASE39_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase39 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 39, treatmentId, ...treatment };
   return world.envProfile;
 }
 

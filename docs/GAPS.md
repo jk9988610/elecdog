@@ -196,3 +196,44 @@
 - **文档**：[PHASE37_RPL.md](PHASE37_RPL.md)
 
 ---
+
+## GAP-18 · 复制配额续行 / 环境重置
+
+- **缺口**：RPL 耗尽后是否存在可观察的「重置」或「汇合」路径（地球端粒酶/双亲通量类比）
+- **Phase 39 扩展**：
+  - `[REN]`：富足场 + 低胁迫 + RPL≤0 → 概率 +1 配额
+  - `[PLG]`：同 tick 双体耗尽 → 互赋配额 + 寄存器通量交换
+- **Phase 39 田野**（富足三对照）：
+  - `fertile_rpl`：FISS 12，存活 16，耗尽 16（Phase 37 复现）
+  - `fertile_ren`：FISS **32**，存活 **36**，REN 56 — **续行 support**
+  - `fertile_ren_plg`：FISS 32，PLG 36.5，REN 19.5 — **双路径 support**
+- **Phase 40**：多细胞 × 续行 — 子域无续行 7.5 FISS → 有 REN **32 FISS**；续行消除子域瓶颈
+- **Phase 41**：续行代价 `[RCO]` — 稳态 FISS/存活不变，但 END 周转 0→**288**；`renew_tick_debt` 终止 support
+- **状态**：**部分结案** — 续行有代价可观察；减数/配子仍开放
+- **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)、[PHASE40_MULTICELL_RENEW.md](PHASE40_MULTICELL_RENEW.md)、[PHASE41_RENEW_COST.md](PHASE41_RENEW_COST.md)
+
+---
+
+## GAP-19 · 减数缩减 / 双源 DNA 汇合
+
+- **缺口**：是否存在非克隆的 **双源 DNA 重组** 繁殖路径（地球减数分裂/融合类比）
+- **Phase 42 扩展**：
+  - `[MEI]`：各位点随机解析 → `meiPacket`；消耗 1 RPL
+  - `[FUS]`：双体 packet 汇合 → 重组 DNA 新个体
+- **Phase 42 田野**：
+  - 仅重组：FISS 0，FUS **14**，存活 11 — **双源路径 support**
+  - 克隆对照：FISS 12，FUS 0
+  - 双路径并存：FISS 8.25 + FUS 3.5 — **并存 support**
+- **状态**：**部分结案** — 减数/汇合可观察；配子性别语义仍禁止
+- **Phase 43**：重组×续行 — REN 提升 MEI（40→68）；live-donor 严格环境微弱改善 FUS；**汇合仍为瓶颈**
+- **Phase 44 扩展**：
+  - `[BCN]` 信标、孤儿池、live-donor FUS、激进配对、社会位亲和
+  - 统计田野：12 体 × 960 tick（无诞生仪式、`StatsRecorder` 聚合）
+- **Phase 44 田野**：
+  - 严格无修复：F/M ≈ **0.06**，FUS 21，存活 22
+  - 仅信标：F/M 仍 **0.06** — 信标 alone **unsupport**
+  - **全套修复**：FUS **48**，orphan FUS **35**，F/M **1.4**，存活 **36** — **汇合瓶颈突破**
+- **状态**：**部分结案** — 双源重组路径在修复包下可规模化；配子性别语义仍禁止
+- **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)、[PHASE43_RECOMB_RENEW.md](PHASE43_RECOMB_RENEW.md)、[PHASE44_FUS_BOTTLENECK.md](PHASE44_FUS_BOTTLENECK.md)
+
+---

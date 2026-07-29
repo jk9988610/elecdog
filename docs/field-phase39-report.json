@@ -1,0 +1,630 @@
+{
+  "runAt": "2026-07-29T12:05:31.823Z",
+  "phase": 39,
+  "extension": "rpl_renew_pledge",
+  "gap": "GAP-18",
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "fertile_rpl": {
+      "id": "fertile_rpl",
+      "label": "富足+RPL（无续行）",
+      "envId": "fertile_field"
+    },
+    "fertile_ren": {
+      "id": "fertile_ren",
+      "label": "富足+RPL+[REN]",
+      "envId": "fertile_field",
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46
+    },
+    "fertile_ren_plg": {
+      "id": "fertile_ren_plg",
+      "label": "富足+RPL+[REN]+[PLG]",
+      "envId": "fertile_field",
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0
+    }
+  },
+  "aggregate": {
+    "fertile_rpl": {
+      "label": "富足+RPL（无续行）",
+      "meanFiss": 12,
+      "meanAlive": 16,
+      "meanExhausted": 16,
+      "meanRenEvents": 0,
+      "meanPlgEvents": 0,
+      "meanRplRemaining": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_rpl",
+          "seed": 0,
+          "treatment": {
+            "id": "fertile_rpl",
+            "label": "富足+RPL（无续行）",
+            "envId": "fertile_field"
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16,
+            "renEventCount": 0,
+            "plgEventCount": 0,
+            "totalRenCount": 0,
+            "totalPlgCount": 0,
+            "beingsWithRen": 0,
+            "beingsWithPlg": 0
+          },
+          "entries": 859708
+        },
+        {
+          "treatmentId": "fertile_rpl",
+          "seed": 1,
+          "treatment": {
+            "id": "fertile_rpl",
+            "label": "富足+RPL（无续行）",
+            "envId": "fertile_field"
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16,
+            "renEventCount": 0,
+            "plgEventCount": 0,
+            "totalRenCount": 0,
+            "totalPlgCount": 0,
+            "beingsWithRen": 0,
+            "beingsWithPlg": 0
+          },
+          "entries": 881836
+        },
+        {
+          "treatmentId": "fertile_rpl",
+          "seed": 2,
+          "treatment": {
+            "id": "fertile_rpl",
+            "label": "富足+RPL（无续行）",
+            "envId": "fertile_field"
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16,
+            "renEventCount": 0,
+            "plgEventCount": 0,
+            "totalRenCount": 0,
+            "totalPlgCount": 0,
+            "beingsWithRen": 0,
+            "beingsWithPlg": 0
+          },
+          "entries": 877268
+        },
+        {
+          "treatmentId": "fertile_rpl",
+          "seed": 3,
+          "treatment": {
+            "id": "fertile_rpl",
+            "label": "富足+RPL（无续行）",
+            "envId": "fertile_field"
+          },
+          "metrics": {
+            "rplEventCount": 36,
+            "rplInitCount": 16,
+            "rplExhaustedEvents": 8,
+            "fissCount": 12,
+            "aliveTotal": 16,
+            "exhaustedCount": 16,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0,
+            "beingsWithRpl": 16,
+            "renEventCount": 0,
+            "plgEventCount": 0,
+            "totalRenCount": 0,
+            "totalPlgCount": 0,
+            "beingsWithRen": 0,
+            "beingsWithPlg": 0
+          },
+          "entries": 881994
+        }
+      ]
+    },
+    "fertile_ren": {
+      "label": "富足+RPL+[REN]",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanExhausted": 0,
+      "meanRenEvents": 56,
+      "meanPlgEvents": 0,
+      "meanRplRemaining": 1,
+      "runs": [
+        {
+          "treatmentId": "fertile_ren",
+          "seed": 0,
+          "treatment": {
+            "id": "fertile_ren",
+            "label": "富足+RPL+[REN]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0
+          },
+          "entries": 3578724
+        },
+        {
+          "treatmentId": "fertile_ren",
+          "seed": 1,
+          "treatment": {
+            "id": "fertile_ren",
+            "label": "富足+RPL+[REN]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0
+          },
+          "entries": 3638320
+        },
+        {
+          "treatmentId": "fertile_ren",
+          "seed": 2,
+          "treatment": {
+            "id": "fertile_ren",
+            "label": "富足+RPL+[REN]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0
+          },
+          "entries": 3632172
+        },
+        {
+          "treatmentId": "fertile_ren",
+          "seed": 3,
+          "treatment": {
+            "id": "fertile_ren",
+            "label": "富足+RPL+[REN]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0
+          },
+          "entries": 3620842
+        }
+      ]
+    },
+    "fertile_ren_plg": {
+      "label": "富足+RPL+[REN]+[PLG]",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanExhausted": 0,
+      "meanRenEvents": 19.5,
+      "meanPlgEvents": 36.5,
+      "meanRplRemaining": 1,
+      "runs": [
+        {
+          "treatmentId": "fertile_ren_plg",
+          "seed": 0,
+          "treatment": {
+            "id": "fertile_ren_plg",
+            "label": "富足+RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 20,
+            "plgEventCount": 36,
+            "totalRenCount": 20,
+            "totalPlgCount": 36,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 32
+          },
+          "entries": 3619179
+        },
+        {
+          "treatmentId": "fertile_ren_plg",
+          "seed": 1,
+          "treatment": {
+            "id": "fertile_ren_plg",
+            "label": "富足+RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 22,
+            "plgEventCount": 34,
+            "totalRenCount": 22,
+            "totalPlgCount": 34,
+            "beingsWithRen": 20,
+            "beingsWithPlg": 30
+          },
+          "entries": 3556300
+        },
+        {
+          "treatmentId": "fertile_ren_plg",
+          "seed": 2,
+          "treatment": {
+            "id": "fertile_ren_plg",
+            "label": "富足+RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 16,
+            "plgEventCount": 40,
+            "totalRenCount": 16,
+            "totalPlgCount": 40,
+            "beingsWithRen": 15,
+            "beingsWithPlg": 32
+          },
+          "entries": 3621622
+        },
+        {
+          "treatmentId": "fertile_ren_plg",
+          "seed": 3,
+          "treatment": {
+            "id": "fertile_ren_plg",
+            "label": "富足+RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 20,
+            "plgEventCount": 36,
+            "totalRenCount": 20,
+            "totalPlgCount": 36,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 30
+          },
+          "entries": 3580168
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "renPlg": {
+        "H1_renRaisesFiss": {
+          "verdict": "support",
+          "baseline": 12,
+          "ren": 32,
+          "delta": 20,
+          "renEvents": 56
+        },
+        "H2_renObservable": {
+          "verdict": "support",
+          "events": 56,
+          "beings": 36
+        },
+        "H3_plgAddsRenewal": {
+          "verdict": "support",
+          "plgEvents": 36,
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "delta": 0
+        },
+        "H4_populationEffect": {
+          "verdict": "weak",
+          "baseline": 16,
+          "ren": 36,
+          "renPlg": 36
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "renPlg": {
+        "H1_renRaisesFiss": {
+          "verdict": "support",
+          "baseline": 12,
+          "ren": 32,
+          "delta": 20,
+          "renEvents": 56
+        },
+        "H2_renObservable": {
+          "verdict": "support",
+          "events": 56,
+          "beings": 36
+        },
+        "H3_plgAddsRenewal": {
+          "verdict": "support",
+          "plgEvents": 34,
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "delta": 0
+        },
+        "H4_populationEffect": {
+          "verdict": "weak",
+          "baseline": 16,
+          "ren": 36,
+          "renPlg": 36
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "renPlg": {
+        "H1_renRaisesFiss": {
+          "verdict": "support",
+          "baseline": 12,
+          "ren": 32,
+          "delta": 20,
+          "renEvents": 56
+        },
+        "H2_renObservable": {
+          "verdict": "support",
+          "events": 56,
+          "beings": 36
+        },
+        "H3_plgAddsRenewal": {
+          "verdict": "support",
+          "plgEvents": 40,
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "delta": 0
+        },
+        "H4_populationEffect": {
+          "verdict": "weak",
+          "baseline": 16,
+          "ren": 36,
+          "renPlg": 36
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "renPlg": {
+        "H1_renRaisesFiss": {
+          "verdict": "support",
+          "baseline": 12,
+          "ren": 32,
+          "delta": 20,
+          "renEvents": 56
+        },
+        "H2_renObservable": {
+          "verdict": "support",
+          "events": 56,
+          "beings": 36
+        },
+        "H3_plgAddsRenewal": {
+          "verdict": "support",
+          "plgEvents": 36,
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "delta": 0
+        },
+        "H4_populationEffect": {
+          "verdict": "weak",
+          "baseline": 16,
+          "ren": 36,
+          "renPlg": 36
+        }
+      }
+    }
+  ],
+  "design": {
+    "ren": "富足场 + 低胁迫 + RPL≤0 → 概率性 +1 配额（DNA bias）",
+    "plg": "同 tick 两体 RPL 耗尽 → 互赋配额 + 寄存器通量交换"
+  },
+  "roadmap": "docs/PHASE39_REN_PLG.md"
+}

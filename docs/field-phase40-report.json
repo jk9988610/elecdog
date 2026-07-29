@@ -1,0 +1,1065 @@
+{
+  "runAt": "2026-07-29T12:11:35.319Z",
+  "phase": 40,
+  "extension": "multicell_rpl_renew",
+  "gaps": [
+    "GAP-17",
+    "GAP-18"
+  ],
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "multicell_org_ren": {
+      "id": "multicell_org_ren",
+      "label": "多细胞+共享RPL+[REN]",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplScope": "organism",
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46
+    },
+    "multicell_org_ren_plg": {
+      "id": "multicell_org_ren_plg",
+      "label": "多细胞+共享RPL+[REN]+[PLG]",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplScope": "organism",
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0
+    },
+    "multicell_sub_ren": {
+      "id": "multicell_sub_ren",
+      "label": "多细胞+子域RPL+[REN]",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplScope": "subunit",
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46
+    },
+    "multicell_sub_ren_plg": {
+      "id": "multicell_sub_ren_plg",
+      "label": "多细胞+子域RPL+[REN]+[PLG]",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplScope": "subunit",
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0
+    }
+  },
+  "aggregate": {
+    "multicell_org_ren": {
+      "label": "多细胞+共享RPL+[REN]",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanMulticell": 36,
+      "meanSubUnits": 108,
+      "meanRenEvents": 56,
+      "meanPlgEvents": 0,
+      "meanExhausted": 0,
+      "runs": [
+        {
+          "treatmentId": "multicell_org_ren",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_org_ren",
+            "label": "多细胞+共享RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 313842,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3900463
+        },
+        {
+          "treatmentId": "multicell_org_ren",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_org_ren",
+            "label": "多细胞+共享RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 314334,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3921506
+        },
+        {
+          "treatmentId": "multicell_org_ren",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_org_ren",
+            "label": "多细胞+共享RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 313977,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3870634
+        },
+        {
+          "treatmentId": "multicell_org_ren",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_org_ren",
+            "label": "多细胞+共享RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 56,
+            "plgEventCount": 0,
+            "totalRenCount": 56,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 314037,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3884813
+        }
+      ]
+    },
+    "multicell_org_ren_plg": {
+      "label": "多细胞+共享RPL+[REN]+[PLG]",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanMulticell": 36,
+      "meanSubUnits": 108,
+      "meanRenEvents": 16.5,
+      "meanPlgEvents": 39.5,
+      "meanExhausted": 0,
+      "runs": [
+        {
+          "treatmentId": "multicell_org_ren_plg",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_org_ren_plg",
+            "label": "多细胞+共享RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 18,
+            "plgEventCount": 38,
+            "totalRenCount": 18,
+            "totalPlgCount": 38,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 34,
+            "intraCount": 314049,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3909184
+        },
+        {
+          "treatmentId": "multicell_org_ren_plg",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_org_ren_plg",
+            "label": "多细胞+共享RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 12,
+            "plgEventCount": 44,
+            "totalRenCount": 12,
+            "totalPlgCount": 44,
+            "beingsWithRen": 12,
+            "beingsWithPlg": 35,
+            "intraCount": 312612,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3891994
+        },
+        {
+          "treatmentId": "multicell_org_ren_plg",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_org_ren_plg",
+            "label": "多细胞+共享RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 18,
+            "plgEventCount": 38,
+            "totalRenCount": 18,
+            "totalPlgCount": 38,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 30,
+            "intraCount": 314685,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3923478
+        },
+        {
+          "treatmentId": "multicell_org_ren_plg",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_org_ren_plg",
+            "label": "多细胞+共享RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "organism",
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 96,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 28,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 1,
+            "beingsWithRpl": 36,
+            "renEventCount": 18,
+            "plgEventCount": 38,
+            "totalRenCount": 18,
+            "totalPlgCount": 38,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 33,
+            "intraCount": 313560,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 36,
+            "rplSubunitScope": 0,
+            "renWithSubScope": 0
+          },
+          "entries": 3883869
+        }
+      ]
+    },
+    "multicell_sub_ren": {
+      "label": "多细胞+子域RPL+[REN]",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanMulticell": 36,
+      "meanSubUnits": 108,
+      "meanRenEvents": 60,
+      "meanPlgEvents": 0,
+      "meanExhausted": 0,
+      "runs": [
+        {
+          "treatmentId": "multicell_sub_ren",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_sub_ren",
+            "label": "多细胞+子域RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 98,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 30,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 3.83,
+            "beingsWithRpl": 36,
+            "renEventCount": 60,
+            "plgEventCount": 0,
+            "totalRenCount": 60,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 313797,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 60
+          },
+          "entries": 3899579
+        },
+        {
+          "treatmentId": "multicell_sub_ren",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_sub_ren",
+            "label": "多细胞+子域RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 98,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 30,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 4.19,
+            "beingsWithRpl": 36,
+            "renEventCount": 60,
+            "plgEventCount": 0,
+            "totalRenCount": 60,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 314196,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 60
+          },
+          "entries": 3870854
+        },
+        {
+          "treatmentId": "multicell_sub_ren",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_sub_ren",
+            "label": "多细胞+子域RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 97,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 29,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 4,
+            "beingsWithRpl": 36,
+            "renEventCount": 58,
+            "plgEventCount": 0,
+            "totalRenCount": 58,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 313641,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 58
+          },
+          "entries": 3913972
+        },
+        {
+          "treatmentId": "multicell_sub_ren",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_sub_ren",
+            "label": "多细胞+子域RPL+[REN]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46
+          },
+          "metrics": {
+            "rplEventCount": 99,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 31,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 4.33,
+            "beingsWithRpl": 36,
+            "renEventCount": 62,
+            "plgEventCount": 0,
+            "totalRenCount": 62,
+            "totalPlgCount": 0,
+            "beingsWithRen": 36,
+            "beingsWithPlg": 0,
+            "intraCount": 314163,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 62
+          },
+          "entries": 3903663
+        }
+      ]
+    },
+    "multicell_sub_ren_plg": {
+      "label": "多细胞+子域RPL+[REN]+[PLG]",
+      "meanFiss": 32,
+      "meanAlive": 36,
+      "meanMulticell": 36,
+      "meanSubUnits": 108,
+      "meanRenEvents": 19,
+      "meanPlgEvents": 42.5,
+      "meanExhausted": 0,
+      "runs": [
+        {
+          "treatmentId": "multicell_sub_ren_plg",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_sub_ren_plg",
+            "label": "多细胞+子域RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 98,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 30,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 4.17,
+            "beingsWithRpl": 36,
+            "renEventCount": 20,
+            "plgEventCount": 40,
+            "totalRenCount": 20,
+            "totalPlgCount": 40,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 33,
+            "intraCount": 313386,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 20
+          },
+          "entries": 3879571
+        },
+        {
+          "treatmentId": "multicell_sub_ren_plg",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_sub_ren_plg",
+            "label": "多细胞+子域RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 100,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 32,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 5,
+            "beingsWithRpl": 36,
+            "renEventCount": 20,
+            "plgEventCount": 44,
+            "totalRenCount": 20,
+            "totalPlgCount": 44,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 32,
+            "intraCount": 313719,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 20
+          },
+          "entries": 3905561
+        },
+        {
+          "treatmentId": "multicell_sub_ren_plg",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_sub_ren_plg",
+            "label": "多细胞+子域RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 98,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 30,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 4.39,
+            "beingsWithRpl": 36,
+            "renEventCount": 18,
+            "plgEventCount": 42,
+            "totalRenCount": 18,
+            "totalPlgCount": 42,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 32,
+            "intraCount": 314187,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 18
+          },
+          "entries": 3903055
+        },
+        {
+          "treatmentId": "multicell_sub_ren_plg",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_sub_ren_plg",
+            "label": "多细胞+子域RPL+[REN]+[PLG]",
+            "envId": "fertile_field",
+            "organismMode": "multicell",
+            "rplScope": "subunit",
+            "rplBaseMax": 5,
+            "rplMaxSpread": 3,
+            "rplRenewEnabled": true,
+            "rplRenewGrant": 1,
+            "rplRenewCooldown": 64,
+            "rplRenewBaseProb": 0.5,
+            "rplRenewAtOrBelow": 0,
+            "rplRenewMaxStress": 0.24,
+            "rplRenewMinSubstrate": 0.46,
+            "plgEnabled": true,
+            "plgRenewGrant": 1,
+            "plgPairCooldown": 100,
+            "plgExhaustedAt": 0
+          },
+          "metrics": {
+            "rplEventCount": 99,
+            "rplInitCount": 36,
+            "rplExhaustedEvents": 31,
+            "fissCount": 32,
+            "aliveTotal": 36,
+            "exhaustedCount": 0,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 4.44,
+            "beingsWithRpl": 36,
+            "renEventCount": 18,
+            "plgEventCount": 44,
+            "totalRenCount": 18,
+            "totalPlgCount": 44,
+            "beingsWithRen": 18,
+            "beingsWithPlg": 35,
+            "intraCount": 314172,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "rplOrganismScope": 0,
+            "rplSubunitScope": 36,
+            "renWithSubScope": 18
+          },
+          "entries": 3908017
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "orgVsSub": {
+        "H1_subunitStillStricter": {
+          "verdict": "weak",
+          "orgFiss": 32,
+          "subFiss": 32,
+          "delta": 0
+        },
+        "H2_renCompensatesSub": {
+          "verdict": "weak",
+          "orgRen": 56,
+          "subRen": 60,
+          "delta": 4
+        },
+        "H3_multicellStructure": {
+          "verdict": "support",
+          "populationIds": 36,
+          "subCellUnits": 108
+        }
+      },
+      "orgPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 38,
+          "renDrop": 38
+        }
+      },
+      "subPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 40,
+          "renDrop": 40
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "orgVsSub": {
+        "H1_subunitStillStricter": {
+          "verdict": "weak",
+          "orgFiss": 32,
+          "subFiss": 32,
+          "delta": 0
+        },
+        "H2_renCompensatesSub": {
+          "verdict": "weak",
+          "orgRen": 56,
+          "subRen": 60,
+          "delta": 4
+        },
+        "H3_multicellStructure": {
+          "verdict": "support",
+          "populationIds": 36,
+          "subCellUnits": 108
+        }
+      },
+      "orgPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 44,
+          "renDrop": 44
+        }
+      },
+      "subPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 44,
+          "renDrop": 40
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "orgVsSub": {
+        "H1_subunitStillStricter": {
+          "verdict": "weak",
+          "orgFiss": 32,
+          "subFiss": 32,
+          "delta": 0
+        },
+        "H2_renCompensatesSub": {
+          "verdict": "weak",
+          "orgRen": 56,
+          "subRen": 58,
+          "delta": 2
+        },
+        "H3_multicellStructure": {
+          "verdict": "support",
+          "populationIds": 36,
+          "subCellUnits": 108
+        }
+      },
+      "orgPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 38,
+          "renDrop": 38
+        }
+      },
+      "subPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 42,
+          "renDrop": 40
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "orgVsSub": {
+        "H1_subunitStillStricter": {
+          "verdict": "weak",
+          "orgFiss": 32,
+          "subFiss": 32,
+          "delta": 0
+        },
+        "H2_renCompensatesSub": {
+          "verdict": "support",
+          "orgRen": 56,
+          "subRen": 62,
+          "delta": 6
+        },
+        "H3_multicellStructure": {
+          "verdict": "support",
+          "populationIds": 36,
+          "subCellUnits": 108
+        }
+      },
+      "orgPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 38,
+          "renDrop": 38
+        }
+      },
+      "subPlg": {
+        "H4_plgAddsRenewal": {
+          "verdict": "support",
+          "renOnlyFiss": 32,
+          "renPlgFiss": 32,
+          "plgEvents": 44,
+          "renDrop": 44
+        }
+      }
+    }
+  ],
+  "phase38Baseline": {
+    "multicell_rpl_noRenew": {
+      "fiss": 12,
+      "alive": 16
+    },
+    "multicell_subrpl_noRenew": {
+      "fiss": 7.5,
+      "alive": 11.5
+    }
+  },
+  "design": {
+    "matrix": "2×2：rplScope(organism|subunit) × renewal(REN|REN+PLG)",
+    "subunitFix": "REN/PLG 在子域任一耗尽时触发（非仅总和≤0）"
+  },
+  "roadmap": "docs/PHASE40_MULTICELL_RENEW.md"
+}
