@@ -1910,6 +1910,55 @@ export const PHASE87_TREATMENTS = {
   },
 };
 
+const SYNTH_ENV_BASE = {
+  ...SCL_ENV_BASE,
+  reservoirEnabled: true,
+  seasonalEnabled: true,
+  seasonalPeriod: 960,
+};
+
+const SYNTH_SHK = {
+  catastropheDisabled: false,
+  pulseInterval: 55,
+  substrateDrainMult: 0.94,
+  substrateFloor: 0.36,
+};
+
+/** Phase 88 — GAP-ORG Synth-A/B + reservoir 田野 */
+export const PHASE88_TREATMENTS = {
+  synth_off_rsv: {
+    id: 'synth_off_rsv',
+    label: '储备无Synth',
+    envId: 'wisdom_evolution',
+    ...SYNTH_ENV_BASE,
+    synthEnabled: false,
+  },
+  synth_on_ref: {
+    id: 'synth_on_ref',
+    label: 'Synth全开',
+    envId: 'wisdom_evolution',
+    ...SYNTH_ENV_BASE,
+    synthEnabled: true,
+  },
+  synth_on_drain: {
+    id: 'synth_on_drain',
+    label: 'Synth+耗竭',
+    envId: 'wisdom_evolution',
+    ...SYNTH_ENV_BASE,
+    synthEnabled: true,
+    substrateDrainMult: 1.08,
+    juvenileDrawMult: 0.5,
+  },
+  synth_on_shk: {
+    id: 'synth_on_shk',
+    label: 'Synth+剧变',
+    envId: 'wisdom_evolution',
+    ...SYNTH_ENV_BASE,
+    synthEnabled: true,
+    ...SYNTH_SHK,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2462,6 +2511,28 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase88Treatment(world, treatmentId) {
+  const treatment = PHASE88_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase88 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 88, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
