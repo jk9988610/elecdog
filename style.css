@@ -260,6 +260,12 @@ input[type='number'] {
   background: #0f1a14;
 }
 
+.cloud-status.online.realtime {
+  color: #a8c8ff;
+  border-color: #2a3a5a;
+  background: #0f1420;
+}
+
 .ota-version {
   font-size: 0.72rem;
   padding: 0.2rem 0.5rem;
