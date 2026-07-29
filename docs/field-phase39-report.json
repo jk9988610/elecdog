@@ -1,9 +1,11 @@
 {
-  "runAt": "2026-07-29T12:05:31.823Z",
+  "runAt": "2026-07-29T13:02:02.075Z",
   "phase": 39,
   "extension": "rpl_renew_pledge",
   "gap": "GAP-18",
-  "ticks": 3000,
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
   "seeds": [
     0,
     1,
@@ -48,33 +50,29 @@
   "aggregate": {
     "fertile_rpl": {
       "label": "富足+RPL（无续行）",
-      "meanFiss": 12,
-      "meanAlive": 16,
-      "meanExhausted": 16,
+      "meanFiss": 24,
+      "meanAlive": 36,
+      "meanExhausted": 26,
       "meanRenEvents": 0,
       "meanPlgEvents": 0,
-      "meanRplRemaining": 0,
+      "meanRplRemaining": 0.31,
+      "meanEntriesKept": 70,
       "runs": [
         {
           "treatmentId": "fertile_rpl",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_rpl",
-            "label": "富足+RPL（无续行）",
-            "envId": "fertile_field"
-          },
           "metrics": {
-            "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplEventCount": 37,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 13,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 26,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
             "renEventCount": 0,
             "plgEventCount": 0,
             "totalRenCount": 0,
@@ -82,28 +80,30 @@
             "beingsWithRen": 0,
             "beingsWithPlg": 0
           },
-          "entries": 859708
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
         },
         {
           "treatmentId": "fertile_rpl",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_rpl",
-            "label": "富足+RPL（无续行）",
-            "envId": "fertile_field"
-          },
           "metrics": {
-            "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplEventCount": 37,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 13,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 26,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
             "renEventCount": 0,
             "plgEventCount": 0,
             "totalRenCount": 0,
@@ -111,28 +111,30 @@
             "beingsWithRen": 0,
             "beingsWithPlg": 0
           },
-          "entries": 881836
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
         },
         {
           "treatmentId": "fertile_rpl",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_rpl",
-            "label": "富足+RPL（无续行）",
-            "envId": "fertile_field"
-          },
           "metrics": {
             "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 24,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.33,
+            "beingsWithRpl": 36,
             "renEventCount": 0,
             "plgEventCount": 0,
             "totalRenCount": 0,
@@ -140,28 +142,30 @@
             "beingsWithRen": 0,
             "beingsWithPlg": 0
           },
-          "entries": 877268
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
         },
         {
           "treatmentId": "fertile_rpl",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_rpl",
-            "label": "富足+RPL（无续行）",
-            "envId": "fertile_field"
-          },
           "metrics": {
-            "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplEventCount": 38,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 14,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 28,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.28,
+            "beingsWithRpl": 36,
             "renEventCount": 0,
             "plgEventCount": 0,
             "totalRenCount": 0,
@@ -169,39 +173,35 @@
             "beingsWithRen": 0,
             "beingsWithPlg": 0
           },
-          "entries": 881994
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 38,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 71
         }
       ]
     },
     "fertile_ren": {
       "label": "富足+RPL+[REN]",
-      "meanFiss": 32,
+      "meanFiss": 24,
       "meanAlive": 36,
       "meanExhausted": 0,
-      "meanRenEvents": 56,
+      "meanRenEvents": 24.5,
       "meanPlgEvents": 0,
-      "meanRplRemaining": 1,
+      "meanRplRemaining": 1.01,
+      "meanEntriesKept": 93.75,
       "runs": [
         {
           "treatmentId": "fertile_ren",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_ren",
-            "label": "富足+RPL+[REN]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 36,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
@@ -209,71 +209,63 @@
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 1,
             "beingsWithRpl": 36,
-            "renEventCount": 56,
+            "renEventCount": 24,
             "plgEventCount": 0,
-            "totalRenCount": 56,
+            "totalRenCount": 24,
             "totalPlgCount": 0,
-            "beingsWithRen": 36,
+            "beingsWithRen": 24,
             "beingsWithPlg": 0
           },
-          "entries": 3578724
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:REN": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 93
         },
         {
           "treatmentId": "fertile_ren",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_ren",
-            "label": "富足+RPL+[REN]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 37,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 13,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 1,
+            "meanRplRemaining": 1.03,
             "beingsWithRpl": 36,
-            "renEventCount": 56,
+            "renEventCount": 26,
             "plgEventCount": 0,
-            "totalRenCount": 56,
+            "totalRenCount": 26,
             "totalPlgCount": 0,
-            "beingsWithRen": 36,
+            "beingsWithRen": 26,
             "beingsWithPlg": 0
           },
-          "entries": 3638320
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "evolution:REN": 26,
+            "population:CMP": 9
+          },
+          "entriesKept": 96
         },
         {
           "treatmentId": "fertile_ren",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_ren",
-            "label": "富足+RPL+[REN]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 36,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
@@ -281,35 +273,31 @@
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 1,
             "beingsWithRpl": 36,
-            "renEventCount": 56,
+            "renEventCount": 24,
             "plgEventCount": 0,
-            "totalRenCount": 56,
+            "totalRenCount": 24,
             "totalPlgCount": 0,
-            "beingsWithRen": 36,
+            "beingsWithRen": 24,
             "beingsWithPlg": 0
           },
-          "entries": 3632172
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:REN": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 93
         },
         {
           "treatmentId": "fertile_ren",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_ren",
-            "label": "富足+RPL+[REN]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 36,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
@@ -317,50 +305,43 @@
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 1,
             "beingsWithRpl": 36,
-            "renEventCount": 56,
+            "renEventCount": 24,
             "plgEventCount": 0,
-            "totalRenCount": 56,
+            "totalRenCount": 24,
             "totalPlgCount": 0,
-            "beingsWithRen": 36,
+            "beingsWithRen": 24,
             "beingsWithPlg": 0
           },
-          "entries": 3620842
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:REN": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 93
         }
       ]
     },
     "fertile_ren_plg": {
       "label": "富足+RPL+[REN]+[PLG]",
-      "meanFiss": 32,
+      "meanFiss": 24,
       "meanAlive": 36,
       "meanExhausted": 0,
-      "meanRenEvents": 19.5,
-      "meanPlgEvents": 36.5,
-      "meanRplRemaining": 1,
+      "meanRenEvents": 10,
+      "meanPlgEvents": 15.5,
+      "meanRplRemaining": 1.02,
+      "meanEntriesKept": 95.25,
       "runs": [
         {
           "treatmentId": "fertile_ren_plg",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_ren_plg",
-            "label": "富足+RPL+[REN]+[PLG]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46,
-            "plgEnabled": true,
-            "plgRenewGrant": 1,
-            "plgPairCooldown": 100,
-            "plgExhaustedAt": 0
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 36,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
@@ -368,119 +349,98 @@
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 1,
             "beingsWithRpl": 36,
-            "renEventCount": 20,
-            "plgEventCount": 36,
-            "totalRenCount": 20,
-            "totalPlgCount": 36,
-            "beingsWithRen": 18,
-            "beingsWithPlg": 32
+            "renEventCount": 10,
+            "plgEventCount": 14,
+            "totalRenCount": 10,
+            "totalPlgCount": 14,
+            "beingsWithRen": 10,
+            "beingsWithPlg": 14
           },
-          "entries": 3619179
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:REN": 10,
+            "evolution:PLG": 14,
+            "population:CMP": 9
+          },
+          "entriesKept": 93
         },
         {
           "treatmentId": "fertile_ren_plg",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_ren_plg",
-            "label": "富足+RPL+[REN]+[PLG]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46,
-            "plgEnabled": true,
-            "plgRenewGrant": 1,
-            "plgPairCooldown": 100,
-            "plgExhaustedAt": 0
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 37,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 13,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 1,
+            "meanRplRemaining": 1.03,
             "beingsWithRpl": 36,
-            "renEventCount": 22,
-            "plgEventCount": 34,
-            "totalRenCount": 22,
-            "totalPlgCount": 34,
-            "beingsWithRen": 20,
-            "beingsWithPlg": 30
+            "renEventCount": 8,
+            "plgEventCount": 18,
+            "totalRenCount": 8,
+            "totalPlgCount": 18,
+            "beingsWithRen": 8,
+            "beingsWithPlg": 18
           },
-          "entries": 3556300
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "evolution:PLG": 18,
+            "evolution:REN": 8,
+            "population:CMP": 9
+          },
+          "entriesKept": 96
         },
         {
           "treatmentId": "fertile_ren_plg",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_ren_plg",
-            "label": "富足+RPL+[REN]+[PLG]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46,
-            "plgEnabled": true,
-            "plgRenewGrant": 1,
-            "plgPairCooldown": 100,
-            "plgExhaustedAt": 0
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 38,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 14,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 1,
+            "meanRplRemaining": 1.06,
             "beingsWithRpl": 36,
-            "renEventCount": 16,
-            "plgEventCount": 40,
-            "totalRenCount": 16,
-            "totalPlgCount": 40,
-            "beingsWithRen": 15,
-            "beingsWithPlg": 32
+            "renEventCount": 14,
+            "plgEventCount": 14,
+            "totalRenCount": 14,
+            "totalPlgCount": 14,
+            "beingsWithRen": 14,
+            "beingsWithPlg": 14
           },
-          "entries": 3621622
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 38,
+            "evolution:FISS": 24,
+            "evolution:REN": 14,
+            "evolution:PLG": 14,
+            "population:CMP": 9
+          },
+          "entriesKept": 99
         },
         {
           "treatmentId": "fertile_ren_plg",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_ren_plg",
-            "label": "富足+RPL+[REN]+[PLG]",
-            "envId": "fertile_field",
-            "rplRenewEnabled": true,
-            "rplRenewGrant": 1,
-            "rplRenewCooldown": 64,
-            "rplRenewBaseProb": 0.5,
-            "rplRenewAtOrBelow": 0,
-            "rplRenewMaxStress": 0.24,
-            "rplRenewMinSubstrate": 0.46,
-            "plgEnabled": true,
-            "plgRenewGrant": 1,
-            "plgPairCooldown": 100,
-            "plgExhaustedAt": 0
-          },
           "metrics": {
-            "rplEventCount": 96,
-            "rplInitCount": 36,
-            "rplExhaustedEvents": 28,
-            "fissCount": 32,
+            "rplEventCount": 36,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
             "aliveTotal": 36,
             "exhaustedCount": 0,
             "rplEndCount": 0,
@@ -488,14 +448,23 @@
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 1,
             "beingsWithRpl": 36,
-            "renEventCount": 20,
-            "plgEventCount": 36,
-            "totalRenCount": 20,
-            "totalPlgCount": 36,
-            "beingsWithRen": 18,
-            "beingsWithPlg": 30
+            "renEventCount": 8,
+            "plgEventCount": 16,
+            "totalRenCount": 8,
+            "totalPlgCount": 16,
+            "beingsWithRen": 8,
+            "beingsWithPlg": 16
           },
-          "entries": 3580168
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:PLG": 16,
+            "evolution:REN": 8,
+            "population:CMP": 9
+          },
+          "entriesKept": 93
         }
       ]
     }
@@ -505,27 +474,27 @@
       "seed": 0,
       "renPlg": {
         "H1_renRaisesFiss": {
-          "verdict": "support",
-          "baseline": 12,
-          "ren": 32,
-          "delta": 20,
-          "renEvents": 56
+          "verdict": "unsupport",
+          "baseline": 24,
+          "ren": 24,
+          "delta": 0,
+          "renEvents": 24
         },
         "H2_renObservable": {
           "verdict": "support",
-          "events": 56,
-          "beings": 36
+          "events": 24,
+          "beings": 24
         },
         "H3_plgAddsRenewal": {
           "verdict": "support",
-          "plgEvents": 36,
-          "renOnlyFiss": 32,
-          "renPlgFiss": 32,
+          "plgEvents": 14,
+          "renOnlyFiss": 24,
+          "renPlgFiss": 24,
           "delta": 0
         },
         "H4_populationEffect": {
-          "verdict": "weak",
-          "baseline": 16,
+          "verdict": "unsupport",
+          "baseline": 36,
           "ren": 36,
           "renPlg": 36
         }
@@ -535,27 +504,27 @@
       "seed": 1,
       "renPlg": {
         "H1_renRaisesFiss": {
-          "verdict": "support",
-          "baseline": 12,
-          "ren": 32,
-          "delta": 20,
-          "renEvents": 56
+          "verdict": "unsupport",
+          "baseline": 24,
+          "ren": 24,
+          "delta": 0,
+          "renEvents": 26
         },
         "H2_renObservable": {
           "verdict": "support",
-          "events": 56,
-          "beings": 36
+          "events": 26,
+          "beings": 26
         },
         "H3_plgAddsRenewal": {
           "verdict": "support",
-          "plgEvents": 34,
-          "renOnlyFiss": 32,
-          "renPlgFiss": 32,
+          "plgEvents": 18,
+          "renOnlyFiss": 24,
+          "renPlgFiss": 24,
           "delta": 0
         },
         "H4_populationEffect": {
-          "verdict": "weak",
-          "baseline": 16,
+          "verdict": "unsupport",
+          "baseline": 36,
           "ren": 36,
           "renPlg": 36
         }
@@ -565,27 +534,27 @@
       "seed": 2,
       "renPlg": {
         "H1_renRaisesFiss": {
-          "verdict": "support",
-          "baseline": 12,
-          "ren": 32,
-          "delta": 20,
-          "renEvents": 56
+          "verdict": "unsupport",
+          "baseline": 24,
+          "ren": 24,
+          "delta": 0,
+          "renEvents": 24
         },
         "H2_renObservable": {
           "verdict": "support",
-          "events": 56,
-          "beings": 36
+          "events": 24,
+          "beings": 24
         },
         "H3_plgAddsRenewal": {
           "verdict": "support",
-          "plgEvents": 40,
-          "renOnlyFiss": 32,
-          "renPlgFiss": 32,
+          "plgEvents": 14,
+          "renOnlyFiss": 24,
+          "renPlgFiss": 24,
           "delta": 0
         },
         "H4_populationEffect": {
-          "verdict": "weak",
-          "baseline": 16,
+          "verdict": "unsupport",
+          "baseline": 36,
           "ren": 36,
           "renPlg": 36
         }
@@ -595,27 +564,27 @@
       "seed": 3,
       "renPlg": {
         "H1_renRaisesFiss": {
-          "verdict": "support",
-          "baseline": 12,
-          "ren": 32,
-          "delta": 20,
-          "renEvents": 56
+          "verdict": "unsupport",
+          "baseline": 24,
+          "ren": 24,
+          "delta": 0,
+          "renEvents": 24
         },
         "H2_renObservable": {
           "verdict": "support",
-          "events": 56,
-          "beings": 36
+          "events": 24,
+          "beings": 24
         },
         "H3_plgAddsRenewal": {
           "verdict": "support",
-          "plgEvents": 36,
-          "renOnlyFiss": 32,
-          "renPlgFiss": 32,
+          "plgEvents": 16,
+          "renOnlyFiss": 24,
+          "renPlgFiss": 24,
           "delta": 0
         },
         "H4_populationEffect": {
-          "verdict": "weak",
-          "baseline": 16,
+          "verdict": "unsupport",
+          "baseline": 36,
           "ren": 36,
           "renPlg": 36
         }
@@ -623,6 +592,7 @@
     }
   ],
   "design": {
+    "fieldStatMode": "无诞生仪式；StatsRecorder 聚合计数",
     "ren": "富足场 + 低胁迫 + RPL≤0 → 概率性 +1 配额（DNA bias）",
     "plg": "同 tick 两体 RPL 耗尽 → 互赋配额 + 寄存器通量交换"
   },

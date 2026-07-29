@@ -1,5 +1,11 @@
 /** 从 Recorder 或 StatsRecorder 读取事件计数 */
 
+export function channelCount(recorder, channel, kind) {
+  if (recorder.count) return recorder.count(channel, kind);
+  if (recorder.counts) return recorder.counts[`${channel}:${kind}`] ?? 0;
+  return recorder.entries.filter((e) => e.channel === channel && e.meta?.kind === kind).length;
+}
+
 export function evoCount(recorder, kind) {
   if (recorder.evo) return recorder.evo(kind);
   if (recorder.counts) return recorder.counts[`evolution:${kind}`] ?? 0;

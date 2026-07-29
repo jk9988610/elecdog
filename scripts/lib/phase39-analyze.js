@@ -1,11 +1,10 @@
 /** Phase 39 — [REN] 环境重置 / [PLG] 双体通量汇合 */
 
 import { analyzeReplication } from './rpl-analyze.js';
+import { evoCount } from './event-stats.js';
 
-export function analyzeRenewPlg(entries, beings) {
-  const base = analyzeReplication(entries, beings);
-  const ren = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'REN');
-  const plg = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'PLG');
+export function analyzeRenewPlg(recorder, beings) {
+  const base = analyzeReplication(recorder, beings);
 
   const alive = beings.filter((b) => b.alive);
   const totalRenCount = alive.reduce((s, b) => s + (b.renCount ?? 0), 0);
@@ -13,8 +12,8 @@ export function analyzeRenewPlg(entries, beings) {
 
   return {
     ...base,
-    renEventCount: ren.length,
-    plgEventCount: plg.length,
+    renEventCount: evoCount(recorder, 'REN'),
+    plgEventCount: evoCount(recorder, 'PLG'),
     totalRenCount,
     totalPlgCount,
     beingsWithRen: alive.filter((b) => (b.renCount ?? 0) > 0).length,

@@ -1,52 +1,40 @@
 #!/usr/bin/env node
 /**
- * Phase 41 — 续行代价 [RCO]：免费续行 vs 有代价续行
+ * Phase 41 — 续行代价 [RCO]（统计田野：12体×960tick）
  */
 
 import { writeFileSync } from 'fs';
 import { createWorld } from '../src/world/world.js';
-import { performBirthRitual } from '../src/birth/ritual.js';
-import { Recorder } from '../src/recorder/logger.js';
-import { runTicks } from './lib/analyze.js';
 import { PHASE41_TREATMENTS, applyPhase41Treatment } from '../src/world/env-profile.js';
+import { runFieldScenario } from './lib/field-run.js';
+import { FIELD_SEEDS, FIELD_TICKS } from './lib/field-cohort.js';
 import { analyzeRenewCost, compareRenewCost, comparePlgCost } from './lib/phase41-analyze.js';
 import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 
-const OBSERVER_DNA =
-  '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
-const OBSERVER_ID = '0120260729010001';
-
-const FOUR = [
-  { name: '观察者', code: '001', dnaSequence: OBSERVER_DNA, id: OBSERVER_ID },
-  { name: '002', code: '002' },
-  { name: '003', code: '003' },
-  { name: '001-乙', code: '001' },
-];
-
-const SEEDS = [0, 1, 2, 3];
-const TICKS = 3000;
 const TREATMENT_IDS = Object.keys(PHASE41_TREATMENTS);
 
-function runScenario(treatmentId, seed) {
-  const world = createWorld(`01-p41-${treatmentId}-${seed}`);
-  applyPhase41Treatment(world, treatmentId);
-  world.envProfile.fieldLiteLog = true;
-  const recorder = new Recorder();
-  recorder.system(0, `[Phase41 ${treatmentId} seed${seed}]`);
-  FOUR.forEach((b) => performBirthRitual(world, recorder, b));
-  runTicks(world, recorder, TICKS);
-  const metrics = analyzeRenewCost(recorder.entries, world.beings);
-  return { treatmentId, seed, treatment: PHASE41_TREATMENTS[treatmentId], metrics, entries: recorder.entries.length };
+function runOne(treatmentId, seed) {
+  return runFieldScenario({
+    createWorld,
+    applyTreatment: applyPhase41Treatment,
+    treatmentId,
+    seed,
+    phase: 41,
+    ticks: FIELD_TICKS,
+    analyze: analyzeRenewCost,
+  });
 }
 
-console.log(`Phase 41 续行代价：四体 ${TICKS} tick × ${SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`);
+console.log(
+  `Phase 41 续行代价（统计田野）：12体 ${FIELD_TICKS} tick × ${FIELD_SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`
+);
 
 const byTreatment = {};
 for (const tid of TREATMENT_IDS) {
   byTreatment[tid] = [];
-  for (const seed of SEEDS) {
+  for (const seed of FIELD_SEEDS) {
     process.stdout.write(`  ${tid} seed${seed}…\n`);
-    byTreatment[tid].push(runScenario(tid, seed));
+    byTreatment[tid].push(runOne(tid, seed));
   }
 }
 
@@ -66,6 +54,7 @@ for (const [tid, runs] of Object.entries(byTreatment)) {
     meanRco: meanTreatment(runs, (r) => r.metrics.rcoEventCount),
     meanEnds: meanTreatment(runs, (r) => r.metrics.totalEnds),
     meanDebtEnds: meanTreatment(runs, (r) => r.metrics.renewDebtEnds),
+    meanEntriesKept: meanTreatment(runs, (r) => r.entriesKept),
     runs,
   };
 }
@@ -85,13 +74,15 @@ const report = {
   phase: 41,
   extension: 'renewal_cost_rco',
   gap: 'GAP-18',
-  ticks: TICKS,
-  seeds: SEEDS,
+  mode: 'field_stat',
+  cohort: '12 beings (001-006 ×2)',
+  ticks: FIELD_TICKS,
+  seeds: FIELD_SEEDS,
   treatments: PHASE41_TREATMENTS,
   aggregate,
   comparisons,
-  phase39Baseline: { renFree: { fiss: 32, alive: 36, ren: 56 } },
   design: {
+    fieldStatMode: '无诞生仪式；StatsRecorder 聚合计数',
     rco: 'REN/PLG 触发后：stressStreak↑、寄存器消耗、tickDebt↑、续行概率衰减、次数上限',
   },
   roadmap: 'docs/PHASE41_RENEW_COST.md',
@@ -103,7 +94,7 @@ writeFileSync(
 );
 
 console.log('\n=== 处理组均值 ===');
-console.log('treatment'.padEnd(24), 'FISS', '存活', 'REN', 'PLG', 'RCO', 'END', '债务END');
+console.log('treatment'.padEnd(24), 'FISS', '存活', 'REN', 'PLG', 'RCO', 'END', '债务END', '日志');
 for (const tid of TREATMENT_IDS) {
   const a = aggregate[tid];
   console.log(
@@ -114,7 +105,8 @@ for (const tid of TREATMENT_IDS) {
     String(a.meanPlg ?? '—').padStart(5),
     String(a.meanRco ?? '—').padStart(5),
     String(a.meanEnds ?? '—').padStart(5),
-    String(a.meanDebtEnds ?? '—').padStart(8)
+    String(a.meanDebtEnds ?? '—').padStart(8),
+    String(a.meanEntriesKept ?? '—').padStart(5)
   );
 }
 

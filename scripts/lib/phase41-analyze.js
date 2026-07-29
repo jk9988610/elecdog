@@ -1,14 +1,10 @@
 /** Phase 41 — 续行代价 [RCO] */
 
 import { analyzeRenewPlg } from './phase39-analyze.js';
+import { evoCount, evoWithMeta, endCount } from './event-stats.js';
 
-export function analyzeRenewCost(entries, beings) {
-  const base = analyzeRenewPlg(entries, beings);
-  const rco = entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RCO');
-  const ends = entries.filter((e) => e.channel === 'viability' && e.meta?.kind === 'END');
-  const debtEnds = ends.filter((e) => e.meta?.reason === 'renew_tick_debt');
-  const tickEnds = ends.filter((e) => e.meta?.reason === 'rpl_tick_cap');
-  const stressEnds = ends.filter((e) => e.meta?.reason === 'stress_streak');
+export function analyzeRenewCost(recorder, beings) {
+  const base = analyzeRenewPlg(recorder, beings);
 
   const alive = beings.filter((b) => b.alive);
   const meanDebt = alive.length
@@ -17,13 +13,13 @@ export function analyzeRenewCost(entries, beings) {
 
   return {
     ...base,
-    rcoEventCount: rco.length,
-    rcoRenEvents: rco.filter((e) => e.meta?.via === 'REN').length,
-    rcoPlgEvents: rco.filter((e) => e.meta?.via === 'PLG').length,
-    renewDebtEnds: debtEnds.length,
-    tickCapEnds: tickEnds.length,
-    stressEnds: stressEnds.length,
-    totalEnds: ends.length,
+    rcoEventCount: evoCount(recorder, 'RCO'),
+    rcoRenEvents: evoWithMeta(recorder, 'RCO', (m) => m.via === 'REN'),
+    rcoPlgEvents: evoWithMeta(recorder, 'RCO', (m) => m.via === 'PLG'),
+    renewDebtEnds: endCount(recorder, 'renew_tick_debt'),
+    tickCapEnds: endCount(recorder, 'rpl_tick_cap'),
+    stressEnds: endCount(recorder, 'stress_streak'),
+    totalEnds: endCount(recorder),
     meanRenewTickDebt: meanDebt,
   };
 }

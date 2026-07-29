@@ -1,53 +1,40 @@
 #!/usr/bin/env node
 /**
- * Phase 39 — [REN] 环境重置 / [PLG] 双体通量汇合
- * 四体 3000 tick × 4 种子 × 3 处理组
+ * Phase 39 — [REN] 环境重置 / [PLG] 双体通量汇合（统计田野：12体×960tick）
  */
 
 import { writeFileSync } from 'fs';
 import { createWorld } from '../src/world/world.js';
-import { performBirthRitual } from '../src/birth/ritual.js';
-import { Recorder } from '../src/recorder/logger.js';
-import { runTicks } from './lib/analyze.js';
 import { PHASE39_TREATMENTS, applyPhase39Treatment } from '../src/world/env-profile.js';
+import { runFieldScenario } from './lib/field-run.js';
+import { FIELD_SEEDS, FIELD_TICKS } from './lib/field-cohort.js';
 import { analyzeRenewPlg, compareRenPlg } from './lib/phase39-analyze.js';
 import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 
-const OBSERVER_DNA =
-  '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
-const OBSERVER_ID = '0120260729010001';
-
-const FOUR = [
-  { name: '观察者', code: '001', dnaSequence: OBSERVER_DNA, id: OBSERVER_ID },
-  { name: '002', code: '002' },
-  { name: '003', code: '003' },
-  { name: '001-乙', code: '001' },
-];
-
-const SEEDS = [0, 1, 2, 3];
-const TICKS = 3000;
 const TREATMENT_IDS = Object.keys(PHASE39_TREATMENTS);
 
-function runScenario(treatmentId, seed) {
-  const world = createWorld(`01-p39-${treatmentId}-${seed}`);
-  applyPhase39Treatment(world, treatmentId);
-  world.envProfile.fieldLiteLog = true;
-  const recorder = new Recorder();
-  recorder.system(0, `[Phase39 ${treatmentId} seed${seed}]`);
-  FOUR.forEach((b) => performBirthRitual(world, recorder, b));
-  runTicks(world, recorder, TICKS);
-  const metrics = analyzeRenewPlg(recorder.entries, world.beings);
-  return { treatmentId, seed, treatment: PHASE39_TREATMENTS[treatmentId], metrics, entries: recorder.entries.length };
+function runOne(treatmentId, seed) {
+  return runFieldScenario({
+    createWorld,
+    applyTreatment: applyPhase39Treatment,
+    treatmentId,
+    seed,
+    phase: 39,
+    ticks: FIELD_TICKS,
+    analyze: analyzeRenewPlg,
+  });
 }
 
-console.log(`Phase 39 REN/PLG：四体 ${TICKS} tick × ${SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`);
+console.log(
+  `Phase 39 REN/PLG（统计田野）：12体 ${FIELD_TICKS} tick × ${FIELD_SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`
+);
 
 const byTreatment = {};
 for (const tid of TREATMENT_IDS) {
   byTreatment[tid] = [];
-  for (const seed of SEEDS) {
+  for (const seed of FIELD_SEEDS) {
     process.stdout.write(`  ${tid} seed${seed}…\n`);
-    byTreatment[tid].push(runScenario(tid, seed));
+    byTreatment[tid].push(runOne(tid, seed));
   }
 }
 
@@ -66,6 +53,7 @@ for (const [tid, runs] of Object.entries(byTreatment)) {
     meanRenEvents: meanTreatment(runs, (r) => r.metrics.renEventCount),
     meanPlgEvents: meanTreatment(runs, (r) => r.metrics.plgEventCount),
     meanRplRemaining: meanTreatment(runs, (r) => r.metrics.meanRplRemaining),
+    meanEntriesKept: meanTreatment(runs, (r) => r.entriesKept),
     runs,
   };
 }
@@ -84,12 +72,15 @@ const report = {
   phase: 39,
   extension: 'rpl_renew_pledge',
   gap: 'GAP-18',
-  ticks: TICKS,
-  seeds: SEEDS,
+  mode: 'field_stat',
+  cohort: '12 beings (001-006 ×2)',
+  ticks: FIELD_TICKS,
+  seeds: FIELD_SEEDS,
   treatments: PHASE39_TREATMENTS,
   aggregate,
   comparisons,
   design: {
+    fieldStatMode: '无诞生仪式；StatsRecorder 聚合计数',
     ren: '富足场 + 低胁迫 + RPL≤0 → 概率性 +1 配额（DNA bias）',
     plg: '同 tick 两体 RPL 耗尽 → 互赋配额 + 寄存器通量交换',
   },
@@ -102,7 +93,7 @@ writeFileSync(
 );
 
 console.log('\n=== 处理组均值 ===');
-console.log('treatment'.padEnd(22), 'FISS', '存活', '耗尽', 'REN', 'PLG', '均RPL');
+console.log('treatment'.padEnd(22), 'FISS', '存活', '耗尽', 'REN', 'PLG', '均RPL', '日志');
 for (const tid of TREATMENT_IDS) {
   const a = aggregate[tid];
   console.log(
@@ -112,7 +103,8 @@ for (const tid of TREATMENT_IDS) {
     String(a.meanExhausted ?? '—').padStart(5),
     String(a.meanRenEvents ?? '—').padStart(5),
     String(a.meanPlgEvents ?? '—').padStart(5),
-    String(a.meanRplRemaining ?? '—').padStart(7)
+    String(a.meanRplRemaining ?? '—').padStart(7),
+    String(a.meanEntriesKept ?? '—').padStart(5)
   );
 }
 

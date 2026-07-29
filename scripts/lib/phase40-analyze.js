@@ -1,28 +1,30 @@
 /** Phase 40 — 多细胞 × RPL 续行 [REN]/[PLG] */
 
 import { analyzeRenewPlg } from './phase39-analyze.js';
+import { channelCount } from './event-stats.js';
 
-export function analyzeMulticellRenew(entries, beings) {
-  const base = analyzeRenewPlg(entries, beings);
-  const intra = entries.filter((e) => e.channel === 'cell' && e.meta?.kind === 'INTRA');
+export function analyzeMulticellRenew(recorder, beings) {
+  const base = analyzeRenewPlg(recorder, beings);
   const alive = beings.filter((b) => b.alive);
   const multicell = alive.filter((b) => b.organismType === 'multicell');
   const subUnits = multicell.reduce((s, b) => s + (b.subCells?.length ?? 0), 0);
-  const renByScope = entries.filter((e) => e.meta?.kind === 'REN');
   const orgScope = alive.filter((b) => b.rplScope === 'organism').length;
   const subScope = alive.filter((b) => b.rplScope === 'subunit').length;
+  const renWithSubScope = (recorder.entries ?? []).filter(
+    (e) =>
+      e.channel === 'evolution' &&
+      e.meta?.kind === 'REN' &&
+      beings.find((x) => x.id === e.beingId)?.rplScope === 'subunit'
+  ).length;
 
   return {
     ...base,
-    intraCount: intra.length,
+    intraCount: channelCount(recorder, 'cell', 'INTRA'),
     multicellAlive: multicell.length,
     subCellUnits: subUnits,
     rplOrganismScope: orgScope,
     rplSubunitScope: subScope,
-    renWithSubScope: renByScope.filter((e) => {
-      const b = beings.find((x) => x.id === e.beingId);
-      return b?.rplScope === 'subunit';
-    }).length,
+    renWithSubScope,
   };
 }
 

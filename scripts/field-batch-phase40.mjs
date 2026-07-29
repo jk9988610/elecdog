@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 /**
- * Phase 40 — 多细胞 × RPL 续行：共享 vs 子域 × REN / REN+PLG
+ * Phase 40 — 多细胞 × RPL 续行（统计田野：12体×960tick）
  */
 
 import { writeFileSync } from 'fs';
 import { createWorld } from '../src/world/world.js';
-import { performBirthRitual } from '../src/birth/ritual.js';
-import { Recorder } from '../src/recorder/logger.js';
-import { runTicks } from './lib/analyze.js';
 import { PHASE40_TREATMENTS, applyPhase40Treatment } from '../src/world/env-profile.js';
+import { runFieldScenario } from './lib/field-run.js';
+import { FIELD_SEEDS, FIELD_TICKS } from './lib/field-cohort.js';
 import {
   analyzeMulticellRenew,
   compareOrgVsSubRenew,
@@ -16,41 +15,30 @@ import {
 } from './lib/phase40-analyze.js';
 import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 
-const OBSERVER_DNA =
-  '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
-const OBSERVER_ID = '0120260729010001';
-
-const FOUR = [
-  { name: '观察者', code: '001', dnaSequence: OBSERVER_DNA, id: OBSERVER_ID },
-  { name: '002', code: '002' },
-  { name: '003', code: '003' },
-  { name: '001-乙', code: '001' },
-];
-
-const SEEDS = [0, 1, 2, 3];
-const TICKS = 3000;
 const TREATMENT_IDS = Object.keys(PHASE40_TREATMENTS);
 
-function runScenario(treatmentId, seed) {
-  const world = createWorld(`01-p40-${treatmentId}-${seed}`);
-  applyPhase40Treatment(world, treatmentId);
-  world.envProfile.fieldLiteLog = true;
-  const recorder = new Recorder();
-  recorder.system(0, `[Phase40 ${treatmentId} seed${seed}]`);
-  FOUR.forEach((b) => performBirthRitual(world, recorder, b));
-  runTicks(world, recorder, TICKS);
-  const metrics = analyzeMulticellRenew(recorder.entries, world.beings);
-  return { treatmentId, seed, treatment: PHASE40_TREATMENTS[treatmentId], metrics, entries: recorder.entries.length };
+function runOne(treatmentId, seed) {
+  return runFieldScenario({
+    createWorld,
+    applyTreatment: applyPhase40Treatment,
+    treatmentId,
+    seed,
+    phase: 40,
+    ticks: FIELD_TICKS,
+    analyze: analyzeMulticellRenew,
+  });
 }
 
-console.log(`Phase 40 多细胞×续行：四体 ${TICKS} tick × ${SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`);
+console.log(
+  `Phase 40 多细胞×续行（统计田野）：12体 ${FIELD_TICKS} tick × ${FIELD_SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`
+);
 
 const byTreatment = {};
 for (const tid of TREATMENT_IDS) {
   byTreatment[tid] = [];
-  for (const seed of SEEDS) {
+  for (const seed of FIELD_SEEDS) {
     process.stdout.write(`  ${tid} seed${seed}…\n`);
-    byTreatment[tid].push(runScenario(tid, seed));
+    byTreatment[tid].push(runOne(tid, seed));
   }
 }
 
@@ -70,6 +58,7 @@ for (const [tid, runs] of Object.entries(byTreatment)) {
     meanRenEvents: meanTreatment(runs, (r) => r.metrics.renEventCount),
     meanPlgEvents: meanTreatment(runs, (r) => r.metrics.plgEventCount),
     meanExhausted: meanTreatment(runs, (r) => r.metrics.exhaustedCount),
+    meanEntriesKept: meanTreatment(runs, (r) => r.entriesKept),
     runs,
   };
 }
@@ -91,16 +80,15 @@ const report = {
   phase: 40,
   extension: 'multicell_rpl_renew',
   gaps: ['GAP-17', 'GAP-18'],
-  ticks: TICKS,
-  seeds: SEEDS,
+  mode: 'field_stat',
+  cohort: '12 beings (001-006 ×2)',
+  ticks: FIELD_TICKS,
+  seeds: FIELD_SEEDS,
   treatments: PHASE40_TREATMENTS,
   aggregate,
   comparisons,
-  phase38Baseline: {
-    multicell_rpl_noRenew: { fiss: 12, alive: 16 },
-    multicell_subrpl_noRenew: { fiss: 7.5, alive: 11.5 },
-  },
   design: {
+    fieldStatMode: '无诞生仪式；StatsRecorder 聚合计数',
     matrix: '2×2：rplScope(organism|subunit) × renewal(REN|REN+PLG)',
     subunitFix: 'REN/PLG 在子域任一耗尽时触发（非仅总和≤0）',
   },
@@ -113,7 +101,7 @@ writeFileSync(
 );
 
 console.log('\n=== 处理组均值 ===');
-console.log('treatment'.padEnd(28), 'FISS', '存活', '多细胞', '子域', 'REN', 'PLG', '耗尽');
+console.log('treatment'.padEnd(28), 'FISS', '存活', '多细胞', '子域', 'REN', 'PLG', '耗尽', '日志');
 for (const tid of TREATMENT_IDS) {
   const a = aggregate[tid];
   console.log(
@@ -124,7 +112,8 @@ for (const tid of TREATMENT_IDS) {
     String(a.meanSubUnits ?? '—').padStart(5),
     String(a.meanRenEvents ?? '—').padStart(5),
     String(a.meanPlgEvents ?? '—').padStart(5),
-    String(a.meanExhausted ?? '—').padStart(5)
+    String(a.meanExhausted ?? '—').padStart(5),
+    String(a.meanEntriesKept ?? '—').padStart(5)
   );
 }
 

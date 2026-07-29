@@ -1,14 +1,13 @@
 #!/usr/bin/env node
 /**
- * Phase 43 — 重组 × 续行 + live-donor 配对
+ * Phase 43 — 重组 × 续行 + live-donor 配对（统计田野：12体×960tick）
  */
 
 import { writeFileSync } from 'fs';
 import { createWorld } from '../src/world/world.js';
-import { performBirthRitual } from '../src/birth/ritual.js';
-import { Recorder } from '../src/recorder/logger.js';
-import { runTicks } from './lib/analyze.js';
 import { PHASE43_TREATMENTS, applyPhase43Treatment } from '../src/world/env-profile.js';
+import { runFieldScenario } from './lib/field-run.js';
+import { FIELD_SEEDS, FIELD_TICKS } from './lib/field-cohort.js';
 import {
   analyzeRecombRenew,
   compareRenBoost,
@@ -16,41 +15,30 @@ import {
 } from './lib/phase43-analyze.js';
 import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 
-const OBSERVER_DNA =
-  '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
-const OBSERVER_ID = '0120260729010001';
-
-const FOUR = [
-  { name: '观察者', code: '001', dnaSequence: OBSERVER_DNA, id: OBSERVER_ID },
-  { name: '002', code: '002' },
-  { name: '003', code: '003' },
-  { name: '001-乙', code: '001' },
-];
-
-const SEEDS = [0, 1, 2, 3];
-const TICKS = 3000;
 const TREATMENT_IDS = Object.keys(PHASE43_TREATMENTS);
 
-function runScenario(treatmentId, seed) {
-  const world = createWorld(`01-p43-${treatmentId}-${seed}`);
-  applyPhase43Treatment(world, treatmentId);
-  world.envProfile.fieldLiteLog = true;
-  const recorder = new Recorder();
-  recorder.system(0, `[Phase43 ${treatmentId} seed${seed}]`);
-  FOUR.forEach((b) => performBirthRitual(world, recorder, b));
-  runTicks(world, recorder, TICKS);
-  const metrics = analyzeRecombRenew(recorder.entries, world.beings);
-  return { treatmentId, seed, treatment: PHASE43_TREATMENTS[treatmentId], metrics, entries: recorder.entries.length };
+function runOne(treatmentId, seed) {
+  return runFieldScenario({
+    createWorld,
+    applyTreatment: applyPhase43Treatment,
+    treatmentId,
+    seed,
+    phase: 43,
+    ticks: FIELD_TICKS,
+    analyze: analyzeRecombRenew,
+  });
 }
 
-console.log(`Phase 43 重组×续行：四体 ${TICKS} tick × ${SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`);
+console.log(
+  `Phase 43 重组×续行（统计田野）：12体 ${FIELD_TICKS} tick × ${FIELD_SEEDS.length} 种子 × ${TREATMENT_IDS.length} 处理组\n`
+);
 
 const byTreatment = {};
 for (const tid of TREATMENT_IDS) {
   byTreatment[tid] = [];
-  for (const seed of SEEDS) {
+  for (const seed of FIELD_SEEDS) {
     process.stdout.write(`  ${tid} seed${seed}…\n`);
-    byTreatment[tid].push(runScenario(tid, seed));
+    byTreatment[tid].push(runOne(tid, seed));
   }
 }
 
@@ -70,6 +58,7 @@ for (const [tid, runs] of Object.entries(byTreatment)) {
     meanAlive: meanTreatment(runs, (r) => r.metrics.aliveTotal),
     meanBacklog: meanTreatment(runs, (r) => r.metrics.packetBacklog),
     meanFusPerMei: meanTreatment(runs, (r) => r.metrics.fusPerMei),
+    meanEntriesKept: meanTreatment(runs, (r) => r.entriesKept),
     runs,
   };
 }
@@ -90,13 +79,15 @@ const report = {
   phase: 43,
   extension: 'recomb_renew_live_donor',
   gaps: ['GAP-18', 'GAP-19'],
-  ticks: TICKS,
-  seeds: SEEDS,
+  mode: 'field_stat',
+  cohort: '12 beings (001-006 ×2)',
+  ticks: FIELD_TICKS,
+  seeds: FIELD_SEEDS,
   treatments: PHASE43_TREATMENTS,
   aggregate,
   comparisons,
-  phase42Issue: { strictMei: 316, strictFus: 4 },
   design: {
+    fieldStatMode: '无诞生仪式；StatsRecorder 聚合计数',
     liveDonor: 'packet 持有者 + 有 RPL 的 live 供体 → FUS（无需双 packet）',
     ren: 'RPL 见底后续行 → 更多 MEI 循环',
   },
@@ -109,7 +100,7 @@ writeFileSync(
 );
 
 console.log('\n=== 处理组均值 ===');
-console.log('treatment'.padEnd(26), 'MEI', 'FUS', 'live', 'REN', '存活', '积压', 'F/M');
+console.log('treatment'.padEnd(26), 'MEI', 'FUS', 'live', 'REN', '存活', '积压', 'F/M', '日志');
 for (const tid of TREATMENT_IDS) {
   const a = aggregate[tid];
   console.log(
@@ -120,7 +111,8 @@ for (const tid of TREATMENT_IDS) {
     String(a.meanRen ?? '—').padStart(5),
     String(a.meanAlive ?? '—').padStart(5),
     String(a.meanBacklog ?? '—').padStart(5),
-    String(a.meanFusPerMei ?? '—').padStart(5)
+    String(a.meanFusPerMei ?? '—').padStart(5),
+    String(a.meanEntriesKept ?? '—').padStart(5)
   );
 }
 
