@@ -22,10 +22,13 @@ export function initSubstrate(world) {
 
 export function advanceSubstrate(world) {
   const { channels, rng } = world.substrate;
+  const drainMult = world.envProfile?.substrateDrainMult ?? 1;
+  const retain = Math.max(0.9, 0.98 / drainMult);
+  const mixW = 0.02 / drainMult;
   for (let i = 0; i < SUBSTRATE_CHANNELS; i++) {
     const mix = channels[(i + 1) % SUBSTRATE_CHANNELS];
     const noise = (rng() - 0.5) * 0.05;
-    channels[i] = Math.max(0, Math.min(1, channels[i] * 0.98 + mix * 0.02 + noise));
+    channels[i] = Math.max(0, Math.min(1, channels[i] * retain + mix * mixW + noise));
   }
 }
 
@@ -67,11 +70,15 @@ export const MET_LOW_THRESHOLD = 0.12;
 
 import { pickMetabolicChannel, assessCellIntegrity } from './cell.js';
 
-export function metabolicExchange(world, being, { internalCount = 1, hadExternal = false } = {}) {
+export function metabolicExchange(
+  world,
+  being,
+  { internalCount = 1, hadExternal = false, drawMult = 1 } = {}
+) {
   const ch = world.substrate.channels;
   const { idx, crossBoundary } = pickMetabolicChannel(being, ch);
   const activity = internalCount + (hadExternal ? 1 : 0);
-  const amount = Math.min(ch[idx], MET_DRAW_BASE * activity);
+  const amount = Math.min(ch[idx], MET_DRAW_BASE * activity * drawMult);
   const integrity = assessCellIntegrity(being, ch);
   if (amount <= 0.0001) return { draw: null, low: null, crossBoundary, integrity };
 

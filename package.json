@@ -36,6 +36,8 @@
     "field:phase26": "node scripts/field-batch-phase26.mjs",
     "field:phase33": "node scripts/field-batch-phase33.mjs",
     "field:phase33:cloud": "node scripts/field-batch-phase33.mjs --cloud",
+    "field:phase34": "node scripts/field-batch-phase34.mjs",
+    "field:phase34:cloud": "node scripts/field-batch-phase34.mjs --cloud",
     "field:cloud-upload": "node scripts/field-cloud-upload.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },

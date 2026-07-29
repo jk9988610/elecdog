@@ -22,6 +22,7 @@ import { advanceCatastrophe } from '../world/catastrophe.js';
 import { accumulateBiotic, applyBioticCycle } from '../world/biotic.js';
 import { compositionSnapshot, shouldRecordComposition } from '../world/composition.js';
 import { CELL_INTEGRITY_LOW } from '../world/cell.js';
+import { juvenileDrawMultiplier } from '../world/env-profile.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -197,6 +198,7 @@ export function stepWorld(world, recorder) {
     const met = metabolicExchange(world, being, {
       internalCount: result.internal.length,
       hadExternal: result.external.length > 0,
+      drawMult: juvenileDrawMultiplier(being, world.envProfile),
     });
     if (met.draw) {
       recorder.metabolism(
