@@ -31,6 +31,18 @@ npm run field:cloud-upload -- 26
 
 环境变量：`FIELD_CLOUD=1` 或 `--cloud` 标志；可选 `SUPABASE_URL` / `SUPABASE_ANON_KEY` 覆盖内置配置。
 
+### 六层人格栈批量归档（Phase 56）
+
+```bash
+# 批量上传 Phase 48–55 + 生成全栈清单
+npm run field:stack:full:cloud
+
+# 四层栈归档（48–53 + Phase 54 清单）不变
+npm run field:stack:cloud
+```
+
+详见 [PHASE56_PERSONA_STACK.md](PHASE56_PERSONA_STACK.md)。
+
 ### 四层栈批量归档（Phase 54）
 
 ```bash

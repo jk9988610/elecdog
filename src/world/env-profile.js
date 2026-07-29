@@ -4,6 +4,7 @@
 
 import { juvenileDrawMultiplier as nurtureJuvenileDraw } from './nurture.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
+import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
 export const ENV_PROFILES = {
   baseline: {
@@ -603,6 +604,28 @@ export const ENV_PROFILES = {
     fusOrphanPoolEnabled: true,
     fusSubunitRouteEnabled: true,
   },
+  fertile_persona_full: {
+    id: 'fertile_persona_full',
+    label: '富足六层人格栈反馈',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    fissionEnabled: true,
+    meiEnabled: true,
+    fusEnabled: true,
+    ...PERSONA_FEEDBACK,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusSubunitRouteEnabled: true,
+  },
 };
 
 const REN_BASE = {
@@ -1133,6 +1156,42 @@ export const PHASE55_TREATMENTS = {
   },
 };
 
+/** Phase 56 — 六层人格栈整合 EXP+REG+MTB+COOP+RPR+EHU */
+export const PHASE56_TREATMENTS = {
+  persona_tri_only: {
+    id: 'persona_tri_only',
+    label: '三路径（无档案层）',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+  },
+  persona_observe: {
+    id: 'persona_observe',
+    label: '六层观测',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    ...PERSONA_OBSERVE,
+  },
+  persona_feedback: {
+    id: 'persona_feedback',
+    label: '六层反馈',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    ...PERSONA_FEEDBACK,
+  },
+  persona_coherence: {
+    id: 'persona_coherence',
+    label: '六层+连贯加速',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    ...PERSONA_FEEDBACK,
+    ehuJuvenileTicks: 32,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1505,6 +1564,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase56Treatment(world, treatmentId) {
+  const treatment = PHASE56_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase56 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 56, treatmentId, ...treatment };
   return world.envProfile;
 }
 

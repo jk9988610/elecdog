@@ -426,11 +426,13 @@ export class ObserverApp {
           ? `<a href="${escapeHtml(logUrl)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">原始 JSON</a>`
           : '';
         const kind =
-          r.summary?.kind === 'field-stack-manifest'
-            ? '栈归档'
-            : r.summary?.kind === 'field-batch'
-              ? '批处理'
-              : '观察台';
+          r.summary?.kind === 'field-full-stack-manifest'
+            ? '全栈归档'
+            : r.summary?.kind === 'field-stack-manifest'
+              ? '栈归档'
+              : r.summary?.kind === 'field-batch'
+                ? '批处理'
+                : '观察台';
         return `<li class="cloud-run-item" data-log-path="${escapeHtml(r.log_path || '')}" data-run-title="${escapeHtml(r.world_name || '归档')}">
           <span class="cloud-list-title">${escapeHtml(r.world_name || '世界')} · tick ${r.tick} <span class="cloud-tag">${kind}</span></span>
           <span class="cloud-list-meta">${escapeHtml(r.observer_label || '—')} · 存活 ${r.alive_count}/${r.total_beings} · ${fmtDate(r.created_at)} · ${link} · <button type="button" class="link-btn" data-preview>预览</button></span>
@@ -644,6 +646,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('rpr')}</span><strong>${b.rprOrigin ?? 'SEED'} · ${b.rprTransitions ?? 0}</strong></div>
           <div class="stat-row"><span>${label('ehuStage')}</span><strong>${formatEhuStage(b.ehuStage)}</strong></div>
           <div class="stat-row"><span>${label('ehu')}</span><strong>${b.ehuTransitions ?? 0} · arc ${b.ehuArc ?? 0} · coh ${b.ehuCoherence ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('psn')}</span><strong>${b.personaTransitions ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>

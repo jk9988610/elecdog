@@ -11,7 +11,9 @@ import {
 } from './cloud-config.mjs';
 import {
   buildStackManifest,
+  buildFullStackManifest,
   STACK_PHASES,
+  FULL_STACK_PHASES,
   summarizeAggregateReport,
 } from './field-stack-summary.mjs';
 
@@ -94,7 +96,12 @@ export function summarizeBatchReport(phase, report) {
   }
 
   const summary = {
-    kind: report.kind === 'field-stack-manifest' ? 'field-stack-manifest' : 'field-batch',
+    kind:
+      report.kind === 'field-full-stack-manifest'
+        ? 'field-full-stack-manifest'
+        : report.kind === 'field-stack-manifest'
+          ? 'field-stack-manifest'
+          : 'field-batch',
     phase,
     extension: report.extension ?? null,
     ticks,
@@ -113,7 +120,7 @@ export function summarizeBatchReport(phase, report) {
     summary.headline = aggregateSummary.headline;
   }
 
-  if (report.kind === 'field-stack-manifest') {
+  if (report.kind === 'field-stack-manifest' || report.kind === 'field-full-stack-manifest') {
     summary.stackPhases = report.stackPhases ?? [];
     summary.headlines = report.headlines ?? [];
   }
@@ -143,9 +150,11 @@ export async function uploadFieldReport({ phase, report, label = 'field-batch' }
   await uploadJson(logPath, archive);
 
   const worldName =
-    summary.kind === 'field-stack-manifest'
-      ? `Phase ${phase} 四层栈云归档`
-      : `Phase ${phase} 田野批处理`;
+    summary.kind === 'field-full-stack-manifest'
+      ? `Phase ${phase} 六层人格栈云归档`
+      : summary.kind === 'field-stack-manifest'
+        ? `Phase ${phase} 四层栈云归档`
+        : `Phase ${phase} 田野批处理`;
 
   const row = await insertFieldRun({
     id,
@@ -180,9 +189,14 @@ export function readLocalFieldReport(phase) {
 }
 
 /**
- * @param {{ phases?: number[], label?: string }} [opts]
+ * @param {{ phases?: number[], label?: string, manifestPhase?: number, buildManifest?: Function }} [opts]
  */
-export async function uploadFieldStack({ phases = STACK_PHASES, label = 'field-stack-batch' } = {}) {
+export async function uploadFieldStack({
+  phases = STACK_PHASES,
+  label = 'field-stack-batch',
+  manifestPhase = 54,
+  buildManifest = buildStackManifest,
+} = {}) {
   const uploads = [];
   for (const phase of phases) {
     const report = readLocalFieldReport(phase);
@@ -196,15 +210,30 @@ export async function uploadFieldStack({ phases = STACK_PHASES, label = 'field-s
     console.log(`  Phase ${phase} → ${result.logPath}`);
   }
 
-  const manifest = buildStackManifest(uploads);
+  const manifest = buildManifest(uploads);
   const manifestResult = await uploadFieldReport({
-    phase: 54,
+    phase: manifestPhase,
     report: manifest,
-    label: 'field-stack-manifest',
+    label: manifest.kind === 'field-full-stack-manifest' ? 'field-full-stack-manifest' : 'field-stack-manifest',
   });
-  console.log(`\n☁ 四层栈归档清单 Phase 54 → ${manifestResult.logPath}`);
+  console.log(`\n☁ 栈归档清单 Phase ${manifestPhase} → ${manifestResult.logPath}`);
 
   return { uploads, manifest: manifestResult };
+}
+
+export async function uploadFullFieldStack(opts = {}) {
+  return uploadFieldStack({
+    phases: FULL_STACK_PHASES,
+    manifestPhase: 56,
+    buildManifest: buildFullStackManifest,
+    label: 'field-full-stack-batch',
+    ...opts,
+  });
+}
+
+export async function maybeUploadFullFieldStack(opts) {
+  if (!shouldUploadFieldCloud()) return null;
+  return uploadFullFieldStack(opts);
 }
 
 export async function maybeUploadFieldStack(opts) {
