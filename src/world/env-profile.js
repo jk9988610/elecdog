@@ -1289,6 +1289,29 @@ export const PHASE58_TREATMENTS = {
   },
 };
 
+/** Phase 59 — 观察台 CODEX UI + EHU×谱系代次田野 */
+export const PHASE59_TREATMENTS = {
+  ehu_gen_base: {
+    id: 'ehu_gen_base',
+    label: '六层反馈（无回响）',
+    envId: 'fertile_field',
+    ...PERSONA_TRI_FEEDBACK,
+  },
+  ehu_gen_lin: {
+    id: 'ehu_gen_lin',
+    label: '六层+谱系回响',
+    envId: 'fertile_field',
+    ...PERSONA_TRI_FEEDBACK,
+    ehuLineageEchoEnabled: true,
+  },
+  ehu_gen_full: {
+    id: 'ehu_gen_full',
+    label: '六层+绑定+回响',
+    envId: 'fertile_field',
+    ...EHU_DEEP_FULL,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1661,6 +1684,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase59Treatment(world, treatmentId) {
+  const treatment = PHASE59_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase59 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 59, treatmentId, ...treatment };
   return world.envProfile;
 }
 

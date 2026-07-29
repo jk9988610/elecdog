@@ -567,3 +567,165 @@ input[type='number'] {
   white-space: pre-wrap;
   word-break: break-word;
 }
+
+/* —— 辞典面板（Phase 59） —— */
+.codex-panel {
+  padding: 0.85rem 1.75rem 1rem;
+  border-bottom: 1px solid #1e2430;
+  background: #0a0c12;
+  max-height: min(70vh, 36rem);
+  overflow: auto;
+}
+
+.codex-panel.hidden {
+  display: none;
+}
+
+.codex-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.5rem;
+}
+
+.codex-title {
+  margin: 0;
+  font-size: 1rem;
+  color: #e8eaef;
+}
+
+.codex-meta {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: #6b7385;
+}
+
+.codex-note {
+  margin: 0 0 0.75rem;
+  font-size: 0.75rem;
+  color: #5a6270;
+}
+
+.codex-head-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.codex-search {
+  background: #080a0e;
+  border: 1px solid #2a3140;
+  color: #e8eaef;
+  border-radius: 6px;
+  padding: 0.4rem 0.55rem;
+  font: inherit;
+  font-size: 0.8125rem;
+  min-width: 12rem;
+}
+
+.codex-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.codex-item {
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.codex-item-head {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.65rem 0.75rem;
+  background: transparent;
+  border: none;
+  color: #d8dce6;
+  font: inherit;
+  font-size: 0.875rem;
+  text-align: left;
+  cursor: pointer;
+}
+
+.codex-item-head:hover {
+  background: #12151c;
+}
+
+.codex-item-title {
+  flex: 1;
+  font-weight: 500;
+}
+
+.codex-item-date {
+  font-size: 0.7rem;
+  color: #5a6270;
+}
+
+.codex-tag {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: #2a1f3a;
+  color: #c8a0e8;
+}
+
+.codex-item-body {
+  display: none;
+  padding: 0 0.75rem 0.75rem;
+  border-top: 1px solid #1a1f2a;
+}
+
+.codex-item.expanded .codex-item-body {
+  display: block;
+}
+
+.codex-dl {
+  margin: 0.55rem 0 0;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+}
+
+.codex-dl dt {
+  margin: 0.45rem 0 0.15rem;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: #6b7385;
+}
+
+.codex-dl dd {
+  margin: 0;
+  color: #9aa3b5;
+}
+
+.codex-obs {
+  display: inline-block;
+  margin: 0 0.25rem 0.2rem 0;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: #1a2a3a;
+  color: #7ec8e3;
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+}
+
+.codex-empty {
+  padding: 1rem;
+  text-align: center;
+  color: #5a6270;
+}
+
+#btn-codex-toggle.active {
+  background: #1a2430;
+  color: #7ec8e3;
+  border-color: #3a4a60;
+}

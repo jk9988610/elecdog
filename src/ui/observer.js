@@ -45,6 +45,7 @@ import {
   VIEW_ANALOGY,
   VIEW_NATIVE,
 } from './analogy.js';
+import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -103,6 +104,7 @@ export class ObserverApp {
         <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
         <button id="btn-cloud-toggle" type="button" class="btn-ghost">云设置</button>
+        <button id="btn-codex-toggle" type="button" class="btn-ghost">辞典</button>
       </section>
 
       <section id="cloud-panel" class="cloud-panel hidden">
@@ -149,6 +151,8 @@ export class ObserverApp {
         <p id="cloud-message" class="cloud-message" aria-live="polite"></p>
       </section>
 
+      ${renderCodexPanelHTML()}
+
       <main class="dashboard" id="dashboard"></main>
     `;
 
@@ -186,7 +190,12 @@ export class ObserverApp {
       btnViewAnalogy: this.root.querySelector('#btn-view-analogy'),
       envProfile: this.root.querySelector('#env-profile'),
       btnResetWorld: this.root.querySelector('#btn-reset-world'),
+      btnCodexToggle: this.root.querySelector('#btn-codex-toggle'),
     };
+
+    this.codexPanel = initCodexPanel(this.root, {
+      onClose: () => this.closeCodexPanel(),
+    });
 
     this.renderEnvOptions();
 
@@ -207,6 +216,23 @@ export class ObserverApp {
     this.$.btnViewAnalogy?.addEventListener('click', () => this.switchViewMode(VIEW_ANALOGY));
     this.$.envProfile?.addEventListener('change', () => this.onEnvProfileChange());
     this.$.btnResetWorld?.addEventListener('click', () => this.resetWorld());
+    this.$.btnCodexToggle?.addEventListener('click', () => this.toggleCodexPanel());
+  }
+
+  toggleCodexPanel() {
+    if (!this.codexPanel) return;
+    if (this.codexPanel.isOpen()) {
+      this.closeCodexPanel();
+    } else {
+      this.$.cloudPanel?.classList.add('hidden');
+      this.codexPanel.open();
+      this.$.btnCodexToggle?.classList.add('active');
+    }
+  }
+
+  closeCodexPanel() {
+    this.codexPanel?.close();
+    this.$.btnCodexToggle?.classList.remove('active');
   }
 
   renderEnvOptions() {
@@ -301,6 +327,7 @@ export class ObserverApp {
   toggleCloudPanel() {
     this.$.cloudPanel.classList.toggle('hidden');
     if (!this.$.cloudPanel.classList.contains('hidden')) {
+      this.closeCodexPanel();
       this.refreshCloudPanel();
     }
   }
