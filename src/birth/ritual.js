@@ -3,6 +3,7 @@
 import { createDna, createDnaFromSequence } from '../core/dna.js';
 import { generateId } from '../core/id.js';
 import { Being } from '../being/being.js';
+import { initOrganism } from '../world/organism.js';
 
 export function performBirthRitual(
   world,
@@ -34,12 +35,38 @@ export function performBirthRitual(
 
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
+  const organismType = initOrganism(being, world.envProfile);
   steps.push(
     recorder.ritual(tick, `[RITUAL] 社会位 ${being.socialSlot}`, {
       beingId: id,
       socialSlot: being.socialSlot,
     })
   );
+  if (organismType === 'multicell') {
+    steps.push(
+      recorder.ritual(tick, `[RITUAL] 子域 ${being.subCells.length} 单元`, {
+        beingId: id,
+        organismType,
+        subCells: being.subCells.map((sc) => ({ id: sc.id, role: sc.role })),
+      })
+    );
+    recorder.cell(
+      tick,
+      id,
+      `[ORG] multicell subs ${being.subCells.map((sc) => sc.id).join(' ')}`,
+      {
+        kind: 'ORG',
+        organismType,
+        subCount: being.subCells.length,
+      }
+    );
+  } else {
+    recorder.cell(tick, id, `[ORG] unicell domain e${being.cellBoundary.join(' e')}`, {
+      kind: 'ORG',
+      organismType: 'unicell',
+      boundary: being.cellBoundary,
+    });
+  }
 
   const pulse = being.firstPulse();
   recorder.internal(tick, id, pulse);

@@ -1,0 +1,928 @@
+{
+  "runAt": "2026-07-29T03:43:51.120Z",
+  "phase": 35,
+  "extension": "multicell_nurture_organism_distinction",
+  "gaps": [
+    "GAP-14",
+    "GAP-15"
+  ],
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "unicell_instant": {
+      "id": "unicell_instant",
+      "label": "单域即时独立",
+      "envId": "harsh_combined",
+      "organismMode": "unicell",
+      "reproMode": "instant"
+    },
+    "unicell_nursed": {
+      "id": "unicell_nursed",
+      "label": "单域延迟独立+通量",
+      "envId": "harsh_combined",
+      "organismMode": "unicell",
+      "reproMode": "nursed",
+      "nurtureTicks": 80,
+      "nurtureSeedFrac": 0.35,
+      "nurtureTickGrant": 0.012,
+      "dependentDrawMult": 0.55,
+      "independenceTicks": 80
+    },
+    "multicell_instant": {
+      "id": "multicell_instant",
+      "label": "多子域即时独立",
+      "envId": "harsh_combined",
+      "organismMode": "multicell",
+      "reproMode": "instant"
+    },
+    "multicell_nursed": {
+      "id": "multicell_nursed",
+      "label": "多子域延迟独立+通量",
+      "envId": "harsh_combined",
+      "organismMode": "multicell",
+      "reproMode": "nursed",
+      "nurtureTicks": 80,
+      "nurtureSeedFrac": 0.35,
+      "nurtureTickGrant": 0.012,
+      "dependentDrawMult": 0.55,
+      "independenceTicks": 80
+    }
+  },
+  "aggregate": {
+    "unicell_instant": {
+      "label": "单域即时独立",
+      "meanJuvenileEndRate": 1,
+      "meanNetLineage": 4,
+      "meanAliveLineage": 4,
+      "meanIntraCount": 0,
+      "meanNurCount": 0,
+      "meanMulticellAlive": 0,
+      "runs": [
+        {
+          "treatmentId": "unicell_instant",
+          "seed": 0,
+          "treatment": {
+            "id": "unicell_instant",
+            "label": "单域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1127,
+            "lineageEndCount": 1123,
+            "juvenileEndCount": 1123,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1131,
+            "orgMulticell": 0,
+            "shkCount": 39,
+            "lowCount": 10068
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 131912
+        },
+        {
+          "treatmentId": "unicell_instant",
+          "seed": 1,
+          "treatment": {
+            "id": "unicell_instant",
+            "label": "单域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1111,
+            "lineageEndCount": 1107,
+            "juvenileEndCount": 1107,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1115,
+            "orgMulticell": 0,
+            "shkCount": 32,
+            "lowCount": 10225
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 132336
+        },
+        {
+          "treatmentId": "unicell_instant",
+          "seed": 2,
+          "treatment": {
+            "id": "unicell_instant",
+            "label": "单域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1154,
+            "lineageEndCount": 1150,
+            "juvenileEndCount": 1150,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1158,
+            "orgMulticell": 0,
+            "shkCount": 32,
+            "lowCount": 10114
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 133011
+        },
+        {
+          "treatmentId": "unicell_instant",
+          "seed": 3,
+          "treatment": {
+            "id": "unicell_instant",
+            "label": "单域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1152,
+            "lineageEndCount": 1148,
+            "juvenileEndCount": 1148,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1156,
+            "orgMulticell": 0,
+            "shkCount": 28,
+            "lowCount": 10186
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 132033
+        }
+      ]
+    },
+    "unicell_nursed": {
+      "label": "单域延迟独立+通量",
+      "meanJuvenileEndRate": 1,
+      "meanNetLineage": 4,
+      "meanAliveLineage": 4,
+      "meanIntraCount": 0,
+      "meanNurCount": 83156.5,
+      "meanMulticellAlive": 0,
+      "runs": [
+        {
+          "treatmentId": "unicell_nursed",
+          "seed": 0,
+          "treatment": {
+            "id": "unicell_nursed",
+            "label": "单域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1224,
+            "lineageEndCount": 1220,
+            "juvenileEndCount": 1220,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 83926,
+            "nurSeed": 1224,
+            "nurTick": 82642,
+            "nurIndependent": 60,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1228,
+            "orgMulticell": 0,
+            "shkCount": 27,
+            "lowCount": 9988
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 216149
+        },
+        {
+          "treatmentId": "unicell_nursed",
+          "seed": 1,
+          "treatment": {
+            "id": "unicell_nursed",
+            "label": "单域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1179,
+            "lineageEndCount": 1175,
+            "juvenileEndCount": 1175,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 3,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 82836,
+            "nurSeed": 1179,
+            "nurTick": 81590,
+            "nurIndependent": 67,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1183,
+            "orgMulticell": 0,
+            "shkCount": 28,
+            "lowCount": 9912
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 215043
+        },
+        {
+          "treatmentId": "unicell_nursed",
+          "seed": 2,
+          "treatment": {
+            "id": "unicell_nursed",
+            "label": "单域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1204,
+            "lineageEndCount": 1200,
+            "juvenileEndCount": 1200,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 83074,
+            "nurSeed": 1204,
+            "nurTick": 81801,
+            "nurIndependent": 69,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1208,
+            "orgMulticell": 0,
+            "shkCount": 36,
+            "lowCount": 10050
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 215186
+        },
+        {
+          "treatmentId": "unicell_nursed",
+          "seed": 3,
+          "treatment": {
+            "id": "unicell_nursed",
+            "label": "单域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "unicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1190,
+            "lineageEndCount": 1186,
+            "juvenileEndCount": 1186,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 4,
+            "multicellAlive": 0,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 0,
+            "organismUnicell": 4,
+            "nurCount": 82790,
+            "nurSeed": 1190,
+            "nurTick": 81533,
+            "nurIndependent": 67,
+            "intraCount": 0,
+            "intraByRole": {},
+            "orgUnicell": 1194,
+            "orgMulticell": 0,
+            "shkCount": 37,
+            "lowCount": 10085
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 0,
+            "subCellUnitCount": 0,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 215093
+        }
+      ]
+    },
+    "multicell_instant": {
+      "label": "多子域即时独立",
+      "meanJuvenileEndRate": 1,
+      "meanNetLineage": 4,
+      "meanAliveLineage": 4,
+      "meanIntraCount": 33203.75,
+      "meanNurCount": 0,
+      "meanMulticellAlive": 4,
+      "runs": [
+        {
+          "treatmentId": "multicell_instant",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_instant",
+            "label": "多子域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1054,
+            "lineageEndCount": 1050,
+            "juvenileEndCount": 1050,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 33113,
+            "intraByRole": {
+              "draw": 11046,
+              "act": 11038,
+              "balance": 11029
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1058,
+            "shkCount": 31,
+            "lowCount": 9992
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 167153
+        },
+        {
+          "treatmentId": "multicell_instant",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_instant",
+            "label": "多子域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1042,
+            "lineageEndCount": 1038,
+            "juvenileEndCount": 1038,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 33137,
+            "intraByRole": {
+              "draw": 11050,
+              "act": 11039,
+              "balance": 11048
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1046,
+            "shkCount": 37,
+            "lowCount": 9996
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 166514
+        },
+        {
+          "treatmentId": "multicell_instant",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_instant",
+            "label": "多子域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1039,
+            "lineageEndCount": 1035,
+            "juvenileEndCount": 1035,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 33128,
+            "intraByRole": {
+              "draw": 11054,
+              "act": 11041,
+              "balance": 11033
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1043,
+            "shkCount": 30,
+            "lowCount": 10065
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 166903
+        },
+        {
+          "treatmentId": "multicell_instant",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_instant",
+            "label": "多子域即时独立",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "instant"
+          },
+          "metrics": {
+            "lineageSpawn": 1019,
+            "lineageEndCount": 1015,
+            "juvenileEndCount": 1015,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 0,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 0,
+            "nurSeed": 0,
+            "nurTick": 0,
+            "nurIndependent": 0,
+            "intraCount": 33437,
+            "intraByRole": {
+              "draw": 11146,
+              "act": 11143,
+              "balance": 11148
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1023,
+            "shkCount": 37,
+            "lowCount": 9977
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 166327
+        }
+      ]
+    },
+    "multicell_nursed": {
+      "label": "多子域延迟独立+通量",
+      "meanJuvenileEndRate": 1,
+      "meanNetLineage": 4,
+      "meanAliveLineage": 4,
+      "meanIntraCount": 33035.75,
+      "meanNurCount": 80912.5,
+      "meanMulticellAlive": 4,
+      "runs": [
+        {
+          "treatmentId": "multicell_nursed",
+          "seed": 0,
+          "treatment": {
+            "id": "multicell_nursed",
+            "label": "多子域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1090,
+            "lineageEndCount": 1086,
+            "juvenileEndCount": 1086,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 80498,
+            "nurSeed": 1090,
+            "nurTick": 79316,
+            "nurIndependent": 92,
+            "intraCount": 33222,
+            "intraByRole": {
+              "draw": 11076,
+              "act": 11071,
+              "balance": 11075
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1094,
+            "shkCount": 26,
+            "lowCount": 10014
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 247374
+        },
+        {
+          "treatmentId": "multicell_nursed",
+          "seed": 1,
+          "treatment": {
+            "id": "multicell_nursed",
+            "label": "多子域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1107,
+            "lineageEndCount": 1103,
+            "juvenileEndCount": 1103,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 80404,
+            "nurSeed": 1107,
+            "nurTick": 79212,
+            "nurIndependent": 85,
+            "intraCount": 32626,
+            "intraByRole": {
+              "draw": 10876,
+              "act": 10882,
+              "balance": 10868
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1111,
+            "shkCount": 27,
+            "lowCount": 9953
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 246029
+        },
+        {
+          "treatmentId": "multicell_nursed",
+          "seed": 2,
+          "treatment": {
+            "id": "multicell_nursed",
+            "label": "多子域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1090,
+            "lineageEndCount": 1086,
+            "juvenileEndCount": 1086,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 80959,
+            "nurSeed": 1090,
+            "nurTick": 79779,
+            "nurIndependent": 90,
+            "intraCount": 32889,
+            "intraByRole": {
+              "draw": 10966,
+              "act": 10961,
+              "balance": 10962
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1094,
+            "shkCount": 31,
+            "lowCount": 9974
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 247468
+        },
+        {
+          "treatmentId": "multicell_nursed",
+          "seed": 3,
+          "treatment": {
+            "id": "multicell_nursed",
+            "label": "多子域延迟独立+通量",
+            "envId": "harsh_combined",
+            "organismMode": "multicell",
+            "reproMode": "nursed",
+            "nurtureTicks": 80,
+            "nurtureSeedFrac": 0.35,
+            "nurtureTickGrant": 0.012,
+            "dependentDrawMult": 0.55,
+            "independenceTicks": 80
+          },
+          "metrics": {
+            "lineageSpawn": 1146,
+            "lineageEndCount": 1142,
+            "juvenileEndCount": 1142,
+            "juvenileEndRate": 1,
+            "netLineage": 4,
+            "aliveTotal": 4,
+            "aliveLineage": 4,
+            "unicellAlive": 0,
+            "multicellAlive": 4,
+            "dependentAlive": 4,
+            "populationBeings": 4,
+            "organismMulticell": 4,
+            "organismUnicell": 0,
+            "nurCount": 81789,
+            "nurSeed": 1146,
+            "nurTick": 80557,
+            "nurIndependent": 86,
+            "intraCount": 33406,
+            "intraByRole": {
+              "draw": 11141,
+              "act": 11134,
+              "balance": 11131
+            },
+            "orgUnicell": 0,
+            "orgMulticell": 1150,
+            "shkCount": 32,
+            "lowCount": 10226
+          },
+          "distinction": {
+            "populationCount": 4,
+            "multicellOrganismCount": 4,
+            "subCellUnitCount": 12,
+            "distinction": "population_ids_gt_subunits",
+            "note": "种群 = 独立身份证 being 数；多细胞个体 = 1 being 含多 subCell，一次 END 终止整 organism"
+          },
+          "entries": 249833
+        }
+      ]
+    }
+  },
+  "nursedComparisons": {
+    "unicell": {
+      "juvenileEndRate": {
+        "instant": 1,
+        "nursed": 1,
+        "delta": 0,
+        "verdict": "pending"
+      },
+      "netLineage": {
+        "instant": 4,
+        "nursed": 4,
+        "delta": 0,
+        "verdict": "pending"
+      },
+      "aliveLineage": {
+        "instant": 4,
+        "nursed": 4,
+        "delta": 0,
+        "verdict": "pending"
+      }
+    },
+    "multicell": {
+      "juvenileEndRate": {
+        "instant": 1,
+        "nursed": 1,
+        "delta": 0,
+        "verdict": "pending"
+      },
+      "netLineage": {
+        "instant": 4,
+        "nursed": 4,
+        "delta": 0,
+        "verdict": "pending"
+      },
+      "aliveLineage": {
+        "instant": 4,
+        "nursed": 4,
+        "delta": 0,
+        "verdict": "pending"
+      }
+    }
+  },
+  "analogy": {
+    "unicell": "1 being = 1 代谢域（现行 cellBoundary）",
+    "multicell": "1 being = 多 subCell 子域，共享身份证，一次 END 终止整 organism",
+    "population": "多个独立 being（独立 ID、社会位、各自 LINEAGE）",
+    "intra": "subCell 间 [INTRA] 通量分工（draw/act/balance 轮值）",
+    "nur": "谱系幼体 [NUR] 亲代寄存器种子 + 依赖期通量"
+  },
+  "roadmap": "docs/PHASE35_MULTICELL.md"
+}

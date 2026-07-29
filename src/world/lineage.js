@@ -3,6 +3,7 @@
 import { hashString } from '../core/hash.js';
 import { mutate } from '../core/dna.js';
 import { performBirthRitual } from '../birth/ritual.js';
+import { applyNurtureAtBirth } from './nurture.js';
 
 export function spawnLineageOffspring(world, recorder, parent) {
   const seed = hashString(`${parent.id}:${world.tick}:offspring`);
@@ -14,11 +15,28 @@ export function spawnLineageOffspring(world, recorder, parent) {
   });
   born.being.generation = (parent.generation || 0) + 1;
   born.being.lineageParent = parent.id;
+  const nurture = applyNurtureAtBirth(world, parent, born.being);
   recorder.system(world.tick, `[LINEAGE] 代 ${born.being.generation} 变异位 ${mutationCount}`, {
     parentId: parent.id,
     childId: born.id,
     mutationCount,
     generation: born.being.generation,
+    reproMode: nurture.mode,
+    nurtureReserve: nurture.reserveSum ?? null,
   });
+  if (nurture.mode === 'nursed') {
+    recorder.metabolism(
+      world.tick,
+      born.id,
+      `[NUR] seed ${nurture.reserveSum} ticks ${nurture.nurtureTicks} parent ${parent.id}`,
+      {
+        kind: 'NUR',
+        phase: 'seed',
+        parentId: parent.id,
+        reserveSum: nurture.reserveSum,
+        nurtureTicks: nurture.nurtureTicks,
+      }
+    );
+  }
   return born;
 }
