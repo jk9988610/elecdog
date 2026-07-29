@@ -100,6 +100,7 @@
 | **GAP-ENV vent** | **93** | ✅ 地热 VTN support |
 | **GAP-ENV MIG** | **94** | ✅ patch 迁徙 support |
 | **GAP-11+ DSP** | **95** | ✅ 耗散定律 support |
+| **W6 全栈验收** | **96** | ⚠️ 耦合 weak（W5 4/4） |
 
 ---
 
