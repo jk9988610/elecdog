@@ -758,6 +758,13 @@ input[type='number'] {
   justify-content: space-between;
   gap: 1rem;
   margin-bottom: 0.75rem;
+  flex-wrap: wrap;
+}
+
+.immersion-head-badges {
+  display: flex;
+  gap: 0.35rem;
+  align-items: center;
 }
 
 .immersion-head h2 {

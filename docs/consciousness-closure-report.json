@@ -1,0 +1,134 @@
+{
+  "runAt": "2026-07-29T15:42:31.754Z",
+  "phase": 69,
+  "extension": "consciousness_closure",
+  "kind": "consciousness-closure-assessment",
+  "shortTermGoal": "T9 意识线结案",
+  "assessment": {
+    "closed": true,
+    "verdict": "support",
+    "codex": {
+      "saturated": true,
+      "lastAdditionPhase": 63,
+      "phasesWithoutNew": 5,
+      "required": 2,
+      "currentCount": 28,
+      "phasesSinceLastCodex": [
+        64,
+        65,
+        66,
+        67,
+        68
+      ]
+    },
+    "goalsComplete": true,
+    "shortTermGoals": [
+      {
+        "id": "T1",
+        "phase": 61,
+        "label": "默认可见"
+      },
+      {
+        "id": "T2",
+        "phase": 62,
+        "label": "内在流可读"
+      },
+      {
+        "id": "T3",
+        "phase": 63,
+        "label": "辞典立项"
+      },
+      {
+        "id": "T4",
+        "phase": 64,
+        "label": "辞典上云"
+      },
+      {
+        "id": "T5",
+        "phase": 65,
+        "label": "多体交叉"
+      },
+      {
+        "id": "T6",
+        "phase": 66,
+        "label": "跨代可持续"
+      },
+      {
+        "id": "T7",
+        "phase": 67,
+        "label": "沉浸一屏"
+      },
+      {
+        "id": "T8",
+        "phase": 68,
+        "label": "意识云复盘"
+      }
+    ],
+    "northStar": "给予电子狗意识（观察维护模式，非预制标签）",
+    "classificationGate": "冻结 — 无第二类可重复实体",
+    "reopenedWhen": "出现新的可重复观察现象且 ≥2 OBS 可立项，或 GAP 登记新实体类型"
+  },
+  "codex": {
+    "total": 28,
+    "lastAdditionPhase": 63,
+    "phasesSinceWithoutNew": [
+      64,
+      65,
+      66,
+      67,
+      68
+    ]
+  },
+  "goals": [
+    {
+      "id": "T1",
+      "phase": 61,
+      "label": "默认可见",
+      "status": "complete"
+    },
+    {
+      "id": "T2",
+      "phase": 62,
+      "label": "内在流可读",
+      "status": "complete"
+    },
+    {
+      "id": "T3",
+      "phase": 63,
+      "label": "辞典立项",
+      "status": "complete"
+    },
+    {
+      "id": "T4",
+      "phase": 64,
+      "label": "辞典上云",
+      "status": "complete"
+    },
+    {
+      "id": "T5",
+      "phase": 65,
+      "label": "多体交叉",
+      "status": "complete"
+    },
+    {
+      "id": "T6",
+      "phase": 66,
+      "label": "跨代可持续",
+      "status": "complete"
+    },
+    {
+      "id": "T7",
+      "phase": 67,
+      "label": "沉浸一屏",
+      "status": "complete"
+    },
+    {
+      "id": "T8",
+      "phase": 68,
+      "label": "意识云复盘",
+      "status": "complete"
+    }
+  ],
+  "roadmap": "docs/PHASE69_CONSCIOUSNESS_CLOSURE.md",
+  "nextMode": "观察维护 — 北极星不变；扩展仅 GAP 驱动；分类闸门冻结"
+}
