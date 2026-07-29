@@ -12,6 +12,7 @@ import { initSeasonalStats } from './seasonal.js';
 import { initAirState } from './air.js';
 import { initAdvState } from './adv.js';
 import { initLunarStats } from './ltc.js';
+import { initArtState } from './art.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -2094,6 +2095,49 @@ export const PHASE91_TREATMENTS = {
   },
 };
 
+const ART_ENV_BASE = {
+  ...ADV_LTC_BASE,
+  advEnabled: true,
+  ltcEnabled: true,
+  artEnabled: true,
+};
+
+/** Phase 92 — GAP-ART 持久 [ART] 场态 + 效率田野 */
+export const PHASE92_TREATMENTS = {
+  art_off_ref: {
+    id: 'art_off_ref',
+    label: '无ART参考',
+    envId: 'wisdom_evolution',
+    ...ART_ENV_BASE,
+    artEnabled: false,
+  },
+  art_on_ref: {
+    id: 'art_on_ref',
+    label: 'ART参考',
+    envId: 'wisdom_evolution',
+    ...ART_ENV_BASE,
+    artEnabled: true,
+  },
+  art_on_boost: {
+    id: 'art_on_boost',
+    label: 'ART强化沉积',
+    envId: 'wisdom_evolution',
+    ...ART_ENV_BASE,
+    artEnabled: true,
+    artDepositEvery: 8,
+    artDrwBonus: 0.075,
+  },
+  art_on_sparse: {
+    id: 'art_on_sparse',
+    label: 'ART稀疏沉积',
+    envId: 'wisdom_evolution',
+    ...ART_ENV_BASE,
+    artEnabled: true,
+    artMinActs: 14,
+    artDepositEvery: 18,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2646,6 +2690,32 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase92Treatment(world, treatmentId) {
+  const treatment = PHASE92_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase92 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 92, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  initAdvState(world);
+  initLunarStats(world);
+  initArtState(world, world.envProfile);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
