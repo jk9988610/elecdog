@@ -18,12 +18,17 @@
 
 - **缺口**：r0–r7 漂移可记录，但与感受/需求无稳定映射
 - **依据**：Phase 1–10 全部；GENETICS G-OBS-01~08；**Phase 24 OBS-60/61**
-- **状态**：**仍开放**；禁止预制映射表
-- **Phase 24 补充**：
+- **Phase 24 田野**（solo/四体 2000 tick）：
   - solo：|r−e| 与 stress 中等正相关（0.55–0.69）
   - 四体：相关减弱（0.34–0.37）；LOW 遍布 e0–e7
   - **无**跨个体一致的 stress 期寄存器偏移
   - **不立项** r→感受 CODEX/MAP 条
+- **Phase 49 扩展**：
+  - `[REG]` 运行时模式 SYNC/LAG/SCATTER/LOCK（纯数值）
+  - 可选耦合反馈调制基底牵引系数
+  - 统计田野 12 体 × 960 tick × 4 处理组
+- **状态**：**部分结案** — 模式可观察；感受映射仍禁止
+- **报告**：[PHASE49_REGISTER.md](PHASE49_REGISTER.md) · `field-phase49-report.json`
 
 ---
 

@@ -5,7 +5,6 @@ import { formatNodesState } from '../world/nodes.js';
 import { assessCellIntegrity } from '../world/cell.js';
 import { compositionSnapshot } from '../world/composition.js';
 import { observerEnvHint, observerEnvLabel } from './env-select.js';
-import { formatExpStage } from './analogy.js';
 
 function countEnv(entries, kind) {
   return entries.filter((e) => e.channel === 'environment' && e.meta?.kind === kind).length;
@@ -95,6 +94,9 @@ export function buildDashboardStats(world, recorder) {
         (b.expSocial ?? 0) +
         (b.expAct ?? 0)
       ).toFixed(3),
+      regMode: b.regMode ?? 'SYNC',
+      regTransitions: b.regTransitions ?? 0,
+      regGapMean: +(b.regGapMean ?? 0).toFixed(3),
       ...es,
     };
   });
@@ -142,6 +144,11 @@ export function buildDashboardStats(world, recorder) {
         (e) =>
           (e.channel === 'experience' && e.meta?.kind === 'EXP') ||
           (e.channel === 'evolution' && e.meta?.kind === 'EXP')
+      ).length,
+      reg: entries.filter(
+        (e) =>
+          (e.channel === 'register' && e.meta?.kind === 'REG') ||
+          (e.channel === 'evolution' && e.meta?.kind === 'REG')
       ).length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,

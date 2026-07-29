@@ -447,6 +447,31 @@ export const ENV_PROFILES = {
     experienceFeedback: true,
     expJuvenileTicks: 48,
   },
+  fertile_reg_couple: {
+    id: 'fertile_reg_couple',
+    label: '富足场+寄存器耦合反馈',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplSenescenceEnd: false,
+    rplTickCapEnabled: false,
+    registerProfileEnabled: true,
+    registerFeedback: true,
+    registerCouplingBase: 0.02,
+  },
 };
 
 const REN_BASE = {
@@ -734,6 +759,41 @@ export const PHASE48_TREATMENTS = {
     ...MC_SUB_RPL,
     ...MC_DUAL_ROUTE,
     ...EXP_BASE,
+  },
+};
+
+const REG_BASE = {
+  registerProfileEnabled: true,
+  registerFeedback: true,
+  registerCouplingBase: 0.02,
+};
+
+/** Phase 49 — 寄存器语义层 [REG] 模式与场耦合 */
+export const PHASE49_TREATMENTS = {
+  fertile_no_reg: {
+    id: 'fertile_no_reg',
+    label: '富足场（无寄存器层）',
+    envId: 'fertile_field',
+  },
+  fertile_reg_observe: {
+    id: 'fertile_reg_observe',
+    label: '富足场+寄存器观测',
+    envId: 'fertile_field',
+    registerProfileEnabled: true,
+    registerFeedback: false,
+    registerCouplingBase: 0.02,
+  },
+  fertile_reg_couple: {
+    id: 'fertile_reg_couple',
+    label: '富足场+寄存器耦合反馈',
+    envId: 'fertile_field',
+    ...REG_BASE,
+  },
+  harsh_reg_couple: {
+    id: 'harsh_reg_couple',
+    label: '组合高压+寄存器耦合',
+    envId: 'harsh_combined',
+    ...REG_BASE,
   },
 };
 
@@ -1065,6 +1125,17 @@ export function applyPhase48Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 48, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase49Treatment(world, treatmentId) {
+  const treatment = PHASE49_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase49 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 49, treatmentId, ...treatment };
   return world.envProfile;
 }
 

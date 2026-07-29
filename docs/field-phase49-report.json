@@ -1,0 +1,1662 @@
+{
+  "runAt": "2026-07-29T13:30:50.003Z",
+  "phase": 49,
+  "extension": "register_semantics_layer",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "fertile_no_reg": {
+      "id": "fertile_no_reg",
+      "label": "富足场（无寄存器层）",
+      "envId": "fertile_field"
+    },
+    "fertile_reg_observe": {
+      "id": "fertile_reg_observe",
+      "label": "富足场+寄存器观测",
+      "envId": "fertile_field",
+      "registerProfileEnabled": true,
+      "registerFeedback": false,
+      "registerCouplingBase": 0.02
+    },
+    "fertile_reg_couple": {
+      "id": "fertile_reg_couple",
+      "label": "富足场+寄存器耦合反馈",
+      "envId": "fertile_field",
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02
+    },
+    "harsh_reg_couple": {
+      "id": "harsh_reg_couple",
+      "label": "组合高压+寄存器耦合",
+      "envId": "harsh_combined",
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02
+    }
+  },
+  "aggregate": {
+    "fertile_no_reg": {
+      "label": "富足场（无寄存器层）",
+      "meanRegTransitions": 0,
+      "meanGap": 0,
+      "meanDrift": 0,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_no_reg",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 0,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0,
+            "meanVariance": 0,
+            "meanRegTransitions": 0,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_reg",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 0,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0,
+            "meanVariance": 0,
+            "meanRegTransitions": 0,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_reg",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 0,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0,
+            "meanVariance": 0,
+            "meanRegTransitions": 0,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_reg",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 0,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0,
+            "meanVariance": 0,
+            "meanRegTransitions": 0,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        }
+      ]
+    },
+    "fertile_reg_observe": {
+      "label": "富足场+寄存器观测",
+      "meanRegTransitions": 68,
+      "meanGap": 0,
+      "meanDrift": 0.02,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_reg_observe",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 80,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0192,
+            "meanVariance": 0.0025,
+            "meanRegTransitions": 2.2222,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.021,
+                "variance": 0.0002,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0194,
+                "variance": 0.0017,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0191,
+                "variance": 0.0013,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.011,
+                "variance": 0.0049,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 4
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0161,
+                "variance": 0.0032,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0148,
+                "variance": 0.0021,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 80,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 149
+        },
+        {
+          "treatmentId": "fertile_reg_observe",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 58,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0177,
+            "meanVariance": 0.0023,
+            "meanRegTransitions": 1.6111,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.032,
+                "variance": 0.0031,
+                "domReg": 5,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0237,
+                "variance": 0.0027,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0142,
+                "variance": 0.0035,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0233,
+                "variance": 0.0018,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0205,
+                "variance": 0.0014,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0118,
+                "variance": 0.0053,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 58,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 127
+        },
+        {
+          "treatmentId": "fertile_reg_observe",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 64,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0186,
+            "meanVariance": 0.0027,
+            "meanRegTransitions": 1.7778,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0179,
+                "variance": 0.0021,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0264,
+                "variance": 0.0012,
+                "domReg": 4,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.016,
+                "variance": 0.005,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0237,
+                "variance": 0.0025,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0114,
+                "variance": 0.0052,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0241,
+                "variance": 0.001,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 64,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 134
+        },
+        {
+          "treatmentId": "fertile_reg_observe",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 70,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0192,
+            "meanVariance": 0.0018,
+            "meanRegTransitions": 1.9444,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0181,
+                "variance": 0.0015,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0226,
+                "variance": 0.0004,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0243,
+                "variance": 0.0026,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0166,
+                "variance": 0.003,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0233,
+                "variance": 0.0005,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0128,
+                "variance": 0.0012,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 70,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 140
+        }
+      ]
+    },
+    "fertile_reg_couple": {
+      "label": "富足场+寄存器耦合反馈",
+      "meanRegTransitions": 63.5,
+      "meanGap": 0,
+      "meanDrift": 0.02,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_reg_couple",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 76,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0185,
+            "meanVariance": 0.0017,
+            "meanRegTransitions": 2.1111,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.016,
+                "variance": 0.0003,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0161,
+                "variance": 0.0047,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.018,
+                "variance": 0.0014,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0224,
+                "variance": 0.0021,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 4
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0265,
+                "variance": 0.002,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 4
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0199,
+                "variance": 0.0034,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 76,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 145
+        },
+        {
+          "treatmentId": "fertile_reg_couple",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 60,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0169,
+            "meanVariance": 0.0018,
+            "meanRegTransitions": 1.6667,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0321,
+                "variance": 0.0028,
+                "domReg": 5,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0134,
+                "variance": 0.0034,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0133,
+                "variance": 0.0009,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0105,
+                "variance": 0.0016,
+                "domReg": 5,
+                "domSub": 0,
+                "transitions": 4
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0215,
+                "variance": 0.0019,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0161,
+                "variance": 0.0044,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 60,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 130
+        },
+        {
+          "treatmentId": "fertile_reg_couple",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 74,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0184,
+            "meanVariance": 0.0017,
+            "meanRegTransitions": 2.0556,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0172,
+                "variance": 0.0016,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0177,
+                "variance": 0.0022,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0231,
+                "variance": 0.0037,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0175,
+                "variance": 0.0004,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0196,
+                "variance": 0.0011,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0221,
+                "variance": 0.0012,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 74,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 144
+        },
+        {
+          "treatmentId": "fertile_reg_couple",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "regTransitionCount": 44,
+            "regModes": {
+              "SYNC": 36,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0173,
+            "meanVariance": 0.0018,
+            "meanRegTransitions": 1.2222,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0174,
+                "variance": 0.0013,
+                "domReg": 4,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0206,
+                "variance": 0.0016,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0177,
+                "variance": 0.0027,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0154,
+                "variance": 0.0016,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0169,
+                "variance": 0.001,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0158,
+                "variance": 0.0013,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 44,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 113
+        }
+      ]
+    },
+    "harsh_reg_couple": {
+      "label": "组合高压+寄存器耦合",
+      "meanRegTransitions": 539.25,
+      "meanGap": 0,
+      "meanDrift": 0.02,
+      "meanAlive": 12,
+      "meanFiss": 0,
+      "runs": [
+        {
+          "treatmentId": "harsh_reg_couple",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "regTransitionCount": 570,
+            "regModes": {
+              "SYNC": 10,
+              "LAG": 0,
+              "SCATTER": 2,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0218,
+            "meanVariance": 0.0154,
+            "meanRegTransitions": 1.6667,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0197,
+                "variance": 0.0039,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0221,
+                "variance": 0.0031,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0155,
+                "variance": 0.0046,
+                "domReg": 5,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0164,
+                "variance": 0.0041,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.027,
+                "variance": 0.0086,
+                "domReg": 4,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0266,
+                "variance": 0.0041,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 326,
+            "evolution:REG": 570,
+            "viability:END": 325,
+            "evolution:SEL": 325,
+            "environment:SHK": 8,
+            "environment:NPL": 11,
+            "population:CMP": 9
+          },
+          "entriesKept": 1229
+        },
+        {
+          "treatmentId": "harsh_reg_couple",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "regTransitionCount": 550,
+            "regModes": {
+              "SYNC": 11,
+              "LAG": 0,
+              "SCATTER": 1,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0228,
+            "meanVariance": 0.0132,
+            "meanRegTransitions": 1.9167,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0266,
+                "variance": 0.0055,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0157,
+                "variance": 0.0035,
+                "domReg": 2,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0162,
+                "variance": 0.007,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 4
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0216,
+                "variance": 0.0048,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.019,
+                "variance": 0.0026,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0249,
+                "variance": 0.01,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 318,
+            "evolution:REG": 550,
+            "viability:END": 317,
+            "evolution:SEL": 317,
+            "environment:SHK": 10,
+            "population:CMP": 9,
+            "environment:NPL": 9
+          },
+          "entriesKept": 1193
+        },
+        {
+          "treatmentId": "harsh_reg_couple",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "regTransitionCount": 491,
+            "regModes": {
+              "SYNC": 10,
+              "LAG": 0,
+              "SCATTER": 2,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0093,
+            "meanVariance": 0.0146,
+            "meanRegTransitions": 0.5,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0177,
+                "variance": 0.002,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0255,
+                "variance": 0.0039,
+                "domReg": 6,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0167,
+                "variance": 0.0186,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SCATTER",
+                "gapMean": 0,
+                "driftVel": 0.0174,
+                "variance": 0.0824,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "SCATTER",
+                "gapMean": 0,
+                "driftVel": 0.0342,
+                "variance": 0.0685,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0,
+                "variance": 0,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 299,
+            "evolution:REG": 491,
+            "viability:END": 298,
+            "evolution:SEL": 298,
+            "environment:NPL": 7,
+            "population:CMP": 9,
+            "environment:SHK": 12
+          },
+          "entriesKept": 1096
+        },
+        {
+          "treatmentId": "harsh_reg_couple",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 12,
+            "fissCount": 0,
+            "regTransitionCount": 546,
+            "regModes": {
+              "SYNC": 12,
+              "LAG": 0,
+              "SCATTER": 0,
+              "LOCK": 0
+            },
+            "meanGapMean": 0,
+            "meanDriftVel": 0.0232,
+            "meanVariance": 0.0104,
+            "meanRegTransitions": 2,
+            "regSnapshots": [
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0188,
+                "variance": 0.0033,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0306,
+                "variance": 0.0028,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0226,
+                "variance": 0.005,
+                "domReg": 1,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0149,
+                "variance": 0.0035,
+                "domReg": 0,
+                "domSub": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0233,
+                "variance": 0.0272,
+                "domReg": 7,
+                "domSub": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "SYNC",
+                "gapMean": 0,
+                "driftVel": 0.0174,
+                "variance": 0.0038,
+                "domReg": 3,
+                "domSub": 0,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 314,
+            "evolution:REG": 546,
+            "viability:END": 313,
+            "evolution:SEL": 313,
+            "environment:NPL": 6,
+            "environment:SHK": 13,
+            "population:CMP": 9
+          },
+          "entriesKept": 1181
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "observeVsNone": {
+        "H1_observeHasReg": {
+          "verdict": "support",
+          "noReg": 0,
+          "observe": 80
+        },
+        "H2_modesObservable": {
+          "verdict": "weak",
+          "modes": {
+            "SYNC": 36,
+            "LAG": 0,
+            "SCATTER": 0,
+            "LOCK": 0
+          }
+        }
+      },
+      "coupleVsObserve": {
+        "H3_coupleReducesGap": {
+          "verdict": "weak",
+          "observeGap": 0,
+          "coupleGap": 0,
+          "delta": 0
+        },
+        "H4_coupleMoreTransitions": {
+          "verdict": "unsupport",
+          "observe": 80,
+          "couple": 76,
+          "delta": -4
+        },
+        "H5_noFeelingLabels": {
+          "verdict": "support",
+          "note": "仅数值模式 SYNC/LAG/SCATTER/LOCK，无感受映射"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshSurvival": {
+          "verdict": "support",
+          "fertile": 36,
+          "harsh": 12,
+          "delta": -24
+        },
+        "H7_harshStillHasReg": {
+          "verdict": "support",
+          "transitions": 570,
+          "modes": {
+            "SYNC": 10,
+            "LAG": 0,
+            "SCATTER": 2,
+            "LOCK": 0
+          }
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "observeVsNone": {
+        "H1_observeHasReg": {
+          "verdict": "support",
+          "noReg": 0,
+          "observe": 58
+        },
+        "H2_modesObservable": {
+          "verdict": "weak",
+          "modes": {
+            "SYNC": 36,
+            "LAG": 0,
+            "SCATTER": 0,
+            "LOCK": 0
+          }
+        }
+      },
+      "coupleVsObserve": {
+        "H3_coupleReducesGap": {
+          "verdict": "weak",
+          "observeGap": 0,
+          "coupleGap": 0,
+          "delta": 0
+        },
+        "H4_coupleMoreTransitions": {
+          "verdict": "support",
+          "observe": 58,
+          "couple": 60,
+          "delta": 2
+        },
+        "H5_noFeelingLabels": {
+          "verdict": "support",
+          "note": "仅数值模式 SYNC/LAG/SCATTER/LOCK，无感受映射"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshSurvival": {
+          "verdict": "support",
+          "fertile": 36,
+          "harsh": 12,
+          "delta": -24
+        },
+        "H7_harshStillHasReg": {
+          "verdict": "support",
+          "transitions": 550,
+          "modes": {
+            "SYNC": 11,
+            "LAG": 0,
+            "SCATTER": 1,
+            "LOCK": 0
+          }
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "observeVsNone": {
+        "H1_observeHasReg": {
+          "verdict": "support",
+          "noReg": 0,
+          "observe": 64
+        },
+        "H2_modesObservable": {
+          "verdict": "weak",
+          "modes": {
+            "SYNC": 36,
+            "LAG": 0,
+            "SCATTER": 0,
+            "LOCK": 0
+          }
+        }
+      },
+      "coupleVsObserve": {
+        "H3_coupleReducesGap": {
+          "verdict": "weak",
+          "observeGap": 0,
+          "coupleGap": 0,
+          "delta": 0
+        },
+        "H4_coupleMoreTransitions": {
+          "verdict": "support",
+          "observe": 64,
+          "couple": 74,
+          "delta": 10
+        },
+        "H5_noFeelingLabels": {
+          "verdict": "support",
+          "note": "仅数值模式 SYNC/LAG/SCATTER/LOCK，无感受映射"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshSurvival": {
+          "verdict": "support",
+          "fertile": 36,
+          "harsh": 12,
+          "delta": -24
+        },
+        "H7_harshStillHasReg": {
+          "verdict": "support",
+          "transitions": 491,
+          "modes": {
+            "SYNC": 10,
+            "LAG": 0,
+            "SCATTER": 2,
+            "LOCK": 0
+          }
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "observeVsNone": {
+        "H1_observeHasReg": {
+          "verdict": "support",
+          "noReg": 0,
+          "observe": 70
+        },
+        "H2_modesObservable": {
+          "verdict": "weak",
+          "modes": {
+            "SYNC": 36,
+            "LAG": 0,
+            "SCATTER": 0,
+            "LOCK": 0
+          }
+        }
+      },
+      "coupleVsObserve": {
+        "H3_coupleReducesGap": {
+          "verdict": "weak",
+          "observeGap": 0,
+          "coupleGap": 0,
+          "delta": 0
+        },
+        "H4_coupleMoreTransitions": {
+          "verdict": "unsupport",
+          "observe": 70,
+          "couple": 44,
+          "delta": -26
+        },
+        "H5_noFeelingLabels": {
+          "verdict": "support",
+          "note": "仅数值模式 SYNC/LAG/SCATTER/LOCK，无感受映射"
+        }
+      },
+      "harshVsFertile": {
+        "H6_harshSurvival": {
+          "verdict": "support",
+          "fertile": 36,
+          "harsh": 12,
+          "delta": -24
+        },
+        "H7_harshStillHasReg": {
+          "verdict": "support",
+          "transitions": 546,
+          "modes": {
+            "SYNC": 12,
+            "LAG": 0,
+            "SCATTER": 0,
+            "LOCK": 0
+          }
+        }
+      }
+    }
+  ],
+  "design": {
+    "modes": "SYNC / LAG / SCATTER / LOCK — 纯数值模式，非感受映射",
+    "feedback": "模式调制基底耦合系数（0.02 ± δ）"
+  },
+  "roadmap": "docs/PHASE49_REGISTER.md"
+}

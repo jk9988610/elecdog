@@ -33,6 +33,10 @@ import {
   experienceActBias,
   processExperienceTick,
 } from '../world/experience.js';
+import {
+  registerProfileEnabled,
+  processRegisterTick,
+} from '../world/register-profile.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -103,6 +107,7 @@ export function stepWorld(world, recorder) {
       heardSignals: heard,
       substrate: substrateSnap,
       experienceBias,
+      profile,
     });
 
     if (!result.alive) continue;
@@ -316,6 +321,12 @@ export function stepWorld(world, recorder) {
         },
         { fieldStat: stat }
       );
+    }
+
+    if (registerProfileEnabled(profile)) {
+      processRegisterTick(world, recorder, being, profile, substrateSnap.channels, {
+        fieldStat: stat,
+      });
     }
 
     if (!stat && met.intra?.transfers?.length) {
