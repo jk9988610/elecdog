@@ -31,6 +31,7 @@ import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { tickSynth, synthEnabled } from '../world/synth.js';
 import { tickSymModules, symCaptureEnabled } from '../world/sym.js';
 import { tickDiurnal, diurnalEnabled, recordDiurnalLow, initDiurnalStats } from '../world/diurnal.js';
+import { prepAirDiurnal, airEnabled } from '../world/air.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -89,8 +90,18 @@ export function stepWorld(world, recorder) {
 
   const profile = world.envProfile ?? {};
   const scl = tickSeasonal(world, profile);
-  const dlc = tickDiurnal(world, profile);
-  const pcp = tickPcp(world, profile, { solar: dlc?.solar ?? 0, night: dlc?.night ?? false });
+  const airPrep = prepAirDiurnal(world, profile);
+  const dlc = tickDiurnal(world, profile, {
+    solar: airPrep.solar,
+    night: airPrep.night,
+    airSolarMult: airPrep.air.solarAtten,
+  });
+  const effectiveSolar = airPrep.air.effectiveSolar;
+  const air = airPrep.air;
+  const pcp = tickPcp(world, profile, {
+    solar: effectiveSolar,
+    night: dlc?.night ?? airPrep.night,
+  });
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -145,6 +156,14 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[DLC] ${world.birthPlace} solar ${dlc.solar.toFixed(3)} e${dlc.idx} q${dlc.quarter}`,
         { kind: 'DLC', place: world.birthPlace, ...dlc }
+      );
+    }
+    if (airEnabled(profile) && air && world._airQuarter !== air.quarter) {
+      world._airQuarter = air.quarter;
+      recorder.environment(
+        world.tick,
+        `[AIR] ${world.birthPlace} scalar ${air.scalar} solarEff ${air.effectiveSolar} drain×${air.drainMult}`,
+        { kind: 'AIR', place: world.birthPlace, ...air }
       );
     }
     if (pcp?.fired) {
@@ -435,7 +454,7 @@ export function stepWorld(world, recorder) {
     if (synthEnabled(profile)) {
       const sym = tickSynth(being, profile, {
         stress: result.stress,
-        solar: dlc?.solar ?? 0,
+        solar: effectiveSolar,
         night: dlc?.night ?? false,
         substrate: substrateSnap.channels,
       });
@@ -455,7 +474,7 @@ export function stepWorld(world, recorder) {
     if (symCaptureEnabled(profile) || being.symModules?.length) {
       const mod = tickSymModules(being, profile, {
         stress: result.stress,
-        solar: dlc?.solar ?? 0,
+        solar: effectiveSolar,
         night: dlc?.night ?? false,
       });
       if (mod?.events?.length && !stat) {

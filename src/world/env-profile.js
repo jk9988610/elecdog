@@ -9,6 +9,7 @@ import { initWorldPlace, applyTerrainSubstrateBias } from './place.js';
 import { initDiurnalStats } from './diurnal.js';
 import { initPcpState } from './pcp.js';
 import { initSeasonalStats } from './seasonal.js';
+import { initAirState } from './air.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -2005,6 +2006,48 @@ export const PHASE89_TREATMENTS = {
   },
 };
 
+const AIR_ENV_BASE = {
+  ...SYNTH_ENV_BASE,
+  synthEnabled: true,
+  symCaptureEnabled: false,
+  airEnabled: true,
+  airInit: 0.5,
+};
+
+/** Phase 90 — GAP-ENV air 标量 + 日相耦合 */
+export const PHASE90_TREATMENTS = {
+  air_off_ref: {
+    id: 'air_off_ref',
+    label: '无air参考',
+    envId: 'wisdom_evolution',
+    ...AIR_ENV_BASE,
+    airEnabled: false,
+  },
+  air_on_ref: {
+    id: 'air_on_ref',
+    label: 'air参考',
+    envId: 'wisdom_evolution',
+    ...AIR_ENV_BASE,
+    airInit: 0.5,
+  },
+  air_on_thick: {
+    id: 'air_on_thick',
+    label: '厚大气',
+    envId: 'wisdom_evolution',
+    ...AIR_ENV_BASE,
+    airInit: 0.85,
+    airSolarFloor: 0.35,
+  },
+  air_on_thin: {
+    id: 'air_on_thin',
+    label: '稀薄大气',
+    envId: 'wisdom_evolution',
+    ...AIR_ENV_BASE,
+    airInit: 0.15,
+    airDrainBoost: 1.15,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2557,6 +2600,29 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase90Treatment(world, treatmentId) {
+  const treatment = PHASE90_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase90 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 90, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  applyTerrainSubstrateBias(world);
+  initNodes(world);
+  initDiurnalStats(world);
+  initPcpState(world, world.envProfile);
+  initSeasonalStats(world);
+  initAirState(world, world.envProfile);
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
