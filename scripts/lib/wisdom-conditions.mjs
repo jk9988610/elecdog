@@ -50,7 +50,7 @@ export const WISDOM_LAYERS = [
     label: '开放度',
     items: [
       { id: 'L6a-depth', label: '多代深度 ≥20', status: 'complete', phase: '21-26' },
-      { id: 'L6b-open', label: '开放泛化', status: 'partial', phase: '77', goal: 'W5' },
+      { id: 'L6b-open', label: '开放泛化', status: 'complete', phase: '78', goal: 'W5' },
     ],
   },
 ];
@@ -63,11 +63,11 @@ export const WISDOM_PHASE_ROADMAP = [
   { phase: 74, goal: 'W3', label: '预测–校正反馈' },
   { phase: 75, goal: 'W4', label: '社会知识累积' },
   { phase: 76, goal: 'W4', label: '谱系记忆回响' },
-  { phase: 77, goal: 'W5', label: '长时开放演化田野' },
+  { phase: 78, goal: 'W5', label: '多情境开放泛化' },
 ];
 
 /**
- * @param {{ memoryFeedbackInCode?: boolean, phase70FieldVerdict?: string, phase75FieldVerdict?: string, phase77FieldVerdict?: string }} [opts]
+ * @param {{ memoryFeedbackInCode?: boolean, phase70FieldVerdict?: string, phase75FieldVerdict?: string, phase77FieldVerdict?: string, phase78FieldVerdict?: string }} [opts]
  */
 export function assessWisdomConditions(opts = {}) {
   const items = WISDOM_LAYERS.flatMap((layer) =>
@@ -85,11 +85,8 @@ export function assessWisdomConditions(opts = {}) {
       if (opts.phase75FieldVerdict === 'support' && item.id === 'L5b-culture') {
         status = 'complete';
       }
-      if (
-        (opts.phase77FieldVerdict === 'support' || opts.phase77FieldVerdict === 'weak') &&
-        item.id === 'L6b-open'
-      ) {
-        status = 'partial';
+      if (opts.phase78FieldVerdict === 'support' && item.id === 'L6b-open') {
+        status = 'complete';
       }
       return { ...item, layer: layer.id, layerLabel: layer.label, status };
     })
@@ -104,7 +101,7 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 77,
+    currentPhase: 78,
     currentGoal: 'W5',
     roadmap: 'docs/WISDOM.md',
   };

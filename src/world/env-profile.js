@@ -1629,14 +1629,15 @@ export const PHASE78_TREATMENTS = {
     substrateDrainMult: 0.88,
     substrateFloor: 0.4,
   },
-  w5_ctx_sparse: {
-    id: 'w5_ctx_sparse',
-    label: '智慧栈+基底耗竭情境',
+  w5_ctx_fertile: {
+    id: 'w5_ctx_fertile',
+    label: '智慧栈+富足加成情境',
     envId: 'wisdom_evolution',
     ...W5_WISDOM_FULL,
-    wisdomContextId: 'sparse',
-    substrateDrainMult: 1.22,
-    substrateFloor: 0.32,
+    wisdomContextId: 'fertile',
+    substrateDrainMult: 0.38,
+    substrateFloor: 0.58,
+    substrateBoost: 0.04,
   },
   w5_ctx_juv: {
     id: 'w5_ctx_juv',

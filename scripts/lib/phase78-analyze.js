@@ -13,17 +13,17 @@ function extSpread(metricsList) {
 export function compareContextGeneralizationForSeed(byTreatment) {
   const base = byTreatment.w5_ctx_base;
   const shock = byTreatment.w5_ctx_shock;
-  const sparse = byTreatment.w5_ctx_sparse;
+  const fertile = byTreatment.w5_ctx_fertile;
   const juv = byTreatment.w5_ctx_juv;
-  const all = [base, shock, sparse, juv];
-  const alts = [shock, sparse, juv];
+  const all = [base, shock, fertile, juv];
+  const alts = [shock, fertile, juv];
   const spread = extSpread(all);
 
   return {
     H1_allContextsViable: {
       verdict: all.every((m) => (m.aliveTotal ?? 0) >= 4) ? 'support' : all.every((m) => (m.aliveTotal ?? 0) >= 2) ? 'weak' : 'unsupport',
       alive: Object.fromEntries(
-        ['base', 'shock', 'sparse', 'juv'].map((k, i) => [k, all[i].aliveTotal])
+        ['base', 'shock', 'fertile', 'juv'].map((k, i) => [k, all[i].aliveTotal])
       ),
     },
     H2_wisdomLayersInAlt: {
@@ -32,7 +32,7 @@ export function compareContextGeneralizationForSeed(byTreatment) {
         : alts.filter((m) => (m.prdCount ?? 0) >= 30).length >= 2
           ? 'weak'
           : 'unsupport',
-      altPrd: { shock: shock.prdCount, sparse: sparse.prdCount, juv: juv.prdCount },
+      altPrd: { shock: shock.prdCount, fertile: fertile.prdCount, juv: juv.prdCount },
     },
     H3_contextSensitiveBehavior: {
       verdict: spread >= 0.012 ? 'support' : spread >= 0.006 ? 'weak' : 'unsupport',
@@ -40,7 +40,7 @@ export function compareContextGeneralizationForSeed(byTreatment) {
       rates: {
         base: base.externalRate,
         shock: shock.externalRate,
-        sparse: sparse.externalRate,
+        fertile: fertile.externalRate,
         juv: juv.externalRate,
       },
     },
