@@ -1482,6 +1482,33 @@ export const PHASE65_TREATMENTS = {
   },
 };
 
+/** Phase 66 — 意识可持续：谱系×续行×H3 跨代并存 */
+export const PHASE66_TREATMENTS = {
+  cn_sustain_full_3840: {
+    id: 'cn_sustain_full_3840',
+    label: '完整栈×谱系续行×3840',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    fieldLongStudy: true,
+  },
+  cn_sustain_lin_off_3840: {
+    id: 'cn_sustain_lin_off_3840',
+    label: '无谱系回响×3840（对照）',
+    envId: 'consciousness_full',
+    ...EHU_DEEP_FULL,
+    ...REN_BASE,
+    ...PLG_BASE,
+    ehuLineageEchoEnabled: false,
+    ehuDistinctionErosionMult: 0.3,
+    ehuBindNarrative: true,
+    fieldLongStudy: true,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1854,6 +1881,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase66Treatment(world, treatmentId) {
+  const treatment = PHASE66_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase66 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 66, treatmentId, ...treatment };
   return world.envProfile;
 }
 

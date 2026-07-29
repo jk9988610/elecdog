@@ -556,4 +556,10 @@
 - **事实**：`cn_xv_quad_3840` H3 **≈93%**、EHU-REN **≈3611**、四体信号可观测；`cn_xv_ehu_off_quad` H3 **≈0** 但 TX/RX 仍活跃
 - **备注**：个体级 socTx/Rx 计数；`resetBirthCounters` 保证种子独立
 
+## OBS-20260729-76
+
+- **世界**：01；意识可持续 **3840 tick** × 4 种子（Phase 66 · T6）
+- **事实**：`cn_sustain_full_3840` 谱系 H3、maxGen、LIN+REN 跨代并存；`cn_sustain_lin_off_3840` 为 LIN 对照
+- **备注**：短期目标 T6；路线图见 CONSCIOUSNESS.md §六–§七
+
 ---
