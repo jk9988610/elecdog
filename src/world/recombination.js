@@ -5,9 +5,11 @@ import { reduceDna, recombineDna, mutate } from '../core/dna.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import {
-  hasReplicationRemaining,
   hasMeiReplicationBudget,
+  hasDonorReplicationBudget,
   consumeReplicationForMei,
+  consumeReplicationForDonor,
+  tryIntraSubunitPlg,
   replicationEnabled,
   logReplication,
 } from './replication.js';
@@ -70,7 +72,42 @@ function logBeacon(recorder, world, being) {
       kind: 'BCN',
       socialSlot: being.socialSlot,
       packetAt: being.meiPacket.atTick,
+      subId: being.meiPacket.subId ?? null,
     }
+  );
+}
+
+function logCrossSubBeacon(recorder, world, being) {
+  recorder.evolution(
+    world.tick,
+    being.id,
+    `[XBCN] sub ${being.meiPacket.subId ?? '?'} slot ${being.socialSlot}`,
+    {
+      kind: 'XBCN',
+      subId: being.meiPacket.subId ?? null,
+      socialSlot: being.socialSlot,
+      packetAt: being.meiPacket.atTick,
+    }
+  );
+}
+
+function subunitDonorScore(holder, donor, profile) {
+  let score = donor.rplRemaining ?? 0;
+  if (!profile.fusSubunitRouteEnabled || donor.rplScope !== 'subunit' || !donor.rplSub?.length) {
+    return score;
+  }
+  const holderSub = holder.meiPacket?.subId;
+  for (const u of donor.rplSub) {
+    if (u.remaining > 0 && u.subId !== holderSub) score += 4;
+    else if (u.remaining > 0) score += 1;
+  }
+  return score;
+}
+
+function sortDonorsBySubCapacity(holder, donors, profile) {
+  if (!profile.fusSubunitRouteEnabled) return donors;
+  return [...donors].sort(
+    (a, b) => subunitDonorScore(holder, b, profile) - subunitDonorScore(holder, a, profile)
   );
 }
 
@@ -116,11 +153,10 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
 
   const seed = hashString(`${being.id}:${world.tick}:reduce`);
   const packetSeq = reduceDna(being.dna.sequence, seed);
-  being.meiPacket = { seq: packetSeq, atTick: world.tick };
+  const rpl = consumeReplicationForMei(being, profile);
+  being.meiPacket = { seq: packetSeq, atTick: world.tick, subId: rpl.subId ?? null };
   being.lastMeiTick = world.tick;
   being.meiCount = (being.meiCount ?? 0) + 1;
-
-  const rpl = consumeReplicationForMei(being, profile);
 
   logReplication(recorder, world.tick, being.id, `[RPL] mei ${being.rplRemaining}/${being.rplMax}`, {
     phase: 'mei',
@@ -149,7 +185,12 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
     }
   );
 
-  if (profile.fusBeaconEnabled) {
+  if (profile.fusIntraSubPlgEnabled) {
+    tryIntraSubunitPlg(world, recorder, being, profile);
+  }
+  if (profile.fusSubunitRouteEnabled) {
+    logCrossSubBeacon(recorder, world, being);
+  } else if (profile.fusBeaconEnabled) {
     logBeacon(recorder, world, being);
   }
 
@@ -254,6 +295,24 @@ function spawnFusionOffspring(world, recorder, parentA, parentB) {
 }
 
 function applyLiveDonorRpl(world, recorder, donor) {
+  const profile = world.envProfile ?? {};
+  const rpl =
+    donor.rplScope === 'subunit' && profile.fusSubunitDonorMode === 'any'
+      ? consumeReplicationForDonor(donor, profile)
+      : null;
+
+  if (rpl) {
+    logReplication(recorder, world.tick, donor.id, `[RPL] donor ${donor.rplRemaining}/${donor.rplMax}`, {
+      phase: 'donor',
+      before: rpl.before,
+      after: rpl.after,
+      rplMax: donor.rplMax,
+      subId: rpl.subId,
+      donorMode: 'any',
+    });
+    return;
+  }
+
   const before = donor.rplRemaining ?? 0;
   if (donor.rplScope === 'subunit' && donor.rplSub?.length) {
     for (const unit of donor.rplSub) {
@@ -273,7 +332,7 @@ function applyLiveDonorRpl(world, recorder, donor) {
 
 function tryLiveDonorFusion(world, recorder, holder, donor) {
   const profile = world.envProfile;
-  if (!profile?.fusLiveDonorEnabled || !hasReplicationRemaining(donor, profile)) return null;
+  if (!profile?.fusLiveDonorEnabled || !hasDonorReplicationBudget(donor, profile)) return null;
   if (!holder.meiPacket || !packetFresh(holder.meiPacket, world, profile)) return null;
 
   const donorSeq = reduceDna(donor.dna.sequence, hashString(`${donor.id}:${world.tick}:live`));
@@ -285,7 +344,7 @@ function tryLiveDonorFusion(world, recorder, holder, donor) {
 
 function tryOrphanFusion(world, recorder, orphan, donor) {
   const profile = world.envProfile;
-  if (!profile?.fusOrphanPoolEnabled || !hasReplicationRemaining(donor, profile)) return null;
+  if (!profile?.fusOrphanPoolEnabled || !hasDonorReplicationBudget(donor, profile)) return null;
   if (!packetFresh(orphan, world, profile)) return null;
 
   const donorSeq = reduceDna(donor.dna.sequence, hashString(`${donor.id}:${world.tick}:orphan`));
@@ -356,11 +415,15 @@ function pairLiveDonors(world, recorder, profile, paired, events) {
 
   for (const holder of holders) {
     if (paired.has(holder.id)) continue;
-    const donors = sortByAffinity(
-      world.beings.filter(
-        (b) => b.alive && !b.meiPacket && !paired.has(b.id) && hasReplicationRemaining(b, profile)
-      ),
+    const donors = sortDonorsBySubCapacity(
       holder,
+      sortByAffinity(
+        world.beings.filter(
+          (b) => b.alive && !b.meiPacket && !paired.has(b.id) && hasDonorReplicationBudget(b, profile)
+        ),
+        holder,
+        profile
+      ),
       profile
     );
 
@@ -390,7 +453,7 @@ function pairOrphanPool(world, recorder, profile, paired, events) {
     const anchor = { socialSlot: orphan.socialSlot };
     const donors = sortByAffinity(
       world.beings.filter(
-        (b) => b.alive && !paired.has(b.id) && hasReplicationRemaining(b, profile)
+        (b) => b.alive && !paired.has(b.id) && hasDonorReplicationBudget(b, profile)
       ),
       anchor,
       profile
@@ -423,6 +486,12 @@ function pairOrphanPool(world, recorder, profile, paired, events) {
 export function processFusions(world, recorder) {
   const profile = world.envProfile;
   if (!fusEnabled(profile) || !replicationEnabled(profile)) return [];
+
+  if (profile.fusIntraSubPlgEnabled) {
+    for (const being of world.beings) {
+      if (being.alive) tryIntraSubunitPlg(world, recorder, being, profile);
+    }
+  }
 
   const events = [];
   const paired = new Set();
