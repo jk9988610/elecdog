@@ -4,6 +4,7 @@ import { formatSubstrateState } from '../world/substrate.js';
 import { formatNodesState } from '../world/nodes.js';
 import { assessCellIntegrity } from '../world/cell.js';
 import { compositionSnapshot } from '../world/composition.js';
+import { beingLayerTransitions } from '../world/profile-stack.js';
 import { observerEnvHint, observerEnvLabel } from './env-select.js';
 
 function countEnv(entries, kind) {
@@ -104,6 +105,7 @@ export function buildDashboardStats(world, recorder) {
       coopTransitions: b.coopTransitions ?? 0,
       socCrossRx: b.socCrossRx ?? 0,
       socContest: b.socContest ?? 0,
+      layerTransitions: beingLayerTransitions(b),
       ...es,
     };
   });
@@ -167,6 +169,27 @@ export function buildDashboardStats(world, recorder) {
           (e.channel === 'social' && e.meta?.kind === 'COOP') ||
           (e.channel === 'evolution' && e.meta?.kind === 'COOP')
       ).length,
+      lay:
+        entries.filter(
+          (e) =>
+            (e.channel === 'experience' && e.meta?.kind === 'EXP') ||
+            (e.channel === 'evolution' && e.meta?.kind === 'EXP')
+        ).length +
+        entries.filter(
+          (e) =>
+            (e.channel === 'register' && e.meta?.kind === 'REG') ||
+            (e.channel === 'evolution' && e.meta?.kind === 'REG')
+        ).length +
+        entries.filter(
+          (e) =>
+            (e.channel === 'metabolism' && e.meta?.kind === 'MTB') ||
+            (e.channel === 'evolution' && e.meta?.kind === 'MTB')
+        ).length +
+        entries.filter(
+          (e) =>
+            (e.channel === 'social' && e.meta?.kind === 'COOP') ||
+            (e.channel === 'evolution' && e.meta?.kind === 'COOP')
+        ).length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

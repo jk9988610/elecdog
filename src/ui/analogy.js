@@ -82,6 +82,7 @@ const LABELS = {
   metProfile: { native: '代谢档案', analogy: '通道摄取模式' },
   coop: { native: '合作 COOP', analogy: '社会迹模式' },
   coopMode: { native: '合作模式', analogy: '社会互动模式' },
+  lay: { native: '档案 LAY', analogy: '四层跃迁合计' },
 };
 
 export function label(key) {

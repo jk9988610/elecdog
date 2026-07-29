@@ -599,6 +599,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('mtb')}</span><strong>${b.metTransitions ?? 0} · e${b.metDomIdx ?? 0}</strong></div>
           <div class="stat-row"><span>${label('coopMode')}</span><strong>${formatCoopMode(b.coopMode)}</strong></div>
           <div class="stat-row"><span>${label('coop')}</span><strong>${b.coopTransitions ?? 0} · cross ${b.socCrossRx ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('lay')}</span><strong>${b.layerTransitions ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
@@ -648,6 +649,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('reg')}</span><strong>${s.population.reg ?? 0}</strong></div>
           <div class="stat-row"><span>${label('mtb')}</span><strong>${s.population.mtb ?? 0}</strong></div>
           <div class="stat-row"><span>${label('coop')}</span><strong>${s.population.coop ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('lay')}</span><strong>${s.population.lay ?? 0}</strong></div>
           <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
           <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
         </div>
