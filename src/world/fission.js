@@ -5,6 +5,7 @@ import { mutate } from '../core/dna.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { applyFissionReplication, hasFissReplicationBudget } from './replication.js';
 import { recordReproductionPathEvent, reproductionProfileEnabled } from './reproduction-profile.js';
+import { applyEhuLineageEcho } from './electronic-human-profile.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -87,6 +88,7 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
   }
 
   applyFissionReplication(world, recorder, parent, born.being);
+  applyEhuLineageEcho(world, recorder, born.being, [parent], world.envProfile);
 
   const retain = profile.fissionRegisterRetain ?? 0.82;
   for (let i = 0; i < parent.registers.length; i++) {

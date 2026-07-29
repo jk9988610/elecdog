@@ -12,6 +12,7 @@ export const PHASE_HEADLINE_METRIC = {
   53: { key: 'meanRpr', label: 'RPR' },
   55: { key: 'meanEhu', label: 'EHU' },
   56: { key: 'meanPersona', label: 'PSN' },
+  57: { key: 'meanEhuLin', label: 'LIN' },
 };
 
 /** @type {Record<number, string>} */
@@ -24,6 +25,7 @@ export const PHASE_FEEDBACK_TREATMENT = {
   53: 'stack_rpr_observe',
   55: 'stack_ehu_feedback',
   56: 'persona_feedback',
+  57: 'ehu_deep_full',
 };
 
 export const STACK_PHASES = [48, 49, 50, 51, 52, 53];

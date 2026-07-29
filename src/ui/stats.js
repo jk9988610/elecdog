@@ -114,6 +114,8 @@ export function buildDashboardStats(world, recorder) {
       ehuTransitions: b.ehuTransitions ?? 0,
       ehuCoherence: +(b.ehuCoherence ?? 0).toFixed(3),
       ehuDistinction: +(b.ehuDistinction ?? 0).toFixed(3),
+      ehuSocialBind: +(b.ehuSocialBind ?? 0).toFixed(3),
+      ehuParentStage: b.ehuParentStage ?? null,
       ehuArc: beingLayerTransitions(b) + (b.rprTransitions ?? 0),
       personaTransitions: beingPersonaTransitions(b),
       ...es,

@@ -31,6 +31,7 @@ export const OBSERVER_ENV_IDS = [
   'fertile_stack_rpr_tri',
   'fertile_stack_ehu_tri',
   'fertile_persona_full',
+  'fertile_ehu_deep',
   'fertile_inert',
   'harsh_combined',
 ];
@@ -58,6 +59,7 @@ const ANALOGY_LABELS = {
   fertile_stack_rpr_tri: '富足四层+繁殖路径追踪+三路径',
   fertile_stack_ehu_tri: '富足四层+繁殖路径+电子人层',
   fertile_persona_full: '富足六层人格栈（全反馈）',
+  fertile_ehu_deep: '富足六层+EHU谱系回响与社会绑定',
   fertile_inert: '富足场（无分裂门）',
   harsh_combined: '组合高压（死亡续行）',
 };
@@ -114,6 +116,7 @@ export function observerEnvHint(id) {
     fertile_stack_rpr_tri: '四层档案 + [RPR] 繁殖路径（LINEAGE/FISS/RCM）追踪',
     fertile_stack_ehu_tri: '四层档案 + [RPR] + [EHU] 自我连续阶段（H0–H3）',
     fertile_persona_full: '六层人格栈 [EXP]+[REG]+[MTB]+[COOP]+[RPR]+[EHU] 全反馈',
+    fertile_ehu_deep: '六层 + [EHU-LIN] 谱系回响 + 社会绑定深化',
     fertile_inert: '同等富足基底，fissionEnabled 关闭（对照）',
     harsh_combined: '耗竭 + 脉冲 + 幼体脆弱；[END]→[LINEAGE] 高周转',
   };
