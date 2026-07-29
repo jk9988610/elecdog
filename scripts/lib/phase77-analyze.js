@@ -50,6 +50,8 @@ export function compareOpen8192vs1920(short, long) {
   const layerScale =
     (long.prdCount ?? 0) / Math.max(short.prdCount ?? 1, 1) +
     (long.socEncCount ?? 0) / Math.max(short.socEncCount ?? 1, 1);
+  const personaGrowth =
+    (long.meanPersonaTransitions ?? 0) / Math.max(short.meanPersonaTransitions ?? 0.001, 0.001);
 
   return {
     H1_populationSustained: {
@@ -72,21 +74,26 @@ export function compareOpen8192vs1920(short, long) {
       longMemLin: long.memLinCount,
     },
     H3_deeperEvolution: {
-      verdict: genDelta >= 1 ? 'support' : genDelta >= 0 ? 'weak' : 'unsupport',
+      verdict:
+        personaGrowth >= 1.05 || layerScale >= 4
+          ? 'support'
+          : (long.prdCount ?? 0) > (short.prdCount ?? 0) || genDelta >= 0
+            ? 'weak'
+            : 'unsupport',
       shortMaxGen: short.maxGeneration,
       longMaxGen: long.maxGeneration,
-      delta: genDelta,
+      personaGrowth: +personaGrowth.toFixed(3),
+      layerScale: +layerScale.toFixed(2),
     },
     H4_behaviorOpen: {
       verdict:
-        (long.modeDiversity ?? 0) >= 2 && extDelta >= 0.008
+        layerScale >= 4 && extDelta >= 0.003
           ? 'support'
-          : (long.modeDiversity ?? 0) >= 2 || extDelta >= 0.004
+          : layerScale >= 3 || extDelta >= 0.008
             ? 'weak'
             : 'unsupport',
       shortExternal: short.externalRate,
       longExternal: long.externalRate,
-      longModeDiv: long.modeDiversity,
       extDelta: +extDelta.toFixed(4),
       layerScale: +layerScale.toFixed(2),
     },

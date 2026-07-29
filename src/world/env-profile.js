@@ -2122,6 +2122,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   return world.envProfile;
 }
 
+export function applyPhase77Treatment(world, treatmentId) {
+  const treatment = PHASE77_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase77 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 77, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
 export function applyPhase76Treatment(world, treatmentId) {
   const treatment = PHASE76_TREATMENTS[treatmentId];
   if (!treatment) {

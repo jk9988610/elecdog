@@ -32,7 +32,23 @@ if (existsSync(field75Path)) {
   }
 }
 
-const assessment = assessWisdomConditions({ memoryFeedbackInCode, phase70FieldVerdict, phase75FieldVerdict });
+let phase77FieldVerdict;
+const field77Path = new URL('../docs/field-phase77-report.json', import.meta.url);
+if (existsSync(field77Path)) {
+  try {
+    const fieldReport = JSON.parse(readFileSync(field77Path, 'utf8'));
+    phase77FieldVerdict = fieldReport.batchVerdict?.verdict;
+  } catch {
+    /* ignore */
+  }
+}
+
+const assessment = assessWisdomConditions({
+  memoryFeedbackInCode,
+  phase70FieldVerdict,
+  phase75FieldVerdict,
+  phase77FieldVerdict,
+});
 
 const report = {
   runAt: new Date().toISOString(),

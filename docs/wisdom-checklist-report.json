@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-29T17:32:24.497Z",
+  "runAt": "2026-07-29T17:36:57.509Z",
   "phase": 76,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
@@ -118,8 +118,8 @@
       {
         "id": "L6b-open",
         "label": "开放泛化",
-        "status": "pending",
-        "phase": "77+",
+        "status": "partial",
+        "phase": "77",
         "goal": "W5",
         "layer": "L6",
         "layerLabel": "开放度"
@@ -127,8 +127,8 @@
     ],
     "summary": {
       "complete": 11,
-      "partial": 2,
-      "open": 1,
+      "partial": 3,
+      "open": 0,
       "total": 14
     },
     "progressPct": 79,
@@ -277,8 +277,8 @@
         {
           "id": "L6b-open",
           "label": "开放泛化",
-          "status": "pending",
-          "phase": "77+",
+          "status": "partial",
+          "phase": "77",
           "goal": "W5",
           "layer": "L6",
           "layerLabel": "开放度"
