@@ -34,6 +34,7 @@
 | 29 | 网页 OTA 热更新 | [2026-07-29-phase29-ota.md](2026-07-29-phase29-ota.md) |
 | 30 | 田野云闭环 | [2026-07-29-phase30-field-cloud.md](2026-07-29-phase30-field-cloud.md) |
 | 31 | Realtime 多设备同步 | [2026-07-29-phase31-realtime.md](2026-07-29-phase31-realtime.md) |
+| 32 | 原版/类比双呈现 | [2026-07-29-phase32-analogy.md](2026-07-29-phase32-analogy.md) |
 | — | OTA 踩坑结案（验收） | [2026-07-29-ota-lessons.md](2026-07-29-ota-lessons.md) |
 
 原始 JSON：`docs/field-phase*.json`

@@ -21,6 +21,16 @@ import {
 import { formatSupabaseError } from '../cloud/supabase-error.js';
 import { getLogPublicUrl } from '../cloud/rest.js';
 import { subscribeFieldCloud, stopFieldCloudSubscription } from '../cloud/realtime.js';
+import {
+  getViewMode,
+  label,
+  formatGeneration,
+  formatSlot,
+  setViewMode as saveViewMode,
+  viewModeHint,
+  VIEW_ANALOGY,
+  VIEW_NATIVE,
+} from './analogy.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -40,6 +50,7 @@ export class ObserverApp {
     this.otaBusy = false;
     this.cloudRealtime = false;
     this.cloudUnsub = null;
+    this.viewMode = getViewMode();
     this.lastArchiveId = null;
     this.render();
     this.bootstrapWorld();
@@ -64,6 +75,10 @@ export class ObserverApp {
         ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : ''}
         ${this.nativeShell && this.otaStatus ? `<span id="ota-status" class="ota-status" title="热更新状态">${escapeHtml(this.otaStatus)}</span>` : ''}
         <span class="toolbar-spacer"></span>
+        <span class="view-mode-group" title="${escapeHtml(viewModeHint())}">
+          <button id="btn-view-native" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_NATIVE ? 'active' : ''}">原版</button>
+          <button id="btn-view-analogy" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_ANALOGY ? 'active' : ''}">类比</button>
+        </span>
         <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
         <button id="btn-cloud-toggle" type="button" class="btn-ghost">云设置</button>
@@ -146,6 +161,8 @@ export class ObserverApp {
       btnOtaCheck: this.root.querySelector('#btn-ota-check'),
       otaStatus: this.root.querySelector('#ota-status'),
       otaVersion: this.root.querySelector('#ota-version'),
+      btnViewNative: this.root.querySelector('#btn-view-native'),
+      btnViewAnalogy: this.root.querySelector('#btn-view-analogy'),
     };
 
     this.$.btnRun.addEventListener('click', () => this.run());
@@ -161,6 +178,16 @@ export class ObserverApp {
     this.$.btnRefreshCloud.addEventListener('click', () => this.refreshCloudPanel());
     this.$.cloudRuns.addEventListener('click', (e) => this.onCloudRunClick(e));
     this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
+    this.$.btnViewNative?.addEventListener('click', () => this.switchViewMode(VIEW_NATIVE));
+    this.$.btnViewAnalogy?.addEventListener('click', () => this.switchViewMode(VIEW_ANALOGY));
+  }
+
+  switchViewMode(mode) {
+    saveViewMode(mode);
+    this.viewMode = mode;
+    this.$.btnViewNative?.classList.toggle('active', mode === VIEW_NATIVE);
+    this.$.btnViewAnalogy?.classList.toggle('active', mode === VIEW_ANALOGY);
+    this.refresh();
   }
 
   bootstrapWorld() {
@@ -478,7 +505,7 @@ export class ObserverApp {
       : `<div class="stat-row"><span>存活</span><strong>${s.population.alive}</strong></div>`;
 
     const slotLines = Object.entries(s.population.slots)
-      .map(([slot, n]) => `<div class="stat-row"><span>${slot}</span><strong>${n}</strong></div>`)
+      .map(([slot, n]) => `<div class="stat-row"><span>${formatSlot(slot)}</span><strong>${n}</strong></div>`)
       .join('');
 
     const beingCards = s.beings
@@ -487,19 +514,19 @@ export class ObserverApp {
       <article class="being-card">
         <header class="being-head">
           <span class="being-id">${b.id.slice(-8)}</span>
-          <span class="being-meta">${b.code} · ${b.slot} · 代${b.generation}</span>
+          <span class="being-meta">${b.code} · ${formatSlot(b.slot)} · ${formatGeneration(b.generation)} · ${label('aliveTicks')} ${b.tickCount}</span>
         </header>
         <div class="being-grid">
-          <div class="stat-row"><span>场压</span><strong>${fmt(b.stress)}</strong></div>
-          <div class="stat-row"><span>LOW 连击</span><strong>${b.lowStreak}</strong></div>
-          <div class="stat-row"><span>对外率</span><strong>${pct(b.extRate)}</strong></div>
+          <div class="stat-row"><span>${label('stress')}</span><strong>${fmt(b.stress)}</strong></div>
+          <div class="stat-row"><span>${label('lowStreak')}</span><strong>${b.lowStreak}</strong></div>
+          <div class="stat-row"><span>${label('extRate')}</span><strong>${pct(b.extRate)}</strong></div>
           <div class="stat-row"><span>TX / ACT</span><strong>${b.tx} / ${b.act}</strong></div>
-          <div class="stat-row"><span>摄取 DRW</span><strong>${b.drw}</strong></div>
-          <div class="stat-row"><span>匮乏 LOW</span><strong>${b.low}</strong></div>
-          <div class="stat-row"><span>膜完整性</span><strong>${fmt(b.integrity)}</strong></div>
-          <div class="stat-row"><span>跨域 MBR</span><strong>${b.mbr}</strong></div>
+          <div class="stat-row"><span>${label('drw')}</span><strong>${b.drw}</strong></div>
+          <div class="stat-row"><span>${label('low')}</span><strong>${b.low}</strong></div>
+          <div class="stat-row"><span>${label('integrity')}</span><strong>${fmt(b.integrity)}</strong></div>
+          <div class="stat-row"><span>${label('mbr')}</span><strong>${b.mbr}</strong></div>
         </div>
-        <div class="being-domain">代谢域 e${b.cellBoundary.join(' e')}</div>
+        <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
       </article>`
       )
@@ -508,42 +535,42 @@ export class ObserverApp {
     return `
       <section class="panel env-panel">
         <h2>环境</h2>
-        <h3 class="term">数字基底场</h3>
+        <h3 class="term">${label('substrate')}</h3>
         <pre class="field-state">${s.environment.substrate}</pre>
-        <h3 class="term">行动标靶</h3>
+        <h3 class="term">${label('nodes')}</h3>
         <pre class="field-state">${s.environment.nodes}</pre>
-        <h3 class="term">环境脉搏与反馈</h3>
+        <h3 class="term">${label('envPulse')}</h3>
         <div class="stat-grid">
-          <div class="stat-row"><span>脉搏 AMB</span><strong>${s.environment.amb}</strong></div>
-          <div class="stat-row"><span>扰动 PTB</span><strong>${s.environment.ptb}</strong></div>
-          <div class="stat-row"><span>回响 RES</span><strong>${s.environment.res}</strong></div>
-          <div class="stat-row"><span>标靶 TGT</span><strong>${s.environment.tgt}</strong></div>
-          <div class="stat-row"><span>枯竭 DEP</span><strong>${s.environment.dep}</strong></div>
-          <div class="stat-row"><span>剧变 SHK</span><strong>${s.environment.shk}</strong></div>
-          <div class="stat-row"><span>节点脉冲 NPL</span><strong>${s.environment.npl}</strong></div>
-          <div class="stat-row"><span>生物圈 BIO</span><strong>${s.environment.bio}</strong></div>
+          <div class="stat-row"><span>${label('amb')}</span><strong>${s.environment.amb}</strong></div>
+          <div class="stat-row"><span>${label('ptb')}</span><strong>${s.environment.ptb}</strong></div>
+          <div class="stat-row"><span>${label('res')}</span><strong>${s.environment.res}</strong></div>
+          <div class="stat-row"><span>${label('tgt')}</span><strong>${s.environment.tgt}</strong></div>
+          <div class="stat-row"><span>${label('dep')}</span><strong>${s.environment.dep}</strong></div>
+          <div class="stat-row"><span>${label('shk')}</span><strong>${s.environment.shk}</strong></div>
+          <div class="stat-row"><span>${label('npl')}</span><strong>${s.environment.npl}</strong></div>
+          <div class="stat-row"><span>${label('bio')}</span><strong>${s.environment.bio}</strong></div>
         </div>
       </section>
 
       <section class="panel pop-panel">
         <h2>种群</h2>
-        <h3 class="term">种群结构迹</h3>
+        <h3 class="term">${label('popStruct')}</h3>
         ${cmpBlock}
-        <h3 class="term">存续与谱系</h3>
+        <h3 class="term">${label('popLife')}</h3>
         <div class="stat-grid">
           <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
-          <div class="stat-row"><span>终止 END</span><strong>${s.population.ended}</strong></div>
-          <div class="stat-row"><span>续行 LINEAGE</span><strong>${s.population.lineage}</strong></div>
-          <div class="stat-row"><span>筛选 SEL</span><strong>${s.population.selection}</strong></div>
-          <div class="stat-row"><span>争夺 contest</span><strong>${s.population.contest}</strong></div>
+          <div class="stat-row"><span>${label('end')}</span><strong>${s.population.ended}</strong></div>
+          <div class="stat-row"><span>${label('lineage')}</span><strong>${s.population.lineage}</strong></div>
+          <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
+          <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
         </div>
-        <h3 class="term">社会位</h3>
+        <h3 class="term">${label('social')}</h3>
         <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
       </section>
 
       <section class="panel beings-panel">
-        <h2>个体</h2>
-        <p class="panel-hint">自助求生 · 基底代谢 · 细胞边界 · 对外双型 · 寄存器漂移</p>
+        <h2>${label('beings')}</h2>
+        <p class="panel-hint">${viewModeHint()}</p>
         <div class="beings-grid">${beingCards || '<p class="muted">无存活个体</p>'}</div>
       </section>
     `;

@@ -240,9 +240,28 @@ input[type='number'] {
   font-size: 0.8125rem;
 }
 
-.toolbar-spacer {
-  flex: 1;
-  min-width: 0.5rem;
+.view-mode-group {
+  display: inline-flex;
+  border: 1px solid #2a3140;
+  border-radius: 6px;
+  overflow: hidden;
+}
+
+.view-mode-btn {
+  border: none;
+  border-radius: 0;
+  padding: 0.4rem 0.65rem;
+  font-size: 0.75rem;
+}
+
+.view-mode-btn.active {
+  background: #1a4d7a;
+  color: #fff;
+}
+
+.view-mode-btn:not(.active) {
+  background: transparent;
+  color: #8b93a7;
 }
 
 .cloud-status {
