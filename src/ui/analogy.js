@@ -111,6 +111,17 @@ const LABELS = {
   envDay: { native: '昼相', analogy: '白昼' },
   envNight: { native: '夜相', analogy: '夜相' },
   envDiurnalStats: { native: '昼/夜 tick', analogy: '明/暗拍计数' },
+  envTools: { native: '工具/储备层', analogy: '内共生与场工具（类比）' },
+  envRsv: { native: '储备 RSV', analogy: '内部储能（类比）' },
+  envSynth: { native: 'Synth A/B', analogy: '内生产通量（类比）' },
+  envSym: { native: '捕获 SYM', analogy: '模块捕获（类比）' },
+  envArt: { native: '场态 ART', analogy: '持久结构（类比）' },
+  envVent: { native: '地热 VTN', analogy: '局域微源（类比）' },
+  envVentOn: { native: 'vent on', analogy: '微源活跃' },
+  envVentOff: { native: 'vent off', analogy: '微源休眠' },
+  envMig: { native: '迁徙 MIG', analogy: '区位移动（类比）' },
+  envDsp: { native: '耗散 DSP', analogy: '通量分流（类比）' },
+  envAdv: { native: '平流 ADV', analogy: '邻格搬运（类比）' },
 };
 
 export function label(key) {

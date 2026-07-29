@@ -772,4 +772,14 @@
   - 原版/类比双呈现；**未写入 CODEX**
 - **备注**：`npm run observer:env-stack`
 
+## OBS-20260729-98
+
+- **世界**：观察台（Phase 99 · 工具/储备层 UI）
+- **环境**：`observer_w6_stack`
+- **事实**：
+  - 环境栈面板扩展第四列：RSV/Synth/SYM/ART/VTN/MIG/DSP/ADV
+  - 通道计数与 live 状态（vent 活跃、patch alt、DSP yield）可观测
+  - **未写入 CODEX**
+- **备注**：`npm run observer:env-stack`
+
 ---
