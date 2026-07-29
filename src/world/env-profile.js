@@ -3,6 +3,7 @@
  */
 
 import { juvenileDrawMultiplier as nurtureJuvenileDraw } from './nurture.js';
+import { STACK_FEEDBACK } from './profile-stack.js';
 
 export const ENV_PROFILES = {
   baseline: {
@@ -552,6 +553,30 @@ export const ENV_PROFILES = {
     cooperationProfileEnabled: true,
     cooperationFeedback: true,
   },
+  fertile_stack_rpr_tri: {
+    id: 'fertile_stack_rpr_tri',
+    label: '富足四层+繁殖路径+三路径',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    fissionEnabled: true,
+    meiEnabled: true,
+    fusEnabled: true,
+    ...STACK_FEEDBACK,
+    reproductionProfileEnabled: true,
+    reproductionFeedback: true,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusSubunitRouteEnabled: true,
+  },
 };
 
 const REN_BASE = {
@@ -1000,6 +1025,45 @@ export const PHASE52_TREATMENTS = {
   },
 };
 
+/** Phase 53 — 繁殖路径层 [RPR] × 四层档案（GAP-14） */
+export const PHASE53_TREATMENTS = {
+  stack_no_rpr: {
+    id: 'stack_no_rpr',
+    label: '四层反馈（无RPR）',
+    envId: 'fertile_field',
+    ...STACK_FEEDBACK,
+  },
+  stack_rpr_observe: {
+    id: 'stack_rpr_observe',
+    label: '四层+RPR观测',
+    envId: 'fertile_field',
+    ...STACK_FEEDBACK,
+    reproductionProfileEnabled: true,
+    reproductionFeedback: false,
+  },
+  stack_rpr_fiss: {
+    id: 'stack_rpr_fiss',
+    label: '四层+RPR+仅FISS',
+    envId: 'fertile_field',
+    ...STACK_FEEDBACK,
+    reproductionProfileEnabled: true,
+    reproductionFeedback: true,
+    fissionEnabled: true,
+    meiEnabled: false,
+    fusEnabled: false,
+  },
+  stack_rpr_tri: {
+    id: 'stack_rpr_tri',
+    label: '四层+RPR+三路径',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    ...STACK_FEEDBACK,
+    reproductionProfileEnabled: true,
+    reproductionFeedback: true,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1372,6 +1436,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase53Treatment(world, treatmentId) {
+  const treatment = PHASE53_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase53 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 53, treatmentId, ...treatment };
   return world.envProfile;
 }
 

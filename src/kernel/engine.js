@@ -48,6 +48,11 @@ import {
   mergeActBias,
   processCooperationTick,
 } from '../world/cooperation-profile.js';
+import {
+  reproductionProfileEnabled,
+  reproductionActBias,
+  processReproductionProfileTick,
+} from '../world/reproduction-profile.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -116,7 +121,8 @@ export function stepWorld(world, recorder) {
     const profile = world.envProfile;
     const experienceBias = mergeActBias(
       experienceEnabled(profile) ? experienceActBias(being, profile) : null,
-      cooperationProfileEnabled(profile) ? cooperationActBias(being, profile) : null
+      cooperationProfileEnabled(profile) ? cooperationActBias(being, profile) : null,
+      reproductionProfileEnabled(profile) ? reproductionActBias(being, profile) : null
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,
@@ -468,6 +474,14 @@ export function stepWorld(world, recorder) {
         { ...ctx, hadContest },
         { fieldStat: stat }
       );
+    }
+  }
+
+  if (reproductionProfileEnabled(world.envProfile)) {
+    for (const being of world.beings.filter((b) => b.alive)) {
+      processReproductionProfileTick(world, recorder, being, world.envProfile, {
+        fieldStat: stat,
+      });
     }
   }
 
