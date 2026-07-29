@@ -11,6 +11,7 @@ export const PHASE_HEADLINE_METRIC = {
   52: { key: 'meanTotalLayers', label: 'LAY' },
   53: { key: 'meanRpr', label: 'RPR' },
   55: { key: 'meanEhu', label: 'EHU' },
+  56: { key: 'meanPersona', label: 'PSN' },
 };
 
 /** @type {Record<number, string>} */
@@ -22,9 +23,11 @@ export const PHASE_FEEDBACK_TREATMENT = {
   52: 'fertile_stack_feedback',
   53: 'stack_rpr_observe',
   55: 'stack_ehu_feedback',
+  56: 'persona_feedback',
 };
 
 export const STACK_PHASES = [48, 49, 50, 51, 52, 53];
+export const FULL_STACK_PHASES = [48, 49, 50, 51, 52, 53, 55];
 
 function pickMeanFields(row) {
   return Object.fromEntries(
@@ -79,7 +82,7 @@ export function summarizeAggregateReport(report) {
 /**
  * @param {Array<{ phase: number, summary?: object, logPath?: string, publicUrl?: string }>} uploads
  */
-export function buildStackManifest(uploads) {
+export function buildStackManifest(uploads, { phase = 54, extension = 'field_stack_cloud_archive' } = {}) {
   const phases = uploads.map((u) => ({
     phase: u.phase,
     extension: u.summary?.extension ?? null,
@@ -99,18 +102,30 @@ export function buildStackManifest(uploads) {
       treatment: p.headline.treatmentLabel,
     }));
 
+  const scope =
+    phase >= 56
+      ? 'EXP + REG + MTB + COOP + 四层整合 + RPR + EHU 统计田野云归档'
+      : 'EXP + REG + MTB + COOP + 四层整合 + RPR 统计田野云归档';
+
   return {
     runAt: new Date().toISOString(),
-    phase: 54,
-    extension: 'field_stack_cloud_archive',
-    kind: 'field-stack-manifest',
+    phase,
+    extension,
+    kind: phase >= 56 ? 'field-full-stack-manifest' : 'field-stack-manifest',
     stackPhases: uploads.map((u) => u.phase),
     phases,
     headlines,
     design: {
-      scope: 'EXP + REG + MTB + COOP + 四层整合 + RPR 统计田野云归档',
+      scope,
       source: 'docs/field-phase{N}-report.json',
     },
-    roadmap: 'docs/PHASE54_CLOUD_ARCHIVE.md',
+    roadmap: phase >= 56 ? 'docs/PHASE56_PERSONA_STACK.md' : 'docs/PHASE54_CLOUD_ARCHIVE.md',
   };
+}
+
+export function buildFullStackManifest(uploads) {
+  return buildStackManifest(uploads, {
+    phase: 56,
+    extension: 'field_full_stack_cloud_archive',
+  });
 }

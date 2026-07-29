@@ -5,6 +5,7 @@ import { formatNodesState } from '../world/nodes.js';
 import { assessCellIntegrity } from '../world/cell.js';
 import { compositionSnapshot } from '../world/composition.js';
 import { beingLayerTransitions } from '../world/profile-stack.js';
+import { beingPersonaTransitions } from '../world/persona-stack.js';
 import { observerEnvHint, observerEnvLabel } from './env-select.js';
 
 function countEnv(entries, kind) {
@@ -114,6 +115,7 @@ export function buildDashboardStats(world, recorder) {
       ehuCoherence: +(b.ehuCoherence ?? 0).toFixed(3),
       ehuDistinction: +(b.ehuDistinction ?? 0).toFixed(3),
       ehuArc: beingLayerTransitions(b) + (b.rprTransitions ?? 0),
+      personaTransitions: beingPersonaTransitions(b),
       ...es,
     };
   });

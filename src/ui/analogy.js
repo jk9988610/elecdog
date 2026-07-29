@@ -87,6 +87,7 @@ const LABELS = {
   rprMode: { native: '繁殖模式', analogy: '繁殖路径模式' },
   ehu: { native: '电子人 EHU', analogy: '自我连续档案（非人格预制）' },
   ehuStage: { native: '电子人阶段', analogy: '自我连续阶段' },
+  psn: { native: '人格 PSN', analogy: '六层跃迁合计' },
 };
 
 export function label(key) {
