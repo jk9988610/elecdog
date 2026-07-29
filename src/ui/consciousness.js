@@ -51,7 +51,8 @@ export function buildConsciousnessSummary(beingStats, world, population = {}) {
     crossRxSum,
     txSum,
     crossValidateReady: multiBody && h3 >= 1 && crossRxSum >= 1,
-    lineClosed: true,
+    lineClosed: false,
+    wisdomEvolution: true,
   };
 }
 

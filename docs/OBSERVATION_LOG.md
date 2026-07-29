@@ -580,4 +580,10 @@
 - **事实**：`npm run consciousness:closure` 通过；CODEX 28 条饱和（Phase 64–68 无新条）；T1–T9 全部 ✅
 - **备注**：意识收敛线正式结案；转入观察维护模式；分类闸门冻结
 
+## OBS-20260729-80
+
+- **世界**：—；智慧演化战略转向（Phase 70 · W1）
+- **事实**：北极星升级为「诞生智慧生命」；`wisdom_evolution` 默认环境；`memory-feedback.js` 接入引擎
+- **备注**：见 docs/WISDOM.md · docs/PHASE70_MEMORY_FEEDBACK.md
+
 ---

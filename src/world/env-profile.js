@@ -1294,6 +1294,19 @@ ENV_PROFILES.consciousness_full = {
   ehuBindNarrative: true,
 };
 
+/** Phase 70 — 智慧演化默认环境：完整栈 + W1 记忆→行为闭环 */
+ENV_PROFILES.wisdom_evolution = {
+  id: 'wisdom_evolution',
+  label: '智慧演化场',
+  ...CONSCIOUSNESS_FIELD_BASE,
+  ...EHU_DEEP_FULL,
+  ...REN_BASE,
+  ...PLG_BASE,
+  ehuDistinctionErosionMult: 0.3,
+  ehuBindNarrative: true,
+  memoryFeedbackEnabled: true,
+};
+
 /** Phase 58 — CODEX 归纳 + 长时田野（1920 tick） */
 export const PHASE58_TREATMENTS = {
   long_deep_960: {

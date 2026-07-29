@@ -112,9 +112,11 @@ function renderConsciousnessCompact(c, { label }) {
 
 export function renderImmersionPanel(consciousness, recorder, { label }) {
   const ehuCount = CODEX_ENTRIES.filter((e) => e.tag === 'EHU').length;
-  const closureTag = consciousness?.lineClosed
-    ? '<span class="consciousness-badge active">意识线结案</span>'
-    : '';
+  const closureTag = consciousness?.wisdomEvolution
+    ? '<span class="consciousness-badge active">智慧演化</span>'
+    : consciousness?.lineClosed
+      ? '<span class="consciousness-badge active">意识线结案</span>'
+      : '';
 
   return `
     <section class="panel immersion-panel" id="immersion-panel" aria-label="意识沉浸">

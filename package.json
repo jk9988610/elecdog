@@ -106,6 +106,8 @@
     "field:consciousness:cloud": "node scripts/field-consciousness-cloud.mjs",
     "field:consciousness:verify": "node scripts/consciousness-cloud-verify.mjs",
     "consciousness:closure": "node scripts/consciousness-closure-verify.mjs",
+    "wisdom:checklist": "node scripts/wisdom-checklist-verify.mjs",
+    "wisdom:mem:verify": "node scripts/wisdom-mem-verify.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

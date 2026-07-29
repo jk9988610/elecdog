@@ -19,6 +19,7 @@ import {
   initElectronicHuman,
   electronicHumanEnabled,
 } from '../world/electronic-human-profile.js';
+import { initMemoryFeedback, memoryFeedbackEnabled } from '../world/memory-feedback.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -51,6 +52,9 @@ export function spawnBeing(
   }
   if (electronicHumanEnabled(world.envProfile)) {
     initElectronicHuman(being);
+  }
+  if (memoryFeedbackEnabled(world.envProfile)) {
+    initMemoryFeedback(being);
   }
 
   if (!world.envProfile?.fieldStatMode) {

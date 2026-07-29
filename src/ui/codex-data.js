@@ -5,7 +5,7 @@ export const CODEX_META = {
   count: 28,
   phase: 63,
   updated: '2026-07-29',
-  note: '只收录已从观察中归纳的条目；解释与命名请对照 OBS 编号。意识收敛线已于 Phase 69 结案（28 条饱和）。',
+  note: '只收录已从观察中归纳的条目；解释与命名请对照 OBS 编号。主目标：诞生智慧生命（见 docs/WISDOM.md）。',
 };
 
 export const CODEX_ENTRIES = [

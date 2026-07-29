@@ -259,3 +259,30 @@
 - **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)、[PHASE43_RECOMB_RENEW.md](PHASE43_RECOMB_RENEW.md)、[PHASE44_FUS_BOTTLENECK.md](PHASE44_FUS_BOTTLENECK.md)、[PHASE45_MULTICELL_RECOMB.md](PHASE45_MULTICELL_RECOMB.md)、[PHASE46_SUBUNIT_ROUTE.md](PHASE46_SUBUNIT_ROUTE.md)
 
 ---
+
+## GAP-W01 · 记忆→行为闭环（智慧 W1）
+
+- **缺口**：`[MEM]` 事件记忆迹不反馈至个体内在/对外行为，无法闭合认知层
+- **依据**：GAP-03 备注；[WISDOM.md](WISDOM.md) L4
+- **Phase 70 扩展**：`memoryFeedbackEnabled` + `memory-feedback.js`；环境 `wisdom_evolution`
+- **状态**：**进行中** — 机制已接入；田野 H1–H3 待验证
+- **文档**：[PHASE70_MEMORY_FEEDBACK.md](PHASE70_MEMORY_FEEDBACK.md)
+
+---
+
+## GAP-W02 · 可重复选择压（智慧 W2）
+
+- **缺口**：多体 DNA 漂移跨种子方向不一致（继承 GAP-10）
+- **目标**：不脚本化选择，但使适应性差异跨运行可核对
+- **状态**：**开放** — Phase 71–72
+- **路线**：[WISDOM.md](WISDOM.md) §五
+
+---
+
+## GAP-W03 · 预测–校正回路（智慧 W3）
+
+- **缺口**：无环境结构预测与误差驱动的行为修正
+- **状态**：**待启动** — Phase 73–74
+- **路线**：[WISDOM.md](WISDOM.md) §五
+
+---
