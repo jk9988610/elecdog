@@ -18,6 +18,7 @@ export function initCatastrophe(world) {
 }
 
 export function advanceCatastrophe(world) {
+  if (world.envProfile?.catastropheDisabled) return [];
   const cat = world.catastrophe;
   if (!cat || world.tick < cat.nextAt) return [];
 

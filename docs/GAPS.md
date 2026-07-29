@@ -168,3 +168,15 @@
 - **文档**：[PHASE35_MULTICELL.md](PHASE35_MULTICELL.md)
 
 ---
+
+## GAP-16 · 存活分裂 vs 死亡续行（DNA 旺盛复制）
+
+- **缺口**：现行繁殖主要为 `[END]` → `[LINEAGE]`；何种环境使 DNA 在亲代存活时即可复制（地球式旺盛分裂）
+- **Phase 36 扩展**：
+  - 环境 `fertile_field`：富足基底 + 无剧变 + `[FISS]` 门控
+  - DNA `bias` 控制分裂冷却与概率
+  - 对照 `fertile_inert`（富足但无分裂门）
+- **状态**：**田野验证中** — 见 Phase 36 报告
+- **文档**：[PHASE36_FISSION.md](PHASE36_FISSION.md)
+
+---

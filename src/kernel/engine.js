@@ -24,6 +24,7 @@ import { CELL_INTEGRITY_LOW } from '../world/cell.js';
 import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { runMetabolism } from '../world/organism.js';
+import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -71,12 +72,15 @@ export function stepWorld(world, recorder) {
     }
   }
   const substrateSnap = substrateSnapshot(world);
-  recorder.substrate(world.tick, substrateSnap, { place: world.birthPlace });
-  recorder.nodes(world.tick, formatNodesState(world.nodes), {
-    place: world.birthPlace,
-    nodes: nodesSnapshot(world),
-  });
-  recorder.environment(world.tick, ambienceLine(world), { kind: 'AMB', place: world.birthPlace });
+  const lite = world.envProfile?.fieldLiteLog;
+  if (!lite) {
+    recorder.substrate(world.tick, substrateSnap, { place: world.birthPlace });
+    recorder.nodes(world.tick, formatNodesState(world.nodes), {
+      place: world.birthPlace,
+      nodes: nodesSnapshot(world),
+    });
+    recorder.environment(world.tick, ambienceLine(world), { kind: 'AMB', place: world.birthPlace });
+  }
 
   const delivered = world.signalBus.filter((s) => s.deliverAt === world.tick);
   const tickNodeHits = new Map();
@@ -284,6 +288,11 @@ export function stepWorld(world, recorder) {
       }
     }
 
+    const fis = fissionGate(world, being, { stress: result.stress, integrity: met.integrity });
+    if (fis) {
+      spawnFissionOffspring(world, recorder, being, fis);
+    }
+
     if (
       met.integrity != null &&
       (met.crossBoundary || (met.integrity < CELL_INTEGRITY_LOW && world.tick % 25 === 0))
@@ -317,7 +326,9 @@ export function stepWorld(world, recorder) {
       );
     }
 
-    recorder.state(world.tick, being.id, result.registers);
+    if (!world.envProfile?.fieldLiteLog) {
+      recorder.state(world.tick, being.id, result.registers);
+    }
 
     const term = shouldTerminate(being, result.stress);
     if (term) {

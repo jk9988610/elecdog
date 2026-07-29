@@ -36,6 +36,33 @@ export const ENV_PROFILES = {
     juvenileMinGen: 1,
     substrateDrainMult: 1.25,
   },
+  /** Phase 36 — 富足基底 + 存活分裂门控 */
+  fertile_field: {
+    id: 'fertile_field',
+    label: '富足分裂场',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+  },
+  fertile_inert: {
+    id: 'fertile_inert',
+    label: '富足无分裂门',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+  },
 };
 
 /** Phase 35 田野处理组（固定 harsh_combined 基底） */

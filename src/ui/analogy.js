@@ -66,6 +66,7 @@ const LABELS = {
   nur: { native: '通量 NUR', analogy: '亲代通量扶持' },
   intra: { native: '胞内 INTRA', analogy: '子单元内协作' },
   org: { native: '形态 ORG', analogy: '个体结构类型' },
+  fiss: { native: '分裂 FISS', analogy: '存活复制（DNA 分裂）' },
 };
 
 export function label(key) {
