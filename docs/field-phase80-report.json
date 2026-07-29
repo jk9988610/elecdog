@@ -1,0 +1,1050 @@
+{
+  "runAt": "2026-07-29T17:48:03.937Z",
+  "phase": 80,
+  "extension": "gap10_selection_pressure",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 3840,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "w2_gap10_ref3840": {
+      "id": "w2_gap10_ref3840",
+      "label": "基线×3840tick",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true
+    },
+    "w2_gap10_shk3840": {
+      "id": "w2_gap10_shk3840",
+      "label": "剧变×3840tick",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "catastropheDisabled": false,
+      "substrateBoost": 0,
+      "pulseInterval": 50,
+      "substrateDrainMult": 0.88,
+      "substrateFloor": 0.4
+    },
+    "w2_gap10_mild80": {
+      "id": "w2_gap10_mild80",
+      "label": "温和剧变×3840",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "catastropheDisabled": false,
+      "substrateBoost": 0,
+      "pulseInterval": 80,
+      "substrateDrainMult": 0.62,
+      "substrateFloor": 0.48
+    },
+    "w2_gap10_rhythm60": {
+      "id": "w2_gap10_rhythm60",
+      "label": "节律剧变×3840",
+      "envId": "wisdom_evolution",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuSocialDeepEnabled": true,
+      "ehuLineageEchoEnabled": true,
+      "ehuArcNarrative": 14,
+      "rplRenewEnabled": true,
+      "rplRenewGrant": 1,
+      "rplRenewCooldown": 64,
+      "rplRenewBaseProb": 0.5,
+      "rplRenewAtOrBelow": 0,
+      "rplRenewMaxStress": 0.24,
+      "rplRenewMinSubstrate": 0.46,
+      "plgEnabled": true,
+      "plgRenewGrant": 1,
+      "plgPairCooldown": 100,
+      "plgExhaustedAt": 0,
+      "ehuDistinctionErosionMult": 0.3,
+      "ehuBindNarrative": true,
+      "memoryFeedbackEnabled": true,
+      "fieldLongStudy": true,
+      "catastropheDisabled": false,
+      "substrateBoost": 0.02,
+      "pulseInterval": 60,
+      "substrateDrainMult": 0.72,
+      "substrateFloor": 0.45
+    }
+  },
+  "batchVerdict": {
+    "treatments": {
+      "w2_gap10_ref3840": {
+        "compare": {
+          "avgDrift": 0.0154,
+          "signConsistent": false,
+          "runCount": 4
+        },
+        "consensus": {
+          "votes": {
+            "0": {
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "1": {
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "3": {
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "consensus": {
+            "0": {
+              "sign": 1,
+              "unanimous": false,
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "1": {
+              "sign": -1,
+              "unanimous": false,
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "sign": 0,
+              "unanimous": false,
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "3": {
+              "sign": -1,
+              "unanimous": true,
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "unanimousBases": 1,
+          "allUnanimous": false,
+          "runCount": 4
+        },
+        "meanDrift": 0.0154,
+        "meanSel": 0,
+        "perSeed": [
+          {
+            "seed": 0,
+            "drift": {
+              "0": -0.0002,
+              "1": -0.0001,
+              "2": 0.0045,
+              "3": -0.0044
+            },
+            "driftMag": 0.0092,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0092,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 1,
+            "drift": {
+              "0": 0.0072,
+              "1": -0.0001,
+              "2": 0.0014,
+              "3": -0.0085
+            },
+            "driftMag": 0.0172,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0172,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 2,
+            "drift": {
+              "0": 0.013,
+              "1": -0.0025,
+              "2": -0.0057,
+              "3": -0.0048
+            },
+            "driftMag": 0.026,
+            "selCount": 0,
+            "maxGen": 3,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "support",
+                "driftMagnitude": 0.026,
+                "maxGen": 3
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 3,
+            "drift": {
+              "0": 0.0029,
+              "1": 0.0017,
+              "2": -0.0026,
+              "3": -0.0019
+            },
+            "driftMag": 0.0091,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0091,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          }
+        ]
+      },
+      "w2_gap10_shk3840": {
+        "compare": {
+          "avgDrift": 0.0201,
+          "signConsistent": false,
+          "runCount": 4
+        },
+        "consensus": {
+          "votes": {
+            "0": {
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "2": {
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "3": {
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "consensus": {
+            "0": {
+              "sign": 1,
+              "unanimous": true,
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "sign": 0,
+              "unanimous": false,
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "2": {
+              "sign": 1,
+              "unanimous": false,
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "3": {
+              "sign": -1,
+              "unanimous": true,
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "unanimousBases": 2,
+          "allUnanimous": false,
+          "runCount": 4
+        },
+        "meanDrift": 0.0201,
+        "meanSel": 0,
+        "perSeed": [
+          {
+            "seed": 0,
+            "drift": {
+              "0": 0.0065,
+              "1": -0.0038,
+              "2": 0.0046,
+              "3": -0.0073
+            },
+            "driftMag": 0.0222,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0222,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 1,
+            "drift": {
+              "0": 0.0072,
+              "1": -0.0001,
+              "2": 0.0014,
+              "3": -0.0085
+            },
+            "driftMag": 0.0172,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0172,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 2,
+            "drift": {
+              "0": 0.0092,
+              "1": 0.0003,
+              "2": -0.0042,
+              "3": -0.0053
+            },
+            "driftMag": 0.019,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.019,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 3,
+            "drift": {
+              "0": 0.0072,
+              "1": 0.0034,
+              "2": 0.0003,
+              "3": -0.011
+            },
+            "driftMag": 0.0219,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0219,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          }
+        ]
+      },
+      "w2_gap10_mild80": {
+        "compare": {
+          "avgDrift": 0.0171,
+          "signConsistent": false,
+          "runCount": 4
+        },
+        "consensus": {
+          "votes": {
+            "0": {
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "2": {
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "3": {
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "consensus": {
+            "0": {
+              "sign": 1,
+              "unanimous": true,
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "sign": 1,
+              "unanimous": false,
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "2": {
+              "sign": 0,
+              "unanimous": false,
+              "pos": 2,
+              "neg": 2,
+              "zero": 0
+            },
+            "3": {
+              "sign": -1,
+              "unanimous": true,
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "unanimousBases": 2,
+          "allUnanimous": false,
+          "runCount": 4
+        },
+        "meanDrift": 0.0171,
+        "meanSel": 0,
+        "perSeed": [
+          {
+            "seed": 0,
+            "drift": {
+              "0": 0.0053,
+              "1": 0.0001,
+              "2": 0.0025,
+              "3": -0.0078
+            },
+            "driftMag": 0.0157,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0157,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 1,
+            "drift": {
+              "0": 0.0068,
+              "1": 0.0043,
+              "2": -0.0077,
+              "3": -0.0033
+            },
+            "driftMag": 0.0221,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0221,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 2,
+            "drift": {
+              "0": 0.0049,
+              "1": -0.0051,
+              "2": 0.0026,
+              "3": -0.0023
+            },
+            "driftMag": 0.0149,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0149,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 3,
+            "drift": {
+              "0": 0.0055,
+              "1": 0.0024,
+              "2": -0.0003,
+              "3": -0.0075
+            },
+            "driftMag": 0.0157,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0157,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          }
+        ]
+      },
+      "w2_gap10_rhythm60": {
+        "compare": {
+          "avgDrift": 0.0193,
+          "signConsistent": false,
+          "runCount": 4
+        },
+        "consensus": {
+          "votes": {
+            "0": {
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "3": {
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "consensus": {
+            "0": {
+              "sign": 1,
+              "unanimous": true,
+              "pos": 4,
+              "neg": 0,
+              "zero": 0
+            },
+            "1": {
+              "sign": -1,
+              "unanimous": false,
+              "pos": 1,
+              "neg": 3,
+              "zero": 0
+            },
+            "2": {
+              "sign": 1,
+              "unanimous": false,
+              "pos": 3,
+              "neg": 1,
+              "zero": 0
+            },
+            "3": {
+              "sign": -1,
+              "unanimous": true,
+              "pos": 0,
+              "neg": 4,
+              "zero": 0
+            }
+          },
+          "unanimousBases": 2,
+          "allUnanimous": false,
+          "runCount": 4
+        },
+        "meanDrift": 0.0193,
+        "meanSel": 0,
+        "perSeed": [
+          {
+            "seed": 0,
+            "drift": {
+              "0": 0.0053,
+              "1": 0.0001,
+              "2": 0.0025,
+              "3": -0.0078
+            },
+            "driftMag": 0.0157,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0157,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 1,
+            "drift": {
+              "0": 0.0072,
+              "1": -0.0001,
+              "2": 0.0014,
+              "3": -0.0085
+            },
+            "driftMag": 0.0172,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0172,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 2,
+            "drift": {
+              "0": 0.0058,
+              "1": -0.0038,
+              "2": 0.0004,
+              "3": -0.0023
+            },
+            "driftMag": 0.0123,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.0123,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          },
+          {
+            "seed": 3,
+            "drift": {
+              "0": 0.016,
+              "1": -0.0014,
+              "2": -0.0037,
+              "3": -0.0109
+            },
+            "driftMag": 0.032,
+            "selCount": 0,
+            "maxGen": 2,
+            "hypotheses": {
+              "H1_driftObserved": {
+                "verdict": "weak",
+                "driftMagnitude": 0.032,
+                "maxGen": 2
+              },
+              "H2_selChannel": {
+                "verdict": "pending",
+                "selCount": 0,
+                "endCount": 0
+              },
+              "H3_genStressCorr": {
+                "verdict": "pending",
+                "corr": null
+              }
+            }
+          }
+        ]
+      }
+    },
+    "metricsEstablished": true,
+    "signConsistentCat": false,
+    "signConsistentCtrl": false,
+    "unanimousBasesCat": 0,
+    "unanimousBasesCtrl": 0,
+    "bestUnanimousBases": 2,
+    "w2Repeatable": false,
+    "gap10Status": "open",
+    "verdict": "weak",
+    "phase72Target": "≥2 碱基 unanimous（当前基线 0/4）",
+    "baselineId": "w2_gap10_ref3840",
+    "baselineUnanimousBases": 1,
+    "bestTreatment": "w2_gap10_shk3840",
+    "bestSignConsistent": false,
+    "targetUnanimousBases": 4,
+    "w2TargetMet": false,
+    "improvedVsBaseline": true,
+    "gap10Target": 4,
+    "gap10Closed": false,
+    "base1Unanimous": false,
+    "base1Votes": {
+      "pos": 2,
+      "neg": 2
+    }
+  },
+  "shortTermGoal": "GAP-10 4/4 碱基 unanimous",
+  "roadmap": "docs/PHASE80_GAP10_SELECTION.md",
+  "runBudgetMs": 180000
+}

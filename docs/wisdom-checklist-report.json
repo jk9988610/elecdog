@@ -1,6 +1,6 @@
 {
-  "runAt": "2026-07-29T17:42:05.858Z",
-  "phase": 78,
+  "runAt": "2026-07-29T17:48:41.158Z",
+  "phase": 80,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
   "assessment": {
@@ -36,7 +36,7 @@
         "status": "partial",
         "gap": "GAP-10",
         "goal": "W2",
-        "phase": "72",
+        "phase": "72-80",
         "layer": "L2",
         "layerLabel": "演化"
       },
@@ -132,8 +132,8 @@
       "total": 14
     },
     "progressPct": 86,
-    "currentPhase": 78,
-    "currentGoal": "W5",
+    "currentPhase": 80,
+    "currentGoal": "W2",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -175,7 +175,7 @@
           "status": "partial",
           "gap": "GAP-10",
           "goal": "W2",
-          "phase": "72",
+          "phase": "72-80",
           "layer": "L2",
           "layerLabel": "演化"
         }
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "W1 field review → CODEX revision; GAP-10 selection pressure"
+  "next": "GAP-10 generation depth or W2-only stack assault"
 }
