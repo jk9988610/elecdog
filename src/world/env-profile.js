@@ -250,6 +250,35 @@ export const ENV_PROFILES = {
     fusionMutationRate: 0.015,
     fusionMaxPop: 36,
   },
+  fertile_mei_fus_ren: {
+    id: 'fertile_mei_fus_ren',
+    label: '富足重组+续行+live-donor',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusPairCooldown: 90,
+    fusPacketMaxAge: 120,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+  },
 };
 
 const REN_BASE = {
@@ -300,6 +329,44 @@ const FUS_BASE = {
   fusPacketMaxAge: 56,
   fusionMutationRate: 0.015,
   fusionMaxPop: 36,
+};
+
+const MEI_FUS_ONLY = {
+  fissionEnabled: false,
+  ...MEI_BASE,
+  ...FUS_BASE,
+};
+
+/** Phase 43 — 重组 × 续行 + live-donor 配对 */
+export const PHASE43_TREATMENTS = {
+  mei_fus: {
+    id: 'mei_fus',
+    label: '重组基线',
+    envId: 'fertile_field',
+    ...MEI_FUS_ONLY,
+  },
+  mei_fus_ren: {
+    id: 'mei_fus_ren',
+    label: '重组+[REN]',
+    envId: 'fertile_field',
+    ...MEI_FUS_ONLY,
+    ...REN_BASE,
+  },
+  mei_strict: {
+    id: 'mei_strict',
+    label: '重组+严格耗尽',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+  },
+  mei_strict_ren_donor: {
+    id: 'mei_strict_ren_donor',
+    label: '严格+续行+live-donor',
+    envId: 'fertile_field_strict',
+    ...MEI_FUS_ONLY,
+    ...REN_BASE,
+    fusLiveDonorEnabled: true,
+    fusPacketMaxAge: 120,
+  },
 };
 
 /** Phase 42 — [MEI] 减数缩减 / [FUS] 双源汇合 */
@@ -542,6 +609,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase43Treatment(world, treatmentId) {
+  const treatment = PHASE43_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase43 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 43, treatmentId, ...treatment };
   return world.envProfile;
 }
 

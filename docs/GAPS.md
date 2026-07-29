@@ -213,3 +213,18 @@
 - **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)、[PHASE40_MULTICELL_RENEW.md](PHASE40_MULTICELL_RENEW.md)、[PHASE41_RENEW_COST.md](PHASE41_RENEW_COST.md)
 
 ---
+
+## GAP-19 · 减数缩减 / 双源 DNA 汇合
+
+- **缺口**：是否存在非克隆的 **双源 DNA 重组** 繁殖路径（地球减数分裂/融合类比）
+- **Phase 42 扩展**：
+  - `[MEI]`：各位点随机解析 → `meiPacket`；消耗 1 RPL
+  - `[FUS]`：双体 packet 汇合 → 重组 DNA 新个体
+- **Phase 42 田野**：
+  - 仅重组：FISS 0，FUS **14**，存活 11 — **双源路径 support**
+  - 克隆对照：FISS 12，FUS 0
+  - 双路径并存：FISS 8.25 + FUS 3.5 — **并存 support**
+- **状态**：**部分结案** — 减数/汇合可观察；配子性别语义仍禁止
+- **文档**：[PHASE42_MEI_FUS.md](PHASE42_MEI_FUS.md)
+
+---

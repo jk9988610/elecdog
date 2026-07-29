@@ -98,13 +98,19 @@ function exchangeRegisterFlux(a, b, frac = 0.04) {
   }
 }
 
-function spawnFusionOffspring(world, recorder, parentA, parentB) {
+function packetFresh(packet, world, profile) {
+  if (!packet) return false;
+  const maxAge = profile.fusPacketMaxAge ?? 48;
+  return world.tick - packet.atTick <= maxAge;
+}
+
+function spawnFusionFromSeqs(world, recorder, parentA, parentB, seqA, seqB, { liveDonor = false } = {}) {
   const profile = world.envProfile ?? {};
   const maxPop = profile.fusionMaxPop ?? profile.fissionMaxPop ?? 36;
   if (world.beings.filter((b) => b.alive).length >= maxPop) return null;
 
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:fus`);
-  const combined = recombineDna(parentA.meiPacket.seq, parentB.meiPacket.seq, seed);
+  const combined = recombineDna(seqA, seqB, seed);
   const rate = profile.fusionMutationRate ?? 0.015;
   const { seq, mutationCount } = mutate(combined, rate, seed + 1);
 
@@ -122,7 +128,6 @@ function spawnFusionOffspring(world, recorder, parentA, parentB) {
   child.recombined = true;
 
   parentA.meiPacket = null;
-  parentB.meiPacket = null;
   parentA.fusCount = (parentA.fusCount ?? 0) + 1;
   parentB.fusCount = (parentB.fusCount ?? 0) + 1;
 
@@ -144,6 +149,7 @@ function spawnFusionOffspring(world, recorder, parentA, parentB) {
       after: child.rplRemaining,
       parentA: parentA.id,
       parentB: parentB.id,
+      liveDonor,
     });
   }
 
@@ -154,13 +160,14 @@ function spawnFusionOffspring(world, recorder, parentA, parentB) {
     recorder.evolution(
       world.tick,
       who.id,
-      `[FUS] ${partner.id} → ${child.id} mut ${mutationCount}`,
+      `[FUS] ${partner.id} → ${child.id} mut ${mutationCount}${liveDonor ? ' live' : ''}`,
       {
         kind: 'FUS',
         partnerId: partner.id,
         childId: child.id,
         mutationCount,
         generation: child.generation,
+        liveDonor,
       }
     );
   }
@@ -168,16 +175,52 @@ function spawnFusionOffspring(world, recorder, parentA, parentB) {
   return { child, mutationCount };
 }
 
-/** 同 tick 双体 meiPacket 就绪 → 汇合诞生 */
+function spawnFusionOffspring(world, recorder, parentA, parentB) {
+  return spawnFusionFromSeqs(world, recorder, parentA, parentB, parentA.meiPacket.seq, parentB.meiPacket.seq);
+}
+
+function applyLiveDonorRpl(world, recorder, donor) {
+  const profile = world.envProfile;
+  const before = donor.rplRemaining ?? 0;
+  if (donor.rplScope === 'subunit' && donor.rplSub?.length) {
+    for (const unit of donor.rplSub) {
+      unit.remaining = Math.max(0, unit.remaining - 1);
+    }
+    donor.rplRemaining = donor.rplSub.reduce((s, u) => s + u.remaining, 0);
+  } else {
+    donor.rplRemaining = Math.max(0, before - 1);
+  }
+  logReplication(recorder, world.tick, donor.id, `[RPL] donor ${donor.rplRemaining}/${donor.rplMax}`, {
+    phase: 'donor',
+    before,
+    after: donor.rplRemaining,
+    rplMax: donor.rplMax,
+  });
+}
+
+function tryLiveDonorFusion(world, recorder, holder, donor) {
+  const profile = world.envProfile;
+  if (!profile?.fusLiveDonorEnabled || !hasReplicationRemaining(donor, profile)) return null;
+  if (!holder.meiPacket || !packetFresh(holder.meiPacket, world, profile)) return null;
+
+  const donorSeq = reduceDna(donor.dna.sequence, hashString(`${donor.id}:${world.tick}:live`));
+  applyLiveDonorRpl(world, recorder, donor);
+  return spawnFusionFromSeqs(world, recorder, holder, donor, holder.meiPacket.seq, donorSeq, {
+    liveDonor: true,
+  });
+}
+
+/** 双体 meiPacket 汇合；可选 live-donor 配对 */
 export function processFusions(world, recorder) {
   const profile = world.envProfile;
   if (!fusEnabled(profile) || !replicationEnabled(profile)) return [];
 
-  const ready = world.beings.filter((b) => b.alive && b.meiPacket);
-  if (ready.length < 2) return [];
-
   const events = [];
   const paired = new Set();
+
+  const ready = world.beings.filter(
+    (b) => b.alive && b.meiPacket && packetFresh(b.meiPacket, world, profile)
+  );
 
   for (let i = 0; i < ready.length; i++) {
     const a = ready[i];
@@ -194,9 +237,6 @@ export function processFusions(world, recorder) {
         if (world.tick - last < (profile.fusPairCooldown ?? 100)) continue;
       }
 
-      const maxAge = profile.fusPacketMaxAge ?? 48;
-      if (world.tick - a.meiPacket.atTick > maxAge || world.tick - b.meiPacket.atTick > maxAge) continue;
-
       const result = spawnFusionOffspring(world, recorder, a, b);
       if (!result) continue;
 
@@ -205,8 +245,46 @@ export function processFusions(world, recorder) {
 
       paired.add(a.id);
       paired.add(b.id);
-      events.push({ aId: a.id, bId: b.id, childId: result.child.id });
+      events.push({ aId: a.id, bId: b.id, childId: result.child.id, liveDonor: false });
       break;
+    }
+  }
+
+  if (profile.fusLiveDonorEnabled) {
+    const holders = world.beings.filter(
+      (b) => b.alive && b.meiPacket && packetFresh(b.meiPacket, world, profile) && !paired.has(b.id)
+    );
+    const donors = world.beings.filter(
+      (b) => b.alive && !b.meiPacket && !paired.has(b.id) && hasReplicationRemaining(b, profile)
+    );
+
+    for (const holder of holders) {
+      if (paired.has(holder.id)) continue;
+      for (const donor of donors) {
+        if (paired.has(donor.id) || holder.id === donor.id) continue;
+
+        const pairKey = [holder.id, donor.id].sort().join(':');
+        if (world.fusPairCooldown?.has(pairKey)) {
+          const last = world.fusPairCooldown.get(pairKey);
+          if (world.tick - last < (profile.fusPairCooldown ?? 100)) continue;
+        }
+
+        const result = tryLiveDonorFusion(world, recorder, holder, donor);
+        if (!result) continue;
+
+        if (!world.fusPairCooldown) world.fusPairCooldown = new Map();
+        world.fusPairCooldown.set(pairKey, world.tick);
+
+        paired.add(holder.id);
+        paired.add(donor.id);
+        events.push({
+          aId: holder.id,
+          bId: donor.id,
+          childId: result.child.id,
+          liveDonor: true,
+        });
+        break;
+      }
     }
   }
 
