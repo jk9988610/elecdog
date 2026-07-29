@@ -119,7 +119,8 @@
   - 可选摄取倍率反馈；不命名资源类型
   - 统计田野 12 体 × 960 tick × 4 处理组
 - **Phase 95**：`[DSP]` 耗散定律（toReg/lost 分流）；田野 **support** — 见 [PHASE95_DSP_DISSIPATION.md](PHASE95_DSP_DISSIPATION.md)
-- **状态**：**部分结案** — 通道分布可观察 + 耗散账本；资源本体命名仍禁止
+- **Phase 97**：CODEX「耗散分流」立项 — 见 [PHASE97_DSP_CODEX.md](PHASE97_DSP_CODEX.md)
+- **状态**：**部分结案** — 通道分布 + 耗散账本 CODEX 化；资源本体地球名仍禁止
 - **报告**：[PHASE50_METABOLIC.md](PHASE50_METABOLIC.md) · `field-phase50-report.json`
 
 ---

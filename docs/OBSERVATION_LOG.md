@@ -742,4 +742,24 @@
   - CODEX 新条「智慧演化物种验收」立项
 - **备注**：`docs/wisdom-l2-closure-report.json`
 
+## OBS-20260729-95
+
+- **世界**：智慧演化场（Phase 95 · GAP-11+ DSP）
+- **处理组**：`dsp_off_ref` / `dsp_on_ref` / `dsp_on_low` / `dsp_on_high`
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - yield 0.4 vs 0.2：**4/4 support**；yieldΔ=0.20，toRegΔ≈302–304
+  - on/off 账本：lost/toReg 可观测
+  - 批次综合 **support**
+- **备注**：`docs/field-phase95-report.json`
+
+## OBS-20260729-96
+
+- **世界**：智慧演化场（Phase 97 · GAP-11+ CODEX）
+- **依据**：OBS-95 Phase 95 田野 support
+- **事实**：
+  - CODEX 新条「耗散分流」立项（第 31 条）
+  - GAP-11+ **部分结案** — 通量账本可观察；资源地球名仍禁止
+- **备注**：`docs/gap11-dsp-codex-report.json`
+
 ---

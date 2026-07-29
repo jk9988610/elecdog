@@ -2,8 +2,8 @@
 
 export const CODEX_META = {
   title: '电子狗世界辞典（L2）',
-  count: 29,
-  phase: 79,
+  count: 31,
+  phase: 97,
   updated: '2026-07-29',
   note: '只收录已从观察中归纳的条目；解释与命名请对照 OBS 编号。主目标：诞生智慧生命（见 docs/WISDOM.md）。',
 };
@@ -283,5 +283,16 @@ export const CODEX_ENTRIES = [
     falsifiable: '若 W1–W5 任一田野批次降为 unsupport、或验收层 support <75%、或将 partial 上限误报为 4/4 unanimous，则修订',
     established: '2026-07-29',
     tag: 'WISDOM',
+  },
+  {
+    id: 'drw-dissipation-split',
+    title: '耗散分流',
+    definition:
+      '启用 `dissipationEnabled` 时，每次 `[DRW]` 摄取量按 `dspYieldFrac`（默认 0.3，与无账本时硬编码行为一致）拆为 `toReg`（入账对应寄存器）与 `lost`（通量耗散，不回场、不入账）；记录 `[DSP]` 通量事实。关闭时不记 `[DSP]` 账本但仍按默认比例分流。不设地球式能源/热/ATP 等命名。',
+    evidence: ['OBS-20260729-95', 'OBS-20260729-96'],
+    falsifiable:
+      '若 on/off 田野无 toReg/lost 账本差、或 yield 0.4 vs 0.2 无 toReg 系统性差、或将 lost 等同于预制资源名，则修订',
+    established: '2026-07-29',
+    tag: 'METABOLISM',
   },
 ];
