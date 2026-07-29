@@ -38,6 +38,7 @@ import {
   formatMetProfile,
   formatCoopMode,
   formatRprMode,
+  formatEhuStage,
   formatSlot,
   setViewMode as saveViewMode,
   viewModeHint,
@@ -641,6 +642,8 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('lay')}</span><strong>${b.layerTransitions ?? 0}</strong></div>
           <div class="stat-row"><span>${label('rprMode')}</span><strong>${formatRprMode(b.rprMode)}</strong></div>
           <div class="stat-row"><span>${label('rpr')}</span><strong>${b.rprOrigin ?? 'SEED'} · ${b.rprTransitions ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('ehuStage')}</span><strong>${formatEhuStage(b.ehuStage)}</strong></div>
+          <div class="stat-row"><span>${label('ehu')}</span><strong>${b.ehuTransitions ?? 0} · arc ${b.ehuArc ?? 0} · coh ${b.ehuCoherence ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>

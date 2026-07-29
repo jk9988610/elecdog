@@ -1,0 +1,3549 @@
+{
+  "runAt": "2026-07-29T13:57:45.846Z",
+  "phase": 55,
+  "extension": "electronic_human_layer",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "stack_tri_no_ehu": {
+      "id": "stack_tri_no_ehu",
+      "label": "四层+RPR三路径（无EHU）",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true
+    },
+    "stack_ehu_observe": {
+      "id": "stack_ehu_observe",
+      "label": "四层+RPR+EHU观测",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": false
+    },
+    "stack_ehu_feedback": {
+      "id": "stack_ehu_feedback",
+      "label": "四层+RPR+EHU反馈",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true
+    },
+    "stack_ehu_narrative": {
+      "id": "stack_ehu_narrative",
+      "label": "四层+RPR+EHU叙事",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48,
+      "registerProfileEnabled": true,
+      "registerFeedback": true,
+      "registerCouplingBase": 0.02,
+      "metabolicProfileEnabled": true,
+      "metabolicFeedback": true,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true,
+      "reproductionProfileEnabled": true,
+      "reproductionFeedback": true,
+      "electronicHumanEnabled": true,
+      "electronicHumanFeedback": true,
+      "ehuArcNarrative": 12
+    }
+  },
+  "aggregate": {
+    "stack_tri_no_ehu": {
+      "label": "四层+RPR三路径（无EHU）",
+      "meanEhu": 0,
+      "meanArc": 69.05,
+      "meanLayers": 2447.75,
+      "meanRpr": 38,
+      "meanFiss": 12,
+      "meanFus": 24,
+      "meanAlive": 36,
+      "runs": [
+        {
+          "treatmentId": "stack_tri_no_ehu",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 181,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 34,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.19,
+            "beingsWithRpl": 36,
+            "meiEventCount": 14,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 25,
+            "recombinedAlive": 12,
+            "withMeiPacket": 2,
+            "totalMeiCount": 14,
+            "totalFusCount": 24,
+            "diversityRatio": 0.694,
+            "renEventCount": 0,
+            "liveFusCount": 10,
+            "plgEventCount": 0,
+            "packetBacklog": 2,
+            "fusPerMei": 1.714,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 14,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 14,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 31,
+            "xbcnEventCount": 14,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 26,
+            "expTransitions": 36,
+            "regTransitions": 853,
+            "mtbTransitions": 1342,
+            "coopTransitions": 38,
+            "totalLayerTransitions": 2269,
+            "meanLayerTransitions": 63.03,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 23.69,
+            "meanMtbTransitions": 37.28,
+            "meanCoopTransitions": 1.06,
+            "rprTransitionCount": 38,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.06,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              }
+            ],
+            "ehuTransitionCount": 0,
+            "ehuStages": {
+              "H0": 36,
+              "H1": 0,
+              "H2": 0,
+              "H3": 0
+            },
+            "meanEhuTransitions": 0,
+            "meanEhuCoherence": 0,
+            "meanEhuDistinction": 0,
+            "meanEhuArc": 64.08,
+            "ehuSnapshots": [
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 20,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 215,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 99,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 6,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 26,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 80,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 853,
+            "evolution:COOP": 38,
+            "evolution:MTB": 1342,
+            "evolution:RPL": 181,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 31,
+            "evolution:MEI": 14,
+            "evolution:XBCN": 14,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 38,
+            "population:CMP": 9
+          },
+          "entriesKept": 2592
+        },
+        {
+          "treatmentId": "stack_tri_no_ehu",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 168,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 3,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.75,
+            "renEventCount": 0,
+            "liveFusCount": 8,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 31,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitions": 36,
+            "regTransitions": 619,
+            "mtbTransitions": 1239,
+            "coopTransitions": 41,
+            "totalLayerTransitions": 1935,
+            "meanLayerTransitions": 53.75,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 17.19,
+            "meanMtbTransitions": 34.42,
+            "meanCoopTransitions": 1.14,
+            "rprTransitionCount": 38,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.06,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 0,
+            "ehuStages": {
+              "H0": 36,
+              "H1": 0,
+              "H2": 0,
+              "H3": 0
+            },
+            "meanEhuTransitions": 0,
+            "meanEhuCoherence": 0,
+            "meanEhuDistinction": 0,
+            "meanEhuArc": 54.81,
+            "ehuSnapshots": [
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 118,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 19,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 44,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 10,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 190,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 9,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 619,
+            "evolution:COOP": 41,
+            "evolution:MTB": 1239,
+            "evolution:RPL": 168,
+            "evolution:FISS": 12,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:ISPL": 31,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 38,
+            "population:CMP": 9
+          },
+          "entriesKept": 2249
+        },
+        {
+          "treatmentId": "stack_tri_no_ehu",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 166,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 3,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 31,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.39,
+            "beingsWithRpl": 36,
+            "meiEventCount": 17,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 12,
+            "withMeiPacket": 5,
+            "totalMeiCount": 17,
+            "totalFusCount": 24,
+            "diversityRatio": 0.75,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 5,
+            "fusPerMei": 1.412,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 17,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 17,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 27,
+            "xbcnEventCount": 17,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 29,
+            "expTransitions": 36,
+            "regTransitions": 1029,
+            "mtbTransitions": 1862,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2963,
+            "meanLayerTransitions": 82.31,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 28.58,
+            "meanMtbTransitions": 51.72,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 37,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.03,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 0,
+            "ehuStages": {
+              "H0": 36,
+              "H1": 0,
+              "H2": 0,
+              "H3": 0
+            },
+            "meanEhuTransitions": 0,
+            "meanEhuCoherence": 0,
+            "meanEhuDistinction": 0,
+            "meanEhuArc": 83.33,
+            "ehuSnapshots": [
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 59,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 185,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 45,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 207,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 67,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 132,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 1029,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1862,
+            "evolution:RPL": 166,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 27,
+            "evolution:MEI": 17,
+            "evolution:XBCN": 17,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 37,
+            "population:CMP": 9
+          },
+          "entriesKept": 3272
+        },
+        {
+          "treatmentId": "stack_tri_no_ehu",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 156,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 3,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 25,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.694,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 24,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitions": 36,
+            "regTransitions": 982,
+            "mtbTransitions": 1569,
+            "coopTransitions": 37,
+            "totalLayerTransitions": 2624,
+            "meanLayerTransitions": 72.89,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 27.28,
+            "meanMtbTransitions": 43.58,
+            "meanCoopTransitions": 1.03,
+            "rprTransitionCount": 39,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.08,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              }
+            ],
+            "ehuTransitionCount": 0,
+            "ehuStages": {
+              "H0": 36,
+              "H1": 0,
+              "H2": 0,
+              "H3": 0
+            },
+            "meanEhuTransitions": 0,
+            "meanEhuCoherence": 0,
+            "meanEhuDistinction": 0,
+            "meanEhuArc": 73.97,
+            "ehuSnapshots": [
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 75,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 88,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 40,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 16,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 21,
+                "transitions": 0
+              },
+              {
+                "stage": "H0",
+                "coherence": 0,
+                "distinction": 0,
+                "arc": 96,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 982,
+            "evolution:COOP": 37,
+            "evolution:MTB": 1569,
+            "evolution:RPL": 156,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 24,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 39,
+            "population:CMP": 9
+          },
+          "entriesKept": 2920
+        }
+      ]
+    },
+    "stack_ehu_observe": {
+      "label": "四层+RPR+EHU观测",
+      "meanEhu": 57.5,
+      "meanArc": 72.06,
+      "meanLayers": 2556.25,
+      "meanRpr": 38,
+      "meanFiss": 12,
+      "meanFus": 24,
+      "meanAlive": 36,
+      "runs": [
+        {
+          "treatmentId": "stack_ehu_observe",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 171,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.36,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 26,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.722,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 19,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitions": 36,
+            "regTransitions": 1021,
+            "mtbTransitions": 1380,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2473,
+            "meanLayerTransitions": 68.69,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 28.36,
+            "meanMtbTransitions": 38.33,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 37,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.03,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              }
+            ],
+            "ehuTransitionCount": 65,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 4,
+              "H3": 32
+            },
+            "meanEhuTransitions": 1.81,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 69.72,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.985,
+                "arc": 26,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.99,
+                "arc": 25,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.997,
+                "arc": 48,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.987,
+                "arc": 92,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.981,
+                "arc": 64,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.987,
+                "arc": 161,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 1021,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1380,
+            "evolution:RPL": 171,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 19,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 37,
+            "evolution:EHU": 65,
+            "population:CMP": 9
+          },
+          "entriesKept": 2842
+        },
+        {
+          "treatmentId": "stack_ehu_observe",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 167,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.36,
+            "beingsWithRpl": 36,
+            "meiEventCount": 17,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 29,
+            "recombinedAlive": 12,
+            "withMeiPacket": 5,
+            "totalMeiCount": 17,
+            "totalFusCount": 24,
+            "diversityRatio": 0.806,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 5,
+            "fusPerMei": 1.412,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 17,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 17,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 16,
+            "xbcnEventCount": 17,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 29,
+            "expTransitions": 36,
+            "regTransitions": 816,
+            "mtbTransitions": 2020,
+            "coopTransitions": 52,
+            "totalLayerTransitions": 2924,
+            "meanLayerTransitions": 81.22,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 22.67,
+            "meanMtbTransitions": 56.11,
+            "meanCoopTransitions": 1.44,
+            "rprTransitionCount": 38,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.06,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 54,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 3,
+              "H3": 33
+            },
+            "meanEhuTransitions": 1.5,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 82.28,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.996,
+                "arc": 124,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.993,
+                "arc": 20,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.992,
+                "arc": 96,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.987,
+                "arc": 87,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.982,
+                "distinction": 0.995,
+                "arc": 140,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.992,
+                "arc": 20,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 816,
+            "evolution:COOP": 52,
+            "evolution:MTB": 2020,
+            "evolution:RPL": 167,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 16,
+            "evolution:MEI": 17,
+            "evolution:XBCN": 17,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 38,
+            "evolution:EHU": 54,
+            "population:CMP": 9
+          },
+          "entriesKept": 3278
+        },
+        {
+          "treatmentId": "stack_ehu_observe",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 169,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.25,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 26,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitions": 36,
+            "regTransitions": 1031,
+            "mtbTransitions": 1284,
+            "coopTransitions": 38,
+            "totalLayerTransitions": 2389,
+            "meanLayerTransitions": 66.36,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 28.64,
+            "meanMtbTransitions": 35.67,
+            "meanCoopTransitions": 1.06,
+            "rprTransitionCount": 39,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.08,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              }
+            ],
+            "ehuTransitionCount": 52,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 5,
+              "H3": 31
+            },
+            "meanEhuTransitions": 1.44,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 67.44,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.977,
+                "distinction": 0.995,
+                "arc": 61,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.978,
+                "arc": 49,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.996,
+                "arc": 102,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.995,
+                "arc": 74,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.991,
+                "arc": 82,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.996,
+                "arc": 72,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 1031,
+            "evolution:COOP": 38,
+            "evolution:MTB": 1284,
+            "evolution:RPL": 169,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 26,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 39,
+            "evolution:EHU": 52,
+            "population:CMP": 9
+          },
+          "entriesKept": 2750
+        },
+        {
+          "treatmentId": "stack_ehu_observe",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 170,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.28,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.75,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 34,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitions": 36,
+            "regTransitions": 938,
+            "mtbTransitions": 1427,
+            "coopTransitions": 38,
+            "totalLayerTransitions": 2439,
+            "meanLayerTransitions": 67.75,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 26.06,
+            "meanMtbTransitions": 39.64,
+            "meanCoopTransitions": 1.06,
+            "rprTransitionCount": 38,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.06,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 59,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 3,
+              "H3": 33
+            },
+            "meanEhuTransitions": 1.64,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 68.81,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.982,
+                "distinction": 0.996,
+                "arc": 97,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.996,
+                "arc": 80,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.982,
+                "distinction": 0.995,
+                "arc": 29,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.987,
+                "arc": 139,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.983,
+                "arc": 103,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.997,
+                "arc": 48,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 938,
+            "evolution:COOP": 38,
+            "evolution:MTB": 1427,
+            "evolution:RPL": 170,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 34,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 38,
+            "evolution:EHU": 59,
+            "population:CMP": 9
+          },
+          "entriesKept": 2815
+        }
+      ]
+    },
+    "stack_ehu_feedback": {
+      "label": "四层+RPR+EHU反馈",
+      "meanEhu": 55,
+      "meanArc": 74.5,
+      "meanLayers": 2644.5,
+      "meanRpr": 37.25,
+      "meanFiss": 12,
+      "meanFus": 24,
+      "meanAlive": 36,
+      "runs": [
+        {
+          "treatmentId": "stack_ehu_feedback",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 167,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 1,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 34,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.22,
+            "beingsWithRpl": 36,
+            "meiEventCount": 14,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 12,
+            "withMeiPacket": 2,
+            "totalMeiCount": 14,
+            "totalFusCount": 24,
+            "diversityRatio": 0.75,
+            "renEventCount": 0,
+            "liveFusCount": 10,
+            "plgEventCount": 0,
+            "packetBacklog": 2,
+            "fusPerMei": 1.714,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 14,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 14,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 22,
+            "xbcnEventCount": 14,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 26,
+            "expTransitions": 36,
+            "regTransitions": 1215,
+            "mtbTransitions": 1634,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2921,
+            "meanLayerTransitions": 81.14,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 33.75,
+            "meanMtbTransitions": 45.39,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 36,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 60,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 4,
+              "H3": 32
+            },
+            "meanEhuTransitions": 1.67,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 82.14,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.997,
+                "arc": 30,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.993,
+                "arc": 136,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.982,
+                "distinction": 0.976,
+                "arc": 211,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.997,
+                "arc": 78,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.996,
+                "arc": 201,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.996,
+                "arc": 69,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 1215,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1634,
+            "evolution:RPL": 167,
+            "evolution:FISS": 12,
+            "evolution:MEI": 14,
+            "evolution:XBCN": 14,
+            "evolution:FUS": 24,
+            "evolution:ISPL": 22,
+            "evolution:EXP": 36,
+            "evolution:RPR": 36,
+            "evolution:EHU": 60,
+            "population:CMP": 9
+          },
+          "entriesKept": 3279
+        },
+        {
+          "treatmentId": "stack_ehu_feedback",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 171,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 6,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 34,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.22,
+            "beingsWithRpl": 36,
+            "meiEventCount": 14,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 12,
+            "withMeiPacket": 2,
+            "totalMeiCount": 14,
+            "totalFusCount": 24,
+            "diversityRatio": 0.75,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 2,
+            "fusPerMei": 1.714,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 14,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 14,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 29,
+            "xbcnEventCount": 14,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 26,
+            "expTransitions": 36,
+            "regTransitions": 735,
+            "mtbTransitions": 1872,
+            "coopTransitions": 38,
+            "totalLayerTransitions": 2681,
+            "meanLayerTransitions": 74.47,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 20.42,
+            "meanMtbTransitions": 52,
+            "meanCoopTransitions": 1.06,
+            "rprTransitionCount": 39,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.08,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              }
+            ],
+            "ehuTransitionCount": 56,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 5,
+              "H3": 31
+            },
+            "meanEhuTransitions": 1.56,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 75.56,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.99,
+                "arc": 94,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.987,
+                "arc": 97,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.995,
+                "arc": 102,
+                "transitions": 2
+              },
+              {
+                "stage": "H2",
+                "coherence": 0.98,
+                "distinction": 0.995,
+                "arc": 6,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.983,
+                "arc": 19,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.989,
+                "arc": 155,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 735,
+            "evolution:COOP": 38,
+            "evolution:MTB": 1872,
+            "evolution:RPL": 171,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 29,
+            "evolution:MEI": 14,
+            "evolution:XBCN": 14,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 39,
+            "evolution:EHU": 56,
+            "population:CMP": 9
+          },
+          "entriesKept": 3049
+        },
+        {
+          "treatmentId": "stack_ehu_feedback",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 173,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 5,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.28,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 26,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.722,
+            "renEventCount": 0,
+            "liveFusCount": 10,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 35,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitions": 36,
+            "regTransitions": 907,
+            "mtbTransitions": 1292,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2271,
+            "meanLayerTransitions": 63.08,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 25.19,
+            "meanMtbTransitions": 35.89,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 37,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.03,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 53,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 9,
+              "H3": 27
+            },
+            "meanEhuTransitions": 1.47,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 64.11,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.988,
+                "arc": 77,
+                "transitions": 2
+              },
+              {
+                "stage": "H2",
+                "coherence": 0.978,
+                "distinction": 0.992,
+                "arc": 6,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.994,
+                "arc": 87,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.997,
+                "arc": 92,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.982,
+                "distinction": 0.997,
+                "arc": 29,
+                "transitions": 1
+              },
+              {
+                "stage": "H2",
+                "coherence": 0.98,
+                "distinction": 0.996,
+                "arc": 12,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 907,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1292,
+            "evolution:RPL": 173,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 35,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 37,
+            "evolution:EHU": 53,
+            "population:CMP": 9
+          },
+          "entriesKept": 2644
+        },
+        {
+          "treatmentId": "stack_ehu_feedback",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 162,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 5,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 34,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.19,
+            "beingsWithRpl": 36,
+            "meiEventCount": 14,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 2,
+            "totalMeiCount": 14,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 2,
+            "fusPerMei": 1.714,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 14,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 14,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 24,
+            "xbcnEventCount": 14,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 26,
+            "expTransitions": 36,
+            "regTransitions": 868,
+            "mtbTransitions": 1765,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2705,
+            "meanLayerTransitions": 75.14,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 24.11,
+            "meanMtbTransitions": 49.03,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 37,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.03,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 51,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 5,
+              "H3": 31
+            },
+            "meanEhuTransitions": 1.42,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 76.17,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.986,
+                "arc": 119,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.99,
+                "arc": 148,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.985,
+                "arc": 95,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.99,
+                "arc": 48,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.99,
+                "arc": 72,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.989,
+                "arc": 28,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 868,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1765,
+            "evolution:RPL": 162,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 24,
+            "evolution:MEI": 14,
+            "evolution:XBCN": 14,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 37,
+            "evolution:EHU": 51,
+            "population:CMP": 9
+          },
+          "entriesKept": 3052
+        }
+      ]
+    },
+    "stack_ehu_narrative": {
+      "label": "四层+RPR+EHU叙事",
+      "meanEhu": 51.75,
+      "meanArc": 65.17,
+      "meanLayers": 2308.5,
+      "meanRpr": 37.75,
+      "meanFiss": 12,
+      "meanFus": 24,
+      "meanAlive": 36,
+      "runs": [
+        {
+          "treatmentId": "stack_ehu_narrative",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 177,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 2,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 30,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitions": 36,
+            "regTransitions": 1010,
+            "mtbTransitions": 1143,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2225,
+            "meanLayerTransitions": 61.81,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 28.06,
+            "meanMtbTransitions": 31.75,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 37,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.03,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 50,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 1,
+              "H3": 35
+            },
+            "meanEhuTransitions": 1.39,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 62.83,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.998,
+                "arc": 38,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.998,
+                "arc": 92,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.998,
+                "arc": 96,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.978,
+                "distinction": 0.993,
+                "arc": 35,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.992,
+                "arc": 108,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.99,
+                "arc": 55,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 1010,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1143,
+            "evolution:RPL": 177,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 30,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 37,
+            "evolution:EHU": 50,
+            "population:CMP": 9
+          },
+          "entriesKept": 2596
+        },
+        {
+          "treatmentId": "stack_ehu_narrative",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 167,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 7,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.22,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 29,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.806,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 36,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitions": 36,
+            "regTransitions": 1188,
+            "mtbTransitions": 1301,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2561,
+            "meanLayerTransitions": 71.14,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 33,
+            "meanMtbTransitions": 36.14,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 39,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.08,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 2
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 50,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 1,
+              "H3": 35
+            },
+            "meanEhuTransitions": 1.39,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 72.22,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.99,
+                "arc": 140,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.995,
+                "arc": 75,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.998,
+                "arc": 197,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.996,
+                "arc": 55,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.981,
+                "arc": 84,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.972,
+                "arc": 79,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 1188,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1301,
+            "evolution:RPL": 167,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 36,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 39,
+            "evolution:EHU": 50,
+            "population:CMP": 9
+          },
+          "entriesKept": 2928
+        },
+        {
+          "treatmentId": "stack_ehu_narrative",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 161,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 6,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.42,
+            "beingsWithRpl": 36,
+            "meiEventCount": 17,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 5,
+            "totalMeiCount": 17,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 8,
+            "plgEventCount": 0,
+            "packetBacklog": 5,
+            "fusPerMei": 1.412,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 17,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 17,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 18,
+            "xbcnEventCount": 17,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 29,
+            "expTransitions": 36,
+            "regTransitions": 826,
+            "mtbTransitions": 1437,
+            "coopTransitions": 42,
+            "totalLayerTransitions": 2341,
+            "meanLayerTransitions": 65.03,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 22.94,
+            "meanMtbTransitions": 39.92,
+            "meanCoopTransitions": 1.17,
+            "rprTransitionCount": 38,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.06,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 49,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 4,
+              "H3": 32
+            },
+            "meanEhuTransitions": 1.36,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 66.08,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.988,
+                "arc": 73,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.98,
+                "distinction": 0.992,
+                "arc": 54,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.997,
+                "arc": 114,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.998,
+                "arc": 51,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.992,
+                "arc": 73,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.999,
+                "arc": 107,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 826,
+            "evolution:COOP": 42,
+            "evolution:MTB": 1437,
+            "evolution:RPL": 161,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 18,
+            "evolution:MEI": 17,
+            "evolution:XBCN": 17,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 38,
+            "evolution:EHU": 49,
+            "population:CMP": 9
+          },
+          "entriesKept": 2686
+        },
+        {
+          "treatmentId": "stack_ehu_narrative",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 174,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 6,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.36,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.75,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 27,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitions": 36,
+            "regTransitions": 893,
+            "mtbTransitions": 1142,
+            "coopTransitions": 36,
+            "totalLayerTransitions": 2107,
+            "meanLayerTransitions": 58.53,
+            "meanExpTransitions": 1,
+            "meanRegTransitions": 24.81,
+            "meanMtbTransitions": 31.72,
+            "meanCoopTransitions": 1,
+            "rprTransitionCount": 37,
+            "rprModes": {
+              "R0": 0,
+              "SEED_DOM": 12,
+              "LIN_DOM": 0,
+              "FIS_DOM": 0,
+              "RCM_DOM": 12,
+              "MULTI": 12
+            },
+            "rprOrigins": {
+              "SEED": 36,
+              "LIN": 0,
+              "FIS": 0,
+              "RCM": 0
+            },
+            "lineageEventCount": 0,
+            "meanRprTransitions": 1.03,
+            "rprSnapshots": [
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              },
+              {
+                "mode": "MULTI",
+                "origin": "SEED",
+                "fissAsParent": 1,
+                "lineageAsParent": 0,
+                "transitions": 1
+              }
+            ],
+            "ehuTransitionCount": 58,
+            "ehuStages": {
+              "H0": 0,
+              "H1": 0,
+              "H2": 6,
+              "H3": 30
+            },
+            "meanEhuTransitions": 1.61,
+            "meanEhuCoherence": 0.98,
+            "meanEhuDistinction": 0.99,
+            "meanEhuArc": 59.56,
+            "ehuSnapshots": [
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.988,
+                "arc": 81,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.987,
+                "arc": 81,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.979,
+                "distinction": 0.99,
+                "arc": 195,
+                "transitions": 1
+              },
+              {
+                "stage": "H2",
+                "coherence": 0.977,
+                "distinction": 0.98,
+                "arc": 10,
+                "transitions": 1
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.982,
+                "distinction": 0.992,
+                "arc": 47,
+                "transitions": 2
+              },
+              {
+                "stage": "H3",
+                "coherence": 0.981,
+                "distinction": 0.992,
+                "arc": 18,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 893,
+            "evolution:COOP": 36,
+            "evolution:MTB": 1142,
+            "evolution:RPL": 174,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 27,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "evolution:RPR": 37,
+            "evolution:EHU": 58,
+            "population:CMP": 9
+          },
+          "entriesKept": 2480
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "observeVsNone": {
+        "H1_ehuFires": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 65
+        },
+        "H2_stagesTracked": {
+          "verdict": "support",
+          "stages": {
+            "H0": 0,
+            "H1": 0,
+            "H2": 4,
+            "H3": 32
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackArc": {
+          "verdict": "support",
+          "observeArc": 69.72,
+          "feedbackArc": 82.14
+        },
+        "H4_stackCoexist": {
+          "verdict": "support",
+          "layers": 2921,
+          "ehu": 60,
+          "rpr": 36
+        }
+      },
+      "narrativeVsFeedback": {
+        "H5_narrativeStage": {
+          "verdict": "support",
+          "feedbackH3": 32,
+          "narrativeH3": 35
+        },
+        "H6_triPathIntact": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24,
+          "alive": 36
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "observeVsNone": {
+        "H1_ehuFires": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 54
+        },
+        "H2_stagesTracked": {
+          "verdict": "support",
+          "stages": {
+            "H0": 0,
+            "H1": 0,
+            "H2": 3,
+            "H3": 33
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackArc": {
+          "verdict": "weak",
+          "observeArc": 82.28,
+          "feedbackArc": 75.56
+        },
+        "H4_stackCoexist": {
+          "verdict": "support",
+          "layers": 2681,
+          "ehu": 56,
+          "rpr": 39
+        }
+      },
+      "narrativeVsFeedback": {
+        "H5_narrativeStage": {
+          "verdict": "support",
+          "feedbackH3": 31,
+          "narrativeH3": 35
+        },
+        "H6_triPathIntact": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24,
+          "alive": 36
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "observeVsNone": {
+        "H1_ehuFires": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 52
+        },
+        "H2_stagesTracked": {
+          "verdict": "support",
+          "stages": {
+            "H0": 0,
+            "H1": 0,
+            "H2": 5,
+            "H3": 31
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackArc": {
+          "verdict": "weak",
+          "observeArc": 67.44,
+          "feedbackArc": 64.11
+        },
+        "H4_stackCoexist": {
+          "verdict": "support",
+          "layers": 2271,
+          "ehu": 53,
+          "rpr": 37
+        }
+      },
+      "narrativeVsFeedback": {
+        "H5_narrativeStage": {
+          "verdict": "support",
+          "feedbackH3": 27,
+          "narrativeH3": 32
+        },
+        "H6_triPathIntact": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24,
+          "alive": 36
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "observeVsNone": {
+        "H1_ehuFires": {
+          "verdict": "support",
+          "none": 0,
+          "observe": 59
+        },
+        "H2_stagesTracked": {
+          "verdict": "support",
+          "stages": {
+            "H0": 0,
+            "H1": 0,
+            "H2": 3,
+            "H3": 33
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackArc": {
+          "verdict": "support",
+          "observeArc": 68.81,
+          "feedbackArc": 76.17
+        },
+        "H4_stackCoexist": {
+          "verdict": "support",
+          "layers": 2705,
+          "ehu": 51,
+          "rpr": 37
+        }
+      },
+      "narrativeVsFeedback": {
+        "H5_narrativeStage": {
+          "verdict": "unsupport",
+          "feedbackH3": 31,
+          "narrativeH3": 30
+        },
+        "H6_triPathIntact": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24,
+          "alive": 36
+        }
+      }
+    }
+  ],
+  "design": {
+    "ehu": "自我连续性 H0–H3（连贯/区分/叙事弧）",
+    "stack": "四层档案 + RPR 三路径基线",
+    "outline": "OUTLINE Phase 4 kickoff"
+  },
+  "roadmap": "docs/PHASE55_ELECTRONIC_HUMAN.md"
+}

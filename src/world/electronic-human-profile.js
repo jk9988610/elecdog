@@ -1,0 +1,150 @@
+// 电子人层 — 自我连续性与叙事可观察性（OUTLINE Phase 4 kickoff，非预制人格）
+
+import { beingLayerTransitions } from './profile-stack.js';
+
+export const EHU_STAGES = ['H0', 'H1', 'H2', 'H3'];
+
+const STAGE_LABELS = {
+  H0: '初态',
+  H1: '可追踪',
+  H2: '整合',
+  H3: '叙事',
+};
+
+export function electronicHumanEnabled(profile) {
+  return profile?.electronicHumanEnabled === true;
+}
+
+export function electronicHumanFeedbackEnabled(profile) {
+  return electronicHumanEnabled(profile) && profile.electronicHumanFeedback !== false;
+}
+
+export function initElectronicHuman(being) {
+  being.ehuStage = 'H0';
+  being.ehuStageAt = 0;
+  being.ehuTransitions = 0;
+  being.ehuCoherence = 0.5;
+  being.ehuDistinction = 0;
+  being.ehuPrevRegisters = being.registers ? [...being.registers] : [];
+}
+
+export function electronicHumanStageLabel(stage) {
+  return STAGE_LABELS[stage] ?? stage;
+}
+
+export function accumulateElectronicHuman(being, ctx) {
+  const prev = being.ehuPrevRegisters ?? being.registers;
+  const regs = being.registers ?? [];
+  if (prev.length === regs.length && regs.length) {
+    let drift = 0;
+    for (let i = 0; i < regs.length; i++) {
+      drift += Math.abs(regs[i] - prev[i]);
+    }
+    const stability = Math.max(0, 1 - drift / regs.length);
+    being.ehuCoherence = (being.ehuCoherence ?? 0.5) * 0.92 + stability * 0.08;
+  }
+  being.ehuPrevRegisters = [...regs];
+
+  const selfAct = (ctx.hadTx ? 0.5 : 0) + (ctx.hadAct ? 0.5 : 0);
+  const social = Math.min(1, (ctx.crossRx ?? 0) * 0.04);
+  if (selfAct > 0) {
+    being.ehuDistinction = Math.min(1, (being.ehuDistinction ?? 0) + selfAct * 0.03);
+  }
+  if (social > 0) {
+    being.ehuDistinction = Math.max(0, (being.ehuDistinction ?? 0) - social * 0.015);
+  }
+}
+
+export function electronicHumanArc(being) {
+  return beingLayerTransitions(being) + (being.rprTransitions ?? 0);
+}
+
+export function resolveElectronicHumanStage(being, profile) {
+  const ticks = being.tickCount ?? 0;
+  const juvenile = profile.ehuJuvenileTicks ?? 64;
+  const arc = electronicHumanArc(being);
+  const coherence = being.ehuCoherence ?? 0.5;
+  const distinction = being.ehuDistinction ?? 0;
+  const arcNarrative = profile.ehuArcNarrative ?? 18;
+
+  if (ticks < juvenile || arc < 2) return 'H0';
+  if (coherence < 0.32) return 'H1';
+  if (arc < 10) return 'H2';
+  if (distinction >= 0.22 && arc >= arcNarrative) return 'H3';
+  return 'H2';
+}
+
+export function electronicHumanActBias(being, profile) {
+  if (!electronicHumanFeedbackEnabled(profile)) {
+    return { actBoost: 0, thresholdDelta: 0, stage: being.ehuStage ?? 'H0' };
+  }
+  const stage = being.ehuStage ?? 'H0';
+  switch (stage) {
+    case 'H0':
+      return { actBoost: -0.04, thresholdDelta: 0.05, stage };
+    case 'H1':
+      return { actBoost: 0.02, thresholdDelta: -0.02, stage };
+    case 'H2':
+      return { actBoost: 0.08, thresholdDelta: -0.04, stage };
+    case 'H3':
+      return { actBoost: 0.12, thresholdDelta: -0.06, stage };
+    default:
+      return { actBoost: 0, thresholdDelta: 0, stage };
+  }
+}
+
+export function processElectronicHumanTick(
+  world,
+  recorder,
+  being,
+  profile,
+  ctx,
+  { fieldStat = false } = {}
+) {
+  if (!electronicHumanEnabled(profile)) return null;
+
+  accumulateElectronicHuman(being, ctx);
+  const next = resolveElectronicHumanStage(being, profile);
+  const prev = being.ehuStage ?? 'H0';
+  if (next === prev) {
+    return { stage: next, changed: false };
+  }
+
+  being.ehuStage = next;
+  being.ehuStageAt = world.tick;
+  being.ehuTransitions = (being.ehuTransitions ?? 0) + 1;
+
+  const payload = {
+    kind: 'EHU',
+    phase: 'stage',
+    from: prev,
+    to: next,
+    tickCount: being.tickCount,
+    arc: electronicHumanArc(being),
+    coherence: +(being.ehuCoherence ?? 0).toFixed(4),
+    distinction: +(being.ehuDistinction ?? 0).toFixed(4),
+  };
+
+  if (!fieldStat) {
+    recorder.evolution(
+      world.tick,
+      being.id,
+      `[EHU] ${prev}→${next} arc ${payload.arc} coh ${payload.coherence}`,
+      payload
+    );
+  } else {
+    recorder.evolution(world.tick, being.id, `[EHU] ${prev}→${next}`, payload);
+  }
+
+  return { stage: next, changed: true, from: prev };
+}
+
+export function electronicHumanSnapshot(being) {
+  return {
+    stage: being.ehuStage ?? 'H0',
+    coherence: +(being.ehuCoherence ?? 0).toFixed(3),
+    distinction: +(being.ehuDistinction ?? 0).toFixed(3),
+    arc: electronicHumanArc(being),
+    transitions: being.ehuTransitions ?? 0,
+  };
+}

@@ -10,6 +10,7 @@ export const PHASE_HEADLINE_METRIC = {
   51: { key: 'meanCoopTransitions', label: 'COOP' },
   52: { key: 'meanTotalLayers', label: 'LAY' },
   53: { key: 'meanRpr', label: 'RPR' },
+  55: { key: 'meanEhu', label: 'EHU' },
 };
 
 /** @type {Record<number, string>} */
@@ -20,6 +21,7 @@ export const PHASE_FEEDBACK_TREATMENT = {
   51: 'fertile_coop_feedback',
   52: 'fertile_stack_feedback',
   53: 'stack_rpr_observe',
+  55: 'stack_ehu_feedback',
 };
 
 export const STACK_PHASES = [48, 49, 50, 51, 52, 53];
