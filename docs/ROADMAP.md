@@ -37,7 +37,8 @@
 | **25** | PWA 离线（已撤销壳层） | ⚠️ |
 | **26** | L4 环境筛选观察层 `[SEL]` | ✅ |
 | **27** | 安卓 APK 壳（Capacitor） | ✅ 工程就绪 |
-| **28+** | Supabase… | 见 [OUTLINE.md](OUTLINE.md) §八 |
+| **28** | Supabase 田野云同步 | ✅ 代码就绪 |
+| **29+** | Realtime / 批处理入库… | 见 [SUPABASE.md](SUPABASE.md) |
 
 **粗估：核心田野约 10–12 个阶段**，之后进入「扩展世界能力」而非「补数据」。
 
@@ -119,7 +120,7 @@
 | OBS | **63 条** | 达标 |
 | 田野报告 | Phase 2–26 | [索引](REPORTS/README.md) |
 | 开放 GAP | **2** | GAP-02、GAP-10 |
-| 下一扩展 | **进行中** | Phase 28（Supabase） |
+| 下一扩展 | **Phase 28 已交付** | Supabase 田野云同步 |
 
 ---
 
