@@ -117,7 +117,17 @@
 
 - **定义**：个体发生 RX（收 signal）、TX 或 ACT 时，同 tick 的 `memory` 通道记录 `[MEM]` 行，含事件类型与引用 tick（如 `[MEM] RX t12 {fromId}`）；不改动对内/对外行为。
 - **依据**：OBS-20260729-32（solo 109/109 配对，无 RX 记忆）、OBS-20260729-33（dual 观察者 168/168，RX 59/59）
-- **可证伪**：若事件无对应 `[MEM]`，或 `[MEM]` 改变对外统计，则修订
+- **可证伪**：若事件无对应 `[MEM]`；在 `memoryFeedbackEnabled` 关闭时 `[MEM]` 不改变对外统计，则修订
+- **确立日期**：2026-07-29
+- **备注**：行为调制见「记忆行为调制」条（Phase 79 · W1）
+
+---
+
+## 记忆行为调制
+
+- **定义**：启用 `memoryFeedbackEnabled` 时，个体维护衰减负载 `memRxLoad` / `memTxLoad` / `memActLoad`；每 tick 经 `actBoost` / `thresholdDelta` 调制对外行为。与「事件记忆迹」记录层独立；不设地球式「记得」「遗忘」语义。
+- **依据**：OBS-20260729-81（Phase 70 田野 H1 3/4 support）、OBS-20260729-90（W1 复核 H1 4/4 support）
+- **可证伪**：若 mem on/off 田野对外率无稳定差异、或负载与偏置无系统性相关，则修订
 - **确立日期**：2026-07-29
 
 ---

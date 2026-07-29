@@ -596,7 +596,7 @@
   - mem_on 均值 memAct 负载 **0.606**；mem_off **0**
   - H3 占比两组均 **96%**；存活均值 **64**
   - H1 支持 **3/4** 种子，方向一致；批次综合 **support**
-- **备注**：报告见 `docs/field-phase70-report.json`；CODEX 修订待复核
+- **备注**：报告见 `docs/field-phase70-report.json`；Phase 79 复核升级 4/4 → CODEX 第 29 条
 
 ## OBS-20260729-82
 
@@ -685,5 +685,16 @@
   - H1–H2/H4 **4/4**；H3 **3/4**
   - 批次 **support**；L6b / GAP-W05 结案
 - **备注**：报告见 `docs/field-phase78-report.json`
+
+## OBS-20260729-90
+
+- **世界**：智慧演化场（Phase 79 · W1 复核）
+- **处理组**：`wisdom_mem_off` vs `wisdom_mem_on`（重跑 Phase 70）
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - mem_off 对外率 **0.495**；mem_on **0.469**；memAct **0.599**
+  - H1 **4/4 support**（升级自 3/4）；方向一致
+  - CODEX 第 29 条「记忆行为调制」立项；GAP-W01 结案
+- **备注**：`docs/w1-codex-review-report.json`
 
 ---
