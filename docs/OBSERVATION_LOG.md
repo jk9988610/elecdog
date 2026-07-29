@@ -514,4 +514,10 @@
 - **事实**：`ehu_gen_lin` LIN **≈24**；`ehu_gen_full` maxGen **≥3**；谱系 H3 可观察
 - **备注**：观察台辞典 UI 上线；EHU×代次交叉田野依据
 
+## OBS-20260729-69
+
+- **世界**：01；EHU 续行 **960 tick** × 4 种子（Phase 60）
+- **事实**：`ehu_ren_off` EHU-REN **0**；`ehu_ren_only` REN **≈122**、EHU-REN **≈122**；`ehu_ren_plg` PLG **≈1143**、EHU-REN **≈1236**、H3-R **≈32**
+- **备注**：`[EHU-REN]` 交叉迹依据；续行与谱系回响可并存
+
 ---
