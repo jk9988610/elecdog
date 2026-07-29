@@ -160,7 +160,8 @@
 - **Phase 91**：`[ADV]` 邻格平流 + `[LTC]` 月相；田野 **support** — 见 [PHASE91_ADV_LTC.md](PHASE91_ADV_LTC.md)
 - **Phase 93**：地热 `vent` `[VTN]`；田野 **support** — 见 [PHASE93_VENT_GEOTHERMAL.md](PHASE93_VENT_GEOTHERMAL.md)
 - **Phase 94**：patch 迁徙 `[MIG]` + alt 税；田野 **support** — 见 [PHASE94_PATCH_MIGRATION.md](PHASE94_PATCH_MIGRATION.md)
-- **状态**：**部分开放**（时空环境栈 ✓；W6/耗散 CODEX 待深化）
+- **Phase 96**：W6 全栈耦合验收田野 — 见 [PHASE96_W6_STACK.md](PHASE96_W6_STACK.md)
+- **状态**：**部分开放**（时空环境栈 ✓；W6 CODEX 待深化）
 - **关联**：GAP-ORG（日相驱动 Synth-A）；细胞诞生区位采样
 
 ---
