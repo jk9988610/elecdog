@@ -100,6 +100,10 @@ export function buildDashboardStats(world, recorder) {
       metProfile: b.metProfile ?? 'N0',
       metTransitions: b.metTransitions ?? 0,
       metDomIdx: b.metDominantIdx ?? 0,
+      coopMode: b.coopMode ?? 'S0',
+      coopTransitions: b.coopTransitions ?? 0,
+      socCrossRx: b.socCrossRx ?? 0,
+      socContest: b.socContest ?? 0,
       ...es,
     };
   });
@@ -157,6 +161,11 @@ export function buildDashboardStats(world, recorder) {
         (e) =>
           (e.channel === 'metabolism' && e.meta?.kind === 'MTB') ||
           (e.channel === 'evolution' && e.meta?.kind === 'MTB')
+      ).length,
+      coop: entries.filter(
+        (e) =>
+          (e.channel === 'social' && e.meta?.kind === 'COOP') ||
+          (e.channel === 'evolution' && e.meta?.kind === 'COOP')
       ).length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,

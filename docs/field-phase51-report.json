@@ -1,0 +1,1840 @@
+{
+  "runAt": "2026-07-29T13:38:45.552Z",
+  "phase": 51,
+  "extension": "social_cooperation_layer",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "fertile_no_coop": {
+      "id": "fertile_no_coop",
+      "label": "富足场（无合作层）",
+      "envId": "fertile_field"
+    },
+    "fertile_coop_observe": {
+      "id": "fertile_coop_observe",
+      "label": "富足场+合作观测",
+      "envId": "fertile_field",
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": false
+    },
+    "fertile_coop_feedback": {
+      "id": "fertile_coop_feedback",
+      "label": "富足场+合作反馈",
+      "envId": "fertile_field",
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true
+    },
+    "fertile_coop_dense": {
+      "id": "fertile_coop_dense",
+      "label": "富足场+合作反馈(高密)",
+      "envId": "fertile_field",
+      "fissionMaxPop": 48,
+      "cooperationProfileEnabled": true,
+      "cooperationFeedback": true
+    }
+  },
+  "aggregate": {
+    "fertile_no_coop": {
+      "label": "富足场（无合作层）",
+      "meanCoopTransitions": 0,
+      "meanCrossRx": 0,
+      "meanContest": 0,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_no_coop",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 36,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "meanContest": 0,
+            "meanSocTotal": 0,
+            "meanCoopTransitions": 0,
+            "coopSnapshots": [
+              {
+                "mode": "S0",
+                "slot": "S3",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S0",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S0",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S2",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S3",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_coop",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 36,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "meanContest": 0,
+            "meanSocTotal": 0,
+            "meanCoopTransitions": 0,
+            "coopSnapshots": [
+              {
+                "mode": "S0",
+                "slot": "S0",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S2",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S2",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_coop",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 36,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "meanContest": 0,
+            "meanSocTotal": 0,
+            "meanCoopTransitions": 0,
+            "coopSnapshots": [
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S0",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S3",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S2",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_coop",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 36,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "meanContest": 0,
+            "meanSocTotal": 0,
+            "meanCoopTransitions": 0,
+            "coopSnapshots": [
+              {
+                "mode": "S0",
+                "slot": "S2",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S2",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S1",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S0",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S3",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              },
+              {
+                "mode": "S0",
+                "slot": "S0",
+                "socRx": 0,
+                "socCrossRx": 0,
+                "socTx": 0,
+                "socAct": 0,
+                "socContest": 0,
+                "socTotal": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        }
+      ]
+    },
+    "fertile_coop_observe": {
+      "label": "富足场+合作观测",
+      "meanCoopTransitions": 39.75,
+      "meanCrossRx": 6462.99,
+      "meanContest": 816.87,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_coop_observe",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 42,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6493.6389,
+            "meanContest": 810.6667,
+            "meanSocTotal": 2220.2222,
+            "meanCoopTransitions": 1.1667,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 958,
+                "socCrossRx": 6183,
+                "socTx": 239,
+                "socAct": 255,
+                "socContest": 883,
+                "socTotal": 2335,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 958,
+                "socCrossRx": 6183,
+                "socTx": 274,
+                "socAct": 263,
+                "socContest": 883,
+                "socTotal": 2378,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 6457,
+                "socTx": 261,
+                "socAct": 247,
+                "socContest": 840,
+                "socTotal": 2306,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 959,
+                "socCrossRx": 6183,
+                "socTx": 275,
+                "socAct": 242,
+                "socContest": 883,
+                "socTotal": 2359,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 959,
+                "socCrossRx": 6955,
+                "socTx": 258,
+                "socAct": 268,
+                "socContest": 798,
+                "socTotal": 2283,
+                "transitions": 2
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 959,
+                "socCrossRx": 6183,
+                "socTx": 269,
+                "socAct": 263,
+                "socContest": 883,
+                "socTotal": 2374,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 42,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 111
+        },
+        {
+          "treatmentId": "fertile_coop_observe",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 37,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6401.5278,
+            "meanContest": 815.0833,
+            "meanSocTotal": 2217.9444,
+            "meanCoopTransitions": 1.0278,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 956,
+                "socCrossRx": 6540,
+                "socTx": 259,
+                "socAct": 264,
+                "socContest": 844,
+                "socTotal": 2323,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 955,
+                "socCrossRx": 6302,
+                "socTx": 235,
+                "socAct": 261,
+                "socContest": 866,
+                "socTotal": 2317,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 954,
+                "socCrossRx": 6302,
+                "socTx": 252,
+                "socAct": 293,
+                "socContest": 866,
+                "socTotal": 2365,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 954,
+                "socCrossRx": 6549,
+                "socTx": 276,
+                "socAct": 243,
+                "socContest": 837,
+                "socTotal": 2310,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 956,
+                "socCrossRx": 6302,
+                "socTx": 262,
+                "socAct": 269,
+                "socContest": 866,
+                "socTotal": 2353,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 956,
+                "socCrossRx": 6540,
+                "socTx": 260,
+                "socAct": 249,
+                "socContest": 844,
+                "socTotal": 2309,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 37,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 107
+        },
+        {
+          "treatmentId": "fertile_coop_observe",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 43,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6520.7222,
+            "meanContest": 812.3056,
+            "meanSocTotal": 2224.1111,
+            "meanCoopTransitions": 1.1944,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 956,
+                "socCrossRx": 6426,
+                "socTx": 251,
+                "socAct": 266,
+                "socContest": 865,
+                "socTotal": 2338,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 957,
+                "socCrossRx": 6426,
+                "socTx": 238,
+                "socAct": 255,
+                "socContest": 865,
+                "socTotal": 2315,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 957,
+                "socCrossRx": 6904,
+                "socTx": 236,
+                "socAct": 256,
+                "socContest": 811,
+                "socTotal": 2260,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 957,
+                "socCrossRx": 6904,
+                "socTx": 254,
+                "socAct": 268,
+                "socContest": 811,
+                "socTotal": 2290,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 957,
+                "socCrossRx": 6904,
+                "socTx": 247,
+                "socAct": 266,
+                "socContest": 811,
+                "socTotal": 2281,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 956,
+                "socCrossRx": 6426,
+                "socTx": 269,
+                "socAct": 251,
+                "socContest": 865,
+                "socTotal": 2341,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 43,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 112
+        },
+        {
+          "treatmentId": "fertile_coop_observe",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 37,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6436.0833,
+            "meanContest": 829.4167,
+            "meanSocTotal": 2241.5833,
+            "meanCoopTransitions": 1.0278,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 957,
+                "socCrossRx": 6091,
+                "socTx": 260,
+                "socAct": 256,
+                "socContest": 879,
+                "socTotal": 2352,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 958,
+                "socCrossRx": 6581,
+                "socTx": 256,
+                "socAct": 262,
+                "socContest": 835,
+                "socTotal": 2311,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 958,
+                "socCrossRx": 6091,
+                "socTx": 249,
+                "socAct": 287,
+                "socContest": 879,
+                "socTotal": 2373,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 958,
+                "socCrossRx": 6854,
+                "socTx": 259,
+                "socAct": 272,
+                "socContest": 837,
+                "socTotal": 2326,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 958,
+                "socCrossRx": 6581,
+                "socTx": 250,
+                "socAct": 251,
+                "socContest": 835,
+                "socTotal": 2294,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 6883,
+                "socTx": 257,
+                "socAct": 271,
+                "socContest": 831,
+                "socTotal": 2317,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 37,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 107
+        }
+      ]
+    },
+    "fertile_coop_feedback": {
+      "label": "富足场+合作反馈",
+      "meanCoopTransitions": 39.5,
+      "meanCrossRx": 6285.25,
+      "meanContest": 800.94,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_coop_feedback",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 36,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6247.5278,
+            "meanContest": 805.3611,
+            "meanSocTotal": 2195.3611,
+            "meanCoopTransitions": 1,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 957,
+                "socCrossRx": 6116,
+                "socTx": 237,
+                "socAct": 248,
+                "socContest": 850,
+                "socTotal": 2292,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 957,
+                "socCrossRx": 6116,
+                "socTx": 251,
+                "socAct": 271,
+                "socContest": 850,
+                "socTotal": 2329,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 957,
+                "socCrossRx": 6116,
+                "socTx": 247,
+                "socAct": 234,
+                "socContest": 850,
+                "socTotal": 2288,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 956,
+                "socCrossRx": 6612,
+                "socTx": 254,
+                "socAct": 256,
+                "socContest": 809,
+                "socTotal": 2275,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 956,
+                "socCrossRx": 6633,
+                "socTx": 252,
+                "socAct": 250,
+                "socContest": 793,
+                "socTotal": 2251,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 953,
+                "socCrossRx": 6151,
+                "socTx": 250,
+                "socAct": 241,
+                "socContest": 837,
+                "socTotal": 2281,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 36,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        },
+        {
+          "treatmentId": "fertile_coop_feedback",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 39,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6247.7778,
+            "meanContest": 796.6667,
+            "meanSocTotal": 2180.8333,
+            "meanCoopTransitions": 1.0833,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 957,
+                "socCrossRx": 6158,
+                "socTx": 259,
+                "socAct": 250,
+                "socContest": 842,
+                "socTotal": 2308,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 957,
+                "socCrossRx": 6158,
+                "socTx": 250,
+                "socAct": 244,
+                "socContest": 842,
+                "socTotal": 2293,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 956,
+                "socCrossRx": 6305,
+                "socTx": 280,
+                "socAct": 261,
+                "socContest": 842,
+                "socTotal": 2339,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 955,
+                "socCrossRx": 6158,
+                "socTx": 276,
+                "socAct": 254,
+                "socContest": 842,
+                "socTotal": 2327,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 957,
+                "socCrossRx": 6305,
+                "socTx": 265,
+                "socAct": 252,
+                "socContest": 842,
+                "socTotal": 2316,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 956,
+                "socCrossRx": 6305,
+                "socTx": 261,
+                "socAct": 236,
+                "socContest": 842,
+                "socTotal": 2295,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 39,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 108
+        },
+        {
+          "treatmentId": "fertile_coop_feedback",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 41,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6366.2778,
+            "meanContest": 804.1111,
+            "meanSocTotal": 2202.3333,
+            "meanCoopTransitions": 1.1389,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 957,
+                "socCrossRx": 7017,
+                "socTx": 246,
+                "socAct": 259,
+                "socContest": 767,
+                "socTotal": 2229,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 957,
+                "socCrossRx": 6255,
+                "socTx": 262,
+                "socAct": 245,
+                "socContest": 836,
+                "socTotal": 2300,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 956,
+                "socCrossRx": 6279,
+                "socTx": 248,
+                "socAct": 237,
+                "socContest": 837,
+                "socTotal": 2278,
+                "transitions": 4
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 956,
+                "socCrossRx": 6522,
+                "socTx": 259,
+                "socAct": 225,
+                "socContest": 817,
+                "socTotal": 2257,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 957,
+                "socCrossRx": 6255,
+                "socTx": 232,
+                "socAct": 232,
+                "socContest": 836,
+                "socTotal": 2257,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 955,
+                "socCrossRx": 6522,
+                "socTx": 252,
+                "socAct": 260,
+                "socContest": 817,
+                "socTotal": 2284,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 41,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 110
+        },
+        {
+          "treatmentId": "fertile_coop_feedback",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "coopTransitionCount": 42,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 36,
+              "ECHO": 0
+            },
+            "meanCrossRx": 6279.4167,
+            "meanContest": 797.6111,
+            "meanSocTotal": 2189.8611,
+            "meanCoopTransitions": 1.1667,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 954,
+                "socCrossRx": 6428,
+                "socTx": 248,
+                "socAct": 261,
+                "socContest": 809,
+                "socTotal": 2272,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 955,
+                "socCrossRx": 5990,
+                "socTx": 246,
+                "socAct": 228,
+                "socContest": 852,
+                "socTotal": 2281,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 955,
+                "socCrossRx": 6452,
+                "socTx": 223,
+                "socAct": 268,
+                "socContest": 818,
+                "socTotal": 2264,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 953,
+                "socCrossRx": 6428,
+                "socTx": 263,
+                "socAct": 221,
+                "socContest": 809,
+                "socTotal": 2246,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 953,
+                "socCrossRx": 5990,
+                "socTx": 231,
+                "socAct": 267,
+                "socContest": 852,
+                "socTotal": 2303,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 955,
+                "socCrossRx": 6912,
+                "socTx": 257,
+                "socAct": 230,
+                "socContest": 756,
+                "socTotal": 2198,
+                "transitions": 2
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 42,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 112
+        }
+      ]
+    },
+    "fertile_coop_dense": {
+      "label": "富足场+合作反馈(高密)",
+      "meanCoopTransitions": 52.25,
+      "meanCrossRx": 7961.69,
+      "meanContest": 840.55,
+      "meanAlive": 48,
+      "meanFiss": 36,
+      "runs": [
+        {
+          "treatmentId": "fertile_coop_dense",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 48,
+            "fissCount": 36,
+            "coopTransitionCount": 48,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 48,
+              "ECHO": 0
+            },
+            "meanCrossRx": 7981.3542,
+            "meanContest": 839.7292,
+            "meanSocTotal": 2190.5417,
+            "meanCoopTransitions": 1,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 957,
+                "socCrossRx": 8209,
+                "socTx": 237,
+                "socAct": 248,
+                "socContest": 874,
+                "socTotal": 2316,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 8509,
+                "socTx": 215,
+                "socAct": 256,
+                "socContest": 867,
+                "socTotal": 2296,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 8509,
+                "socTx": 232,
+                "socAct": 272,
+                "socContest": 867,
+                "socTotal": 2329,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 956,
+                "socCrossRx": 8457,
+                "socTx": 246,
+                "socAct": 247,
+                "socContest": 876,
+                "socTotal": 2325,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 956,
+                "socCrossRx": 7771,
+                "socTx": 249,
+                "socAct": 257,
+                "socContest": 894,
+                "socTotal": 2356,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 956,
+                "socCrossRx": 8457,
+                "socTx": 254,
+                "socAct": 240,
+                "socContest": 876,
+                "socTotal": 2326,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 48,
+            "evolution:RPL": 60,
+            "evolution:FISS": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 153
+        },
+        {
+          "treatmentId": "fertile_coop_dense",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 48,
+            "fissCount": 36,
+            "coopTransitionCount": 49,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 48,
+              "ECHO": 0
+            },
+            "meanCrossRx": 8051.0833,
+            "meanContest": 844.6458,
+            "meanSocTotal": 2199.9375,
+            "meanCoopTransitions": 1.0208,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 957,
+                "socCrossRx": 7900,
+                "socTx": 259,
+                "socAct": 250,
+                "socContest": 893,
+                "socTotal": 2359,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 7900,
+                "socTx": 250,
+                "socAct": 243,
+                "socContest": 893,
+                "socTotal": 2344,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 957,
+                "socCrossRx": 8512,
+                "socTx": 241,
+                "socAct": 232,
+                "socContest": 871,
+                "socTotal": 2301,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 7900,
+                "socTx": 278,
+                "socAct": 225,
+                "socContest": 893,
+                "socTotal": 2354,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 957,
+                "socCrossRx": 8316,
+                "socTx": 243,
+                "socAct": 258,
+                "socContest": 875,
+                "socTotal": 2333,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 958,
+                "socCrossRx": 7900,
+                "socTx": 265,
+                "socAct": 267,
+                "socContest": 893,
+                "socTotal": 2383,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 49,
+            "evolution:RPL": 60,
+            "evolution:FISS": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 154
+        },
+        {
+          "treatmentId": "fertile_coop_dense",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 48,
+            "fissCount": 36,
+            "coopTransitionCount": 57,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 48,
+              "ECHO": 0
+            },
+            "meanCrossRx": 7919,
+            "meanContest": 841.4792,
+            "meanSocTotal": 2200.4375,
+            "meanCoopTransitions": 1.1875,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 959,
+                "socCrossRx": 7500,
+                "socTx": 247,
+                "socAct": 258,
+                "socContest": 907,
+                "socTotal": 2371,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 959,
+                "socCrossRx": 7500,
+                "socTx": 258,
+                "socAct": 265,
+                "socContest": 907,
+                "socTotal": 2389,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S1",
+                "socRx": 959,
+                "socCrossRx": 7500,
+                "socTx": 227,
+                "socAct": 268,
+                "socContest": 907,
+                "socTotal": 2361,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 958,
+                "socCrossRx": 8498,
+                "socTx": 239,
+                "socAct": 250,
+                "socContest": 861,
+                "socTotal": 2308,
+                "transitions": 3
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 956,
+                "socCrossRx": 7990,
+                "socTx": 257,
+                "socAct": 239,
+                "socContest": 882,
+                "socTotal": 2334,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 958,
+                "socCrossRx": 8498,
+                "socTx": 245,
+                "socAct": 251,
+                "socContest": 861,
+                "socTotal": 2315,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 57,
+            "evolution:RPL": 60,
+            "evolution:FISS": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 162
+        },
+        {
+          "treatmentId": "fertile_coop_dense",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 48,
+            "fissCount": 36,
+            "coopTransitionCount": 55,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 48,
+              "ECHO": 0
+            },
+            "meanCrossRx": 7895.3125,
+            "meanContest": 836.3333,
+            "meanSocTotal": 2180.0833,
+            "meanCoopTransitions": 1.1458,
+            "coopSnapshots": [
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 955,
+                "socCrossRx": 7880,
+                "socTx": 248,
+                "socAct": 261,
+                "socContest": 887,
+                "socTotal": 2351,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 953,
+                "socCrossRx": 8154,
+                "socTx": 258,
+                "socAct": 256,
+                "socContest": 885,
+                "socTotal": 2352,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S2",
+                "socRx": 954,
+                "socCrossRx": 7880,
+                "socTx": 247,
+                "socAct": 258,
+                "socContest": 887,
+                "socTotal": 2346,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 953,
+                "socCrossRx": 8154,
+                "socTx": 266,
+                "socAct": 244,
+                "socContest": 885,
+                "socTotal": 2348,
+                "transitions": 1
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S0",
+                "socRx": 955,
+                "socCrossRx": 8267,
+                "socTx": 232,
+                "socAct": 249,
+                "socContest": 867,
+                "socTotal": 2303,
+                "transitions": 4
+              },
+              {
+                "mode": "RIVAL",
+                "slot": "S3",
+                "socRx": 954,
+                "socCrossRx": 8154,
+                "socTx": 235,
+                "socAct": 251,
+                "socContest": 885,
+                "socTotal": 2325,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:COOP": 55,
+            "evolution:RPL": 60,
+            "evolution:FISS": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 160
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "observeVsNone": {
+        "H1_observeHasCoop": {
+          "verdict": "support",
+          "noCoop": 0,
+          "observe": 42
+        },
+        "H2_meshOrRival": {
+          "verdict": "support",
+          "modes": {
+            "S0": 0,
+            "SOLO": 0,
+            "MESH": 0,
+            "RIVAL": 36,
+            "ECHO": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreCrossRx": {
+          "verdict": "unsupport",
+          "observe": 6493.6389,
+          "feedback": 6247.5278,
+          "delta": -246.1111
+        },
+        "H4_moreMesh": {
+          "verdict": "weak",
+          "observeMesh": 0,
+          "feedbackMesh": 0
+        },
+        "H5_noRoleNames": {
+          "verdict": "support",
+          "note": "仅社会迹聚合模式，非角色/联盟命名"
+        }
+      },
+      "denseVsFeedback": {
+        "H6_denseMoreContest": {
+          "verdict": "support",
+          "feedback": 805.3611,
+          "dense": 839.7292,
+          "delta": 34.3681
+        },
+        "H7_denseMoreRival": {
+          "verdict": "support",
+          "feedbackRival": 36,
+          "denseRival": 48
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "observeVsNone": {
+        "H1_observeHasCoop": {
+          "verdict": "support",
+          "noCoop": 0,
+          "observe": 37
+        },
+        "H2_meshOrRival": {
+          "verdict": "support",
+          "modes": {
+            "S0": 0,
+            "SOLO": 0,
+            "MESH": 0,
+            "RIVAL": 36,
+            "ECHO": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreCrossRx": {
+          "verdict": "unsupport",
+          "observe": 6401.5278,
+          "feedback": 6247.7778,
+          "delta": -153.75
+        },
+        "H4_moreMesh": {
+          "verdict": "weak",
+          "observeMesh": 0,
+          "feedbackMesh": 0
+        },
+        "H5_noRoleNames": {
+          "verdict": "support",
+          "note": "仅社会迹聚合模式，非角色/联盟命名"
+        }
+      },
+      "denseVsFeedback": {
+        "H6_denseMoreContest": {
+          "verdict": "support",
+          "feedback": 796.6667,
+          "dense": 844.6458,
+          "delta": 47.9791
+        },
+        "H7_denseMoreRival": {
+          "verdict": "support",
+          "feedbackRival": 36,
+          "denseRival": 48
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "observeVsNone": {
+        "H1_observeHasCoop": {
+          "verdict": "support",
+          "noCoop": 0,
+          "observe": 43
+        },
+        "H2_meshOrRival": {
+          "verdict": "support",
+          "modes": {
+            "S0": 0,
+            "SOLO": 0,
+            "MESH": 0,
+            "RIVAL": 36,
+            "ECHO": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreCrossRx": {
+          "verdict": "unsupport",
+          "observe": 6520.7222,
+          "feedback": 6366.2778,
+          "delta": -154.4444
+        },
+        "H4_moreMesh": {
+          "verdict": "weak",
+          "observeMesh": 0,
+          "feedbackMesh": 0
+        },
+        "H5_noRoleNames": {
+          "verdict": "support",
+          "note": "仅社会迹聚合模式，非角色/联盟命名"
+        }
+      },
+      "denseVsFeedback": {
+        "H6_denseMoreContest": {
+          "verdict": "support",
+          "feedback": 804.1111,
+          "dense": 841.4792,
+          "delta": 37.3681
+        },
+        "H7_denseMoreRival": {
+          "verdict": "support",
+          "feedbackRival": 36,
+          "denseRival": 48
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "observeVsNone": {
+        "H1_observeHasCoop": {
+          "verdict": "support",
+          "noCoop": 0,
+          "observe": 37
+        },
+        "H2_meshOrRival": {
+          "verdict": "support",
+          "modes": {
+            "S0": 0,
+            "SOLO": 0,
+            "MESH": 0,
+            "RIVAL": 36,
+            "ECHO": 0
+          }
+        }
+      },
+      "feedbackVsObserve": {
+        "H3_feedbackMoreCrossRx": {
+          "verdict": "unsupport",
+          "observe": 6436.0833,
+          "feedback": 6279.4167,
+          "delta": -156.6666
+        },
+        "H4_moreMesh": {
+          "verdict": "weak",
+          "observeMesh": 0,
+          "feedbackMesh": 0
+        },
+        "H5_noRoleNames": {
+          "verdict": "support",
+          "note": "仅社会迹聚合模式，非角色/联盟命名"
+        }
+      },
+      "denseVsFeedback": {
+        "H6_denseMoreContest": {
+          "verdict": "support",
+          "feedback": 797.6111,
+          "dense": 836.3333,
+          "delta": 38.7222
+        },
+        "H7_denseMoreRival": {
+          "verdict": "support",
+          "feedbackRival": 36,
+          "denseRival": 48
+        }
+      }
+    }
+  ],
+  "design": {
+    "modes": "S0/SOLO/MESH/RIVAL/ECHO — 社会迹聚合，非角色名",
+    "feedback": "模式调制 ACT 阈值与偏好"
+  },
+  "roadmap": "docs/PHASE51_COOPERATION.md"
+}

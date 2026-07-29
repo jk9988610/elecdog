@@ -42,6 +42,12 @@ import {
   metabolicDrawMultAdjust,
   processMetabolicProfileTick,
 } from '../world/metabolic-profile.js';
+import {
+  cooperationProfileEnabled,
+  cooperationActBias,
+  mergeActBias,
+  processCooperationTick,
+} from '../world/cooperation-profile.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -102,12 +108,16 @@ export function stepWorld(world, recorder) {
 
   const delivered = world.signalBus.filter((s) => s.deliverAt === world.tick);
   const tickNodeHits = new Map();
+  const socialTickCtx = new Map();
   const activeBeings = world.beings.filter((b) => b.alive);
 
   for (const being of activeBeings) {
     const heard = delivered.filter((s) => s.fromId !== being.id);
     const profile = world.envProfile;
-    const experienceBias = experienceEnabled(profile) ? experienceActBias(being, profile) : null;
+    const experienceBias = mergeActBias(
+      experienceEnabled(profile) ? experienceActBias(being, profile) : null,
+      cooperationProfileEnabled(profile) ? cooperationActBias(being, profile) : null
+    );
     const result = being.tick(world.tick, {
       heardSignals: heard,
       substrate: substrateSnap,
@@ -117,6 +127,18 @@ export function stepWorld(world, recorder) {
 
     if (!result.alive) continue;
     trackStressSample(being, result.stress);
+
+    let crossRx = 0;
+    for (const sig of heard) {
+      if (slotOf(world, sig.fromId) !== being.socialSlot) crossRx++;
+    }
+    socialTickCtx.set(being.id, {
+      hadRx: heard.length > 0,
+      crossRx,
+      hadTx: result.external.some((l) => l.startsWith('[TX]')),
+      hadAct: result.external.some((l) => l.startsWith('[ACT]')),
+      hadContest: false,
+    });
 
     for (const sig of heard) {
       if (!stat) {
@@ -424,6 +446,28 @@ export function stepWorld(world, recorder) {
       });
       recordSelection(recorder, world, being, result.stress);
       spawnLineageOffspring(world, recorder, being);
+    }
+  }
+
+  if (cooperationProfileEnabled(world.envProfile)) {
+    for (const being of world.beings.filter((b) => b.alive)) {
+      const ctx = socialTickCtx.get(being.id);
+      if (!ctx) continue;
+      let hadContest = false;
+      for (const slots of tickNodeHits.values()) {
+        if (slots.length >= 2 && slots.includes(being.socialSlot)) {
+          hadContest = true;
+          break;
+        }
+      }
+      processCooperationTick(
+        world,
+        recorder,
+        being,
+        world.envProfile,
+        { ...ctx, hadContest },
+        { fieldStat: stat }
+      );
     }
   }
 

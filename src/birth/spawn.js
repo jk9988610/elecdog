@@ -9,6 +9,7 @@ import { performBirthRitual } from './ritual.js';
 import { initExperience, experienceEnabled } from '../world/experience.js';
 import { initRegisterProfile, registerProfileEnabled } from '../world/register-profile.js';
 import { initMetabolicProfile, metabolicProfileEnabled } from '../world/metabolic-profile.js';
+import { initCooperationProfile, cooperationProfileEnabled } from '../world/cooperation-profile.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -31,6 +32,9 @@ export function spawnBeing(
   }
   if (metabolicProfileEnabled(world.envProfile)) {
     initMetabolicProfile(being);
+  }
+  if (cooperationProfileEnabled(world.envProfile)) {
+    initCooperationProfile(being);
   }
 
   if (!world.envProfile?.fieldStatMode) {
