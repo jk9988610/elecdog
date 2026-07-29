@@ -1,0 +1,52 @@
+#!/usr/bin/env node
+/**
+ * Phase 98 — 观察台环境栈 UI 验证
+ */
+import { createWorld } from '../src/world/world.js';
+import { applyEnvProfile, initEnvStackModules } from '../src/world/env-profile.js';
+import { stepWorld } from '../src/kernel/engine.js';
+import { Recorder } from '../src/recorder/logger.js';
+import { buildEnvStackSummary } from '../src/ui/env-stack.js';
+import { readFileSync } from 'fs';
+
+let failed = 0;
+function assert(cond, msg) {
+  if (!cond) {
+    console.error(`✗ ${msg}`);
+    failed += 1;
+  } else {
+    console.log(`✓ ${msg}`);
+  }
+}
+
+const world = createWorld('M-00-L');
+applyEnvProfile(world, 'observer_w6_stack');
+initEnvStackModules(world);
+const recorder = new Recorder();
+
+for (let i = 0; i < 120; i++) {
+  stepWorld(world, recorder);
+}
+
+const stack = buildEnvStackSummary(world, recorder);
+
+assert(stack.anyEnabled, '环境栈已启用');
+assert(stack.place.band === 'M', '区带 M');
+assert(stack.place.terrain === 'L', '地形 L');
+assert(stack.diurnal != null, '日相可读');
+assert(stack.seasonal != null, '季相可读');
+assert(stack.lunar != null, '月相可读');
+assert((stack.diurnal.dayTicks ?? 0) + (stack.diurnal.nightTicks ?? 0) >= 100, '日相统计 ≥100 tick');
+assert(stack.logs.dlc >= 1, `DLC 季度跃迁可观测（${stack.logs.dlc}）`);
+assert(world.birthPlace === 'M-00-L', 'birthPlace 格式化');
+
+const observerSrc = readFileSync(new URL('../src/ui/observer.js', import.meta.url), 'utf8');
+assert(observerSrc.includes('renderEnvStackPanel'), '观察台已挂载环境栈面板');
+
+const codex = readFileSync(new URL('../docs/CODEX.md', import.meta.url), 'utf8');
+assert(!codex.includes('## 区带'), 'CODEX 未写入区带词条（类比 UI only）');
+
+console.log(`\n环境栈摘要：${stack.birthPlace} · DLC q${stack.diurnal.quarter} · SCL 相${stack.seasonal.phase}`);
+
+if (failed) process.exit(1);
+console.log('\n✓ Phase 98 环境栈 UI 验证通过');

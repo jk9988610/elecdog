@@ -29,7 +29,7 @@ import {
   OBSERVER_ENV_IDS,
   setObserverEnvId,
 } from './env-select.js';
-import { applyEnvProfile } from '../world/env-profile.js';
+import { applyEnvProfile, initEnvStackModules } from '../world/env-profile.js';
 import {
   getViewMode,
   label,
@@ -41,6 +41,12 @@ import {
   formatRprMode,
   formatEhuStage,
   formatSlot,
+  formatBand,
+  formatTerrain,
+  formatPatch,
+  formatDiurnalQuarter,
+  formatSeasonPhase,
+  formatLunarPhase,
   setViewMode as saveViewMode,
   viewModeHint,
   VIEW_ANALOGY,
@@ -48,6 +54,7 @@ import {
 } from './analogy.js';
 import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
 import { renderImmersionPanel } from './immersion.js';
+import { renderEnvStackPanel } from './env-stack.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 
 const SEED_DNA =
@@ -310,6 +317,7 @@ export class ObserverApp {
   bootstrapWorld() {
     this.world = createWorld('01');
     applyEnvProfile(this.world, this.envProfileId);
+    initEnvStackModules(this.world);
     this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
     const seeds = [
       { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
@@ -731,6 +739,16 @@ export class ObserverApp {
 
     return `
       ${renderImmersionPanel(s.consciousness, this.recorder, { label })}
+      ${renderEnvStackPanel(s.envStack, {
+        label,
+        formatBand,
+        formatTerrain,
+        formatPatch,
+        formatDiurnalQuarter,
+        formatSeasonPhase,
+        formatLunarPhase,
+        viewModeHint,
+      })}
       <section class="panel env-panel">
         <h2>环境</h2>
         ${s.world.envHint ? `<p class="panel-hint">${escapeHtml(s.world.envHint)}</p>` : ''}
