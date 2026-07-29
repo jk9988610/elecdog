@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-29T17:11:27.903Z",
+  "runAt": "2026-07-29T17:14:36.240Z",
   "phase": 70,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
@@ -33,10 +33,10 @@
       {
         "id": "L2c-repeatable",
         "label": "选择压跨种子可重复",
-        "status": "open",
+        "status": "partial",
         "gap": "GAP-10",
         "goal": "W2",
-        "phase": "71-metrics",
+        "phase": "72",
         "layer": "L2",
         "layerLabel": "演化"
       },
@@ -127,13 +127,13 @@
     ],
     "summary": {
       "complete": 9,
-      "partial": 1,
-      "open": 4,
+      "partial": 2,
+      "open": 3,
       "total": 14
     },
     "progressPct": 64,
-    "currentPhase": 72,
-    "currentGoal": "W2-env",
+    "currentPhase": 73,
+    "currentGoal": "W3",
     "roadmap": "docs/WISDOM.md"
   },
   "layers": {
@@ -172,10 +172,10 @@
         {
           "id": "L2c-repeatable",
           "label": "选择压跨种子可重复",
-          "status": "open",
+          "status": "partial",
           "gap": "GAP-10",
           "goal": "W2",
-          "phase": "71-metrics",
+          "phase": "72",
           "layer": "L2",
           "layerLabel": "演化"
         }
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "Phase 72 W2 — selection pressure reinforcement environment"
+  "next": "Phase 73 W3 — prediction error recording [PRD]"
 }

@@ -16,7 +16,7 @@ export const WISDOM_LAYERS = [
     items: [
       { id: 'L2a-variation', label: '可遗传变异', status: 'complete', phase: '17-42' },
       { id: 'L2b-selection', label: '非随机存续差异（END/SEL）', status: 'partial', phase: '26' },
-      { id: 'L2c-repeatable', label: '选择压跨种子可重复', status: 'open', gap: 'GAP-10', goal: 'W2', phase: '71-metrics' },
+      { id: 'L2c-repeatable', label: '选择压跨种子可重复', status: 'partial', gap: 'GAP-10', goal: 'W2', phase: '72' },
     ],
   },
   {
@@ -95,8 +95,8 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 72,
-    currentGoal: 'W2-env',
+    currentPhase: 73,
+    currentGoal: 'W3',
     roadmap: 'docs/WISDOM.md',
   };
 }

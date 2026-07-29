@@ -610,4 +610,14 @@
   - W2 度量通道已建立；综合 **gap10_persists**
 - **备注**：报告见 `docs/field-phase71-report.json`；Phase 72 目标 ≥2/4 unanimous
 
+## OBS-20260729-83
+
+- **世界**：智慧演化场（Phase 72 · W2 强化）
+- **田野**：12体 × 3000 tick × 4 种子 × 4 处理组
+- **事实**：
+  - `w2_p71_ref` / `w2_rein_shk`：unanimousBases **3/4**（碱基 0/2/3）
+  - `w2_rein_harsh` / `w2_rein_sparse`：种群崩溃，drift=0（H4 可证伪）
+  - W2 目标 ≥2/4：**达成**；GAP-10 **partial**
+- **备注**：报告见 `docs/field-phase72-report.json`
+
 ---
