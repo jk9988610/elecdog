@@ -49,7 +49,7 @@
 | `src/world/catastrophe.js` | `catastropheDisabled` |
 | `src/kernel/engine.js` | 代谢后、END 前尝试分裂 |
 
-分裂时：亲代寄存器 ×0.9（分裂代价）；子代 DNA `mutate` 1.2%；`generation` 不变（体细胞式）。
+分裂时：亲代寄存器 ×0.9（分裂代价）；子代 DNA `mutate` 1.2%；`generation` 为亲代 +1（与 `[LINEAGE]`/`[FUS]` 一致的谱系代次）。
 
 ---
 
