@@ -109,6 +109,11 @@ export function buildDashboardStats(world, recorder) {
       rprMode: b.rprMode ?? 'R0',
       rprOrigin: b.rprOrigin ?? 'SEED',
       rprTransitions: b.rprTransitions ?? 0,
+      ehuStage: b.ehuStage ?? 'H0',
+      ehuTransitions: b.ehuTransitions ?? 0,
+      ehuCoherence: +(b.ehuCoherence ?? 0).toFixed(3),
+      ehuDistinction: +(b.ehuDistinction ?? 0).toFixed(3),
+      ehuArc: beingLayerTransitions(b) + (b.rprTransitions ?? 0),
       ...es,
     };
   });

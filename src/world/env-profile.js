@@ -577,6 +577,32 @@ export const ENV_PROFILES = {
     fusOrphanPoolEnabled: true,
     fusSubunitRouteEnabled: true,
   },
+  fertile_stack_ehu_tri: {
+    id: 'fertile_stack_ehu_tri',
+    label: '富足四层+繁殖路径+电子人',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    fissionEnabled: true,
+    meiEnabled: true,
+    fusEnabled: true,
+    ...STACK_FEEDBACK,
+    reproductionProfileEnabled: true,
+    reproductionFeedback: true,
+    electronicHumanEnabled: true,
+    electronicHumanFeedback: true,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusSubunitRouteEnabled: true,
+  },
 };
 
 const REN_BASE = {
@@ -1064,6 +1090,49 @@ export const PHASE53_TREATMENTS = {
   },
 };
 
+const STACK_RPR_TRI_BASE = {
+  ...MC_SUB_RPL,
+  ...MC_DUAL_ROUTE,
+  ...STACK_FEEDBACK,
+  reproductionProfileEnabled: true,
+  reproductionFeedback: true,
+};
+
+/** Phase 55 — 电子人层 [EHU] × 四层栈 + RPR 三路径（OUTLINE Phase 4 kickoff） */
+export const PHASE55_TREATMENTS = {
+  stack_tri_no_ehu: {
+    id: 'stack_tri_no_ehu',
+    label: '四层+RPR三路径（无EHU）',
+    envId: 'fertile_field',
+    ...STACK_RPR_TRI_BASE,
+  },
+  stack_ehu_observe: {
+    id: 'stack_ehu_observe',
+    label: '四层+RPR+EHU观测',
+    envId: 'fertile_field',
+    ...STACK_RPR_TRI_BASE,
+    electronicHumanEnabled: true,
+    electronicHumanFeedback: false,
+  },
+  stack_ehu_feedback: {
+    id: 'stack_ehu_feedback',
+    label: '四层+RPR+EHU反馈',
+    envId: 'fertile_field',
+    ...STACK_RPR_TRI_BASE,
+    electronicHumanEnabled: true,
+    electronicHumanFeedback: true,
+  },
+  stack_ehu_narrative: {
+    id: 'stack_ehu_narrative',
+    label: '四层+RPR+EHU叙事',
+    envId: 'fertile_field',
+    ...STACK_RPR_TRI_BASE,
+    electronicHumanEnabled: true,
+    electronicHumanFeedback: true,
+    ehuArcNarrative: 12,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1436,6 +1505,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase55Treatment(world, treatmentId) {
+  const treatment = PHASE55_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase55 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 55, treatmentId, ...treatment };
   return world.envProfile;
 }
 

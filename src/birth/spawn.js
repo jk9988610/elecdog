@@ -15,6 +15,10 @@ import {
   reproductionProfileEnabled,
   classifyBirthOrigin,
 } from '../world/reproduction-profile.js';
+import {
+  initElectronicHuman,
+  electronicHumanEnabled,
+} from '../world/electronic-human-profile.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -44,6 +48,9 @@ export function spawnBeing(
   if (reproductionProfileEnabled(world.envProfile)) {
     initReproductionProfile(being);
     being.rprOrigin = classifyBirthOrigin(being);
+  }
+  if (electronicHumanEnabled(world.envProfile)) {
+    initElectronicHuman(being);
   }
 
   if (!world.envProfile?.fieldStatMode) {

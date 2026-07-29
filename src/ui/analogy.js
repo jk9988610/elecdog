@@ -85,6 +85,8 @@ const LABELS = {
   lay: { native: '档案 LAY', analogy: '四层跃迁合计' },
   rpr: { native: '繁殖 RPR', analogy: '繁殖路径档案' },
   rprMode: { native: '繁殖模式', analogy: '繁殖路径模式' },
+  ehu: { native: '电子人 EHU', analogy: '自我连续档案（非人格预制）' },
+  ehuStage: { native: '电子人阶段', analogy: '自我连续阶段' },
 };
 
 export function label(key) {
@@ -139,6 +141,12 @@ export function formatRprMode(mode) {
   };
   if (!isAnalogyMode()) return mode ?? 'R0';
   return labels[mode] ?? mode ?? '初态';
+}
+
+export function formatEhuStage(stage) {
+  const labels = { H0: '初态', H1: '可追踪', H2: '整合', H3: '叙事' };
+  if (!isAnalogyMode()) return stage ?? 'H0';
+  return labels[stage] ?? stage ?? '初态';
 }
 
 export function viewModeHint() {

@@ -53,6 +53,11 @@ import {
   reproductionActBias,
   processReproductionProfileTick,
 } from '../world/reproduction-profile.js';
+import {
+  electronicHumanEnabled,
+  electronicHumanActBias,
+  processElectronicHumanTick,
+} from '../world/electronic-human-profile.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -122,7 +127,8 @@ export function stepWorld(world, recorder) {
     const experienceBias = mergeActBias(
       experienceEnabled(profile) ? experienceActBias(being, profile) : null,
       cooperationProfileEnabled(profile) ? cooperationActBias(being, profile) : null,
-      reproductionProfileEnabled(profile) ? reproductionActBias(being, profile) : null
+      reproductionProfileEnabled(profile) ? reproductionActBias(being, profile) : null,
+      electronicHumanEnabled(profile) ? electronicHumanActBias(being, profile) : null
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,
@@ -480,6 +486,16 @@ export function stepWorld(world, recorder) {
   if (reproductionProfileEnabled(world.envProfile)) {
     for (const being of world.beings.filter((b) => b.alive)) {
       processReproductionProfileTick(world, recorder, being, world.envProfile, {
+        fieldStat: stat,
+      });
+    }
+  }
+
+  if (electronicHumanEnabled(world.envProfile)) {
+    for (const being of world.beings.filter((b) => b.alive)) {
+      const ctx = socialTickCtx.get(being.id);
+      if (!ctx) continue;
+      processElectronicHumanTick(world, recorder, being, world.envProfile, ctx, {
         fieldStat: stat,
       });
     }
