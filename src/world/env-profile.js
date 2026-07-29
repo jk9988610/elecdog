@@ -1577,6 +1577,34 @@ export const PHASE73_TREATMENTS = {
   },
 };
 
+const W3_PRD_BASE = {
+  ...W2_WISDOM_BASE,
+  predictionEnabled: true,
+  predictionAlpha: 0.35,
+  predictionLogThreshold: 0.06,
+  predictionHighThreshold: 0.12,
+  predictionLateStart: 960,
+  predictionLateMid: 1440,
+};
+
+/** Phase 74 — W3 预测误差 → 行为校正反馈 */
+export const PHASE74_TREATMENTS = {
+  w3_prd_record: {
+    id: 'w3_prd_record',
+    label: '预测记录无反馈',
+    envId: 'wisdom_evolution',
+    ...W3_PRD_BASE,
+    predictionFeedbackEnabled: false,
+  },
+  w3_prd_feedback: {
+    id: 'w3_prd_feedback',
+    label: '预测记录+校正反馈',
+    envId: 'wisdom_evolution',
+    ...W3_PRD_BASE,
+    predictionFeedbackEnabled: true,
+  },
+};
+
 /** Phase 72 — W2 选择压强化环境（攻坚 GAP-10 / GAP-W02） */
 export const PHASE72_TREATMENTS = {
   w2_p71_ref: {
@@ -2015,6 +2043,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase74Treatment(world, treatmentId) {
+  const treatment = PHASE74_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase74 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 74, treatmentId, ...treatment };
   return world.envProfile;
 }
 

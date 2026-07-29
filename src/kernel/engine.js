@@ -64,7 +64,7 @@ import {
   decayMemoryLoads,
   accumulateMemoryLoads,
 } from '../world/memory-feedback.js';
-import { predictionEnabled, processPredictionTick } from '../world/prediction.js';
+import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -139,7 +139,8 @@ export function stepWorld(world, recorder) {
       cooperationProfileEnabled(profile) ? cooperationActBias(being, profile) : null,
       reproductionProfileEnabled(profile) ? reproductionActBias(being, profile) : null,
       electronicHumanEnabled(profile) ? electronicHumanActBias(being, profile) : null,
-      memoryFeedbackEnabled(profile) ? memoryActBias(being, profile) : null
+      memoryFeedbackEnabled(profile) ? memoryActBias(being, profile) : null,
+      predictionFeedbackEnabled(profile) ? predictionActBias(being, profile) : null
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,
