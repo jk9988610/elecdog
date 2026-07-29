@@ -1600,6 +1600,31 @@ const W4_MEM_BASE = {
   memLineageEchoEnabled: false,
 };
 
+const W5_WISDOM_FULL = {
+  ...W4_MEM_BASE,
+  socialKnowledgeEnabled: true,
+  socialKnowledgeFeedbackEnabled: true,
+  memLineageEchoEnabled: true,
+  memLineageEchoBlend: 0.55,
+  fieldLongStudy: true,
+};
+
+/** Phase 77 — W5 长时开放演化田野（智慧完整栈 × 1920 vs 8192） */
+export const PHASE77_TREATMENTS = {
+  w5_std_1920: {
+    id: 'w5_std_1920',
+    label: '智慧完整栈×1920',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+  },
+  w5_open_8192: {
+    id: 'w5_open_8192',
+    label: '智慧完整栈×8192',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+  },
+};
+
 /** Phase 76 — W4 谱系记忆回响（亲代 mem 摘要 → [MEM-LIN] → W1 闭环） */
 export const PHASE76_TREATMENTS = {
   w4_mem_echo_off: {

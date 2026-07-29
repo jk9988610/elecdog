@@ -6,6 +6,7 @@ export const OBSERVER_DNA =
 export const FIELD_TICKS = 960;
 export const FIELD_LONG_TICKS = 1920;
 export const FIELD_XLONG_TICKS = 3840;
+export const FIELD_WISDOM_OPEN_TICKS = 8192;
 export const FIELD_SEEDS = [0, 1, 2, 3];
 
 /** 单次田野实验时长上限：见 scripts/lib/field-budget.js（默认 3 分钟，超时即不通过） */
