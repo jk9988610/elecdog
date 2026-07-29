@@ -74,7 +74,7 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
     dnaSequence: seq,
   });
 
-  born.being.generation = parent.generation ?? 0;
+  born.being.generation = (parent.generation ?? 0) + 1;
   born.being.fissionParent = parent.id;
   born.being.fissionLine = parent.fissionLine ?? parent.id;
   born.being.bornAtTick = world.tick;
@@ -94,6 +94,7 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
     parentId: parent.id,
     childId: born.id,
     mutationCount,
+    generation: born.being.generation,
     substrateAvg: gate.fert.avg,
     substrateMin: gate.fert.min,
     dnaBias: +gate.dna.bias.toFixed(4),
