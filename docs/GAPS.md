@@ -300,7 +300,7 @@
 
 - **缺口**：长时田野下行为是否非有限状态枚举、新情境可泛化
 - **Phase 77 扩展**：`FIELD_WISDOM_OPEN_TICKS=8192`；`w5_std_1920` vs `w5_open_8192` 完整智慧栈
-- **状态**：**部分结案** — 8192 tick 田野 support；L6b partial；多情境待续
-- **报告**：[PHASE77_LONGFIELD_OPEN.md](PHASE77_LONGFIELD_OPEN.md) · `field-phase77-report.json`
+- **状态**：**结案** — Phase 77–78 长时+多情境闭合；L6b complete
+- **报告**：[PHASE78_CONTEXT_GENERALIZATION.md](PHASE78_CONTEXT_GENERALIZATION.md) · `field-phase78-report.json`
 
 ---

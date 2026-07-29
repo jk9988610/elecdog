@@ -1609,6 +1609,48 @@ const W5_WISDOM_FULL = {
   fieldLongStudy: true,
 };
 
+/** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
+export const PHASE78_TREATMENTS = {
+  w5_ctx_base: {
+    id: 'w5_ctx_base',
+    label: '智慧栈基线情境',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    wisdomContextId: 'base',
+  },
+  w5_ctx_shock: {
+    id: 'w5_ctx_shock',
+    label: '智慧栈+高频剧变情境',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    wisdomContextId: 'shock',
+    catastropheDisabled: false,
+    pulseInterval: 50,
+    substrateDrainMult: 0.88,
+    substrateFloor: 0.4,
+  },
+  w5_ctx_fertile: {
+    id: 'w5_ctx_fertile',
+    label: '智慧栈+富足加成情境',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    wisdomContextId: 'fertile',
+    substrateDrainMult: 0.38,
+    substrateFloor: 0.58,
+    substrateBoost: 0.04,
+  },
+  w5_ctx_juv: {
+    id: 'w5_ctx_juv',
+    label: '智慧栈+幼体脆弱情境',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    wisdomContextId: 'juvenile',
+    juvenileTicks: 80,
+    juvenileDrawMult: 0.48,
+    juvenileMinGen: 1,
+  },
+};
+
 /** Phase 77 — W5 长时开放演化田野（智慧完整栈 × 1920 vs 8192） */
 export const PHASE77_TREATMENTS = {
   w5_std_1920: {
@@ -2119,6 +2161,21 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase78Treatment(world, treatmentId) {
+  const treatment = PHASE78_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase78 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 78, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 

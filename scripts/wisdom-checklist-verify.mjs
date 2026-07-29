@@ -43,16 +43,28 @@ if (existsSync(field77Path)) {
   }
 }
 
+let phase78FieldVerdict;
+const field78Path = new URL('../docs/field-phase78-report.json', import.meta.url);
+if (existsSync(field78Path)) {
+  try {
+    const fieldReport = JSON.parse(readFileSync(field78Path, 'utf8'));
+    phase78FieldVerdict = fieldReport.batchVerdict?.verdict;
+  } catch {
+    /* ignore */
+  }
+}
+
 const assessment = assessWisdomConditions({
   memoryFeedbackInCode,
   phase70FieldVerdict,
   phase75FieldVerdict,
   phase77FieldVerdict,
+  phase78FieldVerdict,
 });
 
 const report = {
   runAt: new Date().toISOString(),
-  phase: 76,
+  phase: 78,
   extension: 'wisdom_checklist',
   kind: 'wisdom-birth-conditions',
   assessment,
@@ -61,7 +73,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 77+ W5 — long-horizon open evolution field',
+  next: 'W1 field review → CODEX revision; GAP-10 selection pressure',
 };
 
 writeFileSync(

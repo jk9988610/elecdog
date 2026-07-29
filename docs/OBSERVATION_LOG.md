@@ -673,6 +673,17 @@
   - 8192 tick 存活 **64**；PRD **380**；SOC-ENC **327341**
   - layerScale **~6**；单次最慢 **8.03s**
   - H1–H3 **4/4**；H4 **2/4**；批次 **support**
-- **备注**：报告见 `docs/field-phase77-report.json`；L6b partial
+- **备注**：报告见 `docs/field-phase77-report.json`
+
+## OBS-20260729-89
+
+- **世界**：智慧演化场（Phase 78 · L6b 多情境）
+- **情境**：`w5_ctx_base` / `shock` / `fertile` / `juv`
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - 四情境均存活 **64**；对外率 spread **~0.014**
+  - H1–H2/H4 **4/4**；H3 **3/4**
+  - 批次 **support**；L6b / GAP-W05 结案
+- **备注**：报告见 `docs/field-phase78-report.json`
 
 ---

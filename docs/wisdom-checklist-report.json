@@ -1,6 +1,6 @@
 {
-  "runAt": "2026-07-29T17:36:57.509Z",
-  "phase": 76,
+  "runAt": "2026-07-29T17:42:05.858Z",
+  "phase": 78,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
   "assessment": {
@@ -118,21 +118,21 @@
       {
         "id": "L6b-open",
         "label": "开放泛化",
-        "status": "partial",
-        "phase": "77",
+        "status": "complete",
+        "phase": "78",
         "goal": "W5",
         "layer": "L6",
         "layerLabel": "开放度"
       }
     ],
     "summary": {
-      "complete": 11,
-      "partial": 3,
+      "complete": 12,
+      "partial": 2,
       "open": 0,
       "total": 14
     },
-    "progressPct": 79,
-    "currentPhase": 77,
+    "progressPct": 86,
+    "currentPhase": 78,
     "currentGoal": "W5",
     "roadmap": "docs/WISDOM.md"
   },
@@ -277,8 +277,8 @@
         {
           "id": "L6b-open",
           "label": "开放泛化",
-          "status": "partial",
-          "phase": "77",
+          "status": "complete",
+          "phase": "78",
           "goal": "W5",
           "layer": "L6",
           "layerLabel": "开放度"
@@ -286,5 +286,5 @@
       ]
     }
   },
-  "next": "Phase 77+ W5 — long-horizon open evolution field"
+  "next": "W1 field review → CODEX revision; GAP-10 selection pressure"
 }
