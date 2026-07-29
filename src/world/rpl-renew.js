@@ -48,7 +48,11 @@ export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
   if (!profile?.rplRenewEnabled || !replicationEnabled(profile) || !being.alive) return null;
 
   const ceiling = profile.rplRenewAtOrBelow ?? 0;
-  if ((being.rplRemaining ?? 1) > ceiling) return null;
+  const blocked =
+    being.rplScope === 'subunit' && being.rplSub?.length
+      ? !hasReplicationRemaining(being, profile)
+      : (being.rplRemaining ?? 1) <= ceiling;
+  if (!blocked && (being.rplRemaining ?? 1) > ceiling) return null;
   if (stress > (profile.rplRenewMaxStress ?? 0.22)) return null;
   if (substrateAvg(world) < (profile.rplRenewMinSubstrate ?? 0.46)) return null;
 
@@ -79,6 +83,7 @@ export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
       rplMax: being.rplMax,
       dnaBias: +bias.toFixed(4),
       stress,
+      rplScope: being.rplScope,
     }
   );
 
@@ -99,9 +104,14 @@ export function processPledgeRenewals(world, recorder) {
   const profile = world.envProfile;
   if (!profile?.plgEnabled || !replicationEnabled(profile)) return [];
 
-  const exhausted = world.beings.filter(
-    (b) => b.alive && b.rplMax != null && (b.rplRemaining ?? 0) <= (profile.plgExhaustedAt ?? 0)
-  );
+  const at = profile.plgExhaustedAt ?? 0;
+  const exhausted = world.beings.filter((b) => {
+    if (!b.alive || b.rplMax == null) return false;
+    if (b.rplScope === 'subunit' && b.rplSub?.length) {
+      return !hasReplicationRemaining(b, profile);
+    }
+    return (b.rplRemaining ?? 0) <= at;
+  });
   if (exhausted.length < 2) return [];
 
   const events = [];

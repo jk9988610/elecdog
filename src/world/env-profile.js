@@ -158,6 +158,94 @@ export const ENV_PROFILES = {
     plgRenewGrant: 1,
     plgPairCooldown: 100,
   },
+  fertile_multicell_renew_plg: {
+    id: 'fertile_multicell_renew_plg',
+    label: '富足多子域+子域RPL+续行汇合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplRenewEnabled: true,
+    rplRenewGrant: 1,
+    rplRenewCooldown: 64,
+    rplRenewBaseProb: 0.5,
+    plgEnabled: true,
+    plgRenewGrant: 1,
+    plgPairCooldown: 100,
+  },
+};
+
+const REN_BASE = {
+  rplRenewEnabled: true,
+  rplRenewGrant: 1,
+  rplRenewCooldown: 64,
+  rplRenewBaseProb: 0.5,
+  rplRenewAtOrBelow: 0,
+  rplRenewMaxStress: 0.24,
+  rplRenewMinSubstrate: 0.46,
+};
+
+const PLG_BASE = {
+  plgEnabled: true,
+  plgRenewGrant: 1,
+  plgPairCooldown: 100,
+  plgExhaustedAt: 0,
+};
+
+/** Phase 40 — 多细胞 × RPL 续行 */
+export const PHASE40_TREATMENTS = {
+  multicell_org_ren: {
+    id: 'multicell_org_ren',
+    label: '多细胞+共享RPL+[REN]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+    ...REN_BASE,
+  },
+  multicell_org_ren_plg: {
+    id: 'multicell_org_ren_plg',
+    label: '多细胞+共享RPL+[REN]+[PLG]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'organism',
+    ...REN_BASE,
+    ...PLG_BASE,
+  },
+  multicell_sub_ren: {
+    id: 'multicell_sub_ren',
+    label: '多细胞+子域RPL+[REN]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    ...REN_BASE,
+  },
+  multicell_sub_ren_plg: {
+    id: 'multicell_sub_ren_plg',
+    label: '多细胞+子域RPL+[REN]+[PLG]',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    ...REN_BASE,
+    ...PLG_BASE,
+  },
 };
 
 /** Phase 39 — [REN] 环境重置 / [PLG] 双体通量汇合 */
@@ -295,6 +383,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase40Treatment(world, treatmentId) {
+  const treatment = PHASE40_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase40 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 40, treatmentId, ...treatment };
   return world.envProfile;
 }
 
