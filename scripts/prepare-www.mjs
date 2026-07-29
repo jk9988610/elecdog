@@ -29,23 +29,25 @@ cpSync(join(root, 'index.html'), join(www, 'index.html'));
 cpSync(join(root, 'style.css'), join(www, 'style.css'));
 cpSync(join(root, 'src'), join(www, 'src'), { recursive: true });
 
-for (const pkg of CAP_PACKAGES) {
-  const from = join(root, 'node_modules', pkg);
-  const to = join(www, 'node_modules', pkg);
-  if (!existsSync(from)) {
-    console.error(`缺少依赖 ${pkg}，请先运行 npm install`);
-    process.exit(1);
+const hasCapPackages = CAP_PACKAGES.every((pkg) => existsSync(join(root, 'node_modules', pkg)));
+
+if (hasCapPackages) {
+  for (const pkg of CAP_PACKAGES) {
+    const from = join(root, 'node_modules', pkg);
+    const to = join(www, 'node_modules', pkg);
+    mkdirSync(dirname(to), { recursive: true });
+    cpSync(from, to, { recursive: true });
   }
-  mkdirSync(dirname(to), { recursive: true });
-  cpSync(from, to, { recursive: true });
+
+  const importMapTag = `<script type="importmap">\n${JSON.stringify(IMPORT_MAP, null, 2)}\n    </script>`;
+  let html = readFileSync(join(www, 'index.html'), 'utf8');
+  html = html.replace(
+    '    <script type="module" src="src/main.js"></script>',
+    `    ${importMapTag}\n    <script type="module" src="src/main.js"></script>`
+  );
+  writeFileSync(join(www, 'index.html'), html);
+  console.log('www/ 已就绪（index.html + style.css + src/ + Capacitor 依赖）');
+} else {
+  console.warn('跳过 Capacitor 依赖（无 node_modules，CI/Pages 可继续；APK 请先 npm install）');
+  console.log('www/ 已就绪（index.html + style.css + src/）');
 }
-
-const importMapTag = `<script type="importmap">\n${JSON.stringify(IMPORT_MAP, null, 2)}\n    </script>`;
-let html = readFileSync(join(www, 'index.html'), 'utf8');
-html = html.replace(
-  '    <script type="module" src="src/main.js"></script>',
-  `    ${importMapTag}\n    <script type="module" src="src/main.js"></script>`
-);
-writeFileSync(join(www, 'index.html'), html);
-
-console.log('www/ 已就绪（index.html + style.css + src/ + Capacitor 依赖）');
