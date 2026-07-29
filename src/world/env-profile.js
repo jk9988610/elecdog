@@ -422,6 +422,31 @@ export const ENV_PROFILES = {
     fusIntraSubPlgEnabled: true,
     fusSubunitRouteEnabled: true,
   },
+  fertile_exp_feedback: {
+    id: 'fertile_exp_feedback',
+    label: '富足场+阅历反馈',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplSenescenceEnd: false,
+    rplTickCapEnabled: false,
+    experienceEnabled: true,
+    experienceFeedback: true,
+    expJuvenileTicks: 48,
+  },
 };
 
 const REN_BASE = {
@@ -672,6 +697,43 @@ export const PHASE47_TREATMENTS = {
     rplScope: 'organism',
     meiRplDeduct: 'organism',
     ...MC_DUAL_ROUTE,
+  },
+};
+
+const EXP_BASE = {
+  experienceEnabled: true,
+  experienceFeedback: true,
+  expJuvenileTicks: 48,
+};
+
+/** Phase 48 — 阅历层 [EXP] 积累与行为反馈 */
+export const PHASE48_TREATMENTS = {
+  fertile_no_exp: {
+    id: 'fertile_no_exp',
+    label: '富足场（无阅历）',
+    envId: 'fertile_field',
+  },
+  fertile_exp_record: {
+    id: 'fertile_exp_record',
+    label: '富足场+阅历积累',
+    envId: 'fertile_field',
+    experienceEnabled: true,
+    experienceFeedback: false,
+    expJuvenileTicks: 48,
+  },
+  fertile_exp_feedback: {
+    id: 'fertile_exp_feedback',
+    label: '富足场+阅历反馈',
+    envId: 'fertile_field',
+    ...EXP_BASE,
+  },
+  fertile_exp_dual: {
+    id: 'fertile_exp_dual',
+    label: '富足双路径+阅历反馈',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+    ...EXP_BASE,
   },
 };
 
@@ -992,6 +1054,17 @@ export function applyPhase47Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 47, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase48Treatment(world, treatmentId) {
+  const treatment = PHASE48_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase48 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 48, treatmentId, ...treatment };
   return world.envProfile;
 }
 

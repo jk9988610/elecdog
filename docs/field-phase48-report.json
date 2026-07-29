@@ -1,0 +1,1768 @@
+{
+  "runAt": "2026-07-29T13:26:56.999Z",
+  "phase": 48,
+  "extension": "experience_layer",
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "treatments": {
+    "fertile_no_exp": {
+      "id": "fertile_no_exp",
+      "label": "富足场（无阅历）",
+      "envId": "fertile_field"
+    },
+    "fertile_exp_record": {
+      "id": "fertile_exp_record",
+      "label": "富足场+阅历积累",
+      "envId": "fertile_field",
+      "experienceEnabled": true,
+      "experienceFeedback": false,
+      "expJuvenileTicks": 48
+    },
+    "fertile_exp_feedback": {
+      "id": "fertile_exp_feedback",
+      "label": "富足场+阅历反馈",
+      "envId": "fertile_field",
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48
+    },
+    "fertile_exp_dual": {
+      "id": "fertile_exp_dual",
+      "label": "富足双路径+阅历反馈",
+      "envId": "fertile_field",
+      "organismMode": "multicell",
+      "rplEnabled": true,
+      "rplBaseMax": 5,
+      "rplMaxSpread": 3,
+      "rplScope": "subunit",
+      "meiRplDeduct": "active",
+      "fissionEnabled": true,
+      "meiEnabled": true,
+      "meiMinAge": 40,
+      "meiMaxStress": 0.26,
+      "meiMinIntegrity": 0.5,
+      "meiMinSubstrate": 0.44,
+      "meiCooldown": 72,
+      "meiBaseProb": 0.42,
+      "fusEnabled": true,
+      "fusPairCooldown": 24,
+      "fusPacketMaxAge": 200,
+      "fusionMutationRate": 0.015,
+      "fusionMaxPop": 36,
+      "fusLiveDonorEnabled": true,
+      "fusBeaconEnabled": true,
+      "fusOrphanPoolEnabled": true,
+      "fusOrphanPoolMax": 12,
+      "fusSocialAffinity": true,
+      "fusAggressivePairing": true,
+      "fusMaxPairPasses": 3,
+      "fusMaxPairsPerTick": 8,
+      "fusSubunitDonorMode": "any",
+      "fusIntraSubPlgEnabled": true,
+      "fusSubunitRouteEnabled": true,
+      "experienceEnabled": true,
+      "experienceFeedback": true,
+      "expJuvenileTicks": 48
+    }
+  },
+  "aggregate": {
+    "fertile_no_exp": {
+      "label": "富足场（无阅历）",
+      "meanExpTransitions": 0,
+      "meanExpAct": 0,
+      "meanExpLoad": 0,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "meanFus": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_no_exp",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 0,
+            "expStages": {
+              "E0": 36,
+              "E1": 0,
+              "E2": 0,
+              "E3": 0
+            },
+            "meanExpAct": 0,
+            "meanExpLoad": 0,
+            "meanExpTransitions": 0,
+            "expSnapshots": [
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_exp",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 0,
+            "expStages": {
+              "E0": 36,
+              "E1": 0,
+              "E2": 0,
+              "E3": 0
+            },
+            "meanExpAct": 0,
+            "meanExpLoad": 0,
+            "meanExpTransitions": 0,
+            "expSnapshots": [
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
+        },
+        {
+          "treatmentId": "fertile_no_exp",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 0,
+            "expStages": {
+              "E0": 36,
+              "E1": 0,
+              "E2": 0,
+              "E3": 0
+            },
+            "meanExpAct": 0,
+            "meanExpLoad": 0,
+            "meanExpTransitions": 0,
+            "expSnapshots": [
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        },
+        {
+          "treatmentId": "fertile_no_exp",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 0,
+            "expStages": {
+              "E0": 36,
+              "E1": 0,
+              "E2": 0,
+              "E3": 0
+            },
+            "meanExpAct": 0,
+            "meanExpLoad": 0,
+            "meanExpTransitions": 0,
+            "expSnapshots": [
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              },
+              {
+                "stage": "E0",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 0,
+                "expAct": 0,
+                "transitions": 0
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
+        }
+      ]
+    },
+    "fertile_exp_record": {
+      "label": "富足场+阅历积累",
+      "meanExpTransitions": 36,
+      "meanExpAct": 1,
+      "meanExpLoad": 2.02,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "meanFus": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_exp_record",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.0385,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.054,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.234,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.198,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        },
+        {
+          "treatmentId": "fertile_exp_record",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.0286,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.126,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 106
+        },
+        {
+          "treatmentId": "fertile_exp_record",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.01,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.036,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.018,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        },
+        {
+          "treatmentId": "fertile_exp_record",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.014,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.054,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        }
+      ]
+    },
+    "fertile_exp_feedback": {
+      "label": "富足场+阅历反馈",
+      "meanExpTransitions": 36,
+      "meanExpAct": 1,
+      "meanExpLoad": 2.01,
+      "meanAlive": 36,
+      "meanFiss": 24,
+      "meanFus": 0,
+      "runs": [
+        {
+          "treatmentId": "fertile_exp_feedback",
+          "seed": 0,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.008,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.036,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        },
+        {
+          "treatmentId": "fertile_exp_feedback",
+          "seed": 1,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.0245,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.108,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.18,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.144,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        },
+        {
+          "treatmentId": "fertile_exp_feedback",
+          "seed": 2,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.014,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.036,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        },
+        {
+          "treatmentId": "fertile_exp_feedback",
+          "seed": 3,
+          "metrics": {
+            "aliveTotal": 36,
+            "fissCount": 24,
+            "meiEventCount": 0,
+            "fusEventCount": 0,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.0095,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.036,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.054,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 105
+        }
+      ]
+    },
+    "fertile_exp_dual": {
+      "label": "富足双路径+阅历反馈",
+      "meanExpTransitions": 36,
+      "meanExpAct": 1,
+      "meanExpLoad": 2.02,
+      "meanAlive": 36,
+      "meanFiss": 12,
+      "meanFus": 24,
+      "runs": [
+        {
+          "treatmentId": "fertile_exp_dual",
+          "seed": 0,
+          "metrics": {
+            "rplEventCount": 167,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 3,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.25,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 26,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.722,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 31,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.01,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.036,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 167,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 31,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 309
+        },
+        {
+          "treatmentId": "fertile_exp_dual",
+          "seed": 1,
+          "metrics": {
+            "rplEventCount": 166,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 7,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 33,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.25,
+            "beingsWithRpl": 36,
+            "meiEventCount": 15,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 3,
+            "totalMeiCount": 15,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 4,
+            "plgEventCount": 0,
+            "packetBacklog": 3,
+            "fusPerMei": 1.6,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 15,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 15,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 37,
+            "xbcnEventCount": 15,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 27,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.014,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.108,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.036,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.054,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 166,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 37,
+            "evolution:MEI": 15,
+            "evolution:XBCN": 15,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 314
+        },
+        {
+          "treatmentId": "fertile_exp_dual",
+          "seed": 2,
+          "metrics": {
+            "rplEventCount": 171,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 7,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 34,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.14,
+            "beingsWithRpl": 36,
+            "meiEventCount": 14,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 28,
+            "recombinedAlive": 12,
+            "withMeiPacket": 2,
+            "totalMeiCount": 14,
+            "totalFusCount": 24,
+            "diversityRatio": 0.778,
+            "renEventCount": 0,
+            "liveFusCount": 6,
+            "plgEventCount": 0,
+            "packetBacklog": 2,
+            "fusPerMei": 1.714,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 14,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 14,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 44,
+            "xbcnEventCount": 14,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 26,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.0245,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.072,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.018,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 171,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 44,
+            "evolution:MEI": 14,
+            "evolution:XBCN": 14,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 324
+        },
+        {
+          "treatmentId": "fertile_exp_dual",
+          "seed": 3,
+          "metrics": {
+            "rplEventCount": 165,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 4,
+            "fissCount": 12,
+            "aliveTotal": 36,
+            "exhaustedCount": 32,
+            "rplEndCount": 0,
+            "rplTickCapEnds": 0,
+            "rplExhaustedEnds": 0,
+            "meanRplRemaining": 0.36,
+            "beingsWithRpl": 36,
+            "meiEventCount": 16,
+            "fusEventCount": 24,
+            "uniqueDnaSeqs": 30,
+            "recombinedAlive": 12,
+            "withMeiPacket": 4,
+            "totalMeiCount": 16,
+            "totalFusCount": 24,
+            "diversityRatio": 0.833,
+            "renEventCount": 0,
+            "liveFusCount": 2,
+            "plgEventCount": 0,
+            "packetBacklog": 4,
+            "fusPerMei": 1.5,
+            "bcnEventCount": 0,
+            "orphanFusCount": 0,
+            "orphanPoolSize": 0,
+            "totalEnds": 0,
+            "intraCount": 0,
+            "multicellAlive": 36,
+            "subCellUnits": 108,
+            "recombinedMulticell": 12,
+            "meiMulticellEvents": 16,
+            "fusMulticellEvents": 24,
+            "meiActiveDeductEvents": 16,
+            "orgScopeAlive": 0,
+            "subScopeAlive": 36,
+            "isplEventCount": 28,
+            "xbcnEventCount": 16,
+            "fissChildrenAlive": 12,
+            "recombChildrenAlive": 12,
+            "fissShare": 0.333,
+            "fusShare": 0.667,
+            "rplPressure": 28,
+            "expTransitionCount": 36,
+            "expStages": {
+              "E0": 0,
+              "E1": 0,
+              "E2": 0,
+              "E3": 36
+            },
+            "meanExpAct": 1,
+            "meanExpLoad": 2.022,
+            "meanExpTransitions": 1,
+            "expSnapshots": [
+              {
+                "stage": "E3",
+                "expStress": 0.072,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.054,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0.09,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              },
+              {
+                "stage": "E3",
+                "expStress": 0,
+                "expLow": 0,
+                "expSocial": 1,
+                "expAct": 1,
+                "transitions": 1
+              }
+            ]
+          },
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 165,
+            "evolution:FISS": 12,
+            "evolution:ISPL": 28,
+            "evolution:MEI": 16,
+            "evolution:XBCN": 16,
+            "evolution:FUS": 24,
+            "evolution:EXP": 36,
+            "population:CMP": 9
+          },
+          "entriesKept": 306
+        }
+      ]
+    }
+  },
+  "comparisons": [
+    {
+      "seed": 0,
+      "recordVsNone": {
+        "H1_recordHasExp": {
+          "verdict": "support",
+          "noExp": 0,
+          "record": 36
+        },
+        "H2_recordAccumulates": {
+          "verdict": "support",
+          "noExpLoad": 0,
+          "recordLoad": 2.0385
+        }
+      },
+      "feedbackVsRecord": {
+        "H3_feedbackMoreAct": {
+          "verdict": "unsupport",
+          "recordAct": 1,
+          "feedbackAct": 1,
+          "delta": 0
+        },
+        "H4_reachesE2": {
+          "verdict": "unsupport",
+          "recordE2": 0,
+          "feedbackE2": 0,
+          "delta": 0
+        },
+        "H5_stageTransitions": {
+          "verdict": "support",
+          "record": 36,
+          "feedback": 36
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualStillReproduces": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24
+        },
+        "H7_dualHasExp": {
+          "verdict": "support",
+          "transitions": 36,
+          "meanLoad": 2.01
+        },
+        "H8_coexist": {
+          "verdict": "support",
+          "exp": 36,
+          "repro": 36
+        }
+      }
+    },
+    {
+      "seed": 1,
+      "recordVsNone": {
+        "H1_recordHasExp": {
+          "verdict": "support",
+          "noExp": 0,
+          "record": 36
+        },
+        "H2_recordAccumulates": {
+          "verdict": "support",
+          "noExpLoad": 0,
+          "recordLoad": 2.0286
+        }
+      },
+      "feedbackVsRecord": {
+        "H3_feedbackMoreAct": {
+          "verdict": "unsupport",
+          "recordAct": 1,
+          "feedbackAct": 1,
+          "delta": 0
+        },
+        "H4_reachesE2": {
+          "verdict": "unsupport",
+          "recordE2": 0,
+          "feedbackE2": 0,
+          "delta": 0
+        },
+        "H5_stageTransitions": {
+          "verdict": "support",
+          "record": 36,
+          "feedback": 36
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualStillReproduces": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24
+        },
+        "H7_dualHasExp": {
+          "verdict": "support",
+          "transitions": 36,
+          "meanLoad": 2.014
+        },
+        "H8_coexist": {
+          "verdict": "support",
+          "exp": 36,
+          "repro": 36
+        }
+      }
+    },
+    {
+      "seed": 2,
+      "recordVsNone": {
+        "H1_recordHasExp": {
+          "verdict": "support",
+          "noExp": 0,
+          "record": 36
+        },
+        "H2_recordAccumulates": {
+          "verdict": "support",
+          "noExpLoad": 0,
+          "recordLoad": 2.01
+        }
+      },
+      "feedbackVsRecord": {
+        "H3_feedbackMoreAct": {
+          "verdict": "unsupport",
+          "recordAct": 1,
+          "feedbackAct": 1,
+          "delta": 0
+        },
+        "H4_reachesE2": {
+          "verdict": "unsupport",
+          "recordE2": 0,
+          "feedbackE2": 0,
+          "delta": 0
+        },
+        "H5_stageTransitions": {
+          "verdict": "support",
+          "record": 36,
+          "feedback": 36
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualStillReproduces": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24
+        },
+        "H7_dualHasExp": {
+          "verdict": "support",
+          "transitions": 36,
+          "meanLoad": 2.0245
+        },
+        "H8_coexist": {
+          "verdict": "support",
+          "exp": 36,
+          "repro": 36
+        }
+      }
+    },
+    {
+      "seed": 3,
+      "recordVsNone": {
+        "H1_recordHasExp": {
+          "verdict": "support",
+          "noExp": 0,
+          "record": 36
+        },
+        "H2_recordAccumulates": {
+          "verdict": "support",
+          "noExpLoad": 0,
+          "recordLoad": 2.014
+        }
+      },
+      "feedbackVsRecord": {
+        "H3_feedbackMoreAct": {
+          "verdict": "unsupport",
+          "recordAct": 1,
+          "feedbackAct": 1,
+          "delta": 0
+        },
+        "H4_reachesE2": {
+          "verdict": "unsupport",
+          "recordE2": 0,
+          "feedbackE2": 0,
+          "delta": 0
+        },
+        "H5_stageTransitions": {
+          "verdict": "support",
+          "record": 36,
+          "feedback": 36
+        }
+      },
+      "dualVsFeedback": {
+        "H6_dualStillReproduces": {
+          "verdict": "support",
+          "fiss": 12,
+          "fus": 24
+        },
+        "H7_dualHasExp": {
+          "verdict": "support",
+          "transitions": 36,
+          "meanLoad": 2.022
+        },
+        "H8_coexist": {
+          "verdict": "support",
+          "exp": 36,
+          "repro": 36
+        }
+      }
+    }
+  ],
+  "design": {
+    "stages": "E0 初态 → E1 积累 → E2 稳态 → E3 磨损",
+    "feedback": "阅历阶段调制 ACT 阈值与偏好（非预制感受）"
+  },
+  "roadmap": "docs/PHASE48_EXPERIENCE.md"
+}

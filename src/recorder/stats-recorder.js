@@ -72,6 +72,7 @@ export class StatsRecorder {
   evolution(tick, beingId, content, meta = {}) {
     return this.log({ tick, channel: 'evolution', beingId, content, meta });
   }
+  experience() {}
 
   count(channel, kind) {
     return this.counts[`${channel}:${kind}`] ?? 0;

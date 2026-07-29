@@ -74,6 +74,8 @@ const LABELS = {
   mei: { native: '减数 MEI', analogy: 'DNA 单源缩减包' },
   fus: { native: '汇合 FUS', analogy: '双源 DNA 重组诞生' },
   bcn: { native: '信标 BCN', analogy: 'packet 就绪广播' },
+  exp: { native: '阅历 EXP', analogy: '经历阶段（非地球年龄）' },
+  expStage: { native: '阅历阶段', analogy: '经历阶段' },
 };
 
 export function label(key) {
@@ -91,6 +93,12 @@ export function formatSlot(slot) {
 export function formatGeneration(gen) {
   if (!isAnalogyMode()) return `代${gen}`;
   return `谱系第 ${gen} 代`;
+}
+
+export function formatExpStage(stage) {
+  const labels = { E0: '初态', E1: '积累', E2: '稳态', E3: '磨损' };
+  if (!isAnalogyMode()) return stage ?? 'E0';
+  return labels[stage] ?? stage ?? '初态';
 }
 
 export function viewModeHint() {

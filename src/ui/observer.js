@@ -33,6 +33,7 @@ import {
   getViewMode,
   label,
   formatGeneration,
+  formatExpStage,
   formatSlot,
   setViewMode as saveViewMode,
   viewModeHint,
@@ -587,6 +588,8 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('rco')}</span><strong>${b.renewCostCount ?? 0}</strong></div>
           <div class="stat-row"><span>${label('mei')}</span><strong>${b.meiCount ?? 0}${b.hasMeiPacket ? '·包' : ''}</strong></div>
           <div class="stat-row"><span>${label('fus')}</span><strong>${b.fusCount ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('expStage')}</span><strong>${formatExpStage(b.expStage)}</strong></div>
+          <div class="stat-row"><span>${label('exp')}</span><strong>${b.expTransitions ?? 0} · ${b.expLoad ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
@@ -632,6 +635,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('mei')}</span><strong>${s.population.mei ?? 0}</strong></div>
           <div class="stat-row"><span>${label('fus')}</span><strong>${s.population.fus ?? 0}</strong></div>
           <div class="stat-row"><span>${label('bcn')}</span><strong>${s.population.bcn ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('exp')}</span><strong>${s.population.exp ?? 0}</strong></div>
           <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
           <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
         </div>

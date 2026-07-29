@@ -28,6 +28,11 @@ import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
 import { tryMeiosis, processFusions, collectOrphanPacket } from '../world/recombination.js';
+import {
+  experienceEnabled,
+  experienceActBias,
+  processExperienceTick,
+} from '../world/experience.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -92,9 +97,12 @@ export function stepWorld(world, recorder) {
 
   for (const being of activeBeings) {
     const heard = delivered.filter((s) => s.fromId !== being.id);
+    const profile = world.envProfile;
+    const experienceBias = experienceEnabled(profile) ? experienceActBias(being, profile) : null;
     const result = being.tick(world.tick, {
       heardSignals: heard,
       substrate: substrateSnap,
+      experienceBias,
     });
 
     if (!result.alive) continue;
@@ -289,6 +297,25 @@ export function stepWorld(world, recorder) {
       }
     } else {
       being.lowStreak = 0;
+    }
+
+    if (experienceEnabled(profile)) {
+      const hadTx = result.external.some((l) => l.startsWith('[TX]'));
+      const hadAct = result.external.some((l) => l.startsWith('[ACT]'));
+      processExperienceTick(
+        world,
+        recorder,
+        being,
+        profile,
+        {
+          stress: result.stress,
+          hadLow: Boolean(met.low),
+          hadRx: heard.length > 0,
+          hadTx,
+          hadAct,
+        },
+        { fieldStat: stat }
+      );
     }
 
     if (!stat && met.intra?.transfers?.length) {
