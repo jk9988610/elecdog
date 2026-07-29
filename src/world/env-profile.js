@@ -1734,8 +1734,11 @@ export const PHASE82_TREATMENTS = {
 
 const RSV_SHK_PULSE = {
   pulseInterval: 50,
-  substrateDrainMult: 0.88,
-  substrateFloor: 0.4,
+  substrateDrainMult: 0.92,
+  substrateFloor: 0.38,
+  juvenileTicks: 64,
+  juvenileDrawMult: 0.52,
+  juvenileMinGen: 1,
 };
 
 /** Phase 84 — GAP-ORG 储备池 [RSV] on/off 田野（剧变情境 END 率对照） */

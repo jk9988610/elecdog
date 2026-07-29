@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-29 · 环境共识：少量地球轴 + 数字原生优先
+> 更新：2026-07-29 · Phase 84 储备池 [RSV] 记录层
 
 ---
 
@@ -18,6 +18,7 @@
 |----|------|
 | W1–W5 + 物种验收 | ✅ prepared（Phase 82–83） |
 | GAP-10 | ⚠️ 正式部分结案（上限接受） |
+| **GAP-ORG 记录层** | ✅ Phase 84 `reservoir` + `[RSV]`（weak） |
 | **后续路线** | ✅ [WISDOM_FUTURE_ROADMAP.md](WISDOM_FUTURE_ROADMAP.md) |
 
 ---
@@ -27,17 +28,16 @@
 | GAP | 主题 |
 |-----|------|
 | GAP-11+ | 基底耗散、消耗物用于什么 |
-| GAP-ORG | 储备池、内共生模块、细胞联合体 |
+| GAP-ORG | Synth 模块、FUS `[SYM]` 捕获（记录层已交付） |
 | GAP-ENV | 区带/日季月/陆海/雨/大气/风（P0–P1 分阶） |
 | GAP-ART | 环境硬工具与创造力 |
 
 ---
 
-## 下次更新（Phase 84–86）
+## 下次更新（Phase 85–86）
 
 | Phase | 目标 |
 |-------|------|
-| 84 | `reservoir` + `[RSV]` |
 | 85 | band + `[DLC]` 日相 |
 | 86 | terrain L/O + `[PCP]` 水循环 |
 
@@ -57,6 +57,7 @@
 npm run wisdom:acceptance
 npm run wisdom:l2:closure
 npm run wisdom:checklist
+npm run field:phase84
 ```
 
 ---

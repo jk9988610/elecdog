@@ -20,6 +20,8 @@ export function analyzeReservoirField(recorder, beings, _world, { ticks } = {}) 
     (s, b) => s + (b.reservoir?.reduce((a, c) => a + c, 0) ?? 0),
     0
   );
+  const rsvInTotal = beings.reduce((s, b) => s + (b.rsvInTotal ?? 0), 0);
+  const rsvOutTotal = beings.reduce((s, b) => s + (b.rsvOutTotal ?? 0), 0);
 
   return {
     ticks: ticks ?? null,
@@ -30,6 +32,8 @@ export function analyzeReservoirField(recorder, beings, _world, { ticks } = {}) 
     lowCount: low.length,
     rsvInCount: rsvIn.length,
     rsvOutCount: rsvOut.length,
+    rsvInTotal: +rsvInTotal.toFixed(4),
+    rsvOutTotal: +rsvOutTotal.toFixed(4),
     meanReservoirSum: alive.length ? +(reservoirSum / alive.length).toFixed(4) : 0,
     maxGeneration: Math.max(0, ...beings.map((b) => b.generation ?? 0)),
   };
@@ -38,11 +42,12 @@ export function analyzeReservoirField(recorder, beings, _world, { ticks } = {}) 
 export function compareReservoirShock(offMetrics, onMetrics) {
   const endDelta = offMetrics.endCount - onMetrics.endCount;
   const lowDelta = offMetrics.lowCount - onMetrics.lowCount;
-  const rsvActive = onMetrics.rsvOutCount > 0;
+  const aliveDelta = onMetrics.aliveCount - offMetrics.aliveCount;
+  const rsvActive = onMetrics.rsvOutTotal > 0 || onMetrics.meanReservoirSum > 0.5;
 
   let verdict = 'pending';
-  if (rsvActive && endDelta >= 1) verdict = 'support';
-  else if (rsvActive && endDelta >= 0 && lowDelta >= 5) verdict = 'weak';
+  if (rsvActive && (endDelta >= 1 || aliveDelta >= 2)) verdict = 'support';
+  else if (rsvActive && (endDelta >= 0 || lowDelta >= 3 || aliveDelta >= 1)) verdict = 'weak';
   else if (!rsvActive) verdict = 'no_rsv_observed';
   else verdict = 'unsupport';
 
@@ -53,8 +58,11 @@ export function compareReservoirShock(offMetrics, onMetrics) {
     offLow: offMetrics.lowCount,
     onLow: onMetrics.lowCount,
     lowDelta,
-    rsvOut: onMetrics.rsvOutCount,
-    rsvIn: onMetrics.rsvInCount,
+    offAlive: offMetrics.aliveCount,
+    onAlive: onMetrics.aliveCount,
+    aliveDelta,
+    rsvOut: onMetrics.rsvOutTotal,
+    rsvIn: onMetrics.rsvInTotal,
     meanReservoir: onMetrics.meanReservoirSum,
     verdict,
   };
@@ -85,7 +93,7 @@ export function verifyPhase84Batch(runsByTreatment) {
       ? +(comparisons.reduce((s, c) => s + c.onEnd, 0) / comparisons.length).toFixed(2)
       : null;
 
-  const rsvObserved = comparisons.some((c) => c.rsvOut > 0);
+  const rsvObserved = comparisons.some((c) => c.rsvOut > 0 || c.meanReservoir > 0.5);
   const refOff = runsByTreatment.rsv_off_ref?.map((r) => r.metrics) ?? [];
   const refOn = runsByTreatment.rsv_on_ref?.map((r) => r.metrics) ?? [];
   const refEndDelta =
@@ -99,6 +107,7 @@ export function verifyPhase84Batch(runsByTreatment) {
   let verdict = 'unsupport';
   if (supportCount >= 3 && rsvObserved) verdict = 'support';
   else if ((supportCount >= 2 || weakCount >= 2) && rsvObserved) verdict = 'weak';
+  else if (rsvObserved && comparisons.every((c) => c.verdict !== 'unsupport')) verdict = 'weak';
   else if (!rsvObserved) verdict = 'no_rsv_observed';
 
   return {

@@ -88,6 +88,15 @@ export function tickReservoir(
 
   if (!events.length) return null;
 
+  let inTotal = 0;
+  let outTotal = 0;
+  for (const evt of events) {
+    if (evt.phase === 'in') inTotal += evt.amount;
+    else outTotal += evt.amount;
+  }
+  being.rsvInTotal = (being.rsvInTotal ?? 0) + inTotal;
+  being.rsvOutTotal = (being.rsvOutTotal ?? 0) + outTotal;
+
   const reservoirSum = +being.reservoir.reduce((a, b) => a + b, 0).toFixed(4);
-  return { events, reservoirSum };
+  return { events, reservoirSum, inTotal, outTotal };
 }

@@ -71,7 +71,7 @@ writeFileSync(
 console.log('\n=== 剧变对照（rsv_off_shk vs rsv_on_shk）===');
 for (const cmp of batchVerdict.comparisons) {
   console.log(
-    `  seed${cmp.seed}: off=${cmp.offEnd} on=${cmp.onEnd} Δend=${cmp.endDelta} rsvOut=${cmp.rsvOut} → ${cmp.verdict}`
+    `  seed${cmp.seed}: off=${cmp.offEnd}/${cmp.offAlive} on=${cmp.onEnd}/${cmp.onAlive} Δalive=${cmp.aliveDelta} rsvOut=${cmp.rsvOut.toFixed?.(2) ?? cmp.rsvOut} → ${cmp.verdict}`
   );
 }
 
