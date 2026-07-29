@@ -12,6 +12,7 @@ import { runTicks } from './lib/analyze.js';
 import { analyzeViability } from './lib/viability-analyze.js';
 import { analyzeEvolution } from './lib/evolution-analyze.js';
 import { analyzeSelection, evaluateSelectionHypotheses } from './lib/selection-analyze.js';
+import { maybeUploadFieldReport } from './lib/field-cloud-upload.mjs';
 
 const OBSERVER_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -83,3 +84,5 @@ function logRuns(label, runs) {
 logRuns('剧变 3000', catRuns);
 logRuns('对照 3000', ctrlRuns);
 console.log('\n报告已写入 docs/field-phase26-report.json');
+
+await maybeUploadFieldReport({ phase: 26, report });

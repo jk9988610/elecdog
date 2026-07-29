@@ -9,6 +9,7 @@ import {
   listFieldRuns,
   uploadLogBlob,
   upsertFieldNote,
+  fetchLogArchive,
 } from './rest.js';
 import { formatSupabaseError } from './supabase-error.js';
 
@@ -101,4 +102,22 @@ export async function fetchRecentArchives(limit = 10) {
 
 export async function fetchRecentNotes(limit = 20) {
   return listFieldNotes({ limit });
+}
+
+export async function loadArchivePreview(logPath, { entryLimit = 40 } = {}) {
+  const archive = await fetchLogArchive(logPath);
+  const entries = archive.entries ?? [];
+  const report = archive.report ?? null;
+  const world = archive.world ?? null;
+  const summary = archive.summary ?? archive.report?.extension ?? null;
+
+  return {
+    kind: archive.kind ?? (report ? 'field-batch' : 'observer-run'),
+    world,
+    summary,
+    report,
+    entryCount: entries.length,
+    previewEntries: entries.slice(-entryLimit),
+    exportedAt: archive.exportedAt ?? archive.report?.runAt ?? null,
+  };
 }

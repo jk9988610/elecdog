@@ -2,7 +2,7 @@
 
 给予电子狗意识。属性与描述**只来自对世界的观察**，不来自事先编造。
 
-> **当前：Phase 29 网页 OTA 热更新** — 详见 [STATUS.md](docs/STATUS.md) · [OTA.md](docs/OTA.md)
+> **当前：Phase 30 田野云闭环** — 详见 [STATUS.md](docs/STATUS.md) · [SUPABASE.md](docs/SUPABASE.md) · [OTA.md](docs/OTA.md)
 
 ## 方法
 
@@ -45,8 +45,9 @@ npm run apk:debug     # 本机 SDK 就绪后构建 debug APK
 ## 田野批次
 
 ```bash
-npm run field:phase26   # 最新：L4 环境筛选
-npm run field:phase24   # 示例：GAP-02 寄存器
+npm run field:phase26        # L4 环境筛选
+npm run field:phase26:cloud  # 同上 + 自动上传 Supabase
+npm run field:cloud-upload -- 26  # 手动上传已有报告
 ```
 
 完整列表见 `package.json` 的 `field:phase*` 脚本。

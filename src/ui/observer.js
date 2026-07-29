@@ -15,6 +15,7 @@ import {
   archiveCurrentRun,
   fetchRecentArchives,
   fetchRecentNotes,
+  loadArchivePreview,
   saveFieldNote,
 } from '../cloud/field-sync.js';
 import { formatSupabaseError } from '../cloud/supabase-error.js';
@@ -98,6 +99,13 @@ export class ObserverApp {
             <ul id="cloud-notes" class="cloud-list"><li class="muted">加载中…</li></ul>
           </div>
         </div>
+        <div id="cloud-preview" class="cloud-preview hidden">
+          <div class="cloud-preview-head">
+            <h3 id="cloud-preview-title">归档预览</h3>
+            <button id="btn-close-preview" type="button" class="btn-ghost">关闭</button>
+          </div>
+          <pre id="cloud-preview-body" class="cloud-preview-body"></pre>
+        </div>
         <p id="cloud-message" class="cloud-message" aria-live="polite"></p>
       </section>
 
@@ -126,6 +134,10 @@ export class ObserverApp {
       btnRefreshCloud: this.root.querySelector('#btn-refresh-cloud'),
       cloudRuns: this.root.querySelector('#cloud-runs'),
       cloudNotes: this.root.querySelector('#cloud-notes'),
+      cloudPreview: this.root.querySelector('#cloud-preview'),
+      cloudPreviewTitle: this.root.querySelector('#cloud-preview-title'),
+      cloudPreviewBody: this.root.querySelector('#cloud-preview-body'),
+      btnClosePreview: this.root.querySelector('#btn-close-preview'),
       cloudMessage: this.root.querySelector('#cloud-message'),
       btnOtaCheck: this.root.querySelector('#btn-ota-check'),
       otaStatus: this.root.querySelector('#ota-status'),
@@ -143,6 +155,8 @@ export class ObserverApp {
     this.$.btnSaveNote.addEventListener('click', () => this.saveNote());
     this.$.btnSaveCloud.addEventListener('click', () => this.saveCloudConfig());
     this.$.btnRefreshCloud.addEventListener('click', () => this.refreshCloudPanel());
+    this.$.cloudRuns.addEventListener('click', (e) => this.onCloudRunClick(e));
+    this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
   }
 
   bootstrapWorld() {
@@ -269,14 +283,68 @@ export class ObserverApp {
       .map((r) => {
         const logUrl = r.log_path ? getLogPublicUrl(r.log_path) : '';
         const link = logUrl
-          ? `<a href="${escapeHtml(logUrl)}" target="_blank" rel="noopener">日志</a>`
+          ? `<a href="${escapeHtml(logUrl)}" target="_blank" rel="noopener" onclick="event.stopPropagation()">原始 JSON</a>`
           : '';
-        return `<li>
-          <span class="cloud-list-title">${escapeHtml(r.world_name || '世界')} · tick ${r.tick}</span>
-          <span class="cloud-list-meta">${escapeHtml(r.observer_label || '—')} · 存活 ${r.alive_count}/${r.total_beings} · ${fmtDate(r.created_at)} ${link}</span>
+        const kind = r.summary?.kind === 'field-batch' ? '批处理' : '观察台';
+        return `<li class="cloud-run-item" data-log-path="${escapeHtml(r.log_path || '')}" data-run-title="${escapeHtml(r.world_name || '归档')}">
+          <span class="cloud-list-title">${escapeHtml(r.world_name || '世界')} · tick ${r.tick} <span class="cloud-tag">${kind}</span></span>
+          <span class="cloud-list-meta">${escapeHtml(r.observer_label || '—')} · 存活 ${r.alive_count}/${r.total_beings} · ${fmtDate(r.created_at)} · ${link} · <button type="button" class="link-btn" data-preview>预览</button></span>
         </li>`;
       })
       .join('');
+  }
+
+  onCloudRunClick(e) {
+    const btn = e.target.closest('[data-preview]');
+    const item = e.target.closest('.cloud-run-item');
+    if (!btn && !item) return;
+    const path = item?.dataset?.logPath;
+    const title = item?.dataset?.runTitle || '归档';
+    if (path) this.previewArchive(title, path);
+  }
+
+  closeArchivePreview() {
+    this.$.cloudPreview?.classList.add('hidden');
+    this.$.cloudPreviewBody.textContent = '';
+  }
+
+  async previewArchive(title, logPath) {
+    this.$.cloudPreview?.classList.remove('hidden');
+    this.$.cloudPreviewTitle.textContent = `归档预览 · ${title}`;
+    this.$.cloudPreviewBody.textContent = '加载中…';
+    this.setCloudMessage('');
+    try {
+      const preview = await loadArchivePreview(logPath);
+      const lines = [];
+      lines.push(`类型: ${preview.kind}`);
+      if (preview.exportedAt) lines.push(`导出: ${preview.exportedAt}`);
+      if (preview.world) {
+        lines.push(`世界: ${preview.world.name} · tick ${preview.world.tick} · 存活 ${preview.world.aliveCount ?? '—'}/${preview.world.beingCount ?? '—'}`);
+      }
+      if (preview.summary?.phase) {
+        lines.push(`Phase: ${preview.summary.phase} · ${preview.summary.extension ?? ''}`);
+        lines.push(`键: ${(preview.summary.keys || []).join(', ')}`);
+      }
+      lines.push(`日志条目: ${preview.entryCount}`);
+      lines.push('');
+      if (preview.report) {
+        lines.push('— 批处理报告摘要 —');
+        lines.push(JSON.stringify(preview.report, null, 2).slice(0, 4000));
+        if (JSON.stringify(preview.report).length > 4000) lines.push('…（已截断，点「原始 JSON」查看完整）');
+      }
+      if (preview.previewEntries.length) {
+        lines.push('');
+        lines.push(`— 最近 ${preview.previewEntries.length} 条日志 —`);
+        for (const entry of preview.previewEntries) {
+          const who = entry.beingId ? ` ${entry.beingId.slice(-8)}` : '';
+          lines.push(`t${entry.tick}\t${entry.channel}${who}\t${entry.content}`);
+        }
+      }
+      this.$.cloudPreviewBody.textContent = lines.join('\n');
+    } catch (err) {
+      this.$.cloudPreviewBody.textContent = '';
+      this.setCloudMessage(formatSupabaseError(err), true);
+    }
   }
 
   renderNoteList(notes) {

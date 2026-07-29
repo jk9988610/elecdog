@@ -98,3 +98,14 @@ export function getLogPublicUrl(path) {
   const base = getCloudConfig().url.replace(/\/$/, '');
   return `${base}/storage/v1/object/public/${LOG_BUCKET}/${path}`;
 }
+
+export async function fetchLogArchive(logPath) {
+  const url = getLogPublicUrl(logPath);
+  if (!url) throw new Error('日志路径无效');
+  const res = await fetch(url, { cache: 'no-store' });
+  if (!res.ok) {
+    const text = await res.text();
+    throw new Error(formatSupabaseError({ message: `HTTP ${res.status}: ${text.slice(0, 120)}` }));
+  }
+  return res.json();
+}
