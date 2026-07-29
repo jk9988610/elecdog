@@ -34,6 +34,7 @@ import { tickDiurnal, diurnalEnabled, recordDiurnalLow, initDiurnalStats } from 
 import { prepAirDiurnal, airEnabled } from '../world/air.js';
 import { tickLunar, ltcEnabled } from '../world/ltc.js';
 import { tickAdv, advEnabled } from '../world/adv.js';
+import { tickArt, tryArtDeposit, artEnabled, artDrawBonus } from '../world/art.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -106,6 +107,7 @@ export function stepWorld(world, recorder) {
   });
   const ltc = tickLunar(world, profile);
   const adv = tickAdv(world, profile);
+  const art = tickArt(world, profile);
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -197,6 +199,13 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[ADV] ${world.birthPlace} ←${adv.neighbor} e${adv.idx} ${adv.delta >= 0 ? '+' : ''}${adv.delta} flux ${adv.flux}`,
         { kind: 'ADV', place: world.birthPlace, ...adv }
+      );
+    }
+    if (art?.active > 0 && world.tick % 120 === 0) {
+      recorder.environment(
+        world.tick,
+        `[ART] ${world.birthPlace} active ${art.active} draw+${art.drawBonus} inject ${art.inject}`,
+        { kind: 'ART', place: world.birthPlace, ...art }
       );
     }
   }
@@ -353,6 +362,15 @@ export function stepWorld(world, recorder) {
           } else {
             perturbFromAct(world, line, being.id);
           }
+          const deposited = tryArtDeposit(world, being, profile, { stress: result.stress });
+          if (deposited && !stat) {
+            recorder.cell(
+              world.tick,
+              being.id,
+              `[ART] deposit ${deposited.id} e${deposited.channel} ttl ${deposited.ttl}`,
+              { kind: 'ART', phase: 'deposit', ...deposited }
+            );
+          }
           const hits = tickNodeHits.get(hit.nodeId) ?? [];
           hits.push(being.socialSlot);
           tickNodeHits.set(hit.nodeId, hits);
@@ -394,7 +412,8 @@ export function stepWorld(world, recorder) {
       hadExternal: result.external.length > 0,
       drawMult:
         juvenileDrawMultiplier(being, world.envProfile) +
-        (metabolicProfileEnabled(profile) ? metabolicDrawMultAdjust(being, profile) : 0),
+        (metabolicProfileEnabled(profile) ? metabolicDrawMultAdjust(being, profile) : 0) +
+        artDrawBonus(world, profile),
     });
     if (met.draw && !stat) {
       recordPcpDrw(world, { idx: met.draw.idx });
