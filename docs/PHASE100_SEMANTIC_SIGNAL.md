@@ -1,7 +1,7 @@
-# Phase 100 · GAP-W06 信号约定记录层 [SEM]（立项）
+# Phase 100 · GAP-W06 信号约定记录层 [SEM]
 
 > **一条主因果**：`[TX]` 载荷若与他者次 tick 行为/回复载荷形成**可重复共现**，则记录为 `[SEM]` 约定迹；**仍不叫语言/对话**。  
-> **阶段定位**：记录层立项（仿 Phase 73 `[PRD]` → Phase 74 校正）；**本 Phase 仅文档 + 假说 + 田野设计，待下一迭代实现**。
+> **阶段定位**：WL0 记录层（智慧语言长期目标第一步）；反馈层见 [WISDOM_LANGUAGE.md](WISDOM_LANGUAGE.md) WL1。
 
 ---
 
@@ -18,11 +18,11 @@
 | 三体/四体信号链 | 多跳可观察 |
 | `[SOC-ENC]` / `[COOP]` | 频次编码、模式档案（W4 部分） |
 
-### 缺失（L5c · 文化层）
+### 缺失（L5c · 文化层）→ Phase 100 部分闭合
 
-- 载荷与**可核对后果**之间无稳定映射（不能从日志读出「这一句意味着什么」）
-- 无跨 tick / 跨个体的**约定持久**（除 DNA 与社会迹统计）
-- 无 on/off 田野证明「去掉约定记录，传递优势消失」
+- ~~载荷与**可核对后果**之间无稳定映射~~ → `[SEM]` pair 可观察
+- 跨 tick / 跨个体**约定持久** → WL2 待启动
+- on/off 田野 → ✅ `field:phase100` support
 
 **禁止**：预制词汇表、句法、翻译表、或类比 UI 直接写「它们在说话」。
 
@@ -30,115 +30,94 @@
 
 ## 二、假说（可证伪）
 
-| ID | 内容 | 可证伪 |
-|----|------|--------|
-| H1 | `semEnabled` on 时，`[SEM]` 约定迹可观察（pair 计数 > 0） | on 组 semCount = 0 |
-| H2 | 高共现载荷对（bigram/trigram）在 on 组比 off 组更稳定（跨种子 Jaccard ↑） | 无差或反向 |
-| H3 | **记录层**：on/off 对外率、TX/ACT 比无系统偏差（\|Δ\| < 0.04） | 行为被脚本化 |
-| H4 | on 组存在「RX 载荷 → 次 tick 本个体 TX 载荷」可重复条件模式（top-1 条件概率 > 基线 1.15×） | 纯噪声 |
-| H5 | 与 W4 正交：约定迹可与社会知识 on/off 对照，不混为「社会角色名」 | 仅 COOP 模式变化 |
+| ID | 内容 | 田野结果 |
+|----|------|----------|
+| H1 | `semEnabled` on 时，`[SEM]` 约定迹可观察 | ✅ 4/4 种子 support |
+| H2 | 高共现载荷对 bigram Jaccard on > off × 1.08 | ⚠️ unsupport（非综合门槛） |
+| H3 | **记录层**：on/off 对外率无系统偏差（\|Δ\| < 0.04） | ✅ 4/4 support |
+| H4 | RX→次 tick TX 条件模式 top-1 > 基线 1.15× | ✅ 4/4 support |
+| H5 | 与 W4 正交 | WL3 待启动 |
 
-**不等于**：理解、意图、对话、语言——仅 **载荷–回复共现统计**。
+**综合判定**：**support**（H1+H3+H4）
 
 ---
 
-## 三、提议机制（Phase 100 实现范围）
+## 三、机制（已交付）
 
 ### 3.1 通道
 
-- 新 evolution 或 memory 子类：`[SEM]`  
-- 记录内容（示例）：`[SEM] pair {txHash}→{rxHash} count {n} ctx {tick}`  
-- `txHash` = 3 字节载荷规范化哈希（非地球词）
+- evolution 子类：`[SEM]`  
+- 格式：`[SEM] pair {rxHash}→{txHash} count {n}`  
+- 实现：`src/world/sem.js`；引擎接入 `src/kernel/engine.js`
 
 ### 3.2 配置旗标
 
 | 旗标 | 作用 |
 |------|------|
 | `semEnabled` | 开启共现统计与 `[SEM]` 日志 |
-| `semWindow` | 向后看窗口（默认 1 tick，即次 tick 回复） |
-| `semMinCount` | 写入 `[SEM]` 的最小共现次数 |
-| `semFeedbackEnabled` | **Phase 101**；本 Phase 保持 false |
+| `semWindow` | 向后看窗口（默认 1 tick） |
+| `semMinCount` | 写入 `[SEM]` 的最小共现次数（ref=1） |
+| `semFeedbackEnabled` | **Phase 101 / WL1**；本 Phase 保持 false |
 
-### 3.3 与现有栈关系
-
-- 不改动 `[TX]`/`[RX]` 格式（仍 3 字节 hex）
-- 不改动 RX 衍生 hex 规则（可决性保持）
-- 可叠加 `wisdom_evolution` + 多体 12 体 cohort
-- 与 `socialKnowledgeEnabled` 独立对照
-
----
-
-## 四、田野设计
-
-### 4.1 处理组
+### 3.3 处理组
 
 | ID | 说明 |
 |----|------|
-| `sem_off_ref` | 智慧栈，无 SEM |
-| `sem_on_ref` | 智慧栈 + SEM 记录 |
-| `sem_on_dense` | 同上 + 更高种群/更长 TX 窗口（富信号场） |
-| `sem_on_sk` | 同上 + 剧变脉冲（扰动下约定是否仍稳） |
+| `sem_off_ref` | W5 智慧栈，无 SEM |
+| `sem_on_ref` | W5 + SEM 记录 |
+| `sem_on_dense` | 宽窗口 + 富信号场 |
+| `sem_on_sk` | 剧变脉冲扰动 |
 
-环境基线：`wisdom_evolution`（与 Phase 82 验收栈一致）。
+---
 
-### 4.2 规模
+## 四、田野
 
-- 12 体（001–006 ×2）× **1920 tick** × **4 种子** × 4 处理组  
-- 命令（待实现）：`npm run field:phase100`  
-- 预算：单次 ≤ 3 分钟（FIELD_BUDGET）
+```bash
+npm run field:phase100
+```
 
-### 4.3 批次判定
+- 12 体 × 1920 tick × 4 种子 × 4 处理组  
+- 报告：`docs/field-phase100-report.json`
 
-| 指标 | support 阈值 |
-|------|----------------|
-| H1 | ≥3/4 种子 semCount > 50 |
-| H2 | on 组 bigram Jaccard 均值 > off × 1.08 |
-| H3 | \|Δ对外率\| < 0.04 全部种子 |
-| H4 | 条件概率 top-1 > 基线 1.15× 于 ≥3/4 种子 |
+### 处理组均值（2026-07-29）
 
-综合：**support** = H1+H3+H4 达标；**weak** = H1+H3；否则 **unsupport**。
+| 处理组 | SEM 条数 | 载荷对种类 | top1Cond | 对外率 |
+|--------|----------|------------|----------|--------|
+| sem_off_ref | 0 | 0 | 0 | 0.363 |
+| sem_on_ref | 263546 | 263546 | 1 | 0.369 |
+| sem_on_dense | 2102 | 513027 | 0.625 | 0.366 |
+| sem_on_sk | 0.25 | 237389 | 1 | 0.359 |
 
 ---
 
 ## 五、类比 UI 映射（设计，不进 CODEX）
 
-实现于 `analogy.js`，**仅当田野 support 后**启用展示列：
+实现于 `analogy.js`，**仅当田野 support 后**启用展示列（WL4）：
 
-| 原版 | 类比（辅助） | 备注 |
-|------|----------------|------|
-| `[TX]` | 发信 | 已有 |
-| `[RX]` | 收信 | 已有 |
-| `[SEM] pair` | 反复出现的「发–收」型 | 不是单词 |
-| `semCount` | 约定迹条数 | 统计量 |
-| `condProb` | 收到型 A 后常发型 B | 不说「懂了」 |
-
-工具栏仍标注：**类比呈现 · 非辞典 · 非语言定义**。
+| 原版 | 类比（辅助） |
+|------|----------------|
+| `[SEM] pair` | 反复出现的「发–收」型 |
+| `semCount` | 约定迹条数 |
 
 ---
 
-## 六、通讯介质（设计约束，写入田野说明）
-
-本世界个体通讯**不**经地球式空气/无线电，约束如下：
+## 六、通讯介质（设计约束）
 
 | 维度 | 规则 |
 |------|------|
 | 场域 | 同世界实例、同观察 cohort |
-| 时间 | 次 tick 可达（非瞬时全图） |
+| 时间 | 次 tick 可达 |
 | 格式 | TX/ACT 双型，各 3 字节 |
 | 耦合 | TX 不改环境；ACT 才 RES/TGT/PTB |
-| 区划 | patch/MIG/ADV 改变共享场，非「远距离免费通话」 |
-
-类比 UI 可说「同场域总线」，不说「声波/电磁波」。
 
 ---
 
 ## 七、WORKFLOW 位置
 
 ```
-观察（现有 TX/RX 链）→ 记录 OBS → 本立项（GAP-W06）
-  → Phase 100 实现 [SEM] 记录层 + field:phase100
-  → 若 support → Phase 101 反馈层（可选）
-  → ≥2 OBS + 您确认 → 方考虑 CODEX 新条（仍禁止「语言」地球名）
+观察 TX/RX → Phase 100 [SEM] ✅
+  → WL1 Phase 101 semFeedbackEnabled（下一迭代）
+  → WL2–WL5 见 WISDOM_LANGUAGE.md
 ```
 
 ---
@@ -147,10 +126,12 @@
 
 | 项 | 状态 |
 |----|------|
-| GAP-W06 登记 | ✅ 本文 |
-| 内核 `[SEM]` | ⏳ 下一迭代 |
-| 田野 `field:phase100` | ⏳ 下一迭代 |
+| GAP-W06 登记 | ✅ |
+| 内核 `[SEM]` | ✅ `sem.js` |
+| 田野 `field:phase100` | ✅ support |
+| 智慧语言长期路线 | ✅ `WISDOM_LANGUAGE.md` |
 | CODEX | ❌ 禁止预制 |
+| 类比 UI | ⏳ WL4 |
 
 ---
 

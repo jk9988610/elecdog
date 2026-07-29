@@ -2326,6 +2326,51 @@ export const PHASE96_TREATMENTS = {
   },
 };
 
+/** Phase 100 — GAP-W06 [SEM] 信号载荷共现记录层 */
+export const PHASE100_TREATMENTS = {
+  sem_off_ref: {
+    id: 'sem_off_ref',
+    label: 'W5智慧栈无SEM',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    semEnabled: false,
+  },
+  sem_on_ref: {
+    id: 'sem_on_ref',
+    label: 'W5智慧栈+SEM记录',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    semEnabled: true,
+    semWindow: 1,
+    semMinCount: 1,
+    semFeedbackEnabled: false,
+  },
+  sem_on_dense: {
+    id: 'sem_on_dense',
+    label: 'SEM+宽窗口富信号场',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    semEnabled: true,
+    semWindow: 2,
+    semMinCount: 2,
+    semFeedbackEnabled: false,
+    substrateBoost: 0.03,
+  },
+  sem_on_sk: {
+    id: 'sem_on_sk',
+    label: 'SEM+剧变脉冲',
+    envId: 'wisdom_evolution',
+    ...W5_WISDOM_FULL,
+    semEnabled: true,
+    semWindow: 1,
+    semMinCount: 1,
+    semFeedbackEnabled: false,
+    pulseInterval: 50,
+    substrateDrainMult: 0.88,
+    substrateFloor: 0.4,
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈可视化 */
 ENV_PROFILES.observer_w6_stack = {
   id: 'observer_w6_stack',
@@ -2942,6 +2987,21 @@ export function initEnvStackModules(world, profile = world?.envProfile) {
   if (profile.ventEnabled) initVentState(world, profile);
   if (profile.migEnabled) initMigState(world);
   if (profile.dissipationEnabled) initDissipationStats(world);
+}
+
+export function applyPhase100Treatment(world, treatmentId) {
+  const treatment = PHASE100_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase100 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 100, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
+  return world.envProfile;
 }
 
 export function applyPhase96Treatment(world, treatmentId) {
