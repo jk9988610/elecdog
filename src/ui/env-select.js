@@ -22,6 +22,7 @@ export const OBSERVER_ENV_IDS = [
   'fertile_mei_fus_fix',
   'fertile_multicell_mei_fus_fix',
   'fertile_multicell_mei_fus_route',
+  'fertile_multicell_dual_path',
   'fertile_inert',
   'harsh_combined',
 ];
@@ -40,6 +41,7 @@ const ANALOGY_LABELS = {
   fertile_mei_fus_fix: '富足重组+瓶颈修复全套',
   fertile_multicell_mei_fus_fix: '多子域重组+瓶颈修复全套',
   fertile_multicell_mei_fus_route: '多子域重组+子域路由全套',
+  fertile_multicell_dual_path: '多子域双路径竞争（FISS+重组）',
   fertile_inert: '富足场（无分裂门）',
   harsh_combined: '组合高压（死亡续行）',
 };
@@ -87,6 +89,7 @@ export function observerEnvHint(id) {
     fertile_mei_fus_fix: '重组 + [BCN] 信标 + 孤儿池 + 激进配对 + live-donor',
     fertile_multicell_mei_fus_fix: '多子域 + [MEI]/[FUS] + 子域 RPL 扣减 + Phase44 修复包',
     fertile_multicell_mei_fus_route: '多子域 + [ISPL] 胞内通量 + [XBCN] 跨子域信标 + donor any',
+    fertile_multicell_dual_path: '多子域 + [FISS] 与 [MEI]/[FUS] 共享 RPL 竞争 + 路由包',
     fertile_inert: '同等富足基底，fissionEnabled 关闭（对照）',
     harsh_combined: '耗竭 + 脉冲 + 幼体脆弱；[END]→[LINEAGE] 高周转',
   };

@@ -3,7 +3,7 @@
 import { hashString, mulberry32 } from '../core/hash.js';
 import { mutate } from '../core/dna.js';
 import { birthIntoWorld } from '../birth/spawn.js';
-import { applyFissionReplication, hasReplicationRemaining } from './replication.js';
+import { applyFissionReplication, hasFissReplicationBudget } from './replication.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -49,7 +49,7 @@ export function fissionGate(world, being, { stress, integrity }) {
   if (stress > (profile.fissionMaxStress ?? 0.25) + dna.stressCeilAdj) return null;
   if (integrity != null && integrity < (profile.fissionMinIntegrity ?? 0.5)) return null;
   if (being.lowStreak > 0) return null;
-  if (!hasReplicationRemaining(being, profile)) return null;
+  if (!hasFissReplicationBudget(being, profile)) return null;
 
   const baseProb = profile.fissionBaseProb ?? 0.4;
   const eagerP = Math.min(0.95, baseProb + dna.bias * 0.4);

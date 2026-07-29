@@ -78,17 +78,56 @@ export function resolveMeiRplDeduct(being, profile) {
   return 'organism';
 }
 
+export function resolveFissRplDeduct(being, profile) {
+  if (profile?.fissRplDeduct) return profile.fissRplDeduct;
+  if (being.rplScope === 'subunit' && profile?.meiEnabled && profile?.fissionEnabled) return 'active';
+  if (being.rplScope === 'subunit' && being.rplSub?.length) return 'all';
+  return 'organism';
+}
+
+function hasSubunitRplBudget(being, mode) {
+  if (mode === 'all') return being.rplSub.every((u) => u.remaining > 0);
+  if (mode === 'active') {
+    const idx = activeSubunitIndex(being);
+    return (being.rplSub[idx]?.remaining ?? 0) > 0;
+  }
+  return being.rplSub.some((u) => u.remaining > 0);
+}
+
+function consumeSubunitRpl(being, mode) {
+  let subId = null;
+  if (mode === 'all') {
+    for (const unit of being.rplSub) {
+      unit.remaining = Math.max(0, unit.remaining - 1);
+    }
+  } else {
+    const idx = mode === 'active' ? activeSubunitIndex(being) : being.rplSub.findIndex((u) => u.remaining > 0);
+    const unit = being.rplSub[idx >= 0 ? idx : 0];
+    if (unit) {
+      subId = unit.subId;
+      unit.remaining = Math.max(0, unit.remaining - 1);
+    }
+  }
+  syncRplRemaining(being);
+  return subId;
+}
+
 /** MEI 可用配额：子域模式默认仅扣当前子域 */
 export function hasMeiReplicationBudget(being, profile) {
   if (!replicationEnabled(profile)) return true;
   const mode = resolveMeiRplDeduct(being, profile);
   if (being.rplScope === 'subunit' && being.rplSub?.length) {
-    if (mode === 'all') return being.rplSub.every((u) => u.remaining > 0);
-    if (mode === 'active') {
-      const idx = activeSubunitIndex(being);
-      return (being.rplSub[idx]?.remaining ?? 0) > 0;
-    }
-    return being.rplSub.some((u) => u.remaining > 0);
+    return hasSubunitRplBudget(being, mode);
+  }
+  return (being.rplRemaining ?? 0) > 0;
+}
+
+/** FISS 可用配额：双路径时与 MEI 对齐为 active 单扣 */
+export function hasFissReplicationBudget(being, profile) {
+  if (!replicationEnabled(profile)) return true;
+  const mode = resolveFissRplDeduct(being, profile);
+  if (being.rplScope === 'subunit' && being.rplSub?.length) {
+    return hasSubunitRplBudget(being, mode);
   }
   return (being.rplRemaining ?? 0) > 0;
 }
@@ -100,19 +139,28 @@ export function consumeReplicationForMei(being, profile) {
   let subId = null;
 
   if (being.rplScope === 'subunit' && being.rplSub?.length) {
-    if (mode === 'all') {
-      for (const unit of being.rplSub) {
-        unit.remaining = Math.max(0, unit.remaining - 1);
-      }
-    } else {
-      const idx = mode === 'active' ? activeSubunitIndex(being) : being.rplSub.findIndex((u) => u.remaining > 0);
-      const unit = being.rplSub[idx >= 0 ? idx : 0];
-      if (unit) {
-        subId = unit.subId;
-        unit.remaining = Math.max(0, unit.remaining - 1);
-      }
-    }
-    syncRplRemaining(being);
+    subId = consumeSubunitRpl(being, mode);
+  } else {
+    being.rplRemaining = Math.max(0, before - 1);
+  }
+
+  return {
+    before,
+    after: being.rplRemaining ?? 0,
+    mode,
+    subId,
+    rplScope: being.rplScope,
+  };
+}
+
+/** FISS 扣减 RPL */
+export function consumeReplicationForFiss(being, profile) {
+  const before = being.rplRemaining ?? 0;
+  const mode = resolveFissRplDeduct(being, profile);
+  let subId = null;
+
+  if (being.rplScope === 'subunit' && being.rplSub?.length) {
+    subId = consumeSubunitRpl(being, mode);
   } else {
     being.rplRemaining = Math.max(0, before - 1);
   }
@@ -243,10 +291,15 @@ export function applyFissionReplication(world, recorder, parent, child) {
   let before = parent.rplRemaining ?? 0;
 
   if (scope === 'subunit' && parent.rplSub?.length) {
-    for (const unit of parent.rplSub) {
-      unit.remaining = Math.max(0, unit.remaining - 1);
+    const fissMode = resolveFissRplDeduct(parent, profile);
+    if (fissMode === 'all') {
+      for (const unit of parent.rplSub) {
+        unit.remaining = Math.max(0, unit.remaining - 1);
+      }
+      syncRplRemaining(parent);
+    } else {
+      consumeReplicationForFiss(parent, profile);
     }
-    syncRplRemaining(parent);
     child.rplScope = 'subunit';
     child.rplSub = copyRplSub(parent);
     child.rplMax = parent.rplMax;

@@ -378,6 +378,50 @@ export const ENV_PROFILES = {
     fusIntraSubPlgEnabled: true,
     fusSubunitRouteEnabled: true,
   },
+  fertile_multicell_dual_path: {
+    id: 'fertile_multicell_dual_path',
+    label: '富足多子域双路径竞争',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusOrphanPoolMax: 12,
+    fusSocialAffinity: true,
+    fusAggressivePairing: true,
+    fusPacketMaxAge: 200,
+    fusPairCooldown: 24,
+    fusSubunitDonorMode: 'any',
+    fusIntraSubPlgEnabled: true,
+    fusSubunitRouteEnabled: true,
+  },
 };
 
 const REN_BASE = {
@@ -454,6 +498,29 @@ const FUS_SUBUNIT_ROUTE = {
   fusSubunitDonorMode: 'any',
   fusIntraSubPlgEnabled: true,
   fusSubunitRouteEnabled: true,
+};
+
+const MC_SUB_RPL = {
+  organismMode: 'multicell',
+  rplEnabled: true,
+  rplBaseMax: 5,
+  rplMaxSpread: 3,
+  rplScope: 'subunit',
+  meiRplDeduct: 'active',
+};
+
+const MC_RECOMB_ROUTE = {
+  fissionEnabled: false,
+  ...MEI_FUS_ONLY,
+  ...FUS_BOTTLENECK_FIX,
+  ...FUS_SUBUNIT_ROUTE,
+};
+
+const MC_DUAL_ROUTE = {
+  ...MEI_FUS_ONLY,
+  ...FUS_BOTTLENECK_FIX,
+  ...FUS_SUBUNIT_ROUTE,
+  fissionEnabled: true,
 };
 
 /** Phase 45 — 多细胞 × 重组 [MEI]/[FUS] */
@@ -567,6 +634,44 @@ export const PHASE46_TREATMENTS = {
     fissionEnabled: false,
     ...MEI_FUS_ONLY,
     ...FUS_BOTTLENECK_FIX,
+  },
+};
+
+/** Phase 47 — 多细胞双路径竞争 [FISS] vs [MEI]/[FUS] */
+export const PHASE47_TREATMENTS = {
+  multicell_fiss_only: {
+    id: 'multicell_fiss_only',
+    label: '多细胞+仅FISS',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    meiEnabled: false,
+    fusEnabled: false,
+  },
+  multicell_recomb_only: {
+    id: 'multicell_recomb_only',
+    label: '多细胞+仅重组+路由',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_RECOMB_ROUTE,
+  },
+  multicell_dual_sub: {
+    id: 'multicell_dual_sub',
+    label: '多细胞+双路径(子域+路由)',
+    envId: 'fertile_field',
+    ...MC_SUB_RPL,
+    ...MC_DUAL_ROUTE,
+  },
+  multicell_dual_org: {
+    id: 'multicell_dual_org',
+    label: '多细胞+双路径(共享RPL)',
+    envId: 'fertile_field',
+    organismMode: 'multicell',
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    rplScope: 'organism',
+    meiRplDeduct: 'organism',
+    ...MC_DUAL_ROUTE,
   },
 };
 
@@ -876,6 +981,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase47Treatment(world, treatmentId) {
+  const treatment = PHASE47_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase47 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 47, treatmentId, ...treatment };
   return world.envProfile;
 }
 

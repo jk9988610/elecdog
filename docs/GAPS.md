@@ -175,7 +175,8 @@
   - 环境 `fertile_field`：富足基底 + 无剧变 + `[FISS]` 门控
   - DNA `bias` 控制分裂冷却与概率
   - 对照 `fertile_inert`（富足但无分裂门）
-- **状态**：**部分结案** — 存活分裂路径成立
+- **Phase 47**：多细胞双路径 — FISS 12 + FUS 24 并存（33%/67%）；RPL 竞争使各路径约为单路径 ~50%
+- **状态**：**部分结案** — 存活分裂路径成立；与重组路径可并存但互相挤占
 - **Phase 37**：`fertile_field` + `[RPL]` 约束分裂次数
 - **文档**：[PHASE36_FISSION.md](PHASE36_FISSION.md)
 
