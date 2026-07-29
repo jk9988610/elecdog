@@ -83,6 +83,9 @@ export function buildDashboardStats(world, recorder) {
       plgCount: b.plgCount ?? 0,
       renewCostCount: b.renewCostCount ?? 0,
       renewTickDebt: b.renewTickDebt ?? 0,
+      meiCount: b.meiCount ?? 0,
+      fusCount: b.fusCount ?? 0,
+      hasMeiPacket: Boolean(b.meiPacket),
       ...es,
     };
   });
@@ -123,6 +126,8 @@ export function buildDashboardStats(world, recorder) {
       ren: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'REN').length,
       plg: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'PLG').length,
       rco: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RCO').length,
+      mei: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'MEI').length,
+      fus: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FUS').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,

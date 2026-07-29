@@ -42,6 +42,13 @@ export class Being {
     this.plgCount = 0;
     this.renewTickDebt = 0;
     this.renewCostCount = 0;
+    this.meiPacket = null;
+    this.lastMeiTick = -999;
+    this.meiCount = 0;
+    this.fusCount = 0;
+    this.fusParentA = null;
+    this.fusParentB = null;
+    this.recombined = false;
     this.cellBoundary = assignCellBoundary(dna.sequence, id);
   }
 

@@ -585,6 +585,8 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('ren')}</span><strong>${b.renCount ?? 0}</strong></div>
           <div class="stat-row"><span>${label('plg')}</span><strong>${b.plgCount ?? 0}</strong></div>
           <div class="stat-row"><span>${label('rco')}</span><strong>${b.renewCostCount ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('mei')}</span><strong>${b.meiCount ?? 0}${b.hasMeiPacket ? '·包' : ''}</strong></div>
+          <div class="stat-row"><span>${label('fus')}</span><strong>${b.fusCount ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
@@ -627,6 +629,8 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('ren')}</span><strong>${s.population.ren ?? 0}</strong></div>
           <div class="stat-row"><span>${label('plg')}</span><strong>${s.population.plg ?? 0}</strong></div>
           <div class="stat-row"><span>${label('rco')}</span><strong>${s.population.rco ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('mei')}</span><strong>${s.population.mei ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('fus')}</span><strong>${s.population.fus ?? 0}</strong></div>
           <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
           <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
         </div>

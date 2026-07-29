@@ -208,7 +208,8 @@
   - `fertile_ren`：FISS **32**，存活 **36**，REN 56 — **续行 support**
   - `fertile_ren_plg`：FISS 32，PLG 36.5，REN 19.5 — **双路径 support**
 - **Phase 40**：多细胞 × 续行 — 子域无续行 7.5 FISS → 有 REN **32 FISS**；续行消除子域瓶颈
-- **状态**：**部分结案** — 续行机制可观察；减数/配子仍开放
-- **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)、[PHASE40_MULTICELL_RENEW.md](PHASE40_MULTICELL_RENEW.md)
+- **Phase 41**：续行代价 `[RCO]` — 稳态 FISS/存活不变，但 END 周转 0→**288**；`renew_tick_debt` 终止 support
+- **状态**：**部分结案** — 续行有代价可观察；减数/配子仍开放
+- **文档**：[PHASE39_REN_PLG.md](PHASE39_REN_PLG.md)、[PHASE40_MULTICELL_RENEW.md](PHASE40_MULTICELL_RENEW.md)、[PHASE41_RENEW_COST.md](PHASE41_RENEW_COST.md)
 
 ---

@@ -52,6 +52,8 @@
     "field:phase40:cloud": "node scripts/field-batch-phase40.mjs --cloud",
     "field:phase41": "node scripts/field-batch-phase41.mjs",
     "field:phase41:cloud": "node scripts/field-batch-phase41.mjs --cloud",
+    "field:phase42": "node scripts/field-batch-phase42.mjs",
+    "field:phase42:cloud": "node scripts/field-batch-phase42.mjs --cloud",
     "field:cloud-upload": "node scripts/field-cloud-upload.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },

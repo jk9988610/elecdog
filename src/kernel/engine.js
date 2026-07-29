@@ -27,6 +27,7 @@ import { runMetabolism } from '../world/organism.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
+import { tryMeiosis, processFusions } from '../world/recombination.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -297,6 +298,8 @@ export function stepWorld(world, recorder) {
 
     tryRplRenew(world, recorder, being, { stress: result.stress });
 
+    tryMeiosis(world, recorder, being, { stress: result.stress, integrity: met.integrity });
+
     if (
       met.integrity != null &&
       (met.crossBoundary || (met.integrity < CELL_INTEGRITY_LOW && world.tick % 25 === 0))
@@ -351,6 +354,7 @@ export function stepWorld(world, recorder) {
   }
 
   processPledgeRenewals(world, recorder);
+  processFusions(world, recorder);
 
   for (const [nodeId, slots] of tickNodeHits) {
     if (slots.length >= 2) {

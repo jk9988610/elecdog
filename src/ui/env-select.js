@@ -17,6 +17,7 @@ export const OBSERVER_ENV_IDS = [
   'fertile_field_strict',
   'fertile_renew_plg',
   'fertile_renew_cost',
+  'fertile_mei_fus',
   'fertile_inert',
   'harsh_combined',
 ];
@@ -30,6 +31,7 @@ const ANALOGY_LABELS = {
   fertile_field_strict: '富足场（复制耗尽即终止）',
   fertile_renew_plg: '富足场（配额续行+双体汇合）',
   fertile_renew_cost: '富足场（续行有代价）',
+  fertile_mei_fus: '富足场（减数+双源汇合）',
   fertile_inert: '富足场（无分裂门）',
   harsh_combined: '组合高压（死亡续行）',
 };
@@ -72,6 +74,7 @@ export function observerEnvHint(id) {
     fertile_field_strict: '富足场 + [RPL] 耗尽或 tick 顶 → [END]',
     fertile_renew_plg: '富足场 + [RPL] + [REN] 环境重置 + [PLG] 双体通量汇合',
     fertile_renew_cost: '富足场 + [REN]/[PLG] + [RCO] 续行代价（tick 债务/胁迫）',
+    fertile_mei_fus: '富足场 + [MEI] 减数缩减 + [FUS] 双源汇合（无克隆分裂）',
     fertile_inert: '同等富足基底，fissionEnabled 关闭（对照）',
     harsh_combined: '耗竭 + 脉冲 + 幼体脆弱；[END]→[LINEAGE] 高周转',
   };

@@ -71,6 +71,8 @@ const LABELS = {
   ren: { native: '续行 REN', analogy: '环境重置复制配额' },
   plg: { native: '汇合 PLG', analogy: '双体通量汇合续行' },
   rco: { native: '代价 RCO', analogy: '续行代谢/寿命代价' },
+  mei: { native: '减数 MEI', analogy: 'DNA 单源缩减包' },
+  fus: { native: '汇合 FUS', analogy: '双源 DNA 重组诞生' },
 };
 
 export function label(key) {

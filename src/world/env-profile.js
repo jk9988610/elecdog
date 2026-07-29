@@ -225,6 +225,31 @@ export const ENV_PROFILES = {
     rplTickCapSpread: 120,
     plgRenewCostMult: 1.2,
   },
+  fertile_mei_fus: {
+    id: 'fertile_mei_fus',
+    label: '富足+减数缩减+双源汇合',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: false,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    meiEnabled: true,
+    meiMinAge: 40,
+    meiMaxStress: 0.26,
+    meiMinIntegrity: 0.5,
+    meiMinSubstrate: 0.44,
+    meiCooldown: 72,
+    meiBaseProb: 0.42,
+    fusEnabled: true,
+    fusPairCooldown: 90,
+    fusPacketMaxAge: 56,
+    fusionMutationRate: 0.015,
+    fusionMaxPop: 36,
+  },
 };
 
 const REN_BASE = {
@@ -257,6 +282,58 @@ const REN_COST = {
   rplTickCapBase: 300,
   rplTickCapSpread: 120,
   plgRenewCostMult: 1.2,
+};
+
+const MEI_BASE = {
+  meiEnabled: true,
+  meiMinAge: 40,
+  meiMaxStress: 0.26,
+  meiMinIntegrity: 0.5,
+  meiMinSubstrate: 0.44,
+  meiCooldown: 72,
+  meiBaseProb: 0.42,
+};
+
+const FUS_BASE = {
+  fusEnabled: true,
+  fusPairCooldown: 90,
+  fusPacketMaxAge: 56,
+  fusionMutationRate: 0.015,
+  fusionMaxPop: 36,
+};
+
+/** Phase 42 — [MEI] 减数缩减 / [FUS] 双源汇合 */
+export const PHASE42_TREATMENTS = {
+  fertile_clonal: {
+    id: 'fertile_clonal',
+    label: '富足+克隆分裂（对照）',
+    envId: 'fertile_field',
+    meiEnabled: false,
+    fusEnabled: false,
+  },
+  fertile_mei_fus: {
+    id: 'fertile_mei_fus',
+    label: '富足+减数+汇合（无克隆）',
+    envId: 'fertile_field',
+    fissionEnabled: false,
+    ...MEI_BASE,
+    ...FUS_BASE,
+  },
+  fertile_both: {
+    id: 'fertile_both',
+    label: '富足+克隆+重组并存',
+    envId: 'fertile_field',
+    ...MEI_BASE,
+    ...FUS_BASE,
+  },
+  fertile_mei_fus_strict: {
+    id: 'fertile_mei_fus_strict',
+    label: '重组+复制耗尽终止',
+    envId: 'fertile_field_strict',
+    fissionEnabled: false,
+    ...MEI_BASE,
+    ...FUS_BASE,
+  },
 };
 
 export const PHASE41_TREATMENTS = {
@@ -465,6 +542,17 @@ export function applyPhase38Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 38, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase42Treatment(world, treatmentId) {
+  const treatment = PHASE42_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase42 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 42, treatmentId, ...treatment };
   return world.envProfile;
 }
 
