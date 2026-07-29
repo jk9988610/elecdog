@@ -33,6 +33,10 @@ export class Being {
     this.stressStreak = 0;
     this.generation = 0;
     this.lineageParent = null;
+    this.lastFissionTick = 0;
+    this.fissionCount = 0;
+    this.fissionParent = null;
+    this.fissionLine = null;
     this.cellBoundary = assignCellBoundary(dna.sequence, id);
   }
 

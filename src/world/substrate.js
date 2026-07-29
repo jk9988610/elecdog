@@ -25,10 +25,19 @@ export function advanceSubstrate(world) {
   const drainMult = world.envProfile?.substrateDrainMult ?? 1;
   const retain = Math.max(0.9, 0.98 / drainMult);
   const mixW = 0.02 / drainMult;
+  const boost = world.envProfile?.substrateBoost ?? 0;
+  const floor = world.envProfile?.substrateFloor ?? 0;
   for (let i = 0; i < SUBSTRATE_CHANNELS; i++) {
     const mix = channels[(i + 1) % SUBSTRATE_CHANNELS];
     const noise = (rng() - 0.5) * 0.05;
-    channels[i] = Math.max(0, Math.min(1, channels[i] * retain + mix * mixW + noise));
+    let next = channels[i] * retain + mix * mixW + noise;
+    if (boost > 0) {
+      next += boost * (1 - next) * 0.2;
+    }
+    if (floor > 0 && next < floor) {
+      next = next * 0.82 + floor * 0.18;
+    }
+    channels[i] = Math.max(0, Math.min(1, next));
   }
 }
 

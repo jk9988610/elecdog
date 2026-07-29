@@ -1,0 +1,846 @@
+{
+  "runAt": "2026-07-29T04:03:12.505Z",
+  "phase": 36,
+  "extension": "fertile_field_fission",
+  "gap": "GAP-16",
+  "ticks": 3000,
+  "seeds": [
+    0,
+    1,
+    2,
+    3
+  ],
+  "profiles": {
+    "baseline": {
+      "id": "baseline",
+      "label": "基线（现行规则）"
+    },
+    "fertile_field": {
+      "id": "fertile_field",
+      "label": "富足分裂场",
+      "substrateDrainMult": 0.52,
+      "substrateBoost": 0.02,
+      "substrateFloor": 0.54,
+      "catastropheDisabled": true,
+      "fissionEnabled": true,
+      "fissionMinSubstrate": 0.44,
+      "fissionMaxStress": 0.28,
+      "fissionMinIntegrity": 0.48,
+      "fissionCooldown": 52,
+      "fissionMinAge": 36,
+      "fissionBaseProb": 0.46,
+      "fissionMutationRate": 0.012,
+      "fissionMaxPop": 36
+    },
+    "fertile_inert": {
+      "id": "fertile_inert",
+      "label": "富足无分裂门",
+      "substrateDrainMult": 0.52,
+      "substrateBoost": 0.02,
+      "substrateFloor": 0.54,
+      "catastropheDisabled": true,
+      "fissionEnabled": false
+    },
+    "harsh_combined": {
+      "id": "harsh_combined",
+      "label": "组合高压",
+      "pulseInterval": 50,
+      "juvenileTicks": 80,
+      "juvenileDrawMult": 0.45,
+      "juvenileMinGen": 1,
+      "substrateDrainMult": 1.25
+    }
+  },
+  "aggregate": {
+    "baseline": {
+      "label": "基线（现行规则）",
+      "meanFiss": 0,
+      "meanLineage": 121,
+      "meanAlive": 4,
+      "meanPopGrowth": 0,
+      "meanFissSubstrate": null,
+      "runs": [
+        {
+          "profileId": "baseline",
+          "seed": 0,
+          "profile": {
+            "id": "baseline",
+            "label": "基线（现行规则）"
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 122,
+            "endCount": 122,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 2616,
+            "shkCount": 13
+          },
+          "entries": 126084
+        },
+        {
+          "profileId": "baseline",
+          "seed": 1,
+          "profile": {
+            "id": "baseline",
+            "label": "基线（现行规则）"
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 117,
+            "endCount": 117,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 2493,
+            "shkCount": 21
+          },
+          "entries": 124966
+        },
+        {
+          "profileId": "baseline",
+          "seed": 2,
+          "profile": {
+            "id": "baseline",
+            "label": "基线（现行规则）"
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 102,
+            "endCount": 102,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 2346,
+            "shkCount": 16
+          },
+          "entries": 126245
+        },
+        {
+          "profileId": "baseline",
+          "seed": 3,
+          "profile": {
+            "id": "baseline",
+            "label": "基线（现行规则）"
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 143,
+            "endCount": 143,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 2905,
+            "shkCount": 14
+          },
+          "entries": 125665
+        }
+      ]
+    },
+    "fertile_field": {
+      "label": "富足分裂场",
+      "meanFiss": 32,
+      "meanLineage": 0,
+      "meanAlive": 36,
+      "meanPopGrowth": 32,
+      "meanFissSubstrate": 0.99,
+      "runs": [
+        {
+          "profileId": "fertile_field",
+          "seed": 0,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36
+          },
+          "metrics": {
+            "fissCount": 32,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 36,
+            "fissChildTotal": 32,
+            "fissParentCount": 20,
+            "popGrowth": 32,
+            "fissPerParent": 1.6,
+            "meanDnaBias": 0.3825,
+            "meanFissSubstrate": 0.9889,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 3737469
+        },
+        {
+          "profileId": "fertile_field",
+          "seed": 1,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36
+          },
+          "metrics": {
+            "fissCount": 32,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 36,
+            "fissChildTotal": 32,
+            "fissParentCount": 18,
+            "popGrowth": 32,
+            "fissPerParent": 1.78,
+            "meanDnaBias": 0.3842,
+            "meanFissSubstrate": 0.9897,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 3746500
+        },
+        {
+          "profileId": "fertile_field",
+          "seed": 2,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36
+          },
+          "metrics": {
+            "fissCount": 32,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 36,
+            "fissChildTotal": 32,
+            "fissParentCount": 18,
+            "popGrowth": 32,
+            "fissPerParent": 1.78,
+            "meanDnaBias": 0.5093,
+            "meanFissSubstrate": 0.9902,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 3702674
+        },
+        {
+          "profileId": "fertile_field",
+          "seed": 3,
+          "profile": {
+            "id": "fertile_field",
+            "label": "富足分裂场",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": true,
+            "fissionMinSubstrate": 0.44,
+            "fissionMaxStress": 0.28,
+            "fissionMinIntegrity": 0.48,
+            "fissionCooldown": 52,
+            "fissionMinAge": 36,
+            "fissionBaseProb": 0.46,
+            "fissionMutationRate": 0.012,
+            "fissionMaxPop": 36
+          },
+          "metrics": {
+            "fissCount": 32,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 36,
+            "fissChildTotal": 32,
+            "fissParentCount": 18,
+            "popGrowth": 32,
+            "fissPerParent": 1.78,
+            "meanDnaBias": 0.6145,
+            "meanFissSubstrate": 0.99,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 3756465
+        }
+      ]
+    },
+    "fertile_inert": {
+      "label": "富足无分裂门",
+      "meanFiss": 0,
+      "meanLineage": 0,
+      "meanAlive": 4,
+      "meanPopGrowth": 0,
+      "meanFissSubstrate": null,
+      "runs": [
+        {
+          "profileId": "fertile_inert",
+          "seed": 0,
+          "profile": {
+            "id": "fertile_inert",
+            "label": "富足无分裂门",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": false
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 124227
+        },
+        {
+          "profileId": "fertile_inert",
+          "seed": 1,
+          "profile": {
+            "id": "fertile_inert",
+            "label": "富足无分裂门",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": false
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 124310
+        },
+        {
+          "profileId": "fertile_inert",
+          "seed": 2,
+          "profile": {
+            "id": "fertile_inert",
+            "label": "富足无分裂门",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": false
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 125225
+        },
+        {
+          "profileId": "fertile_inert",
+          "seed": 3,
+          "profile": {
+            "id": "fertile_inert",
+            "label": "富足无分裂门",
+            "substrateDrainMult": 0.52,
+            "substrateBoost": 0.02,
+            "substrateFloor": 0.54,
+            "catastropheDisabled": true,
+            "fissionEnabled": false
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 0,
+            "endCount": 0,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 0,
+            "shkCount": 0
+          },
+          "entries": 124322
+        }
+      ]
+    },
+    "harsh_combined": {
+      "label": "组合高压",
+      "meanFiss": 0,
+      "meanLineage": 1145.5,
+      "meanAlive": 4,
+      "meanPopGrowth": 0,
+      "meanFissSubstrate": null,
+      "runs": [
+        {
+          "profileId": "harsh_combined",
+          "seed": 0,
+          "profile": {
+            "id": "harsh_combined",
+            "label": "组合高压",
+            "pulseInterval": 50,
+            "juvenileTicks": 80,
+            "juvenileDrawMult": 0.45,
+            "juvenileMinGen": 1,
+            "substrateDrainMult": 1.25
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 1125,
+            "endCount": 1125,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 9950,
+            "shkCount": 30
+          },
+          "entries": 131997
+        },
+        {
+          "profileId": "harsh_combined",
+          "seed": 1,
+          "profile": {
+            "id": "harsh_combined",
+            "label": "组合高压",
+            "pulseInterval": 50,
+            "juvenileTicks": 80,
+            "juvenileDrawMult": 0.45,
+            "juvenileMinGen": 1,
+            "substrateDrainMult": 1.25
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 1151,
+            "endCount": 1151,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 10061,
+            "shkCount": 37
+          },
+          "entries": 131589
+        },
+        {
+          "profileId": "harsh_combined",
+          "seed": 2,
+          "profile": {
+            "id": "harsh_combined",
+            "label": "组合高压",
+            "pulseInterval": 50,
+            "juvenileTicks": 80,
+            "juvenileDrawMult": 0.45,
+            "juvenileMinGen": 1,
+            "substrateDrainMult": 1.25
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 1171,
+            "endCount": 1171,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 10192,
+            "shkCount": 32
+          },
+          "entries": 132386
+        },
+        {
+          "profileId": "harsh_combined",
+          "seed": 3,
+          "profile": {
+            "id": "harsh_combined",
+            "label": "组合高压",
+            "pulseInterval": 50,
+            "juvenileTicks": 80,
+            "juvenileDrawMult": 0.45,
+            "juvenileMinGen": 1,
+            "substrateDrainMult": 1.25
+          },
+          "metrics": {
+            "fissCount": 0,
+            "lineageCount": 1135,
+            "endCount": 1135,
+            "aliveTotal": 4,
+            "fissChildTotal": 0,
+            "fissParentCount": 0,
+            "popGrowth": 0,
+            "fissPerParent": null,
+            "meanDnaBias": null,
+            "meanFissSubstrate": null,
+            "lowCount": 9985,
+            "shkCount": 32
+          },
+          "entries": 131580
+        }
+      ]
+    }
+  },
+  "comparisons": {
+    "fertile_field": [
+      {
+        "seed": 0,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "weak",
+            "baseline": 0,
+            "profile": 32,
+            "delta": 32
+          },
+          "H2_populationGrows": {
+            "verdict": "support",
+            "baseline": 4,
+            "profile": 36,
+            "delta": 32
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "support",
+            "fiss": 32,
+            "lineage": 0,
+            "delta": -122
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "weak",
+            "baseline": 0,
+            "profile": 32,
+            "delta": 32
+          },
+          "H2_populationGrows": {
+            "verdict": "support",
+            "baseline": 4,
+            "profile": 36,
+            "delta": 32
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "support",
+            "fiss": 32,
+            "lineage": 0,
+            "delta": -117
+          }
+        }
+      },
+      {
+        "seed": 2,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "weak",
+            "baseline": 0,
+            "profile": 32,
+            "delta": 32
+          },
+          "H2_populationGrows": {
+            "verdict": "support",
+            "baseline": 4,
+            "profile": 36,
+            "delta": 32
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "support",
+            "fiss": 32,
+            "lineage": 0,
+            "delta": -102
+          }
+        }
+      },
+      {
+        "seed": 3,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "weak",
+            "baseline": 0,
+            "profile": 32,
+            "delta": 32
+          },
+          "H2_populationGrows": {
+            "verdict": "support",
+            "baseline": 4,
+            "profile": 36,
+            "delta": 32
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "support",
+            "fiss": 32,
+            "lineage": 0,
+            "delta": -143
+          }
+        }
+      }
+    ],
+    "fertile_inert": [
+      {
+        "seed": 0,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 0,
+            "delta": -122
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 0,
+            "delta": -117
+          }
+        }
+      },
+      {
+        "seed": 2,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 0,
+            "delta": -102
+          }
+        }
+      },
+      {
+        "seed": 3,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 0,
+            "delta": -143
+          }
+        }
+      }
+    ],
+    "harsh_combined": [
+      {
+        "seed": 0,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 1125,
+            "delta": 1003
+          }
+        }
+      },
+      {
+        "seed": 1,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 1151,
+            "delta": 1034
+          }
+        }
+      },
+      {
+        "seed": 2,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 1171,
+            "delta": 1069
+          }
+        }
+      },
+      {
+        "seed": 3,
+        "hypotheses": {
+          "H1_fissRises": {
+            "verdict": "unsupport",
+            "baseline": 0,
+            "profile": 0,
+            "delta": 0
+          },
+          "H2_populationGrows": {
+            "verdict": "unsupport",
+            "baseline": 4,
+            "profile": 4,
+            "delta": 0
+          },
+          "H3_lineageNotRequired": {
+            "verdict": "unsupport",
+            "fiss": 0,
+            "lineage": 1135,
+            "delta": 992
+          }
+        }
+      }
+    ]
+  },
+  "design": {
+    "fertile_field": "富足基底 + fissionEnabled + DNA 偏置门控",
+    "fertile_inert": "同等富足基底但关闭分裂门（对照）",
+    "analogy": "地球式旺盛分裂 ≈ 资源充裕 + 低胁迫 + DNA 复制程序被执行"
+  },
+  "roadmap": "docs/PHASE36_FISSION.md"
+}
