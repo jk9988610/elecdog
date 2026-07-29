@@ -1556,6 +1556,27 @@ const W2_REIN_COMMON = {
   substrateBoost: 0,
 };
 
+/** Phase 73 — W3 预测误差记录 [PRD]（智慧演化场 × on/off） */
+export const PHASE73_TREATMENTS = {
+  w3_prd_off: {
+    id: 'w3_prd_off',
+    label: '智慧演化无预测层',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    predictionEnabled: false,
+  },
+  w3_prd_on: {
+    id: 'w3_prd_on',
+    label: '智慧演化+预测误差记录',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    predictionEnabled: true,
+    predictionAlpha: 0.35,
+    predictionLogThreshold: 0.06,
+    predictionHighThreshold: 0.12,
+  },
+};
+
 /** Phase 72 — W2 选择压强化环境（攻坚 GAP-10 / GAP-W02） */
 export const PHASE72_TREATMENTS = {
   w2_p71_ref: {
@@ -1994,6 +2015,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase73Treatment(world, treatmentId) {
+  const treatment = PHASE73_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase73 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 73, treatmentId, ...treatment };
   return world.envProfile;
 }
 

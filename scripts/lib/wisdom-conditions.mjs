@@ -34,7 +34,7 @@ export const WISDOM_LAYERS = [
     items: [
       { id: 'L4a-mem-fb', label: '记忆影响行为', status: 'complete', phase: '70', goal: 'W1' },
       { id: 'L4b-mem-field', label: '记忆反馈田野可对照', status: 'complete', phase: '70' },
-      { id: 'L4c-predict', label: '预测–校正回路', status: 'pending', phase: '73-74', goal: 'W3' },
+      { id: 'L4c-predict', label: '预测–校正回路', status: 'partial', phase: '73', goal: 'W3' },
     ],
   },
   {
@@ -95,8 +95,8 @@ export function assessWisdomConditions(opts = {}) {
     items,
     summary: { complete, partial, open, total: items.length },
     progressPct: Math.round((complete / items.length) * 100),
-    currentPhase: 73,
-    currentGoal: 'W3',
+    currentPhase: 74,
+    currentGoal: 'W3-feedback',
     roadmap: 'docs/WISDOM.md',
   };
 }

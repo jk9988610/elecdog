@@ -64,6 +64,7 @@ import {
   decayMemoryLoads,
   accumulateMemoryLoads,
 } from '../world/memory-feedback.js';
+import { predictionEnabled, processPredictionTick } from '../world/prediction.js';
 
 function slotOf(world, beingId) {
   return world.beings.find((b) => b.id === beingId)?.socialSlot ?? assignSocialSlot(beingId);
@@ -393,6 +394,12 @@ export function stepWorld(world, recorder) {
 
     if (registerProfileEnabled(profile)) {
       processRegisterTick(world, recorder, being, profile, substrateSnap.channels, {
+        fieldStat: stat,
+      });
+    }
+
+    if (predictionEnabled(profile)) {
+      processPredictionTick(world, recorder, being, profile, substrateSnap.channels, {
         fieldStat: stat,
       });
     }
