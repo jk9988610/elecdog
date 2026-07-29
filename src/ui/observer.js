@@ -22,6 +22,14 @@ import { formatSupabaseError } from '../cloud/supabase-error.js';
 import { getLogPublicUrl } from '../cloud/rest.js';
 import { subscribeFieldCloud, stopFieldCloudSubscription } from '../cloud/realtime.js';
 import {
+  getObserverEnvId,
+  observerEnvHint,
+  observerEnvLabel,
+  OBSERVER_ENV_IDS,
+  setObserverEnvId,
+} from './env-select.js';
+import { applyEnvProfile } from '../world/env-profile.js';
+import {
   getViewMode,
   label,
   formatGeneration,
@@ -51,6 +59,7 @@ export class ObserverApp {
     this.cloudRealtime = false;
     this.cloudUnsub = null;
     this.viewMode = getViewMode();
+    this.envProfileId = getObserverEnvId();
     this.lastArchiveId = null;
     this.render();
     this.bootstrapWorld();
@@ -74,6 +83,12 @@ export class ObserverApp {
         ${this.otaLabel ? `<span id="ota-version" class="ota-version" title="当前网页热更新版本">${escapeHtml(this.otaLabel)}</span>` : ''}
         ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : ''}
         ${this.nativeShell && this.otaStatus ? `<span id="ota-status" class="ota-status" title="热更新状态">${escapeHtml(this.otaStatus)}</span>` : ''}
+        <span class="toolbar-spacer"></span>
+        <label class="env-label" title="切换后重置世界并应用环境规则">
+          环境
+          <select id="env-profile" class="env-select"></select>
+        </label>
+        <button id="btn-reset-world" type="button" class="btn-ghost">重置世界</button>
         <span class="toolbar-spacer"></span>
         <span class="view-mode-group" title="${escapeHtml(viewModeHint())}">
           <button id="btn-view-native" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_NATIVE ? 'active' : ''}">原版</button>
@@ -163,7 +178,11 @@ export class ObserverApp {
       otaVersion: this.root.querySelector('#ota-version'),
       btnViewNative: this.root.querySelector('#btn-view-native'),
       btnViewAnalogy: this.root.querySelector('#btn-view-analogy'),
+      envProfile: this.root.querySelector('#env-profile'),
+      btnResetWorld: this.root.querySelector('#btn-reset-world'),
     };
+
+    this.renderEnvOptions();
 
     this.$.btnRun.addEventListener('click', () => this.run());
     this.$.btnPause.addEventListener('click', () => this.pause());
@@ -180,6 +199,37 @@ export class ObserverApp {
     this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
     this.$.btnViewNative?.addEventListener('click', () => this.switchViewMode(VIEW_NATIVE));
     this.$.btnViewAnalogy?.addEventListener('click', () => this.switchViewMode(VIEW_ANALOGY));
+    this.$.envProfile?.addEventListener('change', () => this.onEnvProfileChange());
+    this.$.btnResetWorld?.addEventListener('click', () => this.resetWorld());
+  }
+
+  renderEnvOptions() {
+    if (!this.$.envProfile) return;
+    this.$.envProfile.innerHTML = OBSERVER_ENV_IDS.map(
+      (id) =>
+        `<option value="${id}" title="${escapeHtml(observerEnvHint(id))}">${escapeHtml(observerEnvLabel(id))}</option>`
+    ).join('');
+    this.$.envProfile.value = this.envProfileId;
+  }
+
+  onEnvProfileChange() {
+    const id = this.$.envProfile?.value;
+    if (!id || id === this.envProfileId) return;
+    try {
+      setObserverEnvId(id);
+      this.envProfileId = id;
+      this.resetWorld();
+    } catch (err) {
+      this.$.envProfile.value = this.envProfileId;
+      alert(err.message);
+    }
+  }
+
+  resetWorld() {
+    this.pause();
+    this.recorder.clear();
+    this.bootstrapWorld();
+    this.run();
   }
 
   switchViewMode(mode) {
@@ -187,11 +237,15 @@ export class ObserverApp {
     this.viewMode = mode;
     this.$.btnViewNative?.classList.toggle('active', mode === VIEW_NATIVE);
     this.$.btnViewAnalogy?.classList.toggle('active', mode === VIEW_ANALOGY);
+    this.renderEnvOptions();
+    if (this.$.envProfile) this.$.envProfile.value = this.envProfileId;
     this.refresh();
   }
 
   bootstrapWorld() {
     this.world = createWorld('01');
+    applyEnvProfile(this.world, this.envProfileId);
+    this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
     const seeds = [
       { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
       { name: '002', code: '002' },
@@ -232,7 +286,8 @@ export class ObserverApp {
     if (!this.world) return;
     const s = buildDashboardStats(this.world, this.recorder);
     this.$.tickDisplay.textContent = `tick ${s.world.tick}`;
-    this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}`;
+    const envTag = s.world.envLabel ? ` · ${s.world.envLabel}` : '';
+    this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}${envTag}`;
     this.$.dashboard.innerHTML = this.renderDashboard(s);
     this.updateCloudStatus();
   }
@@ -525,6 +580,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('low')}</span><strong>${b.low}</strong></div>
           <div class="stat-row"><span>${label('integrity')}</span><strong>${fmt(b.integrity)}</strong></div>
           <div class="stat-row"><span>${label('mbr')}</span><strong>${b.mbr}</strong></div>
+          <div class="stat-row"><span>${label('fiss')}</span><strong>${b.fissionCount ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
@@ -535,6 +591,7 @@ export class ObserverApp {
     return `
       <section class="panel env-panel">
         <h2>环境</h2>
+        ${s.world.envHint ? `<p class="panel-hint">${escapeHtml(s.world.envHint)}</p>` : ''}
         <h3 class="term">${label('substrate')}</h3>
         <pre class="field-state">${s.environment.substrate}</pre>
         <h3 class="term">${label('nodes')}</h3>
@@ -561,6 +618,7 @@ export class ObserverApp {
           <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
           <div class="stat-row"><span>${label('end')}</span><strong>${s.population.ended}</strong></div>
           <div class="stat-row"><span>${label('lineage')}</span><strong>${s.population.lineage}</strong></div>
+          <div class="stat-row"><span>${label('fiss')}</span><strong>${s.population.fission}</strong></div>
           <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
           <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
         </div>

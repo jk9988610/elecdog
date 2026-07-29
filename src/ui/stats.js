@@ -4,6 +4,7 @@ import { formatSubstrateState } from '../world/substrate.js';
 import { formatNodesState } from '../world/nodes.js';
 import { assessCellIntegrity } from '../world/cell.js';
 import { compositionSnapshot } from '../world/composition.js';
+import { observerEnvHint, observerEnvLabel } from './env-select.js';
 
 function countEnv(entries, kind) {
   return entries.filter((e) => e.channel === 'environment' && e.meta?.kind === kind).length;
@@ -72,15 +73,23 @@ export function buildDashboardStats(world, recorder) {
       integrity,
       lowStreak: b.lowStreak,
       stressStreak: b.stressStreak,
+      fissionCount: b.fissionCount ?? 0,
+      organismType: b.organismType ?? 'unicell',
       ...es,
     };
   });
+
+  const envId = world.envProfile?.id ?? 'baseline';
 
   return {
     world: {
       name: world.name,
       birthPlace: world.birthPlace,
       tick: world.tick,
+      envId,
+      envLabel: observerEnvLabel(envId),
+      envHint: observerEnvHint(envId),
+      fissionEnabled: Boolean(world.envProfile?.fissionEnabled),
     },
     environment: {
       substrate,
@@ -99,6 +108,7 @@ export function buildDashboardStats(world, recorder) {
       total: world.beings.length,
       ended: entries.filter((e) => e.meta?.kind === 'END').length,
       lineage: entries.filter((e) => e.content?.includes('[LINEAGE]')).length,
+      fission: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,
