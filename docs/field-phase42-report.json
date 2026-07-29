@@ -1,9 +1,11 @@
 {
-  "runAt": "2026-07-29T12:23:33.522Z",
+  "runAt": "2026-07-29T13:02:11.825Z",
   "phase": 42,
   "extension": "mei_fus_recombination",
   "gap": "GAP-19",
-  "ticks": 3000,
+  "mode": "field_stat",
+  "cohort": "12 beings (001-006 ×2)",
+  "ticks": 960,
   "seeds": [
     0,
     1,
@@ -75,705 +77,605 @@
   "aggregate": {
     "fertile_clonal": {
       "label": "富足+克隆分裂（对照）",
-      "meanFiss": 12,
+      "meanFiss": 24,
       "meanMei": 0,
       "meanFus": 0,
-      "meanAlive": 16,
-      "meanUnique": 13,
-      "meanDiversity": 0.81,
+      "meanAlive": 36,
+      "meanUnique": 24,
+      "meanDiversity": 0.67,
       "meanRecombined": 0,
+      "meanEntriesKept": 69.25,
       "runs": [
         {
           "treatmentId": "fertile_clonal",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_clonal",
-            "label": "富足+克隆分裂（对照）",
-            "envId": "fertile_field",
-            "meiEnabled": false,
-            "fusEnabled": false
-          },
           "metrics": {
             "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 24,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.33,
+            "beingsWithRpl": 36,
             "meiEventCount": 0,
             "fusEventCount": 0,
-            "uniqueDnaSeqs": 14,
+            "uniqueDnaSeqs": 24,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
-            "diversityRatio": 0.875
+            "diversityRatio": 0.667
           },
-          "entries": 870240
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
         },
         {
           "treatmentId": "fertile_clonal",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_clonal",
-            "label": "富足+克隆分裂（对照）",
-            "envId": "fertile_field",
-            "meiEnabled": false,
-            "fusEnabled": false
-          },
           "metrics": {
             "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 24,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.33,
+            "beingsWithRpl": 36,
             "meiEventCount": 0,
             "fusEventCount": 0,
-            "uniqueDnaSeqs": 13,
+            "uniqueDnaSeqs": 26,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
-            "diversityRatio": 0.813
+            "diversityRatio": 0.722
           },
-          "entries": 875037
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
         },
         {
           "treatmentId": "fertile_clonal",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_clonal",
-            "label": "富足+克隆分裂（对照）",
-            "envId": "fertile_field",
-            "meiEnabled": false,
-            "fusEnabled": false
-          },
           "metrics": {
-            "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplEventCount": 37,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 13,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 26,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.31,
+            "beingsWithRpl": 36,
             "meiEventCount": 0,
             "fusEventCount": 0,
-            "uniqueDnaSeqs": 11,
+            "uniqueDnaSeqs": 22,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
-            "diversityRatio": 0.688
+            "diversityRatio": 0.611
           },
-          "entries": 875049
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 37,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 70
         },
         {
           "treatmentId": "fertile_clonal",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_clonal",
-            "label": "富足+克隆分裂（对照）",
-            "envId": "fertile_field",
-            "meiEnabled": false,
-            "fusEnabled": false
-          },
           "metrics": {
             "rplEventCount": 36,
-            "rplInitCount": 16,
-            "rplExhaustedEvents": 8,
-            "fissCount": 12,
-            "aliveTotal": 16,
-            "exhaustedCount": 16,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 12,
+            "fissCount": 24,
+            "aliveTotal": 36,
+            "exhaustedCount": 24,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 16,
+            "meanRplRemaining": 0.33,
+            "beingsWithRpl": 36,
             "meiEventCount": 0,
             "fusEventCount": 0,
-            "uniqueDnaSeqs": 14,
+            "uniqueDnaSeqs": 24,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
-            "diversityRatio": 0.875
+            "diversityRatio": 0.667
           },
-          "entries": 872762
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 36,
+            "evolution:FISS": 24,
+            "population:CMP": 9
+          },
+          "entriesKept": 69
         }
       ]
     },
     "fertile_mei_fus": {
       "label": "富足+减数+汇合（无克隆）",
       "meanFiss": 0,
-      "meanMei": 15,
-      "meanFus": 14,
-      "meanAlive": 11,
-      "meanUnique": 11,
-      "meanDiversity": 1,
-      "meanRecombined": 7,
+      "meanMei": 48,
+      "meanFus": 48,
+      "meanAlive": 36,
+      "meanUnique": 31,
+      "meanDiversity": 0.86,
+      "meanRecombined": 24,
+      "meanEntriesKept": 177,
       "runs": [
         {
           "treatmentId": "fertile_mei_fus",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_mei_fus",
-            "label": "富足+减数+汇合（无克隆）",
-            "envId": "fertile_field",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 33,
-            "rplInitCount": 11,
+            "rplEventCount": 72,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 11,
-            "exhaustedCount": 11,
+            "aliveTotal": 36,
+            "exhaustedCount": 36,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 0,
-            "beingsWithRpl": 11,
-            "meiEventCount": 15,
-            "fusEventCount": 14,
-            "uniqueDnaSeqs": 11,
-            "recombinedAlive": 7,
-            "withMeiPacket": 1,
-            "totalMeiCount": 15,
-            "totalFusCount": 14,
-            "diversityRatio": 1
+            "beingsWithRpl": 36,
+            "meiEventCount": 48,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 31,
+            "recombinedAlive": 24,
+            "withMeiPacket": 24,
+            "totalMeiCount": 48,
+            "totalFusCount": 48,
+            "diversityRatio": 0.861
           },
-          "entries": 467658
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 72,
+            "evolution:MEI": 48,
+            "evolution:FUS": 48,
+            "population:CMP": 9
+          },
+          "entriesKept": 177
         },
         {
           "treatmentId": "fertile_mei_fus",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_mei_fus",
-            "label": "富足+减数+汇合（无克隆）",
-            "envId": "fertile_field",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 33,
-            "rplInitCount": 11,
+            "rplEventCount": 72,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 11,
-            "exhaustedCount": 11,
+            "aliveTotal": 36,
+            "exhaustedCount": 36,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 0,
-            "beingsWithRpl": 11,
-            "meiEventCount": 15,
-            "fusEventCount": 14,
-            "uniqueDnaSeqs": 11,
-            "recombinedAlive": 7,
-            "withMeiPacket": 1,
-            "totalMeiCount": 15,
-            "totalFusCount": 14,
-            "diversityRatio": 1
+            "beingsWithRpl": 36,
+            "meiEventCount": 48,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 31,
+            "recombinedAlive": 24,
+            "withMeiPacket": 24,
+            "totalMeiCount": 48,
+            "totalFusCount": 48,
+            "diversityRatio": 0.861
           },
-          "entries": 466415
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 72,
+            "evolution:MEI": 48,
+            "evolution:FUS": 48,
+            "population:CMP": 9
+          },
+          "entriesKept": 177
         },
         {
           "treatmentId": "fertile_mei_fus",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_mei_fus",
-            "label": "富足+减数+汇合（无克隆）",
-            "envId": "fertile_field",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 33,
-            "rplInitCount": 11,
+            "rplEventCount": 72,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 11,
-            "exhaustedCount": 11,
+            "aliveTotal": 36,
+            "exhaustedCount": 36,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 0,
-            "beingsWithRpl": 11,
-            "meiEventCount": 15,
-            "fusEventCount": 14,
-            "uniqueDnaSeqs": 11,
-            "recombinedAlive": 7,
-            "withMeiPacket": 1,
-            "totalMeiCount": 15,
-            "totalFusCount": 14,
-            "diversityRatio": 1
+            "beingsWithRpl": 36,
+            "meiEventCount": 48,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 31,
+            "recombinedAlive": 24,
+            "withMeiPacket": 24,
+            "totalMeiCount": 48,
+            "totalFusCount": 48,
+            "diversityRatio": 0.861
           },
-          "entries": 464568
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 72,
+            "evolution:MEI": 48,
+            "evolution:FUS": 48,
+            "population:CMP": 9
+          },
+          "entriesKept": 177
         },
         {
           "treatmentId": "fertile_mei_fus",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_mei_fus",
-            "label": "富足+减数+汇合（无克隆）",
-            "envId": "fertile_field",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 33,
-            "rplInitCount": 11,
+            "rplEventCount": 72,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 11,
-            "exhaustedCount": 11,
+            "aliveTotal": 36,
+            "exhaustedCount": 36,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 0,
-            "beingsWithRpl": 11,
-            "meiEventCount": 15,
-            "fusEventCount": 14,
-            "uniqueDnaSeqs": 11,
-            "recombinedAlive": 7,
-            "withMeiPacket": 1,
-            "totalMeiCount": 15,
-            "totalFusCount": 14,
-            "diversityRatio": 1
+            "beingsWithRpl": 36,
+            "meiEventCount": 48,
+            "fusEventCount": 48,
+            "uniqueDnaSeqs": 31,
+            "recombinedAlive": 24,
+            "withMeiPacket": 24,
+            "totalMeiCount": 48,
+            "totalFusCount": 48,
+            "diversityRatio": 0.861
           },
-          "entries": 464372
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 72,
+            "evolution:MEI": 48,
+            "evolution:FUS": 48,
+            "population:CMP": 9
+          },
+          "entriesKept": 177
         }
       ]
     },
     "fertile_both": {
       "label": "富足+克隆+重组并存",
-      "meanFiss": 8.25,
-      "meanMei": 3.75,
-      "meanFus": 3.5,
-      "meanAlive": 14,
-      "meanUnique": 11,
-      "meanDiversity": 0.79,
-      "meanRecombined": 1.75,
+      "meanFiss": 14.5,
+      "meanMei": 26.5,
+      "meanFus": 19,
+      "meanAlive": 36,
+      "meanUnique": 26.5,
+      "meanDiversity": 0.74,
+      "meanRecombined": 9.5,
+      "meanEntriesKept": 126,
       "runs": [
         {
           "treatmentId": "fertile_both",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_both",
-            "label": "富足+克隆+重组并存",
-            "envId": "fertile_field",
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 34,
-            "rplInitCount": 14,
-            "rplExhaustedEvents": 6,
-            "fissCount": 8,
-            "aliveTotal": 14,
-            "exhaustedCount": 14,
+            "rplEventCount": 56,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 7,
+            "fissCount": 15,
+            "aliveTotal": 36,
+            "exhaustedCount": 35,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 14,
-            "meiEventCount": 4,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 10,
-            "recombinedAlive": 2,
-            "withMeiPacket": 0,
-            "totalMeiCount": 4,
-            "totalFusCount": 4,
-            "diversityRatio": 0.714
+            "meanRplRemaining": 0.03,
+            "beingsWithRpl": 36,
+            "meiEventCount": 25,
+            "fusEventCount": 18,
+            "uniqueDnaSeqs": 25,
+            "recombinedAlive": 9,
+            "withMeiPacket": 16,
+            "totalMeiCount": 25,
+            "totalFusCount": 18,
+            "diversityRatio": 0.694
           },
-          "entries": 705010
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 56,
+            "evolution:FISS": 15,
+            "evolution:MEI": 25,
+            "evolution:FUS": 18,
+            "population:CMP": 9
+          },
+          "entriesKept": 123
         },
         {
           "treatmentId": "fertile_both",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_both",
-            "label": "富足+克隆+重组并存",
-            "envId": "fertile_field",
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 31,
-            "rplInitCount": 13,
-            "rplExhaustedEvents": 6,
-            "fissCount": 8,
-            "aliveTotal": 13,
-            "exhaustedCount": 13,
+            "rplEventCount": 56,
+            "rplInitCount": 0,
+            "rplExhaustedEvents": 7,
+            "fissCount": 15,
+            "aliveTotal": 36,
+            "exhaustedCount": 35,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
-            "meanRplRemaining": 0,
-            "beingsWithRpl": 13,
-            "meiEventCount": 3,
-            "fusEventCount": 2,
-            "uniqueDnaSeqs": 10,
-            "recombinedAlive": 1,
-            "withMeiPacket": 1,
-            "totalMeiCount": 3,
-            "totalFusCount": 2,
-            "diversityRatio": 0.769
+            "meanRplRemaining": 0.03,
+            "beingsWithRpl": 36,
+            "meiEventCount": 25,
+            "fusEventCount": 18,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 9,
+            "withMeiPacket": 16,
+            "totalMeiCount": 25,
+            "totalFusCount": 18,
+            "diversityRatio": 0.75
           },
-          "entries": 628503
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 56,
+            "evolution:FISS": 15,
+            "evolution:MEI": 25,
+            "evolution:FUS": 18,
+            "population:CMP": 9
+          },
+          "entriesKept": 123
         },
         {
           "treatmentId": "fertile_both",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_both",
-            "label": "富足+克隆+重组并存",
-            "envId": "fertile_field",
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 36,
-            "rplInitCount": 15,
+            "rplEventCount": 57,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 6,
-            "fissCount": 9,
-            "aliveTotal": 15,
-            "exhaustedCount": 15,
+            "fissCount": 15,
+            "aliveTotal": 36,
+            "exhaustedCount": 36,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 0,
-            "beingsWithRpl": 15,
-            "meiEventCount": 4,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 11,
-            "recombinedAlive": 2,
-            "withMeiPacket": 0,
-            "totalMeiCount": 4,
-            "totalFusCount": 4,
-            "diversityRatio": 0.733
+            "beingsWithRpl": 36,
+            "meiEventCount": 27,
+            "fusEventCount": 18,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 9,
+            "withMeiPacket": 18,
+            "totalMeiCount": 27,
+            "totalFusCount": 18,
+            "diversityRatio": 0.75
           },
-          "entries": 792453
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 57,
+            "evolution:FISS": 15,
+            "evolution:MEI": 27,
+            "evolution:FUS": 18,
+            "population:CMP": 9
+          },
+          "entriesKept": 126
         },
         {
           "treatmentId": "fertile_both",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_both",
-            "label": "富足+克隆+重组并存",
-            "envId": "fertile_field",
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 34,
-            "rplInitCount": 14,
+            "rplEventCount": 59,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 6,
-            "fissCount": 8,
-            "aliveTotal": 14,
-            "exhaustedCount": 14,
+            "fissCount": 13,
+            "aliveTotal": 36,
+            "exhaustedCount": 36,
             "rplEndCount": 0,
             "rplTickCapEnds": 0,
             "rplExhaustedEnds": 0,
             "meanRplRemaining": 0,
-            "beingsWithRpl": 14,
-            "meiEventCount": 4,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 13,
-            "recombinedAlive": 2,
-            "withMeiPacket": 0,
-            "totalMeiCount": 4,
-            "totalFusCount": 4,
-            "diversityRatio": 0.929
+            "beingsWithRpl": 36,
+            "meiEventCount": 29,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 27,
+            "recombinedAlive": 11,
+            "withMeiPacket": 18,
+            "totalMeiCount": 29,
+            "totalFusCount": 22,
+            "diversityRatio": 0.75
           },
-          "entries": 700573
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:RPL": 59,
+            "evolution:MEI": 29,
+            "evolution:FUS": 22,
+            "evolution:FISS": 13,
+            "population:CMP": 9
+          },
+          "entriesKept": 132
         }
       ]
     },
     "fertile_mei_fus_strict": {
       "label": "重组+复制耗尽终止",
       "meanFiss": 0,
-      "meanMei": 316.5,
-      "meanFus": 4,
-      "meanAlive": 6,
-      "meanUnique": 6,
+      "meanMei": 351,
+      "meanFus": 20.5,
+      "meanAlive": 22.25,
+      "meanUnique": 22.25,
       "meanDiversity": 1,
       "meanRecombined": 0,
+      "meanEntriesKept": 1764,
       "runs": [
         {
           "treatmentId": "fertile_mei_fus_strict",
           "seed": 0,
-          "treatment": {
-            "id": "fertile_mei_fus_strict",
-            "label": "重组+复制耗尽终止",
-            "envId": "fertile_field_strict",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 981,
-            "rplInitCount": 329,
+            "rplEventCount": 692,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 6,
-            "exhaustedCount": 323,
-            "rplEndCount": 323,
-            "rplTickCapEnds": 0,
-            "rplExhaustedEnds": 323,
+            "aliveTotal": 22,
+            "exhaustedCount": 334,
+            "rplEndCount": 336,
+            "rplTickCapEnds": 2,
+            "rplExhaustedEnds": 334,
             "meanRplRemaining": 1,
-            "beingsWithRpl": 329,
-            "meiEventCount": 327,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 6,
+            "beingsWithRpl": 358,
+            "meiEventCount": 346,
+            "fusEventCount": 20,
+            "uniqueDnaSeqs": 22,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
             "diversityRatio": 1
           },
-          "entries": 197533
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 337,
+            "evolution:RPL": 692,
+            "evolution:MEI": 346,
+            "evolution:FUS": 20,
+            "viability:END": 336,
+            "evolution:SEL": 336,
+            "population:CMP": 9
+          },
+          "entriesKept": 1739
         },
         {
           "treatmentId": "fertile_mei_fus_strict",
           "seed": 1,
-          "treatment": {
-            "id": "fertile_mei_fus_strict",
-            "label": "重组+复制耗尽终止",
-            "envId": "fertile_field_strict",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 930,
-            "rplInitCount": 312,
+            "rplEventCount": 686,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 6,
-            "exhaustedCount": 306,
-            "rplEndCount": 306,
-            "rplTickCapEnds": 0,
-            "rplExhaustedEnds": 306,
+            "aliveTotal": 22,
+            "exhaustedCount": 331,
+            "rplEndCount": 333,
+            "rplTickCapEnds": 2,
+            "rplExhaustedEnds": 331,
             "meanRplRemaining": 1,
-            "beingsWithRpl": 312,
-            "meiEventCount": 310,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 6,
+            "beingsWithRpl": 355,
+            "meiEventCount": 343,
+            "fusEventCount": 20,
+            "uniqueDnaSeqs": 22,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
             "diversityRatio": 1
           },
-          "entries": 195666
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 334,
+            "evolution:RPL": 686,
+            "evolution:MEI": 343,
+            "evolution:FUS": 20,
+            "viability:END": 333,
+            "evolution:SEL": 333,
+            "population:CMP": 9
+          },
+          "entriesKept": 1724
         },
         {
           "treatmentId": "fertile_mei_fus_strict",
           "seed": 2,
-          "treatment": {
-            "id": "fertile_mei_fus_strict",
-            "label": "重组+复制耗尽终止",
-            "envId": "fertile_field_strict",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 945,
-            "rplInitCount": 317,
+            "rplEventCount": 720,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 6,
-            "exhaustedCount": 311,
-            "rplEndCount": 311,
-            "rplTickCapEnds": 0,
-            "rplExhaustedEnds": 311,
+            "aliveTotal": 23,
+            "exhaustedCount": 348,
+            "rplEndCount": 349,
+            "rplTickCapEnds": 1,
+            "rplExhaustedEnds": 348,
             "meanRplRemaining": 1,
-            "beingsWithRpl": 317,
-            "meiEventCount": 315,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 6,
+            "beingsWithRpl": 372,
+            "meiEventCount": 360,
+            "fusEventCount": 22,
+            "uniqueDnaSeqs": 23,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
             "diversityRatio": 1
           },
-          "entries": 195104
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 350,
+            "evolution:RPL": 720,
+            "evolution:MEI": 360,
+            "evolution:FUS": 22,
+            "viability:END": 349,
+            "evolution:SEL": 349,
+            "population:CMP": 9
+          },
+          "entriesKept": 1809
         },
         {
           "treatmentId": "fertile_mei_fus_strict",
           "seed": 3,
-          "treatment": {
-            "id": "fertile_mei_fus_strict",
-            "label": "重组+复制耗尽终止",
-            "envId": "fertile_field_strict",
-            "fissionEnabled": false,
-            "meiEnabled": true,
-            "meiMinAge": 40,
-            "meiMaxStress": 0.26,
-            "meiMinIntegrity": 0.5,
-            "meiMinSubstrate": 0.44,
-            "meiCooldown": 72,
-            "meiBaseProb": 0.42,
-            "fusEnabled": true,
-            "fusPairCooldown": 90,
-            "fusPacketMaxAge": 56,
-            "fusionMutationRate": 0.015,
-            "fusionMaxPop": 36
-          },
           "metrics": {
-            "rplEventCount": 942,
-            "rplInitCount": 316,
+            "rplEventCount": 710,
+            "rplInitCount": 0,
             "rplExhaustedEvents": 0,
             "fissCount": 0,
-            "aliveTotal": 6,
-            "exhaustedCount": 310,
-            "rplEndCount": 310,
-            "rplTickCapEnds": 0,
-            "rplExhaustedEnds": 310,
+            "aliveTotal": 22,
+            "exhaustedCount": 343,
+            "rplEndCount": 345,
+            "rplTickCapEnds": 2,
+            "rplExhaustedEnds": 343,
             "meanRplRemaining": 1,
-            "beingsWithRpl": 316,
-            "meiEventCount": 314,
-            "fusEventCount": 4,
-            "uniqueDnaSeqs": 6,
+            "beingsWithRpl": 367,
+            "meiEventCount": 355,
+            "fusEventCount": 20,
+            "uniqueDnaSeqs": 22,
             "recombinedAlive": 0,
             "withMeiPacket": 0,
             "totalMeiCount": 0,
             "totalFusCount": 0,
             "diversityRatio": 1
           },
-          "entries": 197689
+          "cohortSize": 12,
+          "totalCounts": {
+            "system:system": 346,
+            "evolution:RPL": 710,
+            "evolution:MEI": 355,
+            "evolution:FUS": 20,
+            "viability:END": 345,
+            "evolution:SEL": 345,
+            "population:CMP": 9
+          },
+          "entriesKept": 1784
         }
       ]
     }
@@ -784,34 +686,34 @@
       "clonalVsRecomb": {
         "H1_fusPathExists": {
           "verdict": "support",
-          "mei": 15,
-          "fus": 14
+          "mei": 48,
+          "fus": 48
         },
         "H2_noFissWhenDisabled": {
           "verdict": "support",
           "fiss": 0
         },
         "H3_higherDiversity": {
-          "verdict": "unsupport",
-          "clonalUnique": 14,
-          "recombUnique": 11
+          "verdict": "support",
+          "clonalUnique": 24,
+          "recombUnique": 31
         },
         "H4_populationGrows": {
           "verdict": "support",
-          "alive": 11
+          "alive": 36
         }
       },
       "bothPaths": {
         "H5_dualPath": {
           "verdict": "support",
-          "fiss": 8,
-          "fus": 4,
-          "mei": 4
+          "fiss": 15,
+          "fus": 18,
+          "mei": 25
         },
         "H6_diversityVsClonal": {
-          "verdict": "unsupport",
-          "both": 10,
-          "clonal": 14
+          "verdict": "support",
+          "both": 25,
+          "clonal": 24
         }
       }
     },
@@ -820,34 +722,34 @@
       "clonalVsRecomb": {
         "H1_fusPathExists": {
           "verdict": "support",
-          "mei": 15,
-          "fus": 14
+          "mei": 48,
+          "fus": 48
         },
         "H2_noFissWhenDisabled": {
           "verdict": "support",
           "fiss": 0
         },
         "H3_higherDiversity": {
-          "verdict": "unsupport",
-          "clonalUnique": 13,
-          "recombUnique": 11
+          "verdict": "support",
+          "clonalUnique": 26,
+          "recombUnique": 31
         },
         "H4_populationGrows": {
           "verdict": "support",
-          "alive": 11
+          "alive": 36
         }
       },
       "bothPaths": {
         "H5_dualPath": {
           "verdict": "support",
-          "fiss": 8,
-          "fus": 2,
-          "mei": 3
+          "fiss": 15,
+          "fus": 18,
+          "mei": 25
         },
         "H6_diversityVsClonal": {
-          "verdict": "unsupport",
-          "both": 10,
-          "clonal": 13
+          "verdict": "support",
+          "both": 27,
+          "clonal": 26
         }
       }
     },
@@ -856,34 +758,34 @@
       "clonalVsRecomb": {
         "H1_fusPathExists": {
           "verdict": "support",
-          "mei": 15,
-          "fus": 14
+          "mei": 48,
+          "fus": 48
         },
         "H2_noFissWhenDisabled": {
           "verdict": "support",
           "fiss": 0
         },
         "H3_higherDiversity": {
-          "verdict": "unsupport",
-          "clonalUnique": 11,
-          "recombUnique": 11
+          "verdict": "support",
+          "clonalUnique": 22,
+          "recombUnique": 31
         },
         "H4_populationGrows": {
           "verdict": "support",
-          "alive": 11
+          "alive": 36
         }
       },
       "bothPaths": {
         "H5_dualPath": {
           "verdict": "support",
-          "fiss": 9,
-          "fus": 4,
-          "mei": 4
+          "fiss": 15,
+          "fus": 18,
+          "mei": 27
         },
         "H6_diversityVsClonal": {
           "verdict": "support",
-          "both": 11,
-          "clonal": 11
+          "both": 27,
+          "clonal": 22
         }
       }
     },
@@ -892,39 +794,40 @@
       "clonalVsRecomb": {
         "H1_fusPathExists": {
           "verdict": "support",
-          "mei": 15,
-          "fus": 14
+          "mei": 48,
+          "fus": 48
         },
         "H2_noFissWhenDisabled": {
           "verdict": "support",
           "fiss": 0
         },
         "H3_higherDiversity": {
-          "verdict": "unsupport",
-          "clonalUnique": 14,
-          "recombUnique": 11
+          "verdict": "support",
+          "clonalUnique": 24,
+          "recombUnique": 31
         },
         "H4_populationGrows": {
           "verdict": "support",
-          "alive": 11
+          "alive": 36
         }
       },
       "bothPaths": {
         "H5_dualPath": {
           "verdict": "support",
-          "fiss": 8,
-          "fus": 4,
-          "mei": 4
+          "fiss": 13,
+          "fus": 22,
+          "mei": 29
         },
         "H6_diversityVsClonal": {
-          "verdict": "unsupport",
-          "both": 13,
-          "clonal": 14
+          "verdict": "support",
+          "both": 27,
+          "clonal": 24
         }
       }
     }
   ],
   "design": {
+    "fieldStatMode": "无诞生仪式；StatsRecorder 聚合计数",
     "mei": "各位点随机解析 → meiPacket；消耗 1 RPL",
     "fus": "双体 meiPacket 汇合 → 新个体重组 DNA"
   },
