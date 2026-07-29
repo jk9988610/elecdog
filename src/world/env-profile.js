@@ -1,6 +1,5 @@
 /**
- * 田野环境配置 — Phase 34–35 选择压 / 繁殖 / 个体形态
- * 仅用于 field-batch；观察台默认不启用
+ * 田野 / 观察台环境配置 — Phase 34–36
  */
 
 import { juvenileDrawMultiplier as nurtureJuvenileDraw } from './nurture.js';

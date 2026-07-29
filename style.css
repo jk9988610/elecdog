@@ -81,6 +81,31 @@ input[type='number'] {
   font: inherit;
 }
 
+.env-label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8125rem;
+  color: #8b93a7;
+}
+
+.env-select {
+  min-width: 10rem;
+  max-width: 14rem;
+  background: #12151c;
+  border: 1px solid #2a3140;
+  color: #e8eaef;
+  border-radius: 4px;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-size: 0.8125rem;
+}
+
+.env-select:focus {
+  outline: none;
+  border-color: #3d6a9e;
+}
+
 .tick {
   font-family: ui-monospace, 'Cascadia Code', monospace;
   color: #7ec8e3;
