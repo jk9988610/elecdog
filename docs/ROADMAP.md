@@ -71,7 +71,8 @@
 | **59** | 观察台 CODEX UI + EHU×代次 | ✅ |
 | **60** | 电子人续行 [EHU-REN] | ✅ |
 | **61** | 意识收敛（完整栈默认） | ✅ |
-| **62+** | 意识长时强化… | 见 [CONSCIOUSNESS.md](CONSCIOUSNESS.md) |
+| **62** | 内在流观察 + 3840 tick | ✅ |
+| **63+** | CODEX 意识立项… | 见 [CONSCIOUSNESS.md](CONSCIOUSNESS.md) |
 
 **粗估：核心田野约 10–12 个阶段**，之后进入「扩展世界能力」而非「补数据」。
 

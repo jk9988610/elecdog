@@ -5,6 +5,7 @@ export const OBSERVER_DNA =
 
 export const FIELD_TICKS = 960;
 export const FIELD_LONG_TICKS = 1920;
+export const FIELD_XLONG_TICKS = 3840;
 export const FIELD_SEEDS = [0, 1, 2, 3];
 
 /** 12 体：001–006 各 2（模板多样性） */
