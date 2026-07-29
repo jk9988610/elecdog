@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **Phase 93 GAP-ENV vent [VTN]**
+> 更新：2026-07-29 · **Phase 94 GAP-ENV patch 迁徙 [MIG]**
 
 ---
 
 ## 一、当前状态（一句话）
 
-**Phase 93 交付**；极带地热 vent 田野 **support**（4/4）；下一步 Phase 94 patch 迁徙 / alt。
+**Phase 94 交付**；patch 迁徙田野 **support**（4/4）；路线图 §10.3 空间项 vent+迁徙 完成；下一步 W6 / GAP-11+。
 
 ---
 
@@ -98,6 +98,7 @@
 | **GAP-ENV ADV/LTC** | **91** | ✅ 平流+月相 support |
 | **GAP-ART** | **92** | ✅ ART 场态 support |
 | **GAP-ENV vent** | **93** | ✅ 地热 VTN support |
+| **GAP-ENV MIG** | **94** | ✅ patch 迁徙 support |
 
 ---
 

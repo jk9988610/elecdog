@@ -36,6 +36,8 @@ import { tickLunar, ltcEnabled } from '../world/ltc.js';
 import { tickAdv, advEnabled } from '../world/adv.js';
 import { tickArt, tryArtDeposit, artEnabled, artDrawBonus } from '../world/art.js';
 import { tickVent, ventEnabled } from '../world/vent.js';
+import { tickMigration } from '../world/mig.js';
+import { meanStress } from '../world/selection.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -110,6 +112,11 @@ export function stepWorld(world, recorder) {
   const adv = tickAdv(world, profile);
   const art = tickArt(world, profile);
   const vtn = tickVent(world, profile);
+  const alivePre = world.beings.filter((b) => b.alive);
+  const meanStressVal = alivePre.length
+    ? alivePre.reduce((s, b) => s + meanStress(b), 0) / alivePre.length
+    : 0;
+  const mig = tickMigration(world, profile, { meanStress: meanStressVal });
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -216,6 +223,13 @@ export function stepWorld(world, recorder) {
         world.tick,
         `[VTN] ${world.birthPlace} inject ${vtn.inject} boost×${vtn.boostMult} e${t0?.idx ?? 0}`,
         { kind: 'VTN', place: world.birthPlace, ...vtn }
+      );
+    }
+    if (mig?.fired) {
+      recorder.environment(
+        world.tick,
+        `[MIG] ${mig.from}→${mig.to} alt ${mig.altFrom}→${mig.altTo} tax ${mig.tax}`,
+        { kind: 'MIG', place: world.birthPlace, ...mig }
       );
     }
   }
