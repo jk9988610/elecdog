@@ -3,6 +3,9 @@
  */
 
 import { juvenileDrawMultiplier as nurtureJuvenileDraw } from './nurture.js';
+import { initSubstrate } from './substrate.js';
+import { initWorldPlace } from './place.js';
+import { initDiurnalStats } from './diurnal.js';
 import { STACK_FEEDBACK } from './profile-stack.js';
 import { PERSONA_OBSERVE, PERSONA_FEEDBACK } from './persona-stack.js';
 
@@ -1775,6 +1778,49 @@ export const PHASE84_TREATMENTS = {
   },
 };
 
+const DLC_BASE = {
+  diurnalEnabled: true,
+  diurnalPeriod: 240,
+  placeEnabled: true,
+};
+
+/** Phase 85 — GAP-ENV band E/M/P + [DLC] 日相田野 */
+export const PHASE85_TREATMENTS = {
+  dlc_off_M: {
+    id: 'dlc_off_M',
+    label: '无日相·中带',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    placeBand: 'M',
+    placeEnabled: true,
+    diurnalEnabled: false,
+  },
+  dlc_on_M: {
+    id: 'dlc_on_M',
+    label: '日相·中带',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    placeBand: 'M',
+    ...DLC_BASE,
+  },
+  dlc_on_E: {
+    id: 'dlc_on_E',
+    label: '日相·赤道带',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    placeBand: 'E',
+    ...DLC_BASE,
+  },
+  dlc_on_P: {
+    id: 'dlc_on_P',
+    label: '日相·极带',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    placeBand: 'P',
+    ...DLC_BASE,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2327,6 +2373,20 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase85Treatment(world, treatmentId) {
+  const treatment = PHASE85_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase85 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 85, treatmentId, ...treatment };
+  initWorldPlace(world, world.envProfile);
+  initSubstrate(world);
+  initDiurnalStats(world);
   return world.envProfile;
 }
 

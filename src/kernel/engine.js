@@ -25,6 +25,7 @@ import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { runMetabolism } from '../world/organism.js';
 import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
+import { tickDiurnal, diurnalEnabled, recordDiurnalLow, initDiurnalStats } from '../world/diurnal.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -81,6 +82,8 @@ function slotOf(world, beingId) {
 export function stepWorld(world, recorder) {
   world.tick++;
 
+  const profile = world.envProfile ?? {};
+  const dlc = tickDiurnal(world, profile);
   advanceSubstrate(world);
   advanceNodes(world);
   const catastrophes = advanceCatastrophe(world);
@@ -129,6 +132,14 @@ export function stepWorld(world, recorder) {
       nodes: nodesSnapshot(world),
     });
     recorder.environment(world.tick, ambienceLine(world), { kind: 'AMB', place: world.birthPlace });
+    if (dlc && world._dlcQuarter !== dlc.quarter) {
+      world._dlcQuarter = dlc.quarter;
+      recorder.environment(
+        world.tick,
+        `[DLC] ${world.birthPlace} solar ${dlc.solar.toFixed(3)} e${dlc.idx} q${dlc.quarter}`,
+        { kind: 'DLC', place: world.birthPlace, ...dlc }
+      );
+    }
   }
 
   const delivered = world.signalBus.filter((s) => s.deliverAt === world.tick);
@@ -361,6 +372,7 @@ export function stepWorld(world, recorder) {
     }
     if (met.low) {
       being.lowStreak++;
+      if (dlc) recordDiurnalLow(world, { night: dlc.night });
       if (!stat) {
         recorder.metabolism(
           world.tick,
