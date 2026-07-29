@@ -538,4 +538,16 @@
 - **事实**：`codex_stack_full` H3 **≈93%**、EHU-REN **≈3992**、三层迹并存 **100%**；`codex_stack_ren_off` EHU-REN **0**
 - **备注**：辞典 +2（续行交叉迹、意识完整栈）→ 总计 **28 条**
 
+## OBS-20260729-73
+
+- **世界**：—；辞典云同步验证（Phase 64）
+- **事实**：本地合并 28+1 条逻辑通过；云覆盖同 id 生效；EHU 计数不变
+- **备注**：`npm run codex:verify`；观察台辞典 Realtime 刷新
+
+## OBS-20260729-74
+
+- **世界**：—；辞典发布脚本（Phase 64）
+- **事实**：`codex-data.js` **28 条**可一键 `npm run codex:publish` upsert 至 `codex_entries`
+- **备注**：离线兜底不变；云为只读覆盖观察层
+
 ---

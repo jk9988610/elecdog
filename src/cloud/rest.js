@@ -109,3 +109,28 @@ export async function fetchLogArchive(logPath) {
   }
   return res.json();
 }
+
+export async function listCodexEntries({ limit = 64 } = {}) {
+  if (!isCloudEnabled()) return [];
+  return restRequest(
+    'GET',
+    `/codex_entries?select=*&order=title.asc&limit=${limit}`
+  );
+}
+
+export async function upsertCodexEntries(rows) {
+  if (!isCloudEnabled()) throw new Error('云同步未配置');
+  const payload = rows.map((r) => ({
+    id: r.id,
+    title: r.title,
+    definition: r.definition,
+    evidence: r.evidence ?? [],
+    falsifiable: r.falsifiable,
+    established: r.established ?? null,
+    tag: r.tag ?? null,
+    updated_at: r.updated_at ?? new Date().toISOString(),
+  }));
+  return restRequest('POST', '/codex_entries?on_conflict=id', payload, {
+    Prefer: 'resolution=merge-duplicates,return=representation',
+  });
+}

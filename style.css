@@ -678,6 +678,14 @@ input[type='number'] {
   color: #c8a0e8;
 }
 
+.codex-cloud-badge {
+  font-size: 0.65rem;
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  background: #1a2a3a;
+  color: #7ec8e3;
+}
+
 .codex-item-body {
   display: none;
   padding: 0 0.75rem 0.75rem;
