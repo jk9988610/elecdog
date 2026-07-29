@@ -46,7 +46,8 @@ npm run apk:debug     # 本机 SDK 就绪后构建 debug APK
 
 ```bash
 npm run field:phase26        # L4 环境筛选
-npm run field:phase26:cloud  # 同上 + 自动上传 Supabase
+npm run field:phase33        # 社会合作田野（四体 3000×4 种子）
+npm run field:phase33:cloud  # 同上 + 上传 Supabase
 npm run field:cloud-upload -- 26  # 手动上传已有报告
 ```
 
