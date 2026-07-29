@@ -4,6 +4,10 @@ export function predictionEnabled(profile) {
   return profile?.predictionEnabled === true;
 }
 
+export function predictionFeedbackEnabled(profile) {
+  return predictionEnabled(profile) && profile?.predictionFeedbackEnabled === true;
+}
+
 export function initPrediction(being) {
   being.prdSubPred = null;
   being.prdRegPred = null;
@@ -12,6 +16,12 @@ export function initPrediction(being) {
   being.prdLastError = 0;
   being.prdHighErrorTicks = 0;
   being.prdLogCount = 0;
+  being.prdLateErrorSum = 0;
+  being.prdLateErrorCount = 0;
+  being.prdLateEarlySum = 0;
+  being.prdLateEarlyCount = 0;
+  being.prdLateLateSum = 0;
+  being.prdLateLateCount = 0;
 }
 
 function blend(prev, next, alpha) {
@@ -55,6 +65,21 @@ export function updatePrediction(being, substrate, profile) {
   return { error: being.prdLastError, first: false };
 }
 
+/** 预测误差 → 行为微调（Phase 74；非「知道」语义） */
+export function predictionActBias(being, profile) {
+  if (!predictionFeedbackEnabled(profile)) {
+    return { actBoost: 0, thresholdDelta: 0, prdLoad: 0 };
+  }
+  const err = being.prdLastError ?? 0;
+  const meanErr = being.prdErrorCount ? being.prdErrorSum / being.prdErrorCount : err;
+  const prdLoad = +(err + meanErr * 0.3).toFixed(4);
+  return {
+    actBoost: +(meanErr * 0.05 - err * 0.04).toFixed(4),
+    thresholdDelta: +(-err * 0.03 + meanErr * 0.012).toFixed(4),
+    prdLoad,
+  };
+}
+
 export function processPredictionTick(
   world,
   recorder,
@@ -67,6 +92,20 @@ export function processPredictionTick(
 
   const result = updatePrediction(being, substrate, profile);
   if (result.first) return result;
+
+  const lateStart = profile?.predictionLateStart ?? 960;
+  const lateMid = profile?.predictionLateMid ?? 1440;
+  if (world.tick >= lateStart && world.tick < lateMid) {
+    being.prdLateEarlySum = (being.prdLateEarlySum ?? 0) + result.error;
+    being.prdLateEarlyCount = (being.prdLateEarlyCount ?? 0) + 1;
+  } else if (world.tick >= lateMid) {
+    being.prdLateLateSum = (being.prdLateLateSum ?? 0) + result.error;
+    being.prdLateLateCount = (being.prdLateLateCount ?? 0) + 1;
+  }
+  if (world.tick >= lateStart) {
+    being.prdLateErrorSum = (being.prdLateErrorSum ?? 0) + result.error;
+    being.prdLateErrorCount = (being.prdLateErrorCount ?? 0) + 1;
+  }
 
   const logThreshold = profile?.predictionLogThreshold ?? 0.06;
   const meanError = being.prdErrorCount
@@ -106,9 +145,27 @@ export function predictionSnapshot(being) {
   const meanError = being.prdErrorCount
     ? +(being.prdErrorSum / being.prdErrorCount).toFixed(4)
     : 0;
+  const lateMean =
+    being.prdLateErrorCount > 0
+      ? +(being.prdLateErrorSum / being.prdLateErrorCount).toFixed(4)
+      : null;
+  const lateEarly =
+    being.prdLateEarlyCount > 0
+      ? +(being.prdLateEarlySum / being.prdLateEarlyCount).toFixed(4)
+      : null;
+  const lateLate =
+    being.prdLateLateCount > 0
+      ? +(being.prdLateLateSum / being.prdLateLateCount).toFixed(4)
+      : null;
+  const lateTrend =
+    lateEarly != null && lateLate != null ? +(lateLate - lateEarly).toFixed(4) : null;
   return {
     lastError: +(being.prdLastError ?? 0).toFixed(4),
     meanError,
+    lateMeanError: lateMean,
+    lateEarlyError: lateEarly,
+    lateLateError: lateLate,
+    lateTrend,
     highErrorTicks: being.prdHighErrorTicks ?? 0,
     logCount: being.prdLogCount ?? 0,
     samples: being.prdErrorCount ?? 0,

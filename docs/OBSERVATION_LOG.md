@@ -631,4 +631,15 @@
   - H1/H2/H3 均 **4/4 support**；批次 **support**
 - **备注**：记录层不反馈行为；Phase 74 校正待开工
 
+## OBS-20260729-85
+
+- **世界**：智慧演化场（Phase 74 · W3 校正）
+- **处理组**：`w3_prd_record` vs `w3_prd_feedback`
+- **田野**：12体 × 1920 tick × 4 种子
+- **事实**：
+  - feedback 组 highErrorTicks **0.254** vs record **0.258**
+  - H3 高误差减少 **3/4**；H4 PRD **4/4**
+  - 批次综合 **support**；GAP-W03 结案
+- **备注**：报告见 `docs/field-phase74-report.json`
+
 ---

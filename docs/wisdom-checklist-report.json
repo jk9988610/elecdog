@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-29T17:18:10.900Z",
+  "runAt": "2026-07-29T17:22:28.588Z",
   "phase": 70,
   "extension": "wisdom_checklist",
   "kind": "wisdom-birth-conditions",
@@ -84,8 +84,8 @@
       {
         "id": "L4c-predict",
         "label": "预测–校正回路",
-        "status": "partial",
-        "phase": "73",
+        "status": "complete",
+        "phase": "74",
         "goal": "W3",
         "layer": "L4",
         "layerLabel": "认知闭环"
@@ -126,12 +126,12 @@
       }
     ],
     "summary": {
-      "complete": 9,
-      "partial": 3,
+      "complete": 10,
+      "partial": 2,
       "open": 2,
       "total": 14
     },
-    "progressPct": 64,
+    "progressPct": 71,
     "currentPhase": 74,
     "currentGoal": "W3-feedback",
     "roadmap": "docs/WISDOM.md"
@@ -233,8 +233,8 @@
         {
           "id": "L4c-predict",
           "label": "预测–校正回路",
-          "status": "partial",
-          "phase": "73",
+          "status": "complete",
+          "phase": "74",
           "goal": "W3",
           "layer": "L4",
           "layerLabel": "认知闭环"

@@ -34,7 +34,7 @@ const report = {
     acc[item.layer].items.push(item);
     return acc;
   }, {}),
-  next: 'Phase 74 W3 — prediction error feedback to behavior',
+  next: 'Phase 75 W4 — social knowledge accumulation',
 };
 
 writeFileSync(
