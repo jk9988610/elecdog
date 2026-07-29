@@ -28,11 +28,14 @@ export class ObserverApp {
   constructor(root, options = {}) {
     this.root = root;
     this.otaLabel = options.otaLabel || '';
+    this.otaStatus = options.otaStatus || '';
+    this.nativeShell = Boolean(options.nativeShell);
     this.world = null;
     this.recorder = new Recorder();
     this.timer = null;
     this.speed = 200;
     this.cloudBusy = false;
+    this.otaBusy = false;
     this.lastArchiveId = null;
     this.render();
     this.bootstrapWorld();
@@ -42,7 +45,7 @@ export class ObserverApp {
   render() {
     this.root.innerHTML = `
       <header class="header">
-        <h1>ElecDoge-电子狗-v1.0.1</h1>
+        <h1>ElecDoge-电子狗-v1.0.2</h1>
         <p class="subtitle">世界实况 · 辞典统计</p>
       </header>
 
@@ -53,6 +56,8 @@ export class ObserverApp {
         <span id="tick-display" class="tick">tick 0</span>
         <span id="place-display" class="place"></span>
         ${this.otaLabel ? `<span id="ota-version" class="ota-version" title="当前网页热更新版本">${escapeHtml(this.otaLabel)}</span>` : ''}
+        ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : ''}
+        ${this.nativeShell && this.otaStatus ? `<span id="ota-status" class="ota-status" title="热更新状态">${escapeHtml(this.otaStatus)}</span>` : ''}
         <span class="toolbar-spacer"></span>
         <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
@@ -122,10 +127,16 @@ export class ObserverApp {
       cloudRuns: this.root.querySelector('#cloud-runs'),
       cloudNotes: this.root.querySelector('#cloud-notes'),
       cloudMessage: this.root.querySelector('#cloud-message'),
+      btnOtaCheck: this.root.querySelector('#btn-ota-check'),
+      otaStatus: this.root.querySelector('#ota-status'),
+      otaVersion: this.root.querySelector('#ota-version'),
     };
 
     this.$.btnRun.addEventListener('click', () => this.run());
     this.$.btnPause.addEventListener('click', () => this.pause());
+    if (this.$.btnOtaCheck) {
+      this.$.btnOtaCheck.addEventListener('click', () => this.checkOta());
+    }
     this.$.btnCloudToggle.addEventListener('click', () => this.toggleCloudPanel());
     this.$.btnCloudArchive.addEventListener('click', () => this.uploadArchive());
     this.$.btnSaveObserver.addEventListener('click', () => this.saveObserverLabel());
@@ -186,6 +197,39 @@ export class ObserverApp {
     if (!this.$.cloudPanel.classList.contains('hidden')) {
       this.refreshCloudPanel();
     }
+  }
+
+  async checkOta() {
+    if (!this.nativeShell || this.otaBusy) return;
+    this.otaBusy = true;
+    if (this.$.btnOtaCheck) this.$.btnOtaCheck.disabled = true;
+    this.setOtaStatus('检查中…');
+    try {
+      const { runOtaBootstrapNative } = await import('../ota/native-bridge.js');
+      const ota = await runOtaBootstrapNative();
+      if (ota.updated) return;
+      if (this.$.otaVersion && ota.label) this.$.otaVersion.textContent = ota.label;
+      this.setOtaStatus(ota.status || '完成');
+    } catch (err) {
+      this.setOtaStatus(`失败: ${err?.message || err}`);
+    } finally {
+      this.otaBusy = false;
+      if (this.$.btnOtaCheck) this.$.btnOtaCheck.disabled = false;
+    }
+  }
+
+  setOtaStatus(text) {
+    if (!this.$.otaStatus) {
+      const toolbar = this.root.querySelector('.toolbar');
+      if (!toolbar || !text) return;
+      const span = document.createElement('span');
+      span.id = 'ota-status';
+      span.className = 'ota-status';
+      span.title = '热更新状态';
+      toolbar.insertBefore(span, toolbar.querySelector('.toolbar-spacer'));
+      this.$.otaStatus = span;
+    }
+    if (this.$.otaStatus) this.$.otaStatus.textContent = text;
   }
 
   setCloudMessage(text, isError = false) {
