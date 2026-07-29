@@ -41,7 +41,7 @@ npm run observer:env-stack
 ## 三、出口与下一步
 
 - **已交付**：W6 全栈观察界面闭环
-- **下一步**：田野深化 / 新 GAP 立项
+- **下一步**：GAP-W06 信号约定 — 见 [PHASE100_SEMANTIC_SIGNAL.md](PHASE100_SEMANTIC_SIGNAL.md)
 
 ---
 
