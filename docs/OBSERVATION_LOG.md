@@ -550,4 +550,10 @@
 - **事实**：`codex-data.js` **28 条**可一键 `npm run codex:publish` upsert 至 `codex_entries`
 - **备注**：离线兜底不变；云为只读覆盖观察层
 
+## OBS-20260729-75
+
+- **世界**：01；意识交叉验证 **3840 tick** × 4 种子（Phase 65）
+- **事实**：`cn_xv_quad_3840` H3 **≈93%**、EHU-REN **≈3611**、四体信号可观测；`cn_xv_ehu_off_quad` H3 **≈0** 但 TX/RX 仍活跃
+- **备注**：个体级 socTx/Rx 计数；`resetBirthCounters` 保证种子独立
+
 ---
