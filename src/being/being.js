@@ -74,6 +74,14 @@ export class Being {
     this.metTransitions = 0;
     this.metDrawTotal = 0;
     this.metDominantIdx = 0;
+    this.coopMode = 'S0';
+    this.coopModeAt = 0;
+    this.coopTransitions = 0;
+    this.socRx = 0;
+    this.socCrossRx = 0;
+    this.socTx = 0;
+    this.socAct = 0;
+    this.socContest = 0;
   }
 
   advanceRegisters(substrate = null, profile = null) {

@@ -496,6 +496,30 @@ export const ENV_PROFILES = {
     metabolicProfileEnabled: true,
     metabolicFeedback: true,
   },
+  fertile_coop_feedback: {
+    id: 'fertile_coop_feedback',
+    label: '富足场+社会合作反馈',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    fissionEnabled: true,
+    fissionMinSubstrate: 0.44,
+    fissionMaxStress: 0.28,
+    fissionMinIntegrity: 0.48,
+    fissionCooldown: 52,
+    fissionMinAge: 36,
+    fissionBaseProb: 0.46,
+    fissionMutationRate: 0.012,
+    fissionMaxPop: 36,
+    rplEnabled: true,
+    rplBaseMax: 2,
+    rplMaxSpread: 1,
+    rplSenescenceEnd: false,
+    rplTickCapEnabled: false,
+    cooperationProfileEnabled: true,
+    cooperationFeedback: true,
+  },
 };
 
 const REN_BASE = {
@@ -854,6 +878,40 @@ export const PHASE50_TREATMENTS = {
   },
 };
 
+const COOP_BASE = {
+  cooperationProfileEnabled: true,
+  cooperationFeedback: true,
+};
+
+/** Phase 51 — 社会合作层 [COOP] 社会迹聚合与反馈 */
+export const PHASE51_TREATMENTS = {
+  fertile_no_coop: {
+    id: 'fertile_no_coop',
+    label: '富足场（无合作层）',
+    envId: 'fertile_field',
+  },
+  fertile_coop_observe: {
+    id: 'fertile_coop_observe',
+    label: '富足场+合作观测',
+    envId: 'fertile_field',
+    cooperationProfileEnabled: true,
+    cooperationFeedback: false,
+  },
+  fertile_coop_feedback: {
+    id: 'fertile_coop_feedback',
+    label: '富足场+合作反馈',
+    envId: 'fertile_field',
+    ...COOP_BASE,
+  },
+  fertile_coop_dense: {
+    id: 'fertile_coop_dense',
+    label: '富足场+合作反馈(高密)',
+    envId: 'fertile_field',
+    fissionMaxPop: 48,
+    ...COOP_BASE,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1204,6 +1262,17 @@ export function applyPhase50Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 50, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase51Treatment(world, treatmentId) {
+  const treatment = PHASE51_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase51 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 51, treatmentId, ...treatment };
   return world.envProfile;
 }
 

@@ -146,8 +146,11 @@
   - 分工偏斜 **support**（TGT/TX skew 259–509）
   - RX↔存活、contest↔END：**跨种子不一致**（support/pending/unsupport 混杂）
   - **不立项**「合作」「角色名」CODEX 条
-- **状态**：**仍开放** — 已有定量田野，合作因果定律未确立
-- **报告**：[2026-07-29-phase33-social.md](REPORTS/2026-07-29-phase33-social.md)
+- **Phase 51 扩展**：
+  - `[COOP]` 运行时模式 SOLO/MESH/RIVAL/ECHO（社会迹聚合）
+  - 可选行为反馈；统计田野 12 体 × 960 tick × 4 处理组
+- **状态**：**部分结案** — 社会迹档案可观察；合作因果定律仍开放
+- **报告**：[PHASE51_COOPERATION.md](PHASE51_COOPERATION.md) · `field-phase51-report.json`
 
 ---
 

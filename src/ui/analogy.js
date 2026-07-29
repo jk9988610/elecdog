@@ -80,6 +80,8 @@ const LABELS = {
   regMode: { native: '寄存器模式', analogy: '场对齐模式' },
   mtb: { native: '代谢 MTB', analogy: '摄取通道档案' },
   metProfile: { native: '代谢档案', analogy: '通道摄取模式' },
+  coop: { native: '合作 COOP', analogy: '社会迹模式' },
+  coopMode: { native: '合作模式', analogy: '社会互动模式' },
 };
 
 export function label(key) {
@@ -115,6 +117,12 @@ export function formatMetProfile(profile) {
   const labels = { N0: '初采', DOM: '单通道主导', BAL: '多通道均衡', SCAR: '匮乏型' };
   if (!isAnalogyMode()) return profile ?? 'N0';
   return labels[profile] ?? profile ?? '初采';
+}
+
+export function formatCoopMode(mode) {
+  const labels = { S0: '初态', SOLO: '孤立', MESH: '交叉接收', RIVAL: '争夺', ECHO: '广播' };
+  if (!isAnalogyMode()) return mode ?? 'S0';
+  return labels[mode] ?? mode ?? '初态';
 }
 
 export function viewModeHint() {

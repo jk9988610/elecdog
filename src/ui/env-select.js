@@ -26,6 +26,7 @@ export const OBSERVER_ENV_IDS = [
   'fertile_exp_feedback',
   'fertile_reg_couple',
   'fertile_mtb_feedback',
+  'fertile_coop_feedback',
   'fertile_inert',
   'harsh_combined',
 ];
@@ -48,6 +49,7 @@ const ANALOGY_LABELS = {
   fertile_exp_feedback: '富足场（阅历积累+行为反馈）',
   fertile_reg_couple: '富足场（寄存器模式+场耦合反馈）',
   fertile_mtb_feedback: '富足场（代谢通道分布+摄取反馈）',
+  fertile_coop_feedback: '富足场（社会合作模式+行为反馈）',
   fertile_inert: '富足场（无分裂门）',
   harsh_combined: '组合高压（死亡续行）',
 };
@@ -99,6 +101,7 @@ export function observerEnvHint(id) {
     fertile_exp_feedback: '富足场 + [EXP] 阅历阶段（E0–E3）调制 ACT 阈值',
     fertile_reg_couple: '富足场 + [REG] 模式（SYNC/LAG/SCATTER/LOCK）调制基底耦合',
     fertile_mtb_feedback: '富足场 + [MTB] 摄取档案（DOM/BAL/SCAR）调制 DRW 倍率',
+    fertile_coop_feedback: '富足场 + [COOP] 社会迹模式（MESH/RIVAL 等）调制 ACT',
     fertile_inert: '同等富足基底，fissionEnabled 关闭（对照）',
     harsh_combined: '耗竭 + 脉冲 + 幼体脆弱；[END]→[LINEAGE] 高周转',
   };
