@@ -65,6 +65,8 @@ export function buildDashboardStats(world, recorder) {
       code: b.code,
       slot: b.socialSlot,
       generation: b.generation ?? 0,
+      tickCount: b.tickCount ?? 0,
+      bornAtTick: b.bornAtTick,
       registers: b.registers.map((v) => v.toFixed(3)),
       cellBoundary: b.cellBoundary,
       integrity,
