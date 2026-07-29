@@ -1647,6 +1647,67 @@ export const PHASE80_TREATMENTS = {
   },
 };
 
+/** W2 纯演化栈 — 无记忆反馈/EHU 深化（Phase 81） */
+const W2_CORE_ONLY = {
+  ...PERSONA_TRI_FEEDBACK,
+  ...REN_BASE,
+  ...PLG_BASE,
+  memoryFeedbackEnabled: false,
+  ehuSocialDeepEnabled: false,
+  ehuLineageEchoEnabled: false,
+  ehuBindNarrative: false,
+  fieldLongStudy: true,
+};
+
+/** W2 代次深度调参 — 放宽 MEI 门槛（Phase 81） */
+const W2_DEPTH_MEI = {
+  meiMinAge: 28,
+  meiCooldown: 48,
+  meiBaseProb: 0.55,
+  meiMaxStress: 0.32,
+  meiMinSubstrate: 0.38,
+};
+
+const W2_SHK_PULSE = {
+  pulseInterval: 50,
+  substrateDrainMult: 0.88,
+  substrateFloor: 0.4,
+};
+
+/** Phase 81 — GAP-10 W2-only 栈 + 代次深度攻坚（3000 tick） */
+export const PHASE81_TREATMENTS = {
+  w2_p81_replay_ref: {
+    id: 'w2_p81_replay_ref',
+    label: 'Phase72基线复现',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+  },
+  w2_p81_replay_shk: {
+    id: 'w2_p81_replay_shk',
+    label: 'Phase72剧变复现',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    ...W2_SHK_PULSE,
+  },
+  w2_p81_core_shk: {
+    id: 'w2_p81_core_shk',
+    label: 'W2纯栈+剧变',
+    envId: 'wisdom_evolution',
+    ...W2_CORE_ONLY,
+    catastropheDisabled: false,
+    substrateBoost: 0,
+    ...W2_SHK_PULSE,
+  },
+  w2_p81_depth_shk: {
+    id: 'w2_p81_depth_shk',
+    label: '深度MEI+剧变',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    ...W2_DEPTH_MEI,
+    ...W2_SHK_PULSE,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2199,6 +2260,21 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase81Treatment(world, treatmentId) {
+  const treatment = PHASE81_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase81 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 81, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
