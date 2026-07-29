@@ -3,6 +3,7 @@
 import { hashString, mulberry32 } from '../core/hash.js';
 import { mutate } from '../core/dna.js';
 import { performBirthRitual } from '../birth/ritual.js';
+import { applyFissionReplication, hasReplicationRemaining } from './replication.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -48,6 +49,7 @@ export function fissionGate(world, being, { stress, integrity }) {
   if (stress > (profile.fissionMaxStress ?? 0.25) + dna.stressCeilAdj) return null;
   if (integrity != null && integrity < (profile.fissionMinIntegrity ?? 0.5)) return null;
   if (being.lowStreak > 0) return null;
+  if (!hasReplicationRemaining(being, profile)) return null;
 
   const baseProb = profile.fissionBaseProb ?? 0.4;
   const eagerP = Math.min(0.95, baseProb + dna.bias * 0.4);
@@ -59,6 +61,9 @@ export function fissionGate(world, being, { stress, integrity }) {
 
 export function spawnFissionOffspring(world, recorder, parent, gate) {
   const profile = world.envProfile ?? {};
+  const maxPop = profile.fissionMaxPop ?? 64;
+  if (world.beings.filter((b) => b.alive).length >= maxPop) return null;
+
   const rate = profile.fissionMutationRate ?? 0.012;
   const seed = hashString(`${parent.id}:${world.tick}:fission`);
   const { seq, mutationCount } = mutate(parent.dna.sequence, rate, seed);
@@ -77,8 +82,11 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
   parent.lastFissionTick = world.tick;
   parent.fissionCount = (parent.fissionCount ?? 0) + 1;
 
+  applyFissionReplication(world, recorder, parent, born.being);
+
+  const retain = profile.fissionRegisterRetain ?? 0.82;
   for (let i = 0; i < parent.registers.length; i++) {
-    parent.registers[i] = Math.max(0, parent.registers[i] * 0.82);
+    parent.registers[i] = Math.max(0, parent.registers[i] * retain);
   }
 
   recorder.evolution(world.tick, parent.id, `[FISS] ${born.id} mut${mutationCount} ē${gate.fert.avg}`, {

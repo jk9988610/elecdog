@@ -75,6 +75,9 @@ export function buildDashboardStats(world, recorder) {
       stressStreak: b.stressStreak,
       fissionCount: b.fissionCount ?? 0,
       organismType: b.organismType ?? 'unicell',
+      rplRemaining: b.rplRemaining,
+      rplMax: b.rplMax,
+      rplTickCap: b.rplTickCap,
       ...es,
     };
   });
@@ -90,6 +93,7 @@ export function buildDashboardStats(world, recorder) {
       envLabel: observerEnvLabel(envId),
       envHint: observerEnvHint(envId),
       fissionEnabled: Boolean(world.envProfile?.fissionEnabled),
+      rplEnabled: Boolean(world.envProfile?.rplEnabled),
     },
     environment: {
       substrate,
@@ -109,6 +113,8 @@ export function buildDashboardStats(world, recorder) {
       ended: entries.filter((e) => e.meta?.kind === 'END').length,
       lineage: entries.filter((e) => e.content?.includes('[LINEAGE]')).length,
       fission: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS').length,
+      rpl: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'RPL').length,
+      rplExhausted: entries.filter((e) => e.meta?.kind === 'RPL' && e.meta?.phase === 'exhausted').length,
       selection: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'SEL').length,
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,
