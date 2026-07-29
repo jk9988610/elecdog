@@ -20,6 +20,7 @@ import {
 } from '../cloud/field-sync.js';
 import { formatSupabaseError } from '../cloud/supabase-error.js';
 import { getLogPublicUrl } from '../cloud/rest.js';
+import { fetchCodexEntries } from '../cloud/codex-sync.js';
 import { subscribeFieldCloud, stopFieldCloudSubscription } from '../cloud/realtime.js';
 import {
   getObserverEnvId,
@@ -201,6 +202,7 @@ export class ObserverApp {
 
     this.codexPanel = initCodexPanel(this.root, {
       onClose: () => this.closeCodexPanel(),
+      fetchCloudEntries: () => fetchCodexEntries(),
     });
 
     this.mindStreamPanel = initMindStreamPanel(this.root, {
@@ -421,6 +423,7 @@ export class ObserverApp {
       this.cloudUnsub = await subscribeFieldCloud({
         onArchive: (row) => this.onRealtimeArchive(row),
         onNote: (row) => this.onRealtimeNote(row),
+        onCodex: (row) => this.onRealtimeCodex(row),
         onStatus: (status) => {
           if (status === 'SUBSCRIBED') {
             this.cloudRealtime = true;
@@ -456,6 +459,12 @@ export class ObserverApp {
     const who = row?.author_label || '—';
     this.setCloudMessage(`实时：${who} 保存了 ${id}`);
     this.refreshCloudPanel();
+  }
+
+  onRealtimeCodex(row) {
+    const title = row?.title || row?.id || '辞典';
+    this.setCloudMessage(`实时：辞典更新 ${title}`);
+    this.codexPanel?.refreshFromCloud?.();
   }
 
   async refreshCloudPanel() {

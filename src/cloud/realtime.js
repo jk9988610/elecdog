@@ -33,7 +33,12 @@ async function loadClient() {
 }
 
 /**
- * @param {{ onArchive?: (row: object) => void, onNote?: (row: object) => void, onStatus?: (status: string) => void }} handlers
+ * @param {{
+ *   onArchive?: (row: object) => void,
+ *   onNote?: (row: object) => void,
+ *   onCodex?: (row: object) => void,
+ *   onStatus?: (status: string) => void,
+ * }} handlers
  * @returns {() => void} unsubscribe
  */
 export async function subscribeFieldCloud(handlers = {}) {
@@ -63,6 +68,16 @@ export async function subscribeFieldCloud(handlers = {}) {
       'postgres_changes',
       { event: 'UPDATE', schema: 'public', table: 'field_notes' },
       (payload) => handlers.onNote?.(payload.new)
+    )
+    .on(
+      'postgres_changes',
+      { event: 'INSERT', schema: 'public', table: 'codex_entries' },
+      (payload) => handlers.onCodex?.(payload.new)
+    )
+    .on(
+      'postgres_changes',
+      { event: 'UPDATE', schema: 'public', table: 'codex_entries' },
+      (payload) => handlers.onCodex?.(payload.new)
     )
     .subscribe((status) => handlers.onStatus?.(status));
 

@@ -18,6 +18,7 @@
 2. **田野笔记 `field_notes`** — 按 OBS 编号保存 L1 观察笔记
 3. **Storage `elecdog-logs`** — `runs/` 观察台日志 · `field-reports/` 批处理报告
 4. **观察台 UI** — 上传、云设置、归档列表、**预览**日志片段
+5. **辞典 `codex_entries`** — L2 辞典云同步 + Realtime（Phase 64）
 
 ### 田野批处理上传（Phase 30）
 
@@ -56,6 +57,23 @@ node scripts/field-cloud-upload.mjs 48-53
 Phase 48–53 统计田野的 `aggregate` 格式会在 `field_runs.summary` 中写入处理组均值与头指标；观察台预览可直接阅读。
 
 详见 [PHASE54_CLOUD_ARCHIVE.md](PHASE54_CLOUD_ARCHIVE.md)。
+
+### 辞典云同步（Phase 64）
+
+```bash
+# 将 codex-data.js 全量发布到 Supabase
+npm run codex:publish
+
+# 验证本地合并逻辑（加 --cloud 可拉取云表）
+npm run codex:verify
+```
+
+观察台辞典面板：打开时自动云合并；**刷新**按钮手动拉取；云条目显示「云」徽章。  
+Realtime 推送 `codex_entries` 变更时自动刷新。
+
+一次性配置：SQL Editor 执行 [`supabase/schema-codex.sql`](../supabase/schema-codex.sql) 与 [`supabase/schema-realtime-codex.sql`](../supabase/schema-realtime-codex.sql)。
+
+详见 [PHASE64_CODEX_CLOUD.md](PHASE64_CODEX_CLOUD.md)。
 
 ### 多设备观察同步（Phase 31）
 
@@ -96,6 +114,8 @@ Dashboard → **Storage** → **New bucket**
 1. [`supabase/schema.sql`](../supabase/schema.sql) — 表 `field_runs`、`field_notes` 与 RLS
 2. [`supabase/schema-storage-policies.sql`](../supabase/schema-storage-policies.sql) — 桶 `elecdog-logs` 策略
 3. [`supabase/schema-realtime.sql`](../supabase/schema-realtime.sql) — Realtime 发布（Phase 31）
+4. [`supabase/schema-codex.sql`](../supabase/schema-codex.sql) — 辞典表（Phase 64）
+5. [`supabase/schema-realtime-codex.sql`](../supabase/schema-realtime-codex.sql) — 辞典 Realtime（Phase 64）
 
 ### 3. 客户端
 
@@ -130,6 +150,19 @@ Dashboard → **Storage** → **New bucket**
 | `related_run_id` | uuid | 可选，关联归档 |
 | `author_label` | text | 观察者 |
 
+### `codex_entries`（Phase 64）
+
+| 列 | 类型 | 说明 |
+|----|------|------|
+| `id` | text | 词条主键（与 codex-data.js 一致） |
+| `title` | text | 标题 |
+| `definition` | text | 定义 |
+| `evidence` | text[] | OBS 依据列表 |
+| `falsifiable` | text | 可证伪条件 |
+| `established` | date | 立项日期 |
+| `tag` | text | 可选标签（如 EHU） |
+| `updated_at` | timestamptz | 最近同步时间 |
+
 ### Storage `elecdog-logs`
 
 ```
@@ -144,7 +177,9 @@ runs/{uuid}.json   # 世界摘要 + recorder.entries 全量
 src/cloud/
   config.js         # URL / anon key / 观察者昵称
   rest.js           # fetch REST + Storage（无 CDN SDK）
+  codex-sync.js     # 辞典合并与拉取（Phase 64）
   field-sync.js     # 归档与笔记高层 API
+  realtime.js       # 归档/笔记/辞典 Realtime
   supabase-error.js # 中文错误提示
 ```
 
