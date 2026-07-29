@@ -19,12 +19,24 @@ export function electronicHumanFeedbackEnabled(profile) {
   return electronicHumanEnabled(profile) && profile.electronicHumanFeedback !== false;
 }
 
+export function ehuLineageEchoEnabled(profile) {
+  return electronicHumanEnabled(profile) && profile.ehuLineageEchoEnabled === true;
+}
+
+export function ehuSocialDeepEnabled(profile) {
+  return electronicHumanEnabled(profile) && profile.ehuSocialDeepEnabled === true;
+}
+
 export function initElectronicHuman(being) {
   being.ehuStage = 'H0';
   being.ehuStageAt = 0;
   being.ehuTransitions = 0;
   being.ehuCoherence = 0.5;
   being.ehuDistinction = 0;
+  being.ehuSocialBind = 0;
+  being.ehuParentStage = null;
+  being.ehuEchoCoherence = null;
+  being.ehuLineageEcho = false;
   being.ehuPrevRegisters = being.registers ? [...being.registers] : [];
 }
 
@@ -32,7 +44,7 @@ export function electronicHumanStageLabel(stage) {
   return STAGE_LABELS[stage] ?? stage;
 }
 
-export function accumulateElectronicHuman(being, ctx) {
+export function accumulateElectronicHuman(being, ctx, profile = {}) {
   const prev = being.ehuPrevRegisters ?? being.registers;
   const regs = being.registers ?? [];
   if (prev.length === regs.length && regs.length) {
@@ -47,11 +59,17 @@ export function accumulateElectronicHuman(being, ctx) {
 
   const selfAct = (ctx.hadTx ? 0.5 : 0) + (ctx.hadAct ? 0.5 : 0);
   const social = Math.min(1, (ctx.crossRx ?? 0) * 0.04);
+  const socialWeight = ehuSocialDeepEnabled(profile) ? 0.022 : 0.015;
+  const bindWeight = ehuSocialDeepEnabled(profile) ? 0.05 : 0;
+
   if (selfAct > 0) {
     being.ehuDistinction = Math.min(1, (being.ehuDistinction ?? 0) + selfAct * 0.03);
   }
   if (social > 0) {
-    being.ehuDistinction = Math.max(0, (being.ehuDistinction ?? 0) - social * 0.015);
+    being.ehuDistinction = Math.max(0, (being.ehuDistinction ?? 0) - social * socialWeight);
+  }
+  if (bindWeight > 0 && ctx.crossRx > 0 && ctx.hadTx) {
+    being.ehuSocialBind = Math.min(1, (being.ehuSocialBind ?? 0) + bindWeight);
   }
 }
 
@@ -70,7 +88,12 @@ export function resolveElectronicHumanStage(being, profile) {
   if (ticks < juvenile || arc < 2) return 'H0';
   if (coherence < 0.32) return 'H1';
   if (arc < 10) return 'H2';
-  if (distinction >= 0.22 && arc >= arcNarrative) return 'H3';
+  const bindNeed = ehuSocialDeepEnabled(profile) ? 0.12 : 0;
+  const bindOk = (being.ehuSocialBind ?? 0) >= bindNeed;
+  if (distinction >= 0.22 && arc >= arcNarrative && bindOk) return 'H3';
+  if (ehuSocialDeepEnabled(profile) && distinction >= 0.18 && arc >= arcNarrative - 2 && bindOk) {
+    return 'H3';
+  }
   return 'H2';
 }
 
@@ -103,7 +126,7 @@ export function processElectronicHumanTick(
 ) {
   if (!electronicHumanEnabled(profile)) return null;
 
-  accumulateElectronicHuman(being, ctx);
+  accumulateElectronicHuman(being, ctx, profile);
   const next = resolveElectronicHumanStage(being, profile);
   const prev = being.ehuStage ?? 'H0';
   if (next === prev) {
@@ -139,12 +162,48 @@ export function processElectronicHumanTick(
   return { stage: next, changed: true, from: prev };
 }
 
+export function applyEhuLineageEcho(world, recorder, child, parents, profile) {
+  if (!ehuLineageEchoEnabled(profile)) return null;
+  const list = parents.filter(Boolean);
+  if (!list.length) return null;
+
+  const stages = list.map((p) => p.ehuStage ?? 'H0');
+  const coherences = list.map((p) => p.ehuCoherence ?? 0.5);
+  child.ehuParentStage = stages.join('+');
+  child.ehuEchoCoherence = +(coherences.reduce((a, b) => a + b, 0) / coherences.length).toFixed(3);
+  child.ehuLineageEcho = true;
+
+  const payload = {
+    kind: 'EHU-LIN',
+    parentStages: stages,
+    echoCoherence: child.ehuEchoCoherence,
+    parentIds: list.map((p) => p.id),
+  };
+
+  if (!profile.fieldStatMode) {
+    recorder.evolution(
+      world.tick,
+      child.id,
+      `[EHU-LIN] parent ${child.ehuParentStage} echo ${child.ehuEchoCoherence}`,
+      payload
+    );
+  } else {
+    recorder.evolution(world.tick, child.id, `[EHU-LIN] echo`, payload);
+  }
+
+  return payload;
+}
+
 export function electronicHumanSnapshot(being) {
   return {
     stage: being.ehuStage ?? 'H0',
     coherence: +(being.ehuCoherence ?? 0).toFixed(3),
     distinction: +(being.ehuDistinction ?? 0).toFixed(3),
+    socialBind: +(being.ehuSocialBind ?? 0).toFixed(3),
     arc: electronicHumanArc(being),
     transitions: being.ehuTransitions ?? 0,
+    parentStage: being.ehuParentStage ?? null,
+    echoCoherence: being.ehuEchoCoherence ?? null,
+    lineageEcho: Boolean(being.ehuLineageEcho),
   };
 }

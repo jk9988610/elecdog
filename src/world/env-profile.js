@@ -626,6 +626,30 @@ export const ENV_PROFILES = {
     fusOrphanPoolEnabled: true,
     fusSubunitRouteEnabled: true,
   },
+  fertile_ehu_deep: {
+    id: 'fertile_ehu_deep',
+    label: '富足六层+EHU深化',
+    substrateDrainMult: 0.52,
+    substrateBoost: 0.02,
+    substrateFloor: 0.54,
+    catastropheDisabled: true,
+    rplEnabled: true,
+    rplBaseMax: 5,
+    rplMaxSpread: 3,
+    organismMode: 'multicell',
+    rplScope: 'subunit',
+    meiRplDeduct: 'active',
+    fissionEnabled: true,
+    meiEnabled: true,
+    fusEnabled: true,
+    ...PERSONA_FEEDBACK,
+    ehuSocialDeepEnabled: true,
+    ehuLineageEchoEnabled: true,
+    fusLiveDonorEnabled: true,
+    fusBeaconEnabled: true,
+    fusOrphanPoolEnabled: true,
+    fusSubunitRouteEnabled: true,
+  },
 };
 
 const REN_BASE = {
@@ -1192,6 +1216,45 @@ export const PHASE56_TREATMENTS = {
   },
 };
 
+const PERSONA_TRI_FEEDBACK = {
+  ...MC_SUB_RPL,
+  ...MC_DUAL_ROUTE,
+  ...PERSONA_FEEDBACK,
+};
+
+/** Phase 57 — 电子人深化 [EHU-LIN] 谱系回响 + 社会绑定 */
+export const PHASE57_TREATMENTS = {
+  ehu_persona_base: {
+    id: 'ehu_persona_base',
+    label: '六层反馈（EHU基线）',
+    envId: 'fertile_field',
+    ...PERSONA_TRI_FEEDBACK,
+  },
+  ehu_social_bind: {
+    id: 'ehu_social_bind',
+    label: '六层+社会绑定深化',
+    envId: 'fertile_field',
+    ...PERSONA_TRI_FEEDBACK,
+    ehuSocialDeepEnabled: true,
+  },
+  ehu_lineage_echo: {
+    id: 'ehu_lineage_echo',
+    label: '六层+谱系回响',
+    envId: 'fertile_field',
+    ...PERSONA_TRI_FEEDBACK,
+    ehuLineageEchoEnabled: true,
+  },
+  ehu_deep_full: {
+    id: 'ehu_deep_full',
+    label: '六层+绑定+回响',
+    envId: 'fertile_field',
+    ...PERSONA_TRI_FEEDBACK,
+    ehuSocialDeepEnabled: true,
+    ehuLineageEchoEnabled: true,
+    ehuArcNarrative: 14,
+  },
+};
+
 /** Phase 44 — 汇合瓶颈突破 [BCN] + 孤儿池 + 激进配对 */
 export const PHASE44_TREATMENTS = {
   mei_strict: {
@@ -1564,6 +1627,17 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase57Treatment(world, treatmentId) {
+  const treatment = PHASE57_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase57 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 57, treatmentId, ...treatment };
   return world.envProfile;
 }
 

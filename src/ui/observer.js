@@ -646,6 +646,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('rpr')}</span><strong>${b.rprOrigin ?? 'SEED'} · ${b.rprTransitions ?? 0}</strong></div>
           <div class="stat-row"><span>${label('ehuStage')}</span><strong>${formatEhuStage(b.ehuStage)}</strong></div>
           <div class="stat-row"><span>${label('ehu')}</span><strong>${b.ehuTransitions ?? 0} · arc ${b.ehuArc ?? 0} · coh ${b.ehuCoherence ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('ehuBind')}</span><strong>${b.ehuSocialBind ?? 0}${b.ehuParentStage ? ` · lin ${b.ehuParentStage}` : ''}</strong></div>
           <div class="stat-row"><span>${label('psn')}</span><strong>${b.personaTransitions ?? 0}</strong></div>
         </div>
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>

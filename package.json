@@ -83,6 +83,8 @@
     "field:stack:full:cloud": "node scripts/field-stack-full-cloud.mjs --cloud",
     "field:phase56": "node scripts/field-batch-phase56.mjs",
     "field:phase56:cloud": "node scripts/field-batch-phase56.mjs --cloud",
+    "field:phase57": "node scripts/field-batch-phase57.mjs",
+    "field:phase57:cloud": "node scripts/field-batch-phase57.mjs --cloud",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

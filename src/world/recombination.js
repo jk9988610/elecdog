@@ -13,6 +13,7 @@ import {
   replicationEnabled,
   logReplication,
 } from './replication.js';
+import { applyEhuLineageEcho } from './electronic-human-profile.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -236,6 +237,8 @@ function spawnFusionFromSeqs(
   child.fusParentB = parentB.id;
   child.bornAtTick = world.tick;
   child.recombined = true;
+
+  applyEhuLineageEcho(world, recorder, child, [parentA, parentB], profile);
 
   if (!orphan) parentA.meiPacket = null;
   parentA.fusCount = (parentA.fusCount ?? 0) + 1;
