@@ -24,6 +24,7 @@ import { CELL_INTEGRITY_LOW } from '../world/cell.js';
 import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { runMetabolism } from '../world/organism.js';
+import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { fissionGate, spawnFissionOffspring } from '../world/fission.js';
 import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
@@ -370,6 +371,26 @@ export function stepWorld(world, recorder) {
       }
     } else {
       being.lowStreak = 0;
+    }
+
+    if (reservoirEnabled(profile)) {
+      const rsv = tickReservoir(being, profile, {
+        stress: result.stress,
+        draw: met.draw,
+        hadLow: Boolean(met.low),
+      });
+      if (rsv?.events?.length && !stat) {
+        for (const evt of rsv.events) {
+          const sign = evt.phase === 'in' ? '+' : '-';
+          const via = evt.via ? ` ${evt.via}` : '';
+          recorder.metabolism(
+            world.tick,
+            being.id,
+            `[RSV] ${evt.phase} e${evt.idx} ${sign}${evt.amount.toFixed(4)} sum ${rsv.reservoirSum}${via}`,
+            { kind: 'RSV', ...evt, reservoirSum: rsv.reservoirSum }
+          );
+        }
+      }
     }
 
     if (experienceEnabled(profile)) {

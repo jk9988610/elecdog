@@ -1732,6 +1732,46 @@ export const PHASE82_TREATMENTS = {
   },
 };
 
+const RSV_SHK_PULSE = {
+  pulseInterval: 50,
+  substrateDrainMult: 0.88,
+  substrateFloor: 0.4,
+};
+
+/** Phase 84 — GAP-ORG 储备池 [RSV] on/off 田野（剧变情境 END 率对照） */
+export const PHASE84_TREATMENTS = {
+  rsv_off_ref: {
+    id: 'rsv_off_ref',
+    label: '无储备·基线',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    reservoirEnabled: false,
+  },
+  rsv_off_shk: {
+    id: 'rsv_off_shk',
+    label: '无储备·剧变',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    reservoirEnabled: false,
+    ...RSV_SHK_PULSE,
+  },
+  rsv_on_ref: {
+    id: 'rsv_on_ref',
+    label: '储备·基线',
+    envId: 'wisdom_evolution',
+    ...W2_WISDOM_BASE,
+    reservoirEnabled: true,
+  },
+  rsv_on_shk: {
+    id: 'rsv_on_shk',
+    label: '储备·剧变',
+    envId: 'wisdom_evolution',
+    ...W2_REIN_COMMON,
+    reservoirEnabled: true,
+    ...RSV_SHK_PULSE,
+  },
+};
+
 /** Phase 78 — L6b 多情境开放泛化（智慧完整栈 × 基线/剧变/耗竭/幼体） */
 export const PHASE78_TREATMENTS = {
   w5_ctx_base: {
@@ -2284,6 +2324,21 @@ export function applyPhase52Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, treatment.envId);
   world.envProfile = { ...base, ...treatment };
   world.fieldStudy = { phase: 52, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase84Treatment(world, treatmentId) {
+  const treatment = PHASE84_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase84 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 84, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
   return world.envProfile;
 }
 
