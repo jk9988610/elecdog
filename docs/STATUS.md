@@ -1,12 +1,12 @@
 # 项目状态总览
 
-> 更新：2026-07-29 · **扩展进行中**
+> 更新：2026-07-29 · **Phase 28 Supabase 已交付**
 
 ---
 
 ## 一、当前状态（一句话）
 
-世界能力扩展至 **Phase 27（安卓 APK 壳）**；观察台为静态 ES module，经 Capacitor 打包为 Android 应用；**开放 GAP 2 条**。
+世界能力扩展至 **Phase 28（Supabase 田野云同步）**；观察台可上传田野归档与 OBS 笔记至云端；**开放 GAP 2 条**。
 
 ---
 
@@ -30,7 +30,8 @@
 | 进化 / 种群 | 21–24 | ✅ |
 | L4 筛选 | 26 | ✅ `[SEL]` |
 | **APK 壳** | **27** | ✅ Capacitor 工程 |
-| **下一** | **28** | Supabase（OUTLINE Phase 3） |
+| **云同步** | **28** | ✅ Supabase 田野归档 + OBS |
+| **下一** | **29** | Realtime / 批处理入库（候选） |
 
 ---
 
@@ -41,7 +42,7 @@
 | Phase 0 | 最小内核 + 观察台 | ✅ |
 | Phase 1 PWA | 离线壳 | ⚠️ 已撤销 |
 | Phase 2 | APK | ✅ Phase 27 |
-| Phase 3 | Supabase | ⏳ 下一 |
+| Phase 3 | Supabase | ✅ Phase 28 |
 
 ---
 

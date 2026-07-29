@@ -239,3 +239,192 @@ input[type='number'] {
   color: #4a5260;
   font-size: 0.8125rem;
 }
+
+.toolbar-spacer {
+  flex: 1;
+  min-width: 0.5rem;
+}
+
+.cloud-status {
+  font-size: 0.75rem;
+  padding: 0.25rem 0.55rem;
+  border-radius: 999px;
+  background: #1a1f2a;
+  color: #6b7385;
+  border: 1px solid #2a3140;
+}
+
+.cloud-status.online {
+  color: #7ec8a8;
+  border-color: #2a4a3a;
+  background: #0f1a14;
+}
+
+.btn-secondary {
+  background: #1e2a3a;
+}
+
+.btn-secondary:hover:not(:disabled) {
+  background: #2a3a4f;
+}
+
+.btn-ghost {
+  background: transparent;
+  border: 1px solid #2a3140;
+  color: #8b93a7;
+}
+
+.btn-ghost:hover:not(:disabled) {
+  background: #12151c;
+  color: #e8eaef;
+}
+
+.cloud-panel {
+  padding: 0.85rem 1.75rem 1rem;
+  border-bottom: 1px solid #1e2430;
+  background: #0a0c12;
+}
+
+.cloud-panel.hidden {
+  display: none;
+}
+
+.cloud-panel-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .cloud-panel-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cloud-card {
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 8px;
+  padding: 0.85rem;
+}
+
+.cloud-card-wide {
+  grid-column: 1 / -1;
+}
+
+.cloud-card h3 {
+  margin: 0 0 0.65rem;
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: #6b7385;
+}
+
+.cloud-hint {
+  margin: 0 0 0.65rem;
+  font-size: 0.75rem;
+  color: #5a6270;
+}
+
+.cloud-field {
+  display: flex;
+  flex-direction: column;
+  gap: 0.3rem;
+  margin-bottom: 0.55rem;
+  font-size: 0.75rem;
+  color: #8b93a7;
+}
+
+.cloud-field input,
+.cloud-field textarea {
+  background: #080a0e;
+  border: 1px solid #2a3140;
+  color: #e8eaef;
+  border-radius: 6px;
+  padding: 0.45rem 0.55rem;
+  font: inherit;
+  font-size: 0.8125rem;
+}
+
+.cloud-actions {
+  display: flex;
+  gap: 0.5rem;
+  flex-wrap: wrap;
+}
+
+.cloud-lists {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+@media (max-width: 900px) {
+  .cloud-lists {
+    grid-template-columns: 1fr;
+  }
+}
+
+.cloud-list-block h3 {
+  margin: 0 0 0.45rem;
+  font-size: 0.75rem;
+  color: #6b7385;
+}
+
+.cloud-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 8px;
+  max-height: 12rem;
+  overflow: auto;
+}
+
+.cloud-list li {
+  padding: 0.55rem 0.7rem;
+  border-bottom: 1px solid #1a1f2a;
+  font-size: 0.8125rem;
+}
+
+.cloud-list li:last-child {
+  border-bottom: none;
+}
+
+.cloud-list-title {
+  display: block;
+  color: #d8dce6;
+  font-family: ui-monospace, monospace;
+  font-size: 0.75rem;
+}
+
+.cloud-list-meta {
+  display: block;
+  margin-top: 0.15rem;
+  color: #5a6270;
+  font-size: 0.7rem;
+}
+
+.cloud-list-body {
+  display: block;
+  margin-top: 0.25rem;
+  color: #8b93a7;
+  font-size: 0.75rem;
+  line-height: 1.4;
+}
+
+.cloud-list a {
+  color: #7ec8e3;
+  text-decoration: none;
+}
+
+.cloud-message {
+  margin: 0.65rem 0 0;
+  font-size: 0.75rem;
+  color: #7ec8a8;
+}
+
+.cloud-message.error {
+  color: #e8a0a0;
+}

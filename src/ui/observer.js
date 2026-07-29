@@ -3,6 +3,22 @@ import { performBirthRitual } from '../birth/ritual.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
+import {
+  getCloudConfig,
+  getObserverLabel,
+  hasBuiltInCloudConfig,
+  isCloudEnabled,
+  setCloudConfig,
+  setObserverLabel,
+} from '../cloud/config.js';
+import {
+  archiveCurrentRun,
+  fetchRecentArchives,
+  fetchRecentNotes,
+  saveFieldNote,
+} from '../cloud/field-sync.js';
+import { formatSupabaseError } from '../cloud/supabase-error.js';
+import { getLogPublicUrl } from '../cloud/rest.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -15,8 +31,11 @@ export class ObserverApp {
     this.recorder = new Recorder();
     this.timer = null;
     this.speed = 200;
+    this.cloudBusy = false;
+    this.lastArchiveId = null;
     this.render();
     this.bootstrapWorld();
+    this.refreshCloudPanel();
   }
 
   render() {
@@ -32,6 +51,47 @@ export class ObserverApp {
         <label class="speed-label">间隔 <input id="speed" type="number" value="200" min="50" max="2000" step="50" /></label>
         <span id="tick-display" class="tick">tick 0</span>
         <span id="place-display" class="place"></span>
+        <span class="toolbar-spacer"></span>
+        <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
+        <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
+        <button id="btn-cloud-toggle" type="button" class="btn-ghost">云设置</button>
+      </section>
+
+      <section id="cloud-panel" class="cloud-panel hidden">
+        <div class="cloud-panel-grid">
+          <div class="cloud-card">
+            <h3>观察者</h3>
+            <label class="cloud-field">昵称 <input id="observer-label" type="text" value="${escapeHtml(getObserverLabel())}" /></label>
+            <button id="btn-save-observer" type="button" class="btn-secondary">保存昵称</button>
+          </div>
+          <div class="cloud-card">
+            <h3>田野笔记</h3>
+            <label class="cloud-field">OBS 编号 <input id="obs-id" type="text" placeholder="OBS-20260729-64" /></label>
+            <label class="cloud-field">内容 <textarea id="obs-content" rows="3" placeholder="记录你看到的…"></textarea></label>
+            <button id="btn-save-note" type="button" class="btn-secondary">保存笔记到云</button>
+          </div>
+          <div class="cloud-card cloud-card-wide">
+            <h3>Supabase 连接</h3>
+            <p class="cloud-hint">${hasBuiltInCloudConfig() ? '已内置与 Beat-Battle / Card-World 共用的 Supabase 项目。' : '请填写 Supabase URL 与 anon key。'}</p>
+            <label class="cloud-field">Project URL <input id="sb-url" type="url" value="${escapeHtml(getCloudConfig().url)}" placeholder="https://xxx.supabase.co" /></label>
+            <label class="cloud-field">anon key <input id="sb-key" type="password" value="${escapeHtml(getCloudConfig().anonKey)}" autocomplete="off" /></label>
+            <div class="cloud-actions">
+              <button id="btn-save-cloud" type="button" class="btn-secondary">保存配置</button>
+              <button id="btn-refresh-cloud" type="button" class="btn-ghost">刷新列表</button>
+            </div>
+          </div>
+        </div>
+        <div class="cloud-lists">
+          <div class="cloud-list-block">
+            <h3>最近田野归档</h3>
+            <ul id="cloud-runs" class="cloud-list"><li class="muted">加载中…</li></ul>
+          </div>
+          <div class="cloud-list-block">
+            <h3>最近田野笔记</h3>
+            <ul id="cloud-notes" class="cloud-list"><li class="muted">加载中…</li></ul>
+          </div>
+        </div>
+        <p id="cloud-message" class="cloud-message" aria-live="polite"></p>
       </section>
 
       <main class="dashboard" id="dashboard"></main>
@@ -44,10 +104,32 @@ export class ObserverApp {
       tickDisplay: this.root.querySelector('#tick-display'),
       placeDisplay: this.root.querySelector('#place-display'),
       dashboard: this.root.querySelector('#dashboard'),
+      cloudStatus: this.root.querySelector('#cloud-status'),
+      btnCloudArchive: this.root.querySelector('#btn-cloud-archive'),
+      btnCloudToggle: this.root.querySelector('#btn-cloud-toggle'),
+      cloudPanel: this.root.querySelector('#cloud-panel'),
+      observerLabel: this.root.querySelector('#observer-label'),
+      btnSaveObserver: this.root.querySelector('#btn-save-observer'),
+      obsId: this.root.querySelector('#obs-id'),
+      obsContent: this.root.querySelector('#obs-content'),
+      btnSaveNote: this.root.querySelector('#btn-save-note'),
+      sbUrl: this.root.querySelector('#sb-url'),
+      sbKey: this.root.querySelector('#sb-key'),
+      btnSaveCloud: this.root.querySelector('#btn-save-cloud'),
+      btnRefreshCloud: this.root.querySelector('#btn-refresh-cloud'),
+      cloudRuns: this.root.querySelector('#cloud-runs'),
+      cloudNotes: this.root.querySelector('#cloud-notes'),
+      cloudMessage: this.root.querySelector('#cloud-message'),
     };
 
     this.$.btnRun.addEventListener('click', () => this.run());
     this.$.btnPause.addEventListener('click', () => this.pause());
+    this.$.btnCloudToggle.addEventListener('click', () => this.toggleCloudPanel());
+    this.$.btnCloudArchive.addEventListener('click', () => this.uploadArchive());
+    this.$.btnSaveObserver.addEventListener('click', () => this.saveObserverLabel());
+    this.$.btnSaveNote.addEventListener('click', () => this.saveNote());
+    this.$.btnSaveCloud.addEventListener('click', () => this.saveCloudConfig());
+    this.$.btnRefreshCloud.addEventListener('click', () => this.refreshCloudPanel());
   }
 
   bootstrapWorld() {
@@ -94,6 +176,124 @@ export class ObserverApp {
     this.$.tickDisplay.textContent = `tick ${s.world.tick}`;
     this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}`;
     this.$.dashboard.innerHTML = this.renderDashboard(s);
+    this.updateCloudStatus();
+  }
+
+  toggleCloudPanel() {
+    this.$.cloudPanel.classList.toggle('hidden');
+    if (!this.$.cloudPanel.classList.contains('hidden')) {
+      this.refreshCloudPanel();
+    }
+  }
+
+  setCloudMessage(text, isError = false) {
+    this.$.cloudMessage.textContent = text || '';
+    this.$.cloudMessage.classList.toggle('error', Boolean(isError));
+  }
+
+  updateCloudStatus() {
+    const enabled = isCloudEnabled();
+    this.$.cloudStatus.textContent = enabled ? '云 · 已连接' : '云 · 未配置';
+    this.$.cloudStatus.classList.toggle('online', enabled);
+    this.$.btnCloudArchive.disabled = !enabled || this.cloudBusy || !this.world;
+  }
+
+  async refreshCloudPanel() {
+    this.updateCloudStatus();
+    if (!isCloudEnabled()) {
+      this.$.cloudRuns.innerHTML = '<li class="muted">请先配置 Supabase</li>';
+      this.$.cloudNotes.innerHTML = '<li class="muted">请先配置 Supabase</li>';
+      return;
+    }
+    try {
+      const [runs, notes] = await Promise.all([fetchRecentArchives(8), fetchRecentNotes(8)]);
+      this.$.cloudRuns.innerHTML = this.renderRunList(runs);
+      this.$.cloudNotes.innerHTML = this.renderNoteList(notes);
+      this.setCloudMessage('');
+    } catch (err) {
+      this.$.cloudRuns.innerHTML = '<li class="muted">加载失败</li>';
+      this.$.cloudNotes.innerHTML = '<li class="muted">加载失败</li>';
+      this.setCloudMessage(formatSupabaseError(err), true);
+    }
+  }
+
+  renderRunList(runs) {
+    if (!runs?.length) return '<li class="muted">暂无归档</li>';
+    return runs
+      .map((r) => {
+        const logUrl = r.log_path ? getLogPublicUrl(r.log_path) : '';
+        const link = logUrl
+          ? `<a href="${escapeHtml(logUrl)}" target="_blank" rel="noopener">日志</a>`
+          : '';
+        return `<li>
+          <span class="cloud-list-title">${escapeHtml(r.world_name || '世界')} · tick ${r.tick}</span>
+          <span class="cloud-list-meta">${escapeHtml(r.observer_label || '—')} · 存活 ${r.alive_count}/${r.total_beings} · ${fmtDate(r.created_at)} ${link}</span>
+        </li>`;
+      })
+      .join('');
+  }
+
+  renderNoteList(notes) {
+    if (!notes?.length) return '<li class="muted">暂无笔记</li>';
+    return notes
+      .map(
+        (n) => `<li>
+          <span class="cloud-list-title">${escapeHtml(n.obs_id)}</span>
+          <span class="cloud-list-meta">${escapeHtml(n.author_label || '—')} · ${fmtDate(n.created_at)}</span>
+          <span class="cloud-list-body">${escapeHtml(n.content.slice(0, 120))}${n.content.length > 120 ? '…' : ''}</span>
+        </li>`
+      )
+      .join('');
+  }
+
+  saveObserverLabel() {
+    try {
+      setObserverLabel(this.$.observerLabel.value);
+      this.setCloudMessage('观察者昵称已保存');
+    } catch (err) {
+      this.setCloudMessage(err.message, true);
+    }
+  }
+
+  saveCloudConfig() {
+    setCloudConfig({ url: this.$.sbUrl.value, anonKey: this.$.sbKey.value });
+    this.updateCloudStatus();
+    this.setCloudMessage('云配置已保存');
+    this.refreshCloudPanel();
+  }
+
+  async uploadArchive() {
+    if (!this.world || this.cloudBusy) return;
+    this.cloudBusy = true;
+    this.updateCloudStatus();
+    this.setCloudMessage('正在上传田野归档…');
+    try {
+      const row = await archiveCurrentRun(this.world, this.recorder);
+      this.lastArchiveId = row.id;
+      this.setCloudMessage(`归档成功 · tick ${row.tick} · ${row.log_path || ''}`);
+      await this.refreshCloudPanel();
+    } catch (err) {
+      this.setCloudMessage(formatSupabaseError(err), true);
+    } finally {
+      this.cloudBusy = false;
+      this.updateCloudStatus();
+    }
+  }
+
+  async saveNote() {
+    this.setCloudMessage('正在保存笔记…');
+    try {
+      await saveFieldNote({
+        obsId: this.$.obsId.value,
+        content: this.$.obsContent.value,
+        relatedRunId: this.lastArchiveId,
+      });
+      this.$.obsContent.value = '';
+      this.setCloudMessage('田野笔记已保存到云');
+      await this.refreshCloudPanel();
+    } catch (err) {
+      this.setCloudMessage(formatSupabaseError(err), true);
+    }
   }
 
   renderDashboard(s) {
@@ -190,4 +390,21 @@ function fmt(n) {
 function pct(n) {
   if (n == null) return '—';
   return `${(n * 100).toFixed(1)}%`;
+}
+
+function escapeHtml(s) {
+  return String(s ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;');
+}
+
+function fmtDate(iso) {
+  if (!iso) return '—';
+  try {
+    return new Date(iso).toLocaleString('zh-CN', { hour12: false });
+  } catch {
+    return iso;
+  }
 }
