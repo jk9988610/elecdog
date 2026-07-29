@@ -274,4 +274,14 @@ export const CODEX_ENTRIES = [
     established: '2026-07-29',
     tag: 'EHU',
   },
+  {
+    id: 'wisdom-species-acceptance',
+    title: '智慧演化物种验收',
+    definition:
+      '在 `wisdom_evolution` 环境下，W1–W5 可观察组合同时成立：记忆行为调制、多体 DNA 漂移跨种子部分一致（W2·≥3/4 碱基 unanimous 上限）、[PRD] 预测–校正、[SOC-ENC]/[MEM-LIN] 社会–谱系累积、多情境长时田野非单吸引子。wisdom:acceptance 输出 prepared 且检查表 ≥12/14 时称田野验收准备就绪；不等于地球式物种分类。',
+    evidence: ['OBS-20260729-93', 'OBS-20260729-94'],
+    falsifiable: '若 W1–W5 任一田野批次降为 unsupport、或验收层 support <75%、或将 partial 上限误报为 4/4 unanimous，则修订',
+    established: '2026-07-29',
+    tag: 'WISDOM',
+  },
 ];

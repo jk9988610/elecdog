@@ -110,6 +110,7 @@
     "wisdom:mem:verify": "node scripts/wisdom-mem-verify.mjs",
     "wisdom:w1:review": "node scripts/wisdom-w1-review.mjs",
     "wisdom:acceptance": "node scripts/wisdom-acceptance-verify.mjs",
+    "wisdom:l2:closure": "node scripts/wisdom-l2-closure-verify.mjs",
     "wisdom:prd:verify": "node scripts/wisdom-prd-verify.mjs",
     "field:phase70": "node scripts/field-batch-phase70.mjs",
     "field:phase71": "node scripts/field-batch-phase71.mjs",

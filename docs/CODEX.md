@@ -266,3 +266,13 @@
 - **确立日期**：2026-07-29
 
 ---
+
+## 智慧演化物种验收
+
+- **定义**：在 `wisdom_evolution` 环境下，W1–W5 可观察组合同时成立：`memoryFeedbackEnabled` 行为调制（W1）、多体 DNA 漂移跨种子部分一致（W2·≥3/4 碱基 unanimous 上限）、`[PRD]` 预测–校正（W3）、`[SOC-ENC]`/`[MEM-LIN]` 社会–谱系累积（W4）、多情境长时田野非单吸引子（W5）。`npm run wisdom:acceptance` 输出 **prepared** 且检查表 ≥12/14 时，称田野验收**准备就绪**；不等于地球式物种分类或 IQ 判定。
+- **依据**：OBS-20260729-93（Phase 82 综合验收 8/8 support）、OBS-20260729-94（L2/GAP-10 上限接受）
+- **可证伪**：若 W1–W5 任一田野批次降为 unsupport、或验收层 support <75%、或将 partial 上限误报为 4/4 unanimous，则修订
+- **确立日期**：2026-07-29
+- **备注**：L2b/L2c 检查表仍 partial；GAP-10 碱基 1 开放；禁止脚本化选择压
+
+---
