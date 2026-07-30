@@ -1,6 +1,6 @@
 # 最终目标距离报告
 
-> 更新：2026-07-30 · Phase 126 GAP-PAIR-2 许可握手后
+> 更新：2026-07-30 · Phase 128 GAP-PAIR-4 多维激素后
 
 ---
 
@@ -21,11 +21,11 @@
 | **合作因果 GAP-13** | COOP/SOC 可度量 + 留置交互定律 | ✅ Phase 123 support 9/9 | **~65%** |
 | **田野–观察台闭环** | 报告导入 + 混编 + 长时快照 | ✅ Phase 111–120 | **~88%** |
 | **工程守卫** | 加长 tick 墙钟/tick 截止 + turbo | ✅ Phase 113–119 | **~95%** |
-| **双源繁殖 GAP-PAIR** | 体内合胞·外排·环境半态·握手 | ✅ PAIR-0/1/2 support | **~80%** |
+| **双源繁殖 GAP-PAIR** | PAIR-0→4 全链 | ✅ support 7/7 ×5 | **~90%** |
 | **智慧验收 W5** | 长时田野非单吸引子 | ⚠️ 部分 | **~60%** |
 | **选择压 GAP-10/14** | 繁殖路径选择压定律 | ⚠️ 部分结案 | **~40%** |
 
-**综合进度（留置+智慧语言主轨）**：约 **84–88%** — GAP-PAIR-2 许可握手 support 7/7。
+**综合进度（留置+智慧语言主轨）**：约 **85–90%** — GAP-PAIR-0→4 路线图闭合。
 
 ---
 
@@ -52,6 +52,8 @@
 124 GAP-PAIR-0 体内合胞          ← support 7/7
 125 GAP-PAIR-1 半态排入场        ← support 7/7
 126 GAP-PAIR-2 许可握手          ← support 7/7
+127 GAP-PAIR-3 通道绑定          ← support 7/7
+128 GAP-PAIR-4 多维激素          ← support 7/7
 ```
 
 ---
@@ -84,8 +86,9 @@
 ## 验证命令
 
 ```bash
-npm run field:phase126       # GAP-PAIR-2 许可握手
-npm run field:phase126:verify
+npm run field:phase128       # GAP-PAIR-4 多维激素
+npm run field:phase128:verify
+npm run field:phase127:verify
 npm run field:phase125       # GAP-PAIR-1 半态排入场
 npm run field:phase125:verify
 npm run field:phase124:verify

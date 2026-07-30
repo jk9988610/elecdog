@@ -505,7 +505,7 @@
 
 - **PAIR-4**：draw 子单元 \(h_k=r_k-w e_k\)；`[HRM]` 在 PGR/FLD-CH-IN 记录
 - **对照**：`ev128_pair_scalar` 标量 h̄ 门控，无 HRM
-- **田野**：`npm run field:phase128` — 待验
+- **田野**：`npm run field:phase128` — support 7/7
 
 ---
 
