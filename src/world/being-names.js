@@ -1,12 +1,13 @@
-// 个体姓名 — 姓 / 名（机制层，非地球语 CODEX 固定表）
+// 个体姓名 — 数字代号（姓 / 名，机制层）
 
 import { hashString, mulberry32 } from '../core/hash.js';
 
-const MALE_SURNAMES = ['赵', '钱', '孙', '李'];
-const FEMALE_SURNAMES = ['周', '吴', '郑', '王'];
-const MALE_GIVEN = ['雄一', '雄二', '雄三', '雄四'];
-const FEMALE_GIVEN = ['雌一', '雌二', '雌三', '雌四'];
-const CHILD_GIVEN = ['嗣一', '嗣二', '嗣三', '嗣四', '嗣五', '嗣六', '嗣七', '嗣八', '嗣九', '嗣十'];
+function numericFromId(id, salt, digits = 2) {
+  const rng = mulberry32(hashString(`${id}:${salt}:num-name`));
+  const max = 10 ** digits;
+  const min = 10 ** (digits - 1);
+  return String(Math.floor(rng() * (max - min)) + min);
+}
 
 export function formatBeingDisplayName(being) {
   const family = being?.familyName ?? '';
@@ -20,14 +21,10 @@ export function assignBeingNames(being, { familyName = null, givenName = null, i
   let family = familyName;
   let given = givenName;
   if (!family) {
-    if (morph === 'A') family = MALE_SURNAMES[index % MALE_SURNAMES.length];
-    else if (morph === 'B') family = FEMALE_SURNAMES[index % FEMALE_SURNAMES.length];
-    else family = '氏';
+    family = morph === 'A' ? numericFromId(being?.id ?? String(index), 'fam-m', 2) : numericFromId(being?.id ?? String(index), 'fam-f', 2);
   }
   if (!given) {
-    if (morph === 'A') given = MALE_GIVEN[index % MALE_GIVEN.length];
-    else if (morph === 'B') given = FEMALE_GIVEN[index % FEMALE_GIVEN.length];
-    else given = `体${index + 1}`;
+    given = numericFromId(being?.id ?? String(index), 'giv', 3);
   }
   being.familyName = family;
   being.givenName = given;
@@ -37,10 +34,8 @@ export function assignBeingNames(being, { familyName = null, givenName = null, i
 }
 
 export function assignChildName(being, surnameParent, world) {
-  const rng = mulberry32(hashString(`${being.id}:${world?.tick ?? 0}:child-name`));
-  const idx = Math.floor(rng() * CHILD_GIVEN.length);
-  being.familyName = surnameParent?.familyName ?? surnameParent?.name?.split('·')[0] ?? '氏';
-  being.givenName = CHILD_GIVEN[idx];
+  being.familyName = surnameParent?.familyName ?? numericFromId(being.id, 'child-fam', 2);
+  being.givenName = numericFromId(`${being.id}:${world?.tick ?? 0}`, 'child-giv', 3);
   being.name = formatBeingDisplayName(being);
   being.lineageHeadId = surnameParent?.lineageHeadId ?? surnameParent?.id ?? being.id;
   return being;

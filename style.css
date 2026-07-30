@@ -1756,14 +1756,14 @@ input[type='number'] {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 0.25rem;
-  padding: 0.5rem 0.75rem;
+  gap: 0.2rem;
+  padding: 0.35rem 0.45rem;
   border: 2px solid #3a4a60;
   border-radius: 8px;
   background: #121820;
   color: #d0d6e0;
   cursor: pointer;
-  min-width: 5.5rem;
+  min-width: 4.1rem;
 }
 
 .genealogy-id-btn:hover {
@@ -1870,28 +1870,31 @@ input[type='number'] {
   padding: 0;
   margin: 0;
   display: flex;
-  flex-wrap: wrap;
-  gap: 2rem;
+  flex-wrap: nowrap;
+  gap: 0.35rem;
   justify-content: center;
   align-items: flex-start;
+  width: max-content;
+  min-width: 100%;
 }
 
 .gv-node {
   list-style: none;
   text-align: center;
   position: relative;
+  flex: 0 0 auto;
 }
 
 .gv-couple {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0.5rem;
+  gap: 0.25rem;
 }
 
 .gv-couple-link {
   color: #5a6270;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
 }
 
 .gv-node.has-children > .gv-children {
@@ -1932,8 +1935,13 @@ input[type='number'] {
   font-weight: normal;
 }
 
-.hormone-bars {
-  margin: 0.5rem 0 1rem;
+.hormone-list-panel,
+.health-hormone-list {
+  margin: 0.35rem 0 0.75rem;
+}
+
+.hormone-list-row .stat-row span:first-child {
+  color: #8a94a4;
 }
 
 .hormone-bar-row {

@@ -1,5 +1,6 @@
 // 多细胞 v2 — 一夫一妻伴侣登记（机制：partnerId，非地球婚恋 CODEX）
 
+import { hashString, mulberry32 } from '../core/hash.js';
 import { alignPartnerMatingChannels } from './body-structures.js';
 import { applyGenealogyLineOnBond } from './being-names.js';
 
@@ -40,8 +41,14 @@ export function registerPartnerBond(
   a.partnerBondCount = (a.partnerBondCount ?? 0) + 1;
   b.partnerBondCount = (b.partnerBondCount ?? 0) + 1;
   const fusDelay = profile.partnerFusDelayTicks ?? 48;
-  a.partnerFusEligibleAtTick = tick + fusDelay;
-  b.partnerFusEligibleAtTick = tick + fusDelay;
+  const jitter = profile.partnerFusJitterTicks ?? 72;
+  const rng = mulberry32(hashString(`${a.id}:${b.id}:fus-jitter`));
+  const fusAt = tick + fusDelay + Math.floor(rng() * jitter);
+  a.partnerFusEligibleAtTick = fusAt;
+  b.partnerFusEligibleAtTick = fusAt;
+  a.partnerChannelFusedAtTick = null;
+  b.partnerChannelFusedAtTick = null;
+  b.fertilizationEligibleAtTick = null;
 
   const male = a.pairMorph === 'A' ? a : b.pairMorph === 'A' ? b : null;
   const female = a.pairMorph === 'B' ? a : b.pairMorph === 'B' ? b : null;
