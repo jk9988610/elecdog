@@ -461,3 +461,12 @@
 - **文档**：[PHASE118_COOP_LAW.md](PHASE118_COOP_LAW.md)
 
 ---
+
+## GAP-EVO-CARRY-LONG · 8192 tick 长时稳健性（Phase 119）
+
+- **扩展**：六环境+链 × mixed 8192 vs 960；`fieldTurboMode` 记录器聚合 + tick 分块轮询
+- **田野**：`npm run field:phase119`
+- **状态**：**部分结案** — 8192 tick support 6/7；单次 ~31s（turbo）
+- **文档**：[PHASE119_LONGFIELD_TURBO.md](PHASE119_LONGFIELD_TURBO.md)
+
+---

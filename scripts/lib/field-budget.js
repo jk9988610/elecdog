@@ -9,6 +9,12 @@ export const FIELD_RUN_MAX_MS = 3 * 60 * 1000;
 /** 单段 tick 循环硬顶 — 防止配置错误导致无限步进 */
 export const FIELD_MAX_TICKS_PER_PASS = 8192;
 
+export function resolveFieldTickChunk(ticksRequested, turbo = false) {
+  if (!turbo || ticksRequested <= 1920) return 1;
+  if (ticksRequested <= 4096) return 8;
+  return 16;
+}
+
 export function resolveTickCap(requested, maxPerPass = FIELD_MAX_TICKS_PER_PASS) {
   const n = Number(requested) || 0;
   return Math.min(Math.max(0, n), maxPerPass);

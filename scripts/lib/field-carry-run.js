@@ -1,6 +1,6 @@
 /** Phase 106 — 塑形田野 + 留置混合田野 */
 
-import { StatsRecorder } from '../../src/recorder/stats-recorder.js';
+import { createFieldRecorder } from './field-recorder.js';
 import { resetBirthCounters } from '../../src/core/id.js';
 import { spawnBeing, spawnCarriedBeing } from '../../src/birth/spawn.js';
 import { applyEnvProfile } from '../../src/world/env-profile.js';
@@ -14,7 +14,16 @@ import {
   getFieldRunMaxMs,
   createFieldDeadline,
   FIELD_MAX_TICKS_PER_PASS,
+  resolveFieldTickChunk,
 } from './field-budget.js';
+
+function buildTickOpts(profile, ticks, deadline, maxTicksPerPass) {
+  return {
+    deadline,
+    maxTicksPerPass,
+    tickChunk: resolveFieldTickChunk(ticks, profile?.fieldTurboMode === true),
+  };
+}
 
 function mergeTickStats(acc, result) {
   if (!result) return acc;
@@ -28,7 +37,7 @@ function mergeTickStats(acc, result) {
 export function initFieldWorldWithCohort(world, { phase, treatmentId, seed, ticks = FIELD_MED_TICKS, cohortSpec }) {
   world.envProfile.fieldLiteLog = true;
   world.envProfile.fieldStatMode = true;
-  const recorder = new StatsRecorder();
+  const recorder = createFieldRecorder(world.envProfile);
   recorder.system(0, `[field p${phase ?? '?'} ${treatmentId} seed${seed}]`, {
     phase,
     treatmentId,
@@ -64,7 +73,12 @@ export function runSculptPass({
   resetBirthCounters();
   const world = createWorld(`01-p${phase}-sculpt-${seed}`);
   applyEnvProfile(world, sculptEnvId);
-  world.envProfile = { ...world.envProfile, fieldStatMode: true, fieldLiteLog: true };
+  world.envProfile = {
+    ...world.envProfile,
+    fieldStatMode: true,
+    fieldLiteLog: true,
+    fieldTurboMode: profile?.fieldTurboMode === true,
+  };
 
   const cohortSpec = buildFieldCohort(seed);
   const { recorder } = initFieldWorldWithCohort(world, {
@@ -75,7 +89,12 @@ export function runSculptPass({
     cohortSpec,
   });
 
-  const tickResult = runFieldTicks(world, recorder, sculptTicks, { deadline, maxTicksPerPass });
+  const tickResult = runFieldTicks(
+    world,
+    recorder,
+    sculptTicks,
+    buildTickOpts(profile, sculptTicks, deadline, maxTicksPerPass)
+  );
   const sculptProfile = { ...profile, semEnabled: false, semLineageEnabled: false, semFeedbackEnabled: false };
   const carries = selectCarrySnapshots(world, sculptProfile, {
     phase,
@@ -139,9 +158,10 @@ export function runCarryMiddlePass({
     rplRenewEnabled: false,
     meiEnabled: false,
     fusEnabled: false,
+    fieldTurboMode: profile?.fieldTurboMode === true,
   };
 
-  const recorder = new StatsRecorder();
+  const recorder = createFieldRecorder(world.envProfile);
   recorder.system(0, `[field p${phase} ${treatmentId} ${stage} seed${seed}]`, { phase, treatmentId, seed, stage });
 
   carries.forEach((snap, i) => {
@@ -151,7 +171,12 @@ export function runCarryMiddlePass({
     });
   });
 
-  const tickResult = runFieldTicks(world, recorder, ticks, { deadline, maxTicksPerPass });
+  const tickResult = runFieldTicks(
+    world,
+    recorder,
+    ticks,
+    buildTickOpts(profile, ticks, deadline, maxTicksPerPass)
+  );
 
   const refreshed = selectCarrySnapshots(world, profile, {
     phase,
@@ -312,7 +337,12 @@ export function runFieldCarryScenario({
     cohortSpec,
   });
 
-  const mixResult = runFieldTicks(world, recorder, mixedTicks, { deadline, maxTicksPerPass });
+  const mixResult = runFieldTicks(
+    world,
+    recorder,
+    mixedTicks,
+    buildTickOpts(profile, mixedTicks, deadline, maxTicksPerPass)
+  );
   tickStats = mergeTickStats(tickStats, mixResult);
 
   const metrics = analyze(recorder, world.beings, world, {
