@@ -2702,6 +2702,36 @@ export const PHASE112_TREATMENTS = {
   },
 };
 
+/** Phase 115 — 五环境留置链：塑形 → 孵化 → 蓄积 → SEM 精炼 → 混合 */
+const EVO_PENTA_CHAIN_BASE = {
+  ...EVO_QUAD_CHAIN_BASE,
+  carryAccrueEnabled: true,
+  fieldRunDeadlineMs: 180000,
+  fieldMaxTicksPerPass: 8192,
+  carryChainPasses: [
+    { stage: 'incubate', envId: 'wisdom_evolution', ticks: 384, semEnabled: true },
+    { stage: 'accrue', envId: 'fertile_field', ticks: 384, coopEnabled: true },
+    { stage: 'refine', envId: 'wisdom_evolution', ticks: 256, semEnabled: true, semFeedbackEnabled: true },
+  ],
+};
+
+export const PHASE115_TREATMENTS = {
+  ev115_penta_chain: {
+    id: 'ev115_penta_chain',
+    label: '五环境链·SEM精炼',
+    envId: 'wisdom_evolution',
+    ...EVO_PENTA_CHAIN_BASE,
+  },
+  ev115_quad_ctrl: {
+    id: 'ev115_quad_ctrl',
+    label: '四环境链对照',
+    envId: 'wisdom_evolution',
+    ...EVO_QUAD_CHAIN_BASE,
+    carryAccrueEnabled: true,
+    carryChainPasses: undefined,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3433,6 +3463,27 @@ export function applyPhase112Treatment(world, treatmentId) {
     world.envProfile.cooperationFeedback = false;
   }
   world.fieldStudy = { phase: 112, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase115Treatment(world, treatmentId) {
+  const treatment = PHASE115_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase115 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  world.fieldStudy = { phase: 115, treatmentId, ...treatment };
   return world.envProfile;
 }
 

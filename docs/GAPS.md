@@ -418,3 +418,14 @@
 - **文档**：[PHASE112_QUAD_CHAIN.md](PHASE112_QUAD_CHAIN.md)
 
 ---
+
+## GAP-EVO-CARRY-PENTA · 五环境留置链（Phase 115）
+
+- **扩展**：harsh → SEM 孵化 → fertile COOP 蓄积 → **wisdom SEM 精炼**（`semFeedbackEnabled`）→ 混合；`resolveCarryChainPasses` 统一中间通行
+- **对照**：`ev115_penta_chain` vs `ev115_quad_ctrl`（无精炼通行）
+- **截止守卫**：`fieldRunDeadlineMs` + `fieldMaxTicksPerPass`（与 Phase 113 同）
+- **田野**：`npm run field:phase115`
+- **状态**：**部分结案** — 五环境链可观测；6+ 环境与长时稳健性仍开放
+- **文档**：[PHASE115_PENTA_CHAIN.md](PHASE115_PENTA_CHAIN.md) · [GOAL_DISTANCE.md](GOAL_DISTANCE.md)
+
+---

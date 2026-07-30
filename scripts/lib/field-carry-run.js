@@ -124,7 +124,9 @@ export function runCarryMiddlePass({
     fieldLiteLog: true,
     semEnabled: semEnabled === true,
     semLineageEnabled: semEnabled === true,
-    semFeedbackEnabled: semEnabled ? (profile.semFeedbackEnabled ?? true) : false,
+    semFeedbackEnabled: semEnabled
+      ? (passSpec.semFeedbackEnabled ?? profile.semFeedbackEnabled ?? true)
+      : false,
     semWindow: profile.semWindow ?? 1,
     semMinCount: profile.semMinCount ?? 8,
     cooperationProfileEnabled: coopEnabled === true,
@@ -167,6 +169,29 @@ export function runCarryMiddlePass({
     })
   );
   return { carries: merged, tickResult };
+}
+
+/** 解析留置链中间通行序列（显式 carryChainPasses 或兼容旧旗标） */
+export function resolveCarryChainPasses(profile) {
+  if (profile.carryChainPasses?.length) return profile.carryChainPasses;
+  const passes = [];
+  if (profile.carryIncubateSem) {
+    passes.push({
+      stage: 'incubate',
+      envId: profile.carryIncubateEnvId ?? 'wisdom_evolution',
+      ticks: profile.carryIncubateTicks ?? FIELD_SHORT_TICKS,
+      semEnabled: true,
+    });
+  }
+  if (profile.carryAccrueEnabled) {
+    passes.push({
+      stage: 'accrue',
+      envId: profile.carryAccrueEnvId ?? 'fertile_field',
+      ticks: profile.carryAccrueTicks ?? FIELD_SHORT_TICKS,
+      coopEnabled: profile.carryAccrueCoop !== false,
+    });
+  }
+  return passes;
 }
 
 /** Phase 108 — 留置个体 SEM 孵化 */
@@ -237,33 +262,23 @@ export function runFieldCarryScenario({
     carries = sculpt.carries;
     tickStats = mergeTickStats(tickStats, sculpt.tickResult);
 
-    if (!tickStats.deadlineHit && profile.carryIncubateSem && carries.length) {
-      const inc = runCarryIncubationPass({
-        createWorld,
-        seed,
-        phase,
-        treatmentId,
-        carries,
-        profile,
-        deadline,
-        maxTicksPerPass,
-      });
-      carries = inc.carries;
-      tickStats = mergeTickStats(tickStats, inc.tickResult);
-    }
-    if (!tickStats.deadlineHit && profile.carryAccrueEnabled && carries.length) {
-      const acc = runCarryAccruePass({
-        createWorld,
-        seed,
-        phase,
-        treatmentId,
-        carries,
-        profile,
-        deadline,
-        maxTicksPerPass,
-      });
-      carries = acc.carries;
-      tickStats = mergeTickStats(tickStats, acc.tickResult);
+    if (!tickStats.deadlineHit && carries.length) {
+      for (const passSpec of resolveCarryChainPasses(profile)) {
+        if (tickStats.deadlineHit || !carries.length) break;
+        const mid = runCarryMiddlePass({
+          createWorld,
+          seed,
+          phase,
+          treatmentId,
+          carries,
+          profile,
+          passSpec,
+          deadline,
+          maxTicksPerPass,
+        });
+        carries = mid.carries;
+        tickStats = mergeTickStats(tickStats, mid.tickResult);
+      }
     }
   }
 
