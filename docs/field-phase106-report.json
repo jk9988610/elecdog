@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-30T10:48:18.009Z",
+  "runAt": "2026-07-30T10:53:06.160Z",
   "phase": 106,
   "extension": "gap_evo_carry",
   "mode": "field_stat",
@@ -225,7 +225,7 @@
             "offspringAlive": 52,
             "naiveAlive": 64,
             "carryAlive": 0,
-            "meanGenNaive": 1.1719,
+            "meanGenNaive": 1.125,
             "meanGenCarry": null,
             "carriedRenTicks": 0,
             "carriedFiss": 0,
@@ -236,26 +236,26 @@
           "carryCount": 0,
           "carries": [],
           "cohortSize": 12,
-          "durationMs": 966.357023,
-          "durationLabel": "966ms",
+          "durationMs": 942.914629,
+          "durationLabel": "943ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 1077,
-            "evolution:PRD": 177,
-            "evolution:COOP": 72,
-            "evolution:SOC-ENC": 30596,
-            "evolution:MTB": 2195,
+            "evolution:REG": 1056,
+            "evolution:PRD": 170,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 30827,
+            "evolution:MTB": 2629,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 95,
+            "evolution:EHU": 106,
             "population:CMP": 6
           },
-          "entriesKept": 34554
+          "entriesKept": 35194
         },
         {
           "treatmentId": "ev106_naive_only",
@@ -275,7 +275,7 @@
             "offspringAlive": 52,
             "naiveAlive": 64,
             "carryAlive": 0,
-            "meanGenNaive": 1.1563,
+            "meanGenNaive": 1.1406,
             "meanGenCarry": null,
             "carriedRenTicks": 0,
             "carriedFiss": 0,
@@ -286,26 +286,26 @@
           "carryCount": 0,
           "carries": [],
           "cohortSize": 12,
-          "durationMs": 890.504857,
-          "durationLabel": "891ms",
+          "durationMs": 872.6389629999999,
+          "durationLabel": "873ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 1194,
-            "evolution:PRD": 185,
+            "evolution:REG": 1011,
+            "evolution:PRD": 155,
             "evolution:COOP": 64,
-            "evolution:SOC-ENC": 30678,
-            "evolution:MTB": 2484,
+            "evolution:SOC-ENC": 30586,
+            "evolution:MTB": 1900,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 95,
+            "evolution:EHU": 92,
             "population:CMP": 6
           },
-          "entriesKept": 35042
+          "entriesKept": 34150
         },
         {
           "treatmentId": "ev106_naive_only",
@@ -336,26 +336,27 @@
           "carryCount": 0,
           "carries": [],
           "cohortSize": 12,
-          "durationMs": 845.8852080000001,
-          "durationLabel": "846ms",
+          "durationMs": 836.380932,
+          "durationLabel": "836ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 915,
-            "evolution:PRD": 155,
+            "evolution:REG": 863,
+            "evolution:PRD": 187,
             "evolution:COOP": 64,
-            "evolution:SOC-ENC": 30787,
-            "evolution:MTB": 2309,
+            "evolution:SOC-ENC": 30708,
+            "evolution:MTB": 1752,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 89,
-            "population:CMP": 6
+            "evolution:EHU": 102,
+            "population:CMP": 6,
+            "evolution:SEM": 1
           },
-          "entriesKept": 34661
+          "entriesKept": 34019
         },
         {
           "treatmentId": "ev106_naive_only",
@@ -375,7 +376,7 @@
             "offspringAlive": 52,
             "naiveAlive": 64,
             "carryAlive": 0,
-            "meanGenNaive": 1.1406,
+            "meanGenNaive": 1.125,
             "meanGenCarry": null,
             "carriedRenTicks": 0,
             "carriedFiss": 0,
@@ -386,26 +387,26 @@
           "carryCount": 0,
           "carries": [],
           "cohortSize": 12,
-          "durationMs": 842.5463070000001,
-          "durationLabel": "843ms",
+          "durationMs": 843.6265330000001,
+          "durationLabel": "844ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 881,
-            "evolution:PRD": 183,
-            "evolution:COOP": 68,
-            "evolution:SOC-ENC": 30768,
-            "evolution:MTB": 2438,
+            "evolution:REG": 1042,
+            "evolution:PRD": 172,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 30662,
+            "evolution:MTB": 2076,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 91,
+            "evolution:EHU": 98,
             "population:CMP": 6
           },
-          "entriesKept": 34771
+          "entriesKept": 34456
         }
       ]
     },
@@ -437,10 +438,10 @@
             "offspringAlive": 54,
             "naiveAlive": 62,
             "carryAlive": 2,
-            "meanGenNaive": 3.7581,
-            "meanGenCarry": 20.5,
+            "meanGenNaive": 3.4032,
+            "meanGenCarry": 23,
             "carriedRenTicks": 0,
-            "carriedFiss": 5,
+            "carriedFiss": 4,
             "carriedMei": 0,
             "meiFromGen0": false,
             "fusOffspring": false
@@ -448,37 +449,37 @@
           "carryCount": 2,
           "carries": [
             {
-              "generation": 22,
+              "generation": 25,
               "envId": "harsh_combined",
               "ecoRepro": false
             },
             {
-              "generation": 19,
+              "generation": 21,
               "envId": "harsh_combined",
               "ecoRepro": false
             }
           ],
           "cohortSize": 12,
-          "durationMs": 930.0973129999998,
-          "durationLabel": "930ms",
+          "durationMs": 931.3647270000001,
+          "durationLabel": "931ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 1251,
-            "evolution:PRD": 155,
-            "evolution:COOP": 66,
-            "evolution:SOC-ENC": 30865,
-            "evolution:MTB": 1699,
+            "evolution:REG": 957,
+            "evolution:PRD": 182,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 30692,
+            "evolution:MTB": 2073,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 89,
+            "evolution:EHU": 88,
             "population:CMP": 6
           },
-          "entriesKept": 34467
+          "entriesKept": 34398
         },
         {
           "treatmentId": "ev106_mixed_eco",
@@ -498,8 +499,8 @@
             "offspringAlive": 54,
             "naiveAlive": 62,
             "carryAlive": 2,
-            "meanGenNaive": 3.9194,
-            "meanGenCarry": 21.5,
+            "meanGenNaive": 3.6935,
+            "meanGenCarry": 19.5,
             "carriedRenTicks": 0,
             "carriedFiss": 5,
             "carriedMei": 0,
@@ -509,37 +510,37 @@
           "carryCount": 2,
           "carries": [
             {
-              "generation": 22,
+              "generation": 20,
               "envId": "harsh_combined",
               "ecoRepro": false
             },
             {
-              "generation": 21,
+              "generation": 19,
               "envId": "harsh_combined",
               "ecoRepro": false
             }
           ],
           "cohortSize": 12,
-          "durationMs": 890.583619,
-          "durationLabel": "891ms",
+          "durationMs": 945.7017029999997,
+          "durationLabel": "946ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 1061,
-            "evolution:PRD": 150,
-            "evolution:COOP": 75,
-            "evolution:SOC-ENC": 30522,
-            "evolution:MTB": 2014,
+            "evolution:REG": 1173,
+            "evolution:PRD": 153,
+            "evolution:COOP": 69,
+            "evolution:SOC-ENC": 30569,
+            "evolution:MTB": 2415,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 96,
+            "evolution:EHU": 90,
             "population:CMP": 6
           },
-          "entriesKept": 34260
+          "entriesKept": 34811
         },
         {
           "treatmentId": "ev106_mixed_eco",
@@ -559,8 +560,8 @@
             "offspringAlive": 54,
             "naiveAlive": 62,
             "carryAlive": 2,
-            "meanGenNaive": 3.5,
-            "meanGenCarry": 20.5,
+            "meanGenNaive": 3.629,
+            "meanGenCarry": 19,
             "carriedRenTicks": 0,
             "carriedFiss": 5,
             "carriedMei": 0,
@@ -570,7 +571,7 @@
           "carryCount": 2,
           "carries": [
             {
-              "generation": 22,
+              "generation": 19,
               "envId": "harsh_combined",
               "ecoRepro": false
             },
@@ -581,26 +582,26 @@
             }
           ],
           "cohortSize": 12,
-          "durationMs": 870.726326,
-          "durationLabel": "871ms",
+          "durationMs": 876.7187960000001,
+          "durationLabel": "877ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 872,
-            "evolution:PRD": 165,
-            "evolution:COOP": 64,
-            "evolution:SOC-ENC": 30788,
-            "evolution:MTB": 2172,
+            "evolution:REG": 1183,
+            "evolution:PRD": 159,
+            "evolution:COOP": 68,
+            "evolution:SOC-ENC": 30689,
+            "evolution:MTB": 2712,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:EHU": 97,
+            "evolution:EHU": 92,
             "population:CMP": 6
           },
-          "entriesKept": 34500
+          "entriesKept": 35245
         },
         {
           "treatmentId": "ev106_mixed_eco",
@@ -620,10 +621,10 @@
             "offspringAlive": 54,
             "naiveAlive": 62,
             "carryAlive": 2,
-            "meanGenNaive": 4.5645,
-            "meanGenCarry": 19,
+            "meanGenNaive": 3.1613,
+            "meanGenCarry": 20.5,
             "carriedRenTicks": 0,
-            "carriedFiss": 6,
+            "carriedFiss": 4,
             "carriedMei": 0,
             "meiFromGen0": false,
             "fusOffspring": false
@@ -631,38 +632,38 @@
           "carryCount": 2,
           "carries": [
             {
-              "generation": 19,
+              "generation": 21,
               "envId": "harsh_combined",
               "ecoRepro": false
             },
             {
-              "generation": 19,
+              "generation": 20,
               "envId": "harsh_combined",
               "ecoRepro": false
             }
           ],
           "cohortSize": 12,
-          "durationMs": 887.8384610000003,
-          "durationLabel": "888ms",
+          "durationMs": 863.5835280000001,
+          "durationLabel": "864ms",
           "budgetPass": true,
           "totalCounts": {
             "system:system": 1,
-            "evolution:REG": 1128,
-            "evolution:PRD": 191,
-            "evolution:COOP": 65,
-            "evolution:SOC-ENC": 30684,
-            "evolution:MTB": 1974,
+            "evolution:REG": 1121,
+            "evolution:PRD": 184,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 30545,
+            "evolution:MTB": 2128,
             "evolution:EHU-LIN": 52,
             "evolution:SOC-LIN": 52,
             "evolution:MEM-LIN": 52,
             "evolution:FISS": 52,
             "evolution:EXP": 64,
             "evolution:RPR": 64,
-            "evolution:SEM-LIN": 9,
-            "evolution:EHU": 100,
-            "population:CMP": 6
+            "evolution:EHU": 95,
+            "population:CMP": 6,
+            "evolution:SEM": 1
           },
-          "entriesKept": 34493
+          "entriesKept": 34480
         }
       ]
     }
@@ -679,5 +680,5 @@
   "shortTermGoal": "GAP-EVO-CARRY 留置个体 + 生态分裂",
   "roadmap": "docs/PHASE106_EVO_CARRY.md",
   "runBudgetMs": 180000,
-  "batchDurationMs": 7125.700152
+  "batchDurationMs": 7114.075336999999
 }
