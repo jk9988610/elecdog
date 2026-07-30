@@ -3518,6 +3518,7 @@ const MULTICELL_V2_STACK = {
   fissionMaxPop: 28,
   gestationTicks: 64,
   courtshipGraceTicks: 96,
+  courtshipStaggerTicks: 16,
   partnerFusDelayTicks: 48,
   dockBaseProb: 0.35,
   meiMinAge: 40,

@@ -546,14 +546,19 @@ export function processPairHandshake(world, recorder) {
 /** 形态 A 将体内半态排入环境场（singleton / 源） */
 export function releaseFieldHalves(world, recorder) {
   if (!pairHalfReleaseEnabled(world.envProfile)) return [];
-  ensureFieldHalves(world);
   const profile = world.envProfile ?? {};
+  if (pairPartnerChannelFus(profile)) return [];
+  ensureFieldHalves(world);
   const handshake = pairHandshakeEnabled(profile);
   const maxAge = profile.pairFieldHalfMaxAge ?? 96;
   const events = [];
 
   for (const a of world.beings.filter((b) => b.alive && b.pairMorph === 'A' && b.meiPacket)) {
     if (handshake && !hasValidPairGrant(world, a)) continue;
+    if (pairPartnerChannelFus(profile)) {
+      const mate = a.partnerId ? world.beings.find((x) => x.id === a.partnerId) : null;
+      if (!mate?.alive || mate.pairMorph !== 'B' || a.pairGrantFrom !== mate.id) continue;
+    }
 
     world.fieldHalves = world.fieldHalves.filter((h) => h.fromId !== a.id);
     const chMeta = pairChannelBindEnabled(profile)
@@ -602,10 +607,18 @@ export function decayFieldHalves(world) {
   return before - world.fieldHalves.length;
 }
 
-/** PAIR-1：环境半态 + B 驻留半态 → 体内合胞 */
+/** 场合胞仅允许已登记伴侣的雌接受其伴侣释放的半态 */
+function fieldFusPartnerAllowed(b, half, profile) {
+  if (!b?.partnerId || b.partnerId !== half.fromId) return false;
+  if (pairPartnerChannelFus(profile)) return true;
+  return half.grantFrom == null || half.grantFrom === b.id;
+}
+
+/** PAIR-1：环境半态 + B 驻留半态 → 体内合胞（须伴侣登记；伴侣通道模式下由体内通道合胞） */
 export function processPairFusFromField(world, recorder) {
   const profile = world.envProfile;
   if (!pairHalfReleaseEnabled(profile)) return [];
+  if (pairPartnerChannelFus(profile)) return [];
 
   ensureFieldHalves(world);
   const morphB = world.beings.filter(
@@ -620,7 +633,12 @@ export function processPairFusFromField(world, recorder) {
   for (const b of morphB) {
     if (usedB.has(b.id)) continue;
     const candidates = world.fieldHalves
-      .filter((h) => !usedHalves.has(h.id) && pairChannelAcceptOpen(b, world, h, profile))
+      .filter(
+        (h) =>
+          !usedHalves.has(h.id) &&
+          fieldFusPartnerAllowed(b, h, profile) &&
+          pairChannelAcceptOpen(b, world, h, profile)
+      )
       .sort((x, y) => {
         const slotD = slotDistance({ socialSlot: x.socialSlot }, b) - slotDistance({ socialSlot: y.socialSlot }, b);
         if (slotD !== 0) return slotD;
@@ -661,6 +679,12 @@ function avgRegisters(a, b) {
 
 export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) {
   const profile = world.envProfile ?? {};
+  if (
+    pairPartnerChannelFus(profile) &&
+    (parentB.partnerId !== parentA.id || parentA.partnerId !== parentB.id)
+  ) {
+    return null;
+  }
   const gestationTicks = profile.gestationTicks ?? profile.nurtureTicks ?? 80;
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:pair-fus`);
   const combined = recombineDna(seqA, seqB, seed);

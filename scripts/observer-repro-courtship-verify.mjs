@@ -19,6 +19,8 @@ import {
   registerPairSpeechPGR,
   processPartnerChannelFus,
   processPairGestation,
+  processPairFusFromField,
+  releaseFieldHalves,
   initDockedHalf,
 } from '../src/world/pair-repro.js';
 import { COURTSHIP_PRQ_PROB_BY_MORPH } from '../src/world/substantive-signal.js';
@@ -287,6 +289,50 @@ assert(
   ),
   '克隆/近亲 PRQ-IGNORE 或 PRQ-BLOCK'
 );
+
+// 无伴侣不得场合胞怀孕
+const wFld = createWorld('M-FLD');
+applyEnvProfile(wFld, 'multicell_v2_world');
+initEnvStackModules(wFld);
+const recFld = new Recorder();
+const cohortFld = spawnAdultMulticellCohort(wFld, recFld, { males: 2, females: 2 });
+waiveReproGates(wFld, cohortFld);
+const maleFld = cohortFld.find((b) => b.pairMorph === 'A');
+const femaleFld = cohortFld.find((b) => b.pairMorph === 'B');
+const female2 = cohortFld.find((b) => b.pairMorph === 'B' && b.id !== femaleFld.id);
+initAdultMatingStructures(maleFld, wFld.envProfile, 0);
+initAdultMatingStructures(femaleFld, wFld.envProfile, 0);
+pinChannels(maleFld, STR_PAIR_OUT, 7);
+pinChannels(femaleFld, STR_PAIR_IN, 7);
+pinChannels(female2, STR_PAIR_IN, 7);
+wFld.fieldHalves = [
+  {
+    id: 'test-half',
+    seq: maleFld.meiPacket.seq,
+    fromId: maleFld.id,
+    socialSlot: maleFld.socialSlot ?? 'S0',
+    grantFrom: femaleFld.id,
+    atTick: 0,
+    expireTick: 100,
+    channelIdx: 7,
+  },
+];
+const fieldFusUnbonded = processPairFusFromField(wFld, recFld);
+assert(fieldFusUnbonded.length === 0, '未结伴雌不接受场合胞');
+assert(!isPregnant(female2), '无伴侣雌不因场半态怀孕');
+assert(!isPregnant(femaleFld), '未登记伴侣的雌不因场半态怀孕');
+const prqFld = registerPairSpeechPRQ(wFld, recFld, maleFld, femaleFld.id);
+const pgrFld = registerPairSpeechPGR(wFld, recFld, femaleFld, maleFld.id);
+assert(prqFld && pgrFld, '场测试前完成结伴');
+waiveReproGates(wFld, [maleFld, femaleFld]);
+maleFld.pairGrantFrom = femaleFld.id;
+releaseFieldHalves(wFld, recFld);
+const fieldFusBonded = processPairFusFromField(wFld, recFld);
+assert(fieldFusBonded.length === 0, '伴侣通道模式下场合胞不取代体内合胞');
+assert(!isPregnant(femaleFld), '场合胞未在伴侣通道前怀孕');
+const fusBond = processPartnerChannelFus(wFld, recFld);
+assert(fusBond.length > 0, '伴侣通道合胞受孕');
+assert(isPregnant(femaleFld), '结伴后伴侣通道方可怀孕');
 
 if (failed) {
   console.error(`observer-repro-courtship-verify: ${failed} failed`);

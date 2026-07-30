@@ -1,12 +1,13 @@
 /** 族谱画布 — 单指/指针平移，滚轮与双指缩放 */
 
+const DEFAULT_SCALE = 0.62;
 const MIN_SCALE = 0.35;
-const MAX_SCALE = 2.5;
+const MAX_SCALE = DEFAULT_SCALE;
 
 export function initGenealogyViewport(viewportEl, innerEl) {
   if (!viewportEl || !innerEl) return null;
 
-  let scale = 1;
+  let scale = DEFAULT_SCALE;
   let tx = 0;
   let ty = 0;
   let panning = false;
@@ -109,7 +110,7 @@ export function initGenealogyViewport(viewportEl, innerEl) {
 
   return {
     reset() {
-      scale = 1;
+      scale = DEFAULT_SCALE;
       tx = 0;
       ty = 0;
       applyTransform();
