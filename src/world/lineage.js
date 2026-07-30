@@ -9,6 +9,7 @@ import { recordReproductionPathEvent, reproductionProfileEnabled } from './repro
 import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applySocialKnowledgeInheritance } from './social-knowledge.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
+import { applySemLineageEcho } from './sem-lineage.js';
 
 export function spawnLineageOffspring(world, recorder, parent) {
   const seed = hashString(`${parent.id}:${world.tick}:offspring`);
@@ -29,6 +30,9 @@ export function spawnLineageOffspring(world, recorder, parent) {
     via: 'LINEAGE',
   });
   applyMemLineageEcho(world, recorder, born.being, [parent], world.envProfile, {
+    via: 'LINEAGE',
+  });
+  applySemLineageEcho(world, recorder, born.being, [parent], world.envProfile, {
     via: 'LINEAGE',
   });
   const nurture = applyNurtureAtBirth(world, parent, born.being);

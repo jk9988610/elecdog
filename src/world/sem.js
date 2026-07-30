@@ -1,5 +1,7 @@
 // W5c 信号载荷共现记录 [SEM] — 统计事实，非语言/对话语义
 
+import { semLineageEnabled, refreshSemTrace, traceActHint } from './sem-lineage.js';
+
 export function semEnabled(profile) {
   return profile?.semEnabled === true;
 }
@@ -13,6 +15,7 @@ export function initSemState(being) {
   being.semLogCount = 0;
   being.semPairTally = 0;
   being.semFbHits = 0;
+  being.semLocalPairs = new Map();
 }
 
 export function initSemWorld(world) {
@@ -111,11 +114,17 @@ export function recordSemTx(world, recorder, being, profile, txLine, { fieldStat
     const next = prev + 1;
     world.semPairCounts.set(pk, next);
     updateTopTxForRx(world, rxKey, txKey, next);
+    if (!being.semLocalPairs) being.semLocalPairs = new Map();
+    being.semLocalPairs.set(pk, (being.semLocalPairs.get(pk) ?? 0) + 1);
     being.semPairTally = (being.semPairTally ?? 0) + 1;
 
     if (shouldLogPair(next, minCount, fieldStat)) {
       logSemPair(world, recorder, being, rxKey, txKey, next, profile, fieldStat);
     }
+  }
+
+  if (semLineageEnabled(profile) && world.tick % 48 === 0) {
+    refreshSemTrace(being, world, profile);
   }
 }
 
@@ -152,6 +161,14 @@ export function semActBias(being, world, profile) {
     if (w > pairStrength) {
       pairStrength = w;
       txPayloadHint = txKey;
+    }
+  }
+
+  if (semLineageEnabled(profile)) {
+    const hint = traceActHint(being, profile, { tick, window });
+    if (hint.txKey && hint.strength > pairStrength) {
+      pairStrength = hint.strength;
+      txPayloadHint = hint.txKey;
     }
   }
 

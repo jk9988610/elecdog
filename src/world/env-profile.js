@@ -2424,6 +2424,60 @@ export const PHASE101_TREATMENTS = {
   },
 };
 
+const SEM_FB_BASE = {
+  ...SEM_RECORD_BASE,
+  semFeedbackEnabled: true,
+  semFeedbackStrength: 0.05,
+  semFeedbackMinPairs: 2,
+  semFeedbackSaturation: 32,
+};
+
+/** Phase 102 — WL2 [SEM-LIN] 谱系约定持久 */
+export const PHASE102_TREATMENTS = {
+  sem_lin_off: {
+    id: 'sem_lin_off',
+    label: 'SEM反馈无谱系持久',
+    envId: 'wisdom_evolution',
+    ...SEM_FB_BASE,
+    semLineageEnabled: false,
+  },
+  sem_lin_on: {
+    id: 'sem_lin_on',
+    label: 'SEM反馈+谱系持久',
+    envId: 'wisdom_evolution',
+    ...SEM_FB_BASE,
+    semLineageEnabled: true,
+    semLineageBlend: 0.55,
+    semTraceTopN: 4,
+    semTraceMinCount: 2,
+  },
+  sem_lin_dense: {
+    id: 'sem_lin_dense',
+    label: '谱系持久+宽窗口',
+    envId: 'wisdom_evolution',
+    ...SEM_FB_BASE,
+    semWindow: 2,
+    semLineageEnabled: true,
+    semLineageBlend: 0.6,
+    semTraceTopN: 6,
+    semTraceMinCount: 3,
+    substrateBoost: 0.02,
+  },
+  sem_lin_sk: {
+    id: 'sem_lin_sk',
+    label: '谱系持久+剧变',
+    envId: 'wisdom_evolution',
+    ...SEM_FB_BASE,
+    semLineageEnabled: true,
+    semLineageBlend: 0.55,
+    semTraceTopN: 4,
+    semTraceMinCount: 2,
+    pulseInterval: 50,
+    substrateDrainMult: 0.88,
+    substrateFloor: 0.4,
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈可视化 */
 ENV_PROFILES.observer_w6_stack = {
   id: 'observer_w6_stack',
@@ -3040,6 +3094,21 @@ export function initEnvStackModules(world, profile = world?.envProfile) {
   if (profile.ventEnabled) initVentState(world, profile);
   if (profile.migEnabled) initMigState(world);
   if (profile.dissipationEnabled) initDissipationStats(world);
+}
+
+export function applyPhase102Treatment(world, treatmentId) {
+  const treatment = PHASE102_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase102 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 102, treatmentId, ...treatment };
+  if (treatment.pulseInterval && world.catastrophe) {
+    world.catastrophe.interval = treatment.pulseInterval;
+    world.catastrophe.nextAt = Math.min(world.catastrophe.nextAt, treatment.pulseInterval);
+  }
+  return world.envProfile;
 }
 
 export function applyPhase101Treatment(world, treatmentId) {

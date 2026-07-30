@@ -23,6 +23,7 @@ import { initMemoryFeedback, memoryFeedbackEnabled } from '../world/memory-feedb
 import { initPrediction, predictionEnabled } from '../world/prediction.js';
 import { initSocialKnowledge, socialKnowledgeEnabled } from '../world/social-knowledge.js';
 import { initSemState, semEnabled } from '../world/sem.js';
+import { initSemLineage, semLineageEnabled } from '../world/sem-lineage.js';
 import { initReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { initSynthCounters, synthEnabled } from '../world/synth.js';
 import { initSymModules } from '../world/sym.js';
@@ -96,6 +97,9 @@ export function spawnBeing(
   }
   if (semEnabled(world.envProfile)) {
     initSemState(being);
+  }
+  if (semLineageEnabled(world.envProfile)) {
+    initSemLineage(being);
   }
   if (reservoirEnabled(world.envProfile)) {
     initReservoir(being, world.envProfile);

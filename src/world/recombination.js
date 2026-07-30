@@ -16,6 +16,7 @@ import {
 } from './replication.js';
 import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
+import { applySemLineageEcho } from './sem-lineage.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -242,6 +243,7 @@ function spawnFusionFromSeqs(
 
   applyEhuLineageEcho(world, recorder, child, [parentA, parentB], profile);
   applyMemLineageEcho(world, recorder, child, [parentA, parentB], profile, { via: 'FUS' });
+  applySemLineageEcho(world, recorder, child, [parentA, parentB], profile, { via: 'FUS' });
 
   const symMod = captureSymOnFus(world, child, parentA, parentB, profile);
   if (symMod && !profile.fieldStatMode) {
