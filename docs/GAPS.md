@@ -439,3 +439,13 @@
 - **文档**：[PHASE116_LONG_SCULPT.md](PHASE116_LONG_SCULPT.md)
 
 ---
+
+## GAP-EVO-CARRY-HEXA · 六环境+留置链（Phase 117）
+
+- **扩展**：五环境链 + **harsh stress-echo** + **wisdom SOC 通行**；`runCarryMiddlePass` 支持 `socEnabled`
+- **对照**：`ev117_hexa_chain` vs `ev117_penta_ctrl`
+- **田野**：`npm run field:phase117`
+- **状态**：**部分结案** — 6+ 环境链可观测；GAP-13 定律仍开放
+- **文档**：[PHASE117_HEXA_CHAIN.md](PHASE117_HEXA_CHAIN.md)
+
+---

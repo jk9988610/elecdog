@@ -109,6 +109,7 @@ export function runCarryMiddlePass({
     ticks = FIELD_SHORT_TICKS,
     semEnabled = false,
     coopEnabled = false,
+    socEnabled = false,
   } = passSpec;
 
   if (deadline?.isExpired()) {
@@ -131,6 +132,8 @@ export function runCarryMiddlePass({
     semMinCount: profile.semMinCount ?? 8,
     cooperationProfileEnabled: coopEnabled === true,
     cooperationFeedback: coopEnabled === true,
+    socialKnowledgeEnabled: socEnabled === true,
+    socialKnowledgeFeedbackEnabled: socEnabled === true,
     ecoFissEnabled: false,
     fissionEnabled: false,
     rplRenewEnabled: false,
@@ -161,13 +164,20 @@ export function runCarryMiddlePass({
 
   if (!refreshed.length) return { carries, tickResult };
 
-  const merged = refreshed.map((snap, i) =>
-    mergeCarryProvenance(snap, stage, {
+  const merged = refreshed.map((snap, i) => {
+    const input = carries.find((c) => c.code && c.code === snap.code) ?? carries[i] ?? carries[0];
+    const priorChain =
+      snap.provenance?.chain?.length > 0 ? snap.provenance.chain : input?.provenance?.chain ?? [];
+    const snapForMerge =
+      priorChain.length > (snap.provenance?.chain?.length ?? 0)
+        ? { ...snap, provenance: { ...snap.provenance, chain: [...priorChain] } }
+        : snap;
+    return mergeCarryProvenance(snapForMerge, stage, {
       envId,
       tick: tickResult.ticksCompleted,
-      priorEnv: carries[i]?.provenance?.envId ?? profile.sculptEnvId,
-    })
-  );
+      priorEnv: input?.provenance?.envId ?? profile.sculptEnvId,
+    });
+  });
   return { carries: merged, tickResult };
 }
 
