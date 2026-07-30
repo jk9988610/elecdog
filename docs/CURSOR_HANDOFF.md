@@ -6,7 +6,7 @@
 
 ## 总体目标距离
 
-见 **[GOAL_DISTANCE.md](GOAL_DISTANCE.md)** — 主轨综合约 **75–79%**。
+见 **[GOAL_DISTANCE.md](GOAL_DISTANCE.md)** — 主轨综合约 **74–78%**；GAP-13 多批次 weak 4/7。
 
 ---
 
