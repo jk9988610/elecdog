@@ -69,6 +69,14 @@ import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js
 import { renderSemSignalStreamPanelHTML, initSemSignalStreamPanel } from './sem-signal-stream.js';
 import { renderThoughtSpeechPanelHTML, initThoughtSpeechPanel } from './thought-speech.js';
 import { renderGenealogyPanelHTML, initGenealogyPanel } from './genealogy-tree.js';
+import {
+  getObserverLayoutMode,
+  setObserverLayoutMode,
+  shouldShowGenealogyPanel,
+  observerLayoutHint,
+  LAYOUT_GENEALOGY,
+  LAYOUT_CLASSIC,
+} from './observer-layout.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -89,6 +97,7 @@ export class ObserverApp {
     this.cloudRealtime = false;
     this.cloudUnsub = null;
     this.viewMode = getViewMode();
+    this.observerLayout = getObserverLayoutMode();
     this.envProfileId = getObserverEnvId();
     this.lastArchiveId = null;
     this.render();
@@ -123,6 +132,10 @@ export class ObserverApp {
         <span class="view-mode-group" title="${escapeHtml(viewModeHint())}">
           <button id="btn-view-native" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_NATIVE ? 'active' : ''}">原版</button>
           <button id="btn-view-analogy" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_ANALOGY ? 'active' : ''}">类比</button>
+        </span>
+        <span id="observer-layout-group" class="view-mode-group hidden" title="${escapeHtml(observerLayoutHint())}">
+          <button id="btn-layout-genealogy" type="button" class="btn-ghost view-mode-btn ${this.observerLayout === LAYOUT_GENEALOGY ? 'active' : ''}">族谱</button>
+          <button id="btn-layout-classic" type="button" class="btn-ghost view-mode-btn ${this.observerLayout === LAYOUT_CLASSIC ? 'active' : ''}">经典卡片</button>
         </span>
         <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
@@ -223,6 +236,9 @@ export class ObserverApp {
       otaVersion: this.root.querySelector('#ota-version'),
       btnViewNative: this.root.querySelector('#btn-view-native'),
       btnViewAnalogy: this.root.querySelector('#btn-view-analogy'),
+      observerLayoutGroup: this.root.querySelector('#observer-layout-group'),
+      btnLayoutGenealogy: this.root.querySelector('#btn-layout-genealogy'),
+      btnLayoutClassic: this.root.querySelector('#btn-layout-classic'),
       envProfile: this.root.querySelector('#env-profile'),
       btnResetWorld: this.root.querySelector('#btn-reset-world'),
       btnCodexToggle: this.root.querySelector('#btn-codex-toggle'),
@@ -298,6 +314,8 @@ export class ObserverApp {
     this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
     this.$.btnViewNative?.addEventListener('click', () => this.switchViewMode(VIEW_NATIVE));
     this.$.btnViewAnalogy?.addEventListener('click', () => this.switchViewMode(VIEW_ANALOGY));
+    this.$.btnLayoutGenealogy?.addEventListener('click', () => this.switchObserverLayout(LAYOUT_GENEALOGY));
+    this.$.btnLayoutClassic?.addEventListener('click', () => this.switchObserverLayout(LAYOUT_CLASSIC));
     this.$.envProfile?.addEventListener('change', () => this.onEnvProfileChange());
     this.$.btnResetWorld?.addEventListener('click', () => this.resetWorld());
     this.$.btnCodexToggle?.addEventListener('click', () => this.toggleCodexPanel());
@@ -432,6 +450,13 @@ export class ObserverApp {
     this.run();
   }
 
+  switchObserverLayout(mode) {
+    this.observerLayout = setObserverLayoutMode(mode);
+    this.$.btnLayoutGenealogy?.classList.toggle('active', mode === LAYOUT_GENEALOGY);
+    this.$.btnLayoutClassic?.classList.toggle('active', mode === LAYOUT_CLASSIC);
+    this.refresh();
+  }
+
   switchViewMode(mode) {
     saveViewMode(mode);
     this.viewMode = mode;
@@ -560,12 +585,16 @@ export class ObserverApp {
     this.mindStreamPanel?.refresh();
     this.semSignalPanel?.refresh();
     this.thoughtSpeechPanel?.refresh();
-    if (s.world.multicellV2Observer) {
+    if (shouldShowGenealogyPanel(this.world?.envProfile, this.observerLayout)) {
       this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
         getWorld: () => this.world,
       });
       this.genealogyPanel?.paint();
     }
+    this.$.observerLayoutGroup?.classList.toggle(
+      'hidden',
+      !s.world.multicellV2Observer
+    );
     this.updateCloudStatus();
   }
 
@@ -920,7 +949,7 @@ export class ObserverApp {
       <article class="being-card">
         <header class="being-head">
           <span class="being-id">${b.id.slice(-8)}</span>
-          <span class="being-meta">${b.code} · ${formatSlot(b.slot)} · ${formatGeneration(b.generation)} · ${label('aliveTicks')} ${b.tickCount}</span>
+          <span class="being-meta">${b.code} · ${formatSlot(b.slot)} · ${formatGeneration(b.generation)} · ${label('aliveTicks')} ${b.tickCount}${b.devStage ? ` · ${b.devStage}` : ''}</span>
         </header>
         <div class="being-grid">
           <div class="stat-row"><span>${label('stress')}</span><strong>${fmt(b.stress)}</strong></div>
@@ -931,6 +960,7 @@ export class ObserverApp {
           <div class="stat-row"><span>${label('low')}</span><strong>${b.low}</strong></div>
           <div class="stat-row"><span>${label('integrity')}</span><strong>${fmt(b.integrity)}</strong></div>
           <div class="stat-row"><span>${label('mbr')}</span><strong>${b.mbr}</strong></div>
+          ${b.organismType === 'multicell' ? `<div class="stat-row"><span>ORG</span><strong>multicell · ${escapeHtml(b.pairMorph ?? '—')}</strong></div>` : ''}
           <div class="stat-row"><span>${label('fiss')}</span><strong>${b.fissionCount ?? 0}</strong></div>
           <div class="stat-row"><span>${label('rpl')}</span><strong>${b.rplRemaining != null ? `${b.rplRemaining}/${b.rplMax}${b.rplScope ? ` (${b.rplScope})` : ''}` : '—'}</strong></div>
           <div class="stat-row"><span>${label('ren')}</span><strong>${b.renCount ?? 0}</strong></div>
@@ -1026,12 +1056,15 @@ export class ObserverApp {
         <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
       </section>
 
-      ${s.world.multicellV2Observer
+      ${shouldShowGenealogyPanel(
+        { multicellV2Observer: s.world.multicellV2Observer, multicellV2Enabled: s.world.multicellV2Observer },
+        this.observerLayout
+      )
         ? renderGenealogyPanelHTML()
         : `
       <section class="panel beings-panel">
         <h2>${label('beings')}</h2>
-        <p class="panel-hint">${viewModeHint()}</p>
+        <p class="panel-hint">${s.world.multicellV2Observer ? escapeHtml(observerLayoutHint()) : viewModeHint()}</p>
         <div class="beings-grid">${beingCards || '<p class="muted">无存活个体</p>'}</div>
       </section>`}
     `;

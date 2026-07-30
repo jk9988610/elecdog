@@ -1,30 +1,29 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · **MV3 族谱持久** · 进度见 GOAL_DISTANCE
+> 更新：2026-07-30 · **MV4 观察台 UI** · 进度见 GOAL_DISTANCE
 
 ---
 
-## 战略状态（MV 主轨 ~66%）
+## 战略状态（MV 主轨 ~68%）
 
 | 阶段 | 状态 |
 |------|------|
-| MV0–MV9 | ✅ |
-| **MV3** 族谱持久 | ✅ 本回合 |
+| MV0–MV3 | ✅ |
+| **MV4** 观察子布局切换 | ✅ 本回合 |
 
 ---
 
-## MV3 交付
+## MV4 交付
 
-- `src/world/genealogy-persist.js`：`genealogyRegistry`、END 登记、`buildGenealogyArchive`
-- 诞生/END 自动 upsert；族谱 UI END 灰显 + 徽章
-- 云归档 `field-sync`：全量 beings（含 END）+ `genealogy` 块
+- `src/ui/observer-layout.js`：族谱 / 经典卡片布局（localStorage 持久）
+- 观察台工具栏「族谱」「经典卡片」子菜单（多细胞 v2 环境可见）
+- 经典模式保留 `being-card` 网格，并显示 multicell / devStage
 
 ```bash
-npm run observer:mv3-genealogy
+npm run observer:mv4-layout
 npm run observer:multicell-v2
-npm run observer:mv-lifecycle
 ```
 
 ---
 
-*下一包：MV4 UI 观察子菜单，或 MV1c 成体 MIT 调参。*
+*下一包：MV1c 成体 MIT 调参（STEM 池冻结、速率田野）。*
