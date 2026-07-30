@@ -23,6 +23,9 @@ export function buildCarrySummary(world) {
       chainStages: chain.length,
       chainEnvs: chain.map((c) => c.envId).filter(Boolean),
       lastStage: p.chainStage ?? '—',
+      coopMode: b.coopMode ?? 'S0',
+      coopTransitions: b.coopTransitions ?? 0,
+      crossRx: b.socCrossRx ?? 0,
     };
   });
   return {
@@ -48,7 +51,7 @@ export function renderCarryPanel(summary, fmt = {}) {
       (c) => `
       <div class="env-stack-row">
         <span>${escapeHtml(c.name)} · 代${c.generation}</span>
-        <strong>${escapeHtml(c.chainEnvs.join('→') || c.lastStage)} · trace ${c.traceWeight}</strong>
+        <strong>${escapeHtml(c.chainEnvs.join('→') || c.lastStage)} · ${escapeHtml(c.coopMode)} · trace ${c.traceWeight}</strong>
       </div>`
     )
     .join('');
