@@ -37,9 +37,10 @@ FIELD_RUN_MAX_MS=240000 npm run field:phase65
 
 ## 三、行为
 
-1. `runFieldScenario` 结束时记录 `durationMs` / `durationLabel`
-2. 超过上限 → 抛出 `FieldRunBudgetError`，进程 `exit 1`
-3. 批处理脚本在末尾汇总「单次最慢 / 批处理合计 / 上限」
+1. `runFieldScenario` / `runFieldCarryScenario` 创建 **墙钟截止**（`createFieldDeadline`）
+2. `runFieldTicks` **每 tick 轮询**截止；超时 → `deadlineHit: true` 并立即退出
+3. 单段 tick 请求超过 `FIELD_MAX_TICKS_PER_PASS`（8192）→ 硬顶截断 + `tickCapHit`
+4. 超过墙钟上限 → 抛出 `FieldRunBudgetError`，进程 `exit 1`
 
 输出示例：
 
@@ -62,8 +63,9 @@ FIELD_RUN_MAX_MS=240000 npm run field:phase65
 
 ## 五、实现
 
-- `scripts/lib/field-budget.js` — 常量与校验
-- `scripts/lib/field-run.js` — 计时与强制检查
+- `scripts/lib/field-budget.js` — 墙钟预算、`createFieldDeadline`、`FIELD_MAX_TICKS_PER_PASS`
+- `scripts/lib/field-ticks.js` — 带截止的 tick 循环
+- `scripts/lib/field-run.js` / `field-carry-run.js` — 计时与强制检查
 
 ---
 
