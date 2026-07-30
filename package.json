@@ -181,6 +181,7 @@
     "observer:sem-stack": "node scripts/observer-sem-stack-verify.mjs",
     "observer:wlr-stack": "node scripts/observer-wlr-stack-verify.mjs",
     "observer:sem-analogy": "node scripts/observer-sem-analogy-verify.mjs",
+    "observer:signal-digest": "node scripts/observer-signal-digest-verify.mjs",
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",

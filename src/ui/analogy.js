@@ -181,13 +181,15 @@ const LABELS = {
   wlReproTraceCount: { native: '有 reproTrace', analogy: '带繁殖迹个体' },
   semSignalStream: { native: '信号类比流', analogy: '发出语言类比流' },
   semSignalNote: {
-    native: '主行=发/收信与载荷字节；语境行=窗口内域活跃（非载荷地球语含义）',
-    analogy: '主行看清「谁发/谁收、三字节是什么」；语境行只说明当时处于哪些机制域，不是翻译载荷内容',
+    native: '摘要=代读聚合叙事；明细=逐条日志。释义表译机制标签，不译 hex 字节。',
+    analogy: '默认「语义摘要」代你看：合并重复收信、标繁殖阶段与共现约定；载荷字节仍无地球语词条。',
   },
   semSignalBeing: { native: '个体', analogy: '个体' },
   semSignalAll: { native: '全部存活个体', analogy: '全部存活个体' },
   semSignalEmpty: { native: '暂无 TX/RX 信号', analogy: '暂无发信/收信记录' },
   semSignalClose: { native: '关闭', analogy: '关闭' },
+  semSignalDigest: { native: '语义摘要', analogy: '语义摘要' },
+  semSignalDetail: { native: '逐条明细', analogy: '逐条明细' },
 };
 
 export function label(key) {

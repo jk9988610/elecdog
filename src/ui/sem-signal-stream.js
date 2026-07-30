@@ -1,9 +1,11 @@
-/** 信号类比流面板 — [TX]/[RX] 载荷类比译文（非辞典定义） */
+/** 信号类比流面板 — 摘要模式（默认）+ 明细模式 */
 
 import { buildSignalTranslations } from './sem-analogy-translate.js';
+import { buildSignalDigest } from './sem-signal-digest.js';
 import { isAnalogyMode, label, semSignalViewModeHint } from './analogy.js';
 
 const STREAM_LIMIT = 40;
+const DIGEST_WINDOW = 24;
 
 function escapeHtml(s) {
   return String(s)
@@ -39,6 +41,10 @@ export function renderSemSignalStreamPanelHTML() {
           <p id="sem-signal-hint" class="sem-signal-hint">${escapeHtml(semSignalViewModeHint())}</p>
         </div>
         <div class="sem-signal-head-actions">
+          <span class="sem-signal-view-toggle">
+            <button type="button" id="btn-sig-view-digest" class="btn-ghost sig-view-btn active">${escapeHtml(label('semSignalDigest'))}</button>
+            <button type="button" id="btn-sig-view-detail" class="btn-ghost sig-view-btn">${escapeHtml(label('semSignalDetail'))}</button>
+          </span>
           <label class="sem-signal-filter">
             ${escapeHtml(label('semSignalBeing'))}
             <select id="sem-signal-being"></select>
@@ -47,9 +53,28 @@ export function renderSemSignalStreamPanelHTML() {
         </div>
       </div>
       <p class="sem-signal-note">${escapeHtml(label('semSignalNote'))}</p>
-      <ul id="sem-signal-list" class="sem-signal-list"></ul>
+      <div id="sem-signal-digest" class="sem-signal-digest"></div>
+      <ul id="sem-signal-list" class="sem-signal-list hidden"></ul>
     </section>
   `;
+}
+
+function renderDigestBlock(digest) {
+  if (!digest?.lines?.length) {
+    return `<p class="sem-signal-empty muted">${escapeHtml(label('semSignalEmpty'))}</p>`;
+  }
+  return digest.lines
+    .map((line) => {
+      const cls = line.startsWith('【')
+        ? 'digest-head'
+        : line.startsWith('—')
+          ? 'digest-foot'
+          : line.startsWith('▸')
+            ? 'digest-section'
+            : 'digest-line';
+      return `<p class="digest-row ${cls}">${escapeHtml(line)}</p>`;
+    })
+    .join('');
 }
 
 function renderSignalLine(row) {
@@ -76,12 +101,25 @@ function renderSignalLine(row) {
 export function initSemSignalStreamPanel(root, { getRecorder, getWorld, onClose } = {}) {
   const panel = root.querySelector('#sem-signal-panel');
   const list = root.querySelector('#sem-signal-list');
+  const digestEl = root.querySelector('#sem-signal-digest');
   const select = root.querySelector('#sem-signal-being');
   const hintEl = root.querySelector('#sem-signal-hint');
   const btnClose = root.querySelector('#btn-sem-signal-close');
+  const btnDigest = root.querySelector('#btn-sig-view-digest');
+  const btnDetail = root.querySelector('#btn-sig-view-detail');
   if (!panel || !list) return null;
 
   let beingFilter = 'all';
+  let viewMode = 'digest';
+
+  function setView(mode) {
+    viewMode = mode;
+    btnDigest?.classList.toggle('active', mode === 'digest');
+    btnDetail?.classList.toggle('active', mode === 'detail');
+    list?.classList.toggle('hidden', mode !== 'detail');
+    digestEl?.classList.toggle('hidden', mode !== 'digest');
+    paint();
+  }
 
   function paintBeingOptions() {
     const world = getWorld?.();
@@ -109,6 +147,16 @@ export function initSemSignalStreamPanel(root, { getRecorder, getWorld, onClose 
     if (hintEl) hintEl.textContent = semSignalViewModeHint();
 
     const bid = beingFilter === 'all' ? null : beingFilter;
+
+    if (viewMode === 'digest' && digestEl) {
+      const digest = buildSignalDigest(recorder, world, {
+        beingId: bid,
+        windowTicks: DIGEST_WINDOW,
+      });
+      digestEl.innerHTML = renderDigestBlock(digest);
+      return;
+    }
+
     const rows = buildSignalTranslations(recorder, world, {
       beingId: bid,
       limit: STREAM_LIMIT,
@@ -128,13 +176,15 @@ export function initSemSignalStreamPanel(root, { getRecorder, getWorld, onClose 
     paint();
   });
 
+  btnDigest?.addEventListener('click', () => setView('digest'));
+  btnDetail?.addEventListener('click', () => setView('detail'));
   btnClose?.addEventListener('click', () => onClose?.());
 
   return {
     open() {
       paintBeingOptions();
       panel.classList.remove('hidden');
-      paint();
+      setView('digest');
     },
     close() {
       panel.classList.add('hidden');

@@ -1399,3 +1399,60 @@ input[type='number'] {
   color: #c8a878;
   border-color: #3a4a60;
 }
+
+.sem-signal-view-toggle {
+  display: flex;
+  gap: 0.25rem;
+}
+
+.sig-view-btn.active {
+  background: #1a2430;
+  color: #c8a878;
+  border-color: #3a4a60;
+}
+
+.sem-signal-digest {
+  overflow: auto;
+  flex: 1;
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 8px;
+  padding: 0.65rem 0.85rem;
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.sem-signal-digest.hidden {
+  display: none;
+}
+
+.digest-row {
+  margin: 0.2rem 0;
+  color: #b8c0d0;
+}
+
+.digest-head {
+  color: #e8eaef;
+  font-weight: 600;
+  margin-bottom: 0.45rem;
+}
+
+.digest-section {
+  color: #c8b878;
+  margin-top: 0.35rem;
+}
+
+.digest-line {
+  color: #9aa3b5;
+  padding-left: 0.25rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.72rem;
+}
+
+.digest-foot {
+  color: #5a6270;
+  font-size: 0.68rem;
+  margin-top: 0.5rem;
+  border-top: 1px solid #1a1f2a;
+  padding-top: 0.45rem;
+}
