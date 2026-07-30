@@ -189,6 +189,7 @@
     "observer:mv-lifecycle": "node scripts/observer-mv-lifecycle-verify.mjs",
     "observer:mv3-genealogy": "node scripts/observer-mv3-genealogy-verify.mjs",
     "observer:mv4-layout": "node scripts/observer-mv4-layout-verify.mjs",
+    "observer:mv1c-mit": "node scripts/observer-mv1c-mit-verify.mjs",
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",

@@ -11,7 +11,7 @@
 | **距哺乳生物总目标多远** | 本文 **「MV 主轨进度」** |
 | **阶段任务清单** | [MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md) §十二 |
 | **当前在做什么** | [CURSOR_HANDOFF.md](CURSOR_HANDOFF.md) |
-| **自动化回归** | `npm run observer:mv3-genealogy` |
+| **自动化回归** | `npm run observer:mv1c-mit` |
 
 ---
 
@@ -22,12 +22,12 @@
 
 ---
 
-## MV 主轨进度（估算 **~68%**）
+## MV 主轨进度（估算 **~70%**）
 
 | 阶段 | 目标 | 状态 | 完成度 |
 |------|------|------|--------|
 | **MV0–MV1b** 发育/脐带 | STEM、GEST/JUV/ADT、[UMB] | ✅ | **~90%** |
-| **MV1c** 成体 MIT 调参 | 同型 MIT、Z6 homeo | 🔄 | **~65%** |
+| **MV1c** 成体 MIT 调参 | 同型 MIT、Z6 homeo | ✅ 本 PR | **~85%** |
 | **MV5–MV7** 五感/结构/激素 | [SEN]、PAIR、[HRM] | ✅ #168–170 | **~80%** |
 | **MV8** DNA 表达 | dna-express.js | ✅ #171 | **~75%** |
 | **MV9** 闭环田野 | 全生命周期验收 | ✅ 本 PR | **~85%** |
@@ -66,6 +66,7 @@
 ```bash
 npm run observer:multicell-v2    # MV 主轨回归
 npm run observer:dna-express       # Z1–Z6 分区哈希
+npm run observer:mv1c-mit          # MV1c 成体 MIT
 npm run observer:mv-lifecycle      # MV9 全生命周期闭环
 npm run observer:mv3-genealogy       # MV3 族谱持久
 npm run observer:repro-speech

@@ -261,7 +261,7 @@ LOG-SEN-* → [SEN] → LOG-NRV（整合、时序）→ LOG-BRN（记忆/意识�
 ### MV1c — 成体同型 MIT
 
 - [x] `LOG-T → LOG-T`（ADT）；≤8/类
-- [ ] STEM 池成体冻结、速率田野调参
+- [x] STEM 池成体冻结、速率田野调参（`adultMit*`、`[STEM-FRZ]`）
 
 ### MV2 — 器官通路
 

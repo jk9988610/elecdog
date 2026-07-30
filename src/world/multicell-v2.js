@@ -111,11 +111,29 @@ export function resolveLifeStage(being, world, profile) {
       being.lifeStage = LIFE_STAGE_ADT;
       being.adultAtTick = world.tick;
       initAdultMatingStructures(being, profile, world.tick);
+      if (profile?.stemFreezeAtAdult !== false) {
+        freezeStemPool(being, world.tick);
+      }
     }
     return LIFE_STAGE_ADT;
   }
   being.lifeStage = LIFE_STAGE_JUV;
   return LIFE_STAGE_JUV;
+}
+
+/** 成体冻结剩余 STEM 池：不再 MIT/DIFF 消耗干细胞 */
+export function freezeStemPool(being, atTick = 0) {
+  if (being.stemPoolFrozen) return being.stemFrozenCount ?? 0;
+  being.stemPoolFrozen = true;
+  being.stemFrozenAtTick = atTick;
+  const stems = being.logicCells?.[STEM_CELL_CODE] ?? [];
+  for (const cell of stems) cell.frozen = true;
+  being.stemFrozenCount = stems.length;
+  return being.stemFrozenCount;
+}
+
+export function stemPoolFrozen(being) {
+  return being?.stemPoolFrozen === true;
 }
 
 export function isJuvenile(being, profile) {
@@ -249,6 +267,7 @@ function addLogicCell(being, code, atTick) {
 }
 
 function consumeStem(being) {
+  if (stemPoolFrozen(being)) return null;
   const stems = being.logicCells?.[STEM_CELL_CODE];
   if (!stems?.length) return null;
   const stem = stems[stems.length - 1];
@@ -257,6 +276,7 @@ function consumeStem(being) {
 }
 
 function tryStemMitosis(being, profile, rng) {
+  if (stemPoolFrozen(being)) return null;
   const stems = ensureCellList(being, STEM_CELL_CODE);
   if (!stems.length || stems.length >= STEM_CELL_MAX) return null;
   const parent = stems[Math.floor(rng() * stems.length)];
@@ -280,6 +300,7 @@ function trySameTypeMitosis(being, world, profile, rng) {
 }
 
 function tryDifferentiation(being, world, profile, stage, rng) {
+  if (stage === LIFE_STAGE_ADT && stemPoolFrozen(being)) return null;
   const target = pickDiffTarget(being, world, profile, stage, rng);
   if (!target) return null;
   const stem = consumeStem(being);
@@ -311,7 +332,21 @@ function mitHormoneMult(being) {
   return +(avg * homeo).toFixed(4);
 }
 
-function mitProbability(stage, profile, boost, being) {
+function adultMitEnvMult(being, world, profile) {
+  if (!profile?.adultMitEnvCouple) return 1;
+  const env = sampleOrganismEnv(world, profile, being);
+  const air = env.airScalar ?? 0.5;
+  const temp = env.tempScalar ?? 0.5;
+  const sub = env.hasSubstrateField ? 1 : 0.88;
+  return Math.min(1.28, Math.max(0.62, ((air + temp) / 2) * sub));
+}
+
+function mitProbability(stage, profile, boost, being, world) {
+  if (stage === LIFE_STAGE_ADT) {
+    const adultBase = profile?.adultMitBase ?? 0.035;
+    const envMult = world ? adultMitEnvMult(being, world, profile) : 1;
+    return Math.min(0.38, adultBase * mitHormoneMult(being) * envMult);
+  }
   const base =
     stage === LIFE_STAGE_GEST
       ? 0.14
@@ -392,13 +427,33 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
   ensureOrganPathways(being);
   const stage = resolveDevStage(being, world, profile);
   resolveLifeStage(being, world, profile);
+  if (
+    being.lifeStage === LIFE_STAGE_ADT &&
+    being.stemPoolFrozen &&
+    !being.stemFrzLogged
+  ) {
+    recorder.evolution(
+      world.tick,
+      being.id,
+      `[STEM-FRZ] pool ${being.stemFrozenCount ?? 0} frozen`,
+      {
+        kind: 'STEM-FRZ',
+        stemCount: being.stemFrozenCount ?? 0,
+        frozenAtTick: being.stemFrozenAtTick ?? world.tick,
+      }
+    );
+    being.stemFrzLogged = true;
+  }
   const rng = mulberry32(hashString(`${being.id}:${world.tick}:mv-dev`));
   const boost = juvenileMitBoost(being, world, profile);
   const events = [];
 
-  const mitGap = profile?.mitIntervalTicks ?? 6;
+  const mitGap =
+    stage === LIFE_STAGE_ADT
+      ? profile?.adultMitIntervalTicks ?? profile?.mitIntervalTicks ?? 8
+      : profile?.mitIntervalTicks ?? 6;
   if (world.tick - (being.lastMitTick ?? -999) >= mitGap) {
-    const pMit = mitProbability(stage, profile, boost, being);
+    const pMit = mitProbability(stage, profile, boost, being, world);
     if (rng() < pMit) {
       const mit =
         stage === LIFE_STAGE_ADT
@@ -456,6 +511,8 @@ export function multicellV2Snapshot(being) {
     devStage: being.devStage ?? null,
     lifeStage: being.lifeStage ?? null,
     adultAtTick: being.adultAtTick ?? null,
+    stemPoolFrozen: being.stemPoolFrozen ?? false,
+    stemFrozenCount: being.stemFrozenCount ?? null,
     skin: being.skinMembrane ?? null,
     logicCounts: logicCellCounts(being),
     totalLogic: totalLogicCells(being),
