@@ -201,7 +201,10 @@
 - **Phase 113 扩展**：
   - 加长混合 tick（1920）+ `fieldRunDeadlineMs` / `fieldMaxTicksPerPass` 截止守卫
   - 田野：`npm run field:phase113`
-- **状态**：**部分结案** — 留置链田野上合作因果可度量；统计定律仍开放
+- **Phase 118 扩展**：
+  - 六环境+链 × 多批次（4 种子）合作因果定律复验；`carryCoopAdvantage` / `crossRxCoopCorr` 跨种子一致性
+  - 田野：`npm run field:phase118`
+- **状态**：**部分结案** — 留置链田野上合作因果可度量；跨种子定律待验证
 - **报告**：[PHASE51_COOPERATION.md](PHASE51_COOPERATION.md) · [PHASE110_COOP_CAUSAL.md](PHASE110_COOP_CAUSAL.md)
 
 ---
@@ -447,5 +450,14 @@
 - **田野**：`npm run field:phase117`
 - **状态**：**部分结案** — 6+ 环境链可观测；GAP-13 定律仍开放
 - **文档**：[PHASE117_HEXA_CHAIN.md](PHASE117_HEXA_CHAIN.md)
+
+---
+
+## GAP-13-COOP-LAW · 多批次合作因果定律（Phase 118）
+
+- **扩展**：六环境+链 × 混合 COOP/SOC 因子；跨 4 种子检验留置优势与相关符号一致性
+- **田野**：`npm run field:phase118`
+- **状态**：**部分结案** — 多批次田野 weak 4/7；留置优势定律未立
+- **文档**：[PHASE118_COOP_LAW.md](PHASE118_COOP_LAW.md)
 
 ---
