@@ -6,6 +6,11 @@ import { assessStress, externalThreshold, preferAct } from '../world/viability.j
 import { assignCellBoundary } from '../world/cell.js';
 import { effectiveCoupling } from '../world/register-profile.js';
 import { applySemPayloadHint } from '../world/sem.js';
+import {
+  internalTxCouplingEnabled,
+  deriveInternalTxCoupling,
+  applyInternalTxCoupling,
+} from '../world/internal-tx-coupling.js';
 
 function dnaToRegisters(dna, count = 8) {
   const rng = mulberry32(hashString(dna));
@@ -139,6 +144,24 @@ export class Being {
     } else {
       kind = this.rng() > 0.5 - txBoost ? 'TX' : 'ACT';
     }
+    if (kind === 'TX' && experienceBias?.internalTxCoupling) {
+      const coupled = applyInternalTxCoupling(
+        op,
+        payload,
+        chk,
+        experienceBias.internalTxCoupling,
+        () => this.rng()
+      );
+      if (coupled.applied) {
+        op = coupled.op;
+        payload = coupled.payload;
+        chk = coupled.chk;
+        this.internalTxHits = (this.internalTxHits ?? 0) + 1;
+        this.internalTxLoad = coupled.load ?? 0;
+        this.lastInternalTxSource = coupled.sourceInternal;
+        this.internalTxAppliedTick = true;
+      }
+    }
     if (kind === 'TX' && experienceBias?.txPayloadHint) {
       const hinted = applySemPayloadHint(
         op,
@@ -183,10 +206,18 @@ export class Being {
       );
     }
 
+    let tickBias = experienceBias;
+    if (profile && internalTxCouplingEnabled(profile)) {
+      const coupling = deriveInternalTxCoupling(internal, this, profile, experienceBias);
+      if (coupling) {
+        tickBias = { ...(experienceBias ?? {}), internalTxCoupling: coupling };
+      }
+    }
+
     const external = this.emitExternal({
       stress,
       lowStreak: this.lowStreak,
-      experienceBias,
+      experienceBias: tickBias,
     });
     return {
       tick: worldTick,

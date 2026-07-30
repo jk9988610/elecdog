@@ -24,6 +24,7 @@ import { initPrediction, predictionEnabled } from '../world/prediction.js';
 import { initSocialKnowledge, socialKnowledgeEnabled } from '../world/social-knowledge.js';
 import { initSemState, semEnabled } from '../world/sem.js';
 import { initSemLineage, semLineageEnabled } from '../world/sem-lineage.js';
+import { initInternalTxCoupling, internalTxCouplingEnabled } from '../world/internal-tx-coupling.js';
 import { initReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { initSynthCounters, synthEnabled } from '../world/synth.js';
 import { initSymModules } from '../world/sym.js';
@@ -107,6 +108,9 @@ export function spawnBeing(
   }
   if (semLineageEnabled(world.envProfile)) {
     initSemLineage(being);
+  }
+  if (internalTxCouplingEnabled(world.envProfile)) {
+    initInternalTxCoupling(being);
   }
   if (reservoirEnabled(world.envProfile)) {
     initReservoir(being, world.envProfile);

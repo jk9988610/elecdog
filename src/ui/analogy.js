@@ -190,6 +190,20 @@ const LABELS = {
   semSignalClose: { native: '关闭', analogy: '关闭' },
   semSignalDigest: { native: '语义摘要', analogy: '语义摘要' },
   semSignalDetail: { native: '逐条明细', analogy: '逐条明细' },
+  thoughtSpeech: { native: '思考外化', analogy: '思考外化' },
+  thoughtSpeechHint: {
+    native: 'internal 流驱动 [TX] 时记录 [THO]',
+    analogy: '看到「先想再说」的耦合时刻',
+  },
+  thoughtSpeechNote: {
+    native: '耦合≠地球语词义；载荷仍由内在流字节衍生',
+    analogy: '当内在流与发信载荷一致或相近时，即思考外化（机制层，非翻译表）',
+  },
+  thoughtSpeechEmpty: { native: '暂无 [THO] 记录', analogy: '尚未出现思考驱动发信' },
+  thoughtSpeechOff: {
+    native: '当前环境未启用 internalTxCoupling — 请切换观察台·脑演化栈',
+    analogy: '请切换至脑演化观察环境',
+  },
 };
 
 export function label(key) {

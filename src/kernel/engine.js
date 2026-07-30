@@ -87,6 +87,7 @@ import {
 } from '../world/memory-feedback.js';
 import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
 import { semEnabled, recordSemRx, recordSemTx, semFeedbackEnabled, semActBias } from '../world/sem.js';
+import { internalTxCouplingEnabled } from '../world/internal-tx-coupling.js';
 import { noteSemDomainFromKind, noteSemDomainFromTick } from '../world/sem-domain.js';
 import {
   socialKnowledgeEnabled,
@@ -345,6 +346,20 @@ export function stepWorld(world, recorder) {
               kind: 'TX',
               slot: being.socialSlot,
             });
+            if (internalTxCouplingEnabled(profile) && being.internalTxAppliedTick) {
+              recorder.evolution(
+                world.tick,
+                being.id,
+                `[THO] int→tx load ${being.internalTxLoad ?? 0}`,
+                {
+                  kind: 'THO',
+                  load: being.internalTxLoad ?? 0,
+                  sourceInternal: being.lastInternalTxSource ?? '',
+                  txLine: line,
+                }
+              );
+              being.internalTxAppliedTick = false;
+            }
           }
         } else if (line.startsWith('[ACT]')) {
           const payload = line.slice(5);

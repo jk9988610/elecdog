@@ -1456,3 +1456,118 @@ input[type='number'] {
   border-top: 1px solid #1a1f2a;
   padding-top: 0.45rem;
 }
+
+/* —— 思考外化面板 —— */
+.thought-speech-panel {
+  padding: 0.85rem 1.75rem 1rem;
+  border-bottom: 1px solid #1e2430;
+  background: #0a0c12;
+  max-height: min(50vh, 24rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.thought-speech-panel.hidden {
+  display: none;
+}
+
+.thought-speech-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.thought-speech-title {
+  margin: 0;
+  font-size: 1rem;
+  color: #e8eaef;
+}
+
+.thought-speech-hint {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: #a8c8e8;
+}
+
+.thought-speech-note {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  color: #5a6270;
+}
+
+.thought-speech-head-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.thought-speech-filter select {
+  background: #080a0e;
+  border: 1px solid #2a3140;
+  color: #e8eaef;
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  font-size: 0.8125rem;
+}
+
+.thought-speech-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  flex: 1;
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 8px;
+}
+
+.thought-speech-item {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.35rem 0.5rem;
+  padding: 0.4rem 0.65rem;
+  border-bottom: 1px solid #1a1f2a;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.tho-tick {
+  color: #6b7385;
+  font-family: ui-monospace, monospace;
+}
+
+.tho-who {
+  color: #7ec8e3;
+  font-family: ui-monospace, monospace;
+}
+
+.tho-narrative {
+  flex: 1;
+  color: #d8dce6;
+  min-width: 12rem;
+}
+
+.tho-match .tho-narrative {
+  color: #b8e8c8;
+}
+
+.tho-src,
+.tho-tx {
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+  color: #5a6270;
+}
+
+.thought-speech-empty {
+  padding: 1rem;
+  text-align: center;
+}
+
+#btn-thought-speech-toggle.active {
+  background: #1a2430;
+  color: #a8c8e8;
+  border-color: #3a4a60;
+}
