@@ -1202,3 +1202,193 @@ input[type='number'] {
   color: #7ec8e3;
   border-color: #3a4a60;
 }
+
+/* —— 信号类比流面板 —— */
+.sem-signal-panel {
+  padding: 0.85rem 1.75rem 1rem;
+  border-bottom: 1px solid #1e2430;
+  background: #0a0c12;
+  max-height: min(55vh, 28rem);
+  display: flex;
+  flex-direction: column;
+}
+
+.sem-signal-panel.hidden {
+  display: none;
+}
+
+.sem-signal-head {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 0.35rem;
+}
+
+.sem-signal-title {
+  margin: 0;
+  font-size: 1rem;
+  color: #e8eaef;
+}
+
+.sem-signal-hint {
+  margin: 0.25rem 0 0;
+  font-size: 0.75rem;
+  color: #c8a878;
+  font-family: ui-monospace, monospace;
+}
+
+.sem-signal-note {
+  margin: 0 0 0.5rem;
+  font-size: 0.75rem;
+  color: #5a6270;
+}
+
+.sem-signal-head-actions {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.sem-signal-filter {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  font-size: 0.7rem;
+  color: #6b7385;
+}
+
+.sem-signal-filter select {
+  background: #080a0e;
+  border: 1px solid #2a3140;
+  color: #e8eaef;
+  border-radius: 6px;
+  padding: 0.35rem 0.5rem;
+  font: inherit;
+  font-size: 0.8125rem;
+}
+
+.sem-signal-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow: auto;
+  flex: 1;
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 8px;
+}
+
+.sem-signal-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem 0.5rem;
+  padding: 0.4rem 0.65rem;
+  border-bottom: 1px solid #1a1f2a;
+  font-size: 0.75rem;
+  line-height: 1.45;
+}
+
+.sem-signal-item:last-child {
+  border-bottom: none;
+}
+
+.sig-tick {
+  color: #6b7385;
+  font-family: ui-monospace, monospace;
+  min-width: 3rem;
+}
+
+.sig-who {
+  color: #7ec8e3;
+  font-family: ui-monospace, monospace;
+  font-size: 0.68rem;
+}
+
+.sig-dir {
+  font-size: 0.65rem;
+  font-weight: 600;
+  min-width: 1.5rem;
+}
+
+.sig-dir-tx .sig-dir {
+  color: #7ec8a8;
+}
+
+.sig-dir-rx .sig-dir {
+  color: #e8b87c;
+}
+
+.sig-analogy {
+  color: #e8eaef;
+  font-weight: 500;
+  flex: 1;
+  min-width: 8rem;
+}
+
+.sig-tier-repro .sig-analogy {
+  color: #e8a0c8;
+}
+
+.sig-tier-domain .sig-analogy {
+  color: #a8c8e8;
+}
+
+.sig-tier-cmd .sig-analogy {
+  color: #c8b878;
+}
+
+.sig-tier-unparsed .sig-analogy,
+.sig-unparsed .sig-analogy {
+  color: #8a9099;
+}
+
+.sig-conf {
+  font-size: 0.65rem;
+  color: #6b7385;
+  min-width: 1rem;
+}
+
+.sig-raw {
+  color: #5a6270;
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+  word-break: break-all;
+  max-width: 100%;
+}
+
+.sig-hex {
+  color: #7ec8e3;
+  font-family: ui-monospace, monospace;
+  font-size: 0.65rem;
+}
+
+.sig-basis {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.sig-basis-tag {
+  font-size: 0.62rem;
+  color: #5a6270;
+  background: #151a24;
+  border: 1px solid #252a35;
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+  font-family: ui-monospace, monospace;
+}
+
+.sem-signal-empty {
+  padding: 1rem;
+  text-align: center;
+}
+
+#btn-sem-signal-toggle.active {
+  background: #1a2430;
+  color: #c8a878;
+  border-color: #3a4a60;
+}

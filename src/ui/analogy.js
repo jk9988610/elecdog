@@ -179,6 +179,15 @@ const LABELS = {
   wlSemLinRepro: { native: '[SEM-LIN] repro', analogy: '繁殖谱系迹' },
   wlReproTraceMean: { native: 'reproTrace 均值', analogy: '繁殖迹权重均值' },
   wlReproTraceCount: { native: '有 reproTrace', analogy: '带繁殖迹个体' },
+  semSignalStream: { native: '信号类比流', analogy: '发出语言类比流' },
+  semSignalNote: {
+    native: '类比呈现 · 非辞典定义 · 由 sem-domain / 繁殖邻域 / SEM 共现推导',
+    analogy: '类比呈现 · 非辞典定义 · 机制推断，非地球语词典',
+  },
+  semSignalBeing: { native: '个体', analogy: '个体' },
+  semSignalAll: { native: '全部存活个体', analogy: '全部存活个体' },
+  semSignalEmpty: { native: '暂无 TX/RX 信号', analogy: '暂无发信/收信记录' },
+  semSignalClose: { native: '关闭', analogy: '关闭' },
 };
 
 export function label(key) {
@@ -257,6 +266,12 @@ export function wlReproViewModeHint() {
   return isAnalogyMode()
     ? '类比呈现 · 机制标签 · 可跳转 CODEX'
     : 'WL-R 域统计（非地球生活词典）';
+}
+
+export function semSignalViewModeHint() {
+  return isAnalogyMode()
+    ? '类比呈现 · 非辞典定义 · 机制推断'
+    : '载荷类比译文（非语义辞典 · 由机制推导）';
 }
 
 export function formatBand(band) {

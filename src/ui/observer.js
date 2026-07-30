@@ -66,6 +66,7 @@ import { renderCarryPanel } from './carry-panel.js';
 import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import.js';
 import { suggestObserverEnvId } from '../carry/import-report.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
+import { renderSemSignalStreamPanelHTML, initSemSignalStreamPanel } from './sem-signal-stream.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -127,6 +128,7 @@ export class ObserverApp {
         <button id="btn-codex-toggle" type="button" class="btn-ghost">辞典</button>
         <button id="btn-carry-import-toggle" type="button" class="btn-ghost">导入留置</button>
         <button id="btn-mind-stream-toggle" type="button" class="btn-ghost">内在流</button>
+        <button id="btn-sem-signal-toggle" type="button" class="btn-ghost">信号类比</button>
       </section>
 
       <section id="cloud-panel" class="cloud-panel hidden">
@@ -179,6 +181,8 @@ export class ObserverApp {
 
       ${renderMindStreamPanelHTML()}
 
+      ${renderSemSignalStreamPanelHTML()}
+
       <main class="dashboard" id="dashboard"></main>
     `;
 
@@ -219,6 +223,7 @@ export class ObserverApp {
       btnCodexToggle: this.root.querySelector('#btn-codex-toggle'),
       btnCarryImportToggle: this.root.querySelector('#btn-carry-import-toggle'),
       btnMindStreamToggle: this.root.querySelector('#btn-mind-stream-toggle'),
+      btnSemSignalToggle: this.root.querySelector('#btn-sem-signal-toggle'),
     };
 
     this.codexPanel = initCodexPanel(this.root, {
@@ -230,6 +235,12 @@ export class ObserverApp {
       getRecorder: () => this.recorder,
       getWorld: () => this.world,
       onClose: () => this.closeMindStreamPanel(),
+    });
+
+    this.semSignalPanel = initSemSignalStreamPanel(this.root, {
+      getRecorder: () => this.recorder,
+      getWorld: () => this.world,
+      onClose: () => this.closeSemSignalPanel(),
     });
 
     this.carryImportPanel = initCarryImportPanel(this.root, {
@@ -280,6 +291,7 @@ export class ObserverApp {
     this.$.btnCodexToggle?.addEventListener('click', () => this.toggleCodexPanel());
     this.$.btnCarryImportToggle?.addEventListener('click', () => this.toggleCarryImportPanel());
     this.$.btnMindStreamToggle?.addEventListener('click', () => this.toggleMindStreamPanel());
+    this.$.btnSemSignalToggle?.addEventListener('click', () => this.toggleSemSignalPanel());
   }
 
   toggleCarryImportPanel() {
@@ -290,6 +302,7 @@ export class ObserverApp {
       this.$.cloudPanel?.classList.add('hidden');
       this.closeCodexPanel();
       this.closeMindStreamPanel();
+      this.closeSemSignalPanel();
       this.carryImportPanel.open();
       this.$.btnCarryImportToggle?.classList.add('active');
     }
@@ -307,6 +320,7 @@ export class ObserverApp {
     } else {
       this.$.cloudPanel?.classList.add('hidden');
       this.closeCodexPanel();
+      this.closeSemSignalPanel();
       this.mindStreamPanel.open();
       this.$.btnMindStreamToggle?.classList.add('active');
     }
@@ -317,6 +331,24 @@ export class ObserverApp {
     this.$.btnMindStreamToggle?.classList.remove('active');
   }
 
+  toggleSemSignalPanel() {
+    if (!this.semSignalPanel) return;
+    if (this.semSignalPanel.isOpen()) {
+      this.closeSemSignalPanel();
+    } else {
+      this.$.cloudPanel?.classList.add('hidden');
+      this.closeCodexPanel();
+      this.closeMindStreamPanel();
+      this.semSignalPanel.open();
+      this.$.btnSemSignalToggle?.classList.add('active');
+    }
+  }
+
+  closeSemSignalPanel() {
+    this.semSignalPanel?.close();
+    this.$.btnSemSignalToggle?.classList.remove('active');
+  }
+
   toggleCodexPanel() {
     if (!this.codexPanel) return;
     if (this.codexPanel.isOpen()) {
@@ -324,6 +356,7 @@ export class ObserverApp {
     } else {
       this.$.cloudPanel?.classList.add('hidden');
       this.closeMindStreamPanel();
+      this.closeSemSignalPanel();
       this.codexPanel.open();
       this.$.btnCodexToggle?.classList.add('active');
     }
@@ -489,6 +522,7 @@ export class ObserverApp {
       });
     });
     this.mindStreamPanel?.refresh();
+    this.semSignalPanel?.refresh();
     this.updateCloudStatus();
   }
 
