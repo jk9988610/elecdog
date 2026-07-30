@@ -1,0 +1,2359 @@
+{
+  "runAt": "2026-07-30T12:38:11.328Z",
+  "phase": 123,
+  "extension": "gap13_carry_interaction_soc_yield",
+  "hypothesis": "carry_repro_soc_yield",
+  "priorHypothesis": "carry_coop_advantage",
+  "mixedTicks": 8192,
+  "turbo": {
+    "fieldTurboMode": true,
+    "tickChunk": 16
+  },
+  "treatmentIds": [
+    "ev123_coop_interact",
+    "ev123_coop_off_interact"
+  ],
+  "mixedEnvId": "wisdom_evolution",
+  "fieldRunDeadlineMs": 180000,
+  "fieldMaxTicksPerPass": 8192,
+  "aggregate": {
+    "ev123_coop_interact": {
+      "label": "六环境+链·留置交互·COOP+SOC",
+      "mixedTicks": 8192,
+      "meanCarryReproSocYield": 11.2667,
+      "meanSocLoad": 0.9624,
+      "meanSocLin": 52,
+      "meanCarriedFiss": 4.75,
+      "meanCompletion": 1,
+      "meanDurationMs": 30485.3088,
+      "deadlineHits": 0,
+      "runs": [
+        {
+          "treatmentId": "ev123_coop_interact",
+          "seed": 0,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 7.5161,
+            "meanGenCarry": 35.5,
+            "carriedRenTicks": 0,
+            "carriedFiss": 6,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 29048,
+            "pairKinds": 397709,
+            "totalPairEvents": 1102193,
+            "top1CondProb": 1,
+            "externalRate": 0.3372,
+            "semEnabled": true,
+            "meanLogCount": 453.875,
+            "meanPairTally": 17221.7656,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 66,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 64,
+              "ECHO": 0
+            },
+            "meanCrossRx": 71502.3281,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 423933,
+            "socLinCount": 52,
+            "meanContest": 7287.5313,
+            "meanCoopTransitions": 1.0313,
+            "meanSocLoad": 0.938,
+            "cooperationEnabled": true,
+            "socialKnowledgeEnabled": true,
+            "carryCrossRx": 69958.5,
+            "naiveCrossRx": 71552.129,
+            "carryCoopTrans": 1,
+            "naiveCoopTrans": 1.0323,
+            "crossRxCoopCorr": 0.1329,
+            "crossRxFissCorr": 0.033,
+            "coopGenCorr": -0.0737,
+            "carryCoopAdvantage": -0.0323,
+            "carryCrossRxAdvantage": -1593.629,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.3129,
+            "seedExternalRate": 0.4425,
+            "carryReproSocYield": 8.6667,
+            "offspringExternalGap": -0.1296,
+            "carryLineageSocLoad": 0.5,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 36,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 35,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "003",
+              "name": "003嗣嗣嗣嗣",
+              "dnaSequence": "201211222101030302021231202022200021010113233131223132033031030023020223203231302022011102020002",
+              "generation": 36,
+              "registers": [
+                0.44486992324987285,
+                0.4019135777600063,
+                0.634839096064936,
+                0.9880934334372485,
+                0.9435905756625205,
+                0.9488750974802487,
+                0.9385318747259783,
+                0.6777963871750238
+              ],
+              "metProfile": "DOM",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 0,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "005",
+              "name": "005嗣嗣嗣嗣",
+              "dnaSequence": "313122113330131320233102132120130133200031030032133302121123231232201210030133001312112321133313",
+              "generation": 35,
+              "registers": [
+                0.4058885586408074,
+                0.6392350007847701,
+                0.9887093018660547,
+                0.8690270691671412,
+                0.698354801611333,
+                0.8262648467312143,
+                1,
+                0.9324090383860499
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 0,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 31048.308729,
+          "durationLabel": "31.05s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 11191,
+            "evolution:MTB": 5908,
+            "evolution:PRD": 340,
+            "evolution:COOP": 66,
+            "evolution:SOC-ENC": 423933,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 101,
+            "population:CMP": 81,
+            "evolution:SEM": 29048
+          },
+          "entriesKept": 0
+        },
+        {
+          "treatmentId": "ev123_coop_interact",
+          "seed": 1,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 7.9516,
+            "meanGenCarry": 42,
+            "carriedRenTicks": 0,
+            "carriedFiss": 5,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 29177,
+            "pairKinds": 355320,
+            "totalPairEvents": 1070753,
+            "top1CondProb": 1,
+            "externalRate": 0.3303,
+            "semEnabled": true,
+            "meanLogCount": 455.8906,
+            "meanPairTally": 16730.5156,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 70,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 64,
+              "ECHO": 0
+            },
+            "meanCrossRx": 70289.0625,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 423863,
+            "socLinCount": 52,
+            "meanContest": 7230.9063,
+            "meanCoopTransitions": 1.0938,
+            "meanSocLoad": 0.9799,
+            "cooperationEnabled": true,
+            "socialKnowledgeEnabled": true,
+            "carryCrossRx": 69126,
+            "naiveCrossRx": 70326.5806,
+            "carryCoopTrans": 1,
+            "naiveCoopTrans": 1.0968,
+            "crossRxCoopCorr": 0.2732,
+            "crossRxFissCorr": 0.0297,
+            "coopGenCorr": -0.0932,
+            "carryCoopAdvantage": -0.0968,
+            "carryCrossRxAdvantage": -1200.5806,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.3041,
+            "seedExternalRate": 0.4441,
+            "carryReproSocYield": 10.4,
+            "offspringExternalGap": -0.14,
+            "carryLineageSocLoad": 0.5,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 42,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 42,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "001",
+              "name": "观察者嗣嗣嗣嗣",
+              "dnaSequence": "010100210333233301300113132111232033132033300320211302122232022122122313313112000113321101230102",
+              "generation": 42,
+              "registers": [
+                0.5780953080075744,
+                0.9072446690626615,
+                0.6336133696015648,
+                0.8020513166436349,
+                0.6781671944369733,
+                0.995502937710649,
+                1,
+                0.9270377039659594
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 1,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "002",
+              "name": "002嗣嗣嗣嗣",
+              "dnaSequence": "011120020221020110311211330222230031122110112010000210110311211203310132222103203311223020100203",
+              "generation": 42,
+              "registers": [
+                0.4020017442494199,
+                0.38714356800621,
+                0.6165385800970927,
+                0.9115486461881054,
+                0.9062176669155273,
+                0.9660363860993116,
+                1,
+                0.9306523842681925
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 1,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 31597.162279,
+          "durationLabel": "31.60s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 12432,
+            "evolution:MTB": 5861,
+            "evolution:PRD": 363,
+            "evolution:COOP": 70,
+            "evolution:SOC-ENC": 423863,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 94,
+            "population:CMP": 81,
+            "evolution:SEM": 29177
+          },
+          "entriesKept": 0
+        },
+        {
+          "treatmentId": "ev123_coop_interact",
+          "seed": 2,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 5.4032,
+            "meanGenCarry": 37.5,
+            "carriedRenTicks": 0,
+            "carriedFiss": 4,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 28175,
+            "pairKinds": 392884,
+            "totalPairEvents": 1076653,
+            "top1CondProb": 1,
+            "externalRate": 0.3338,
+            "semEnabled": true,
+            "meanLogCount": 440.2344,
+            "meanPairTally": 16822.7031,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 64,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 64,
+              "ECHO": 0
+            },
+            "meanCrossRx": 70653.9375,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 423858,
+            "socLinCount": 52,
+            "meanContest": 7270.5313,
+            "meanCoopTransitions": 1,
+            "meanSocLoad": 0.9596,
+            "cooperationEnabled": true,
+            "socialKnowledgeEnabled": true,
+            "carryCrossRx": 69644.5,
+            "naiveCrossRx": 70686.5,
+            "carryCoopTrans": 1,
+            "naiveCoopTrans": 1,
+            "crossRxCoopCorr": null,
+            "crossRxFissCorr": 0.0528,
+            "coopGenCorr": null,
+            "carryCoopAdvantage": 0,
+            "carryCrossRxAdvantage": -1042,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.3084,
+            "seedExternalRate": 0.4437,
+            "carryReproSocYield": 13,
+            "offspringExternalGap": -0.1353,
+            "carryLineageSocLoad": 0.5,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 40,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 35,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "003",
+              "name": "003-乙嗣嗣",
+              "dnaSequence": "201310322022031102003032301023100003123003212100322010231130320030022323301321312233310113230010",
+              "generation": 40,
+              "registers": [
+                0.5564082676290772,
+                0.6800704962971442,
+                0.8824268714911263,
+                0.9996435776360543,
+                1,
+                0.7172667077603666,
+                1,
+                0.9990332887098687
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 2,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "005",
+              "name": "005嗣嗣嗣嗣",
+              "dnaSequence": "200123203310230320021201301131003133213022311302110112213312300100332221231221101120222210133001",
+              "generation": 35,
+              "registers": [
+                0.6090744341163052,
+                0.6734537137999979,
+                0.9674473105519821,
+                0.9186791191034854,
+                0.9890733652540117,
+                0.7107270248518207,
+                1,
+                1
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 2,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 30529.580134999997,
+          "durationLabel": "30.53s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 14708,
+            "evolution:MTB": 6830,
+            "evolution:PRD": 369,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 423858,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 97,
+            "population:CMP": 81,
+            "evolution:SEM": 28175
+          },
+          "entriesKept": 0
+        },
+        {
+          "treatmentId": "ev123_coop_interact",
+          "seed": 3,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 5.0645,
+            "meanGenCarry": 34,
+            "carriedRenTicks": 0,
+            "carriedFiss": 4,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 24874,
+            "pairKinds": 416204,
+            "totalPairEvents": 1020774,
+            "top1CondProb": 1,
+            "externalRate": 0.3257,
+            "semEnabled": true,
+            "meanLogCount": 388.6563,
+            "meanPairTally": 15949.5938,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 64,
+            "coopModes": {
+              "S0": 0,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 64,
+              "ECHO": 0
+            },
+            "meanCrossRx": 68811.125,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 423864,
+            "socLinCount": 52,
+            "meanContest": 7232.2188,
+            "meanCoopTransitions": 1,
+            "meanSocLoad": 0.9719,
+            "cooperationEnabled": true,
+            "socialKnowledgeEnabled": true,
+            "carryCrossRx": 69065.5,
+            "naiveCrossRx": 68802.9194,
+            "carryCoopTrans": 1,
+            "naiveCoopTrans": 1,
+            "crossRxCoopCorr": null,
+            "crossRxFissCorr": 0.057,
+            "coopGenCorr": null,
+            "carryCoopAdvantage": 0,
+            "carryCrossRxAdvantage": 262.5806,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.2978,
+            "seedExternalRate": 0.4465,
+            "carryReproSocYield": 13,
+            "offspringExternalGap": -0.1487,
+            "carryLineageSocLoad": 0.5,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 35,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 33,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "003",
+              "name": "003-乙嗣嗣",
+              "dnaSequence": "112301032013302322323233002323300011202133323033222012010011001012210020110001332130133213201013",
+              "generation": 35,
+              "registers": [
+                0.5640509552256877,
+                0.9882511562358537,
+                0.6464879626195896,
+                0.7064091096376599,
+                0.7239337394957053,
+                0.8964326456150726,
+                0.9883776778418293,
+                1
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 3,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "003",
+              "name": "003嗣嗣嗣嗣",
+              "dnaSequence": "323022132011000312202221203203010020312232213221222312031000120232133203330111303011111333120221",
+              "generation": 33,
+              "registers": [
+                0.47621121192720395,
+                0.6099567585759643,
+                0.6244759523117933,
+                0.9182334751748621,
+                0.9331028227416418,
+                0.9059018236554947,
+                0.9890501883215193,
+                0.9741156742478948
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 3,
+                "treatmentId": "ev123_coop_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 28766.184221999996,
+          "durationLabel": "28.77s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 14505,
+            "evolution:MTB": 5265,
+            "evolution:PRD": 386,
+            "evolution:COOP": 64,
+            "evolution:SOC-ENC": 423864,
+            "evolution:EHU-LIN": 52,
+            "evolution:SOC-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 94,
+            "population:CMP": 81,
+            "evolution:SEM": 24874
+          },
+          "entriesKept": 0
+        }
+      ]
+    },
+    "ev123_coop_off_interact": {
+      "label": "六环境+链·留置交互·无COOP",
+      "mixedTicks": 8192,
+      "meanCarryReproSocYield": 0,
+      "meanSocLoad": 0,
+      "meanSocLin": 0,
+      "meanCarriedFiss": 5,
+      "meanCompletion": 1,
+      "meanDurationMs": 56444.5477,
+      "deadlineHits": 0,
+      "runs": [
+        {
+          "treatmentId": "ev123_coop_off_interact",
+          "seed": 0,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 7.6613,
+            "meanGenCarry": 36.5,
+            "carriedRenTicks": 0,
+            "carriedFiss": 6,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 60529,
+            "pairKinds": 599367,
+            "totalPairEvents": 2248719,
+            "top1CondProb": 1,
+            "externalRate": 0.4768,
+            "semEnabled": true,
+            "meanLogCount": 945.7656,
+            "meanPairTally": 35136.2344,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 64,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "meanContest": 0,
+            "meanCoopTransitions": 0,
+            "meanSocLoad": 0,
+            "cooperationEnabled": false,
+            "socialKnowledgeEnabled": false,
+            "carryCrossRx": 0,
+            "naiveCrossRx": 0,
+            "carryCoopTrans": 0,
+            "naiveCoopTrans": 0,
+            "crossRxCoopCorr": null,
+            "crossRxFissCorr": null,
+            "coopGenCorr": null,
+            "carryCoopAdvantage": 0,
+            "carryCrossRxAdvantage": 0,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.4799,
+            "seedExternalRate": 0.4632,
+            "carryReproSocYield": 0,
+            "offspringExternalGap": 0.0167,
+            "carryLineageSocLoad": 0,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 38,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 35,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "003",
+              "name": "003-乙嗣嗣",
+              "dnaSequence": "021230213131300333102333203322110031230010203133022002032030203312030013213230221110032333222300",
+              "generation": 38,
+              "registers": [
+                0.4023142958903585,
+                0.3050161927781761,
+                0.509636511661093,
+                0.9119378016106422,
+                0.9692464153862254,
+                1,
+                1,
+                0.9615668440822405
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 0,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "005",
+              "name": "005嗣嗣嗣嗣",
+              "dnaSequence": "013033223230230010010030110230023233023122001213023012331232020012031122211220123312232232300012",
+              "generation": 35,
+              "registers": [
+                0.48237124589868,
+                0.6016945899231754,
+                0.8130869435506253,
+                0.6317361541423907,
+                0.9963503663348877,
+                1,
+                1,
+                0.9484955020022404
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 0,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 54666.143943,
+          "durationLabel": "54.67s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 9925,
+            "evolution:MTB": 2731,
+            "evolution:PRD": 374,
+            "evolution:EHU-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 92,
+            "population:CMP": 81,
+            "evolution:SEM": 60529
+          },
+          "entriesKept": 0
+        },
+        {
+          "treatmentId": "ev123_coop_off_interact",
+          "seed": 1,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 8.4516,
+            "meanGenCarry": 37.5,
+            "carriedRenTicks": 0,
+            "carriedFiss": 6,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 61795,
+            "pairKinds": 564777,
+            "totalPairEvents": 2218625,
+            "top1CondProb": 1,
+            "externalRate": 0.4736,
+            "semEnabled": true,
+            "meanLogCount": 965.5469,
+            "meanPairTally": 34666.0156,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 64,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "meanContest": 0,
+            "meanCoopTransitions": 0,
+            "meanSocLoad": 0,
+            "cooperationEnabled": false,
+            "socialKnowledgeEnabled": false,
+            "carryCrossRx": 0,
+            "naiveCrossRx": 0,
+            "carryCoopTrans": 0,
+            "naiveCoopTrans": 0,
+            "crossRxCoopCorr": null,
+            "crossRxFissCorr": null,
+            "coopGenCorr": null,
+            "carryCoopAdvantage": 0,
+            "carryCrossRxAdvantage": 0,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.4766,
+            "seedExternalRate": 0.4606,
+            "carryReproSocYield": 0,
+            "offspringExternalGap": 0.016,
+            "carryLineageSocLoad": 0,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 39,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 36,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "002",
+              "name": "002嗣嗣嗣嗣",
+              "dnaSequence": "312120222000023112112120121001320330033100120200231220323120101033130130302330013011210010103001",
+              "generation": 39,
+              "registers": [
+                0.5967066193344751,
+                0.5809373917812507,
+                0.9428893170575171,
+                0.6502552725802757,
+                0.9280106791121626,
+                0.974501168901406,
+                0.9233574513588902,
+                0.8185730122651961
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 1,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "006",
+              "name": "006嗣嗣嗣嗣",
+              "dnaSequence": "222302021031211321321313222311133101313221212110212330123223231300022302030311303130331110323022",
+              "generation": 36,
+              "registers": [
+                0.45390163239518766,
+                0.5436863344623999,
+                0.5559698651599119,
+                0.9743138842418704,
+                0.9313016943667364,
+                1,
+                0.970937399452112,
+                0.9830270240321731
+              ],
+              "metProfile": "DOM",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 1,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 56881.31210500002,
+          "durationLabel": "56.88s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 15547,
+            "evolution:MTB": 2594,
+            "evolution:PRD": 361,
+            "evolution:EHU-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 94,
+            "population:CMP": 81,
+            "evolution:SEM": 61795
+          },
+          "entriesKept": 0
+        },
+        {
+          "treatmentId": "ev123_coop_off_interact",
+          "seed": 2,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 5.1935,
+            "meanGenCarry": 41.5,
+            "carriedRenTicks": 0,
+            "carriedFiss": 4,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 60257,
+            "pairKinds": 640474,
+            "totalPairEvents": 2250069,
+            "top1CondProb": 1,
+            "externalRate": 0.4776,
+            "semEnabled": true,
+            "meanLogCount": 941.5156,
+            "meanPairTally": 35157.3281,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 40,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 64,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "meanContest": 0,
+            "meanCoopTransitions": 0,
+            "meanSocLoad": 0,
+            "cooperationEnabled": false,
+            "socialKnowledgeEnabled": false,
+            "carryCrossRx": 0,
+            "naiveCrossRx": 0,
+            "carryCoopTrans": 0,
+            "naiveCoopTrans": 0,
+            "crossRxCoopCorr": null,
+            "crossRxFissCorr": null,
+            "coopGenCorr": null,
+            "carryCoopAdvantage": 0,
+            "carryCrossRxAdvantage": 0,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.4805,
+            "seedExternalRate": 0.4654,
+            "carryReproSocYield": 0,
+            "offspringExternalGap": 0.0151,
+            "carryLineageSocLoad": 0,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 43,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 40,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "004",
+              "name": "004-乙嗣嗣",
+              "dnaSequence": "313331020113231033123102233033132131112113013122013210301211300301120133013032011232313112003323",
+              "generation": 43,
+              "registers": [
+                0.603885801670492,
+                0.6451082845903724,
+                0.9576094926157619,
+                0.6577792479490294,
+                1,
+                1,
+                1,
+                0.9202299440182959
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 2,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "006",
+              "name": "006嗣嗣嗣嗣",
+              "dnaSequence": "121231022303033103022111311223133122311301033201012322123220111022011010331332320003202230311302",
+              "generation": 40,
+              "registers": [
+                0.3438432989849473,
+                0.3959230659023489,
+                0.6169772693859592,
+                0.9727622380970036,
+                0.7851087797065048,
+                0.8326354557407635,
+                1,
+                0.7990190137891291
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 2,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 57224.19375199999,
+          "durationLabel": "57.22s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 13851,
+            "evolution:MTB": 2765,
+            "evolution:PRD": 394,
+            "evolution:EHU-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:SEM-LIN": 40,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 101,
+            "population:CMP": 81,
+            "evolution:SEM": 60257
+          },
+          "entriesKept": 0
+        },
+        {
+          "treatmentId": "ev123_coop_off_interact",
+          "seed": 3,
+          "phase": 123,
+          "metrics": {
+            "aliveTotal": 64,
+            "carryMode": "chain",
+            "carryImported": 2,
+            "meiCount": 0,
+            "fissCount": 52,
+            "fusCount": 0,
+            "renCount": 0,
+            "ecoFissCount": 0,
+            "gen0Count": 10,
+            "nonGen0Count": 54,
+            "offspringAlive": 54,
+            "naiveAlive": 62,
+            "carryAlive": 2,
+            "meanGenNaive": 6.1452,
+            "meanGenCarry": 38,
+            "carriedRenTicks": 0,
+            "carriedFiss": 4,
+            "carriedMei": 0,
+            "meiFromGen0": false,
+            "fusOffspring": false,
+            "semCount": 60132,
+            "pairKinds": 621079,
+            "totalPairEvents": 2233718,
+            "top1CondProb": 1,
+            "externalRate": 0.4767,
+            "semEnabled": true,
+            "meanLogCount": 939.5625,
+            "meanPairTally": 34901.8438,
+            "meanTraceWeightCarry": 4,
+            "meanTraceWeightNaive": 4,
+            "carryWithTrace": 2,
+            "carryChainDepth": 5,
+            "semLinCount": 0,
+            "mixedSemEnabled": true,
+            "carryIncubateSem": true,
+            "mixedEnvId": "wisdom_evolution",
+            "meanChainDepth": 5,
+            "maxChainDepth": 5,
+            "rplBlocked": false,
+            "coopTransitionCount": 0,
+            "coopModes": {
+              "S0": 64,
+              "SOLO": 0,
+              "MESH": 0,
+              "RIVAL": 0,
+              "ECHO": 0
+            },
+            "meanCrossRx": 0,
+            "chainEnvPath": [
+              "wisdom_evolution",
+              "fertile_field",
+              "wisdom_evolution",
+              "harsh_combined",
+              "wisdom_evolution"
+            ],
+            "carryAccrueEnabled": true,
+            "chainStageCount": 5,
+            "chainStages": [
+              "incubate",
+              "accrue",
+              "refine",
+              "stress_echo",
+              "soc"
+            ],
+            "uniqueChainEnvs": [
+              "wisdom_evolution",
+              "fertile_field",
+              "harsh_combined"
+            ],
+            "pentaEnabled": true,
+            "hexaEnabled": true,
+            "hasStressEchoStage": true,
+            "hasSocStage": true,
+            "socEncCount": 0,
+            "socLinCount": 0,
+            "meanContest": 0,
+            "meanCoopTransitions": 0,
+            "meanSocLoad": 0,
+            "cooperationEnabled": false,
+            "socialKnowledgeEnabled": false,
+            "carryCrossRx": 0,
+            "naiveCrossRx": 0,
+            "carryCoopTrans": 0,
+            "naiveCoopTrans": 0,
+            "crossRxCoopCorr": null,
+            "crossRxFissCorr": null,
+            "coopGenCorr": null,
+            "carryCoopAdvantage": 0,
+            "carryCrossRxAdvantage": 0,
+            "mixedTicksRequested": 8192,
+            "mixedTicksCompleted": 8192,
+            "deadlineHit": false,
+            "tickCompletionRate": 1,
+            "fieldTurboMode": true,
+            "offspringExternalRate": 0.4797,
+            "seedExternalRate": 0.4637,
+            "carryReproSocYield": 0,
+            "offspringExternalGap": 0.016,
+            "carryLineageSocLoad": 0,
+            "interactionHypothesis": "carry_repro_soc_yield"
+          },
+          "carryCount": 2,
+          "carries": [
+            {
+              "generation": 39,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            },
+            {
+              "generation": 37,
+              "envId": "wisdom_evolution",
+              "ecoRepro": false,
+              "chainLen": 5,
+              "chainEnvs": [
+                "wisdom_evolution",
+                "fertile_field",
+                "wisdom_evolution",
+                "harsh_combined",
+                "wisdom_evolution"
+              ]
+            }
+          ],
+          "carrySnapshots": [
+            {
+              "version": 1,
+              "code": "005",
+              "name": "005嗣嗣嗣嗣",
+              "dnaSequence": "110203023002331202230212333201233232130011120220132330101303300232331010110310303303112331131211",
+              "generation": 39,
+              "registers": [
+                0.6774910564151562,
+                0.8971976423432515,
+                0.6647027162852532,
+                0.9447847217246758,
+                0.9936911604551367,
+                0.5779823047463838,
+                0.979294246748426,
+                0.9737994711590483
+              ],
+              "metProfile": "BAL",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 3,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            },
+            {
+              "version": 1,
+              "code": "004",
+              "name": "004-乙嗣嗣",
+              "dnaSequence": "302311333301200023323122330123110322312230123313232230223213022101320123311003223120013111121013",
+              "generation": 37,
+              "registers": [
+                0.5944850404915031,
+                0.652617677315001,
+                1,
+                0.9408231770335835,
+                1,
+                1,
+                0.7189977522123986,
+                0.971646468018756
+              ],
+              "metProfile": "DOM",
+              "semTrace": null,
+              "semTraceWeight": 0,
+              "organismType": "multicell",
+              "ecoRepro": false,
+              "provenance": {
+                "phase": 123,
+                "seed": 3,
+                "treatmentId": "ev123_coop_off_interact",
+                "envId": "wisdom_evolution",
+                "chainStage": "soc",
+                "stress_echoTicks": 192,
+                "tick": 256,
+                "chain": [
+                  {
+                    "stage": "incubate",
+                    "envId": "wisdom_evolution",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "accrue",
+                    "envId": "fertile_field",
+                    "tick": 384
+                  },
+                  {
+                    "stage": "refine",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  },
+                  {
+                    "stage": "stress_echo",
+                    "envId": "harsh_combined",
+                    "tick": 192
+                  },
+                  {
+                    "stage": "soc",
+                    "envId": "wisdom_evolution",
+                    "tick": 256
+                  }
+                ],
+                "priorEnv": "harsh_combined",
+                "socTicks": 256
+              }
+            }
+          ],
+          "cohortSize": 12,
+          "mixedTicks": 8192,
+          "sculptTicks": 640,
+          "sculptTicksCompleted": 640,
+          "ticksCompleted": 10304,
+          "deadlineHit": false,
+          "tickCapHit": false,
+          "fieldRunDeadlineMs": 180000,
+          "durationMs": 57006.54086000001,
+          "durationLabel": "57.01s",
+          "budgetPass": true,
+          "totalCounts": {
+            "system:system": 1,
+            "evolution:REG": 12175,
+            "evolution:MTB": 2395,
+            "evolution:PRD": 384,
+            "evolution:EHU-LIN": 52,
+            "evolution:MEM-LIN": 52,
+            "evolution:FISS": 52,
+            "evolution:EXP": 64,
+            "evolution:RPR": 64,
+            "evolution:EHU": 103,
+            "population:CMP": 81,
+            "evolution:SEM": 60132
+          },
+          "entriesKept": 0
+        }
+      ]
+    }
+  },
+  "batchVerdict": {
+    "hypothesis": "carry_repro_soc_yield",
+    "priorHypothesis": "carry_coop_advantage",
+    "h1MultiBatchImport": true,
+    "h2NoRen": true,
+    "h3SocEncRobust": true,
+    "h4CarryReproSocYieldLaw": true,
+    "h5SocLoadLaw": true,
+    "h6InteractOnBeatsOff": true,
+    "h7NoDeadline": true,
+    "h8TickComplete": true,
+    "h9ChainDepth5": true,
+    "carryReproSocYieldPositiveSeeds": 4,
+    "carryReproSocYieldLawRate": 1,
+    "meanCarryReproSocYieldOn": 11.2667,
+    "meanCarryReproSocYieldOff": 0,
+    "passed": 9,
+    "total": 9,
+    "support": 9,
+    "verdict": "support"
+  },
+  "timing": {
+    "maxRunMs": 57224.19375199999,
+    "batchDurationMs": 347723.49672500003
+  },
+  "roadmap": "docs/PHASE123_COOP_INTERACT.md",
+  "goalDistance": "docs/GOAL_DISTANCE.md"
+}

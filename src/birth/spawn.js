@@ -29,6 +29,7 @@ import { initSynthCounters, synthEnabled } from '../world/synth.js';
 import { initSymModules } from '../world/sym.js';
 import { assignBeingPlace, applyPlaceBirthBias, placeEnabled } from '../world/place.js';
 import { SOLAR_CHANNEL } from '../world/diurnal.js';
+import { initDockedHalf, pairReproEnabled } from '../world/pair-repro.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -43,6 +44,7 @@ export function spawnBeing(
     placePatch = null,
     placeTerrain = null,
     cohortTag = 'naive',
+    pairMorph = null,
   } = {}
 ) {
   const tick = world.tick;
@@ -51,6 +53,9 @@ export function spawnBeing(
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
   being.cohortTag = cohortTag;
+  if (pairMorph === 'A' || pairMorph === 'B') {
+    being.pairMorph = pairMorph;
+  }
   initOrganism(being, world.envProfile);
   if (placeBand || placeTerrain) {
     assignBeingPlace(being, {
@@ -110,6 +115,10 @@ export function spawnBeing(
     initSynthCounters(being);
   }
   initSymModules(being);
+
+  if (pairReproEnabled(world.envProfile) && being.pairMorph === 'B') {
+    initDockedHalf(world, being);
+  }
 
   if (!world.envProfile?.fieldStatMode) {
     recordReplicationInit(recorder, tick, being);

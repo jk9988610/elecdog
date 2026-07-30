@@ -2866,6 +2866,97 @@ export const PHASE121_TREATMENTS = {
   },
 };
 
+/** Phase 123 — GAP-13 留置繁殖×SOC 继承交互假说（8192 · turbo） */
+export const PHASE123_TREATMENTS = {
+  ev123_coop_interact: {
+    id: 'ev123_coop_interact',
+    label: '六环境+链·留置交互·COOP+SOC',
+    envId: 'wisdom_evolution',
+    ...EVO_HEXA_COOP_LONG_BASE,
+    ...COOP_BASE,
+    ...WL3_SOC_STACK,
+  },
+  ev123_coop_off_interact: {
+    id: 'ev123_coop_off_interact',
+    label: '六环境+链·留置交互·无COOP',
+    envId: 'wisdom_evolution',
+    ...EVO_HEXA_COOP_LONG_BASE,
+    cooperationProfileEnabled: false,
+    cooperationFeedback: false,
+    socialKnowledgeEnabled: false,
+    socialKnowledgeFeedbackEnabled: false,
+  },
+};
+
+/** Phase 124 — GAP-PAIR-0 体内合胞极简双源繁殖 */
+const PAIR_REPRO_MIN_BASE = {
+  envId: 'fertile_field',
+  substrateDrainMult: 0.52,
+  substrateBoost: 0.02,
+  substrateFloor: 0.54,
+  catastropheDisabled: true,
+  organismMode: 'multicell',
+  fissionEnabled: false,
+  ecoFissEnabled: false,
+  rplEnabled: true,
+  rplBaseMax: 4,
+  rplMaxSpread: 2,
+  meiEnabled: true,
+  meiMinAge: 32,
+  meiMaxStress: 0.28,
+  meiMinIntegrity: 0.45,
+  meiMinSubstrate: 0.42,
+  meiCooldown: 56,
+  meiBaseProb: 0.45,
+  fusEnabled: false,
+  pairReproEnabled: true,
+  pairFusInBody: true,
+  pairGateMin: 0.08,
+  pairGateFieldWeight: 0.35,
+  gestationTicks: 64,
+  embFluxFrac: 0.018,
+  reproMode: 'gestation',
+  nurtureTicks: 64,
+  nurtureSeedFrac: 0.3,
+  nurtureTickGrant: 0.014,
+  independenceTicks: 64,
+  dockBaseProb: 0.35,
+  dockCooldown: 56,
+  fusionMutationRate: 0.015,
+  fusionMaxPop: 24,
+  cohort: 'pair',
+};
+
+export const PHASE124_TREATMENTS = {
+  ev124_pair_min: {
+    id: 'ev124_pair_min',
+    label: 'PAIR-0·体内合胞·关FISS',
+    ...PAIR_REPRO_MIN_BASE,
+  },
+  ev124_pair_ctrl_instant: {
+    id: 'ev124_pair_ctrl_instant',
+    label: '对照·即时FUS',
+    ...PAIR_REPRO_MIN_BASE,
+    pairReproEnabled: false,
+    pairFusInBody: false,
+    fusEnabled: true,
+    fusPairCooldown: 90,
+    fusPacketMaxAge: 56,
+    reproMode: 'instant',
+  },
+  ev124_pair_ctrl_fiss: {
+    id: 'ev124_pair_ctrl_fiss',
+    label: '对照·克隆FISS',
+    ...PAIR_REPRO_MIN_BASE,
+    pairReproEnabled: false,
+    pairFusInBody: false,
+    fissionEnabled: true,
+    ecoFissEnabled: true,
+    meiEnabled: false,
+    reproMode: 'instant',
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3739,6 +3830,43 @@ export function applyPhase121Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 121, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase123Treatment(world, treatmentId) {
+  const treatment = PHASE123_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase123 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 123, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase124Treatment(world, treatmentId) {
+  const treatment = PHASE124_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase124 处理组: ${treatmentId}`);
+  }
+  const envId = treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, envId);
+  world.envProfile = { ...base, ...treatment, envId };
+  world.fieldStudy = { phase: 124, treatmentId, ...treatment };
   return world.envProfile;
 }
 

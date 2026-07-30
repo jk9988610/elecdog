@@ -4,7 +4,7 @@ import { stepWorld } from '../../src/kernel/engine.js';
 import { StatsRecorder } from '../../src/recorder/stats-recorder.js';
 import { resetBirthCounters } from '../../src/core/id.js';
 import { spawnBeing } from '../../src/birth/spawn.js';
-import { buildFieldCohort, buildQuadChainCohort, FIELD_TICKS } from './field-cohort.js';
+import { buildFieldCohort, buildQuadChainCohort, buildPairCohort, FIELD_TICKS } from './field-cohort.js';
 import { checkFieldRunBudget, formatFieldDuration, getFieldRunMaxMs, createFieldDeadline } from './field-budget.js';
 import { runFieldTicks } from './field-ticks.js';
 
@@ -16,11 +16,13 @@ export function initFieldWorld(world, { phase, treatmentId, seed, ticks = FIELD_
   const recorder = new StatsRecorder();
   recorder.system(0, `[field p${phase ?? '?'} ${treatmentId} seed${seed}]`, { phase, treatmentId, seed });
   const cohortSpec =
-    cohort === 'quad' || world.envProfile.cohort === 'quad'
-      ? buildQuadChainCohort(seed)
-      : buildFieldCohort(seed);
+    cohort === 'pair' || world.envProfile.cohort === 'pair'
+      ? buildPairCohort(seed)
+      : cohort === 'quad' || world.envProfile.cohort === 'quad'
+        ? buildQuadChainCohort(seed)
+        : buildFieldCohort(seed);
   for (const spec of cohortSpec) {
-    spawnBeing(world, recorder, { ...spec, cohortTag: spec.cohortTag ?? 'naive' });
+    spawnBeing(world, recorder, { ...spec, cohortTag: spec.cohortTag ?? 'naive', pairMorph: spec.pairMorph });
   }
   const cohortIds = cohortSpec.map((s) => s.id).filter(Boolean);
   return { recorder, cohort: cohortSpec, cohortIds, ticks };

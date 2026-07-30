@@ -44,6 +44,11 @@ import { checkReplicationTermination } from '../world/replication.js';
 import { tryRplRenew, processPledgeRenewals } from '../world/rpl-renew.js';
 import { tryMeiosis, processFusions, collectOrphanPacket } from '../world/recombination.js';
 import {
+  pairFusInBodyEnabled,
+  processPairReproduction,
+  tryDockedHalf,
+} from '../world/pair-repro.js';
+import {
   experienceEnabled,
   experienceActBias,
   processExperienceTick,
@@ -653,7 +658,15 @@ export function stepWorld(world, recorder) {
 
     tryRplRenew(world, recorder, being, { stress: result.stress });
 
-    tryMeiosis(world, recorder, being, { stress: result.stress, integrity: met.integrity });
+    if (pairFusInBodyEnabled(world.envProfile)) {
+      if (being.pairMorph === 'A') {
+        tryMeiosis(world, recorder, being, { stress: result.stress, integrity: met.integrity });
+      } else if (being.pairMorph === 'B') {
+        tryDockedHalf(world, recorder, being, { stress: result.stress, integrity: met.integrity });
+      }
+    } else {
+      tryMeiosis(world, recorder, being, { stress: result.stress, integrity: met.integrity });
+    }
 
     if (
       !stat &&
@@ -751,7 +764,11 @@ export function stepWorld(world, recorder) {
   }
 
   processPledgeRenewals(world, recorder);
-  processFusions(world, recorder);
+  if (pairFusInBodyEnabled(world.envProfile)) {
+    processPairReproduction(world, recorder);
+  } else {
+    processFusions(world, recorder);
+  }
 
   if (!stat) {
     for (const [nodeId, slots] of tickNodeHits) {
