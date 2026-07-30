@@ -1,5 +1,6 @@
 import { createWorld } from '../world/world.js';
 import { performBirthRitual } from '../birth/ritual.js';
+import { spawnCarriedBeing } from '../birth/spawn.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
@@ -58,6 +59,8 @@ import { renderImmersionPanel } from './immersion.js';
 import { renderEnvStackPanel } from './env-stack.js';
 import { renderSemStackPanel } from './sem-stack.js';
 import { renderCarryPanel } from './carry-panel.js';
+import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import.js';
+import { suggestObserverEnvId } from '../carry/import-report.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 
 const SEED_DNA =
@@ -118,6 +121,7 @@ export class ObserverApp {
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
         <button id="btn-cloud-toggle" type="button" class="btn-ghost">云设置</button>
         <button id="btn-codex-toggle" type="button" class="btn-ghost">辞典</button>
+        <button id="btn-carry-import-toggle" type="button" class="btn-ghost">导入留置</button>
         <button id="btn-mind-stream-toggle" type="button" class="btn-ghost">内在流</button>
       </section>
 
@@ -167,6 +171,8 @@ export class ObserverApp {
 
       ${renderCodexPanelHTML()}
 
+      ${renderCarryImportPanelHTML()}
+
       ${renderMindStreamPanelHTML()}
 
       <main class="dashboard" id="dashboard"></main>
@@ -207,6 +213,7 @@ export class ObserverApp {
       envProfile: this.root.querySelector('#env-profile'),
       btnResetWorld: this.root.querySelector('#btn-reset-world'),
       btnCodexToggle: this.root.querySelector('#btn-codex-toggle'),
+      btnCarryImportToggle: this.root.querySelector('#btn-carry-import-toggle'),
       btnMindStreamToggle: this.root.querySelector('#btn-mind-stream-toggle'),
     };
 
@@ -219,6 +226,20 @@ export class ObserverApp {
       getRecorder: () => this.recorder,
       getWorld: () => this.world,
       onClose: () => this.closeMindStreamPanel(),
+    });
+
+    this.carryImportPanel = initCarryImportPanel(this.root, {
+      onImport: ({ entry, report }) => {
+        const envId = suggestObserverEnvId(report, entry);
+        this.bootstrapWithCarries([entry.snapshot], {
+          envId,
+          phase: entry.phase,
+          treatmentId: entry.treatmentId,
+          seed: entry.seed,
+        });
+        this.closeCarryImportPanel();
+      },
+      onClose: () => this.closeCarryImportPanel(),
     });
 
     this.renderEnvOptions();
@@ -241,7 +262,26 @@ export class ObserverApp {
     this.$.envProfile?.addEventListener('change', () => this.onEnvProfileChange());
     this.$.btnResetWorld?.addEventListener('click', () => this.resetWorld());
     this.$.btnCodexToggle?.addEventListener('click', () => this.toggleCodexPanel());
+    this.$.btnCarryImportToggle?.addEventListener('click', () => this.toggleCarryImportPanel());
     this.$.btnMindStreamToggle?.addEventListener('click', () => this.toggleMindStreamPanel());
+  }
+
+  toggleCarryImportPanel() {
+    if (!this.carryImportPanel) return;
+    if (this.carryImportPanel.isOpen()) {
+      this.closeCarryImportPanel();
+    } else {
+      this.$.cloudPanel?.classList.add('hidden');
+      this.closeCodexPanel();
+      this.closeMindStreamPanel();
+      this.carryImportPanel.open();
+      this.$.btnCarryImportToggle?.classList.add('active');
+    }
+  }
+
+  closeCarryImportPanel() {
+    this.carryImportPanel?.close();
+    this.$.btnCarryImportToggle?.classList.remove('active');
   }
 
   toggleMindStreamPanel() {
@@ -318,19 +358,49 @@ export class ObserverApp {
   }
 
   bootstrapWorld() {
+    this.bootstrapWithCarries(null);
+  }
+
+  bootstrapWithCarries(snapshots, meta = {}) {
+    this.pause();
+    this.recorder.clear();
+
+    const envId = meta.envId;
+    if (envId && envId !== this.envProfileId && OBSERVER_ENV_IDS.includes(envId)) {
+      setObserverEnvId(envId);
+      this.envProfileId = envId;
+      this.renderEnvOptions();
+      if (this.$.envProfile) this.$.envProfile.value = envId;
+    }
+
     this.world = createWorld('01');
     applyEnvProfile(this.world, this.envProfileId);
     initEnvStackModules(this.world);
-    this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
-    const seeds = [
-      { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
-      { name: '002', code: '002' },
-      { name: '003', code: '003' },
-      { name: '001-乙', code: '001' },
-    ];
-    for (const s of seeds) {
-      performBirthRitual(this.world, this.recorder, s);
+
+    if (snapshots?.length) {
+      this.recorder.system(
+        0,
+        `[观察台] 留置导入 p${meta.phase ?? '?'} ${meta.treatmentId ?? ''} seed${meta.seed ?? ''}`
+      );
+      snapshots.forEach((snap, i) => {
+        spawnCarriedBeing(this.world, this.recorder, snap, {
+          cohortTag: 'carry',
+          fixedId: `01imp${String(i + 1).padStart(3, '0')}`,
+        });
+      });
+    } else {
+      this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
+      const seeds = [
+        { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
+        { name: '002', code: '002' },
+        { name: '003', code: '003' },
+        { name: '001-乙', code: '001' },
+      ];
+      for (const s of seeds) {
+        performBirthRitual(this.world, this.recorder, s);
+      }
     }
+
     this.refresh();
     this.run();
   }
