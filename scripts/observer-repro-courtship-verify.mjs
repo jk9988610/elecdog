@@ -33,7 +33,7 @@ import {
 } from '../src/world/body-structures.js';
 import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
 import { courtshipBondLineForCouple } from '../src/world/being-names.js';
-import { LIFE_STAGE_ADT } from '../src/world/multicell-v2.js';
+import { LIFE_STAGE_ADT, totalLogicCells } from '../src/world/multicell-v2.js';
 import { LOGIC_CELL_MAX_PER_TYPE } from '../src/world/logic-cell-types.js';
 import { displayLogicCellTypes } from '../src/world/logic-cell-display.js';
 
@@ -133,8 +133,8 @@ pinChannels(female, STR_PAIR_IN, 7);
 
 const prq = registerPairSpeechPRQ(world, recorder, male, female.id);
 assert(prq, '成体雄可向雌 PRQ');
-assert(prq.healthReport?.dnaFp, 'PRQ 附带体检报告');
-assert(prq.healthReport?.vitals?.sperm?.activity > 0, 'PRQ 体检含精子活性');
+assert(prq.dnaFp, 'PRQ 附带 DNA 指纹');
+assert(!prq.healthReport, 'PRQ 不含完整体检报告');
 const pgr = registerPairSpeechPGR(world, recorder, female, male.id);
 assert(pgr, '雌可 PGR 成为伴侣');
 assert(male.partnerId === female.id, '伴侣登记');
@@ -212,6 +212,16 @@ const fus = processPartnerFertilization(world, recorder);
 assert(fus.length > 0, '延迟受孕 PARTNER-FUS');
 assert(isPregnant(female), '合胞后标记孕妇');
 assert(!female.bodyStructures[STR_PAIR_IN].open, '孕期关闭 STR-PAIR-IN');
+assert(female.syncyte?.logicCells, '合胞后宫内胚胎有 logicCells');
+const embStem = female.syncyte.logicCells.STEM?.length ?? 0;
+assert(embStem > 0, '宫内胚胎有干细胞');
+female.syncyte.gestationUntilTick = world.tick + 48;
+for (let i = 0; i < 40; i++) {
+  world.tick += 1;
+  processPairGestation(world, recorder);
+}
+const embTotal = totalLogicCells({ logicCells: female.syncyte.logicCells });
+assert(embTotal > embStem, `宫内胚胎发育增长 ${embTotal} > ${embStem}`);
 
 female.syncyte.gestationUntilTick = world.tick;
 const gest = processPairGestation(world, recorder);
@@ -220,6 +230,7 @@ const gestChild = world.beings.find((b) => b.id === gest[0].childId);
 assert(gestChild, '子代存在');
 assert(gestChild.familyName === male.familyName, '雄求偶子代姓氏随父');
 assert(gestChild.lineageHeadId === male.lineageHeadId, '子代谱系随父系');
+assert(totalLogicCells(gestChild) > 0, '外排子代继承宫内 logicCells');
 
 const blocks = recorder.entries.filter((e) => e.meta?.kind === 'PRQ-BLOCK');
 assert(blocks.some((e) => e.meta?.reason === 'female-partner'), 'PRQ-BLOCK female-partner 记录');

@@ -71,8 +71,8 @@ export function initMulticellV2(being, profile) {
     code: STEM_CELL_CODE,
     atTick: 0,
   }));
-  // 宫内 GEST（载体合胞）；排出/诞生后直接进入婴幼儿 JUV（无体外胚胎窗）
-  being.devStage = being.syncyte ? LIFE_STAGE_GEST : LIFE_STAGE_JUV;
+  // 排出/诞生后直接进入婴幼儿 JUV（无体外胚胎窗）；宫内发育在载体 syncyte 上
+  being.devStage = LIFE_STAGE_JUV;
   being.lifeStage = LIFE_STAGE_JUV;
   being.adultAtTick = null;
   being.juvMitTicks = 0;
@@ -92,11 +92,6 @@ export function initMulticellV2(being, profile) {
  */
 export function resolveDevStage(being, world, profile) {
   if (!multicellV2Enabled(profile)) return being.devStage ?? LIFE_STAGE_ADT;
-
-  if (being.syncyte) {
-    being.devStage = LIFE_STAGE_GEST;
-    return LIFE_STAGE_GEST;
-  }
 
   const juvenileTicks = profile?.juvenileTicks ?? 96;
   const tick = being.tickCount ?? 0;
@@ -574,6 +569,133 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
   }
 
   return events.length ? events : null;
+}
+
+function embryoNutritionMult(syncyte) {
+  const regs = syncyte?.registers ?? [];
+  if (!regs.length) return 0.55;
+  const avg = regs.reduce((s, v) => s + v, 0) / regs.length;
+  return Math.min(1.25, Math.max(0.4, 0.35 + avg * 0.9));
+}
+
+/** 合胞成功：在 syncyte 上初始化干细胞池与 DNA 表达 */
+export function initEmbryoInSyncyte(syncyte, profile, seed) {
+  if (!syncyte?.dnaSeq) return null;
+  const rng = mulberry32(seed);
+  const embId = `emb${String(seed).slice(-8)}`;
+  syncyte.logicCells = {};
+  const stemN = initialStemCellCount(rng);
+  syncyte.logicCells[STEM_CELL_CODE] = Array.from({ length: stemN }, (_, i) => ({
+    id: makeCellId(embId, STEM_CELL_CODE, i),
+    code: STEM_CELL_CODE,
+    atTick: 0,
+  }));
+  syncyte.lastMitTick = -999;
+  syncyte.lastDiffTick = -999;
+  syncyte.juvMitTicks = 0;
+  syncyte.juvDiffTicks = 0;
+  syncyte.gestTickCount = 0;
+  const embryoProxy = { id: embId, dna: { sequence: syncyte.dnaSeq } };
+  attachDnaExpression(embryoProxy);
+  syncyte.dnaExpress = embryoProxy.dnaExpress;
+  return syncyte.logicCells;
+}
+
+/** 宫内胚胎每 tick MIT/DIFF（由母体脐带/EMB 通量供养） */
+export function tickEmbryoDevelopment(world, recorder, carrier, syncyte, profile) {
+  if (!multicellV2Enabled(profile) || !carrier?.alive || !syncyte) return null;
+  if (!syncyte.logicCells) {
+    initEmbryoInSyncyte(syncyte, profile, hashString(`${carrier.id}:${syncyte.atTick ?? 0}:emb`));
+  }
+
+  syncyte.gestTickCount = (syncyte.gestTickCount ?? 0) + 1;
+  const embryo = {
+    id: carrier.id,
+    alive: true,
+    logicCells: syncyte.logicCells,
+    dnaExpress: syncyte.dnaExpress,
+    hormoneVec: carrier.hormoneVec,
+    tickCount: syncyte.gestTickCount,
+    lastMitTick: syncyte.lastMitTick ?? -999,
+    lastDiffTick: syncyte.lastDiffTick ?? -999,
+    intraTick: world.tick,
+    stemPoolFrozen: false,
+  };
+
+  const stage = LIFE_STAGE_GEST;
+  const rng = mulberry32(hashString(`${carrier.id}:${world.tick}:emb-dev`));
+  const boost = profile?.juvenileFissBoost ?? 0.12;
+  const nutMult = embryoNutritionMult(syncyte);
+  const events = [];
+
+  const mitGap = profile?.mitIntervalTicks ?? 6;
+  if (world.tick - embryo.lastMitTick >= mitGap) {
+    const pMit = mitProbability(stage, profile, boost, embryo, world) * nutMult;
+    if (rng() < pMit) {
+      const mit =
+        rng() < 0.72
+          ? tryStemMitosis(embryo, profile, rng)
+          : trySameTypeMitosis(embryo, world, profile, rng);
+      if (mit) {
+        embryo.lastMitTick = world.tick;
+        syncyte.juvMitTicks = (syncyte.juvMitTicks ?? 0) + 1;
+        recorder.evolution(
+          world.tick,
+          carrier.id,
+          `[EMB-MIT] ${mit.code} ${mit.parentId}→${mit.daughterId}`,
+          { kind: 'EMB-MIT', ...mit }
+        );
+        events.push({ type: 'EMB-MIT', ...mit });
+      }
+    }
+  }
+
+  const diffGap = profile?.diffIntervalTicks ?? 8;
+  if (world.tick - embryo.lastDiffTick >= diffGap) {
+    const pDiff = diffProbability(stage, profile, embryo, null) * nutMult;
+    if (rng() < pDiff) {
+      const diff = tryDifferentiation(embryo, world, profile, stage, rng);
+      if (diff) {
+        embryo.lastDiffTick = world.tick;
+        syncyte.juvDiffTicks = (syncyte.juvDiffTicks ?? 0) + 1;
+        const gate = envGateLabel(diff.to);
+        recorder.evolution(
+          world.tick,
+          carrier.id,
+          `[EMB-DIFF] ${diff.from}→${diff.to}${gate ? ` env:${gate}` : ''}`,
+          { kind: 'EMB-DIFF', ...diff }
+        );
+        events.push({ type: 'EMB-DIFF', ...diff });
+      }
+    }
+  }
+
+  syncyte.lastMitTick = embryo.lastMitTick;
+  syncyte.lastDiffTick = embryo.lastDiffTick;
+  return events.length ? events : null;
+}
+
+/** 外排：将宫内 logicCells 映射到子代个体 */
+export function applyEmbryoLogicToChild(child, syncyte, atTick = 0) {
+  if (!child || !syncyte?.logicCells) return child;
+  const prefix = child.id.slice(-6);
+  child.logicCells = {};
+  for (const [code, cells] of Object.entries(syncyte.logicCells)) {
+    child.logicCells[code] = (cells ?? []).map((c, i) => ({
+      ...c,
+      id: `${prefix}:${code}:${i}`,
+      code,
+      atTick: c.atTick ?? atTick,
+    }));
+  }
+  child.juvMitTicks = syncyte.juvMitTicks ?? 0;
+  child.juvDiffTicks = syncyte.juvDiffTicks ?? 0;
+  child.lastMitTick = syncyte.lastMitTick ?? -999;
+  child.lastDiffTick = syncyte.lastDiffTick ?? -999;
+  if (syncyte.dnaExpress) {
+    child.dnaExpress = { ...syncyte.dnaExpress };
+  }
+  return child;
 }
 
 export function multicellV2Snapshot(being) {

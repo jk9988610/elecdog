@@ -1705,6 +1705,31 @@ input[type='number'] {
   padding: 0.65rem 0.75rem;
 }
 
+.genealogy-only-mode .observer-extra-panel,
+.genealogy-only-mode #codex-panel,
+.genealogy-only-mode #carry-import-panel,
+.genealogy-only-mode #mind-stream-panel,
+.genealogy-only-mode #sem-signal-panel,
+.genealogy-only-mode #thought-speech-panel,
+.genealogy-only-mode #cloud-panel {
+  display: none !important;
+}
+
+.genealogy-pop-panel {
+  margin-bottom: 0.75rem;
+}
+
+.genealogy-pop-panel.hidden {
+  display: none;
+}
+
+.genealogy-food-hint,
+.genealogy-embryo-hint {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  margin: 0.35rem 0 0.5rem;
+}
+
 .genealogy-detail-actions {
   margin: 0.5rem 0 0.75rem;
 }
@@ -1940,7 +1965,7 @@ input[type='number'] {
   margin: 0.35rem 0 0.75rem;
 }
 
-.hormone-list-row .stat-row span:first-child {
+.hormone-list-row span:first-child {
   color: #8a94a4;
 }
 
