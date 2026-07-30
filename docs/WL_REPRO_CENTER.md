@@ -68,7 +68,13 @@ WL-R2  链×PAIR 混编下的跨代繁殖载荷迹         ✅ Phase 132
 WL-R3  四域×繁殖核 2×2 田野（on/off 可证伪）  ✅ Phase 133
         ↓
 WL-R4  CODEX：繁殖中心智慧交流（第 33 条）           ✅ Phase 134
+        ↓
+WL-R5  观察台面板 + openEntry 联动                  ✅ Phase 135
+        ↓
+云辞典  33 条 verify/publish + 观察台云合并         ✅ 就绪
 ```
+
+> **栈已闭合**（2026-07-30）。WL-R 长时田野等深化项已归档，用户已转向新方向。
 
 ### WL-R1 操作定义（Phase 131）
 
@@ -131,11 +137,12 @@ WL-R4  CODEX：繁殖中心智慧交流（第 33 条）           ✅ Phase 134
 | 繁殖×智慧语言田野定律 | **~70%**（WL-R3 2×2 主效应可分离） |
 | 跨代繁殖载荷迹（WL-R2） | **~95%** |
 | 四域×繁殖核耦合（WL-R3） | **~90%** |
-| CODEX 繁殖智慧交流条 | **~95%**（第 33 条已立） |
+| CODEX 繁殖智慧交流条 | **100%**（第 32–33 条 + 云同步就绪） |
+| 观察台 WL-R 面板 | **100%**（Phase 135） |
 
-**智慧语言主轨（收敛后）**：约 **85–90%** — WL-R1–R4 CODEX 完成。
+**智慧语言主轨（收敛后）**：**~95%** — WL-R 栈 + 云辞典闭合。
 
-综合留置+PAIR+WL 栈：**约 90–92%**。
+综合留置+PAIR+WL 栈：**约 92–94%**。用户已转向；长时田野等开放项不再推进。
 
 ---
 
@@ -144,6 +151,8 @@ WL-R4  CODEX：繁殖中心智慧交流（第 33 条）           ✅ Phase 134
 ```bash
 npm run observer:wlr-stack        # WL-R 观察台面板
 npm run gap-wlr:repro:codex       # WL-R4 CODEX 第 33 条
+npm run codex:verify              # 云辞典 33 条验证
+npm run codex:publish             # 云发布（需 Supabase）
 npm run field:phase133:verify   # WL-R3 四域×繁殖核 2×2
 npm run field:phase130:verify   # 链×PAIR 全栈 · CORE-R 物理层
 npm run field:phase100:verify   # SEM 记录层

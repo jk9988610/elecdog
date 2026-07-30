@@ -9,11 +9,11 @@
 
 | 项 | 说明 |
 |----|------|
-| 表 `codex_entries` | 28 条辞典 JSON 字段 + `updated_at` |
+| 表 `codex_entries` | 33 条辞典 JSON 字段 + `updated_at` |
 | REST | `listCodexEntries` / `upsertCodexEntries` |
 | 观察台 | 辞典面板云合并、刷新按钮、云徽章 |
 | Realtime | `codex_entries` INSERT/UPDATE 自动刷新 |
-| 维护脚本 | `npm run codex:publish` / `codex:verify` |
+| 维护脚本 | `npm run codex:publish` / `codex:publish:wlr` / `codex:verify` |
 
 ---
 
@@ -27,7 +27,8 @@ SQL Editor 依次执行：
 发布本地辞典：
 
 ```bash
-npm run codex:publish
+npm run codex:publish        # 全量 33 条
+npm run codex:publish:wlr    # 仅 SEM + WL-R（第 32–33 条）
 ```
 
 验证合并逻辑（可选云拉取）：

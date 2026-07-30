@@ -98,6 +98,7 @@
     "field:phase63": "node scripts/field-batch-phase63.mjs",
     "field:phase63:cloud": "node scripts/field-batch-phase63.mjs --cloud",
     "codex:publish": "node scripts/codex-cloud-publish.mjs",
+    "codex:publish:wlr": "node scripts/codex-cloud-publish.mjs --filter=wlr",
     "codex:verify": "node scripts/codex-cloud-verify.mjs",
     "field:phase65": "node scripts/field-batch-phase65.mjs",
     "field:phase65:cloud": "node scripts/field-batch-phase65.mjs --cloud",
