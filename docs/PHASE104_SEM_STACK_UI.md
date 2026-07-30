@@ -43,7 +43,7 @@ npm run observer:sem-stack   # 四体信号链 + 640 tick
 | 项 | 状态 |
 |----|------|
 | WL4 UI | ✅ |
-| 下一步 | **WL5** CODEX 归纳（≥2 OBS + 您确认） |
+| 下一步 | **WL5** CODEX 立项就绪 — 待确认写入 |
 
 ---
 
