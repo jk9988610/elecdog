@@ -3062,6 +3062,57 @@ export const PHASE127_TREATMENTS = {
   },
 };
 
+/** Phase 128 — GAP-PAIR-4 多维激素向量 h_k */
+export const PHASE128_TREATMENTS = {
+  ev128_pair_hormvec: {
+    id: 'ev128_pair_hormvec',
+    label: 'PAIR-4·多维激素',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairHandshake: true,
+    pairChannelBind: true,
+    pairHormoneVector: true,
+    pairReleaseSubRole: 'act',
+    pairAcceptSubRole: 'draw',
+    pairAcceptRMin: 0.08,
+    pairAcceptEMin: 0.06,
+    pairHormoneMeanMin: 0.06,
+    pairHormoneFloorMin: 0.01,
+    pairFieldHalfMaxAge: 96,
+    pairRequestMaxAge: 48,
+  },
+  ev128_pair_scalar: {
+    id: 'ev128_pair_scalar',
+    label: 'PAIR-3·标量激素对照',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairHandshake: true,
+    pairChannelBind: true,
+    pairHormoneVector: false,
+    pairReleaseSubRole: 'act',
+    pairAcceptSubRole: 'draw',
+    pairAcceptRMin: 0.08,
+    pairAcceptEMin: 0.06,
+    pairFieldHalfMaxAge: 96,
+    pairRequestMaxAge: 48,
+  },
+  ev128_pair_ctrl_fiss: {
+    id: 'ev128_pair_ctrl_fiss',
+    label: '对照·克隆FISS',
+    ...PAIR_REPRO_MIN_BASE,
+    pairReproEnabled: false,
+    pairFusInBody: false,
+    pairHalfRelease: false,
+    pairHandshake: false,
+    pairChannelBind: false,
+    pairHormoneVector: false,
+    fissionEnabled: true,
+    ecoFissEnabled: true,
+    meiEnabled: false,
+    reproMode: 'instant',
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -4008,6 +4059,18 @@ export function applyPhase127Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, envId);
   world.envProfile = { ...base, ...treatment, envId };
   world.fieldStudy = { phase: 127, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase128Treatment(world, treatmentId) {
+  const treatment = PHASE128_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase128 处理组: ${treatmentId}`);
+  }
+  const envId = treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, envId);
+  world.envProfile = { ...base, ...treatment, envId };
+  world.fieldStudy = { phase: 128, treatmentId, ...treatment };
   return world.envProfile;
 }
 

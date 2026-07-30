@@ -41,6 +41,11 @@ export function pairChannelBindEnabled(profile) {
   return pairHalfReleaseEnabled(profile) && profile?.pairChannelBind === true;
 }
 
+/** PAIR-4：接受方子单元多维激素向量 h_k = r_k − w·e_k */
+export function pairHormoneVectorEnabled(profile) {
+  return pairHalfReleaseEnabled(profile) && profile?.pairHormoneVector === true;
+}
+
 export function ensurePairRequests(world) {
   if (!world.pairRequests) world.pairRequests = [];
 }
@@ -53,7 +58,7 @@ function dnaDockBias(being) {
   return mulberry32(hashString(`${being.dna.sequence}:${being.id}:dock`))();
 }
 
-/** 形态 B 激素门控：寄存器均值 − 场耦合 */
+/** 形态 B 激素标量（PAIR-0 对照） */
 export function pairGateH(being, world) {
   const profile = world.envProfile ?? {};
   const rMean = being.registers.reduce((a, b) => a + b, 0) / being.registers.length;
@@ -61,8 +66,51 @@ export function pairGateH(being, world) {
   return +(rMean - eMean * (profile.pairGateFieldWeight ?? 0.35)).toFixed(4);
 }
 
+/** PAIR-4：八通道激素向量 h_k = r_k − w·e_k */
+export function pairGateVector(being, world) {
+  const profile = world.envProfile ?? {};
+  const w = profile.pairGateFieldWeight ?? 0.35;
+  const e = world.substrate?.channels ?? [];
+  return being.registers.map((r, k) => +(r - w * (e[k] ?? 0)).toFixed(4));
+}
+
+function hormoneVectorSummary(being, world, profile) {
+  const hVec = pairGateVector(being, world);
+  const acceptSub = resolveAcceptSubCell(being, profile);
+  const indices = acceptSub?.channels?.length ? acceptSub.channels : hVec.map((_, i) => i);
+  const vals = indices.map((k) => hVec[k]);
+  const hMean = vals.length ? +(vals.reduce((a, b) => a + b, 0) / vals.length).toFixed(4) : 0;
+  const hMin = vals.length ? +Math.min(...vals).toFixed(4) : 0;
+  return { hVec, indices, hMean, hMin, acceptSubId: acceptSub?.id ?? null };
+}
+
+function hormoneVectorGateOpen(being, world, profile) {
+  const { hMean, hMin } = hormoneVectorSummary(being, world, profile);
+  const meanMin = profile.pairHormoneMeanMin ?? 0.06;
+  const floorMin = profile.pairHormoneFloorMin ?? 0.01;
+  return hMean > meanMin && hMin > floorMin;
+}
+
+function recordHormoneVector(world, recorder, being, trigger) {
+  if (!pairHormoneVectorEnabled(world.envProfile)) return;
+  const profile = world.envProfile ?? {};
+  const { hVec, indices, hMean, hMin, acceptSubId } = hormoneVectorSummary(being, world, profile);
+  recorder.evolution(world.tick, being.id, `[HRM] ${trigger} μ${hMean} min${hMin}`, {
+    kind: 'HRM',
+    trigger,
+    hMean,
+    hMin,
+    hVec: indices.map((k) => hVec[k]),
+    channels: indices,
+    acceptSubId,
+  });
+}
+
 export function pairGateOpen(being, world) {
   const profile = world.envProfile ?? {};
+  if (pairHormoneVectorEnabled(profile)) {
+    return hormoneVectorGateOpen(being, world, profile);
+  }
   return pairGateH(being, world) > (profile.pairGateMin ?? 0.08);
 }
 
@@ -252,6 +300,7 @@ export function processPairHandshake(world, recorder) {
     grantedA.add(req.fromId);
     world.pairRequests = world.pairRequests.filter((r) => r.fromId !== req.fromId);
     b.pairGrantCount = (b.pairGrantCount ?? 0) + 1;
+    recordHormoneVector(world, recorder, b, 'PGR');
 
     recorder.evolution(tick, b.id, `[PGR] grant ${a.id}`, {
       kind: 'PGR',
@@ -358,6 +407,7 @@ export function processPairFusFromField(world, recorder) {
     usedB.add(b.id);
     b.fieldPickupCount = (b.fieldPickupCount ?? 0) + 1;
     const inKind = half.channelIdx != null ? 'FLD-CH-IN' : 'FLD-IN';
+    recordHormoneVector(world, recorder, b, inKind);
     recorder.evolution(world.tick, b.id, `[${inKind}] ${half.fromId} → syncyte e${half.channelIdx ?? '?'}`, {
       kind: inKind,
       fromId: half.fromId,

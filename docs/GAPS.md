@@ -497,7 +497,15 @@
 
 - **PAIR-3**：`[FLD-CH]` 绑 act subCell·`e_k`；`[FLD-CH-IN]` 要求 draw·`r_k`/ `e_k` 阈值
 - **对照**：`ev127_pair_nochannel` 无 FLD-CH（PAIR-2 行为）
-- **田野**：`npm run field:phase127` — 待验
+- **田野**：`npm run field:phase127` — support 7/7
+
+---
+
+## GAP-PAIR-HORMVEC · 多维激素向量（Phase 128）
+
+- **PAIR-4**：draw 子单元 \(h_k=r_k-w e_k\)；`[HRM]` 在 PGR/FLD-CH-IN 记录
+- **对照**：`ev128_pair_scalar` 标量 h̄ 门控，无 HRM
+- **田野**：`npm run field:phase128` — 待验
 
 ---
 
