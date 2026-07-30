@@ -265,7 +265,7 @@ LOG-SEN-* → [SEN] → LOG-NRV（整合、时序）→ LOG-BRN（记忆/意识�
 
 ### MV2 — 器官通路
 
-- [ ] 分化细胞 ↔ `subCell` / TX / ACT / PAIR
+- [x] 分化细胞 ↔ `subCell` / TX / ACT / PAIR（`organ-pathway.js`、`[PATH]`）
 
 ### MV3 — 族谱持久
 

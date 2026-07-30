@@ -50,6 +50,20 @@ export const LOGIC_CELL_TYPES = [
     diffStages: [LIFE_STAGE_JUV],
   },
   {
+    code: 'LOG-SIG-TX',
+    analogy: '信号发细胞',
+    roles: ['tx', 'signal-tx'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
+    code: 'LOG-SIG-RX',
+    analogy: '信号收细胞',
+    roles: ['rx', 'signal-rx'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
     code: 'LOG-MOT',
     analogy: '运动细胞',
     roles: ['act', 'motor'],

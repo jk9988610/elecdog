@@ -1,29 +1,30 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · **MV9 闭环验收** · 进度见 GOAL_DISTANCE
+> 更新：2026-07-30 · **MV2 器官通路** · 进度见 GOAL_DISTANCE
 
 ---
 
-## 战略状态（MV 主轨 ~62%）
+## 战略状态（MV 主轨 ~64%）
 
 | 阶段 | 状态 |
 |------|------|
-| MV0–MV8 | ✅ |
-| **MV9** 全生命周期闭环田野 | ✅ 本回合 |
+| MV0–MV9 | ✅ |
+| **MV2** 器官通路 | ✅ 本回合 |
 
 ---
 
-## MV9 交付
+## MV2 交付
 
-- `scripts/observer-mv-lifecycle-verify.mjs`：合胞→脐带→EXP→哺乳→ADT→再合胞
-- 导出 `createSyncyteOnB` 供闭环脚本编排
-- `npm run observer:mv-lifecycle`
+- `src/world/organ-pathway.js`：分化细胞挂接 `subCellId` / `pathway`（draw/act/tx/rx/pair/sense）
+- `LOG-SIG-TX` / `LOG-SIG-RX` 逻辑细胞类型
+- `[PATH]` 周期性通路摘要；`LOG-MOT`→ACT、`LOG-LNG`→TX 偏置
+- 观察子 MV2 断言并入 `observer:multicell-v2`
 
 ```bash
-npm run observer:mv-lifecycle
 npm run observer:multicell-v2
+npm run observer:mv-lifecycle
 ```
 
 ---
 
-*哺乳生物主轨 MVP 闭环已可回归；后续可深化 MV2–MV4 UI/器官通路。*
+*下一包：MV3 族谱持久（END 灰显、云归档）或 MV1c 成体 MIT 调参。*

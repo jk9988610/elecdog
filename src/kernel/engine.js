@@ -98,6 +98,10 @@ import {
 } from '../world/substantive-signal.js';
 import { resolveLifeStage, tickMulticellDevelopment } from '../world/multicell-v2.js';
 import {
+  organPathwayExperienceBias,
+  recordOrganPathwayTick,
+} from '../world/organ-pathway.js';
+import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
 } from '../world/pair-repro.js';
@@ -275,6 +279,7 @@ export function stepWorld(world, recorder) {
     tickMulticellDevelopment(world, recorder, being, world.envProfile);
     const heard = filterHeardSignals(delivered, being.id, world.envProfile);
     const profile = world.envProfile;
+    recordOrganPathwayTick(world, recorder, being, profile);
     if (memoryFeedbackEnabled(profile)) {
       decayMemoryLoads(being);
     }
@@ -286,7 +291,8 @@ export function stepWorld(world, recorder) {
       memoryFeedbackEnabled(profile) ? memoryActBias(being, profile) : null,
       predictionFeedbackEnabled(profile) ? predictionActBias(being, profile) : null,
       socialKnowledgeFeedbackEnabled(profile) ? socialKnowledgeActBias(being, profile) : null,
-      semFeedbackEnabled(profile) ? semActBias(being, world, profile) : null
+      semFeedbackEnabled(profile) ? semActBias(being, world, profile) : null,
+      organPathwayExperienceBias(being, profile)
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,
