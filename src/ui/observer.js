@@ -67,6 +67,7 @@ import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import
 import { suggestObserverEnvId } from '../carry/import-report.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 import { renderSemSignalStreamPanelHTML, initSemSignalStreamPanel } from './sem-signal-stream.js';
+import { renderThoughtSpeechPanelHTML, initThoughtSpeechPanel } from './thought-speech.js';
 import { renderGenealogyPanelHTML, initGenealogyPanel } from './genealogy-tree.js';
 
 const SEED_DNA =
