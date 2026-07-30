@@ -6,7 +6,6 @@ import { label } from './analogy.js';
 import { pairMorphCn } from './observer-lexicon.js';
 import { LOGIC_CELL_TYPES, SKIN_CELL_CODE, STEM_CELL_CODE, STEM_CELL_TYPE } from '../world/logic-cell-types.js';
 import {
-  LIFE_STAGE_EMB,
   LIFE_STAGE_GEST,
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
@@ -26,7 +25,6 @@ function beingTail(id) {
 
 function stageLabel(stage) {
   if (stage === LIFE_STAGE_GEST) return '宫内胚胎';
-  if (stage === LIFE_STAGE_EMB) return '体外胚胎';
   if (stage === LIFE_STAGE_JUV) return '婴幼儿';
   if (stage === LIFE_STAGE_ADT) return '成体';
   return stage ?? '—';

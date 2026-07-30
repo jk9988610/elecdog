@@ -132,6 +132,14 @@ export function stepWorld(world, recorder) {
   const adv = tickAdv(world, profile);
   const art = tickArt(world, profile);
   const vtn = tickVent(world, profile);
+  world.airMods = {
+    effectiveSolar: air.effectiveSolar,
+    solarAtten: air.solarAtten,
+    drainMult: air.drainMult,
+  };
+  if (vtn?.fired && world.vent) {
+    world.vent.lastInject = vtn.inject;
+  }
   const alivePre = world.beings.filter((b) => b.alive);
   const meanStressVal = alivePre.length
     ? alivePre.reduce((s, b) => s + meanStress(b), 0) / alivePre.length
