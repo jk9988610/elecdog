@@ -3501,6 +3501,7 @@ const MULTICELL_V2_STACK = {
   meiEnabled: true,
   pairReproEnabled: true,
   pairFusInBody: true,
+  pairPartnerChannelFus: true,
   pairHalfRelease: true,
   pairHandshake: true,
   pairSpeechDriven: true,
@@ -3517,6 +3518,8 @@ const MULTICELL_V2_STACK = {
   gestationTicks: 64,
   dockBaseProb: 0.35,
   meiMinAge: 40,
+  kinshipDnaBlockEnabled: true,
+  kinshipDnaBlockSim: 0.68,
 };
 
 ENV_PROFILES.multicell_v2_world = {

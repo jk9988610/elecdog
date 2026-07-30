@@ -1706,3 +1706,116 @@ input[type='number'] {
   font-size: 0.7rem;
   color: #6a7484;
 }
+
+/* 竖向族谱树 — 父母在上、后代在下 */
+.genealogy-forest {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2rem;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.gv-node {
+  list-style: none;
+  text-align: center;
+  position: relative;
+}
+
+.gv-couple {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.gv-couple-link {
+  color: #5a6270;
+  font-size: 0.75rem;
+}
+
+.gv-node.has-children > .gv-children {
+  list-style: none;
+  margin: 0.75rem auto 0;
+  padding: 0.75rem 0 0;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.5rem;
+  border-top: 2px solid #3a4554;
+  position: relative;
+}
+
+.gv-node.has-children > .gv-children::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 2px;
+  height: 0.75rem;
+  background: #3a4554;
+  transform: translate(-50%, -100%);
+}
+
+.genealogy-preg-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #e8b4d0;
+  background: #3a2a34;
+  border-radius: 3px;
+  padding: 0.05rem 0.25rem;
+}
+
+.genealogy-detail-morph {
+  font-size: 0.85rem;
+  color: #8a94a4;
+  font-weight: normal;
+}
+
+.hormone-bars {
+  margin: 0.5rem 0 1rem;
+}
+
+.hormone-bar-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 2.5rem;
+  gap: 0.5rem;
+  align-items: center;
+  margin-bottom: 0.35rem;
+  font-size: 0.75rem;
+}
+
+.hormone-bar-row.hormone-bar-lact .hormone-bar-fill {
+  background: linear-gradient(90deg, #6a4a7a, #c8a0d8);
+}
+
+.hormone-bar-label {
+  color: #8a94a4;
+}
+
+.hormone-bar-track {
+  height: 0.45rem;
+  background: #1a2028;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.hormone-bar-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #3a5a7a, #7ab8e8);
+  border-radius: 2px;
+  transition: width 0.2s ease;
+}
+
+.hormone-bar-val {
+  font-family: ui-monospace, monospace;
+  color: #9aa3b0;
+  text-align: right;
+}
+
+.lact-panel {
+  margin-bottom: 0.75rem;
+}

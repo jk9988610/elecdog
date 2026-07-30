@@ -57,14 +57,16 @@ export function tierCn(tier) {
 
 /** 形态 A/B 观察者类比（机制层仍用 A/B；仅 UI） */
 export const PAIR_MORPH_CN = {
-  A: '排出方（类比·男）',
-  B: '接纳方（类比·女）',
+  A: '雄',
+  B: '雌',
 };
 
 /** 定向言语意图 */
 export const SPEECH_INTENT_CN = {
   PRQ: '繁殖许可请求（排出方→接纳方）',
   PGR: '繁殖许可授予（接纳方→排出方）',
+  'PRQ-F': '雌方向雄求偶',
+  'PGR-M': '雄方向雌回应求偶',
   'Q-YI': '衣域询问',
   'Q-SHI': '食域询问',
   'Q-ZHU': '住域询问',

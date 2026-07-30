@@ -368,9 +368,9 @@ export function stepWorld(world, recorder) {
             toId: directed?.toId ?? null,
             intent: directed?.intent ?? null,
           });
-          if (directed?.intent === 'PRQ' && being.pairMorph === 'A') {
+          if (directed?.intent === 'PRQ') {
             registerPairSpeechPRQ(world, recorder, being, directed.toId, line);
-          } else if (directed?.intent === 'PGR' && being.pairMorph === 'B') {
+          } else if (directed?.intent === 'PGR') {
             registerPairSpeechPGR(world, recorder, being, directed.toId, line);
           }
           if (semEnabled(profile)) {

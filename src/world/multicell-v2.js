@@ -2,6 +2,7 @@
 
 import { hashString, mulberry32 } from '../core/hash.js';
 import { getSubCellByRole } from './organism.js';
+import { issueAdultHealthReport } from './health-report.js';
 import {
   LOGIC_CELL_TYPES,
   LOGIC_CELL_MAX_PER_TYPE,
@@ -111,6 +112,7 @@ export function resolveLifeStage(being, world, profile) {
       being.lifeStage = LIFE_STAGE_ADT;
       being.adultAtTick = world.tick;
       initAdultMatingStructures(being, profile, world.tick);
+      issueAdultHealthReport(being, world.tick);
       if (profile?.stemFreezeAtAdult !== false) {
         freezeStemPool(being, world.tick);
       }
@@ -202,7 +204,7 @@ function pickDiffTarget(being, world, profile, stage, rng) {
   const posIdx = (being.intraTick ?? 0) % 3;
   const preference =
     stage === LIFE_STAGE_GEST
-      ? ['LOG-BAR', 'LOG-UMB', 'LOG-NTR', 'LOG-TRP', 'LOG-RES', 'LOG-DIG', 'LOG-NRV']
+      ? ['LOG-NTR', 'LOG-RES', 'LOG-DIG', 'LOG-NRV']
       : stage === LIFE_STAGE_JUV
         ? [
             'LOG-DIG',
@@ -216,10 +218,6 @@ function pickDiffTarget(being, world, profile, stage, rng) {
             'LOG-SEN-OL',
             'LOG-BRN',
             'LOG-LNG',
-            'LOG-SIG-TX',
-            'LOG-SIG-RX',
-            'LOG-STR',
-            'LOG-CLR',
           ]
         : ['LOG-GON', 'LOG-HRM'];
 

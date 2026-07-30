@@ -1,4 +1,4 @@
-// 宫内脐带 — STR-UMB 结构 + LOG-UMB 细胞增强合胞通量（机制层，非地球器官名）
+// 宫内脐带 — STR-UMB 结构通道供养合胞胚胎（机制层，非地球器官名）
 
 import { getSubCellByRole } from './organism.js';
 import { multicellV2Enabled } from './multicell-v2.js';
@@ -35,21 +35,18 @@ export function initGestationalUmbilical(carrier, profile, atTick = 0) {
 }
 
 export function umbilicalFluxMult(carrier) {
-  const umb = umbilicalCellCount(carrier);
-  const ntr = carrier.logicCells?.['LOG-NTR']?.length ?? 0;
-  return 1 + umb * 0.14 + ntr * 0.06;
+  return umbilicalStructureOpen(carrier) ? 1.18 : 1;
 }
 
 export function umbilicalActive(carrier, profile) {
   return (
     multicellV2Enabled(profile) &&
     carrier?.syncyte &&
-    umbilicalStructureOpen(carrier) &&
-    umbilicalCellCount(carrier) > 0
+    umbilicalStructureOpen(carrier)
   );
 }
 
-/** 宫内营养通量：LOG-UMB + STR-UMB 就绪时记 [UMB]，否则由 pair-repro 记 [EMB] */
+/** 宫内营养通量：STR-UMB 就绪时记 [UMB]，否则由 pair-repro 记 [EMB] */
 export function tickUmbilicalFlux(world, recorder, carrier, syncyte) {
   const profile = world.envProfile ?? {};
   if (!umbilicalActive(carrier, profile)) return null;
@@ -73,7 +70,7 @@ export function tickUmbilicalFlux(world, recorder, carrier, syncyte) {
   recorder.evolution(
     world.tick,
     carrier.id,
-    `[UMB] flux ${transfers.length}ch LOG-UMB×${umbN} ${str?.subCellId ?? 'sc'}`,
+    `[UMB] flux ${transfers.length}ch ${UMB_STRUCTURE_CODE} ${str?.subCellId ?? 'sc'}`,
     {
       kind: 'UMB',
       transfers: transfers.length,
