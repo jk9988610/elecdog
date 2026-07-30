@@ -2,6 +2,7 @@
  * 田野归档与笔记云同步 — ElecDog Phase 28
  */
 import { buildDashboardStats } from '../ui/stats.js';
+import { buildGenealogyArchive } from '../world/genealogy-persist.js';
 import { getObserverLabel } from './config.js';
 import {
   insertFieldRun,
@@ -31,8 +32,10 @@ function buildRunSummary(world, recorder) {
 
 function buildLogArchive(world, recorder) {
   const alive = world.beings.filter((b) => b.alive);
+  const genealogy = buildGenealogyArchive(world);
   return {
     exportedAt: new Date().toISOString(),
+    kind: 'observer-run',
     world: {
       name: world.name,
       birthPlace: world.birthPlace,
@@ -40,14 +43,25 @@ function buildLogArchive(world, recorder) {
       createdAt: world.createdAt,
       beingCount: world.beings.length,
       aliveCount: alive.length,
-      beings: alive.map((b) => ({
+      endedCount: world.beings.filter((b) => !b.alive).length,
+      beings: world.beings.map((b) => ({
         id: b.id,
         name: b.name,
         code: b.code,
         generation: b.generation,
         socialSlot: b.socialSlot,
+        alive: b.alive,
+        pairMorph: b.pairMorph ?? null,
+        partnerId: b.partnerId ?? null,
+        pairParentA: b.pairParentA ?? b.fissionParent ?? null,
+        pairParentB: b.pairParentB ?? null,
+        endedAtTick: b.endedAtTick ?? null,
+        endReason: b.endReason ?? null,
+        lifeStage: b.lifeStage ?? null,
+        devStage: b.devStage ?? null,
       })),
     },
+    genealogy,
     summary: buildRunSummary(world, recorder),
     entries: recorder.entries,
   };
@@ -62,6 +76,7 @@ export async function archiveCurrentRun(world, recorder) {
 
   const summary = buildRunSummary(world, recorder);
   const alive = world.beings.filter((b) => b.alive);
+  const genealogy = buildGenealogyArchive(world);
   const row = await insertFieldRun({
     id: runId,
     place: world.birthPlace,
@@ -70,7 +85,13 @@ export async function archiveCurrentRun(world, recorder) {
     alive_count: alive.length,
     total_beings: world.beings.length,
     observer_label: getObserverLabel(),
-    summary,
+    summary: {
+      ...summary,
+      genealogy: {
+        nodeCount: genealogy.nodeCount,
+        endedCount: genealogy.endedCount,
+      },
+    },
     log_path: logPath,
   });
   return { ...row, logUrl: logPath };
@@ -114,6 +135,7 @@ export async function loadArchivePreview(logPath, { entryLimit = 40 } = {}) {
   return {
     kind: archive.kind ?? (report ? 'field-batch' : 'observer-run'),
     world,
+    genealogy: archive.genealogy ?? null,
     summary,
     report,
     entryCount: entries.length,

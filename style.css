@@ -1634,6 +1634,18 @@ input[type='number'] {
 .genealogy-id-btn.dead {
   opacity: 0.45;
   border-style: dashed;
+  color: #8a94a4;
+}
+
+.genealogy-end-badge {
+  font-size: 0.6rem;
+  font-weight: 700;
+  color: #9aa3b0;
+  background: #2a3038;
+  border: 1px solid #4a5058;
+  border-radius: 3px;
+  padding: 0.05rem 0.25rem;
+  margin-left: 0.15rem;
 }
 
 .genealogy-id-btn.mate {

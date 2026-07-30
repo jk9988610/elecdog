@@ -269,7 +269,7 @@ LOG-SEN-* → [SEN] → LOG-NRV（整合、时序）→ LOG-BRN（记忆/意识�
 
 ### MV3 — 族谱持久
 
-- [ ] END 灰显；云归档
+- [x] END 灰显；云归档（`genealogy-persist.js`、`[END]` 登记、归档 `genealogy` 块）
 
 ### MV4 — UI 开关
 

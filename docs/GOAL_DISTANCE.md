@@ -11,7 +11,7 @@
 | **距哺乳生物总目标多远** | 本文 **「MV 主轨进度」** |
 | **阶段任务清单** | [MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md) §十二 |
 | **当前在做什么** | [CURSOR_HANDOFF.md](CURSOR_HANDOFF.md) |
-| **自动化回归** | `npm run observer:mv-lifecycle` |
+| **自动化回归** | `npm run observer:mv3-genealogy` |
 
 ---
 
@@ -22,7 +22,7 @@
 
 ---
 
-## MV 主轨进度（估算 **~62%**）
+## MV 主轨进度（估算 **~66%**）
 
 | 阶段 | 目标 | 状态 | 完成度 |
 |------|------|------|--------|
@@ -31,9 +31,9 @@
 | **MV5–MV7** 五感/结构/激素 | [SEN]、PAIR、[HRM] | ✅ #168–170 | **~80%** |
 | **MV8** DNA 表达 | dna-express.js | ✅ #171 | **~75%** |
 | **MV9** 闭环田野 | 全生命周期验收 | ✅ 本 PR | **~85%** |
-| **MV2–MV4** UI/器官通路 | 族谱持久、观察子 | 🔄 MV2 本 PR | **~25%** |
+| **MV2–MV4** UI/器官通路 | 族谱持久、观察子 | 🔄 MV3 本 PR | **~40%** |
 
-**下一包建议**：MV3 族谱持久 · MV1c 调参 · MV4 UI。
+**下一包建议**：MV4 UI 观察子 · MV1c 调参。
 
 ---
 
@@ -67,6 +67,7 @@
 npm run observer:multicell-v2    # MV 主轨回归
 npm run observer:dna-express       # Z1–Z6 分区哈希
 npm run observer:mv-lifecycle      # MV9 全生命周期闭环
+npm run observer:mv3-genealogy       # MV3 族谱持久
 npm run observer:repro-speech
 npm run codex:verify
 ```

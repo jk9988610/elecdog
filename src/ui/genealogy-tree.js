@@ -21,6 +21,7 @@ import {
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
 } from '../world/logic-cell-types.js';
+import { genealogySourceBeings } from '../world/genealogy-persist.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -42,7 +43,7 @@ function stageLabel(stage) {
 }
 
 export function buildGenealogyModel(world) {
-  const beings = world?.beings ?? [];
+  const beings = genealogySourceBeings(world);
   const byId = new Map(beings.map((b) => [b.id, b]));
   const roots = beings.filter((b) => b.pairMorph === 'A' || !b.pairParentA);
   const treeRoots = roots.length ? roots.filter((b) => b.pairMorph === 'A') : beings.filter((b) => b.pairMorph === 'A');
@@ -73,7 +74,11 @@ export function buildGenealogyModel(world) {
       partnerId: being.partnerId ?? null,
       partnerTail: partner ? beingTail(partner.id) : null,
       lifeStage: being.lifeStage ?? null,
+      devStage: being.devStage ?? null,
       tickCount: being.tickCount ?? 0,
+      bornAtTick: being.bornAtTick ?? null,
+      endedAtTick: being.endedAtTick ?? null,
+      endReason: being.endReason ?? null,
       parentA: being.pairParentA ?? being.fissionParent ?? null,
       parentB: being.pairParentB ?? null,
       logicCounts: counts,
@@ -119,19 +124,22 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
       );
       const sel = selectedId === n.id ? ' selected' : '';
       const dead = !n.alive ? ' dead' : '';
+      const endBadge = !n.alive ? '<span class="genealogy-end-badge">END</span>' : '';
       return `
         <li class="genealogy-branch">
           <div class="genealogy-couple">
-            <button type="button" class="genealogy-id-btn${sel}${dead}" data-being-id="${escapeHtml(n.id)}" title="${escapeHtml(n.id)}">
+            <button type="button" class="genealogy-id-btn${sel}${dead}" data-being-id="${escapeHtml(n.id)}" title="${escapeHtml(n.id)}${n.endReason ? ` · ${escapeHtml(n.endReason)}` : ''}">
               <span class="genealogy-avatar">${escapeHtml(n.code)}</span>
               <span class="genealogy-id-tail">${escapeHtml(beingTail(n.id))}</span>
               <span class="genealogy-morph">${escapeHtml(pairMorphCn(n.pairMorph))}</span>
+              ${endBadge}
             </button>
             ${mate
-              ? `<button type="button" class="genealogy-id-btn mate${selectedId === mate.id ? ' selected' : ''}${mate.alive ? '' : ' dead'}" data-being-id="${escapeHtml(mate.id)}" title="${escapeHtml(mate.id)}">
+              ? `<button type="button" class="genealogy-id-btn mate${selectedId === mate.id ? ' selected' : ''}${mate.alive ? '' : ' dead'}" data-being-id="${escapeHtml(mate.id)}" title="${escapeHtml(mate.id)}${mate.endReason ? ` · ${escapeHtml(mate.endReason)}` : ''}">
               <span class="genealogy-avatar">${escapeHtml(mate.code)}</span>
               <span class="genealogy-id-tail">${escapeHtml(beingTail(mate.id))}</span>
               <span class="genealogy-morph">${escapeHtml(pairMorphCn(mate.pairMorph))}</span>
+              ${mate.alive ? '' : '<span class="genealogy-end-badge">END</span>'}
             </button>`
               : `<span class="genealogy-mate-placeholder">无伴侣</span>`}
           </div>
@@ -139,7 +147,7 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
             ? `<ul class="genealogy-children">${children
                 .map(
                   (c) =>
-                    `<li><button type="button" class="genealogy-id-btn child${selectedId === c.id ? ' selected' : ''}${c.alive ? '' : ' dead'}" data-being-id="${escapeHtml(c.id)}">${escapeHtml(c.code)} · ${escapeHtml(beingTail(c.id))}</button></li>`
+                    `<li><button type="button" class="genealogy-id-btn child${selectedId === c.id ? ' selected' : ''}${c.alive ? '' : ' dead'}" data-being-id="${escapeHtml(c.id)}" title="${escapeHtml(c.endReason ?? '')}">${escapeHtml(c.code)} · ${escapeHtml(beingTail(c.id))}${c.alive ? '' : ' <span class="genealogy-end-badge">END</span>'}</button></li>`
                 )
                 .join('')}</ul>`
             : ''}
@@ -167,6 +175,7 @@ export function renderBeingDetailHTML(being) {
       <p class="genealogy-detail-id"><code>${escapeHtml(being.id)}</code></p>
       <div class="stat-grid">
         <div class="stat-row"><span>存活</span><strong>${being.alive ? '是' : '否'}</strong></div>
+        ${!being.alive ? `<div class="stat-row"><span>END</span><strong>${escapeHtml(being.endReason ?? '—')} @t${being.endedAtTick ?? '—'}</strong></div>` : ''}
         <div class="stat-row"><span>形态</span><strong>${escapeHtml(pairMorphCn(being.pairMorph))}</strong></div>
         <div class="stat-row"><span>发育阶段</span><strong>${escapeHtml(stageLabel(being.devStage ?? being.lifeStage))}</strong></div>
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
@@ -235,7 +244,8 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
         paint();
       });
     });
-    const being = world?.beings?.find((b) => b.id === selectedId);
+    const being = world?.beings?.find((b) => b.id === selectedId) ??
+      genealogySourceBeings(world).find((b) => b.id === selectedId);
     detailHost.innerHTML = renderBeingDetailHTML(being);
   }
 

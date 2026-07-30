@@ -101,6 +101,7 @@ import {
   organPathwayExperienceBias,
   recordOrganPathwayTick,
 } from '../world/organ-pathway.js';
+import { recordGenealogyEnd } from '../world/genealogy-persist.js';
 import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
@@ -825,6 +826,7 @@ export function stepWorld(world, recorder) {
     if (term) {
       collectOrphanPacket(world, being, world.envProfile);
       being.alive = false;
+      recordGenealogyEnd(world, being, { ...term, stress: result.stress });
       recorder.viability(world.tick, being.id, `[END] ${term.reason}`, {
         kind: 'END',
         ...term,

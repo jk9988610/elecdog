@@ -187,6 +187,7 @@
     "observer:multicell-v2": "node scripts/observer-multicell-v2-verify.mjs",
     "observer:dna-express": "node scripts/observer-dna-express-verify.mjs",
     "observer:mv-lifecycle": "node scripts/observer-mv-lifecycle-verify.mjs",
+    "observer:mv3-genealogy": "node scripts/observer-mv3-genealogy-verify.mjs",
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",
