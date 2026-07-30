@@ -12,6 +12,7 @@ import {
   LAYOUT_CLASSIC,
   LAYOUT_GENEALOGY,
   shouldShowGenealogyPanel,
+  shouldUseGenealogyOnlyDashboard,
   setObserverLayoutMode,
 } from '../src/ui/observer-layout.js';
 import { multicellV2Observer, populationLayerEnabled } from '../src/world/multicell-v2.js';
@@ -47,6 +48,14 @@ assert(stats.beings.some((b) => b.devStage != null), 'stats 含 devStage');
 assert(
   shouldShowGenealogyPanel(world.envProfile, LAYOUT_GENEALOGY),
   '默认族谱布局'
+);
+assert(
+  shouldUseGenealogyOnlyDashboard(world.envProfile, LAYOUT_GENEALOGY),
+  '族谱布局仅展示族谱主面板'
+);
+assert(
+  !shouldUseGenealogyOnlyDashboard(world.envProfile, LAYOUT_CLASSIC),
+  '经典布局展示完整仪表盘'
 );
 assert(
   !shouldShowGenealogyPanel(world.envProfile, LAYOUT_CLASSIC),

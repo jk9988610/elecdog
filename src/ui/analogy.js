@@ -206,9 +206,10 @@ const LABELS = {
   },
   genealogyPanel: { native: '多细胞族谱', analogy: '多细胞族谱（排出方主干）' },
   genealogyHint: {
-    native: '点击身份证框查看个体；伴侣登记 [BOND]；隐藏单细胞卡片',
-    analogy: '一夫一妻伴侣树 · A 排出方主干 · B 接纳方配偶',
+    native: '默认仅族谱；点击身份证框查看个体。加载后需点「运行」才会求偶，开局 tick 0 无妊娠',
+    analogy: '一夫一妻伴侣树 · 求偶登记见下栏 · 运行后同频成体才会配对妊娠',
   },
+  genealogyCourtship: { native: '求偶登记', analogy: '谁向谁求偶' },
   classicBeingsPanel: { native: '个体卡片（经典）', analogy: '经典单细胞式卡片' },
 };
 

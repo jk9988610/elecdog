@@ -17,7 +17,7 @@ import {
   isDisplayPregnant,
   stageBadgeLabel,
 } from '../world/genealogy-stage.js';
-import { formatBeingDisplayName } from '../world/being-names.js';
+import { formatBeingDisplayName, courtshipBondLineForCouple, courtshipInitiatorFromPair } from '../world/being-names.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 
@@ -63,6 +63,15 @@ export function buildGenealogyModel(world) {
       pairMorph: being.pairMorph ?? null,
       partnerId: being.partnerId ?? null,
       partnerTail: partner ? beingTail(partner.id) : null,
+      courtshipLine: (() => {
+        if (!partner) return null;
+        const male =
+          being.pairMorph === 'A' ? being : partner.pairMorph === 'A' ? partner : null;
+        const female =
+          being.pairMorph === 'B' ? being : partner.pairMorph === 'B' ? partner : null;
+        return male && female ? courtshipBondLineForCouple(male, female) : null;
+      })(),
+      partnerBondTick: being.partnerBondTick ?? null,
       lifeStage: being.lifeStage ?? null,
       devStage: being.devStage ?? null,
       tickCount: being.tickCount ?? 0,
@@ -108,6 +117,45 @@ function nodeFromId(nodes, id) {
   return nodes.find((n) => n.id === id) ?? null;
 }
 
+function renderCoupleCourtshipLabel(a, b) {
+  const male = a.pairMorph === 'A' ? a : b.pairMorph === 'A' ? b : null;
+  const female = a.pairMorph === 'B' ? a : b.pairMorph === 'B' ? b : null;
+  const line = male && female ? courtshipBondLineForCouple(male, female) : null;
+  if (!line) return '—';
+  return `<span class="gv-courtship" title="求偶发起">${escapeHtml(line)}</span>`;
+}
+
+function renderCourtshipBondsHTML(model) {
+  const beings = model?.beings ?? [];
+  const byId = new Map(beings.map((b) => [b.id, b]));
+  const pairs = [];
+  const seen = new Set();
+  for (const b of beings) {
+    if (!b.partnerId) continue;
+    const key = [b.id, b.partnerId].sort().join(':');
+    if (seen.has(key)) continue;
+    seen.add(key);
+    const p = byId.get(b.partnerId);
+    if (!p) continue;
+    const male = b.pairMorph === 'A' ? b : p.pairMorph === 'A' ? p : null;
+    const female = b.pairMorph === 'B' ? b : p.pairMorph === 'B' ? p : null;
+    if (!male || !female) continue;
+    pairs.push({
+      line: courtshipBondLineForCouple(male, female),
+      tick: male.partnerBondTick ?? female.partnerBondTick ?? null,
+    });
+  }
+  if (!pairs.length) {
+    return '<p class="muted genealogy-courtship-empty">尚无伴侣求偶登记。世界加载后为 tick 0，需点击「运行」后同频成体才会发起求偶。</p>';
+  }
+  return `<ul class="genealogy-courtship-list">${pairs
+    .map(
+      (p) =>
+        `<li class="genealogy-courtship-item"><span class="genealogy-courtship-line">${escapeHtml(p.line ?? '—')}</span>${p.tick != null ? `<span class="genealogy-courtship-tick muted">· t${p.tick}</span>` : ''}</li>`
+    )
+    .join('')}</ul>`;
+}
+
 function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   if (!being || seen.has(being.id)) return '';
   seen.add(being.id);
@@ -129,7 +177,7 @@ function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   );
 
   const couple = mate
-    ? `<div class="gv-couple">${renderPersonCard(being, selectedId)}<span class="gv-couple-link">—</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
+    ? `<div class="gv-couple">${renderPersonCard(being, selectedId)}<span class="gv-couple-link">${renderCoupleCourtshipLabel(being, mate)}</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
     : `<div class="gv-couple">${renderPersonCard(being, selectedId)}</div>`;
 
   const kids =
@@ -257,6 +305,19 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
   const lactOpen = being.bodyStructures?.[STR_LACT_OUT]?.open;
   const lactUntil = being.bodyStructures?.[STR_LACT_OUT]?.untilTick;
   const badge = stageBadgeLabel(being);
+  let courtshipHtml = '';
+  if (partnerBeing) {
+    const male = being.pairMorph === 'A' ? being : partnerBeing.pairMorph === 'A' ? partnerBeing : null;
+    const female = being.pairMorph === 'B' ? being : partnerBeing.pairMorph === 'B' ? partnerBeing : null;
+    const line = male && female ? courtshipBondLineForCouple(male, female) : null;
+    const initiator = male && female ? courtshipInitiatorFromPair(male, female) : null;
+    if (line) {
+      courtshipHtml = `
+      <h4 class="term">求偶</h4>
+      <p class="genealogy-courtship-detail">${escapeHtml(line)}</p>
+      ${initiator?.partnerBondTick != null ? `<p class="muted genealogy-courtship-meta">伴侣登记 tick ${initiator.partnerBondTick}</p>` : ''}`;
+    }
+  }
 
   return `
     <div class="genealogy-detail">
@@ -271,6 +332,7 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
       </div>
+      ${courtshipHtml}
       ${showHealth ? renderHealthReportHTML(being) : ''}
       <h4 class="term">激素与泌乳</h4>
       <div class="hormone-bars">${renderHormoneBars(being)}</div>
@@ -289,6 +351,7 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
 export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
   const treeHost = root.querySelector('#genealogy-tree-host');
   const detailHost = root.querySelector('#genealogy-detail-host');
+  const courtshipHost = root.querySelector('#genealogy-courtship-host');
   if (!treeHost || !detailHost) return null;
 
   let selectedId = null;
@@ -298,6 +361,9 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
     const world = getWorld?.();
     const model = buildGenealogyModel(world);
     treeHost.innerHTML = renderGenealogyTreeHTML(model, { selectedId });
+    if (courtshipHost) {
+      courtshipHost.innerHTML = renderCourtshipBondsHTML(model);
+    }
     treeHost.querySelectorAll('.genealogy-id-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         selectedId = btn.getAttribute('data-being-id');
@@ -336,6 +402,10 @@ export function renderGenealogyPanelHTML() {
     <section id="genealogy-panel" class="genealogy-panel panel">
       <h2>${escapeHtml(label('genealogyPanel'))}</h2>
       <p class="panel-hint">${escapeHtml(label('genealogyHint'))}</p>
+      <div class="genealogy-courtship-block">
+        <h3 class="term genealogy-courtship-title">${escapeHtml(label('genealogyCourtship'))}</h3>
+        <div id="genealogy-courtship-host" class="genealogy-courtship-host"></div>
+      </div>
       <div class="genealogy-layout">
         <div id="genealogy-tree-host" class="genealogy-tree-host"></div>
         <div id="genealogy-detail-host" class="genealogy-detail-host"></div>

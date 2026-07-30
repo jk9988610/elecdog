@@ -1632,6 +1632,54 @@ input[type='number'] {
   grid-column: 1 / -1;
 }
 
+.genealogy-courtship-block {
+  margin-bottom: 1rem;
+  padding: 0.65rem 0.85rem;
+  border: 1px solid #2a3140;
+  border-radius: 8px;
+  background: #0f141c;
+}
+
+.genealogy-courtship-title {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+}
+
+.genealogy-courtship-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.genealogy-courtship-item {
+  padding: 0.35rem 0;
+  border-bottom: 1px solid #1e2630;
+  font-size: 0.8125rem;
+}
+
+.genealogy-courtship-item:last-child {
+  border-bottom: none;
+}
+
+.genealogy-courtship-line {
+  color: #c8d4e8;
+}
+
+.genealogy-courtship-detail {
+  margin: 0.25rem 0 0.5rem;
+  font-size: 0.875rem;
+  color: #a8c8e8;
+}
+
+.gv-courtship {
+  display: block;
+  max-width: 11rem;
+  font-size: 0.7rem;
+  line-height: 1.35;
+  color: #8ba8c8;
+  text-align: center;
+}
+
 .genealogy-layout {
   display: grid;
   grid-template-columns: 1fr minmax(280px, 360px);
