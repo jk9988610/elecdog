@@ -11,6 +11,12 @@ import {
   deriveInternalTxCoupling,
   applyInternalTxCoupling,
 } from '../world/internal-tx-coupling.js';
+import {
+  substantiveSignalOnly,
+  deriveSubstantiveExternal,
+  appendMulticellIntraTx,
+  multicellIntraTxEnabled,
+} from '../world/substantive-signal.js';
 
 function dnaToRegisters(dna, count = 8) {
   const rng = mulberry32(hashString(dna));
@@ -181,7 +187,7 @@ export class Being {
     return [`[${kind}] 0x${op} 0x${payload} 0x${chk}`];
   }
 
-  tick(worldTick, { heardSignals = [], substrate = null, experienceBias = null, profile = null } = {}) {
+  tick(worldTick, { heardSignals = [], substrate = null, experienceBias = null, profile = null, world = null } = {}) {
     if (!this.alive) {
       return {
         tick: worldTick,
@@ -196,7 +202,7 @@ export class Being {
     this.tickCount++;
     this.advanceRegisters(substrate, profile);
     const stress = assessStress(this.registers, substrate);
-    const internal = this.emitInternal();
+    let internal = this.emitInternal();
 
     if (heardSignals.length > 0) {
       const mix = hashString(heardSignals.map((s) => s.content).join('|') + this.id);
@@ -204,6 +210,10 @@ export class Being {
       internal.push(
         `0x${toHexByte(local())} 0x${toHexByte(local())} 0x${toHexByte(local())}`
       );
+    }
+
+    if (profile && multicellIntraTxEnabled(profile)) {
+      internal = appendMulticellIntraTx(internal, this);
     }
 
     let tickBias = experienceBias;
@@ -214,11 +224,22 @@ export class Being {
       }
     }
 
-    const external = this.emitExternal({
-      stress,
-      lowStreak: this.lowStreak,
-      experienceBias: tickBias,
-    });
+    let external;
+    if (profile && substantiveSignalOnly(profile) && world) {
+      external = deriveSubstantiveExternal(this, world, profile, {
+        stress,
+        lowStreak: this.lowStreak,
+        experienceBias: tickBias,
+        heardSignals,
+        internal,
+      });
+    } else {
+      external = this.emitExternal({
+        stress,
+        lowStreak: this.lowStreak,
+        experienceBias: tickBias,
+      });
+    }
     return {
       tick: worldTick,
       beingId: this.id,

@@ -468,10 +468,10 @@ export class ObserverApp {
     } else {
       this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
       const seeds = [
-        { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
-        { name: '002', code: '002' },
-        { name: '003', code: '003' },
-        { name: '001-乙', code: '001' },
+        { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID, pairMorph: 'A' },
+        { name: '002', code: '002', pairMorph: 'B' },
+        { name: '003', code: '003', pairMorph: 'A' },
+        { name: '001-乙', code: '001', pairMorph: 'B' },
       ];
       for (const s of seeds) {
         performBirthRitual(this.world, this.recorder, s);
@@ -496,7 +496,7 @@ export class ObserverApp {
       `[观察台] 混编导入 p${phase ?? '?'} ${treatmentId ?? ''} seed${seed} · ${naiveCount} naive + ${carrySnapshots.length} carry`
     );
 
-    for (const spec of buildObserverNaiveSpecs(seed, naiveCount)) {
+    for (const spec of buildObserverNaiveSpecs(seed, naiveCount, this.world.envProfile)) {
       spawnBeing(this.world, this.recorder, spec);
     }
 

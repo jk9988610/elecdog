@@ -2,6 +2,7 @@
 
 import { formatPayloadDisplay } from './sem-analogy-translate.js';
 import { label } from './analogy.js';
+import { speechIntentCn, pairMorphCn } from './observer-lexicon.js';
 
 const LIMIT = 40;
 
@@ -42,7 +43,7 @@ function findTxLine(recorder, tick, beingId) {
   return null;
 }
 
-export function buildThoughtSpeechRows(recorder, { beingId = null, limit = LIMIT } = {}) {
+export function buildThoughtSpeechRows(recorder, { beingId = null, limit = LIMIT, world = null } = {}) {
   const entries = pickThoughtSpeechEntries(recorder, { beingId, limit });
   return entries.map((e) => {
     const src = e.meta?.sourceInternal ?? '';
@@ -51,10 +52,21 @@ export function buildThoughtSpeechRows(recorder, { beingId = null, limit = LIMIT
     const txHex = bytesFromLine(txLine);
     const match = srcHex !== '—' && txHex !== '—' && srcHex.toLowerCase() === txHex.toLowerCase();
     const load = e.meta?.load ?? 0;
-    const narrative = match
-      ? `思考外化：内在流 ${formatPayloadDisplay(srcHex)} 直接开口为同型 TX（耦合 ${load}）`
-      : `思考外化：内在 ${formatPayloadDisplay(srcHex)} → 开口 ${formatPayloadDisplay(txHex)}（耦合 ${load}）`;
-    return { entry: e, narrative, match, load, src, txLine };
+    const intent = e.meta?.intent ?? null;
+    const toId = e.meta?.toId ?? null;
+    const queryMode = e.meta?.queryMode ?? null;
+    const being = world?.beings?.find((b) => b.id === e.beingId);
+    const morphNote = being?.pairMorph ? ` · ${pairMorphCn(being.pairMorph)}` : '';
+    let narrative;
+    if (intent && toId) {
+      const intentCn = speechIntentCn(intent, queryMode);
+      narrative = `思考外化：${intentCn} → ${beingTail(toId)}${morphNote}（载荷 ${formatPayloadDisplay(txHex)}，耦合 ${load}）`;
+    } else if (match) {
+      narrative = `思考外化：内在流 ${formatPayloadDisplay(srcHex)} 直接开口为同型 TX（耦合 ${load}）`;
+    } else {
+      narrative = `思考外化：内在 ${formatPayloadDisplay(srcHex)} → 开口 ${formatPayloadDisplay(txHex)}（耦合 ${load}）`;
+    }
+    return { entry: e, narrative, match, load, src, txLine, intent, toId };
   });
 }
 
@@ -124,14 +136,16 @@ export function initThoughtSpeechPanel(root, { getRecorder, getWorld, onClose } 
     const world = getWorld?.();
     if (!recorder) return;
 
-    const enabled = world?.envProfile?.internalTxCoupling === true;
+    const enabled =
+      world?.envProfile?.internalTxCoupling === true ||
+      world?.envProfile?.substantiveSignalOnly === true;
     if (!enabled) {
       list.innerHTML = `<li class="thought-speech-empty muted">${escapeHtml(label('thoughtSpeechOff'))}</li>`;
       return;
     }
 
     const bid = beingFilter === 'all' ? null : beingFilter;
-    const rows = buildThoughtSpeechRows(recorder, { beingId: bid });
+    const rows = buildThoughtSpeechRows(recorder, { beingId: bid, world });
 
     if (!rows.length) {
       list.innerHTML = `<li class="thought-speech-empty muted">${escapeHtml(label('thoughtSpeechEmpty'))}</li>`;

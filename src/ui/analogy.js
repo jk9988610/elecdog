@@ -201,8 +201,8 @@ const LABELS = {
   },
   thoughtSpeechEmpty: { native: '暂无 [THO] 记录', analogy: '尚未出现思考驱动发信' },
   thoughtSpeechOff: {
-    native: '当前环境未启用 internalTxCoupling — 请切换观察台·脑演化栈',
-    analogy: '请切换至脑演化观察环境',
+    native: '当前环境未启用 internalTxCoupling — 请切换观察台·繁殖言语栈或脑演化栈',
+    analogy: '请切换至繁殖言语或脑演化观察环境',
   },
 };
 

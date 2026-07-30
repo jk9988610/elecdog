@@ -5,7 +5,7 @@ import { spawnBeing } from './spawn.js';
 export function performBirthRitual(
   world,
   recorder,
-  { name = '小狗', code = '001', dnaSequence = null, id: fixedId = null } = {}
+  { name = '小狗', code = '001', dnaSequence = null, id: fixedId = null, pairMorph = null } = {}
 ) {
   const tick = world.tick;
   const steps = [];
@@ -18,7 +18,13 @@ export function performBirthRitual(
   );
   steps.push(recorder.ritual(tick, `[RITUAL] 代号载入 ${code}`, { code }));
 
-  const { being, dna, id } = spawnBeing(world, recorder, { name, code, dnaSequence, id: fixedId });
+  const { being, dna, id } = spawnBeing(world, recorder, {
+    name,
+    code,
+    dnaSequence,
+    id: fixedId,
+    pairMorph,
+  });
 
   steps.push(
     recorder.ritual(tick, `[RITUAL] DNA 原文 ${dna.sequence}`, { dna })
