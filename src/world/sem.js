@@ -12,12 +12,28 @@ export function initSemState(being) {
   being.semRxBuffer = [];
   being.semLogCount = 0;
   being.semPairTally = 0;
+  being.semFbHits = 0;
 }
 
 export function initSemWorld(world) {
   if (!world.semPairCounts) {
     world.semPairCounts = new Map();
   }
+  if (!world.semTopTxByRx) {
+    world.semTopTxByRx = new Map();
+  }
+}
+
+function updateTopTxForRx(world, rxKey, txKey, count) {
+  const prev = world.semTopTxByRx.get(rxKey);
+  if (!prev || count >= prev.count) {
+    world.semTopTxByRx.set(rxKey, { txKey, count });
+  }
+}
+
+function topTxForRx(world, rxKey) {
+  const hit = world.semTopTxByRx?.get(rxKey);
+  return hit ? { txKey: hit.txKey, count: hit.count } : { txKey: null, count: 0 };
 }
 
 /** 从 `[TX] abc` 或信号载荷提取规范化 hex 键（非地球词） */
@@ -49,8 +65,11 @@ export function recordSemRx(being, heard, receiveTick) {
   }
 }
 
-function shouldLogPair(count, minCount) {
-  return count === minCount || (count > minCount && count % 8 === 0);
+function shouldLogPair(count, minCount, fieldStat = false) {
+  if (count < minCount) return false;
+  if (count === minCount) return true;
+  if (fieldStat) return count % 48 === 0;
+  return count % 8 === 0;
 }
 
 function logSemPair(world, recorder, being, rxKey, txKey, count, profile, fieldStat) {
@@ -91,9 +110,10 @@ export function recordSemTx(world, recorder, being, profile, txLine, { fieldStat
     const prev = world.semPairCounts.get(pk) ?? 0;
     const next = prev + 1;
     world.semPairCounts.set(pk, next);
+    updateTopTxForRx(world, rxKey, txKey, next);
     being.semPairTally = (being.semPairTally ?? 0) + 1;
 
-    if (shouldLogPair(next, minCount)) {
+    if (shouldLogPair(next, minCount, fieldStat)) {
       logSemPair(world, recorder, being, rxKey, txKey, next, profile, fieldStat);
     }
   }
@@ -104,5 +124,62 @@ export function semSnapshot(being) {
     logCount: being.semLogCount ?? 0,
     pairTally: being.semPairTally ?? 0,
     bufferSize: being.semRxBuffer?.length ?? 0,
+    fbHits: being.semFbHits ?? 0,
+  };
+}
+
+/** 高共现对 → 微弱 TX 偏置（WL1；非词典查询） */
+export function semActBias(being, world, profile) {
+  if (!semFeedbackEnabled(profile)) {
+    return { actBoost: 0, thresholdDelta: 0, txBoost: 0, semLoad: 0 };
+  }
+  initSemWorld(world);
+
+  const minPairs = profile?.semFeedbackMinPairs ?? 2;
+  const strength = profile?.semFeedbackStrength ?? 0.05;
+  const saturation = profile?.semFeedbackSaturation ?? 32;
+  const tick = world.tick;
+  const window = profile?.semWindow ?? 1;
+  const buffer = pruneBuffer(being.semRxBuffer ?? [], tick, window);
+
+  let pairStrength = 0;
+  let txPayloadHint = null;
+  for (const { key: rxKey, tick: rxTick } of buffer) {
+    if (tick - rxTick < 1) continue;
+    const { txKey, count } = topTxForRx(world, rxKey);
+    if (!txKey || count < minPairs) continue;
+    const w = Math.min(1, count / saturation);
+    if (w > pairStrength) {
+      pairStrength = w;
+      txPayloadHint = txKey;
+    }
+  }
+
+  if (pairStrength <= 0) {
+    return { actBoost: 0, thresholdDelta: 0, txBoost: 0, semLoad: 0 };
+  }
+
+  const load = +pairStrength.toFixed(4);
+  return {
+    actBoost: -(load * strength),
+    thresholdDelta: -(load * strength * 0.25),
+    txBoost: +(load * strength),
+    txPayloadHint,
+    semLoad: load,
+  };
+}
+
+/** 将 hint 字节混入 TX 载荷（微弱，非硬编码回复） */
+export function applySemPayloadHint(op, payload, chk, hint, semLoad, rng) {
+  if (!hint || semLoad <= 0 || rng() >= semLoad * 0.55) {
+    return { op, payload, chk, applied: false };
+  }
+  const bytes = hint.match(/.{2}/g) ?? [];
+  if (bytes.length < 2) return { op, payload, chk, applied: false };
+  return {
+    op: bytes[0] ?? op,
+    payload: bytes[1] ?? payload,
+    chk: bytes[2] ?? (rng() < 0.5 ? chk : bytes[1] ?? chk),
+    applied: true,
   };
 }

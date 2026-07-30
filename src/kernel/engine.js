@@ -80,7 +80,7 @@ import {
   accumulateMemoryLoads,
 } from '../world/memory-feedback.js';
 import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
-import { semEnabled, recordSemRx, recordSemTx } from '../world/sem.js';
+import { semEnabled, recordSemRx, recordSemTx, semFeedbackEnabled, semActBias } from '../world/sem.js';
 import {
   socialKnowledgeEnabled,
   socialKnowledgeFeedbackEnabled,
@@ -254,7 +254,8 @@ export function stepWorld(world, recorder) {
       electronicHumanEnabled(profile) ? electronicHumanActBias(being, profile) : null,
       memoryFeedbackEnabled(profile) ? memoryActBias(being, profile) : null,
       predictionFeedbackEnabled(profile) ? predictionActBias(being, profile) : null,
-      socialKnowledgeFeedbackEnabled(profile) ? socialKnowledgeActBias(being, profile) : null
+      socialKnowledgeFeedbackEnabled(profile) ? socialKnowledgeActBias(being, profile) : null,
+      semFeedbackEnabled(profile) ? semActBias(being, world, profile) : null
     );
     const result = being.tick(world.tick, {
       heardSignals: heard,

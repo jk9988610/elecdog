@@ -84,12 +84,21 @@ export function cooperationActBias(being, profile) {
 export function mergeActBias(...biases) {
   let actBoost = 0;
   let thresholdDelta = 0;
+  let txBoost = 0;
+  let txPayloadHint = null;
+  let semLoad = 0;
   for (const b of biases) {
     if (!b) continue;
     actBoost += b.actBoost ?? 0;
     thresholdDelta += b.thresholdDelta ?? 0;
+    txBoost += b.txBoost ?? 0;
+    const load = b.semLoad ?? 0;
+    if (load >= semLoad && b.txPayloadHint) {
+      semLoad = load;
+      txPayloadHint = b.txPayloadHint;
+    }
   }
-  return { actBoost, thresholdDelta };
+  return { actBoost, thresholdDelta, txBoost, txPayloadHint, semLoad };
 }
 
 export function processCooperationTick(
