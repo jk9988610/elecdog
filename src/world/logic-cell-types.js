@@ -139,5 +139,5 @@ export function typesDifferentiableInStage(stage) {
 }
 
 export function initialStemCellCount(rng) {
-  return 2 + Math.floor(rng() * 2);
+  return 4 + Math.floor(rng() * 3);
 }

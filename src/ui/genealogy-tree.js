@@ -1,5 +1,5 @@
 /**
- * 族谱树 + 体检报告面板
+ * 族谱树 + 个体详情弹窗
  */
 
 import { label } from './analogy.js';
@@ -17,9 +17,14 @@ import {
   isDisplayPregnant,
   stageBadgeLabel,
 } from '../world/genealogy-stage.js';
-import { formatBeingDisplayName, courtshipBondLineForCouple, courtshipInitiatorFromPair } from '../world/being-names.js';
+import {
+  formatBeingDisplayName,
+  courtshipBondLineForCouple,
+  courtshipInitiatorFromPair,
+} from '../world/being-names.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
+import { initGenealogyViewport } from './genealogy-viewport.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -63,14 +68,6 @@ export function buildGenealogyModel(world) {
       pairMorph: being.pairMorph ?? null,
       partnerId: being.partnerId ?? null,
       partnerTail: partner ? beingTail(partner.id) : null,
-      courtshipLine: (() => {
-        if (!partner) return null;
-        const male =
-          being.pairMorph === 'A' ? being : partner.pairMorph === 'A' ? partner : null;
-        const female =
-          being.pairMorph === 'B' ? being : partner.pairMorph === 'B' ? partner : null;
-        return male && female ? courtshipBondLineForCouple(male, female) : null;
-      })(),
       partnerBondTick: being.partnerBondTick ?? null,
       lifeStage: being.lifeStage ?? null,
       devStage: being.devStage ?? null,
@@ -99,9 +96,6 @@ function renderPersonCard(being, selectedId, classExtra = '') {
     ? `<span class="${escapeHtml(badge.className)}">${escapeHtml(badge.code)}</span>`
     : '';
   const end = !being.alive ? '<span class="genealogy-end-badge">END</span>' : '';
-  const healthBtn = being.healthReport
-    ? `<button type="button" class="genealogy-health-btn" data-health-id="${escapeHtml(being.id)}">体检</button>`
-    : '';
   return `<div class="gv-person-card${sel}${dead}${classExtra}">
     <button type="button" class="genealogy-id-btn" data-being-id="${escapeHtml(being.id)}" title="${escapeHtml(being.id)}">
       <span class="genealogy-name">${escapeHtml(formatBeingDisplayName(being))}</span>
@@ -109,51 +103,11 @@ function renderPersonCard(being, selectedId, classExtra = '') {
       <span class="genealogy-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span>
       ${badgeHtml}${end}
     </button>
-    ${healthBtn}
   </div>`;
 }
 
 function nodeFromId(nodes, id) {
   return nodes.find((n) => n.id === id) ?? null;
-}
-
-function renderCoupleCourtshipLabel(a, b) {
-  const male = a.pairMorph === 'A' ? a : b.pairMorph === 'A' ? b : null;
-  const female = a.pairMorph === 'B' ? a : b.pairMorph === 'B' ? b : null;
-  const line = male && female ? courtshipBondLineForCouple(male, female) : null;
-  if (!line) return '—';
-  return `<span class="gv-courtship" title="求偶发起">${escapeHtml(line)}</span>`;
-}
-
-function renderCourtshipBondsHTML(model) {
-  const beings = model?.beings ?? [];
-  const byId = new Map(beings.map((b) => [b.id, b]));
-  const pairs = [];
-  const seen = new Set();
-  for (const b of beings) {
-    if (!b.partnerId) continue;
-    const key = [b.id, b.partnerId].sort().join(':');
-    if (seen.has(key)) continue;
-    seen.add(key);
-    const p = byId.get(b.partnerId);
-    if (!p) continue;
-    const male = b.pairMorph === 'A' ? b : p.pairMorph === 'A' ? p : null;
-    const female = b.pairMorph === 'B' ? b : p.pairMorph === 'B' ? p : null;
-    if (!male || !female) continue;
-    pairs.push({
-      line: courtshipBondLineForCouple(male, female),
-      tick: male.partnerBondTick ?? female.partnerBondTick ?? null,
-    });
-  }
-  if (!pairs.length) {
-    return '<p class="muted genealogy-courtship-empty">尚无伴侣求偶登记。世界加载后为 tick 0，需点击「运行」后同频成体才会发起求偶。</p>';
-  }
-  return `<ul class="genealogy-courtship-list">${pairs
-    .map(
-      (p) =>
-        `<li class="genealogy-courtship-item"><span class="genealogy-courtship-line">${escapeHtml(p.line ?? '—')}</span>${p.tick != null ? `<span class="genealogy-courtship-tick muted">· t${p.tick}</span>` : ''}</li>`
-    )
-    .join('')}</ul>`;
 }
 
 function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
@@ -177,7 +131,7 @@ function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   );
 
   const couple = mate
-    ? `<div class="gv-couple">${renderPersonCard(being, selectedId)}<span class="gv-couple-link">${renderCoupleCourtshipLabel(being, mate)}</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
+    ? `<div class="gv-couple">${renderPersonCard(being, selectedId)}<span class="gv-couple-link" aria-hidden="true">—</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
     : `<div class="gv-couple">${renderPersonCard(being, selectedId)}</div>`;
 
   const kids =
@@ -293,7 +247,12 @@ export function renderHealthReportHTML(being) {
   `;
 }
 
-export function renderBeingDetailHTML(being, partnerBeing = null, profile = null, { showHealth = false } = {}) {
+export function renderBeingDetailHTML(
+  being,
+  partnerBeing = null,
+  profile = null,
+  { showHealth = false } = {}
+) {
   if (!being) return '<p class="muted">未选择个体</p>';
   const logicRows = displayLogicRows(being)
     .map(
@@ -319,6 +278,13 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
     }
   }
 
+  const healthBtn = being.healthReport
+    ? `<button type="button" class="genealogy-detail-health-btn">${showHealth ? '收起体检' : '查看体检'}</button>`
+    : '';
+  const healthBlock = showHealth
+    ? `<div class="genealogy-detail-health-host">${renderHealthReportHTML(being)}</div>`
+    : '';
+
   return `
     <div class="genealogy-detail">
       <h3 class="genealogy-detail-title">${escapeHtml(formatBeingDisplayName(being))} <span class="genealogy-detail-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span> <span class="genealogy-detail-badge">${escapeHtml(badge)}</span></h3>
@@ -333,7 +299,8 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
       </div>
       ${courtshipHtml}
-      ${showHealth ? renderHealthReportHTML(being) : ''}
+      ${healthBtn ? `<div class="genealogy-detail-actions">${healthBtn}</div>` : ''}
+      ${healthBlock}
       <h4 class="term">激素与泌乳</h4>
       <div class="hormone-bars">${renderHormoneBars(being)}</div>
       <div class="stat-grid lact-panel">
@@ -348,53 +315,131 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
   `;
 }
 
+function positionDetailPopover(popover, anchorEl) {
+  const rect = anchorEl.getBoundingClientRect();
+  const margin = 12;
+  const width = 340;
+  const maxHeight = Math.min(520, window.innerHeight - margin * 2);
+  popover.style.width = `${width}px`;
+  popover.style.maxHeight = `${maxHeight}px`;
+
+  const spaceRight = window.innerWidth - rect.right;
+  const spaceLeft = rect.left;
+  let left;
+  if (spaceRight >= width + margin) {
+    left = rect.right + margin;
+    popover.classList.add('popover-anchor-right');
+    popover.classList.remove('popover-anchor-left');
+  } else {
+    left = Math.max(margin, rect.left - width - margin);
+    popover.classList.add('popover-anchor-left');
+    popover.classList.remove('popover-anchor-right');
+  }
+  const top = Math.min(Math.max(margin, rect.top), window.innerHeight - maxHeight - margin);
+  popover.style.left = `${left}px`;
+  popover.style.top = `${top}px`;
+}
+
+let activeGenealogyPopoverClose = null;
+
+function bindGenealogyPopoverDismiss() {
+  if (bindGenealogyPopoverDismiss.done) return;
+  bindGenealogyPopoverDismiss.done = true;
+  document.addEventListener(
+    'click',
+    (ev) => {
+      const pop = document.getElementById('genealogy-detail-popover');
+      if (!pop || pop.classList.contains('hidden')) return;
+      if (pop.contains(ev.target) || ev.target.closest('.genealogy-id-btn')) return;
+      activeGenealogyPopoverClose?.();
+    },
+    true
+  );
+}
+
 export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
-  const treeHost = root.querySelector('#genealogy-tree-host');
-  const detailHost = root.querySelector('#genealogy-detail-host');
-  const courtshipHost = root.querySelector('#genealogy-courtship-host');
-  if (!treeHost || !detailHost) return null;
+  const viewportEl = root.querySelector('#genealogy-viewport');
+  const innerEl = root.querySelector('#genealogy-viewport-inner');
+  const popover = root.querySelector('#genealogy-detail-popover');
+  const popoverBody = root.querySelector('#genealogy-detail-popover-body');
+  const popoverClose = root.querySelector('#genealogy-detail-popover-close');
+  if (!viewportEl || !innerEl || !popover || !popoverBody) return null;
 
   let selectedId = null;
-  let healthViewId = null;
+  let showHealth = false;
+  let viewportCtrl = initGenealogyViewport(viewportEl, innerEl);
+
+  function findBeing(world, id) {
+    return (
+      world?.beings?.find((b) => b.id === id) ??
+      genealogySourceBeings(world).find((b) => b.id === id)
+    );
+  }
+
+  function closePopover() {
+    popover.classList.add('hidden');
+    selectedId = null;
+    showHealth = false;
+    innerEl.querySelectorAll('.gv-person-card').forEach((c) => c.classList.remove('selected'));
+  }
+
+  function openPopover(anchorEl, being) {
+    const world = getWorld?.();
+    const partner = being?.partnerId ? findBeing(world, being.partnerId) : null;
+    popoverBody.innerHTML = renderBeingDetailHTML(being, partner, world?.envProfile, {
+      showHealth,
+    });
+    popoverBody.querySelector('.genealogy-detail-health-btn')?.addEventListener('click', () => {
+      showHealth = !showHealth;
+      openPopover(anchorEl, being);
+    });
+    popover.classList.remove('hidden');
+    positionDetailPopover(popover, anchorEl);
+    onSelect?.(being.id);
+  }
+
+  popoverClose?.addEventListener('click', () => closePopover());
+  activeGenealogyPopoverClose = closePopover;
+  bindGenealogyPopoverDismiss();
+
+  function bindTreeInteractions() {
+    innerEl.querySelectorAll('.genealogy-id-btn').forEach((btn) => {
+      btn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const id = btn.getAttribute('data-being-id');
+        const world = getWorld?.();
+        const being = findBeing(world, id);
+        if (!being) return;
+        if (selectedId === id && !popover.classList.contains('hidden')) {
+          closePopover();
+          return;
+        }
+        selectedId = id;
+        showHealth = false;
+        innerEl.querySelectorAll('.gv-person-card').forEach((c) => c.classList.remove('selected'));
+        btn.closest('.gv-person-card')?.classList.add('selected');
+        openPopover(btn, being);
+      });
+    });
+  }
 
   function paint() {
     const world = getWorld?.();
     const model = buildGenealogyModel(world);
-    treeHost.innerHTML = renderGenealogyTreeHTML(model, { selectedId });
-    if (courtshipHost) {
-      courtshipHost.innerHTML = renderCourtshipBondsHTML(model);
+    innerEl.innerHTML = renderGenealogyTreeHTML(model, { selectedId });
+    bindTreeInteractions();
+    if (selectedId && !popover.classList.contains('hidden')) {
+      const btn = innerEl.querySelector(`.genealogy-id-btn[data-being-id="${selectedId}"]`);
+      const being = findBeing(world, selectedId);
+      if (btn && being) {
+        openPopover(btn, being);
+      } else {
+        closePopover();
+      }
     }
-    treeHost.querySelectorAll('.genealogy-id-btn').forEach((btn) => {
-      btn.addEventListener('click', () => {
-        selectedId = btn.getAttribute('data-being-id');
-        healthViewId = null;
-        onSelect?.(selectedId);
-        paint();
-      });
-    });
-    treeHost.querySelectorAll('.genealogy-health-btn').forEach((btn) => {
-      btn.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        const id = btn.getAttribute('data-health-id');
-        selectedId = id;
-        healthViewId = id;
-        onSelect?.(id);
-        paint();
-      });
-    });
-    const being = world?.beings?.find((b) => b.id === selectedId) ??
-      genealogySourceBeings(world).find((b) => b.id === selectedId);
-    const partner =
-      being?.partnerId
-        ? world?.beings?.find((b) => b.id === being.partnerId) ??
-          genealogySourceBeings(world).find((b) => b.id === being.partnerId)
-        : null;
-    detailHost.innerHTML = renderBeingDetailHTML(being, partner, world?.envProfile, {
-      showHealth: healthViewId === selectedId,
-    });
   }
 
-  return { paint, getSelectedId: () => selectedId };
+  return { paint, getSelectedId: () => selectedId, closePopover };
 }
 
 export function renderGenealogyPanelHTML() {
@@ -402,13 +447,17 @@ export function renderGenealogyPanelHTML() {
     <section id="genealogy-panel" class="genealogy-panel panel">
       <h2>${escapeHtml(label('genealogyPanel'))}</h2>
       <p class="panel-hint">${escapeHtml(label('genealogyHint'))}</p>
-      <div class="genealogy-courtship-block">
-        <h3 class="term genealogy-courtship-title">${escapeHtml(label('genealogyCourtship'))}</h3>
-        <div id="genealogy-courtship-host" class="genealogy-courtship-host"></div>
+      <div class="genealogy-viewport-wrap">
+        <div id="genealogy-viewport" class="genealogy-viewport" aria-label="族谱画布">
+          <div id="genealogy-viewport-inner" class="genealogy-viewport-inner"></div>
+        </div>
       </div>
-      <div class="genealogy-layout">
-        <div id="genealogy-tree-host" class="genealogy-tree-host"></div>
-        <div id="genealogy-detail-host" class="genealogy-detail-host"></div>
+      <div id="genealogy-detail-popover" class="genealogy-detail-popover hidden" role="dialog" aria-modal="true" aria-label="个体详情">
+        <div class="genealogy-detail-popover-head">
+          <span class="genealogy-detail-popover-title">个体详情</span>
+          <button type="button" id="genealogy-detail-popover-close" class="genealogy-detail-popover-close" aria-label="关闭">×</button>
+        </div>
+        <div id="genealogy-detail-popover-body" class="genealogy-detail-popover-body"></div>
       </div>
     </section>
   `;
