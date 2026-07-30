@@ -358,7 +358,7 @@
 - **与 GAP-13/W4 区分**：合作/社会知识是频次与模式档案；本 GAP 问**载荷共现–回复条件**是否可积累，不命名角色/联盟/语言
 - **提议**：`semEnabled` + `[SEM]` 记录层 → on/off 田野（Phase 100–101）；类比 UI 仅展示统计，不写辞典
 - **禁止**：词汇表、句法、地球式「说话/无线电」CODEX 条；脚本化「变聪明」
-- **状态**：**WL0 support · WL1 weak · WL2 weak** — 见 [WISDOM_LANGUAGE.md](WISDOM_LANGUAGE.md)
+- **状态**：**WL0 support · WL1–WL3 weak · WL4 UI ✅ · WL5 立项就绪** — 见 [WISDOM_LANGUAGE.md](WISDOM_LANGUAGE.md)
 - **关联**：次 tick 信号可达、RX 衍生 hex 可决、SOC-ENC、COOP
 
 ---

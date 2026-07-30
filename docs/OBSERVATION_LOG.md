@@ -782,4 +782,33 @@
   - **未写入 CODEX**
 - **备注**：`npm run observer:env-stack`
 
+## OBS-20260729-99
+
+- **世界**：田野（Phase 100 · WL0 [SEM] 记录层）
+- **环境**：`wisdom_evolution` · `sem_on_ref` vs `sem_off_ref`
+- **事实**：
+  - 12 体 × 4 种子 × 1920 tick；H1/H3/H4 **4/4 support**
+  - `[SEM] pair {rxHash}→{txHash}` 可观察；off 组无 SEM 账本
+  - batchVerdict：**support**
+- **备注**：`docs/field-phase100-report.json` · `npm run field:phase100`
+
+## OBS-20260729-100
+
+- **世界**：田野（Phase 103 · WL3 SEM×SOC 正交）
+- **环境**：2×2 factorial · **640 tick**
+- **事实**：
+  - H1–H4 **4/4 support**；H5 0/4（交互弱效应未达 support）
+  - SEM 栈与 SOC 栈主效应可分离；`w3_on_on` 双开可观测
+  - batchVerdict：**weak**
+- **备注**：`docs/field-phase103-report.json` · `npm run field:phase103`
+
+## OBS-20260729-101
+
+- **世界**：观察台（Phase 104 · WL4 SEM 栈 UI）
+- **环境**：`observer_wl_stack`（W6 + WL0–WL2）
+- **事实**：
+  - 仪表盘「智慧语言栈」面板：SEM/FB/LIN 旗标、载荷对种类、谱系迹
+  - 类比呈现标注「非辞典 · 非语言定义」；**未写入 CODEX**
+- **备注**：`npm run observer:sem-stack`
+
 ---

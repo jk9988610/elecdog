@@ -33,7 +33,7 @@ WL3  Phase 103  与 W4 社会知识正交对照          ✅ weak（640 tick）
         ↓
 WL4  Phase 104  观察台类比 UI                  ✅ 已交付
         ↓
-WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 当前
+WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 立项就绪，待确认
 ```
 
 ### WL0 · 记录层（Phase 100）
@@ -82,12 +82,14 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 当前
 | 验证 | `npm run observer:sem-stack` |
 | 文档 | [PHASE104_SEM_STACK_UI.md](PHASE104_SEM_STACK_UI.md) |
 
-### WL5 · CODEX 归纳（Phase 105+，待您确认）
+### WL5 · CODEX 归纳（Phase 105，立项就绪）
 
 | 项 | 内容 |
 |----|------|
-| 门槛 | ≥2 独立 OBS、您确认、仍不用地球式「语言/对话」条名 |
-| 候选表述 | 「载荷–回复共现可重复」「次 tick 条件模式可观察」 |
+| 门槛 | ≥2 OBS ✅ · **待您确认**写入 CODEX |
+| 候选条 | **载荷共现迹**（非「语言/对话」条名） |
+| 验证 | `npm run gap-w06:sem:codex` |
+| 文档 | [PHASE105_SEM_CODEX.md](PHASE105_SEM_CODEX.md) |
 
 ---
 

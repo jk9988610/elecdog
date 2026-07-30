@@ -1,0 +1,24 @@
+{
+  "runAt": "2026-07-30T03:00:49.193Z",
+  "phase": 105,
+  "extension": "gap_w06_sem_codex",
+  "fieldPhases": [
+    100,
+    103
+  ],
+  "fieldVerdicts": {
+    "phase100": "support",
+    "phase103": "weak"
+  },
+  "codexEntry": null,
+  "prerequisitesMet": true,
+  "codexReady": false,
+  "awaitingUserConfirm": true,
+  "gapW06Status": "partial_ready",
+  "obs": [
+    "OBS-20260729-99",
+    "OBS-20260729-100",
+    "OBS-20260729-101"
+  ],
+  "roadmap": "docs/PHASE105_SEM_CODEX.md"
+}
