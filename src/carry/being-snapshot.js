@@ -13,6 +13,7 @@ export function snapshotBeing(being, provenance = {}) {
     semTrace: being.semTrace?.length ? being.semTrace.map((e) => ({ ...e })) : null,
     semTraceWeight: being.semTraceWeight ?? 0,
     organismType: being.organismType ?? 'unicell',
+    pairMorph: being.pairMorph ?? null,
     ecoRepro: being.ecoRepro === true,
     provenance: {
       ...prior,

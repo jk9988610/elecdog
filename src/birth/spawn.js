@@ -131,16 +131,19 @@ export function spawnBeing(
 /**
  * Phase 106 — 从留置快照复活（非 0 代 + 可选 ecoRepro）
  */
-export function spawnCarriedBeing(world, recorder, snapshot, { cohortTag = 'carry', fixedId = null } = {}) {
+export function spawnCarriedBeing(world, recorder, snapshot, { cohortTag = 'carry', fixedId = null, pairMorph = null } = {}) {
   if (!snapshot?.dnaSequence) {
     throw new Error('留置快照缺少 dnaSequence');
   }
   const profile = world.envProfile ?? {};
+  const morph = pairMorph ?? snapshot.pairMorph ?? null;
   const born = spawnBeing(world, recorder, {
     name: snapshot.name ?? '留置',
     code: snapshot.code ?? '001',
     dnaSequence: snapshot.dnaSequence,
     id: fixedId,
+    pairMorph: morph,
+    cohortTag,
   });
   const being = born.being;
 
