@@ -9,6 +9,7 @@ const LS_ENV = 'elecdog-env-profile';
 
 /** 观察台可选环境（田野配置子集） */
 export const OBSERVER_ENV_IDS = [
+  'observer_brain_evolution',
   'observer_wlr_stack',
   'observer_wl_stack',
   'observer_w6_stack',
@@ -42,6 +43,7 @@ export const OBSERVER_ENV_IDS = [
 ];
 
 const ANALOGY_LABELS = {
+  observer_brain_evolution: '观察台·脑演化（思考→开口）',
   observer_wlr_stack: '观察台·WL-R繁殖域栈',
   observer_wl_stack: '观察台·智慧语言栈（WL）',
   observer_w6_stack: '观察台·环境栈（W6）',
@@ -104,6 +106,8 @@ export function observerEnvLabel(id) {
 
 export function observerEnvHint(id) {
   const hints = {
+    observer_brain_evolution:
+      'WL-R + 智慧全栈 + internal→TX 耦合 [THO]；思考外化面板',
     observer_wlr_stack: 'W6 环境栈 + WL-R 繁殖载荷域迹面板 + CODEX 第 33 条联动',
     observer_wl_stack: 'W6 环境栈 + WL0–WL2 [SEM] 约定迹可视化（类比 UI，非辞典）',
     observer_w6_stack: 'W6 环境栈：区带 E/M/P、地形 L/O、DLC/SCL/LTC/AIR/PCP 相位可视化（类比 UI）',

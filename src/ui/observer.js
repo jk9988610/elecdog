@@ -67,6 +67,7 @@ import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import
 import { suggestObserverEnvId } from '../carry/import-report.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 import { renderSemSignalStreamPanelHTML, initSemSignalStreamPanel } from './sem-signal-stream.js';
+import { renderThoughtSpeechPanelHTML, initThoughtSpeechPanel } from './thought-speech.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -129,6 +130,7 @@ export class ObserverApp {
         <button id="btn-carry-import-toggle" type="button" class="btn-ghost">导入留置</button>
         <button id="btn-mind-stream-toggle" type="button" class="btn-ghost">内在流</button>
         <button id="btn-sem-signal-toggle" type="button" class="btn-ghost">信号类比</button>
+        <button id="btn-thought-speech-toggle" type="button" class="btn-ghost">思考外化</button>
       </section>
 
       <section id="cloud-panel" class="cloud-panel hidden">
@@ -183,6 +185,8 @@ export class ObserverApp {
 
       ${renderSemSignalStreamPanelHTML()}
 
+      ${renderThoughtSpeechPanelHTML()}
+
       <main class="dashboard" id="dashboard"></main>
     `;
 
@@ -224,6 +228,7 @@ export class ObserverApp {
       btnCarryImportToggle: this.root.querySelector('#btn-carry-import-toggle'),
       btnMindStreamToggle: this.root.querySelector('#btn-mind-stream-toggle'),
       btnSemSignalToggle: this.root.querySelector('#btn-sem-signal-toggle'),
+      btnThoughtSpeechToggle: this.root.querySelector('#btn-thought-speech-toggle'),
     };
 
     this.codexPanel = initCodexPanel(this.root, {
@@ -241,6 +246,12 @@ export class ObserverApp {
       getRecorder: () => this.recorder,
       getWorld: () => this.world,
       onClose: () => this.closeSemSignalPanel(),
+    });
+
+    this.thoughtSpeechPanel = initThoughtSpeechPanel(this.root, {
+      getRecorder: () => this.recorder,
+      getWorld: () => this.world,
+      onClose: () => this.closeThoughtSpeechPanel(),
     });
 
     this.carryImportPanel = initCarryImportPanel(this.root, {
@@ -292,6 +303,7 @@ export class ObserverApp {
     this.$.btnCarryImportToggle?.addEventListener('click', () => this.toggleCarryImportPanel());
     this.$.btnMindStreamToggle?.addEventListener('click', () => this.toggleMindStreamPanel());
     this.$.btnSemSignalToggle?.addEventListener('click', () => this.toggleSemSignalPanel());
+    this.$.btnThoughtSpeechToggle?.addEventListener('click', () => this.toggleThoughtSpeechPanel());
   }
 
   toggleCarryImportPanel() {
@@ -303,6 +315,7 @@ export class ObserverApp {
       this.closeCodexPanel();
       this.closeMindStreamPanel();
       this.closeSemSignalPanel();
+      this.closeThoughtSpeechPanel();
       this.carryImportPanel.open();
       this.$.btnCarryImportToggle?.classList.add('active');
     }
@@ -321,6 +334,7 @@ export class ObserverApp {
       this.$.cloudPanel?.classList.add('hidden');
       this.closeCodexPanel();
       this.closeSemSignalPanel();
+      this.closeThoughtSpeechPanel();
       this.mindStreamPanel.open();
       this.$.btnMindStreamToggle?.classList.add('active');
     }
@@ -339,6 +353,7 @@ export class ObserverApp {
       this.$.cloudPanel?.classList.add('hidden');
       this.closeCodexPanel();
       this.closeMindStreamPanel();
+      this.closeThoughtSpeechPanel();
       this.semSignalPanel.open();
       this.$.btnSemSignalToggle?.classList.add('active');
     }
@@ -349,6 +364,25 @@ export class ObserverApp {
     this.$.btnSemSignalToggle?.classList.remove('active');
   }
 
+  toggleThoughtSpeechPanel() {
+    if (!this.thoughtSpeechPanel) return;
+    if (this.thoughtSpeechPanel.isOpen()) {
+      this.closeThoughtSpeechPanel();
+    } else {
+      this.$.cloudPanel?.classList.add('hidden');
+      this.closeCodexPanel();
+      this.closeMindStreamPanel();
+      this.closeSemSignalPanel();
+      this.thoughtSpeechPanel.open();
+      this.$.btnThoughtSpeechToggle?.classList.add('active');
+    }
+  }
+
+  closeThoughtSpeechPanel() {
+    this.thoughtSpeechPanel?.close();
+    this.$.btnThoughtSpeechToggle?.classList.remove('active');
+  }
+
   toggleCodexPanel() {
     if (!this.codexPanel) return;
     if (this.codexPanel.isOpen()) {
@@ -357,6 +391,7 @@ export class ObserverApp {
       this.$.cloudPanel?.classList.add('hidden');
       this.closeMindStreamPanel();
       this.closeSemSignalPanel();
+      this.closeThoughtSpeechPanel();
       this.codexPanel.open();
       this.$.btnCodexToggle?.classList.add('active');
     }
@@ -523,6 +558,7 @@ export class ObserverApp {
     });
     this.mindStreamPanel?.refresh();
     this.semSignalPanel?.refresh();
+    this.thoughtSpeechPanel?.refresh();
     this.updateCloudStatus();
   }
 
