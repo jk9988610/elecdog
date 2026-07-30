@@ -87,6 +87,16 @@ export function buildGenealogyModel(world) {
   return { nodes, beings, tick: world?.tick ?? 0 };
 }
 
+function morphGenderBadge(being) {
+  if (being.pairMorph === 'A') {
+    return '<span class="genealogy-morph genealogy-morph-a">雄</span>';
+  }
+  if (being.pairMorph === 'B') {
+    return '<span class="genealogy-morph genealogy-morph-b">雌</span>';
+  }
+  return '';
+}
+
 function renderPersonCard(being, selectedId, classExtra = '') {
   if (!being) return '';
   const sel = selectedId === being.id ? ' selected' : '';
@@ -95,13 +105,13 @@ function renderPersonCard(being, selectedId, classExtra = '') {
   const badgeHtml = badge
     ? `<span class="${escapeHtml(badge.className)}">${escapeHtml(badge.code)}</span>`
     : '';
+  const genderHtml = morphGenderBadge(being);
   const end = !being.alive ? '<span class="genealogy-end-badge">END</span>' : '';
   return `<div class="gv-person-card${sel}${dead}${classExtra}">
     <button type="button" class="genealogy-id-btn" data-being-id="${escapeHtml(being.id)}" title="${escapeHtml(being.id)}">
       <span class="genealogy-name">${escapeHtml(formatBeingDisplayName(being))}</span>
       <span class="genealogy-avatar">${escapeHtml(being.code)}</span>
-      <span class="genealogy-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span>
-      ${badgeHtml}${end}
+      ${badgeHtml}${genderHtml}${end}
     </button>
   </div>`;
 }

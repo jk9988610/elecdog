@@ -1810,7 +1810,19 @@ input[type='number'] {
 
 .genealogy-morph {
   font-size: 0.65rem;
-  color: #7a8494;
+  font-weight: 600;
+  padding: 0.05rem 0.35rem;
+  border-radius: 3px;
+}
+
+.genealogy-morph-a {
+  color: #7ab8e8;
+  background: rgba(60, 110, 170, 0.25);
+}
+
+.genealogy-morph-b {
+  color: #e8a8c8;
+  background: rgba(170, 80, 120, 0.25);
 }
 
 .genealogy-mate-placeholder {
