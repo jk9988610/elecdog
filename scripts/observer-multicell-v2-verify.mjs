@@ -19,6 +19,11 @@ import {
 } from '../src/world/logic-cell-types.js';
 import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
 import { getObserverEnvId } from '../src/ui/env-select.js';
+import {
+  initGestationalUmbilical,
+  UMB_STRUCTURE_CODE,
+} from '../src/world/umbilical.js';
+import { LIFE_STAGE_GEST } from '../src/world/logic-cell-types.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -100,5 +105,30 @@ assert(model.nodes.length >= 4, '族谱节点');
 
 assert(getObserverEnvId() === 'multicell_v2_world', '默认环境 multicell_v2_world');
 
+// MV1b — 宫内脐带
+const wU = createWorld('M-UMB');
+applyEnvProfile(wU, 'multicell_v2_world');
+initEnvStackModules(wU);
+const recU = new Recorder();
+spawnBeing(wU, recU, { name: 'ua', code: '001', pairMorph: 'A' });
+spawnBeing(wU, recU, { name: 'ub', code: '002', pairMorph: 'B' });
+const carrier = wU.beings.find((b) => b.pairMorph === 'B');
+const parentA = wU.beings.find((b) => b.pairMorph === 'A');
+carrier.syncyte = {
+  dnaSeq: parentA.dna.sequence,
+  registers: Array.from({ length: 8 }, () => 0.45),
+  gestationUntilTick: wU.tick + 40,
+  parentAId: parentA.id,
+};
+initGestationalUmbilical(carrier, wU.envProfile, 0);
+carrier.logicCells['LOG-UMB'] = [
+  { id: `${carrier.id.slice(-6)}:LOG-UMB:0`, code: 'LOG-UMB', atTick: 0 },
+];
+assert(carrier.bodyStructures?.[UMB_STRUCTURE_CODE]?.open, 'STR-UMB 结构已挂接');
+assert(carrier.devStage === LIFE_STAGE_GEST, '合胞载体为 GEST');
+for (let i = 0; i < 20; i++) stepWorld(wU, recU);
+const umb = recU.entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'UMB');
+assert(umb.length > 0, `[UMB] 宫内脐带通量（${umb.length}）`);
+
 if (failed) process.exit(1);
-console.log('\n✓ 多细胞 v2 MV1a 发育链验证通过');
+console.log('\n✓ 多细胞 v2 MV1a/MV1b 验证通过');

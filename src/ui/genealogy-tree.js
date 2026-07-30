@@ -5,6 +5,7 @@
 import { label } from './analogy.js';
 import { pairMorphCn } from './observer-lexicon.js';
 import { LOGIC_CELL_TYPES, SKIN_CELL_CODE, STEM_CELL_CODE, STEM_CELL_TYPE } from '../world/logic-cell-types.js';
+import { UMB_STRUCTURE_CODE } from '../world/umbilical.js';
 import {
   LIFE_STAGE_GEST,
   LIFE_STAGE_JUV,
@@ -161,6 +162,9 @@ export function renderBeingDetailHTML(being) {
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
         <div class="stat-row"><span>皮肤膜</span><strong>${escapeHtml(being.skinMembrane?.code ?? SKIN_CELL_CODE)}</strong></div>
+        <div class="stat-row"><span>脐带结构</span><strong>${escapeHtml(
+          being.bodyStructures?.[UMB_STRUCTURE_CODE]?.open ? UMB_STRUCTURE_CODE : '—'
+        )}</strong></div>
       </div>
       <h4 class="term">逻辑细胞</h4>
       <div class="stat-grid">${logicRows}</div>
