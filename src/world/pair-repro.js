@@ -536,7 +536,7 @@ function avgRegisters(a, b) {
   return Array.from({ length: n }, (_, i) => +((a[i] + b[i]) * 0.5).toFixed(4));
 }
 
-function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) {
+export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) {
   const profile = world.envProfile ?? {};
   const gestationTicks = profile.gestationTicks ?? profile.nurtureTicks ?? 80;
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:pair-fus`);
