@@ -2053,6 +2053,58 @@ input[type='number'] {
   color: #8a94a4;
 }
 
+.health-subtitle {
+  margin: 0.75rem 0 0.35rem;
+  font-size: 0.8rem;
+  color: #9ab0c8;
+}
+
+.health-subtitle-male {
+  color: #7ab8e8;
+}
+
+.health-subtitle-female {
+  color: #e8a8c8;
+}
+
+.health-vitals-grid {
+  margin-bottom: 0.5rem;
+}
+
+.health-hormone-list {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 0.5rem;
+}
+
+.health-hormone-row {
+  display: grid;
+  grid-template-columns: 3.5rem 1fr 2.5rem;
+  gap: 0.35rem;
+  align-items: center;
+  font-size: 0.75rem;
+}
+
+.health-hormone-track {
+  height: 0.45rem;
+  background: #1a2430;
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.health-hormone-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #4a7090, #7ab8e8);
+  border-radius: 2px;
+}
+
+.health-hormone-val {
+  text-align: right;
+  color: #8a94a4;
+  font-variant-numeric: tabular-nums;
+}
+
 .health-zone-block {
   margin-bottom: 0.75rem;
   padding-bottom: 0.5rem;

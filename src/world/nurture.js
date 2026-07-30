@@ -67,7 +67,7 @@ export function tickNurture(world, being) {
     being.independent = true;
     being.weaned = true;
     being.nurtureReserve = null;
-    issueHealthReport(being, world.tick, { adult: false, stage: '幼' });
+    issueHealthReport(being, world.tick, { adult: false, stage: '幼', world });
   }
 
   if (!transfers.length && !membraneReady) return null;

@@ -2,7 +2,7 @@
  * 族谱树 + 个体详情弹窗
  */
 
-import { label } from './analogy.js';
+import { label, formatMetProfile } from './analogy.js';
 import { pairMorphCn } from './observer-lexicon.js';
 import {
   LIFE_STAGE_GEST,
@@ -249,12 +249,96 @@ function renderHormoneBars(being) {
   }).join('');
 }
 
+function renderHealthVitalRows(rows) {
+  return rows
+    .map(
+      ([labelText, value]) =>
+        `<div class="stat-row"><span>${escapeHtml(labelText)}</span><strong>${escapeHtml(String(value))}</strong></div>`
+    )
+    .join('');
+}
+
+function renderHealthHormoneRows(hormones) {
+  if (!hormones?.length) return '<p class="muted">无激素向量</p>';
+  return hormones
+    .map(
+      (h) =>
+        `<div class="health-hormone-row">
+          <span class="health-hormone-label">${escapeHtml(h.label)}</span>
+          <div class="health-hormone-track"><div class="health-hormone-fill" style="width:${h.pct}%"></div></div>
+          <span class="health-hormone-val">${h.pct}%</span>
+        </div>`
+    )
+    .join('');
+}
+
 export function renderHealthReportHTML(being) {
   const report = being?.healthReport;
   if (!report) {
     return '<p class="muted">尚无体检报告（幼体出生后签发；成体性成熟时覆盖更新）</p>';
   }
   const interp = report.dnaInterpret;
+  const vitals = report.vitals ?? {};
+  const nutrition = vitals.common?.nutrition ?? {};
+  const hormones = vitals.common?.hormones ?? [];
+  const sperm = vitals.sperm;
+  const egg = vitals.egg;
+
+  const nutritionRows = renderHealthVitalRows([
+    ['代谢档案', formatMetProfile(nutrition.metProfile)],
+    ['营养储备（寄存均值）', nutrition.registerMean != null ? `${Math.round(nutrition.registerMean * 100)}%` : '—'],
+    ['场底均值', nutrition.substrateMean != null ? `${Math.round(nutrition.substrateMean * 100)}%` : '—'],
+    ['能量平衡', nutrition.energyBalance != null ? nutrition.energyBalance.toFixed(3) : '—'],
+    ['场压', nutrition.stress != null ? `${Math.round(nutrition.stress * 100)}%` : '—'],
+    ['膜完整性', nutrition.integrity != null ? `${Math.round(nutrition.integrity * 100)}%` : '—'],
+    ['低场连续', String(nutrition.lowStreak ?? 0)],
+    ['高压连续', String(nutrition.stressStreak ?? 0)],
+  ]);
+
+  const commonRows = renderHealthVitalRows([
+    ['LOG-HRM', String(vitals.common?.logicHrm ?? 0)],
+    ['LOG-NTR', String(vitals.common?.logicNtr ?? 0)],
+    ['LOG-NRV', String(vitals.common?.logicNrv ?? 0)],
+  ]);
+
+  let reproHtml = '';
+  if (sperm) {
+    reproHtml += `
+      <h5 class="health-subtitle health-subtitle-male">精子指标</h5>
+      <div class="stat-grid health-vitals-grid">
+        ${renderHealthVitalRows([
+          ['精子备货', sperm.stocked ? '有' : '无'],
+          ['遗传载荷', String(sperm.packetLen)],
+          ['精子活性', `${Math.round(sperm.activity * 100)}%`],
+          ['游动性', `${Math.round(sperm.motility * 100)}%`],
+          ['浓度指数', `${Math.round(sperm.concentration * 100)}%`],
+          ['性腺活性倍率', sperm.gonadMult.toFixed(3)],
+          ['交配通道能量', `${Math.round(sperm.channelEnergy * 100)}%`],
+          ['排出结构', sperm.structureOpen ? '开放' : '关闭'],
+          ['LOG-GON', String(sperm.logicGon)],
+        ])}
+      </div>`;
+  }
+  if (egg) {
+    reproHtml += `
+      <h5 class="health-subtitle health-subtitle-female">卵细胞指标</h5>
+      <div class="stat-grid health-vitals-grid">
+        ${renderHealthVitalRows([
+          ['卵细胞备货', egg.stocked ? '有' : '无'],
+          ['驻留半态长度', String(egg.halfLen)],
+          ['卵母细胞质量', `${Math.round(egg.oocyteQuality * 100)}%`],
+          ['接受度', `${Math.round(egg.receptivity * 100)}%`],
+          ['细胞活力', `${Math.round(egg.viability * 100)}%`],
+          ['成熟度', `${Math.round(egg.maturity * 100)}%`],
+          ['性腺活性倍率', egg.gonadMult.toFixed(3)],
+          ['接受通道能量', `${Math.round(egg.channelEnergy * 100)}%`],
+          ['接受结构', egg.structureOpen ? '开放' : '关闭'],
+          ['孕期闭锁', egg.pregnancyClosed ? '是' : '否'],
+          ['LOG-GON', String(egg.logicGon)],
+        ])}
+      </div>`;
+  }
+
   const zoneRows = (interp?.zones ?? [])
     .map(
       (z) =>
@@ -278,6 +362,13 @@ export function renderHealthReportHTML(being) {
         <div class="stat-row"><span>DNA 指纹</span><strong><code>${escapeHtml(report.dnaFp)}</code></strong></div>
         <div class="stat-row"><span>序列长度</span><strong>${interp?.length ?? report.dnaSeq?.length ?? 0}</strong></div>
       </div>
+      <h5 class="health-subtitle">激素水平</h5>
+      <div class="health-hormone-list">${renderHealthHormoneRows(hormones)}</div>
+      <h5 class="health-subtitle">营养与场态</h5>
+      <div class="stat-grid health-vitals-grid">${nutritionRows}</div>
+      <h5 class="health-subtitle">逻辑细胞（关键）</h5>
+      <div class="stat-grid health-vitals-grid">${commonRows}</div>
+      ${reproHtml}
       <p class="health-seq"><code>${escapeHtml(interp?.sequence ?? report.dnaSeq ?? '')}</code></p>
       <h5 class="health-subtitle">区段解读 Z1–Z6</h5>
       <div class="health-zones">${zoneRows}</div>

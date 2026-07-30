@@ -3,6 +3,7 @@
 import { hashString, mulberry32 } from '../core/hash.js';
 import { getSubCellByRole } from './organism.js';
 import { issueAdultHealthReport } from './health-report.js';
+import { restoreAdultReproPackages } from './pair-repro.js';
 import {
   LOGIC_CELL_TYPES,
   LOGIC_CELL_MAX_PER_TYPE,
@@ -118,7 +119,8 @@ export function resolveLifeStage(being, world, profile) {
       being.adultAtTick = world.tick;
       matureAdultLogicCells(being, world, profile);
       initAdultMatingStructures(being, profile, world.tick);
-      issueAdultHealthReport(being, world.tick);
+      restoreAdultReproPackages(being, world, profile);
+      issueAdultHealthReport(being, world.tick, world);
       if (profile?.stemFreezeAtAdult !== false) {
         freezeStemPool(being, world.tick);
       }

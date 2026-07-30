@@ -129,6 +129,7 @@ pinChannels(female, STR_PAIR_IN, 7);
 const prq = registerPairSpeechPRQ(world, recorder, male, female.id);
 assert(prq, '成体雄可向雌 PRQ');
 assert(prq.healthReport?.dnaFp, 'PRQ 附带体检报告');
+assert(prq.healthReport?.vitals?.sperm?.activity > 0, 'PRQ 体检含精子活性');
 const pgr = registerPairSpeechPGR(world, recorder, female, male.id);
 assert(pgr, '雌可 PGR 成为伴侣');
 assert(male.partnerId === female.id, '伴侣登记');

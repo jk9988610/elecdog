@@ -33,6 +33,12 @@ const cohort = spawnAdultMulticellCohort(world, recorder, { males: 1, females: 1
 const adult = cohort[0];
 assert(genealogyStageBadge(adult)?.code === STAGE_BADGE_ADULT, '成体标 成');
 assert(adult.healthReport?.dnaInterpret?.positions?.length === 96, '成体体检 96 位解读');
+assert(adult.healthReport?.vitals?.common?.hormones?.length === 5, '成体体检含激素');
+assert(adult.healthReport?.vitals?.sperm?.stocked === true, '成体雄体检含精子备货');
+const female = cohort.find((b) => b.pairMorph === 'B');
+assert(female?.healthReport?.vitals?.egg?.stocked === true, '成体雌体检含卵细胞备货');
+assert(female?.healthReport?.vitals?.egg?.oocyteQuality > 0, '卵母细胞质量');
+assert(adult.healthReport?.vitals?.common?.nutrition?.registerMean > 0, '营养储备指标');
 
 const interp = interpretFullDna(adult.dna.sequence, adult.id);
 assert(interp.zones.length === 6, 'Z1–Z6 区段');
