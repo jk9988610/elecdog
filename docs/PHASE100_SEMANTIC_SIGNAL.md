@@ -116,8 +116,8 @@ npm run field:phase100
 
 ```
 观察 TX/RX → Phase 100 [SEM] ✅
-  → WL1 Phase 101 semFeedbackEnabled（下一迭代）
-  → WL2–WL5 见 WISDOM_LANGUAGE.md
+  → WL1 Phase 101 semFeedbackEnabled ✅ weak
+  → WL2 Phase 102 持久层（下一迭代）
 ```
 
 ---
