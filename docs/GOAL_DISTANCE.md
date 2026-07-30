@@ -1,6 +1,6 @@
 # 最终目标距离报告
 
-> 更新：2026-07-30 · Phase 128 GAP-PAIR-4 多维激素后
+> 更新：2026-07-30 · Phase 129 六环境链×PAIR 后
 
 ---
 
@@ -16,16 +16,16 @@
 |------|------|------|--------|
 | **WL0–WL5** | 载荷共现迹记录→反馈→持久→正交→UI→CODEX | ✅ 已交付 | **100%** |
 | **繁殖范式** | 生态 FISS，无 REN/蚁后默认 | ✅ Phase 107 | **100%** |
-| **留置管线** | snapshot → 链式 provenance → 混编 | ✅ Phase 106–115 | **~85%** |
-| **多环境链** | harsh → 孵化 → 蓄积 → … → 混合 | ✅ 六环境+链 | **~80%** |
+| **留置管线** | snapshot → 链式 provenance → 混编 | ✅ Phase 106–129 链×PAIR | **~90%** |
+| **多环境链** | harsh → 孵化 → 蓄积 → … → 混合 | ✅ 六环境+链×繁殖 | **~85%** |
 | **合作因果 GAP-13** | COOP/SOC 可度量 + 留置交互定律 | ✅ Phase 123 support 9/9 | **~65%** |
 | **田野–观察台闭环** | 报告导入 + 混编 + 长时快照 | ✅ Phase 111–120 | **~88%** |
 | **工程守卫** | 加长 tick 墙钟/tick 截止 + turbo | ✅ Phase 113–119 | **~95%** |
-| **双源繁殖 GAP-PAIR** | PAIR-0→4 全链 | ✅ support 7/7 ×5 | **~90%** |
+| **双源繁殖 GAP-PAIR** | PAIR-0→4 + 链末混编 | ✅ support 7/7 ×6 | **~92%** |
 | **智慧验收 W5** | 长时田野非单吸引子 | ⚠️ 部分 | **~60%** |
 | **选择压 GAP-10/14** | 繁殖路径选择压定律 | ⚠️ 部分结案 | **~40%** |
 
-**综合进度（留置+智慧语言主轨）**：约 **85–90%** — GAP-PAIR-0→4 路线图闭合。
+**综合进度（留置+智慧语言主轨）**：约 **86–91%** — 六环境链×PAIR-0 已贯通。
 
 ---
 
@@ -54,6 +54,7 @@
 126 GAP-PAIR-2 许可握手          ← support 7/7
 127 GAP-PAIR-3 通道绑定          ← support 7/7
 128 GAP-PAIR-4 多维激素          ← support 7/7
+129 六环境链×PAIR-0              ← support 7/7
 ```
 
 ---
@@ -86,7 +87,8 @@
 ## 验证命令
 
 ```bash
-npm run field:phase128       # GAP-PAIR-4 多维激素
+npm run field:phase129       # 六环境链×PAIR
+npm run field:phase129:verify
 npm run field:phase128:verify
 npm run field:phase127:verify
 npm run field:phase125       # GAP-PAIR-1 半态排入场

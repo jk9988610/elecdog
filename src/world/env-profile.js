@@ -3173,6 +3173,59 @@ export const PHASE129_TREATMENTS = {
   },
 };
 
+/** Phase 130 — 六环境链 × PAIR-2/3/4 全栈 */
+const EVO_CHAIN_PAIR_FULL_BASE = {
+  ...EVO_CHAIN_PAIR_BASE,
+  pairHalfRelease: true,
+  pairHandshake: true,
+  pairChannelBind: true,
+  pairHormoneVector: true,
+  pairReleaseSubRole: 'act',
+  pairAcceptSubRole: 'draw',
+  pairAcceptRMin: 0.08,
+  pairAcceptEMin: 0.06,
+  pairHormoneMeanMin: 0.06,
+  pairHormoneFloorMin: 0.01,
+  pairFieldHalfMaxAge: 96,
+  pairRequestMaxAge: 48,
+};
+
+const PAIR_FULL_ONLY_BASE = {
+  ...PAIR_REPRO_MIN_BASE,
+  carryMode: 'none',
+  cohort: 'pair',
+  pairHalfRelease: true,
+  pairHandshake: true,
+  pairChannelBind: true,
+  pairHormoneVector: true,
+  pairReleaseSubRole: 'act',
+  pairAcceptSubRole: 'draw',
+  pairAcceptRMin: 0.08,
+  pairAcceptEMin: 0.06,
+  pairHormoneMeanMin: 0.06,
+  pairHormoneFloorMin: 0.01,
+  pairFieldHalfMaxAge: 96,
+  pairRequestMaxAge: 48,
+};
+
+export const PHASE130_TREATMENTS = {
+  ev130_chain_pair_full: {
+    id: 'ev130_chain_pair_full',
+    label: '六环境链+PAIR全栈',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+  },
+  ev130_chain_pair0: {
+    id: 'ev130_chain_pair0',
+    label: '六环境链+PAIR-0对照',
+    ...EVO_CHAIN_PAIR_BASE,
+  },
+  ev130_pair_full_only: {
+    id: 'ev130_pair_full_only',
+    label: '无链·PAIR全栈基线',
+    ...PAIR_FULL_ONLY_BASE,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -4156,6 +4209,31 @@ export function applyPhase129Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 129, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase130Treatment(world, treatmentId) {
+  const treatment = PHASE130_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase130 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 130, treatmentId, ...treatment };
   return world.envProfile;
 }
 

@@ -509,6 +509,13 @@
 
 ---
 
+## GAP-CHAIN-PAIR · 六环境链×PAIR（Phase 129–130）
+
+- **PAIR-0**：hexa 链 + 4 PAIR naive + ≤2 留置 — `npm run field:phase129` support 7/7
+- **PAIR全栈**：链末握手+通道+激素 — `npm run field:phase130` 待验
+
+---
+
 ## GAP-VESTIGIAL · 程序「退化尾」清理（提议）
 
 > 电子狗在田野中演化，代码库也应周期性修剪长期不活跃路径——类比退化器官，**删前须对照组田野可复现**。
