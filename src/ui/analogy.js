@@ -122,6 +122,25 @@ const LABELS = {
   envMig: { native: '迁徙 MIG', analogy: '区位移动（类比）' },
   envDsp: { native: '耗散 DSP', analogy: '通量分流（类比）' },
   envAdv: { native: '平流 ADV', analogy: '邻格搬运（类比）' },
+  semStack: { native: '信号约定迹', analogy: '发–收型统计（类比）' },
+  semStackOff: {
+    native: '当前环境未启用 [SEM] — 请切换至智慧语言观察配置',
+    analogy: '未启用约定迹记录 — 请切换观察环境',
+  },
+  semStats: { native: 'SEM 日志', analogy: '约定迹条数' },
+  semCohort: { native: '群体统计', analogy: '群体共现统计' },
+  semTopPairs: { native: '高共现对', analogy: '反复出现的发–收型' },
+  semCount: { native: '[SEM] 条数', analogy: '约定迹条数' },
+  semLinCount: { native: '[SEM-LIN]', analogy: '谱系残留迹' },
+  semPairKinds: { native: '载荷对种类', analogy: '发–收型种类' },
+  semCondTop: { native: 'top-1 对', analogy: '最强发–收型' },
+  semPair: { native: 'pair', analogy: '发–收对' },
+  semPairTally: { native: '共现计数', analogy: '共现次数均值' },
+  semFbHits: { native: '反馈命中', analogy: '偏置命中均值' },
+  semTraceWeight: { native: 'trace 权重', analogy: '残留迹权重' },
+  semWithTrace: { native: '有 trace 体', analogy: '带残留迹个体数' },
+  semTx: { native: '[TX]', analogy: '发信' },
+  semRx: { native: '[RX]', analogy: '收信' },
 };
 
 export function label(key) {
@@ -188,6 +207,12 @@ export function viewModeHint() {
   return isAnalogyMode()
     ? '类比呈现：用常见词辅助理解，非世界辞典定义'
     : '原版呈现：机器语言与田野标签';
+}
+
+export function semViewModeHint() {
+  return isAnalogyMode()
+    ? '类比呈现 · 非辞典 · 非语言定义'
+    : '信号约定迹统计（非语义/对话层）';
 }
 
 export function formatBand(band) {

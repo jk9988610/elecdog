@@ -2538,6 +2538,17 @@ export const PHASE103_TREATMENTS = {
   },
 };
 
+/** 观察台默认环境 — W6 环境栈 + 智慧语言 SEM 栈 */
+ENV_PROFILES.observer_wl_stack = {
+  id: 'observer_wl_stack',
+  label: '观察台·智慧语言栈',
+  ...W5_WISDOM_FULL,
+  organismMode: 'multicell',
+  ...W6_TOOL_ORG_STACK,
+  ...W6_ENV_STACK,
+  ...WL3_SEM_STACK,
+};
+
 /** 观察台默认环境 — W6 环境栈可视化 */
 ENV_PROFILES.observer_w6_stack = {
   id: 'observer_w6_stack',
