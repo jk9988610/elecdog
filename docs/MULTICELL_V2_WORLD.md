@@ -245,19 +245,23 @@ LOG-SEN-* → [SEN] → LOG-NRV（整合、时序）→ LOG-BRN（记忆/意识�
 
 - [x] 逻辑细胞表初版、`multicell-v2.js`、JUV/ADT、族谱 UI、#160/#162
 
-### MV1a — 发育链
+### MV1a — 发育链 ✅
 
-- [ ] `ZYG`/`STEM` 诞生；`GEST`/`EMB`/`JUV`/`ADT` 四段
-- [ ] `[MIT]` 体内有丝、`[DIFF]` 阶段窗
-- [ ] 去掉 `growLogicCellOnFiss` 随机逻辑
+- [x] `STEM` 诞生；`GEST`/`JUV`/`ADT`（无体外胚胎窗）
+- [x] `[MIT]` 体内有丝、`[DIFF]` 阶段窗
+- [x] 去掉 `growLogicCellOnFiss` 随机逻辑
+- [x] `[CEL-LOG]` 逻辑计数 + 环境耦合字段
 
-### MV1b — 分化时间表
+### MV1b — 分化与宫内脐带 🔄
 
-- [ ] 各 `LOG-*` 的 `diffStages`；EMB/JUV/ADT 窗分批 DIFF
+- [x] 各 `LOG-*` 的 `diffStages`（初版）
+- [x] `LOG-UMB` + `STR-UMB` + `[UMB]` 通量（合胞载体 B）
+- [ ] 田野核对宫内 DIFF 与 EXP 外排全链
 
 ### MV1c — 成体同型 MIT
 
-- [ ] `LOG-T → LOG-T`；≤8/类；`[CEL]` 计数迹
+- [x] `LOG-T → LOG-T`（ADT）；≤8/类
+- [ ] STEM 池成体冻结、速率田野调参
 
 ### MV2 — 器官通路
 

@@ -12,6 +12,13 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
+import { multicellV2Enabled } from './multicell-v2.js';
+import {
+  initGestationalUmbilical,
+  tickUmbilicalFlux,
+  umbilicalActive,
+  closeUmbilicalOnExpel,
+} from './umbilical.js';
 import { registerPartnerBond } from './partner-bond.js';
 import { meiAllowedForBeing } from './multicell-v2.js';
 
@@ -554,11 +561,17 @@ function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) {
   );
   noteSemDomainFromKind(parentA, 'FUS-IN', world.tick);
   noteSemDomainFromKind(parentB, 'FUS-IN', world.tick);
+  if (multicellV2Enabled(profile)) {
+    initGestationalUmbilical(parentB, profile, world.tick);
+  }
   return parentB.syncyte;
 }
 
 function tickEmbFlux(world, recorder, carrier, syncyte) {
   const profile = world.envProfile ?? {};
+  if (umbilicalActive(carrier, profile)) {
+    return tickUmbilicalFlux(world, recorder, carrier, syncyte);
+  }
   const frac = profile.embFluxFrac ?? 0.018;
   const transfers = [];
   for (let i = 0; i < carrier.registers.length; i++) {
@@ -605,6 +618,7 @@ function expelSyncyte(world, recorder, carrier) {
   applySemLineageEcho(world, recorder, child, [carrier], profile, { via: 'PAIR-EXP' });
 
   const nurture = applyNurtureAtBirth(world, carrier, child);
+  closeUmbilicalOnExpel(carrier);
   carrier.syncyte = null;
   carrier.expelCount = (carrier.expelCount ?? 0) + 1;
 

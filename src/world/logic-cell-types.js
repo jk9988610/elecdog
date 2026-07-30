@@ -105,6 +105,13 @@ export const LOGIC_CELL_TYPES = [
     max: LOGIC_CELL_MAX_PER_TYPE,
     diffStages: [LIFE_STAGE_ADT],
   },
+  {
+    code: 'LOG-UMB',
+    analogy: '脐带滋养细胞',
+    roles: ['umbilical', 'gestation-route'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_GEST],
+  },
 ];
 
 export const STEM_CELL_TYPE = {
