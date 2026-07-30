@@ -29,11 +29,11 @@ WL1  Phase 101  semFeedbackEnabled 行为偏置   ✅ weak
         ↓
 WL2  Phase 102  跨 tick / 跨代约定持久          ✅ weak
         ↓
-WL3  Phase 103+ 与 W4 社会知识正交对照田野      ← 当前
+WL3  Phase 103  与 W4 社会知识正交对照          ✅ weak（640 tick）
         ↓
-WL4  Phase 104+ 观察台类比 UI（田野 support 后）
+WL4  Phase 104  观察台类比 UI                  ✅ 已交付
         ↓
-WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
+WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 当前
 ```
 
 ### WL0 · 记录层（Phase 100）
@@ -65,23 +65,24 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 | 结果 | **weak**（H4/H5 达标；H1/H2/H3 部分） |
 | 文档 | [PHASE102_SEM_LINEAGE.md](PHASE102_SEM_LINEAGE.md) |
 
-### WL3 · 社会正交（Phase 103+，待启动）
+### WL3 · 社会正交（Phase 103）
 
 | 项 | 内容 |
 |----|------|
-| 问题 | 约定迹 vs W4 频次编码是否独立可证伪 |
-| 田野 | `sem_on` × `socialKnowledge on/off`  factorial |
-| 关联 | GAP-W06 与 GAP-13/W4 边界 |
+| 田野 | `npm run field:phase103` — 2×2 factorial · **640 tick** |
+| 结果 | **weak**（H1–H4 4/4） |
+| 文档 | [PHASE103_SEM_SOC_ORTHOGONAL.md](PHASE103_SEM_SOC_ORTHOGONAL.md) |
 
-### WL4 · 观察台类比（Phase 104+）
+### WL4 · 观察台类比（Phase 104）
 
 | 项 | 内容 |
 |----|------|
-| 前提 | 田野 support |
-| UI | `analogy.js` 增加 `sem_*` 列：「发–收型」「约定迹条数」 |
-| 约束 | 工具栏标注：**类比呈现 · 非辞典 · 非语言定义** |
+| UI | `sem-stack.js` + `analogy.js` `sem_*` |
+| 环境 | `observer_wl_stack` |
+| 验证 | `npm run observer:sem-stack` |
+| 文档 | [PHASE104_SEM_STACK_UI.md](PHASE104_SEM_STACK_UI.md) |
 
-### WL5 · CODEX 归纳（Phase 105+）
+### WL5 · CODEX 归纳（Phase 105+，待您确认）
 
 | 项 | 内容 |
 |----|------|
@@ -94,10 +95,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 
 | ID | 名称 | Phase | 状态 |
 |----|------|-------|------|
-| GAP-W06 | 信号约定/文化层 | 100–103 | WL0 support · WL1 weak · WL2 weak |
-| — | 社会正交 | 103+ | 未启动 |
-| — | 类比 UI | 104+ | 设计就绪，等田野 |
-| — | CODEX | 105+ | 禁止预制 |
+| GAP-W06 | 信号约定/文化层 | 100–105 | WL0–WL4 已交付 |
 
 ---
 
@@ -105,8 +103,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 
 ```
 观察 TX/RX 链 → OBS
-  → WL0 记录 ✅ → WL1 反馈 ✅ weak → WL2 持久 ✅ weak
-  → WL3 社会正交 → WL4 UI → WL5 CODEX
+  → WL0–WL3 ✅ → WL4 UI ✅ → WL5 CODEX（待确认）
 ```
 
 每步：**实现 → 田野 → 文档 → PR → 合并 → HANDOFF 指向下一步**。

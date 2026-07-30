@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · Phase 102 WL2 已交付
+> 更新：2026-07-30 · Phase 104 WL4 UI 已交付
 
 ---
 
@@ -8,21 +8,19 @@
 
 | 项 | 状态 |
 |----|------|
-| WL0 Phase 100 | ✅ `[SEM]` 记录 · **support** |
-| WL1 Phase 101 | ✅ 反馈偏置 · **weak** |
-| WL2 Phase 102 | ✅ `[SEM-LIN]` 谱系持久 · **weak** |
-| 下一步 | **WL3 / Phase 103** 与 W4 社会知识正交对照 |
+| WL0–WL3 | ✅ 田野已交付（103+ 默认 **640 tick**） |
+| WL4 Phase 104 | ✅ 观察台 `sem_*` 类比 UI |
+| 下一步 | **WL5** CODEX 归纳（需 ≥2 OBS + 您确认） |
 
 ---
 
 ## 验证
 
 ```bash
-npm run field:phase100
-npm run field:phase101
-npm run field:phase102
+npm run observer:sem-stack   # 观察台 UI
+npm run field:phase103       # 640 tick 正交田野
 ```
 
-长期路线：`docs/WISDOM_LANGUAGE.md`
+环境：**观察台·智慧语言栈（WL）** · 类比视图
 
 `cursor/<descriptive-name>-a3f2`

@@ -813,8 +813,13 @@ input[type='number'] {
   grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
+.env-stack-grid-3 {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
 @media (max-width: 1200px) {
-  .env-stack-grid-4 {
+  .env-stack-grid-4,
+  .env-stack-grid-3 {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

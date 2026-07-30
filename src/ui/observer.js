@@ -49,12 +49,14 @@ import {
   formatLunarPhase,
   setViewMode as saveViewMode,
   viewModeHint,
+  semViewModeHint,
   VIEW_ANALOGY,
   VIEW_NATIVE,
 } from './analogy.js';
 import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
 import { renderImmersionPanel } from './immersion.js';
 import { renderEnvStackPanel } from './env-stack.js';
+import { renderSemStackPanel } from './sem-stack.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 
 const SEED_DNA =
@@ -749,6 +751,7 @@ export class ObserverApp {
         formatLunarPhase,
         viewModeHint,
       })}
+      ${renderSemStackPanel(s.semStack, { label, semViewModeHint })}
       <section class="panel env-panel">
         <h2>环境</h2>
         ${s.world.envHint ? `<p class="panel-hint">${escapeHtml(s.world.envHint)}</p>` : ''}

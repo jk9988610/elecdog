@@ -9,6 +9,7 @@ const LS_ENV = 'elecdog-env-profile';
 
 /** 观察台可选环境（田野配置子集） */
 export const OBSERVER_ENV_IDS = [
+  'observer_wl_stack',
   'observer_w6_stack',
   'wisdom_evolution',
   'consciousness_full',
@@ -40,6 +41,7 @@ export const OBSERVER_ENV_IDS = [
 ];
 
 const ANALOGY_LABELS = {
+  observer_wl_stack: '观察台·智慧语言栈（WL）',
   observer_w6_stack: '观察台·环境栈（W6）',
   wisdom_evolution: '智慧演化场（默认）',
   consciousness_full: '意识完整栈',
@@ -100,6 +102,7 @@ export function observerEnvLabel(id) {
 
 export function observerEnvHint(id) {
   const hints = {
+    observer_wl_stack: 'W6 环境栈 + WL0–WL2 [SEM] 约定迹可视化（类比 UI，非辞典）',
     observer_w6_stack: 'W6 环境栈：区带 E/M/P、地形 L/O、DLC/SCL/LTC/AIR/PCP 相位可视化（类比 UI）',
     wisdom_evolution: '意识完整栈 + W1 记忆→行为闭环；智慧演化默认',
     consciousness_full: '六层人格 + EHU 深化 + 谱系回响 + 社会绑定 + 续行汇合',
