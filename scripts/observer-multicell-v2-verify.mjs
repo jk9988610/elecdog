@@ -58,7 +58,7 @@ const recorder = new Recorder();
 assert(world.envProfile?.multicellV2Enabled === true, 'multicell v2 启用');
 assert(world.envProfile?.fissionEnabled === false, '环境 fissionEnabled=false');
 assert(!populationFissionEnabled(world.envProfile), '多细胞 v2 禁止种群 FISS');
-assert(!populationLayerEnabled(world.envProfile), '多细胞 v2 停用种群层');
+assert(populationLayerEnabled(world.envProfile), '多细胞 v2 启用种群层观察');
 
 for (let i = 0; i < 4; i++) {
   spawnBeing(world, recorder, {
@@ -88,7 +88,7 @@ assert(diff.length > 0, `[DIFF] 分化（${diff.length}）`);
 const fiss = recorder.entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS');
 assert(fiss.length === 0, `无种群 [FISS] 子代（${fiss.length}）`);
 const cmp = recorder.entries.filter((e) => e.channel === 'population' && e.meta?.kind === 'CMP');
-assert(cmp.length === 0, `无种群 [CMP] 记录（${cmp.length}）`);
+assert(cmp.length > 0, `有种群 [CMP] 记录（${cmp.length}）`);
 const fissionBorn = world.beings.filter((b) => b.fissionParent);
 assert(fissionBorn.length === 0, `无 FISS 血缘子代（${fissionBorn.length}）`);
 assert(celLog.length > 0, `[CEL] 逻辑计数迹（${celLog.length}）`);

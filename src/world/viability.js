@@ -31,6 +31,7 @@ export function preferAct(stress, lowStreak) {
 
 export function shouldTerminate(being, stress) {
   if (!being.alive) return false;
+  if (being.syncyte) return null;
   if (being.lowStreak >= LOW_STREAK_END) return { reason: 'low_streak', lowStreak: being.lowStreak };
   if (being.stressStreak >= STRESS_STREAK_END) return { reason: 'stress_streak', stressStreak: being.stressStreak };
   if (stress > 0.65 && being.lowStreak >= 6) return { reason: 'compound', stress, lowStreak: being.lowStreak };

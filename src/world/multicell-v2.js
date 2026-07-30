@@ -41,9 +41,9 @@ export function multicellV2Observer(profile) {
   return profile?.multicellV2Observer === true || multicellV2Enabled(profile);
 }
 
-/** 种群层观察（CMP 面板、FISS 增员统计）— 仅遗留单细胞观察环境 */
+/** 种群层观察面板 — 多细胞 v2 展示对齐后的种群统计（非单细胞 FISS/RPL 模板） */
 export function populationLayerEnabled(profile) {
-  return !multicellV2Observer(profile);
+  return profile?.populationLayerEnabled !== false;
 }
 
 function makeCellId(beingId, code, idx) {
@@ -141,6 +141,38 @@ export function freezeStemPool(being, atTick = 0) {
 
 export function stemPoolFrozen(being) {
   return being?.stemPoolFrozen === true;
+}
+
+/** 成体默认满格：所有可分化逻辑细胞类型拉满（观察台 8 成体开局） */
+export function fillAdultLogicCellsToMax(being, world, profile, { bypassEnvGate = false } = {}) {
+  if (!multicellV2Enabled(profile)) return being;
+  ensureOrganPathways(being);
+  const tick = being.tickCount ?? 0;
+  being.logicCells = being.logicCells ?? {};
+  being.logicCells[STEM_CELL_CODE] = [];
+
+  for (const t of LOGIC_CELL_TYPES) {
+    if (
+      !bypassEnvGate &&
+      !envAllowsLogicCode(world, profile, t.code, being)
+    ) {
+      continue;
+    }
+    const cells = ensureCellList(being, t.code);
+    const max = t.max ?? LOGIC_CELL_MAX_PER_TYPE;
+    while (cells.length < max) {
+      const cell = {
+        id: makeCellId(being.id, t.code, cells.length),
+        code: t.code,
+        atTick: tick,
+      };
+      attachOrganPathway(being, cell, t.code);
+      cells.push(cell);
+      if (t.code.startsWith('LOG-SEN-')) onSenseCellDifferentiated(being, t.code);
+    }
+  }
+  freezeStemPool(being, tick);
+  return being;
 }
 
 export function isJuvenile(being, profile) {

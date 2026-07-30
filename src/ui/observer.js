@@ -600,8 +600,7 @@ export class ObserverApp {
       });
       this.genealogyPanel?.paint();
     } else if (
-      this.world?.envProfile &&
-      !populationLayerEnabled(this.world.envProfile) &&
+      this.world?.envProfile?.multicellV2Enabled &&
       this.observerLayout === LAYOUT_CLASSIC
     ) {
       initClassicMulticellHealthButtons(this.$.dashboard, { getWorld: () => this.world });
@@ -960,7 +959,7 @@ export class ObserverApp {
 
     const statsById = new Map(s.beings.map((b) => [b.id, b]));
     const useMulticellClassic =
-      !populationLayerEnabled(this.world?.envProfile) && this.observerLayout === LAYOUT_CLASSIC;
+      s.world.multicellV2Enabled && this.observerLayout === LAYOUT_CLASSIC;
 
     const beingCards = useMulticellClassic
       ? (this.world?.beings.filter((b) => b.alive) ?? [])
@@ -1017,7 +1016,28 @@ export class ObserverApp {
           .join('');
 
     const popPanel = s.world.populationLayerEnabled
-      ? `
+      ? s.world.multicellV2Enabled
+        ? `
+      <section class="panel pop-panel">
+        <h2>种群</h2>
+        <p class="panel-hint muted">多细胞 v2：伴侣、妊娠与分娩链；无种群 FISS 增员。</p>
+        <h3 class="term">${label('popStruct')}</h3>
+        ${cmpBlock}
+        <h3 class="term">多细胞生命史</h3>
+        <div class="stat-grid">
+          <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
+          <div class="stat-row"><span>${label('end')}</span><strong>${s.population.ended}</strong></div>
+          <div class="stat-row"><span>有伴侣</span><strong>${s.population.partnered ?? 0}</strong></div>
+          <div class="stat-row"><span>妊娠中</span><strong>${s.population.pregnant ?? 0}</strong></div>
+          <div class="stat-row"><span>伴侣登记</span><strong>${s.population.bond ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('pairPrq')}</span><strong>${s.population.prq ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('pairPgr')}</span><strong>${s.population.pgr ?? 0}</strong></div>
+          <div class="stat-row"><span>体内合胞</span><strong>${s.population.fusIn ?? 0}</strong></div>
+          <div class="stat-row"><span>分娩</span><strong>${s.population.pairExp ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
+        </div>
+      </section>`
+        : `
       <section class="panel pop-panel">
         <h2>种群</h2>
         <h3 class="term">${label('popStruct')}</h3>

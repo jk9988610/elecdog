@@ -133,6 +133,7 @@ export function buildDashboardStats(world, recorder) {
   });
 
   const envId = world.envProfile?.id ?? 'baseline';
+  const v2Pop = multicellV2Enabled(world.envProfile);
 
   return {
     world: {
@@ -223,6 +224,14 @@ export function buildDashboardStats(world, recorder) {
       contest: entries.filter((e) => e.meta?.kind === 'CONTEST').length,
       cmp: cmpRecorded,
       slots: slotCounts,
+      bond: entries.filter((e) => e.meta?.kind === 'BOND').length,
+      prq: entries.filter((e) => e.meta?.kind === 'PRQ').length,
+      pgr: entries.filter((e) => e.meta?.kind === 'PGR').length,
+      fusIn: entries.filter((e) => e.meta?.kind === 'FUS-IN').length,
+      pairExp: entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'EXP').length,
+      pregnant: alive.filter((b) => b.syncyte).length,
+      partnered: alive.filter((b) => b.partnerId).length,
+      multicellPop: v2Pop,
     },
     beings,
     consciousness: buildConsciousnessSummary(beings, world, {

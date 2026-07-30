@@ -65,6 +65,12 @@ export function tickUmbilicalFlux(world, recorder, carrier, syncyte) {
     transfers.push({ idx: i, amount: grant });
   }
 
+  const substrate = world.substrate?.channels ?? [];
+  for (let i = 0; i < carrier.registers.length; i++) {
+    const floor = (substrate[i] ?? 0.4) * 0.42;
+    if (carrier.registers[i] < floor) carrier.registers[i] = floor;
+  }
+
   if (!transfers.length) return null;
 
   recorder.evolution(

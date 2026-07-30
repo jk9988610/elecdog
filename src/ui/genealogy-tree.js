@@ -4,15 +4,6 @@
 
 import { label } from './analogy.js';
 import { pairMorphCn } from './observer-lexicon.js';
-import { SKIN_CELL_CODE } from '../world/logic-cell-types.js';
-import { UMB_STRUCTURE_CODE } from '../world/umbilical.js';
-import {
-  STR_PAIR_IN,
-  STR_PAIR_OUT,
-  STR_LACT_OUT,
-  STR_ING_IN,
-} from '../world/body-structures.js';
-import { STR_SKN, STR_ORAL, STR_VIS, STR_AUD, STR_OLF } from '../world/senses.js';
 import {
   LIFE_STAGE_GEST,
   LIFE_STAGE_JUV,
@@ -25,8 +16,8 @@ import {
   isDisplayPregnant,
   stageBadgeLabel,
 } from '../world/genealogy-stage.js';
-import { kinshipLabelBetween } from '../world/kinship-gate.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
+import { STR_LACT_OUT } from '../world/body-structures.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -256,7 +247,6 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
 
   const lactOpen = being.bodyStructures?.[STR_LACT_OUT]?.open;
   const lactUntil = being.bodyStructures?.[STR_LACT_OUT]?.untilTick;
-  const kinPartner = partnerBeing ? kinshipLabelBetween(being, partnerBeing, profile) : null;
   const badge = stageBadgeLabel(being);
 
   return `
@@ -271,32 +261,6 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
         ${isDisplayPregnant(being) ? '<div class="stat-row"><span>妊娠</span><strong>孕妇</strong></div>' : ''}
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
-        ${being.partnerId ? `<div class="stat-row"><span>与伴侣血缘</span><strong>${escapeHtml(kinPartner ?? '—')}</strong></div>` : ''}
-        <div class="stat-row"><span>皮肤膜</span><strong>${escapeHtml(being.skinMembrane?.code ?? SKIN_CELL_CODE)}</strong></div>
-        <div class="stat-row"><span>脐带结构</span><strong>${escapeHtml(
-          being.bodyStructures?.[UMB_STRUCTURE_CODE]?.open ? UMB_STRUCTURE_CODE : '—'
-        )}</strong></div>
-        <div class="stat-row"><span>交配结构</span><strong>${escapeHtml(
-          being.bodyStructures?.[STR_PAIR_OUT]?.open
-            ? STR_PAIR_OUT
-            : being.bodyStructures?.[STR_PAIR_IN]?.open
-              ? STR_PAIR_IN
-              : '—'
-        )}</strong></div>
-        <div class="stat-row"><span>哺乳/摄取</span><strong>${escapeHtml(
-          lactOpen ? STR_LACT_OUT : being.bodyStructures?.[STR_ING_IN]?.open ? STR_ING_IN : '—'
-        )}</strong></div>
-        <div class="stat-row"><span>感官出口</span><strong>${escapeHtml(
-          [
-            being.bodyStructures?.[STR_SKN]?.open ? STR_SKN : null,
-            being.bodyStructures?.[STR_ORAL]?.open ? STR_ORAL : null,
-            being.bodyStructures?.[STR_VIS]?.open ? STR_VIS : null,
-            being.bodyStructures?.[STR_AUD]?.open ? STR_AUD : null,
-            being.bodyStructures?.[STR_OLF]?.open ? STR_OLF : null,
-          ]
-            .filter(Boolean)
-            .join(' ') || '—'
-        )}</strong></div>
       </div>
       ${showHealth ? renderHealthReportHTML(being) : ''}
       <h4 class="term">激素与泌乳</h4>
