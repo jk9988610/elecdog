@@ -3,7 +3,8 @@
 const KEEP_CHANNELS = new Set(['evolution', 'viability', 'population']);
 
 export class StatsRecorder {
-  constructor() {
+  constructor({ turbo = false } = {}) {
+    this.turbo = turbo === true;
     this.counts = {};
     this.endReasons = {};
     this.entries = [];
@@ -22,6 +23,7 @@ export class StatsRecorder {
 
   log({ tick, channel, beingId, content, meta = {} }) {
     this._bump(channel, meta);
+    if (this.turbo) return null;
     if (!KEEP_CHANNELS.has(channel)) return null;
     if (channel === 'viability' && meta.kind !== 'END') return null;
 

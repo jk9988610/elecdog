@@ -2808,6 +2808,36 @@ export const PHASE118_TREATMENTS = {
   },
 };
 
+/** Phase 119 — 8192 tick 长时稳健性（turbo 加速 + 截止守卫） */
+const EVO_HEXA_LONGFIELD_BASE = {
+  ...EVO_HEXA_CHAIN_BASE,
+  fieldRunDeadlineMs: 180000,
+  fieldMaxTicksPerPass: 8192,
+  mixedSemEnabled: true,
+  ...WL3_SEM_STACK,
+  ...COOP_BASE,
+  ...WL3_SOC_STACK,
+};
+
+export const PHASE119_TREATMENTS = {
+  ev119_long_8192: {
+    id: 'ev119_long_8192',
+    label: '六环境+链·8192混合·turbo',
+    envId: 'wisdom_evolution',
+    ...EVO_HEXA_LONGFIELD_BASE,
+    mixedTicks: 8192,
+    fieldTurboMode: true,
+  },
+  ev119_std_960: {
+    id: 'ev119_std_960',
+    label: '六环境+链·960混合',
+    envId: 'wisdom_evolution',
+    ...EVO_HEXA_LONGFIELD_BASE,
+    mixedTicks: 960,
+    fieldTurboMode: false,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3631,6 +3661,31 @@ export function applyPhase118Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 118, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase119Treatment(world, treatmentId) {
+  const treatment = PHASE119_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase119 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 119, treatmentId, ...treatment };
   return world.envProfile;
 }
 
