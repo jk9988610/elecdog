@@ -5,17 +5,10 @@ import { StatsRecorder } from '../../src/recorder/stats-recorder.js';
 import { resetBirthCounters } from '../../src/core/id.js';
 import { spawnBeing } from '../../src/birth/spawn.js';
 import { buildFieldCohort, buildQuadChainCohort, FIELD_TICKS } from './field-cohort.js';
-import { checkFieldRunBudget, formatFieldDuration, getFieldRunMaxMs } from './field-budget.js';
+import { checkFieldRunBudget, formatFieldDuration, getFieldRunMaxMs, createFieldDeadline } from './field-budget.js';
+import { runFieldTicks } from './field-ticks.js';
 
-export function runFieldTicks(world, recorder, ticks, { label, onProgress } = {}) {
-  const step = ticks > 1920 ? 960 : 0;
-  for (let i = 0; i < ticks; i++) {
-    stepWorld(world, recorder);
-    if (step && (i + 1) % step === 0) {
-      onProgress?.(i + 1, ticks, label);
-    }
-  }
-}
+export { runFieldTicks } from './field-ticks.js';
 
 export function initFieldWorld(world, { phase, treatmentId, seed, ticks = FIELD_TICKS, cohort = 'default' } = {}) {
   world.envProfile.fieldLiteLog = true;
@@ -45,19 +38,26 @@ export function runFieldScenario({
   enforceBudget = true,
 }) {
   const startedAt = performance.now();
+  const deadline = createFieldDeadline(getFieldRunMaxMs(), startedAt);
   resetBirthCounters();
   const world = createWorld(`01-p${phase}-${treatmentId}-${seed}`);
   applyTreatment(world, treatmentId);
   const { recorder, cohort, cohortIds } = initFieldWorld(world, { phase, treatmentId, seed, ticks });
   const label = `${treatmentId} seed${seed}`;
-  runFieldTicks(world, recorder, ticks, {
+  const tickResult = runFieldTicks(world, recorder, ticks, {
     label,
+    deadline,
     onProgress: (tick, total, lbl) => {
       process.stdout.write(`    ${lbl} tick ${tick}/${total}\n`);
       onProgress?.(tick, total, lbl);
     },
   });
-  const metrics = analyze(recorder, world.beings, world, { cohortIds, ticks });
+  const metrics = analyze(recorder, world.beings, world, {
+    cohortIds,
+    ticks: tickResult.ticksCompleted,
+    ticksRequested: ticks,
+    deadlineHit: tickResult.deadlineHit,
+  });
   const durationMs = performance.now() - startedAt;
   const maxMs = getFieldRunMaxMs();
   const budgetPass = durationMs <= maxMs;
@@ -74,6 +74,10 @@ export function runFieldScenario({
     durationMs,
     durationLabel: formatFieldDuration(durationMs),
     budgetPass,
+    deadlineHit: tickResult.deadlineHit,
+    tickCapHit: tickResult.tickCapHit,
+    ticksCompleted: tickResult.ticksCompleted,
+    ticksRequested: tickResult.ticksRequested,
     totalCounts: recorder.counts,
     entriesKept: recorder.entries.length,
   };

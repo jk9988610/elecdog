@@ -6,6 +6,31 @@
 
 export const FIELD_RUN_MAX_MS = 3 * 60 * 1000;
 
+/** 单段 tick 循环硬顶 — 防止配置错误导致无限步进 */
+export const FIELD_MAX_TICKS_PER_PASS = 8192;
+
+export function resolveTickCap(requested, maxPerPass = FIELD_MAX_TICKS_PER_PASS) {
+  const n = Number(requested) || 0;
+  return Math.min(Math.max(0, n), maxPerPass);
+}
+
+/** 田野单次实验墙钟截止（可在 tick 循环内轮询） */
+export function createFieldDeadline(maxMs = getFieldRunMaxMs(), startedAt = performance.now()) {
+  return {
+    maxMs,
+    startedAt,
+    elapsedMs() {
+      return performance.now() - startedAt;
+    },
+    isExpired() {
+      return performance.now() - startedAt >= maxMs;
+    },
+    remainingMs() {
+      return Math.max(0, maxMs - (performance.now() - startedAt));
+    },
+  };
+}
+
 export class FieldRunBudgetError extends Error {
   constructor({ label, elapsedMs, maxMs, phase }) {
     const sec = (elapsedMs / 1000).toFixed(1);

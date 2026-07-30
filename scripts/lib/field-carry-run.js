@@ -1,16 +1,29 @@
 /** Phase 106 — 塑形田野 + 留置混合田野 */
 
-import { stepWorld } from '../../src/kernel/engine.js';
 import { StatsRecorder } from '../../src/recorder/stats-recorder.js';
 import { resetBirthCounters } from '../../src/core/id.js';
 import { spawnBeing, spawnCarriedBeing } from '../../src/birth/spawn.js';
 import { applyEnvProfile } from '../../src/world/env-profile.js';
-import { buildFieldCohort, buildMixedCohort, FIELD_MED_TICKS } from './field-cohort.js';
-import { runFieldTicks } from './field-run.js';
+import { buildFieldCohort, buildMixedCohort, FIELD_MED_TICKS, FIELD_SHORT_TICKS } from './field-cohort.js';
+import { runFieldTicks } from './field-ticks.js';
 import { selectCarrySnapshots } from '../../src/carry/select-carry.js';
 import { mergeCarryProvenance } from '../../src/carry/being-snapshot.js';
-import { checkFieldRunBudget, formatFieldDuration, getFieldRunMaxMs } from './field-budget.js';
-import { FIELD_SHORT_TICKS } from './field-cohort.js';
+import {
+  checkFieldRunBudget,
+  formatFieldDuration,
+  getFieldRunMaxMs,
+  createFieldDeadline,
+  FIELD_MAX_TICKS_PER_PASS,
+} from './field-budget.js';
+
+function mergeTickStats(acc, result) {
+  if (!result) return acc;
+  return {
+    ticksCompleted: acc.ticksCompleted + (result.ticksCompleted ?? 0),
+    deadlineHit: acc.deadlineHit || result.deadlineHit === true,
+    tickCapHit: acc.tickCapHit || result.tickCapHit === true,
+  };
+}
 
 export function initFieldWorldWithCohort(world, { phase, treatmentId, seed, ticks = FIELD_MED_TICKS, cohortSpec }) {
   world.envProfile.fieldLiteLog = true;
@@ -45,6 +58,8 @@ export function runSculptPass({
   sculptEnvId,
   sculptTicks = FIELD_MED_TICKS,
   profile,
+  deadline,
+  maxTicksPerPass,
 }) {
   resetBirthCounters();
   const world = createWorld(`01-p${phase}-sculpt-${seed}`);
@@ -60,7 +75,7 @@ export function runSculptPass({
     cohortSpec,
   });
 
-  runFieldTicks(world, recorder, sculptTicks);
+  const tickResult = runFieldTicks(world, recorder, sculptTicks, { deadline, maxTicksPerPass });
   const sculptProfile = { ...profile, semEnabled: false, semLineageEnabled: false, semFeedbackEnabled: false };
   const carries = selectCarrySnapshots(world, sculptProfile, {
     phase,
@@ -71,7 +86,7 @@ export function runSculptPass({
     chainStage: 'sculpt',
   });
 
-  return { world, recorder, carries };
+  return { world, recorder, carries, tickResult };
 }
 
 /** Phase 108+ — 留置链中间环境通行（SEM 孵化 / 富足蓄积等） */
@@ -83,8 +98,10 @@ export function runCarryMiddlePass({
   carries,
   profile,
   passSpec,
+  deadline,
+  maxTicksPerPass,
 }) {
-  if (!carries?.length) return carries;
+  if (!carries?.length) return { carries, tickResult: null };
 
   const {
     stage = 'incubate',
@@ -93,6 +110,10 @@ export function runCarryMiddlePass({
     semEnabled = false,
     coopEnabled = false,
   } = passSpec;
+
+  if (deadline?.isExpired()) {
+    return { carries, tickResult: { ticksRequested: ticks, ticksCompleted: 0, deadlineHit: true, tickCapHit: false } };
+  }
 
   resetBirthCounters();
   const world = createWorld(`01-p${phase}-${stage}-${seed}`);
@@ -125,7 +146,7 @@ export function runCarryMiddlePass({
     });
   });
 
-  runFieldTicks(world, recorder, ticks);
+  const tickResult = runFieldTicks(world, recorder, ticks, { deadline, maxTicksPerPass });
 
   const refreshed = selectCarrySnapshots(world, profile, {
     phase,
@@ -133,24 +154,25 @@ export function runCarryMiddlePass({
     treatmentId,
     envId,
     chainStage: stage,
-    [`${stage}Ticks`]: ticks,
+    [`${stage}Ticks`]: tickResult.ticksCompleted,
   });
 
-  if (!refreshed.length) return carries;
+  if (!refreshed.length) return { carries, tickResult };
 
-  return refreshed.map((snap, i) =>
+  const merged = refreshed.map((snap, i) =>
     mergeCarryProvenance(snap, stage, {
       envId,
-      tick: ticks,
+      tick: tickResult.ticksCompleted,
       priorEnv: carries[i]?.provenance?.envId ?? profile.sculptEnvId,
     })
   );
+  return { carries: merged, tickResult };
 }
 
-/** Phase 108 — 留置个体 SEM 孵化（仅 carry 队列，跨环境载荷迹） */
+/** Phase 108 — 留置个体 SEM 孵化 */
 export function runCarryIncubationPass(args) {
-  const { profile } = args;
-  return runCarryMiddlePass({
+  const { profile, carries } = args;
+  const { carries: next, tickResult } = runCarryMiddlePass({
     ...args,
     passSpec: {
       stage: 'incubate',
@@ -159,12 +181,13 @@ export function runCarryIncubationPass(args) {
       semEnabled: true,
     },
   });
+  return { carries: next ?? carries, tickResult };
 }
 
-/** Phase 112 — 富足场蓄积通行（COOP 社会迹积累） */
+/** Phase 112 — 富足场蓄积通行 */
 export function runCarryAccruePass(args) {
-  const { profile } = args;
-  return runCarryMiddlePass({
+  const { profile, carries } = args;
+  const { carries: next, tickResult } = runCarryMiddlePass({
     ...args,
     passSpec: {
       stage: 'accrue',
@@ -173,6 +196,7 @@ export function runCarryAccruePass(args) {
       coopEnabled: profile.carryAccrueCoop !== false,
     },
   });
+  return { carries: next ?? carries, tickResult };
 }
 
 export function runFieldCarryScenario({
@@ -190,8 +214,13 @@ export function runFieldCarryScenario({
   const profile = applyTreatment(probe, treatmentId);
   const carryMode = profile.carryMode ?? 'none';
   const needsChain = carryMode !== 'none';
+  const mixedTicks = profile.mixedTicks ?? ticks;
+  const maxMs = profile.fieldRunDeadlineMs ?? getFieldRunMaxMs();
+  const maxTicksPerPass = profile.fieldMaxTicksPerPass ?? FIELD_MAX_TICKS_PER_PASS;
+  const deadline = createFieldDeadline(maxMs, startedAt);
 
   let carries = carrySnapshots;
+  let tickStats = { ticksCompleted: 0, deadlineHit: false, tickCapHit: false };
 
   if (needsChain && !carries.length) {
     const sculpt = runSculptPass({
@@ -202,27 +231,39 @@ export function runFieldCarryScenario({
       sculptEnvId: profile.sculptEnvId ?? 'harsh_combined',
       sculptTicks: profile.sculptTicks ?? FIELD_MED_TICKS,
       profile,
+      deadline,
+      maxTicksPerPass,
     });
     carries = sculpt.carries;
-    if (profile.carryIncubateSem && carries.length) {
-      carries = runCarryIncubationPass({
+    tickStats = mergeTickStats(tickStats, sculpt.tickResult);
+
+    if (!tickStats.deadlineHit && profile.carryIncubateSem && carries.length) {
+      const inc = runCarryIncubationPass({
         createWorld,
         seed,
         phase,
         treatmentId,
         carries,
         profile,
+        deadline,
+        maxTicksPerPass,
       });
+      carries = inc.carries;
+      tickStats = mergeTickStats(tickStats, inc.tickResult);
     }
-    if (profile.carryAccrueEnabled && carries.length) {
-      carries = runCarryAccruePass({
+    if (!tickStats.deadlineHit && profile.carryAccrueEnabled && carries.length) {
+      const acc = runCarryAccruePass({
         createWorld,
         seed,
         phase,
         treatmentId,
         carries,
         profile,
+        deadline,
+        maxTicksPerPass,
       });
+      carries = acc.carries;
+      tickStats = mergeTickStats(tickStats, acc.tickResult);
     }
   }
 
@@ -231,31 +272,33 @@ export function runFieldCarryScenario({
   applyTreatment(world, treatmentId);
 
   const cohortSpec =
-    carryMode === 'none'
-      ? buildFieldCohort(seed)
-      : buildMixedCohort(seed, carries, profile);
+    carryMode === 'none' ? buildFieldCohort(seed) : buildMixedCohort(seed, carries, profile);
 
   const { recorder, cohortIds } = initFieldWorldWithCohort(world, {
     phase,
     treatmentId,
     seed,
-    ticks,
+    ticks: mixedTicks,
     cohortSpec,
   });
 
-  runFieldTicks(world, recorder, ticks);
+  const mixResult = runFieldTicks(world, recorder, mixedTicks, { deadline, maxTicksPerPass });
+  tickStats = mergeTickStats(tickStats, mixResult);
+
   const metrics = analyze(recorder, world.beings, world, {
     cohortIds,
-    ticks,
+    ticks: mixResult.ticksCompleted,
+    ticksRequested: mixedTicks,
     carryCount: carries.length,
     carryMode,
+    deadlineHit: tickStats.deadlineHit,
+    tickCapHit: tickStats.tickCapHit,
   });
 
   const durationMs = performance.now() - startedAt;
-  const maxMs = getFieldRunMaxMs();
-  const budgetPass = durationMs <= maxMs;
+  const budgetPass = durationMs <= maxMs && !tickStats.deadlineHit;
   if (!budgetPass) {
-    checkFieldRunBudget(durationMs, { label: `${treatmentId} seed${seed}`, phase });
+    checkFieldRunBudget(durationMs, { label: `${treatmentId} seed${seed}`, phase, maxMs });
   }
 
   return {
@@ -286,6 +329,11 @@ export function runFieldCarryScenario({
       provenance: c.provenance ?? null,
     })),
     cohortSize: cohortSpec.length,
+    mixedTicks,
+    ticksCompleted: tickStats.ticksCompleted,
+    deadlineHit: tickStats.deadlineHit,
+    tickCapHit: tickStats.tickCapHit,
+    fieldRunDeadlineMs: maxMs,
     durationMs,
     durationLabel: formatFieldDuration(durationMs),
     budgetPass,
