@@ -1,6 +1,8 @@
 import { createWorld } from '../world/world.js';
 import { performBirthRitual } from '../birth/ritual.js';
 import { spawnCarriedBeing } from '../birth/spawn.js';
+import { spawnBeing } from '../birth/spawn.js';
+import { buildObserverNaiveSpecs } from '../carry/mixed-cohort.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
@@ -239,6 +241,18 @@ export class ObserverApp {
         });
         this.closeCarryImportPanel();
       },
+      onImportMixed: ({ entries, report, runGroup, naiveCount, seed }) => {
+        const envId = suggestObserverEnvId(report, entries[0]);
+        this.bootstrapMixedImport({
+          carrySnapshots: entries.map((e) => e.snapshot),
+          naiveCount,
+          seed,
+          envId,
+          phase: runGroup.phase,
+          treatmentId: runGroup.treatmentId,
+        });
+        this.closeCarryImportPanel();
+      },
       onClose: () => this.closeCarryImportPanel(),
     });
 
@@ -364,14 +378,7 @@ export class ObserverApp {
   bootstrapWithCarries(snapshots, meta = {}) {
     this.pause();
     this.recorder.clear();
-
-    const envId = meta.envId;
-    if (envId && envId !== this.envProfileId && OBSERVER_ENV_IDS.includes(envId)) {
-      setObserverEnvId(envId);
-      this.envProfileId = envId;
-      this.renderEnvOptions();
-      if (this.$.envProfile) this.$.envProfile.value = envId;
-    }
+    this._applyObserverEnv(meta.envId);
 
     this.world = createWorld('01');
     applyEnvProfile(this.world, this.envProfileId);
@@ -403,6 +410,44 @@ export class ObserverApp {
 
     this.refresh();
     this.run();
+  }
+
+  bootstrapMixedImport({ carrySnapshots = [], naiveCount = 4, seed = 0, envId, phase, treatmentId } = {}) {
+    this.pause();
+    this.recorder.clear();
+    this._applyObserverEnv(envId);
+
+    this.world = createWorld('01');
+    applyEnvProfile(this.world, this.envProfileId);
+    initEnvStackModules(this.world);
+
+    this.recorder.system(
+      0,
+      `[观察台] 混编导入 p${phase ?? '?'} ${treatmentId ?? ''} seed${seed} · ${naiveCount} naive + ${carrySnapshots.length} carry`
+    );
+
+    for (const spec of buildObserverNaiveSpecs(seed, naiveCount)) {
+      spawnBeing(this.world, this.recorder, spec);
+    }
+
+    carrySnapshots.forEach((snap, i) => {
+      spawnCarriedBeing(this.world, this.recorder, snap, {
+        cohortTag: 'carry',
+        fixedId: `01carry${seed}${String(i + 1).padStart(3, '0')}`,
+      });
+    });
+
+    this.refresh();
+    this.run();
+  }
+
+  _applyObserverEnv(envId) {
+    if (envId && envId !== this.envProfileId && OBSERVER_ENV_IDS.includes(envId)) {
+      setObserverEnvId(envId);
+      this.envProfileId = envId;
+      this.renderEnvOptions();
+      if (this.$.envProfile) this.$.envProfile.value = envId;
+    }
   }
 
   step() {

@@ -1,39 +1,35 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · Phase 113 加长 tick + 截止守卫
+> 更新：2026-07-30 · Phase 114 观察台混编批次导入
 
 ---
 
 ## 总体目标
 
-环境塑形躯体 + 载荷共现迹跨环境 + 与 0 代混跑；加长田野必须有 **墙钟截止 + tick 硬顶** 防无限循环。
+环境塑形躯体 + 载荷共现迹跨环境 + 与 0 代混跑；田野–观察台闭环。
 
 ---
 
-## 当前进度（Phase 106–113）
+## 当前进度（Phase 106–114）
 
 | Phase | 内容 |
 |-------|------|
-| 106–107 | 留置 + 默认 FISS |
-| 108–109 | 二/三环境链 |
-| 110 | GAP-13 COOP/SOC 因果 |
-| 111 | 观察台导入留置 |
-| 112 | 四环境链 |
-| 113 | 加长混合 tick + 截止守卫 |
+| 106–113 | 留置链 + COOP 因果 + 截止守卫 |
+| 114 | 观察台 2 carry + naive 混编导入 |
 
 ---
 
 ## 验证
 
 ```bash
-npm run field:deadline       # 截止守卫单元测
-npm run field:phase113       # 640 vs 1920 混合稳健性
-npm run field:phase112
+npm run observer:carry-batch
+npm run observer:carry-import
+npm run field:phase113
 ```
 
 ---
 
 ## 下一步（开放）
 
-- 观察台批量导入（2 carry + naive）
 - 5+ 环境链
+- 塑形 tick 加长（受截止守卫约束）

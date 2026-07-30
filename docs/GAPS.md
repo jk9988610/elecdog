@@ -403,9 +403,10 @@
 ## GAP-EVO-CARRY-IMPORT · 观察台导入留置（Phase 111）
 
 - **扩展**：田野报告 `carrySnapshots` → 观察台「导入留置」面板 → `spawnCarriedBeing`
-- **验证**：`npm run observer:carry-import`
+- **Phase 114**：按 run 混编批次（≤2 carry + naive）
+- **验证**：`npm run observer:carry-import` · `npm run observer:carry-batch`
 - **状态**：**部分结案** — 田野–观察台闭环可导入
-- **文档**：[PHASE111_CARRY_IMPORT.md](PHASE111_CARRY_IMPORT.md)
+- **文档**：[PHASE111_CARRY_IMPORT.md](PHASE111_CARRY_IMPORT.md) · [PHASE114_CARRY_BATCH_IMPORT.md](PHASE114_CARRY_BATCH_IMPORT.md)
 
 ---
 
