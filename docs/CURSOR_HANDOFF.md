@@ -1,68 +1,56 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · WL-R 栈闭合 · 云辞典就绪 · **用户已转向**
+> 更新：2026-07-30 · **哺乳生物完整生命周期立项** · MV0 ✅
 
 ---
 
 ## 战略状态
 
-见 **[WL_REPRO_CENTER.md](WL_REPRO_CENTER.md)**
-
 | 轨道 | 状态 |
 |------|------|
-| **WL-R1–R4**（SEM 域 · 跨代迹 · 2×2 · CODEX 第 32–33 条） | ✅ 闭合 |
-| **Phase 135**（观察台 `wl-repro-stack` + `openEntry` 联动） | ✅ 闭合 |
-| **云辞典**（33 条本地 · 云合并 · 发布脚本） | ✅ 就绪 |
-| **WL-R 长时田野 / 深化开放项** | ⛔ **不再推进**（用户转向） |
+| WL-R + 云辞典 33 条 | ✅ 闭合 · 仅回归 |
+| **MV0** 多细胞 v2 骨架 | ✅ #160/#162 |
+| **哺乳生物立项** | ✅ [MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md) + [DNA_EXPRESSION.md](DNA_EXPRESSION.md) |
+| **下一实现** | **MV1a** 发育链（ZYG/STEM、MIT/DIFF、四段生命史） |
 
-**下一对话请从新方向开始**，勿自动续做长时田野、GAP-10 选择压、W5 长时验收等已归档项。
-
----
-
-## 云辞典（本回合交付）
-
-| 命令 | 说明 |
-|------|------|
-| `npm run codex:verify` | 本地合并逻辑 + 断言 33 条含 WL-R/SEM |
-| `npm run codex:verify -- --cloud` | 可选云拉取（需 `SUPABASE_URL` / `SUPABASE_ANON_KEY`） |
-| `npm run codex:publish` | 全量 33 条 upsert 到 Supabase |
-| `npm run codex:publish:wlr` | 仅 SEM + WL-R 两条增量发布 |
-
-观察台：`fetchCodexEntries()` + `mergeCodexEntries()` — 同 id 云覆盖本地。  
-文档：[PHASE64_CODEX_CLOUD.md](PHASE64_CODEX_CLOUD.md)
+**进度距离**：见 [GOAL_DISTANCE.md](GOAL_DISTANCE.md)
 
 ---
 
-## WL-R 栈验证（回归用）
+## 立项要点（必读）
+
+1. **三层**：`LOG-*` 细胞 + `STR-*` 结构 + `hormoneVec` 调节场  
+2. **四段**：`GEST`（宫内脐带）→ `EMB` → `JUV` → `ADT`  
+3. **五感**：`LOG-SEN-TH/TM/GU/VS/AU/OL` + `STR-SKN/ORAL/VIS/AUD/OLF`  
+4. **激素**：仅 `LOG-HRM` 专职分泌 → `hormoneVec` → 各细胞 **类型级** `hormoneGain`  
+5. **神经**：SEN → NRV → BRN，并行调制激素与行为  
+6. **女性载体 B**：`LOG-UMB` + `STR-UMB` 脐带供养胚胎；`LOG-LAC` + `STR-LACT-OUT` 体外哺乳（幼体 `STR-ING-IN` **接触**摄取）  
+7. **交配**：`STR-PAIR-OUT`（A 凸）↔ `STR-PAIR-IN`（B 凹），通道 + DNA morph 匹配  
+8. **DNA**：Z1–Z6 分区表达，见 [DNA_EXPRESSION.md](DNA_EXPRESSION.md)  
+9. **体内 MIT/DIFF ≠ 种群 `[FISS]`**
+
+---
+
+## 验证
 
 ```bash
-npm run observer:wlr-stack      # 观察台面板
-npm run gap-wlr:repro:codex     # CODEX 第 33 条
-npm run codex:verify            # 云辞典本地验证
-npm run field:phase133:verify   # WL-R3 2×2（可选回归）
+npm run observer:multicell-v2
+npm run observer:repro-speech
 ```
 
 ---
 
 ## 关键文件
 
-| 用途 | 路径 |
+| 文档 | 路径 |
 |------|------|
-| 辞典数据（33 条） | `src/ui/codex-data.js` |
-| 云同步 | `src/cloud/codex-sync.js` |
-| 云发布/验证 | `scripts/codex-cloud-publish.mjs` · `codex-cloud-verify.mjs` |
-| WL-R 观察面板 | `src/ui/wl-repro-stack.js` |
-| SEM 域 / 谱系 | `src/world/sem-domain.js` · `sem-lineage.js` |
-| 战略文档 | `docs/WL_REPRO_CENTER.md` |
+| 哺乳生物立项总图 | `docs/MULTICELL_V2_WORLD.md` |
+| DNA 分区表达 | `docs/DNA_EXPRESSION.md` |
+| 逻辑细胞（待扩 SEN/UMB/LAC） | `src/world/logic-cell-types.js` |
+| 多细胞 v2 | `src/world/multicell-v2.js` |
+| PAIR / 激素 | `src/world/pair-repro.js` |
+| 哺乳寄存器（待接接触 LAC） | `src/world/nurture.js` |
 
 ---
 
-## 已合并 PR 链（main 基线）
-
-#142–#154：PAIR 繁殖线 Phase 124–130 → WL-R Phase 131–135 → 观察台面板。
-
-本 PR：云辞典验证 + 交接文档 + 归档开放项。
-
----
-
-*繁殖核 WL-R 栈已闭合；云辞典可同步；请从新战略接续。*
+*立项文档优先；实现按 MV1a→MV9 路线图，勿跳过发育链直接满配细胞。*
