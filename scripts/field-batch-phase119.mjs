@@ -86,6 +86,8 @@ const report = {
   turbo: { fieldTurboMode: true, tickChunk: 16, recorderEntries: false },
   fieldRunDeadlineMs: MAX_MS,
   fieldMaxTicksPerPass: FIELD_MAX_TICKS_PER_PASS,
+  treatmentIds: TREATMENT_IDS,
+  mixedEnvId: 'wisdom_evolution',
   aggregate,
   batchVerdict,
   timing: { maxRunMs, batchDurationMs, maxRunLabel: formatFieldDuration(maxRunMs) },

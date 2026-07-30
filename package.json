@@ -159,6 +159,7 @@
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",
+    "observer:carry-longfield": "node scripts/observer-carry-longfield-verify.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"
   },
   "devDependencies": {

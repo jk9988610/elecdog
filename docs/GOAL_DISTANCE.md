@@ -19,12 +19,12 @@
 | **留置管线** | snapshot → 链式 provenance → 混编 | ✅ Phase 106–115 | **~85%** |
 | **多环境链** | harsh → 孵化 → 蓄积 → … → 混合 | ✅ 六环境+链 | **~80%** |
 | **合作因果 GAP-13** | COOP/SOC 可度量 + 多批次定律 | ⚠️ weak 4/7 | **~50%** |
-| **田野–观察台闭环** | 报告导入 + 混编批次 | ✅ Phase 111–114 | **~80%** |
+| **田野–观察台闭环** | 报告导入 + 混编 + 长时快照 | ✅ Phase 111–120 | **~88%** |
 | **工程守卫** | 加长 tick 墙钟/tick 截止 + turbo | ✅ Phase 113–119 | **~95%** |
 | **智慧验收 W5** | 长时田野非单吸引子 | ⚠️ 部分 | **~60%** |
 | **选择压 GAP-10/14** | 繁殖路径选择压定律 | ⚠️ 部分结案 | **~40%** |
 
-**综合进度（留置+智慧语言主轨）**：约 **75–79%** — 8192 tick 长时田野推进中。
+**综合进度（留置+智慧语言主轨）**：约 **76–80%** — 8192 tick 田野–观察台闭环已通。
 
 ---
 
@@ -45,6 +45,7 @@
 117 六环境+链（stress-echo+SOC）← support 7/7
 118 GAP-13 多批次因果定律       ← weak 4/7（定律未立）
 119 8192 tick 长时稳健性         ← support 6/7
+120 观察台长时留置导入           ← 验证通过
 ```
 
 ---
@@ -83,7 +84,7 @@ npm run field:phase117       # 六环境+链
 npm run field:phase116       # 加长塑形
 npm run field:phase115       # 五环境链
 npm run field:phase113       # 截止守卫
-npm run observer:carry-batch # 观察台混编
+npm run observer:carry-longfield # 8192 长时导入
 npm run gap-w06:sem:codex    # WL5 CODEX
 ```
 

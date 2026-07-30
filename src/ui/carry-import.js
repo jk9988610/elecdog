@@ -1,6 +1,6 @@
 /** Phase 111/114 — 观察台留置快照导入面板（单条 + 混编批次） */
 
-import { parseFieldReportJson } from '../carry/import-report.js';
+import { parseFieldReportJson, summarizeCarryReport } from '../carry/import-report.js';
 import {
   groupEntriesByRun,
   pickRunCarryBatch,
@@ -112,7 +112,11 @@ export function initCarryImportPanel(root, { onImport, onImportMixed, onClose } 
       meta.textContent = '';
       return;
     }
-    meta.textContent = `Phase ${report.phase} · ${entries.length} 条留置 · ${runGroups.length} run · 混编最多 ${MAX_CARRY_BATCH} carry + naive`;
+    const sum = summarizeCarryReport(report);
+    const tickLabel = sum.maxMixedTicks ? ` · mixed≤${sum.maxMixedTicks}` : '';
+    const chainLabel = sum.maxChainDepth ? ` · 链深≤${sum.maxChainDepth}` : '';
+    const turboLabel = sum.turbo ? ' · turbo' : '';
+    meta.textContent = `Phase ${sum.phase} · ${sum.entryCount} 条留置 · ${sum.runCount} run${tickLabel}${chainLabel}${turboLabel} · 混编最多 ${MAX_CARRY_BATCH} carry + naive`;
   }
 
   function refreshFromParsed(parsed) {
