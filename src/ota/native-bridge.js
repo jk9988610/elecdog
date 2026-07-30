@@ -26,11 +26,11 @@ async function nativeCall(method, options = {}) {
 function normalizeVersionParts(v) {
   const s = String(v ?? '').trim().toLowerCase();
   if (!s || s === 'builtin' || s === 'built-in' || s === 'internal') {
-    return [1, 0, 0];
+    return [0, 0, 0];
   }
   const parts = s.replace(/[^0-9.]/g, '').split('.');
   const nums = parts.map((n) => parseInt(n, 10)).filter((n) => !Number.isNaN(n));
-  if (!nums.length) return [1, 0, 0];
+  if (!nums.length) return [0, 0, 0];
   while (nums.length < 3) nums.push(0);
   return nums;
 }
@@ -149,13 +149,7 @@ export async function runOtaBootstrapNative() {
 
     status = `${status} · 切换中…`;
     await nativeCall('set', bundle);
-    try {
-      await nativeCall('notifyAppReady');
-    } catch {
-      /* 切换后 WebView 将重载 */
-    }
-    window.location.reload();
-    return { updated: true, label: `热更 ${manifest.version}`, status: `${status} · 完成` };
+    return { updated: true, label: `热更 ${manifest.version}`, status: `${status} · 完成 · 正在重载…` };
   } catch (err) {
     const label = await getBundleVersionLabelNative();
     const msg = err?.message || String(err);
