@@ -2986,6 +2986,40 @@ export const PHASE125_TREATMENTS = {
   },
 };
 
+/** Phase 126 — GAP-PAIR-2 许可握手 [PRQ]/[PGR] */
+export const PHASE126_TREATMENTS = {
+  ev126_pair_handshake: {
+    id: 'ev126_pair_handshake',
+    label: 'PAIR-2·许可握手',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairHandshake: true,
+    pairFieldHalfMaxAge: 96,
+    pairRequestMaxAge: 48,
+  },
+  ev126_pair_nohandshake: {
+    id: 'ev126_pair_nohandshake',
+    label: 'PAIR-1·无握手对照',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairHandshake: false,
+    pairFieldHalfMaxAge: 96,
+  },
+  ev126_pair_ctrl_fiss: {
+    id: 'ev126_pair_ctrl_fiss',
+    label: '对照·克隆FISS',
+    ...PAIR_REPRO_MIN_BASE,
+    pairReproEnabled: false,
+    pairFusInBody: false,
+    pairHalfRelease: false,
+    pairHandshake: false,
+    fissionEnabled: true,
+    ecoFissEnabled: true,
+    meiEnabled: false,
+    reproMode: 'instant',
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3908,6 +3942,18 @@ export function applyPhase125Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, envId);
   world.envProfile = { ...base, ...treatment, envId };
   world.fieldStudy = { phase: 125, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase126Treatment(world, treatmentId) {
+  const treatment = PHASE126_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase126 处理组: ${treatmentId}`);
+  }
+  const envId = treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, envId);
+  world.envProfile = { ...base, ...treatment, envId };
+  world.fieldStudy = { phase: 126, treatmentId, ...treatment };
   return world.envProfile;
 }
 
