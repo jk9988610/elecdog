@@ -471,3 +471,12 @@
 - **文档**：[PHASE119_LONGFIELD_TURBO.md](PHASE119_LONGFIELD_TURBO.md)
 
 ---
+
+## GAP-EVO-CARRY-CLOUD · 留置链谱系云归档（Phase 122）
+
+- **扩展**：Phase 110–121 含 `carrySnapshots` 的报告批量上传 Supabase + Phase 122 谱系清单；`summary.carryLineage` 链深/阶段/turbo 摘要
+- **验证**：`npm run field:carry:verify` · `npm run field:carry:cloud`
+- **状态**：**部分结案** — 本地校验 9/9；云上传需 Supabase
+- **文档**：[PHASE122_CARRY_CLOUD.md](PHASE122_CARRY_CLOUD.md)
+
+---

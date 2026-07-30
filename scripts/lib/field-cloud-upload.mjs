@@ -21,6 +21,12 @@ import {
   CONSCIOUSNESS_PHASES,
   enrichConsciousnessSummary,
 } from './field-consciousness-summary.mjs';
+import {
+  buildCarryManifest,
+  CARRY_CLOUD_PHASES,
+  CARRY_MANIFEST_PHASE,
+  enrichCarrySummary,
+} from './field-carry-cloud.mjs';
 
 function headers(contentType = 'application/json') {
   const { anonKey } = getCloudConfig();
@@ -104,11 +110,13 @@ export function summarizeBatchReport(phase, report) {
     kind:
       report.kind === 'field-consciousness-manifest'
         ? 'field-consciousness-manifest'
-        : report.kind === 'field-full-stack-manifest'
-          ? 'field-full-stack-manifest'
-          : report.kind === 'field-stack-manifest'
-            ? 'field-stack-manifest'
-            : 'field-batch',
+        : report.kind === 'field-carry-manifest'
+          ? 'field-carry-manifest'
+          : report.kind === 'field-full-stack-manifest'
+            ? 'field-full-stack-manifest'
+            : report.kind === 'field-stack-manifest'
+              ? 'field-stack-manifest'
+              : 'field-batch',
     phase,
     extension: report.extension ?? null,
     ticks,
@@ -136,6 +144,21 @@ export function summarizeBatchReport(phase, report) {
     summary.stackPhases = report.stackPhases ?? [];
     summary.headlines = report.headlines ?? [];
     summary.shortTermGoal = report.shortTermGoal ?? null;
+  }
+
+  if (report.kind === 'field-carry-manifest') {
+    summary.stackPhases = report.stackPhases ?? [];
+    summary.headlines = report.headlines ?? [];
+    summary.shortTermGoal = report.shortTermGoal ?? null;
+    summary.carryLineage = report.lineageRollup ?? null;
+  }
+
+  if (CARRY_CLOUD_PHASES.includes(phase) && report.aggregate && !summary.carryLineage) {
+    const extra = enrichCarrySummary(report);
+    summary.carryLineage = extra.carryLineage;
+    if (!summary.headline && extra.headline) summary.headline = extra.headline;
+    if (!summary.cohort && extra.cohort) summary.cohort = extra.cohort;
+    if (!summary.seedCount && extra.seedCount) summary.seedCount = extra.seedCount;
   }
 
   if (CONSCIOUSNESS_PHASES.includes(phase) && !summary.headline) {
@@ -173,13 +196,17 @@ export async function uploadFieldReport({ phase, report, label = 'field-batch' }
   const worldName =
     summary.kind === 'field-consciousness-manifest'
       ? `Phase ${phase} 意识线云归档`
-      : summary.kind === 'field-full-stack-manifest'
-        ? `Phase ${phase} 六层人格栈云归档`
-        : summary.kind === 'field-stack-manifest'
-          ? `Phase ${phase} 四层栈云归档`
-          : CONSCIOUSNESS_PHASES.includes(phase)
-            ? `Phase ${phase} 意识田野`
-            : `Phase ${phase} 田野批处理`;
+      : summary.kind === 'field-carry-manifest'
+        ? `Phase ${phase} 留置链谱系云归档`
+        : summary.kind === 'field-full-stack-manifest'
+          ? `Phase ${phase} 六层人格栈云归档`
+          : summary.kind === 'field-stack-manifest'
+            ? `Phase ${phase} 四层栈云归档`
+            : CONSCIOUSNESS_PHASES.includes(phase)
+              ? `Phase ${phase} 意识田野`
+              : CARRY_CLOUD_PHASES.includes(phase)
+                ? `Phase ${phase} 留置链田野`
+                : `Phase ${phase} 田野批处理`;
 
   const row = await insertFieldRun({
     id,
@@ -298,4 +325,38 @@ export async function maybeUploadFullFieldStack(opts) {
 export async function maybeUploadFieldStack(opts) {
   if (!shouldUploadFieldCloud()) return null;
   return uploadFieldStack(opts);
+}
+
+export async function uploadCarryStack({
+  phases = CARRY_CLOUD_PHASES,
+  label = 'field-carry-batch',
+  manifestPhase = CARRY_MANIFEST_PHASE,
+} = {}) {
+  const uploads = [];
+  for (const phase of phases) {
+    const report = readLocalFieldReport(phase);
+    const result = await uploadFieldReport({ phase, report, label });
+    uploads.push({
+      phase,
+      logPath: result.logPath,
+      publicUrl: result.publicUrl,
+      summary: result.summary,
+    });
+    console.log(`  Phase ${phase} → ${result.logPath}`);
+  }
+
+  const manifest = buildCarryManifest(uploads);
+  const manifestResult = await uploadFieldReport({
+    phase: manifestPhase,
+    report: manifest,
+    label: 'field-carry-manifest',
+  });
+  console.log(`\n☁ 留置链谱系清单 Phase ${manifestPhase} → ${manifestResult.logPath}`);
+
+  return { uploads, manifest: manifestResult };
+}
+
+export async function maybeUploadCarryStack(opts) {
+  if (!shouldUploadFieldCloud()) return null;
+  return uploadCarryStack(opts);
 }

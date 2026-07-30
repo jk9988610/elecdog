@@ -89,6 +89,20 @@ npm run field:consciousness:cloud
 
 详见 [PHASE68_CONSCIOUSNESS_CLOUD.md](PHASE68_CONSCIOUSNESS_CLOUD.md)。
 
+### 留置链谱系云归档（Phase 122）
+
+```bash
+# 校验本地报告与谱系摘要
+npm run field:carry:verify
+
+# 批量上传 Phase 110–121 留置链报告 + 谱系清单
+npm run field:carry:cloud
+```
+
+观察台云列表可预览 **留置链谱系**（链深、快照数、阶段列表）。
+
+详见 [PHASE122_CARRY_CLOUD.md](PHASE122_CARRY_CLOUD.md)。
+
 ### 多设备观察同步（Phase 31）
 
 **不是**多台设备看同一个正在运行的世界 tick。  
