@@ -189,6 +189,11 @@ export function renderBeingDetailHTML(being) {
               ? STR_ING_IN
               : '—'
         )}</strong></div>
+        <div class="stat-row"><span>DNA Z3 基线</span><strong>${escapeHtml(
+          being.dnaExpress?.hormoneBaseline
+            ? `h0 ${being.dnaExpress.hormoneBaseline.h0}`
+            : '—'
+        )}</strong></div>
         <div class="stat-row"><span>激素向量</span><strong>${escapeHtml(
           being.hormoneVec
             ? `h0 ${being.hormoneVec.h0} h1 ${being.hormoneVec.h1}`

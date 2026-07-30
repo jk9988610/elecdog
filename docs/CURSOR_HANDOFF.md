@@ -1,43 +1,32 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · **MV5 五感** · 进度见 GOAL_DISTANCE
+> 更新：2026-07-30 · **MV8 DNA 表达** · 进度见 GOAL_DISTANCE
 
 ---
 
-## 战略状态（MV 主轨 ~42%）
+## 战略状态（MV 主轨 ~55%）
 
 | 阶段 | 状态 |
 |------|------|
-| MV0 / MV1a / MV1b / MV6 | ✅ |
-| **MV5** LOG-SEN-*、STR 出口、[SEN] | ✅ 本回合 |
-| **下一** | **MV7** 激素神经 · **MV1c** MIT 调参 · **MV8** DNA |
+| MV0–MV7 | ✅ |
+| **MV8** dna-express.js Z1–Z6 | ✅ 本回合 |
+| **下一** | **MV9** 全生命周期闭环验收 |
 
-文档：[MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md) · [GOAL_DISTANCE.md](GOAL_DISTANCE.md)
+文档：[DNA_EXPRESSION.md](DNA_EXPRESSION.md) · [MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md)
 
 ---
 
-## MV5 交付
+## MV8 交付
 
-- `LOG-SEN-TH/TM/GU/VS/AU/OL` 六类感官细胞（JUV 分化窗）
-- `STR-SKN/ORAL/VIS/AUD/OLF` 体表出口
-- `env-cell-coupling.js` 扩展：基质/视觉/听觉/嗅觉场门控
-- `senses.js`：`tickSenses` → `[SEN] kind:*`（环境场匹配）
-- 发育链 `senDiffWeight` 保障感官分化；族谱显示感官出口
+- `src/genetics/dna-express.js`：Z1–Z6 区段常量与 express 函数
+- `being.dnaExpress` 快照：激素基线/节律、Z5 感官、Z2 morph、Z4 神经、Z6 homeo
+- 接线：`hormone-system`、`senses`、`body-structures`、`multicell-v2`
 
 ```bash
+npm run observer:dna-express
 npm run observer:multicell-v2
 ```
 
 ---
 
-## 关键文件
-
-| 路径 | 用途 |
-|------|------|
-| `src/world/senses.js` | 五感结构与采样 |
-| `src/world/env-cell-coupling.js` | 环境场门控 |
-| `src/world/multicell-v2.js` | 感官分化偏好 |
-
----
-
-*下一包：MV7 LOG-HRM 分泌链与 hormoneVec 调制。*
+*下一包：MV9 闭环田野（GEST→ADT 全链验收脚本）。*

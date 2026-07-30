@@ -23,6 +23,7 @@ import {
 import { initAdultMatingStructures } from './body-structures.js';
 import { onSenseCellDifferentiated, SENSE_TYPES } from './senses.js';
 import { initHormoneVec, hormoneActivityMult } from './hormone-system.js';
+import { attachDnaExpression } from '../genetics/dna-express.js';
 
 export {
   LIFE_STAGE_GEST,
@@ -71,6 +72,7 @@ export function initMulticellV2(being, profile) {
   being.lastMitTick = -999;
   being.lastDiffTick = -999;
   if (multicellV2Enabled(profile)) {
+    attachDnaExpression(being);
     initHormoneVec(being, profile);
   }
   return being.logicCells;
@@ -294,14 +296,15 @@ function tryDifferentiation(being, world, profile, stage, rng) {
 }
 
 function mitHormoneMult(being) {
-  if (!being.hormoneVec) return 1;
+  const homeo = being?.dnaExpress?.homeo?.mitBias ?? 1;
+  if (!being.hormoneVec) return homeo;
   const codes = Object.keys(being.logicCells ?? {}).filter(
     (c) => c !== STEM_CELL_CODE && (being.logicCells[c]?.length ?? 0) > 0
   );
-  if (!codes.length) return hormoneActivityMult(being, STEM_CELL_CODE);
+  if (!codes.length) return +(hormoneActivityMult(being, STEM_CELL_CODE) * homeo).toFixed(4);
   const avg =
     codes.reduce((s, c) => s + hormoneActivityMult(being, c), 0) / codes.length;
-  return +avg.toFixed(4);
+  return +(avg * homeo).toFixed(4);
 }
 
 function mitProbability(stage, profile, boost, being) {
@@ -320,7 +323,9 @@ function diffProbability(stage, profile, being, targetCode) {
   if (stage === LIFE_STAGE_GEST) base = 0.12;
   else if (stage === LIFE_STAGE_JUV) base = 0.08;
   else if (stage === LIFE_STAGE_ADT) base = 0.05;
-  if (!targetCode) return base;
+  const homeo = being?.dnaExpress?.homeo?.diffBias ?? 1;
+  base *= homeo;
+  if (!targetCode || !being?.hormoneVec) return base;
   return Math.min(0.22, base * hormoneActivityMult(being, targetCode));
 }
 
