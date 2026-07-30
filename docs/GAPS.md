@@ -405,3 +405,12 @@
 - **文档**：[PHASE111_CARRY_IMPORT.md](PHASE111_CARRY_IMPORT.md)
 
 ---
+
+## GAP-EVO-CARRY-QUAD · 四环境留置链（Phase 112）
+
+- **扩展**：harsh → SEM 孵化 → **fertile COOP 蓄积** → wisdom 混合；`runCarryMiddlePass` 通用中间通行
+- **田野**：`npm run field:phase112` — quad vs triple 对照
+- **状态**：**部分结案**
+- **文档**：[PHASE112_QUAD_CHAIN.md](PHASE112_QUAD_CHAIN.md)
+
+---
