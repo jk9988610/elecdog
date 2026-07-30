@@ -12,6 +12,7 @@ import { buildEnvStackSummary } from './env-stack.js';
 import { buildSemStackSummary } from './sem-stack.js';
 import { buildWlReproStackSummary } from './wl-repro-stack.js';
 import { buildCarrySummary } from './carry-panel.js';
+import { populationLayerEnabled, multicellV2Enabled } from '../world/multicell-v2.js';
 
 function countEnv(entries, kind) {
   return entries.filter((e) => e.channel === 'environment' && e.meta?.kind === kind).length;
@@ -144,6 +145,8 @@ export function buildDashboardStats(world, recorder) {
       fissionEnabled: Boolean(world.envProfile?.fissionEnabled),
       rplEnabled: Boolean(world.envProfile?.rplEnabled),
       multicellV2Observer: Boolean(world.envProfile?.multicellV2Observer),
+      multicellV2Enabled: multicellV2Enabled(world.envProfile),
+      populationLayerEnabled: populationLayerEnabled(world.envProfile),
     },
     environment: {
       substrate,

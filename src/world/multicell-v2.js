@@ -41,6 +41,11 @@ export function multicellV2Observer(profile) {
   return profile?.multicellV2Observer === true || multicellV2Enabled(profile);
 }
 
+/** 种群层观察（CMP 面板、FISS 增员统计）— 仅遗留单细胞观察环境 */
+export function populationLayerEnabled(profile) {
+  return !multicellV2Observer(profile);
+}
+
 function makeCellId(beingId, code, idx) {
   return `${beingId.slice(-6)}:${code}:${idx}`;
 }

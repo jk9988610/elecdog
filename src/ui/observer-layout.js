@@ -36,7 +36,7 @@ export function shouldShowGenealogyPanel(profile, layoutMode = getObserverLayout
 }
 
 export function observerLayoutHint() {
-  return '多细胞 v2：族谱观察子与经典单细胞卡片可切换；机制标签不变。';
+  return '多细胞 v2：族谱与经典卡片为同一套机制，仅展示形式不同；无种群层统计。';
 }
 
 export function observerLayoutLabel(mode) {
