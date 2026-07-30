@@ -26,6 +26,7 @@ import { compositionSnapshot, shouldRecordComposition } from '../world/compositi
 import { CELL_INTEGRITY_LOW } from '../world/cell.js';
 import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
+import { tickLactationContact } from '../world/body-structures.js';
 import { runMetabolism } from '../world/organism.js';
 import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { tickSynth, synthEnabled } from '../world/synth.js';
@@ -502,6 +503,16 @@ export function stepWorld(world, recorder) {
         });
       }
       noteSemDomainFromKind(being, 'NUR', world.tick);
+    }
+
+    const lacEvt = tickLactationContact(world, recorder, being, profile);
+    if (!stat && lacEvt?.transfers?.length) {
+      recorder.metabolism(
+        world.tick,
+        being.id,
+        `[LAC] +${lacEvt.transfers.length}ch parent ${lacEvt.parentId}`,
+        { kind: 'LAC', ...lacEvt }
+      );
     }
 
     const met = runMetabolism(world, being, {

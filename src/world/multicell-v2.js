@@ -20,6 +20,7 @@ import {
   envGateLabel,
   sampleOrganismEnv,
 } from './env-cell-coupling.js';
+import { initAdultMatingStructures } from './body-structures.js';
 
 export {
   LIFE_STAGE_GEST,
@@ -101,6 +102,7 @@ export function resolveLifeStage(being, world, profile) {
     if (being.lifeStage !== LIFE_STAGE_ADT) {
       being.lifeStage = LIFE_STAGE_ADT;
       being.adultAtTick = world.tick;
+      initAdultMatingStructures(being, profile, world.tick);
     }
     return LIFE_STAGE_ADT;
   }
