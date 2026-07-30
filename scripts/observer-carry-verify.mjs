@@ -55,6 +55,7 @@ assert(html.includes('wisdom_evolution'), '链环境可见');
 
 const stats = buildDashboardStats(world, recorder);
 assert(stats.carry?.count >= 1, 'buildDashboardStats 含 carry 摘要');
+assert(summary.chains[0]?.coopMode != null, 'coopMode 字段可读');
 
 const observerSrc = readFileSync(new URL('../src/ui/observer.js', import.meta.url), 'utf8');
 assert(observerSrc.includes('renderCarryPanel'), '观察台已挂载留置面板');

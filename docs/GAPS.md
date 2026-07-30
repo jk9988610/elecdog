@@ -195,8 +195,11 @@
 - **Phase 51 扩展**：
   - `[COOP]` 运行时模式 SOLO/MESH/RIVAL/ECHO（社会迹聚合）
   - 可选行为反馈；统计田野 12 体 × 960 tick × 4 处理组
-- **状态**：**部分结案** — 社会迹档案可观察；合作因果定律仍开放
-- **报告**：[PHASE51_COOPERATION.md](PHASE51_COOPERATION.md) · `field-phase51-report.json`
+- **Phase 110 扩展**：
+  - 留置链（Phase 109）× COOP/SOC 因子对照；`carryCoopAdvantage` / `crossRxCoopCorr` 因果度量
+  - 田野：`npm run field:phase110`
+- **状态**：**部分结案** — 留置链田野上合作因果可度量；统计定律仍开放
+- **报告**：[PHASE51_COOPERATION.md](PHASE51_COOPERATION.md) · [PHASE110_COOP_CAUSAL.md](PHASE110_COOP_CAUSAL.md)
 
 ---
 
