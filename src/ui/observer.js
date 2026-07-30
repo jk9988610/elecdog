@@ -110,8 +110,8 @@ export class ObserverApp {
         <span id="tick-display" class="tick">tick 0</span>
         <span id="place-display" class="place"></span>
         ${this.otaLabel ? `<span id="ota-version" class="ota-version" title="当前网页热更新版本">${escapeHtml(this.otaLabel)}</span>` : ''}
-        ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : ''}
-        ${this.nativeShell && this.otaStatus ? `<span id="ota-status" class="ota-status" title="热更新状态">${escapeHtml(this.otaStatus)}</span>` : ''}
+        ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : `<button id="btn-ota-check" type="button" class="btn-ghost">检查线上版本</button>`}
+        <span id="ota-status" class="ota-status" title="热更新/线上版本状态">${escapeHtml(this.otaStatus)}</span>
         <span class="toolbar-spacer"></span>
         <label class="env-label" title="切换后重置世界并应用环境规则">
           环境
@@ -578,16 +578,29 @@ export class ObserverApp {
   }
 
   async checkOta() {
-    if (!this.nativeShell || this.otaBusy) return;
+    if (this.otaBusy) return;
     this.otaBusy = true;
     if (this.$.btnOtaCheck) this.$.btnOtaCheck.disabled = true;
     this.setOtaStatus('检查中…');
     try {
-      const { runOtaBootstrapNative } = await import('../ota/native-bridge.js');
-      const ota = await runOtaBootstrapNative();
-      if (ota.updated) return;
-      if (this.$.otaVersion && ota.label) this.$.otaVersion.textContent = ota.label;
-      this.setOtaStatus(ota.status || '完成');
+      if (this.nativeShell) {
+        const { runOtaBootstrapNative } = await import('../ota/native-bridge.js');
+        const ota = await runOtaBootstrapNative();
+        if (ota.updated) return;
+        if (this.$.otaVersion && ota.label) this.$.otaVersion.textContent = ota.label;
+        this.setOtaStatus(ota.status || '完成');
+      } else {
+        const { checkWebOtaStatus } = await import('../ota/native-bridge.js');
+        const { SITE_OTA_VERSION } = await import('../site-build.js');
+        const web = await checkWebOtaStatus(SITE_OTA_VERSION);
+        if (this.$.otaVersion) {
+          this.$.otaVersion.textContent = web.local !== 'dev' ? `网页 ${web.local}` : '网页 dev';
+        }
+        this.setOtaStatus(web.status);
+        if (web.newer) {
+          this.setOtaStatus(`${web.status} · 可 Ctrl+Shift+R 强制刷新`);
+        }
+      }
     } catch (err) {
       this.setOtaStatus(`失败: ${err?.message || err}`);
     } finally {

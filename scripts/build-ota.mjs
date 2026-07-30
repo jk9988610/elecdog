@@ -45,6 +45,12 @@ const wwwJson = {
 };
 writeFileSync(join(updatesDir, 'www.json'), JSON.stringify(wwwJson, null, 2) + '\n');
 
+const siteBuildJs = join(root, 'src/site-build.js');
+writeFileSync(
+  siteBuildJs,
+  `/** OTA 网页构建版本 — 由 scripts/build-ota.mjs 生成 */\nexport const SITE_OTA_VERSION = '${version}';\n`
+);
+
 const apkPath = join(updatesDir, 'apk.json');
 let apk = { versionCode: 1, apkUrl: '', message: '观察台壳层有更新，是否下载新 APK 安装？' };
 if (existsSync(apkPath)) {
