@@ -1,5 +1,8 @@
 // 谱系幼体依赖期 — 亲代通量种子 + 延迟独立（不设哺乳/性别名称）
 
+import { multicellV2Enabled } from './multicell-v2.js';
+import { initNursingStructures } from './body-structures.js';
+
 export function reproModeFromProfile(profile) {
   if (profile?.reproMode === 'nursed' || profile?.reproMode === 'gestation') return 'nursed';
   return profile?.reproMode === 'instant' ? 'instant' : 'instant';
@@ -20,6 +23,9 @@ export function applyNurtureAtBirth(world, parent, child) {
   child.nurtureUntilTick = world.tick + nurtureTicks;
   child.nurtureReserve = parent.registers.map((r) => r * seedFrac);
   child.nurtureParentId = parent.id;
+  if (multicellV2Enabled(profile)) {
+    initNursingStructures(parent, child, profile, world.tick);
+  }
   return {
     mode: 'nursed',
     nurtureTicks,

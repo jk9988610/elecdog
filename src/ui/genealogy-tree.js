@@ -7,6 +7,15 @@ import { pairMorphCn } from './observer-lexicon.js';
 import { LOGIC_CELL_TYPES, SKIN_CELL_CODE, STEM_CELL_CODE, STEM_CELL_TYPE } from '../world/logic-cell-types.js';
 import { UMB_STRUCTURE_CODE } from '../world/umbilical.js';
 import {
+  assessPairStructureFit,
+  initAdultMatingStructures,
+  initNursingStructures,
+  STR_PAIR_IN,
+  STR_PAIR_OUT,
+  STR_LACT_OUT,
+  STR_ING_IN,
+} from '../world/body-structures.js';
+import {
   LIFE_STAGE_GEST,
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
@@ -164,6 +173,20 @@ export function renderBeingDetailHTML(being) {
         <div class="stat-row"><span>皮肤膜</span><strong>${escapeHtml(being.skinMembrane?.code ?? SKIN_CELL_CODE)}</strong></div>
         <div class="stat-row"><span>脐带结构</span><strong>${escapeHtml(
           being.bodyStructures?.[UMB_STRUCTURE_CODE]?.open ? UMB_STRUCTURE_CODE : '—'
+        )}</strong></div>
+        <div class="stat-row"><span>交配结构</span><strong>${escapeHtml(
+          being.bodyStructures?.[STR_PAIR_OUT]?.open
+            ? STR_PAIR_OUT
+            : being.bodyStructures?.[STR_PAIR_IN]?.open
+              ? STR_PAIR_IN
+              : '—'
+        )}</strong></div>
+        <div class="stat-row"><span>哺乳/摄取</span><strong>${escapeHtml(
+          being.bodyStructures?.[STR_LACT_OUT]?.open
+            ? STR_LACT_OUT
+            : being.bodyStructures?.[STR_ING_IN]?.open
+              ? STR_ING_IN
+              : '—'
         )}</strong></div>
       </div>
       <h4 class="term">逻辑细胞</h4>

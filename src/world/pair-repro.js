@@ -19,6 +19,11 @@ import {
   umbilicalActive,
   closeUmbilicalOnExpel,
 } from './umbilical.js';
+import {
+  assessPairStructureFit,
+  initAdultMatingStructures,
+  recordPairStructureEvent,
+} from './body-structures.js';
 import { registerPartnerBond } from './partner-bond.js';
 import { meiAllowedForBeing } from './multicell-v2.js';
 
@@ -312,6 +317,12 @@ export function registerPairSpeechPGR(world, recorder, b, aId, txLine = null) {
   const a = world.beings.find((x) => x.id === aId);
   if (!a?.alive || a.pairMorph !== 'A' || !a.meiPacket) return null;
   if (!pairGateOpen(b, world)) return null;
+
+  const structFit = assessPairStructureFit(a, b, world.envProfile, a.meiPacket);
+  if (b.bodyStructures?.['STR-PAIR-IN']?.open && a.bodyStructures?.['STR-PAIR-OUT']?.open) {
+    recordPairStructureEvent(world, recorder, a, b, structFit, 'PGR');
+    if (!structFit.fit) return null;
+  }
 
   ensurePairRequests(world);
   const tick = world.tick;
@@ -667,6 +678,14 @@ export function processPairFusInBody(world, recorder) {
     const candidates = morphB.filter((b) => !usedB.has(b.id) && pairGateOpen(b, world));
     if (!candidates.length) continue;
     const b = candidates[0];
+    const structFit = assessPairStructureFit(a, b, profile, a.meiPacket);
+    if (
+      a.bodyStructures?.['STR-PAIR-OUT']?.open &&
+      b.bodyStructures?.['STR-PAIR-IN']?.open
+    ) {
+      recordPairStructureEvent(world, recorder, a, b, structFit, 'FUS-IN');
+      if (!structFit.fit) continue;
+    }
     createSyncyteOnB(world, recorder, a, b, a.meiPacket.seq, b.dockedHalf.seq);
     usedB.add(b.id);
     events.push({ type: 'FUS-IN', aId: a.id, bId: b.id });

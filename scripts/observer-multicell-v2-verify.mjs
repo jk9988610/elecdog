@@ -16,6 +16,7 @@ import {
   LOGIC_CELL_MAX_PER_TYPE,
   STEM_CELL_CODE,
   STEM_CELL_MAX,
+  LIFE_STAGE_GEST,
 } from '../src/world/logic-cell-types.js';
 import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
 import { getObserverEnvId } from '../src/ui/env-select.js';
@@ -23,7 +24,13 @@ import {
   initGestationalUmbilical,
   UMB_STRUCTURE_CODE,
 } from '../src/world/umbilical.js';
-import { LIFE_STAGE_GEST } from '../src/world/logic-cell-types.js';
+import {
+  assessPairStructureFit,
+  initAdultMatingStructures,
+  STR_PAIR_OUT,
+  STR_PAIR_IN,
+} from '../src/world/body-structures.js';
+import { applyNurtureAtBirth } from '../src/world/nurture.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -33,6 +40,12 @@ function assert(cond, msg) {
   } else {
     console.log(`✓ ${msg}`);
   }
+}
+
+/** 观察子确定性：强制体表结构共享至少一条通道 */
+function pinSharedChannels(being, structCode, channel) {
+  const st = being?.bodyStructures?.[structCode];
+  if (st) st.channels = [channel];
 }
 
 const world = createWorld('M-MV2');
@@ -130,5 +143,40 @@ for (let i = 0; i < 20; i++) stepWorld(wU, recU);
 const umb = recU.entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'UMB');
 assert(umb.length > 0, `[UMB] 宫内脐带通量（${umb.length}）`);
 
+// MV6 — 交配结构与哺乳接触
+const wS = createWorld('M-STR');
+applyEnvProfile(wS, 'multicell_v2_world');
+initEnvStackModules(wS);
+const recS = new Recorder();
+spawnBeing(wS, recS, { name: 'sa', code: '001', pairMorph: 'A' });
+spawnBeing(wS, recS, { name: 'sb', code: '002', pairMorph: 'B' });
+const morphA = wS.beings.find((b) => b.pairMorph === 'A');
+const morphB = wS.beings.find((b) => b.pairMorph === 'B');
+morphA.tickCount = 100;
+morphB.tickCount = 100;
+morphA.lifeStage = LIFE_STAGE_ADT;
+morphB.lifeStage = LIFE_STAGE_ADT;
+morphA.devStage = LIFE_STAGE_ADT;
+morphB.devStage = LIFE_STAGE_ADT;
+initAdultMatingStructures(morphA, wS.envProfile, 0);
+initAdultMatingStructures(morphB, wS.envProfile, 0);
+pinSharedChannels(morphA, STR_PAIR_OUT, 7);
+pinSharedChannels(morphB, STR_PAIR_IN, 7);
+assert(morphA.bodyStructures?.[STR_PAIR_OUT]?.open, 'STR-PAIR-OUT 成体 A');
+assert(morphB.bodyStructures?.[STR_PAIR_IN]?.open, 'STR-PAIR-IN 成体 B');
+const fit = assessPairStructureFit(morphA, morphB, wS.envProfile);
+assert(fit.fit, `PAIR 结构匹配 overlap=${fit.overlap}`);
+
+spawnBeing(wS, recS, { name: 'sc', code: '003', pairMorph: 'B' });
+const infant = wS.beings.find((b) => b.name === 'sc');
+applyNurtureAtBirth(wS, morphB, infant);
+pinSharedChannels(morphB, 'STR-LACT-OUT', 7);
+pinSharedChannels(infant, 'STR-ING-IN', 7);
+assert(morphB.bodyStructures?.['STR-LACT-OUT']?.open, 'STR-LACT-OUT');
+assert(infant.bodyStructures?.['STR-ING-IN']?.open, 'STR-ING-IN');
+for (let i = 0; i < 12; i++) stepWorld(wS, recS);
+const lac = recS.entries.filter((e) => e.meta?.kind === 'LAC');
+assert(lac.length > 0, `[LAC] 接触哺乳（${lac.length}）`);
+
 if (failed) process.exit(1);
-console.log('\n✓ 多细胞 v2 MV1a/MV1b 验证通过');
+console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV6 验证通过');
