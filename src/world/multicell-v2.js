@@ -22,6 +22,7 @@ import {
 } from './env-cell-coupling.js';
 import { initAdultMatingStructures } from './body-structures.js';
 import { onSenseCellDifferentiated, SENSE_TYPES } from './senses.js';
+import { initHormoneVec, hormoneActivityMult } from './hormone-system.js';
 
 export {
   LIFE_STAGE_GEST,
@@ -69,6 +70,9 @@ export function initMulticellV2(being, profile) {
   being.juvDiffTicks = 0;
   being.lastMitTick = -999;
   being.lastDiffTick = -999;
+  if (multicellV2Enabled(profile)) {
+    initHormoneVec(being, profile);
+  }
   return being.logicCells;
 }
 
@@ -289,21 +293,35 @@ function tryDifferentiation(being, world, profile, stage, rng) {
   };
 }
 
-function mitProbability(stage, profile, boost) {
+function mitHormoneMult(being) {
+  if (!being.hormoneVec) return 1;
+  const codes = Object.keys(being.logicCells ?? {}).filter(
+    (c) => c !== STEM_CELL_CODE && (being.logicCells[c]?.length ?? 0) > 0
+  );
+  if (!codes.length) return hormoneActivityMult(being, STEM_CELL_CODE);
+  const avg =
+    codes.reduce((s, c) => s + hormoneActivityMult(being, c), 0) / codes.length;
+  return +avg.toFixed(4);
+}
+
+function mitProbability(stage, profile, boost, being) {
   const base =
     stage === LIFE_STAGE_GEST
       ? 0.14
       : stage === LIFE_STAGE_JUV
         ? 0.07
         : 0.035;
-  return Math.min(0.42, base + boost);
+  const raw = Math.min(0.42, base + boost);
+  return Math.min(0.55, raw * mitHormoneMult(being));
 }
 
-function diffProbability(stage, profile) {
-  if (stage === LIFE_STAGE_GEST) return 0.12;
-  if (stage === LIFE_STAGE_JUV) return 0.08;
-  if (stage === LIFE_STAGE_ADT) return 0.05;
-  return 0;
+function diffProbability(stage, profile, being, targetCode) {
+  let base = 0;
+  if (stage === LIFE_STAGE_GEST) base = 0.12;
+  else if (stage === LIFE_STAGE_JUV) base = 0.08;
+  else if (stage === LIFE_STAGE_ADT) base = 0.05;
+  if (!targetCode) return base;
+  return Math.min(0.22, base * hormoneActivityMult(being, targetCode));
 }
 
 function recordEnvGateIfNeeded(world, recorder, being, profile) {
@@ -370,7 +388,7 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
 
   const mitGap = profile?.mitIntervalTicks ?? 6;
   if (world.tick - (being.lastMitTick ?? -999) >= mitGap) {
-    const pMit = mitProbability(stage, profile, boost);
+    const pMit = mitProbability(stage, profile, boost, being);
     if (rng() < pMit) {
       const mit =
         stage === LIFE_STAGE_ADT
@@ -394,7 +412,7 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
 
   const diffGap = profile?.diffIntervalTicks ?? 8;
   if (world.tick - (being.lastDiffTick ?? -999) >= diffGap) {
-    const pDiff = diffProbability(stage, profile);
+    const pDiff = diffProbability(stage, profile, being, null);
     if (rng() < pDiff) {
       const diff = tryDifferentiation(being, world, profile, stage, rng);
       if (diff) {

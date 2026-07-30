@@ -28,6 +28,7 @@ import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { tickLactationContact } from '../world/body-structures.js';
 import { tickSenses } from '../world/senses.js';
+import { tickHormoneSecretion } from '../world/hormone-system.js';
 import { runMetabolism } from '../world/organism.js';
 import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { tickSynth, synthEnabled } from '../world/synth.js';
@@ -529,6 +530,17 @@ export function stepWorld(world, recorder) {
       ),
     };
     if (!stat) tickSenses(world, recorder, being, profile, senseHints);
+
+    const senCellCount = Object.entries(being.logicCells ?? {}).reduce(
+      (n, [k, v]) => (k.startsWith('LOG-SEN-') ? n + (v?.length ?? 0) : n),
+      0
+    );
+    if (!stat) {
+      tickHormoneSecretion(world, recorder, being, profile, {
+        stress: result.stress,
+        senCellCount,
+      });
+    }
 
     const met = runMetabolism(world, being, {
       internalCount: result.internal.length,

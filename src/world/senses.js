@@ -8,6 +8,7 @@ import {
   senseRuntimeActive,
 } from './env-cell-coupling.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
+import { hormoneActivityMult } from './hormone-system.js';
 
 export const STR_SKN = 'STR-SKN';
 export const STR_ORAL = 'STR-ORAL';
@@ -116,7 +117,9 @@ export function tickSenses(world, recorder, being, profile, hints = {}) {
     const runtimeOk = senseRuntimeActive(cfg.code, env, hints, profile);
     if (!runtimeOk) continue;
 
-    const load = +senseLoad(cfg, env, hints).toFixed(4);
+    const load = +(
+      senseLoad(cfg, env, hints) * hormoneActivityMult(being, cfg.code)
+    ).toFixed(4);
     if (load < minLoad && !forceLog) continue;
 
     recorder.evolution(

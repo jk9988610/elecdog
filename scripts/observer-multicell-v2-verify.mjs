@@ -192,5 +192,14 @@ const celExt = recorder.entries.filter(
 );
 assert(celExt.length > 0, `CEL 扩展 envCoupling（${celExt.length}）`);
 
+// MV7 — 激素分泌链
+assert(world.beings.some((b) => b.hormoneVec?.h0 != null), 'hormoneVec 初始化');
+const hrmTick = recorder.entries.filter(
+  (e) => e.meta?.kind === 'HRM' && e.meta?.trigger === 'tick'
+);
+assert(hrmTick.length > 0, `[HRM] LOG-HRM 分泌链（${hrmTick.length}）`);
+const reg = recorder.entries.filter((e) => e.meta?.kind === 'REG');
+assert(reg.length > 0, `[REG] 全身调节摘要（${reg.length}）`);
+
 if (failed) process.exit(1);
-console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV5/MV6 验证通过');
+console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV5/MV6/MV7 验证通过');

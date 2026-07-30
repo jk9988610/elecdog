@@ -189,6 +189,11 @@ export function renderBeingDetailHTML(being) {
               ? STR_ING_IN
               : '—'
         )}</strong></div>
+        <div class="stat-row"><span>激素向量</span><strong>${escapeHtml(
+          being.hormoneVec
+            ? `h0 ${being.hormoneVec.h0} h1 ${being.hormoneVec.h1}`
+            : '—'
+        )}</strong></div>
         <div class="stat-row"><span>感官出口</span><strong>${escapeHtml(
           [
             being.bodyStructures?.[STR_SKN]?.open ? STR_SKN : null,
