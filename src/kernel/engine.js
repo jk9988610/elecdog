@@ -93,6 +93,7 @@ import {
   parseDirectedTx,
   substantiveSignalOnly,
 } from '../world/substantive-signal.js';
+import { resolveLifeStage } from '../world/multicell-v2.js';
 import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
@@ -259,6 +260,7 @@ export function stepWorld(world, recorder) {
   const activeBeings = world.beings.filter((b) => b.alive);
 
   for (const being of activeBeings) {
+    resolveLifeStage(being, world, world.envProfile);
     const heard = filterHeardSignals(delivered, being.id, world.envProfile);
     const profile = world.envProfile;
     if (memoryFeedbackEnabled(profile)) {

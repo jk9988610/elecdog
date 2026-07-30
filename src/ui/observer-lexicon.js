@@ -55,7 +55,6 @@ export function tierCn(tier) {
   return TIER_CN[tier] ?? '—';
 }
 
-/** 共现对 → 观察者句式 */
 /** 形态 A/B 观察者类比（机制层仍用 A/B；仅 UI） */
 export const PAIR_MORPH_CN = {
   A: '排出方（类比·男）',

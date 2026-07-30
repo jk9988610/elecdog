@@ -1571,3 +1571,126 @@ input[type='number'] {
   color: #a8c8e8;
   border-color: #3a4a60;
 }
+
+/* 多细胞 v2 族谱 */
+.genealogy-panel {
+  grid-column: 1 / -1;
+}
+
+.genealogy-layout {
+  display: grid;
+  grid-template-columns: 1fr minmax(280px, 360px);
+  gap: 1rem;
+  align-items: start;
+}
+
+.genealogy-tree-host {
+  min-height: 12rem;
+}
+
+.genealogy-tree {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.genealogy-branch {
+  margin-bottom: 1rem;
+  padding-left: 0.5rem;
+  border-left: 2px solid #2a3544;
+}
+
+.genealogy-couple {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  align-items: center;
+}
+
+.genealogy-id-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.5rem 0.75rem;
+  border: 2px solid #3a4a60;
+  border-radius: 8px;
+  background: #121820;
+  color: #d0d6e0;
+  cursor: pointer;
+  min-width: 5.5rem;
+}
+
+.genealogy-id-btn:hover {
+  border-color: #5a8ab0;
+  background: #1a2430;
+}
+
+.genealogy-id-btn.selected {
+  border-color: #7ab8e8;
+  box-shadow: 0 0 0 1px #7ab8e8;
+}
+
+.genealogy-id-btn.dead {
+  opacity: 0.45;
+  border-style: dashed;
+}
+
+.genealogy-id-btn.mate {
+  border-color: #4a6050;
+}
+
+.genealogy-avatar {
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.genealogy-id-tail {
+  font-family: ui-monospace, monospace;
+  font-size: 0.7rem;
+  color: #8a94a4;
+}
+
+.genealogy-morph {
+  font-size: 0.65rem;
+  color: #7a8494;
+}
+
+.genealogy-mate-placeholder {
+  font-size: 0.75rem;
+  color: #5a6270;
+  padding: 0.5rem;
+}
+
+.genealogy-children {
+  list-style: none;
+  margin: 0.5rem 0 0 1.5rem;
+  padding: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.genealogy-id-btn.child {
+  min-width: auto;
+  flex-direction: row;
+  font-size: 0.75rem;
+}
+
+.genealogy-detail-host {
+  background: #0e1218;
+  border: 1px solid #2a3038;
+  border-radius: 8px;
+  padding: 1rem;
+}
+
+.genealogy-detail-title {
+  margin: 0 0 0.25rem;
+  font-size: 1rem;
+}
+
+.genealogy-detail-id {
+  margin: 0 0 0.75rem;
+  font-size: 0.7rem;
+  color: #6a7484;
+}

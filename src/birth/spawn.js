@@ -36,6 +36,7 @@ import {
   initSubstantiveSignal,
   substantiveSignalOnly,
 } from '../world/substantive-signal.js';
+import { initMulticellV2, multicellV2Enabled } from '../world/multicell-v2.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -121,6 +122,9 @@ export function spawnBeing(
   }
   if (substantiveSignalOnly(world.envProfile)) {
     initSubstantiveSignal(being);
+  }
+  if (multicellV2Enabled(world.envProfile)) {
+    initMulticellV2(being, world.envProfile);
   }
   if (reservoirEnabled(world.envProfile)) {
     initReservoir(being, world.envProfile);

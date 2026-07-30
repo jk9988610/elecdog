@@ -1,6 +1,7 @@
 // 减数缩减 + 双源汇合 — [MEI] / [FUS] / [BCN] 信标（不设配子/性别名称）
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { meiAllowedForBeing } from './multicell-v2.js';
 import { captureSymOnFus, symCaptureEnabled } from './sym.js';
 import { reduceDna, recombineDna, mutate } from '../core/dna.js';
 import { birthIntoWorld } from '../birth/spawn.js';
@@ -138,6 +139,7 @@ export function collectOrphanPacket(world, being, profile) {
 export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 } = {}) {
   const profile = world.envProfile;
   if (!meiEnabled(profile) || !replicationEnabled(profile) || !being.alive) return null;
+  if (!meiAllowedForBeing(being, world, profile)) return null;
   if (being.independent === false) return null;
   if (being.meiPacket) return null;
   if (!hasMeiReplicationBudget(being, profile)) return null;

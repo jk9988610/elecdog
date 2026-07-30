@@ -76,7 +76,7 @@ assert(tho.length > 0, `[THO] 记录（${tho.length}）`);
 const rows = buildThoughtSpeechRows(recorder, { world, limit: 30 });
 assert(rows.some((r) => r.intent), '思考外化含意图叙事');
 
-assert(getObserverEnvId() === 'observer_repro_speech', '观察台默认环境为繁殖言语栈');
+assert(getObserverEnvId() === 'multicell_v2_world', '观察台默认环境为多细胞 v2');
 
 const codexData = readFileSync(new URL('../src/ui/codex-data.js', import.meta.url), 'utf8');
 assert(!codexData.includes('substantiveSignalOnly'), 'codex-data 未写入言语规则');

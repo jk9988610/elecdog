@@ -3460,6 +3460,59 @@ ENV_PROFILES.observer_repro_speech = {
   internalTxCouplingStrength: 0.52,
 };
 
+/** 多细胞 v2 世界 — 逻辑细胞 + 幼体/成体 + 族谱观察台 */
+const MULTICELL_V2_STACK = {
+  multicellV2Enabled: true,
+  multicellV2Observer: true,
+  organismMode: 'multicell',
+  partnerBondEnabled: true,
+  monogamyEnforced: true,
+  juvenileTicks: 96,
+  juvenileFissBoost: 0.14,
+  fissionEnabled: true,
+  ecoFissEnabled: false,
+  meiEnabled: true,
+  pairReproEnabled: true,
+  pairFusInBody: true,
+  pairHalfRelease: true,
+  pairHandshake: true,
+  pairSpeechDriven: true,
+  pairFieldHalfMaxAge: 96,
+  pairRequestMaxAge: 48,
+  substantiveSignalOnly: true,
+  directedTxOnly: true,
+  multicellIntraTx: true,
+  substanceMinSpeakLoad: 0.28,
+  internalTxCoupling: true,
+  internalTxCouplingStrength: 0.5,
+  fusionMaxPop: 28,
+  fissionMaxPop: 28,
+  gestationTicks: 64,
+  dockBaseProb: 0.35,
+  meiMinAge: 40,
+};
+
+ENV_PROFILES.multicell_v2_world = {
+  id: 'multicell_v2_world',
+  label: '多细胞 v2 世界',
+  ...W5_WISDOM_FULL,
+  ...ECO_REPRO_BASE,
+  ...W6_TOOL_ORG_STACK,
+  ...W6_ENV_STACK,
+  ...WL3_SEM_STACK,
+  ...MULTICELL_V2_STACK,
+  fissionEnabled: true,
+  ecoFissEnabled: false,
+  meiEnabled: true,
+  fusEnabled: false,
+  semDomainTag: true,
+  semReproLineage: true,
+  semFourDomainCouple: true,
+  semMinCount: 2,
+  semReproWindow: 48,
+  semDomainWindow: 48,
+};
+
 /** 观察台默认环境 — W6 环境栈可视化 */
 ENV_PROFILES.observer_w6_stack = {
   id: 'observer_w6_stack',

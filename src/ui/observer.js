@@ -67,7 +67,7 @@ import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import
 import { suggestObserverEnvId } from '../carry/import-report.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 import { renderSemSignalStreamPanelHTML, initSemSignalStreamPanel } from './sem-signal-stream.js';
-import { renderThoughtSpeechPanelHTML, initThoughtSpeechPanel } from './thought-speech.js';
+import { renderGenealogyPanelHTML, initGenealogyPanel } from './genealogy-tree.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -559,6 +559,12 @@ export class ObserverApp {
     this.mindStreamPanel?.refresh();
     this.semSignalPanel?.refresh();
     this.thoughtSpeechPanel?.refresh();
+    if (s.world.multicellV2Observer) {
+      this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
+        getWorld: () => this.world,
+      });
+      this.genealogyPanel?.paint();
+    }
     this.updateCloudStatus();
   }
 
@@ -998,11 +1004,14 @@ export class ObserverApp {
         <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
       </section>
 
+      ${s.world.multicellV2Observer
+        ? renderGenealogyPanelHTML()
+        : `
       <section class="panel beings-panel">
         <h2>${label('beings')}</h2>
         <p class="panel-hint">${viewModeHint()}</p>
         <div class="beings-grid">${beingCards || '<p class="muted">无存活个体</p>'}</div>
-      </section>
+      </section>`}
     `;
   }
 }

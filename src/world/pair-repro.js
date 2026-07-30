@@ -12,6 +12,8 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
+import { registerPartnerBond } from './partner-bond.js';
+import { meiAllowedForBeing } from './multicell-v2.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -199,6 +201,7 @@ export function initDockedHalf(world, being) {
 export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 1 } = {}) {
   const profile = world.envProfile;
   if (!pairFusInBodyEnabled(profile) || !meiEnabled(profile) || !being.alive) return null;
+  if (!meiAllowedForBeing(being, world, profile)) return null;
   if (being.pairMorph !== 'B' || being.syncyte) return null;
   if (being.dockedHalf || being.independent === false) return null;
   if (!replicationEnabled(profile)) return null;
@@ -322,6 +325,7 @@ export function registerPairSpeechPGR(world, recorder, b, aId, txLine = null) {
   });
   noteSemDomainFromKind(a, 'PGR', tick);
   noteSemDomainFromKind(b, 'PGR', tick);
+  registerPartnerBond(world, recorder, a, b, { trigger: 'PGR' });
   return { aId, bId: b.id };
 }
 

@@ -10,6 +10,7 @@ import { applySocialKnowledgeInheritance } from './social-knowledge.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
 import { beingUsesEcoFiss } from './eco-repro.js';
+import { juvenileFissBoost, growLogicCellOnFiss } from './multicell-v2.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -60,7 +61,8 @@ export function fissionGate(world, being, { stress, integrity }) {
   if (!ecoFiss && !hasFissReplicationBudget(being, profile)) return null;
 
   const baseProb = profile.fissionBaseProb ?? 0.4;
-  const eagerP = Math.min(0.95, baseProb + dna.bias * 0.4);
+  const juvBoost = juvenileFissBoost(being, world, profile);
+  const eagerP = Math.min(0.95, baseProb + dna.bias * 0.4 + juvBoost);
   const roll = mulberry32(hashString(`${being.id}:${world.tick}:fissroll`))();
   if (roll > eagerP) return null;
 
@@ -89,6 +91,10 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
 
   parent.lastFissionTick = world.tick;
   parent.fissionCount = (parent.fissionCount ?? 0) + 1;
+  const grown = growLogicCellOnFiss(parent, profile);
+  if (grown) {
+    parent.juvFissTicks = (parent.juvFissTicks ?? 0) + 1;
+  }
   if (reproductionProfileEnabled(world.envProfile)) {
     recordReproductionPathEvent(parent, 'FISS_PARENT');
   }
