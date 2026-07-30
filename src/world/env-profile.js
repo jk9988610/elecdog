@@ -2478,6 +2478,66 @@ export const PHASE102_TREATMENTS = {
   },
 };
 
+const WL3_SEM_STACK = {
+  semEnabled: true,
+  semWindow: 1,
+  semMinCount: 8,
+  semFeedbackEnabled: true,
+  semFeedbackStrength: 0.05,
+  semFeedbackMinPairs: 2,
+  semFeedbackSaturation: 32,
+  semLineageEnabled: true,
+  semLineageBlend: 0.55,
+  semTraceTopN: 4,
+  semTraceMinCount: 2,
+};
+
+const WL3_SOC_STACK = {
+  socialKnowledgeEnabled: true,
+  socialKnowledgeFeedbackEnabled: true,
+};
+
+const WL3_FACTORIAL_BASE = {
+  ...W5_WISDOM_FULL,
+  semEnabled: false,
+  semFeedbackEnabled: false,
+  semLineageEnabled: false,
+  socialKnowledgeEnabled: false,
+  socialKnowledgeFeedbackEnabled: false,
+};
+
+/** Phase 103 — WL3 SEM × 社会知识正交对照（640 tick） */
+export const PHASE103_TREATMENTS = {
+  w3_off_off: {
+    id: 'w3_off_off',
+    label: '无SEM无SOC',
+    envId: 'wisdom_evolution',
+    ...WL3_FACTORIAL_BASE,
+  },
+  w3_off_on: {
+    id: 'w3_off_on',
+    label: '无SEM有SOC',
+    envId: 'wisdom_evolution',
+    ...WL3_FACTORIAL_BASE,
+    ...WL3_SOC_STACK,
+  },
+  w3_on_off: {
+    id: 'w3_on_off',
+    label: '有SEM无SOC',
+    envId: 'wisdom_evolution',
+    ...WL3_FACTORIAL_BASE,
+    ...WL3_SEM_STACK,
+  },
+  w3_on_on: {
+    id: 'w3_on_on',
+    label: 'SEM+SOC双开',
+    envId: 'wisdom_evolution',
+    ...WL3_FACTORIAL_BASE,
+    ...WL3_SEM_STACK,
+    ...WL3_SOC_STACK,
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈可视化 */
 ENV_PROFILES.observer_w6_stack = {
   id: 'observer_w6_stack',
@@ -3094,6 +3154,17 @@ export function initEnvStackModules(world, profile = world?.envProfile) {
   if (profile.ventEnabled) initVentState(world, profile);
   if (profile.migEnabled) initMigState(world);
   if (profile.dissipationEnabled) initDissipationStats(world);
+}
+
+export function applyPhase103Treatment(world, treatmentId) {
+  const treatment = PHASE103_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase103 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 103, treatmentId, ...treatment };
+  return world.envProfile;
 }
 
 export function applyPhase102Treatment(world, treatmentId) {
