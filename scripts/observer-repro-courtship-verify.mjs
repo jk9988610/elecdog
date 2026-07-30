@@ -7,11 +7,13 @@ import { applyEnvProfile, initEnvStackModules } from '../src/world/env-profile.j
 import { Recorder } from '../src/recorder/logger.js';
 import { spawnBeing } from '../src/birth/spawn.js';
 import { spawnAdultMulticellCohort, initAdultWeanedBeing } from '../src/birth/adult-cohort.js';
+import { issueAdultHealthReport } from '../src/world/health-report.js';
 import {
   canMaleCourtFemale,
+  canSendCourtship,
   isPregnant,
 } from '../src/world/courtship-gate.js';
-import { isReproKinBlocked } from '../src/world/kinship-gate.js';
+import { cohortKinBlocked, isReproKinBlocked } from '../src/world/kinship-gate.js';
 import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
@@ -67,8 +69,14 @@ assert(
   '雄有成体精子'
 );
 assert(
-  cohort.filter((b) => b.pairMorph === 'B').every((b) => b.dockedHalf?.seq),
-  '雌有成体卵子'
+  cohort.every((b) => b.healthReport?.dnaFp),
+  '成体均有体检报告'
+);
+assert(
+  cohort.every((b) => {
+    return cohort.every((o) => b.id === o.id || !cohortKinBlocked(b, o, world.envProfile));
+  }),
+  '开局 8 人无近亲血缘'
 );
 
 const model = buildGenealogyModel(world);
@@ -83,9 +91,12 @@ pinChannels(female, STR_PAIR_IN, 7);
 
 const prq = registerPairSpeechPRQ(world, recorder, male, female.id);
 assert(prq, '成体雄可向雌 PRQ');
+assert(prq.healthReport?.dnaFp, 'PRQ 附带体检报告');
 const pgr = registerPairSpeechPGR(world, recorder, female, male.id);
 assert(pgr, '雌可 PGR 成为伴侣');
 assert(male.partnerId === female.id, '伴侣登记');
+assert(!canSendCourtship(male, world), '有伴侣雄不发送求偶');
+assert(!canSendCourtship(female, world), '有伴侣雌不发送求偶');
 
 // 另一雄不能向已有伴侣的雌求偶
 const male2 = cohort.find((b) => b.pairMorph === 'A' && b.id !== male.id);
@@ -123,8 +134,8 @@ const { being: child } = spawnBeing(wKin, recKin, {
 child.pairParentA = dad.id;
 child.pairParentB = mom.id;
 initAdultWeanedBeing(child, wKin, wKin.envProfile);
-assert(isReproKinBlocked(dad, child), '父↔子阻断');
-assert(isReproKinBlocked(mom, child), '母↔子阻断');
+assert(isReproKinBlocked(dad, child, wKin.envProfile), '父↔子阻断');
+assert(isReproKinBlocked(mom, child, wKin.envProfile), '母↔子阻断');
 assert(!canMaleCourtFemale(child, mom, wKin).ok, '子不能向母求偶');
 registerPairSpeechPRQ(wKin, recKin, child, mom.id);
 assert(
@@ -145,7 +156,67 @@ assert(!female.bodyStructures[STR_PAIR_IN].open, '孕期关闭 STR-PAIR-IN');
 
 const blocks = recorder.entries.filter((e) => e.meta?.kind === 'PRQ-BLOCK');
 assert(blocks.some((e) => e.meta?.reason === 'female-partner'), 'PRQ-BLOCK female-partner 记录');
-assert(blocks.some((e) => e.meta?.reason === 'kin'), 'PRQ-BLOCK kin 记录');
+
+// 雌向雄求偶
+const wFem = createWorld('M-FPRQ');
+applyEnvProfile(wFem, 'multicell_v2_world');
+initEnvStackModules(wFem);
+const recFem = new Recorder();
+const cohortF = spawnAdultMulticellCohort(wFem, recFem, { males: 2, females: 2 });
+const fem = cohortF.find((b) => b.pairMorph === 'B');
+const mal = cohortF.find((b) => b.pairMorph === 'A');
+initAdultMatingStructures(mal, wFem.envProfile, 0);
+initAdultMatingStructures(fem, wFem.envProfile, 0);
+pinChannels(mal, STR_PAIR_OUT, 7);
+pinChannels(fem, STR_PAIR_IN, 7);
+const fPrq = registerPairSpeechPRQ(wFem, recFem, fem, mal.id);
+assert(fPrq?.fromMorph === 'B', '雌可向雄 PRQ');
+const mPgr = registerPairSpeechPGR(wFem, recFem, mal, fem.id);
+assert(mPgr, '雄回应雌 PGR');
+
+// DNA 血缘：同胞阻断求偶；克隆 DNA 在 PGR 时被忽略
+const wDna = createWorld('M-DNA');
+applyEnvProfile(wDna, 'multicell_v2_world');
+initEnvStackModules(wDna);
+const recDna = new Recorder();
+const { being: sibA } = spawnBeing(wDna, recDna, { name: 'sa', code: 'SA1', pairMorph: 'A' });
+const { being: sibB } = spawnBeing(wDna, recDna, { name: 'sb', code: 'SB1', pairMorph: 'B' });
+initAdultWeanedBeing(sibA, wDna, wDna.envProfile);
+initAdultWeanedBeing(sibB, wDna, wDna.envProfile);
+sibA.pairParentA = 'P1';
+sibA.pairParentB = 'P2';
+sibB.pairParentA = 'P1';
+sibB.pairParentB = 'P2';
+initAdultMatingStructures(sibA, wDna.envProfile, 0);
+initAdultMatingStructures(sibB, wDna.envProfile, 0);
+pinChannels(sibA, STR_PAIR_OUT, 7);
+pinChannels(sibB, STR_PAIR_IN, 7);
+assert(!registerPairSpeechPRQ(wDna, recDna, sibA, sibB.id), '同胞 PRQ 阻断');
+assert(
+  recDna.entries.some((e) => e.meta?.kind === 'PRQ-BLOCK' && e.meta?.reason === 'kin'),
+  '同胞 PRQ-BLOCK kin'
+);
+
+const { being: cloneA } = spawnBeing(wDna, recDna, { name: 'ca', code: 'CA1', pairMorph: 'A' });
+const { being: cloneB } = spawnBeing(wDna, recDna, { name: 'cb', code: 'CB1', pairMorph: 'B' });
+initAdultWeanedBeing(cloneA, wDna, wDna.envProfile);
+initAdultWeanedBeing(cloneB, wDna, wDna.envProfile);
+cloneB.dna.sequence = cloneA.dna.sequence;
+issueAdultHealthReport(cloneB, 0);
+initAdultMatingStructures(cloneA, wDna.envProfile, 0);
+initAdultMatingStructures(cloneB, wDna.envProfile, 0);
+pinChannels(cloneA, STR_PAIR_OUT, 7);
+pinChannels(cloneB, STR_PAIR_IN, 7);
+const clonePrq = registerPairSpeechPRQ(wDna, recDna, cloneA, cloneB.id);
+assert(!clonePrq, '克隆 DNA PRQ 阻断');
+assert(
+  recDna.entries.some(
+    (e) =>
+      e.meta?.kind === 'PRQ-IGNORE' ||
+      (e.meta?.kind === 'PRQ-BLOCK' && e.meta?.reason === 'kin')
+  ),
+  '克隆/近亲 PRQ-IGNORE 或 PRQ-BLOCK'
+);
 
 if (failed) {
   console.error(`observer-repro-courtship-verify: ${failed} failed`);

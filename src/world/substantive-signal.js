@@ -15,7 +15,7 @@ import {
 } from './sem-domain.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { preferAct, externalThreshold } from './viability.js';
-import { canMaleCourtFemale, canFemaleGrantMale, isPregnant } from './courtship-gate.js';
+import { canCourtPair, canFemaleGrantMale, canMaleGrantFemale, canSendCourtship, isPregnant } from './courtship-gate.js';
 
 const DOMAIN_TO_QUERY = {
   [SEM_DOMAIN_YI]: 'Q-YI',
@@ -115,13 +115,25 @@ export function appendMulticellIntraTx(internal, being) {
 function pickMorphBTarget(world, a, heardSignals = []) {
   for (const sig of heardSignals) {
     const from = world.beings.find((b) => b.id === sig.fromId);
-    if (from?.alive && from.pairMorph === 'B' && canMaleCourtFemale(a, from, world).ok) return from;
+    if (from?.alive && from.pairMorph === 'B' && canCourtPair(a, from, world).ok) return from;
   }
   const candidates = world.beings.filter(
-    (b) => b.alive && b.pairMorph === 'B' && b.id !== a.id && canMaleCourtFemale(a, b, world).ok
+    (b) => b.alive && b.pairMorph === 'B' && b.id !== a.id && canCourtPair(a, b, world).ok
   );
   if (!candidates.length) return null;
   return candidates.sort((x, y) => slotDistance(x, a) - slotDistance(y, a))[0];
+}
+
+function pickMorphATarget(world, b, heardSignals = []) {
+  for (const sig of heardSignals) {
+    const from = world.beings.find((x) => x.id === sig.fromId);
+    if (from?.alive && from.pairMorph === 'A' && canCourtPair(b, from, world).ok) return from;
+  }
+  const candidates = world.beings.filter(
+    (x) => x.alive && x.pairMorph === 'A' && x.id !== b.id && canCourtPair(b, x, world).ok
+  );
+  if (!candidates.length) return null;
+  return candidates.sort((x, y) => slotDistance(x, b) - slotDistance(y, b))[0];
 }
 
 function pickMorphAGrant(world, b, heardSignals = []) {
@@ -134,13 +146,37 @@ function pickMorphAGrant(world, b, heardSignals = []) {
   }
   const reqs = world.pairRequests ?? [];
   if (!reqs.length) return null;
-  const sorted = [...reqs].sort(
-    (x, y) =>
-      slotDistance({ socialSlot: x.socialSlot }, b) - slotDistance({ socialSlot: y.socialSlot }, b)
-  );
+  const sorted = [...reqs]
+    .filter((r) => r.toId === b.id && r.fromMorph === 'A')
+    .sort(
+      (x, y) =>
+        slotDistance({ socialSlot: x.socialSlot }, b) - slotDistance({ socialSlot: y.socialSlot }, b)
+    );
   for (const req of sorted) {
     const a = world.beings.find((x) => x.id === req.fromId);
     if (a?.alive && a.pairMorph === 'A' && a.meiPacket && canFemaleGrantMale(b, a, world).ok) return a;
+  }
+  return null;
+}
+
+function pickMorphBGrant(world, a, heardSignals = []) {
+  for (const sig of heardSignals) {
+    const d = parseDirectedTx(sig.content);
+    if (d?.intent === 'PRQ' && d.toId === a.id) {
+      const b = world.beings.find((x) => x.id === sig.fromId);
+      if (b?.alive && b.pairMorph === 'B' && b.dockedHalf && canMaleGrantFemale(a, b, world).ok) return b;
+    }
+  }
+  const reqs = world.pairRequests ?? [];
+  const sorted = [...reqs]
+    .filter((r) => r.toId === a.id && r.fromMorph === 'B')
+    .sort(
+      (x, y) =>
+        slotDistance({ socialSlot: x.socialSlot }, a) - slotDistance({ socialSlot: y.socialSlot }, a)
+    );
+  for (const req of sorted) {
+    const b = world.beings.find((x) => x.id === req.fromId);
+    if (b?.alive && b.pairMorph === 'B' && b.dockedHalf && canMaleGrantFemale(a, b, world).ok) return b;
   }
   return null;
 }
@@ -178,6 +214,17 @@ function hasValidPairGrant(world, a) {
 
 function deriveReproIntent(being, world, heardSignals) {
   if (!pairReproEnabled(world.envProfile)) return null;
+  if (!canSendCourtship(being, world)) {
+    if (being.pairMorph === 'B' && being.dockedHalf && !isPregnant(being)) {
+      const grantA = pickMorphAGrant(world, being, heardSignals);
+      if (grantA) return { intent: 'PGR', target: grantA };
+    }
+    if (being.pairMorph === 'A' && being.meiPacket) {
+      const grantB = pickMorphBGrant(world, being, heardSignals);
+      if (grantB) return { intent: 'PGR', target: grantB };
+    }
+    return null;
+  }
   if (being.pairMorph === 'A' && being.meiPacket && !hasValidPairGrant(world, being)) {
     const target = pickMorphBTarget(world, being, heardSignals);
     if (target) return { intent: 'PRQ', target };
@@ -185,6 +232,12 @@ function deriveReproIntent(being, world, heardSignals) {
   if (being.pairMorph === 'B' && being.dockedHalf && !isPregnant(being)) {
     const grantA = pickMorphAGrant(world, being, heardSignals);
     if (grantA) return { intent: 'PGR', target: grantA };
+    const target = pickMorphATarget(world, being, heardSignals);
+    if (target) return { intent: 'PRQ', target };
+  }
+  if (being.pairMorph === 'A' && being.meiPacket) {
+    const grantB = pickMorphBGrant(world, being, heardSignals);
+    if (grantB) return { intent: 'PGR', target: grantB };
   }
   return null;
 }

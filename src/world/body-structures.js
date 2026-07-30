@@ -205,5 +205,10 @@ export function tickLactationContact(world, recorder, child, profile) {
   );
   noteSemDomainFromKind(child, 'LAC', world.tick);
   noteSemDomainFromKind(parent, 'LAC', world.tick);
+  parent.lactContactCount = (parent.lactContactCount ?? 0) + 1;
+  parent.lastLacTick = world.tick;
+  if (parent.hormoneVec?.h2 != null) {
+    parent.lactHormonePulse = +Math.min(1, parent.hormoneVec.h2 + 0.04).toFixed(4);
+  }
   return { transfers, parentId: parent.id, overlap };
 }

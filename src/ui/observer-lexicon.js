@@ -65,6 +65,8 @@ export const PAIR_MORPH_CN = {
 export const SPEECH_INTENT_CN = {
   PRQ: '繁殖许可请求（排出方→接纳方）',
   PGR: '繁殖许可授予（接纳方→排出方）',
+  'PRQ-F': '雌方向雄求偶',
+  'PGR-M': '雄方向雌回应求偶',
   'Q-YI': '衣域询问',
   'Q-SHI': '食域询问',
   'Q-ZHU': '住域询问',
