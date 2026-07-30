@@ -1,10 +1,10 @@
 // 体表结构 — 交配凹凸、哺乳/摄取接触（机制层 STR-*）
 
-import { hashString, mulberry32 } from '../core/hash.js';
 import { getSubCellByRole } from './organism.js';
 import { multicellV2Enabled } from './multicell-v2.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
+import { expressMorphSlot } from '../genetics/dna-express.js';
 
 export const STR_PAIR_OUT = 'STR-PAIR-OUT';
 export const STR_PAIR_IN = 'STR-PAIR-IN';
@@ -13,7 +13,8 @@ export const STR_ING_IN = 'STR-ING-IN';
 
 export function morphSlotHash(being) {
   const seq = being?.dna?.sequence ?? being?.id ?? '';
-  return hashString(`${seq}:${being?.id ?? ''}:Z2:morph`) % 997;
+  if (being?.dnaExpress?.morphSlot != null) return being.dnaExpress.morphSlot;
+  return expressMorphSlot(seq, being?.id ?? '');
 }
 
 function morphSlotsCompatible(slotA, slotB, profile) {

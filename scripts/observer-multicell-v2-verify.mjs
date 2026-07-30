@@ -201,5 +201,9 @@ assert(hrmTick.length > 0, `[HRM] LOG-HRM 分泌链（${hrmTick.length}）`);
 const reg = recorder.entries.filter((e) => e.meta?.kind === 'REG');
 assert(reg.length > 0, `[REG] 全身调节摘要（${reg.length}）`);
 
+// MV8 — DNA 分区表达
+assert(world.beings.every((b) => b.dnaExpress?.hormoneBaseline?.h0 != null), 'dnaExpress 挂接');
+assert(world.beings.every((b) => b.dnaExpress?.sense?.th?.minLoad != null), 'Z5 感官 profile');
+
 if (failed) process.exit(1);
-console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV5/MV6/MV7 验证通过');
+console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV5/MV6/MV7/MV8 验证通过');

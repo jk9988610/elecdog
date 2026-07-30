@@ -77,26 +77,38 @@ export function onSenseCellDifferentiated(being, code, profile, atTick = 0) {
   return ensureSenseStructure(being, cfg, profile, atTick);
 }
 
-function senseLoad(cfg, env, hints) {
+function senseLoad(cfg, env, hints, being, profile) {
+  const senseProfile = being?.dnaExpress?.sense?.[cfg.kind];
+  const sat = senseProfile?.saturation ?? 1;
+  const noise = senseProfile?.noise ?? 0;
+  let raw = 0;
   switch (cfg.kind) {
     case 'th':
-      return hints.hadExternal
+      raw = hints.hadExternal
         ? 0.25 + (hints.hadAct ? 0.35 : 0) + (hints.contestHit ? 0.2 : 0)
         : 0;
+      break;
     case 'tm':
-      return env.tempScalar ?? 0;
+      raw = env.tempScalar ?? 0;
+      break;
     case 'gu':
-      return hints.hadDraw ? env.substrateAvg * 0.85 : env.substrateAvg * 0.35;
+      raw = hints.hadDraw ? env.substrateAvg * 0.85 : env.substrateAvg * 0.35;
+      break;
     case 'vs':
-      return Math.min(1, (env.effectiveSolar ?? 0) * 0.7 + (env.hasVisualField ? 0.15 : 0));
+      raw = Math.min(1, (env.effectiveSolar ?? 0) * 0.7 + (env.hasVisualField ? 0.15 : 0));
+      break;
     case 'au':
-      return Math.min(1, (hints.heardCount ?? 0) * 0.28 + (hints.fieldTxCount ?? 0) * 0.12);
+      raw = Math.min(1, (hints.heardCount ?? 0) * 0.28 + (hints.fieldTxCount ?? 0) * 0.12);
+      break;
     case 'ol':
       const symN = hints.symModuleCount ?? 0;
-      return Math.min(1, env.substrateAvg * 0.55 + symN * 0.08);
+      raw = Math.min(1, env.substrateAvg * 0.55 + symN * 0.08);
+      break;
     default:
-      return 0;
+      raw = 0;
   }
+  const scaled = Math.min(sat, raw + noise * (hints.senseNoise ?? 0.5));
+  return scaled;
 }
 
 /** 每 tick 感官采样 → [SEN]（环境场门控） */
@@ -105,7 +117,7 @@ export function tickSenses(world, recorder, being, profile, hints = {}) {
 
   ensureAllSenseStructures(being, profile, world.tick);
   const env = sampleOrganismEnv(world, profile, being);
-  const minLoad = profile.senMinLoad ?? 0.06;
+  const profileMin = profile.senMinLoad ?? 0.06;
   const interval = profile.senLogInterval ?? 16;
   const forceLog = world.tick > 0 && world.tick % interval === 0;
   const events = [];
@@ -117,8 +129,10 @@ export function tickSenses(world, recorder, being, profile, hints = {}) {
     const runtimeOk = senseRuntimeActive(cfg.code, env, hints, profile);
     if (!runtimeOk) continue;
 
+    const senseProfile = being.dnaExpress?.sense?.[cfg.kind];
+    const minLoad = senseProfile?.minLoad ?? profileMin;
     const load = +(
-      senseLoad(cfg, env, hints) * hormoneActivityMult(being, cfg.code)
+      senseLoad(cfg, env, hints, being, profile) * hormoneActivityMult(being, cfg.code)
     ).toFixed(4);
     if (load < minLoad && !forceLog) continue;
 

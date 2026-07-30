@@ -185,6 +185,7 @@
     "observer:brain-evolution": "node scripts/observer-brain-evolution-verify.mjs",
     "observer:repro-speech": "node scripts/observer-repro-speech-verify.mjs",
     "observer:multicell-v2": "node scripts/observer-multicell-v2-verify.mjs",
+    "observer:dna-express": "node scripts/observer-dna-express-verify.mjs",
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",
