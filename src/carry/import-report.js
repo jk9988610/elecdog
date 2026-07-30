@@ -55,6 +55,8 @@ export function suggestObserverEnvId(report, entry) {
   return entry?.snapshot?.provenance?.envId ?? 'observer_wl_stack';
 }
 
+export { groupEntriesByRun, pickRunCarryBatch } from './mixed-cohort.js';
+
 export function parseFieldReportJson(text) {
   let data;
   try {
