@@ -1,15 +1,28 @@
-// 多细胞 v2 — 皮肤膜、逻辑细胞群、幼体/成体阶段门控
+// 多细胞 v2 — 皮肤膜、发育阶段、体内 MIT/DIFF（≠ 种群 FISS）
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { getSubCellByRole } from './organism.js';
 import {
   LOGIC_CELL_TYPES,
   LOGIC_CELL_MAX_PER_TYPE,
   SKIN_CELL_CODE,
-  initialLogicCellCount,
+  STEM_CELL_CODE,
+  STEM_CELL_MAX,
+  LIFE_STAGE_GEST,
+  LIFE_STAGE_EMB,
+  LIFE_STAGE_JUV,
+  LIFE_STAGE_ADT,
+  initialStemCellCount,
+  typesDifferentiableInStage,
+  logicCellTypeByCode,
 } from './logic-cell-types.js';
 
-export const LIFE_STAGE_JUV = 'JUV';
-export const LIFE_STAGE_ADT = 'ADT';
+export {
+  LIFE_STAGE_GEST,
+  LIFE_STAGE_EMB,
+  LIFE_STAGE_JUV,
+  LIFE_STAGE_ADT,
+} from './logic-cell-types.js';
 
 export function multicellV2Enabled(profile) {
   return profile?.multicellV2Enabled === true;
@@ -23,6 +36,12 @@ function makeCellId(beingId, code, idx) {
   return `${beingId.slice(-6)}:${code}:${idx}`;
 }
 
+function ensureCellList(being, code) {
+  if (!being.logicCells) being.logicCells = {};
+  if (!being.logicCells[code]) being.logicCells[code] = [];
+  return being.logicCells[code];
+}
+
 export function initMulticellV2(being, profile) {
   const rng = mulberry32(hashString(`${being.id}:logic-cells`));
   being.skinMembrane = {
@@ -31,22 +50,50 @@ export function initMulticellV2(being, profile) {
     atTick: 0,
   };
   being.logicCells = {};
-  for (const t of LOGIC_CELL_TYPES) {
-    const n = Math.min(t.max, initialLogicCellCount(t.code, rng));
-    being.logicCells[t.code] = Array.from({ length: n }, (_, i) => ({
-      id: makeCellId(being.id, t.code, i),
-      code: t.code,
-      atTick: 0,
-    }));
-  }
+  const stemN = initialStemCellCount(rng);
+  being.logicCells[STEM_CELL_CODE] = Array.from({ length: stemN }, (_, i) => ({
+    id: makeCellId(being.id, STEM_CELL_CODE, i),
+    code: STEM_CELL_CODE,
+    atTick: 0,
+  }));
+  being.devStage = being.syncyte ? LIFE_STAGE_GEST : LIFE_STAGE_EMB;
   being.lifeStage = LIFE_STAGE_JUV;
   being.adultAtTick = null;
-  being.juvFissTicks = 0;
+  being.juvMitTicks = 0;
+  being.juvDiffTicks = 0;
+  being.lastMitTick = -999;
+  being.lastDiffTick = -999;
   return being.logicCells;
+}
+
+/** 发育阶段 GEST / EMB / JUV / ADT（与 mei 用的 lifeStage JUV/ADT 并存） */
+export function resolveDevStage(being, world, profile) {
+  if (!multicellV2Enabled(profile)) return being.devStage ?? LIFE_STAGE_ADT;
+
+  if (being.syncyte) {
+    being.devStage = LIFE_STAGE_GEST;
+    return LIFE_STAGE_GEST;
+  }
+
+  const embryonicTicks = profile?.embryonicTicks ?? 48;
+  const juvenileTicks = profile?.juvenileTicks ?? 96;
+  const tick = being.tickCount ?? 0;
+
+  if (tick < embryonicTicks) {
+    being.devStage = LIFE_STAGE_EMB;
+    return LIFE_STAGE_EMB;
+  }
+  if (tick < juvenileTicks) {
+    being.devStage = LIFE_STAGE_JUV;
+    return LIFE_STAGE_JUV;
+  }
+  being.devStage = LIFE_STAGE_ADT;
+  return LIFE_STAGE_ADT;
 }
 
 export function resolveLifeStage(being, world, profile) {
   if (!multicellV2Enabled(profile)) return being.lifeStage ?? LIFE_STAGE_ADT;
+  resolveDevStage(being, world, profile);
   const juvenileTicks = profile?.juvenileTicks ?? 96;
   if (being.tickCount >= juvenileTicks) {
     if (being.lifeStage !== LIFE_STAGE_ADT) {
@@ -63,21 +110,36 @@ export function isJuvenile(being, profile) {
   return resolveLifeStage(being, { tick: being.tickCount ?? 0 }, profile) === LIFE_STAGE_JUV;
 }
 
-/** 幼体：减数/排出半态关闭 */
 export function meiAllowedForBeing(being, world, profile) {
   if (!multicellV2Enabled(profile)) return true;
   return resolveLifeStage(being, world, profile) === LIFE_STAGE_ADT;
 }
 
-/** 幼体有丝分裂更活跃（概率加成） */
-export function juvenileFissBoost(being, world, profile) {
+/** 幼体体内 MIT 加成（≠ 种群 FISS） */
+export function juvenileMitBoost(being, world, profile) {
   if (!multicellV2Enabled(profile)) return 0;
-  if (resolveLifeStage(being, world, profile) !== LIFE_STAGE_JUV) return 0;
-  return profile?.juvenileFissBoost ?? 0.12;
+  const stage = resolveDevStage(being, world, profile);
+  if (stage === LIFE_STAGE_GEST || stage === LIFE_STAGE_EMB) {
+    return profile?.juvenileFissBoost ?? 0.12;
+  }
+  if (stage === LIFE_STAGE_JUV) return (profile?.juvenileFissBoost ?? 0.12) * 0.65;
+  return 0;
+}
+
+/** @deprecated 种群 FISS 不再随机增长逻辑细胞；保留名避免外部引用断裂 */
+export function juvenileFissBoost(being, world, profile) {
+  return juvenileMitBoost(being, world, profile);
+}
+
+export function growLogicCellOnFiss() {
+  return null;
 }
 
 export function logicCellCounts(being) {
   const out = { [SKIN_CELL_CODE]: 1 };
+  if (being.logicCells?.[STEM_CELL_CODE]?.length) {
+    out[STEM_CELL_CODE] = being.logicCells[STEM_CELL_CODE].length;
+  }
   for (const t of LOGIC_CELL_TYPES) {
     out[t.code] = being.logicCells?.[t.code]?.length ?? 0;
   }
@@ -92,28 +154,216 @@ export function totalLogicCells(being) {
   return n;
 }
 
-/** 有丝分裂成功时可增加某类逻辑细胞（MV1 骨架：优先 MOT/DIG） */
-export function growLogicCellOnFiss(being, profile, rng = Math.random) {
-  if (!multicellV2Enabled(profile)) return null;
-  const candidates = ['LOG-MOT', 'LOG-DIG', 'LOG-NRV', 'LOG-BRN'];
-  const code = candidates[Math.floor(rng() * candidates.length)];
-  const cells = being.logicCells?.[code];
-  if (!cells || cells.length >= LOGIC_CELL_MAX_PER_TYPE) return null;
+function diffPositionLabel(being) {
+  const draw = getSubCellByRole(being, 'draw');
+  const act = getSubCellByRole(being, 'act');
+  const balance = getSubCellByRole(being, 'balance');
+  const idx = (being.intraTick ?? 0) % 3;
+  if (idx === 0 && draw) return `sc:${draw.id}`;
+  if (idx === 1 && act) return `sc:${act.id}`;
+  if (idx === 2 && balance) return `sc:${balance.id}`;
+  return 'core';
+}
+
+function pickDiffTarget(being, stage, rng) {
+  const allowed = typesDifferentiableInStage(stage);
+  if (!allowed.length) return null;
+
+  const posIdx = (being.intraTick ?? 0) % 3;
+  const preference =
+    stage === LIFE_STAGE_EMB || stage === LIFE_STAGE_GEST
+      ? ['LOG-BAR', 'LOG-RES', 'LOG-NTR', 'LOG-TRP', 'LOG-DIG', 'LOG-NRV']
+      : stage === LIFE_STAGE_JUV
+        ? ['LOG-DIG', 'LOG-MOT', 'LOG-NRV', 'LOG-BRN', 'LOG-LNG', 'LOG-STR', 'LOG-CLR']
+        : ['LOG-GON', 'LOG-HRM'];
+
+  const allowedSet = new Set(allowed.map((t) => t.code));
+  const roleHint =
+    posIdx === 0 ? 'LOG-DIG' : posIdx === 1 ? 'LOG-MOT' : 'LOG-NRV';
+
+  if (allowedSet.has(roleHint) && (being.logicCells?.[roleHint]?.length ?? 0) < LOGIC_CELL_MAX_PER_TYPE) {
+    if (rng() < 0.55) return roleHint;
+  }
+
+  for (const code of preference) {
+    if (!allowedSet.has(code)) continue;
+    const n = being.logicCells?.[code]?.length ?? 0;
+    if (n < LOGIC_CELL_MAX_PER_TYPE) return code;
+  }
+
+  const fallback = allowed.find((t) => (being.logicCells?.[t.code]?.length ?? 0) < t.max);
+  return fallback?.code ?? null;
+}
+
+function addLogicCell(being, code, atTick) {
+  const cells = ensureCellList(being, code);
+  const t = logicCellTypeByCode(code);
+  const max = t?.max ?? LOGIC_CELL_MAX_PER_TYPE;
+  if (cells.length >= max) return null;
   const cell = {
     id: makeCellId(being.id, code, cells.length),
     code,
-    atTick: being.tickCount ?? 0,
+    atTick,
   };
   cells.push(cell);
   return cell;
 }
 
+function consumeStem(being) {
+  const stems = being.logicCells?.[STEM_CELL_CODE];
+  if (!stems?.length) return null;
+  const stem = stems[stems.length - 1];
+  stems.pop();
+  return stem;
+}
+
+function tryStemMitosis(being, profile, rng) {
+  const stems = ensureCellList(being, STEM_CELL_CODE);
+  if (!stems.length || stems.length >= STEM_CELL_MAX) return null;
+  const parent = stems[Math.floor(rng() * stems.length)];
+  const daughter = addLogicCell(being, STEM_CELL_CODE, being.tickCount ?? 0);
+  if (!daughter) return null;
+  return { parentId: parent.id, daughterId: daughter.id, code: STEM_CELL_CODE, sameType: true };
+}
+
+function trySameTypeMitosis(being, profile, rng) {
+  const codes = LOGIC_CELL_TYPES.map((t) => t.code).filter(
+    (code) => (being.logicCells?.[code]?.length ?? 0) > 0
+  );
+  if (!codes.length) return null;
+  const code = codes[Math.floor(rng() * codes.length)];
+  const cells = being.logicCells[code];
+  if (cells.length >= LOGIC_CELL_MAX_PER_TYPE) return null;
+  const parent = cells[Math.floor(rng() * cells.length)];
+  const daughter = addLogicCell(being, code, being.tickCount ?? 0);
+  if (!daughter) return null;
+  return { parentId: parent.id, daughterId: daughter.id, code, sameType: true };
+}
+
+function tryDifferentiation(being, world, profile, stage, rng) {
+  const target = pickDiffTarget(being, stage, rng);
+  if (!target) return null;
+  const stem = consumeStem(being);
+  if (!stem) return null;
+  const cell = addLogicCell(being, target, being.tickCount ?? 0);
+  if (!cell) {
+    ensureCellList(being, STEM_CELL_CODE).push(stem);
+    return null;
+  }
+  return {
+    stage,
+    from: STEM_CELL_CODE,
+    to: target,
+    stemId: stem.id,
+    cellId: cell.id,
+    pos: diffPositionLabel(being),
+  };
+}
+
+function mitProbability(stage, profile, boost) {
+  const base =
+    stage === LIFE_STAGE_GEST || stage === LIFE_STAGE_EMB
+      ? 0.14
+      : stage === LIFE_STAGE_JUV
+        ? 0.07
+        : 0.035;
+  return Math.min(0.42, base + boost);
+}
+
+function diffProbability(stage, profile) {
+  if (stage === LIFE_STAGE_GEST || stage === LIFE_STAGE_EMB) return 0.12;
+  if (stage === LIFE_STAGE_JUV) return 0.08;
+  if (stage === LIFE_STAGE_ADT) return 0.05;
+  return 0;
+}
+
+export function recordLogicCellSnapshot(world, recorder, being) {
+  const counts = logicCellCounts(being);
+  const summary = LOGIC_CELL_TYPES
+    .map((t) => `${t.code}:${counts[t.code] ?? 0}`)
+    .join(' ');
+  const stem = counts[STEM_CELL_CODE] ?? 0;
+  recorder.cell(
+    world.tick,
+    being.id,
+    `[CEL] logic STEM:${stem} ${summary}`,
+    {
+      kind: 'CEL-LOG',
+      devStage: being.devStage,
+      counts,
+      totalLogic: totalLogicCells(being),
+    }
+  );
+}
+
+/** 每 tick 体内发育：MIT / DIFF（≠ 种群 FISS） */
+export function tickMulticellDevelopment(world, recorder, being, profile) {
+  if (!multicellV2Enabled(profile) || !being.alive) return null;
+
+  const stage = resolveDevStage(being, world, profile);
+  resolveLifeStage(being, world, profile);
+  const rng = mulberry32(hashString(`${being.id}:${world.tick}:mv-dev`));
+  const boost = juvenileMitBoost(being, world, profile);
+  const events = [];
+
+  const mitGap = profile?.mitIntervalTicks ?? 6;
+  if (world.tick - (being.lastMitTick ?? -999) >= mitGap) {
+    const pMit = mitProbability(stage, profile, boost);
+    if (rng() < pMit) {
+      const mit =
+        stage === LIFE_STAGE_ADT
+          ? trySameTypeMitosis(being, profile, rng)
+          : rng() < 0.72
+            ? tryStemMitosis(being, profile, rng)
+            : trySameTypeMitosis(being, profile, rng);
+      if (mit) {
+        being.lastMitTick = world.tick;
+        if (stage === LIFE_STAGE_JUV || stage === LIFE_STAGE_EMB) being.juvMitTicks++;
+        recorder.evolution(
+          world.tick,
+          being.id,
+          `[MIT] ${mit.code} ${mit.parentId}→${mit.daughterId}`,
+          { kind: 'MIT', stage, ...mit }
+        );
+        events.push({ type: 'MIT', ...mit });
+      }
+    }
+  }
+
+  const diffGap = profile?.diffIntervalTicks ?? 8;
+  if (world.tick - (being.lastDiffTick ?? -999) >= diffGap) {
+    const pDiff = diffProbability(stage, profile);
+    if (rng() < pDiff) {
+      const diff = tryDifferentiation(being, world, profile, stage, rng);
+      if (diff) {
+        being.lastDiffTick = world.tick;
+        being.juvDiffTicks++;
+        recorder.evolution(
+          world.tick,
+          being.id,
+          `[DIFF] ${diff.stage} ${diff.from}→${diff.to} ${diff.pos}`,
+          { kind: 'DIFF', ...diff }
+        );
+        events.push({ type: 'DIFF', ...diff });
+      }
+    }
+  }
+
+  if (world.tick > 0 && world.tick % (profile?.celLogInterval ?? 32) === 0) {
+    recordLogicCellSnapshot(world, recorder, being);
+  }
+
+  return events.length ? events : null;
+}
+
 export function multicellV2Snapshot(being) {
   return {
+    devStage: being.devStage ?? null,
     lifeStage: being.lifeStage ?? null,
     adultAtTick: being.adultAtTick ?? null,
     skin: being.skinMembrane ?? null,
     logicCounts: logicCellCounts(being),
     totalLogic: totalLogicCells(being),
+    stemCount: being.logicCells?.[STEM_CELL_CODE]?.length ?? 0,
   };
 }

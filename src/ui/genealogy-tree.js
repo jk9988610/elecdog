@@ -4,8 +4,13 @@
 
 import { label } from './analogy.js';
 import { pairMorphCn } from './observer-lexicon.js';
-import { LOGIC_CELL_TYPES, SKIN_CELL_CODE } from '../world/logic-cell-types.js';
-import { LIFE_STAGE_JUV, LIFE_STAGE_ADT } from '../world/multicell-v2.js';
+import { LOGIC_CELL_TYPES, SKIN_CELL_CODE, STEM_CELL_CODE, STEM_CELL_TYPE } from '../world/logic-cell-types.js';
+import {
+  LIFE_STAGE_EMB,
+  LIFE_STAGE_GEST,
+  LIFE_STAGE_JUV,
+  LIFE_STAGE_ADT,
+} from '../world/logic-cell-types.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -20,7 +25,9 @@ function beingTail(id) {
 }
 
 function stageLabel(stage) {
-  if (stage === LIFE_STAGE_JUV) return '幼体';
+  if (stage === LIFE_STAGE_GEST) return '宫内胚胎';
+  if (stage === LIFE_STAGE_EMB) return '体外胚胎';
+  if (stage === LIFE_STAGE_JUV) return '婴幼儿';
   if (stage === LIFE_STAGE_ADT) return '成体';
   return stage ?? '—';
 }
@@ -137,10 +144,13 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
 export function renderBeingDetailHTML(being) {
   if (!being) return '<p class="muted">未选择个体</p>';
   const counts = being.logicCells ?? {};
-  const logicRows = LOGIC_CELL_TYPES.map((t) => {
-    const n = counts[t.code]?.length ?? 0;
-    return `<div class="stat-row"><span>${escapeHtml(t.analogy)} <code>${escapeHtml(t.code)}</code></span><strong>${n}/8</strong></div>`;
-  }).join('');
+  const logicRows = [
+    `<div class="stat-row"><span>${escapeHtml(STEM_CELL_TYPE.analogy)} <code>${escapeHtml(STEM_CELL_CODE)}</code></span><strong>${counts[STEM_CELL_CODE]?.length ?? 0}/${STEM_CELL_TYPE.max}</strong></div>`,
+    ...LOGIC_CELL_TYPES.map((t) => {
+      const n = counts[t.code]?.length ?? 0;
+      return `<div class="stat-row"><span>${escapeHtml(t.analogy)} <code>${escapeHtml(t.code)}</code></span><strong>${n}/8</strong></div>`;
+    }),
+  ].join('');
 
   return `
     <div class="genealogy-detail">
@@ -149,7 +159,7 @@ export function renderBeingDetailHTML(being) {
       <div class="stat-grid">
         <div class="stat-row"><span>存活</span><strong>${being.alive ? '是' : '否'}</strong></div>
         <div class="stat-row"><span>形态</span><strong>${escapeHtml(pairMorphCn(being.pairMorph))}</strong></div>
-        <div class="stat-row"><span>阶段</span><strong>${escapeHtml(stageLabel(being.lifeStage))}</strong></div>
+        <div class="stat-row"><span>发育阶段</span><strong>${escapeHtml(stageLabel(being.devStage ?? being.lifeStage))}</strong></div>
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
         <div class="stat-row"><span>皮肤膜</span><strong>${escapeHtml(being.skinMembrane?.code ?? SKIN_CELL_CODE)}</strong></div>

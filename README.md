@@ -15,6 +15,9 @@
 | **[STATUS.md](docs/STATUS.md)** | **项目状态总览** |
 | [OUTLINE.md](docs/OUTLINE.md) | 公理与哲学 |
 | [ROADMAP.md](docs/ROADMAP.md) | 阶段规划与完善度 |
+| **[MULTICELL_V2_WORLD.md](docs/MULTICELL_V2_WORLD.md)** | **哺乳生物完整生命周期立项** |
+| **[DNA_EXPRESSION.md](docs/DNA_EXPRESSION.md)** | **DNA 分区表达** |
+| [GOAL_DISTANCE.md](docs/GOAL_DISTANCE.md) | 距总目标进度 |
 | [OBSERVATION_LOG.md](docs/OBSERVATION_LOG.md) | L1 田野笔记 |
 | [CODEX.md](docs/CODEX.md) | L2 世界辞典 |
 | [GAPS.md](docs/GAPS.md) | 观察缺口登记 |

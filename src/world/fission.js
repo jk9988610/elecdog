@@ -10,7 +10,7 @@ import { applySocialKnowledgeInheritance } from './social-knowledge.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
 import { beingUsesEcoFiss } from './eco-repro.js';
-import { juvenileFissBoost, growLogicCellOnFiss } from './multicell-v2.js';
+import { juvenileFissBoost } from './multicell-v2.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -91,10 +91,6 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
 
   parent.lastFissionTick = world.tick;
   parent.fissionCount = (parent.fissionCount ?? 0) + 1;
-  const grown = growLogicCellOnFiss(parent, profile);
-  if (grown) {
-    parent.juvFissTicks = (parent.juvFissTicks ?? 0) + 1;
-  }
   if (reproductionProfileEnabled(world.envProfile)) {
     recordReproductionPathEvent(parent, 'FISS_PARENT');
   }
