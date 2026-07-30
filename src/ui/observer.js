@@ -623,13 +623,15 @@ export class ObserverApp {
         const kind =
           r.summary?.kind === 'field-consciousness-manifest'
             ? '意识归档'
-            : r.summary?.kind === 'field-full-stack-manifest'
-              ? '全栈归档'
-              : r.summary?.kind === 'field-stack-manifest'
-                ? '栈归档'
-                : r.summary?.kind === 'field-batch'
-                  ? '批处理'
-                  : '观察台';
+            : r.summary?.kind === 'field-carry-manifest'
+              ? '留置谱系'
+              : r.summary?.kind === 'field-full-stack-manifest'
+                ? '全栈归档'
+                : r.summary?.kind === 'field-stack-manifest'
+                  ? '栈归档'
+                  : r.summary?.kind === 'field-batch'
+                    ? '批处理'
+                    : '观察台';
         return `<li class="cloud-run-item" data-log-path="${escapeHtml(r.log_path || '')}" data-run-title="${escapeHtml(r.world_name || '归档')}">
           <span class="cloud-list-title">${escapeHtml(r.world_name || '世界')} · tick ${r.tick} <span class="cloud-tag">${kind}</span></span>
           <span class="cloud-list-meta">${escapeHtml(r.observer_label || '—')} · 存活 ${r.alive_count}/${r.total_beings} · ${fmtDate(r.created_at)} · ${link} · <button type="button" class="link-btn" data-preview>预览</button></span>
@@ -676,11 +678,24 @@ export class ObserverApp {
         }
         if (sum.headlines?.length) {
           const title =
-            sum.kind === 'field-consciousness-manifest' ? '— 意识线指标 —' : '— 栈指标 —';
+            sum.kind === 'field-consciousness-manifest'
+              ? '— 意识线指标 —'
+              : sum.kind === 'field-carry-manifest'
+                ? '— 留置链谱系 —'
+                : '— 栈指标 —';
           lines.push(title);
           for (const h of sum.headlines) {
             lines.push(`  P${h.phase} ${h.metric}=${h.value} · ${h.treatment}`);
           }
+        }
+        if (sum.carryLineage) {
+          const cl = sum.carryLineage;
+          lines.push('— 留置谱系 —');
+          if (cl.totalSnapshots != null) lines.push(`  快照: ${cl.totalSnapshots}`);
+          if (cl.maxChainDepth != null) lines.push(`  最大链深: ${cl.maxChainDepth}`);
+          if (cl.maxMixedTicks != null) lines.push(`  最长混合: ${cl.maxMixedTicks} tick`);
+          if (cl.stages?.length) lines.push(`  阶段: ${cl.stages.join(' → ')}`);
+          if (cl.turboPhases?.length) lines.push(`  turbo: Phase ${cl.turboPhases.join(', ')}`);
         }
         if (sum.treatments?.length) {
           lines.push('— 处理组均值 —');
