@@ -4396,6 +4396,42 @@ export function applyPhase132Treatment(world, treatmentId) {
   return world.envProfile;
 }
 
+export function applyPhase133Treatment(world, treatmentId) {
+  const treatment = PHASE133_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase133 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+    world.envProfile.semDomainTag = false;
+    world.envProfile.semReproLineage = false;
+    world.envProfile.semFourDomainCouple = false;
+  }
+  if (treatment.semLineageEnabled === false) {
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semReproLineage = false;
+  }
+  if (!treatment.semDomainTag) {
+    world.envProfile.semDomainTag = false;
+    world.envProfile.semFourDomainCouple = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 133, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
 export function applyPhase113Treatment(world, treatmentId) {
   const treatment = PHASE113_TREATMENTS[treatmentId];
   if (!treatment) {

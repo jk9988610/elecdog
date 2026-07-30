@@ -40,7 +40,7 @@ export function verifyWlrFourDomainBatch(byTreatment) {
   const h4 = offOn.every((r) => (r.metrics.semCoreRFourCouplePairs ?? 0) === 0);
   const h5 = mean(onOn, (r) => r.metrics.fourDomainCoupleTotal) > mean(onOff, (r) => r.metrics.fourDomainCoupleTotal);
   const h6 = onOn.filter((r) => (r.metrics.semLinPairExp ?? 0) >= 1).length >= 3;
-  const h7 = mean(onOn, (r) => r.metrics.semCoreRRatio) >= mean(onOff, (r) => r.metrics.semCoreRRatio) * 0.85;
+  const h7 = mean(onOn, (r) => r.metrics.semCoreR) >= mean(onOff, (r) => r.metrics.semCoreR) * 0.85;
 
   const passed = [h1, h2, h3, h4, h5, h6, h7].filter(Boolean).length;
   return {

@@ -520,7 +520,7 @@
 
 - **收敛**：智慧语言以 CORE-R 为核，Y/S/Z/X 四域服务繁殖交流
 - **文档**：[WL_REPRO_CENTER.md](WL_REPRO_CENTER.md)
-- **下一步**：WL-R3 四域×繁殖核 2×2 田野
+- **下一步**：WL-R4 CODEX 繁殖中心智慧交流条
 
 ---
 

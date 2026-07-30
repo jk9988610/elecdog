@@ -10,13 +10,13 @@
 
 - **核**：繁殖信息交换（CORE-R · PAIR/链/留置）
 - **四域**：衣 YI / 食 SHI / 住 ZHU / 行 XING — 服务繁殖的智慧交流
-- **下一步**：WL-R3 — 四域×繁殖核 2×2 田野（Phase 133）
+- **下一步**：WL-R4 — CODEX 繁殖中心智慧交流条（Phase 134）
 
 ---
 
 ## 验证
 
 ```bash
+npm run field:phase133:verify
 npm run field:phase132:verify
-npm run field:phase131:verify
 ```
