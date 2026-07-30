@@ -49,6 +49,14 @@ function pinChannels(being, code, ch) {
   if (st) st.channels = [ch];
 }
 
+function waiveReproGates(world, beings = []) {
+  world.courtshipGraceUntilTick = 0;
+  for (const b of beings) {
+    b.courtshipEligibleAtTick = 0;
+    b.partnerFusEligibleAtTick = 0;
+  }
+}
+
 const world = createWorld('M-COURT');
 applyEnvProfile(world, 'multicell_v2_world');
 initEnvStackModules(world);
@@ -59,6 +67,7 @@ assert(COURTSHIP_PRQ_PROB_BY_MORPH.A === 0.9, '雄求偶 PRQ 概率 90%');
 assert(COURTSHIP_PRQ_PROB_BY_MORPH.B === 0.1, '雌求偶 PRQ 概率 10%');
 
 const cohort = spawnAdultMulticellCohort(world, recorder, { males: 4, females: 4 });
+waiveReproGates(world, cohort);
 assert(cohort.length === 8, '8 成体队列');
 assert(
   cohort.filter((b) => b.pairMorph === 'A').length === 4,
@@ -123,6 +132,8 @@ assert(pgr, '雌可 PGR 成为伴侣');
 assert(male.partnerId === female.id, '伴侣登记');
 assert(female.lineageHeadId === male.lineageHeadId, '雄求偶成功后雌并入雄谱系');
 assert(male.bondCourtshipInitiatorMorph === 'A', '雄为求偶发起方');
+assert(male.bondCourtshipInitiatorId === male.id, '求偶发起方记录为雄 id');
+assert(male.lineageHeadId === male.id, '雄仍为谱系头');
 assert(
   courtshipBondLineForCouple(male, female)?.includes(male.familyName),
   '求偶文案含发起雄姓名'
@@ -166,6 +177,7 @@ const { being: child } = spawnBeing(wKin, recKin, {
 child.pairParentA = dad.id;
 child.pairParentB = mom.id;
 initAdultWeanedBeing(child, wKin, wKin.envProfile);
+waiveReproGates(wKin, wKin.beings);
 assert(isReproKinBlocked(dad, child, wKin.envProfile), '父↔子阻断');
 assert(isReproKinBlocked(mom, child, wKin.envProfile), '母↔子阻断');
 assert(!canMaleCourtFemale(child, mom, wKin).ok, '子不能向母求偶');
@@ -180,7 +192,8 @@ female.syncyte = null;
 female.pregnant = false;
 female.bodyStructures[STR_PAIR_IN].open = true;
 female.bodyStructures[STR_PAIR_IN].pregnancyClosed = false;
-if (!female.dockedHalf) initDockedHalf(wKin, female);
+if (!female.dockedHalf) initDockedHalf(world, female);
+waiveReproGates(world, [male, female]);
 const fus = processPartnerChannelFus(world, recorder);
 assert(fus.length > 0, '伴侣通道合胞 PARTNER-FUS');
 assert(isPregnant(female), '合胞后标记孕妇');
@@ -203,6 +216,7 @@ applyEnvProfile(wFem, 'multicell_v2_world');
 initEnvStackModules(wFem);
 const recFem = new Recorder();
 const cohortF = spawnAdultMulticellCohort(wFem, recFem, { males: 2, females: 2 });
+waiveReproGates(wFem, cohortF);
 const fem = cohortF.find((b) => b.pairMorph === 'B');
 const mal = cohortF.find((b) => b.pairMorph === 'A');
 initAdultMatingStructures(mal, wFem.envProfile, 0);
@@ -218,6 +232,7 @@ assert(mal.bondCourtshipInitiatorMorph === 'B', '雌为求偶发起方');
 
 pinChannels(mal, STR_PAIR_OUT, 7);
 pinChannels(fem, STR_PAIR_IN, 7);
+waiveReproGates(wFem, [mal, fem]);
 const fusFem = processPartnerChannelFus(wFem, recFem);
 assert(fusFem.length > 0, '雌发起伴侣通道合胞');
 fem.syncyte.gestationUntilTick = wFem.tick;
@@ -244,6 +259,7 @@ initAdultMatingStructures(sibA, wDna.envProfile, 0);
 initAdultMatingStructures(sibB, wDna.envProfile, 0);
 pinChannels(sibA, STR_PAIR_OUT, 7);
 pinChannels(sibB, STR_PAIR_IN, 7);
+waiveReproGates(wDna, [sibA, sibB]);
 assert(!registerPairSpeechPRQ(wDna, recDna, sibA, sibB.id), '同胞 PRQ 阻断');
 assert(
   recDna.entries.some((e) => e.meta?.kind === 'PRQ-BLOCK' && e.meta?.reason === 'kin'),
@@ -260,6 +276,7 @@ initAdultMatingStructures(cloneA, wDna.envProfile, 0);
 initAdultMatingStructures(cloneB, wDna.envProfile, 0);
 pinChannels(cloneA, STR_PAIR_OUT, 7);
 pinChannels(cloneB, STR_PAIR_IN, 7);
+waiveReproGates(wDna, [cloneA, cloneB]);
 const clonePrq = registerPairSpeechPRQ(wDna, recDna, cloneA, cloneB.id);
 assert(!clonePrq, '克隆 DNA PRQ 阻断');
 assert(

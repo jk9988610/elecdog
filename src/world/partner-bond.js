@@ -17,7 +17,13 @@ function hasOtherPartner(being, otherId) {
 }
 
 /** 登记伴侣；A/B 形态均可调用，族谱以求偶发起方谱系为干 */
-export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND', courtshipInitiatorMorph = null } = {}) {
+export function registerPartnerBond(
+  world,
+  recorder,
+  a,
+  b,
+  { trigger = 'BOND', courtshipInitiatorMorph = null, courtshipInitiatorId = null } = {}
+) {
   const profile = world.envProfile ?? {};
   if (!partnerBondEnabled(profile)) return null;
   if (!a?.alive || !b?.alive || a.id === b.id) return null;
@@ -28,25 +34,26 @@ export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND', c
 
   a.partnerId = b.id;
   b.partnerId = a.id;
-  a.partnerBondTick = world.tick;
-  b.partnerBondTick = world.tick;
+  const tick = world.tick;
+  a.partnerBondTick = tick;
+  b.partnerBondTick = tick;
   a.partnerBondCount = (a.partnerBondCount ?? 0) + 1;
   b.partnerBondCount = (b.partnerBondCount ?? 0) + 1;
+  const fusDelay = profile.partnerFusDelayTicks ?? 48;
+  a.partnerFusEligibleAtTick = tick + fusDelay;
+  b.partnerFusEligibleAtTick = tick + fusDelay;
 
   const male = a.pairMorph === 'A' ? a : b.pairMorph === 'A' ? b : null;
   const female = a.pairMorph === 'B' ? a : b.pairMorph === 'B' ? b : null;
   if (male && female) {
     alignPartnerMatingChannels(male, female);
     male.pairGrantFrom = female.id;
-    const init =
-      courtshipInitiatorMorph === 'B'
-        ? 'B'
-        : courtshipInitiatorMorph === 'A'
-          ? 'A'
-          : male.pairMorph === 'A'
-            ? 'A'
-            : 'B';
-    applyGenealogyLineOnBond(male, female, init);
+    applyGenealogyLineOnBond(
+      male,
+      female,
+      courtshipInitiatorMorph,
+      courtshipInitiatorId
+    );
   }
 
   if (recorder) {

@@ -31,7 +31,7 @@ export function pinMatingStructureChannel(being, structCode, channel) {
   }
 }
 
-export function initAdultWeanedBeing(being, world, profile) {
+export function initAdultWeanedBeing(being, world, profile, { mateChannel = null } = {}) {
   const juv = profile?.juvenileTicks ?? 96;
   being.tickCount = juv + 16;
   being.independent = true;
@@ -45,8 +45,11 @@ export function initAdultWeanedBeing(being, world, profile) {
   }
   initAdultMatingStructures(being, profile, world.tick ?? 0);
   issueAdultHealthReport(being, world.tick ?? 0);
+  const ch = mateChannel ?? COHORT_MATE_CHANNEL;
+  const grace = profile?.courtshipGraceTicks ?? 96;
+  being.courtshipEligibleAtTick = (world.tick ?? 0) + grace;
   if (being.pairMorph === 'A') {
-    pinMatingStructureChannel(being, STR_PAIR_OUT, COHORT_MATE_CHANNEL);
+    pinMatingStructureChannel(being, STR_PAIR_OUT, ch);
     const seed = hashString(`${being.id}:adult-sperm`);
     being.meiPacket = {
       seq: reduceDna(being.dna.sequence, seed),
@@ -55,7 +58,7 @@ export function initAdultWeanedBeing(being, world, profile) {
     };
     annotatePairHalfMetadata(being, profile);
   } else if (being.pairMorph === 'B') {
-    pinMatingStructureChannel(being, STR_PAIR_IN, COHORT_MATE_CHANNEL);
+    pinMatingStructureChannel(being, STR_PAIR_IN, ch);
     initDockedHalf(world, being);
     annotatePairHalfMetadata(being, profile);
   }
@@ -75,6 +78,8 @@ function assertCohortNoKin(cohort, profile) {
 /** 默认 4 男（A）+ 4 女（B）断奶成体，DNA 无近亲、逻辑细胞满格 */
 export function spawnAdultMulticellCohort(world, recorder, { males = 4, females = 4 } = {}) {
   const profile = world.envProfile ?? {};
+  const grace = profile.courtshipGraceTicks ?? 96;
+  world.courtshipGraceUntilTick = (world.tick ?? 0) + grace;
   const out = [];
   for (let i = 0; i < males; i++) {
     const { being } = spawnBeing(world, recorder, {
@@ -83,7 +88,7 @@ export function spawnAdultMulticellCohort(world, recorder, { males = 4, females 
       cohortTag: 'adult',
       nameIndex: i,
     });
-    initAdultWeanedBeing(being, world, profile);
+    initAdultWeanedBeing(being, world, profile, { mateChannel: i });
     out.push(being);
   }
   for (let i = 0; i < females; i++) {
@@ -93,7 +98,7 @@ export function spawnAdultMulticellCohort(world, recorder, { males = 4, females 
       cohortTag: 'adult',
       nameIndex: i,
     });
-    initAdultWeanedBeing(being, world, profile);
+    initAdultWeanedBeing(being, world, profile, { mateChannel: i });
     out.push(being);
   }
   assertCohortNoKin(out, profile);

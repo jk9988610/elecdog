@@ -615,6 +615,27 @@ export class ObserverApp {
     this.$.tickDisplay.textContent = `tick ${s.world.tick}`;
     const envTag = s.world.envLabel ? ` · ${s.world.envLabel}` : '';
     this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}${envTag}`;
+
+    const genealogyOnly = shouldUseGenealogyOnlyDashboard(
+      this.world?.envProfile,
+      this.observerLayout
+    );
+
+    if (genealogyOnly) {
+      if (!this.genealogyPanel) {
+        this.$.dashboard.innerHTML = this.renderDashboard(s);
+        this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
+          getWorld: () => this.world,
+        });
+      }
+      this.genealogyPanel?.paint();
+      this.$.panelsDropdown?.querySelectorAll('.panels-layout-item').forEach((el) => {
+        el.classList.toggle('hidden', !s.world.multicellV2Observer);
+      });
+      this.updateCloudStatus();
+      return;
+    }
+
     this.$.dashboard.innerHTML = this.renderDashboard(s);
     this.genealogyPanel = null;
     this.$.dashboard.querySelectorAll('[data-codex-entry]').forEach((btn) => {

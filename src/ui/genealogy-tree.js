@@ -110,6 +110,16 @@ function nodeFromId(nodes, id) {
   return nodes.find((n) => n.id === id) ?? null;
 }
 
+function orderCouplePrimary(being, mate) {
+  if (!mate) return [being, null];
+  const headId = being.lineageHeadId ?? being.id;
+  if (mate.id === headId) return [mate, being];
+  if (being.id === headId) return [being, mate];
+  if (being.pairMorph === 'A') return [being, mate];
+  if (mate.pairMorph === 'A') return [mate, being];
+  return [being, mate];
+}
+
 function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   if (!being || seen.has(being.id)) return '';
   seen.add(being.id);
@@ -121,18 +131,22 @@ function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   if (mate && seen.has(mate.id)) mate = null;
   if (mate) seen.add(mate.id);
 
-  const parentIds = [being.id, mate?.id].filter(Boolean);
+  const [primary, secondary] = orderCouplePrimary(being, mate);
+  mate = secondary;
+
+  const parentIds = [primary.id, mate?.id].filter(Boolean);
   const children = beings.filter(
     (b) =>
       parentIds.some((pid) => b.pairParentA === pid || b.fissionParent === pid) &&
       !seen.has(b.id) &&
-      b.id !== being.id &&
+      !seen.has(b.id) &&
+      b.id !== primary.id &&
       b.id !== mate?.id
   );
 
   const couple = mate
-    ? `<div class="gv-couple">${renderPersonCard(being, selectedId)}<span class="gv-couple-link" aria-hidden="true">—</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
-    : `<div class="gv-couple">${renderPersonCard(being, selectedId)}</div>`;
+    ? `<div class="gv-couple">${renderPersonCard(primary, selectedId)}<span class="gv-couple-link" aria-hidden="true">—</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
+    : `<div class="gv-couple">${renderPersonCard(primary, selectedId)}</div>`;
 
   const kids =
     children.length > 0
@@ -155,6 +169,7 @@ function isGenealogyForestRoot(being, byId) {
     const partner = byId.get(being.partnerId);
     if (partner && (partner.lineageHeadId ?? partner.id) === partner.id) return false;
   }
+  if (being.pairMorph === 'A' && (being.lineageHeadId ?? being.id) !== being.id) return false;
   return true;
 }
 
@@ -182,14 +197,41 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
   return `<ul class="genealogy-forest">${trees}</ul>`;
 }
 
+function lactationDisplay(being) {
+  const isAdultFemale =
+    being?.pairMorph === 'B' &&
+    (being.lifeStage === LIFE_STAGE_ADT || being.devStage === LIFE_STAGE_ADT);
+  if (!isAdultFemale) {
+    return { open: false, until: null, contacts: 0, lastTick: null, lactHormone: 0 };
+  }
+  const lactHormone = Math.max(0, Math.min(1, being.hormoneVec?.h2 ?? 0));
+  return {
+    open: Boolean(being.bodyStructures?.[STR_LACT_OUT]?.open),
+    until: being.bodyStructures?.[STR_LACT_OUT]?.untilTick ?? null,
+    contacts: being.lactContactCount ?? 0,
+    lastTick: being.lastLacTick ?? null,
+    lactHormone,
+  };
+}
+
 function renderHormoneBars(being) {
   if (!being?.hormoneVec) return '<p class="muted">无激素向量</p>';
+  const lact = lactationDisplay(being);
   const labels = ['生殖', '泌乳', '代谢', '应激', '生长'];
   return HORMONE_KEYS.map((k, i) => {
-    const v = Math.max(0, Math.min(1, being.hormoneVec[k] ?? 0));
+    let v = Math.max(0, Math.min(1, being.hormoneVec[k] ?? 0));
+    if (k === 'h2' && being.pairMorph !== 'B') v = 0;
+    if (
+      k === 'h2' &&
+      being.pairMorph === 'B' &&
+      being.lifeStage !== LIFE_STAGE_ADT &&
+      being.devStage !== LIFE_STAGE_ADT
+    ) {
+      v = 0;
+    }
     const pct = Math.round(v * 100);
-    const lact = k === 'h2' && being.bodyStructures?.[STR_LACT_OUT]?.open;
-    return `<div class="hormone-bar-row${lact ? ' hormone-bar-lact' : ''}">
+    const lactRow = k === 'h2' && lact.open;
+    return `<div class="hormone-bar-row${lactRow ? ' hormone-bar-lact' : ''}">
       <span class="hormone-bar-label">${labels[i] ?? k}</span>
       <div class="hormone-bar-track"><div class="hormone-bar-fill" style="width:${pct}%"></div></div>
       <span class="hormone-bar-val">${pct}%</span>
@@ -217,13 +259,6 @@ export function renderHealthReportHTML(being) {
     )
     .join('');
 
-  const posRows = (interp?.positions ?? [])
-    .map(
-      (p) =>
-        `<tr><td>${p.index}</td><td><code>${escapeHtml(p.base)}</code></td><td>${escapeHtml(p.zone)}</td><td>${escapeHtml(p.meaning)}</td></tr>`
-    )
-    .join('');
-
   return `
     <div class="health-report-panel">
       <h4 class="term">体检报告</h4>
@@ -236,13 +271,6 @@ export function renderHealthReportHTML(being) {
       <p class="health-seq"><code>${escapeHtml(interp?.sequence ?? report.dnaSeq ?? '')}</code></p>
       <h5 class="health-subtitle">区段解读 Z1–Z6</h5>
       <div class="health-zones">${zoneRows}</div>
-      <h5 class="health-subtitle">位点解读（96 段）</h5>
-      <div class="health-pos-table-wrap">
-        <table class="health-pos-table">
-          <thead><tr><th>位</th><th>碱</th><th>区</th><th>释义</th></tr></thead>
-          <tbody>${posRows}</tbody>
-        </table>
-      </div>
     </div>
   `;
 }
@@ -261,8 +289,7 @@ export function renderBeingDetailHTML(
     )
     .join('');
 
-  const lactOpen = being.bodyStructures?.[STR_LACT_OUT]?.open;
-  const lactUntil = being.bodyStructures?.[STR_LACT_OUT]?.untilTick;
+  const lact = lactationDisplay(being);
   const badge = stageBadgeLabel(being);
   let courtshipHtml = '';
   if (partnerBeing) {
@@ -304,10 +331,10 @@ export function renderBeingDetailHTML(
       <h4 class="term">激素与泌乳</h4>
       <div class="hormone-bars">${renderHormoneBars(being)}</div>
       <div class="stat-grid lact-panel">
-        <div class="stat-row"><span>哺乳通道</span><strong>${lactOpen ? '开放' : '关闭'}</strong></div>
-        ${lactUntil != null ? `<div class="stat-row"><span>哺乳至 tick</span><strong>${lactUntil}</strong></div>` : ''}
-        <div class="stat-row"><span>哺乳接触次数</span><strong>${being.lactContactCount ?? 0}</strong></div>
-        ${being.lastLacTick != null ? `<div class="stat-row"><span>最近哺乳 tick</span><strong>${being.lastLacTick}</strong></div>` : ''}
+        <div class="stat-row"><span>哺乳通道</span><strong>${lact.open ? '开放' : '关闭'}</strong></div>
+        ${lact.until != null ? `<div class="stat-row"><span>哺乳至 tick</span><strong>${lact.until}</strong></div>` : ''}
+        <div class="stat-row"><span>哺乳接触次数</span><strong>${lact.contacts}</strong></div>
+        ${lact.lastTick != null ? `<div class="stat-row"><span>最近哺乳 tick</span><strong>${lact.lastTick}</strong></div>` : ''}
       </div>
       <h4 class="term">逻辑细胞</h4>
       <div class="stat-grid">${logicRows}</div>
@@ -426,11 +453,13 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
   function paint() {
     const world = getWorld?.();
     const model = buildGenealogyModel(world);
+    const popoverOpen = !popover.classList.contains('hidden');
+    const anchorId = popoverOpen ? selectedId : null;
     innerEl.innerHTML = renderGenealogyTreeHTML(model, { selectedId });
     bindTreeInteractions();
-    if (selectedId && !popover.classList.contains('hidden')) {
-      const btn = innerEl.querySelector(`.genealogy-id-btn[data-being-id="${selectedId}"]`);
-      const being = findBeing(world, selectedId);
+    if (popoverOpen && anchorId) {
+      const btn = innerEl.querySelector(`.genealogy-id-btn[data-being-id="${anchorId}"]`);
+      const being = findBeing(world, anchorId);
       if (btn && being) {
         openPopover(btn, being);
       } else {
