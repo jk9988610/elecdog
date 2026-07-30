@@ -204,7 +204,10 @@
 - **Phase 121 扩展**：
   - 六环境+链 × **8192 tick** COOP/SOC 因子复验（turbo）；support 6/9，定律仍未立
   - 田野：`npm run field:phase121`
-- **状态**：**部分结案** — 合作因果可度量；960/8192 tick 定律均未立
+- **Phase 123 扩展**：
+  - **换假说**：`carryReproSocYield`（留置繁殖×SOC-LIN 继承）替代 `carryCoopAdvantage`
+  - 田野：`npm run field:phase123`
+- **状态**：**部分结案** — `carryCoopAdvantage` 定律未立；**`carryReproSocYield` 定律 support 9/9**（Phase 123）
 - **报告**：[PHASE51_COOPERATION.md](PHASE51_COOPERATION.md) · [PHASE110_COOP_CAUSAL.md](PHASE110_COOP_CAUSAL.md)
 
 ---
@@ -458,8 +461,18 @@
 
 - **扩展**：六环境+链 × 混合 COOP/SOC 因子；跨 4 种子检验留置优势与相关符号一致性
 - **田野**：`npm run field:phase118`
-- **状态**：**部分结案** — 多批次田野 weak 4/7；留置优势定律未立
+- **状态**：**部分结案** — 多批次田野 weak 4/7；`carryCoopAdvantage` 定律未立
 - **文档**：[PHASE118_COOP_LAW.md](PHASE118_COOP_LAW.md)
+
+---
+
+## GAP-13-COOP-INTERACT · 留置繁殖×SOC 继承交互（Phase 123）
+
+- **假说切换**：`carryCoopAdvantage`（118/121 未立）→ `carryReproSocYield = socLin / carriedFiss`
+- **田野**：`npm run field:phase123` — 8192 tick turbo × COOP on/off
+- **验证**：`npm run field:phase123:verify`
+- **状态**：**部分结案** — support 9/9；留置繁殖×SOC 继承定律已立
+- **文档**：[PHASE123_COOP_INTERACT.md](PHASE123_COOP_INTERACT.md)
 
 ---
 

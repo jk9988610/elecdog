@@ -1,12 +1,12 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · Phase 121 GAP-13×8192
+> 更新：2026-07-30 · Phase 123 GAP-13 留置交互假说
 
 ---
 
 ## 总体目标距离
 
-见 **[GOAL_DISTANCE.md](GOAL_DISTANCE.md)** — 主轨综合约 **76–80%**。
+见 **[GOAL_DISTANCE.md](GOAL_DISTANCE.md)** — 主轨综合约 **80–84%**。
 
 ---
 
@@ -14,14 +14,13 @@
 
 | Phase | 内容 |
 |-------|------|
-| 120 | 观察台 8192 留置导入 |
-| 121 | GAP-13 × 8192 tick 合作因果复验 |
+| 123 | GAP-13 留置繁殖×SOC 继承假说 — **support 9/9** |
 
 ---
 
 ## 验证
 
 ```bash
-npm run field:phase121
-npm run observer:carry-longfield
+npm run field:phase123
+npm run field:phase123:verify
 ```

@@ -2866,6 +2866,28 @@ export const PHASE121_TREATMENTS = {
   },
 };
 
+/** Phase 123 — GAP-13 留置繁殖×SOC 继承交互假说（8192 · turbo） */
+export const PHASE123_TREATMENTS = {
+  ev123_coop_interact: {
+    id: 'ev123_coop_interact',
+    label: '六环境+链·留置交互·COOP+SOC',
+    envId: 'wisdom_evolution',
+    ...EVO_HEXA_COOP_LONG_BASE,
+    ...COOP_BASE,
+    ...WL3_SOC_STACK,
+  },
+  ev123_coop_off_interact: {
+    id: 'ev123_coop_off_interact',
+    label: '六环境+链·留置交互·无COOP',
+    envId: 'wisdom_evolution',
+    ...EVO_HEXA_COOP_LONG_BASE,
+    cooperationProfileEnabled: false,
+    cooperationFeedback: false,
+    socialKnowledgeEnabled: false,
+    socialKnowledgeFeedbackEnabled: false,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3739,6 +3761,31 @@ export function applyPhase121Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 121, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase123Treatment(world, treatmentId) {
+  const treatment = PHASE123_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase123 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 123, treatmentId, ...treatment };
   return world.envProfile;
 }
 
