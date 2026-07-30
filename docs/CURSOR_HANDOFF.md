@@ -1,28 +1,28 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · **MV6 结构匹配** · 进度见 GOAL_DISTANCE
+> 更新：2026-07-30 · **MV5 五感** · 进度见 GOAL_DISTANCE
 
 ---
 
-## 战略状态（MV 主轨 ~36%）
+## 战略状态（MV 主轨 ~42%）
 
 | 阶段 | 状态 |
 |------|------|
-| MV0 / MV1a / MV1b | ✅ |
-| **MV6** STR-PAIR 凹凸、STR-LACT/[LAC]、PAIR-FIT | ✅ 本回合 |
-| **下一** | **MV5** 五感 · **MV7** 激素 · **MV1c** MIT 调参 |
+| MV0 / MV1a / MV1b / MV6 | ✅ |
+| **MV5** LOG-SEN-*、STR 出口、[SEN] | ✅ 本回合 |
+| **下一** | **MV7** 激素神经 · **MV1c** MIT 调参 · **MV8** DNA |
 
-文档：[MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md) · [GOAL_DISTANCE.md](GOAL_DISTANCE.md) · [DNA_EXPRESSION.md](DNA_EXPRESSION.md)
+文档：[MULTICELL_V2_WORLD.md](MULTICELL_V2_WORLD.md) · [GOAL_DISTANCE.md](GOAL_DISTANCE.md)
 
 ---
 
-## MV6 交付
+## MV5 交付
 
-- `body-structures.js`：`STR-PAIR-OUT/IN`、`STR-LACT-OUT/ING-IN`
-- 成体 A/B 挂接凹凸；`assessPairStructureFit` + `PAIR-FIT` / `PAIR-MISMATCH`
-- PGR / FUS-IN 前结构门控；分娩 `applyNurtureAtBirth` 挂哺乳结构
-- 每 tick `tickLactationContact` → `[LAC]` 通量
-- `multicell_v2_world`：`reproMode: gestation` 启用幼体依赖期
+- `LOG-SEN-TH/TM/GU/VS/AU/OL` 六类感官细胞（JUV 分化窗）
+- `STR-SKN/ORAL/VIS/AUD/OLF` 体表出口
+- `env-cell-coupling.js` 扩展：基质/视觉/听觉/嗅觉场门控
+- `senses.js`：`tickSenses` → `[SEN] kind:*`（环境场匹配）
+- 发育链 `senDiffWeight` 保障感官分化；族谱显示感官出口
 
 ```bash
 npm run observer:multicell-v2
@@ -34,11 +34,10 @@ npm run observer:multicell-v2
 
 | 路径 | 用途 |
 |------|------|
-| `src/world/body-structures.js` | 体表结构与匹配 |
-| `src/world/pair-repro.js` | PAIR 结构门控 |
-| `src/world/nurture.js` | 哺乳结构初始化 |
-| `src/world/umbilical.js` | 脐带（MV1b） |
+| `src/world/senses.js` | 五感结构与采样 |
+| `src/world/env-cell-coupling.js` | 环境场门控 |
+| `src/world/multicell-v2.js` | 感官分化偏好 |
 
 ---
 
-*下一包：MV5 五感细胞（LOG-SEN-* + 环境门控）。*
+*下一包：MV7 LOG-HRM 分泌链与 hormoneVec 调制。*

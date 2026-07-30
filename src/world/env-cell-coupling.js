@@ -7,9 +7,23 @@ import { ventEnabled } from './vent.js';
 
 const RES_CODE = 'LOG-RES';
 const TM_CODE = 'LOG-SEN-TM';
+const GU_CODE = 'LOG-SEN-GU';
+const VS_CODE = 'LOG-SEN-VS';
+const AU_CODE = 'LOG-SEN-AU';
+const OL_CODE = 'LOG-SEN-OL';
+const TH_CODE = 'LOG-SEN-TH';
+
+const SEN_ENV_GATES = {
+  [TH_CODE]: 'TOUCH',
+  [TM_CODE]: 'TEMP',
+  [GU_CODE]: 'SUB',
+  [VS_CODE]: 'VIS',
+  [AU_CODE]: 'AUD',
+  [OL_CODE]: 'OLF',
+};
 
 /** 本 tick 可观测环境载荷（与 W6 环境栈字段对齐） */
-export function sampleOrganismEnv(world, profile = world?.envProfile ?? {}) {
+export function sampleOrganismEnv(world, profile = world?.envProfile ?? {}, being = null) {
   const channels = world?.substrate?.channels ?? [];
   let substrateAvg = 0;
   let substrateMin = 0;
@@ -57,6 +71,23 @@ export function sampleOrganismEnv(world, profile = world?.envProfile ?? {}) {
   const hasWarmthField =
     (diurnalOn || airOn || seasonalOn || ventOn) && tempScalar >= minTemp;
 
+  const minSubstrate = profile.cellCoupleMinSubstrate ?? 0.12;
+  const hasSubstrateField = substrateAvg >= minSubstrate;
+
+  const minVisual = profile.cellCoupleMinVisual ?? 0.08;
+  const hasVisualField =
+    diurnalOn && !night && effectiveSolar >= minVisual;
+
+  const audWindow = profile.senAuditoryWindow ?? 6;
+  const tick = world?.tick ?? 0;
+  const bus = world?.signalBus ?? [];
+  const hasAuditoryField = bus.some(
+    (s) => s.emittedAt >= tick - audWindow && s.fromId && s.fromId !== being?.id
+  );
+
+  const symModuleCount = being?.symModules?.filter((m) => m.active)?.length ?? 0;
+  const hasOlfactoryField = hasSubstrateField || symModuleCount > 0;
+
   return {
     place: world.birthPlace ?? null,
     airEnabled: airOn,
@@ -74,23 +105,57 @@ export function sampleOrganismEnv(world, profile = world?.envProfile ?? {}) {
     hasWarmthField,
     substrateAvg: +substrateAvg.toFixed(4),
     substrateMin: +substrateMin.toFixed(4),
+    hasSubstrateField,
+    hasVisualField,
+    hasAuditoryField,
+    hasOlfactoryField,
+    symModuleCount,
   };
 }
 
 /** 分化/维持某类逻辑细胞是否要求环境场就绪 */
-export function envAllowsLogicCode(world, profile, code) {
-  const env = sampleOrganismEnv(world, profile);
+export function envAllowsLogicCode(world, profile, code, being = null) {
+  const env = sampleOrganismEnv(world, profile, being);
   if (code === RES_CODE) {
     return env.hasBreathableAir;
   }
   if (code === TM_CODE) {
     return env.hasWarmthField;
   }
+  if (code === GU_CODE) {
+    return env.hasSubstrateField;
+  }
+  if (code === VS_CODE) {
+    return env.hasVisualField;
+  }
+  if (code === AU_CODE) {
+    return env.hasAuditoryField;
+  }
+  if (code === OL_CODE) {
+    return env.hasOlfactoryField;
+  }
+  if (code === TH_CODE) {
+    return true;
+  }
+  return true;
+}
+
+/** 运行时感官是否可采样（与分化门控对齐，触觉另需场接触） */
+export function senseRuntimeActive(code, env, hints = {}) {
+  if (code === TH_CODE) {
+    return hints.hadExternal || hints.contestHit || hints.hadFieldExt;
+  }
+  if (code === TM_CODE) return env.hasWarmthField;
+  if (code === GU_CODE) return env.hasSubstrateField;
+  if (code === VS_CODE) return env.hasVisualField;
+  if (code === AU_CODE) {
+    return env.hasAuditoryField || (hints.heardCount ?? 0) > 0;
+  }
+  if (code === OL_CODE) return env.hasOlfactoryField;
   return true;
 }
 
 export function envGateLabel(code) {
   if (code === RES_CODE) return 'AIR';
-  if (code === TM_CODE) return 'TEMP';
-  return null;
+  return SEN_ENV_GATES[code] ?? null;
 }

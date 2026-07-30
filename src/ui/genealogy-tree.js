@@ -15,6 +15,7 @@ import {
   STR_LACT_OUT,
   STR_ING_IN,
 } from '../world/body-structures.js';
+import { STR_SKN, STR_ORAL, STR_VIS, STR_AUD, STR_OLF } from '../world/senses.js';
 import {
   LIFE_STAGE_GEST,
   LIFE_STAGE_JUV,
@@ -187,6 +188,17 @@ export function renderBeingDetailHTML(being) {
             : being.bodyStructures?.[STR_ING_IN]?.open
               ? STR_ING_IN
               : '—'
+        )}</strong></div>
+        <div class="stat-row"><span>感官出口</span><strong>${escapeHtml(
+          [
+            being.bodyStructures?.[STR_SKN]?.open ? STR_SKN : null,
+            being.bodyStructures?.[STR_ORAL]?.open ? STR_ORAL : null,
+            being.bodyStructures?.[STR_VIS]?.open ? STR_VIS : null,
+            being.bodyStructures?.[STR_AUD]?.open ? STR_AUD : null,
+            being.bodyStructures?.[STR_OLF]?.open ? STR_OLF : null,
+          ]
+            .filter(Boolean)
+            .join(' ') || '—'
         )}</strong></div>
       </div>
       <h4 class="term">逻辑细胞</h4>

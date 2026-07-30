@@ -178,5 +178,19 @@ for (let i = 0; i < 12; i++) stepWorld(wS, recS);
 const lac = recS.entries.filter((e) => e.meta?.kind === 'LAC');
 assert(lac.length > 0, `[LAC] 接触哺乳（${lac.length}）`);
 
+// MV5 — 五感细胞与 [SEN]
+const senDiff = recorder.entries.filter(
+  (e) => e.channel === 'evolution' && e.meta?.kind === 'DIFF' && String(e.meta?.to).startsWith('LOG-SEN-')
+);
+assert(senDiff.length > 0, `[DIFF] 感官细胞分化（${senDiff.length}）`);
+const sen = recorder.entries.filter((e) => e.meta?.kind === 'SEN');
+assert(sen.length > 0, `[SEN] 感官采样（${sen.length}）`);
+const senKinds = new Set(sen.map((e) => e.meta?.sense).filter(Boolean));
+assert(senKinds.size >= 2, `多种感官 kind（${[...senKinds].join(',')})`);
+const celExt = recorder.entries.filter(
+  (e) => e.channel === 'cell' && e.meta?.kind === 'CEL-LOG' && e.meta?.envCoupling?.visual != null
+);
+assert(celExt.length > 0, `CEL 扩展 envCoupling（${celExt.length}）`);
+
 if (failed) process.exit(1);
-console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV6 验证通过');
+console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV5/MV6 验证通过');
