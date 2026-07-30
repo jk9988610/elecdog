@@ -21,6 +21,7 @@ import {
   sampleOrganismEnv,
 } from './env-cell-coupling.js';
 import { initAdultMatingStructures } from './body-structures.js';
+import { onSenseCellDifferentiated, SENSE_TYPES } from './senses.js';
 
 export {
   LIFE_STAGE_GEST,
@@ -178,7 +179,21 @@ function pickDiffTarget(being, world, profile, stage, rng) {
     stage === LIFE_STAGE_GEST
       ? ['LOG-BAR', 'LOG-UMB', 'LOG-NTR', 'LOG-TRP', 'LOG-RES', 'LOG-DIG', 'LOG-NRV']
       : stage === LIFE_STAGE_JUV
-        ? ['LOG-DIG', 'LOG-MOT', 'LOG-NRV', 'LOG-BRN', 'LOG-LNG', 'LOG-STR', 'LOG-CLR']
+        ? [
+            'LOG-DIG',
+            'LOG-MOT',
+            'LOG-NRV',
+            'LOG-SEN-TM',
+            'LOG-SEN-TH',
+            'LOG-SEN-GU',
+            'LOG-SEN-VS',
+            'LOG-SEN-AU',
+            'LOG-SEN-OL',
+            'LOG-BRN',
+            'LOG-LNG',
+            'LOG-STR',
+            'LOG-CLR',
+          ]
         : ['LOG-GON', 'LOG-HRM'];
 
   const allowedSet = new Set(allowed.map((t) => t.code));
@@ -186,8 +201,15 @@ function pickDiffTarget(being, world, profile, stage, rng) {
     posIdx === 0 ? 'LOG-DIG' : posIdx === 1 ? 'LOG-MOT' : 'LOG-NRV';
 
   const envOk = (code) =>
-    envAllowsLogicCode(world, profile, code) &&
+    envAllowsLogicCode(world, profile, code, being) &&
     (being.logicCells?.[code]?.length ?? 0) < LOGIC_CELL_MAX_PER_TYPE;
+
+  if (stage === LIFE_STAGE_JUV && rng() < (profile?.senDiffWeight ?? 0.38)) {
+    const senCodes = SENSE_TYPES.map((s) => s.code).filter((c) => allowedSet.has(c) && envOk(c));
+    if (senCodes.length) {
+      return senCodes[Math.floor(rng() * senCodes.length)];
+    }
+  }
 
   if (allowedSet.has(roleHint) && envOk(roleHint) && rng() < 0.55) {
     return roleHint;
@@ -236,7 +258,7 @@ function tryStemMitosis(being, profile, rng) {
 function trySameTypeMitosis(being, world, profile, rng) {
   const codes = LOGIC_CELL_TYPES.map((t) => t.code).filter((code) => {
     const n = being.logicCells?.[code]?.length ?? 0;
-    return n > 0 && n < LOGIC_CELL_MAX_PER_TYPE && envAllowsLogicCode(world, profile, code);
+    return n > 0 && n < LOGIC_CELL_MAX_PER_TYPE && envAllowsLogicCode(world, profile, code, being);
   });
   if (!codes.length) return null;
   const code = codes[Math.floor(rng() * codes.length)];
@@ -285,7 +307,7 @@ function diffProbability(stage, profile) {
 }
 
 function recordEnvGateIfNeeded(world, recorder, being, profile) {
-  const env = sampleOrganismEnv(world, profile);
+  const env = sampleOrganismEnv(world, profile, being);
   const resN = being.logicCells?.['LOG-RES']?.length ?? 0;
   if (resN > 0 && !env.hasBreathableAir) {
     recorder.evolution(
@@ -293,6 +315,15 @@ function recordEnvGateIfNeeded(world, recorder, being, profile) {
       being.id,
       `[ENV-GATE] RES×${resN} need AIR scalar≥${profile.cellCoupleMinAir ?? 0.08} got ${env.airScalar}`,
       { kind: 'ENV-GATE', gate: 'AIR', code: 'LOG-RES', count: resN, env }
+    );
+  }
+  const tmN = being.logicCells?.['LOG-SEN-TM']?.length ?? 0;
+  if (tmN > 0 && !env.hasWarmthField) {
+    recorder.evolution(
+      world.tick,
+      being.id,
+      `[ENV-GATE] SEN-TM×${tmN} need TEMP got ${env.tempScalar}`,
+      { kind: 'ENV-GATE', gate: 'TEMP', code: 'LOG-SEN-TM', count: tmN, env }
     );
   }
 }
@@ -303,7 +334,7 @@ export function recordLogicCellSnapshot(world, recorder, being) {
     .map((t) => `${t.code}:${counts[t.code] ?? 0}`)
     .join(' ');
   const stem = counts[STEM_CELL_CODE] ?? 0;
-  const env = sampleOrganismEnv(world, world.envProfile ?? {});
+  const env = sampleOrganismEnv(world, world.envProfile ?? {}, being);
   recorder.cell(
     world.tick,
     being.id,
@@ -318,6 +349,10 @@ export function recordLogicCellSnapshot(world, recorder, being) {
         temp: env.hasWarmthField,
         airScalar: env.airScalar,
         tempScalar: env.tempScalar,
+        substrate: env.hasSubstrateField,
+        visual: env.hasVisualField,
+        auditory: env.hasAuditoryField,
+        olfactory: env.hasOlfactoryField,
       },
     }
   );
@@ -372,6 +407,9 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
           `[DIFF] ${diff.stage} ${diff.from}→${diff.to} ${diff.pos}${gate ? ` env:${gate}` : ''}`,
           { kind: 'DIFF', ...diff }
         );
+        if (diff.to.startsWith('LOG-SEN-')) {
+          onSenseCellDifferentiated(being, diff.to, profile, world.tick);
+        }
         events.push({ type: 'DIFF', ...diff });
       }
     }

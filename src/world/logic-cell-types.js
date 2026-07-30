@@ -112,6 +112,48 @@ export const LOGIC_CELL_TYPES = [
     max: LOGIC_CELL_MAX_PER_TYPE,
     diffStages: [LIFE_STAGE_GEST],
   },
+  {
+    code: 'LOG-SEN-TH',
+    analogy: '触觉感',
+    roles: ['sense', 'touch'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
+    code: 'LOG-SEN-TM',
+    analogy: '温度感',
+    roles: ['sense', 'thermo'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
+    code: 'LOG-SEN-GU',
+    analogy: '味觉',
+    roles: ['sense', 'gustation'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
+    code: 'LOG-SEN-VS',
+    analogy: '视觉',
+    roles: ['sense', 'vision'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
+    code: 'LOG-SEN-AU',
+    analogy: '听觉',
+    roles: ['sense', 'audition'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
+  {
+    code: 'LOG-SEN-OL',
+    analogy: '嗅觉',
+    roles: ['sense', 'olfaction'],
+    max: LOGIC_CELL_MAX_PER_TYPE,
+    diffStages: [LIFE_STAGE_JUV],
+  },
 ];
 
 export const STEM_CELL_TYPE = {

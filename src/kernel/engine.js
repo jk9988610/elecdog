@@ -27,6 +27,7 @@ import { CELL_INTEGRITY_LOW } from '../world/cell.js';
 import { juvenileDrawMultiplier } from '../world/env-profile.js';
 import { tickNurture } from '../world/nurture.js';
 import { tickLactationContact } from '../world/body-structures.js';
+import { tickSenses } from '../world/senses.js';
 import { runMetabolism } from '../world/organism.js';
 import { tickReservoir, reservoirEnabled } from '../world/reservoir.js';
 import { tickSynth, synthEnabled } from '../world/synth.js';
@@ -514,6 +515,20 @@ export function stepWorld(world, recorder) {
         { kind: 'LAC', ...lacEvt }
       );
     }
+
+    const senseHints = {
+      hadExternal: result.external.length > 0,
+      hadAct: result.external.some((l) => l.startsWith('[ACT]')),
+      hadDraw: result.external.some((l) => l.startsWith('[DRW]')),
+      heardCount: heard.length,
+      fieldTxCount: heard.filter((s) => s.content?.includes('[TX]')).length,
+      symModuleCount: being.symModules?.filter((m) => m.active)?.length ?? 0,
+      hadFieldExt: (being.fieldExtTicks ?? 0) > 0,
+      contestHit: [...tickNodeHits.values()].some(
+        (slots) => slots.length >= 2 && slots.includes(being.socialSlot)
+      ),
+    };
+    if (!stat) tickSenses(world, recorder, being, profile, senseHints);
 
     const met = runMetabolism(world, being, {
       internalCount: result.internal.length,
