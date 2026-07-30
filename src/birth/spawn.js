@@ -164,6 +164,7 @@ export function spawnCarriedBeing(world, recorder, snapshot, { cohortTag = 'carr
   if (snapshot.semTrace?.length && semLineageEnabled(profile)) {
     being.semTrace = snapshot.semTrace.map((e) => ({ ...e }));
     being.semTraceWeight = snapshot.semTraceWeight ?? 0;
+    being.reproTraceWeight = snapshot.reproTraceWeight ?? 0;
   }
 
   if (replicationEnabled(profile)) {

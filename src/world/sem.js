@@ -131,6 +131,8 @@ export function recordSemTx(world, recorder, being, profile, txLine, { fieldStat
       if (domain) {
         if (!being.semDomainPairTally) being.semDomainPairTally = {};
         being.semDomainPairTally[domain] = (being.semDomainPairTally[domain] ?? 0) + 1;
+        if (!being.semPairDomains) being.semPairDomains = new Map();
+        being.semPairDomains.set(pk, domain);
       }
     }
 

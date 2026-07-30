@@ -1,6 +1,7 @@
 /** Phase 106 — 田野结束时筛选留置个体 */
 
 import { snapshotBeings } from './being-snapshot.js';
+import { refreshSemTrace, semLineageEnabled } from '../world/sem-lineage.js';
 
 /**
  * 优先存活者；全灭时取存活 tick 最长者。
@@ -23,5 +24,10 @@ export function selectCarryCandidates(world, profile = {}) {
 
 export function selectCarrySnapshots(world, profile = {}, provenance = {}) {
   const picks = selectCarryCandidates(world, profile);
+  if (semLineageEnabled(profile)) {
+    for (const being of picks) {
+      refreshSemTrace(being, world, profile);
+    }
+  }
   return snapshotBeings(picks, { ...provenance, tick: world.tick });
 }
