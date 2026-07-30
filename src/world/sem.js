@@ -1,6 +1,7 @@
 // W5c 信号载荷共现记录 [SEM] — 统计事实，非语言/对话语义
 
 import { semLineageEnabled, refreshSemTrace, traceActHint } from './sem-lineage.js';
+import { resolveSemDomain, semDomainTagEnabled } from './sem-domain.js';
 
 export function semEnabled(profile) {
   return profile?.semEnabled === true;
@@ -77,14 +78,17 @@ function shouldLogPair(count, minCount, fieldStat = false) {
 
 function logSemPair(world, recorder, being, rxKey, txKey, count, profile, fieldStat) {
   being.semLogCount = (being.semLogCount ?? 0) + 1;
+  const domain = resolveSemDomain(being, world, profile);
   const payload = {
     kind: 'SEM',
     rxKey,
     txKey,
     count,
     window: profile?.semWindow ?? 1,
+    ...(domain ? { domain } : {}),
   };
-  const content = `[SEM] pair ${rxKey}→${txKey} count ${count}`;
+  const domainTag = domain ? ` domain ${domain}` : '';
+  const content = `[SEM] pair ${rxKey}→${txKey}${domainTag} count ${count}`;
   if (fieldStat) {
     recorder.evolution(world.tick, being.id, content, payload);
   } else {

@@ -17,6 +17,7 @@ import {
 import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
+import { noteSemDomainFromKind } from './sem-domain.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -188,6 +189,7 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
       subId: rpl.subId,
     }
   );
+  noteSemDomainFromKind(being, 'MEI', world.tick);
 
   if (profile.fusIntraSubPlgEnabled) {
     tryIntraSubunitPlg(world, recorder, being, profile);

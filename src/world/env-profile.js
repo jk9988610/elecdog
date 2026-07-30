@@ -3226,6 +3226,38 @@ export const PHASE130_TREATMENTS = {
   },
 };
 
+/** Phase 131 — WL-R1 繁殖邻域 SEM 域标记 */
+const WL_R1_SEM_STACK = {
+  ...WL3_SEM_STACK,
+  mixedSemEnabled: true,
+  semDomainTag: true,
+  semReproWindow: 24,
+  semDomainWindow: 24,
+};
+
+export const PHASE131_TREATMENTS = {
+  ev131_wlr_chain_full: {
+    id: 'ev131_wlr_chain_full',
+    label: '链+PAIR全栈+SEM域',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+    ...WL_R1_SEM_STACK,
+  },
+  ev131_wlr_chain_pair0: {
+    id: 'ev131_wlr_chain_pair0',
+    label: '链+PAIR-0+SEM域对照',
+    ...EVO_CHAIN_PAIR_BASE,
+    ...WL_R1_SEM_STACK,
+  },
+  ev131_wlr_sem_plain: {
+    id: 'ev131_wlr_sem_plain',
+    label: '链+PAIR全栈+SEM无域对照',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+    ...WL3_SEM_STACK,
+    mixedSemEnabled: true,
+    semDomainTag: false,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -4234,6 +4266,32 @@ export function applyPhase130Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 130, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase131Treatment(world, treatmentId) {
+  const treatment = PHASE131_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase131 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+    world.envProfile.semDomainTag = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 131, treatmentId, ...treatment };
   return world.envProfile;
 }
 

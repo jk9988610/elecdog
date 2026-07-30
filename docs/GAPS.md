@@ -520,7 +520,7 @@
 
 - **收敛**：智慧语言以 CORE-R 为核，Y/S/Z/X 四域服务繁殖交流
 - **文档**：[WL_REPRO_CENTER.md](WL_REPRO_CENTER.md)
-- **下一步**：WL-R1 SEM 域标记 + 繁殖邻域田野
+- **下一步**：WL-R2 链×PAIR 混编跨代繁殖载荷迹
 
 ---
 
