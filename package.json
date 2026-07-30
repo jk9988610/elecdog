@@ -170,6 +170,8 @@
     "field:phase131:verify": "node scripts/field-phase131-verify.mjs",
     "field:phase132": "node scripts/field-batch-phase132.mjs",
     "field:phase132:verify": "node scripts/field-phase132-verify.mjs",
+    "field:phase133": "node scripts/field-batch-phase133.mjs",
+    "field:phase133:verify": "node scripts/field-phase133-verify.mjs",
     "field:deadline": "node scripts/field-deadline-verify.mjs",
     "gap11:dsp:codex": "node scripts/gap11-dsp-codex-verify.mjs",
     "gap-w06:sem:codex": "node scripts/gap-w06-sem-codex-verify.mjs",

@@ -3289,6 +3289,45 @@ export const PHASE132_TREATMENTS = {
   },
 };
 
+/** Phase 133 — WL-R3 四域×繁殖核 2×2 田野 */
+export const PHASE133_TREATMENTS = {
+  ev133_r3_on_on: {
+    id: 'ev133_r3_on_on',
+    label: '域标记+四域耦合+繁殖迹',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+    ...WL_R2_LIN_STACK,
+    semFourDomainCouple: true,
+  },
+  ev133_r3_on_off: {
+    id: 'ev133_r3_on_off',
+    label: '域标记+繁殖迹·无四域耦合',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+    ...WL_R2_LIN_STACK,
+    semFourDomainCouple: false,
+  },
+  ev133_r3_off_off: {
+    id: 'ev133_r3_off_off',
+    label: '无域标记+无谱系',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+    ...WL3_SEM_STACK,
+    mixedSemEnabled: true,
+    semDomainTag: false,
+    semReproLineage: false,
+    semLineageEnabled: false,
+    semFourDomainCouple: false,
+  },
+  ev133_r3_off_on: {
+    id: 'ev133_r3_off_on',
+    label: '无域标记+谱系对照',
+    ...EVO_CHAIN_PAIR_FULL_BASE,
+    ...WL3_SEM_STACK,
+    mixedSemEnabled: true,
+    semDomainTag: false,
+    semReproLineage: false,
+    semFourDomainCouple: true,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -4354,6 +4393,42 @@ export function applyPhase132Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 132, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase133Treatment(world, treatmentId) {
+  const treatment = PHASE133_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase133 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+    world.envProfile.semDomainTag = false;
+    world.envProfile.semReproLineage = false;
+    world.envProfile.semFourDomainCouple = false;
+  }
+  if (treatment.semLineageEnabled === false) {
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semReproLineage = false;
+  }
+  if (!treatment.semDomainTag) {
+    world.envProfile.semDomainTag = false;
+    world.envProfile.semFourDomainCouple = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 133, treatmentId, ...treatment };
   return world.envProfile;
 }
 

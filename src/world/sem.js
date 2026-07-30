@@ -1,7 +1,7 @@
 // W5c 信号载荷共现记录 [SEM] — 统计事实，非语言/对话语义
 
 import { semLineageEnabled, refreshSemTrace, traceActHint } from './sem-lineage.js';
-import { resolveSemDomain, semDomainTagEnabled } from './sem-domain.js';
+import { resolveSemDomain, semDomainTagEnabled, noteFourDomainCouple } from './sem-domain.js';
 
 export function semEnabled(profile) {
   return profile?.semEnabled === true;
@@ -18,6 +18,8 @@ export function initSemState(being) {
   being.semFbHits = 0;
   being.semLocalPairs = new Map();
   being.semDomainPairTally = {};
+  being.semFourDomainCoupleTally = {};
+  being.semCoreRFourCouplePairs = 0;
 }
 
 export function initSemWorld(world) {
@@ -83,6 +85,7 @@ function shouldLogPair(count, minCount, fieldStat = false, domainTag = false) {
 function logSemPair(world, recorder, being, rxKey, txKey, count, profile, fieldStat) {
   being.semLogCount = (being.semLogCount ?? 0) + 1;
   const domain = resolveSemDomain(being, world, profile);
+  const fourActive = noteFourDomainCouple(being, world, profile);
   const payload = {
     kind: 'SEM',
     rxKey,
@@ -90,6 +93,7 @@ function logSemPair(world, recorder, being, rxKey, txKey, count, profile, fieldS
     count,
     window: profile?.semWindow ?? 1,
     ...(domain ? { domain } : {}),
+    ...(fourActive?.length ? { fourDomain: fourActive } : {}),
   };
   const domainTag = domain ? ` domain ${domain}` : '';
   const content = `[SEM] pair ${rxKey}→${txKey}${domainTag} count ${count}`;
@@ -135,6 +139,8 @@ export function recordSemTx(world, recorder, being, profile, txLine, { fieldStat
         being.semPairDomains.set(pk, domain);
       }
     }
+
+    noteFourDomainCouple(being, world, profile);
 
     if (shouldLogPair(next, minCount, fieldStat, semDomainTagEnabled(profile))) {
       logSemPair(world, recorder, being, rxKey, txKey, next, profile, fieldStat);
