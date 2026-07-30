@@ -11,6 +11,7 @@ import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
+import { noteSemDomainFromKind } from './sem-domain.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -104,6 +105,7 @@ function recordHormoneVector(world, recorder, being, trigger) {
     channels: indices,
     acceptSubId,
   });
+  noteSemDomainFromKind(being, 'HRM', world.tick);
 }
 
 export function pairGateOpen(being, world) {
@@ -222,6 +224,7 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
     packetLen: seq.length,
     pairMorph: 'B',
   });
+  noteSemDomainFromKind(being, 'DCK', world.tick);
   return { seq };
 }
 
@@ -278,6 +281,7 @@ export function processPairHandshake(world, recorder) {
       packetLen: req.packetLen,
       expireTick: req.expireTick,
     });
+    noteSemDomainFromKind(a, 'PRQ', tick);
     events.push({ type: 'PRQ', aId: a.id });
   }
 
@@ -307,6 +311,8 @@ export function processPairHandshake(world, recorder) {
       grantTo: a.id,
       fromId: b.id,
     });
+    noteSemDomainFromKind(a, 'PGR', tick);
+    noteSemDomainFromKind(b, 'PGR', tick);
     events.push({ type: 'PGR', aId: a.id, bId: b.id });
   }
 
@@ -357,6 +363,7 @@ export function releaseFieldHalves(world, recorder) {
       channelIdx: chMeta.channelIdx ?? null,
       subCellId: chMeta.subCellId ?? null,
     });
+    noteSemDomainFromKind(a, fldKind, world.tick);
     events.push(half);
   }
   return events;
@@ -415,6 +422,7 @@ export function processPairFusFromField(world, recorder) {
       channelIdx: half.channelIdx ?? null,
       subCellId: half.subCellId ?? null,
     });
+    noteSemDomainFromKind(b, inKind, world.tick);
     events.push({ type: inKind, aId: half.fromId, bId: b.id, halfId: half.id, channelIdx: half.channelIdx });
   }
 
@@ -461,6 +469,8 @@ function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) {
       gestationTicks,
     }
   );
+  noteSemDomainFromKind(parentA, 'FUS-IN', world.tick);
+  noteSemDomainFromKind(parentB, 'FUS-IN', world.tick);
   return parentB.syncyte;
 }
 
@@ -481,6 +491,7 @@ function tickEmbFlux(world, recorder, carrier, syncyte) {
       transfers: transfers.length,
       gestLeft: syncyte.gestationUntilTick - world.tick,
     });
+    noteSemDomainFromKind(carrier, 'EMB', world.tick);
   }
   return transfers;
 }
@@ -520,6 +531,7 @@ function expelSyncyte(world, recorder, carrier) {
     generation: child.generation,
     nurture: nurture.mode,
   });
+  noteSemDomainFromKind(carrier, 'EXP', world.tick);
   return { child, nurture };
 }
 

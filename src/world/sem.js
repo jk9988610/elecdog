@@ -1,6 +1,7 @@
 // W5c 信号载荷共现记录 [SEM] — 统计事实，非语言/对话语义
 
 import { semLineageEnabled, refreshSemTrace, traceActHint } from './sem-lineage.js';
+import { resolveSemDomain, semDomainTagEnabled } from './sem-domain.js';
 
 export function semEnabled(profile) {
   return profile?.semEnabled === true;
@@ -16,6 +17,7 @@ export function initSemState(being) {
   being.semPairTally = 0;
   being.semFbHits = 0;
   being.semLocalPairs = new Map();
+  being.semDomainPairTally = {};
 }
 
 export function initSemWorld(world) {
@@ -68,23 +70,29 @@ export function recordSemRx(being, heard, receiveTick) {
   }
 }
 
-function shouldLogPair(count, minCount, fieldStat = false) {
+function shouldLogPair(count, minCount, fieldStat = false, domainTag = false) {
   if (count < minCount) return false;
   if (count === minCount) return true;
-  if (fieldStat) return count % 48 === 0;
+  if (fieldStat) {
+    if (domainTag) return count % 8 === 0;
+    return count % 48 === 0;
+  }
   return count % 8 === 0;
 }
 
 function logSemPair(world, recorder, being, rxKey, txKey, count, profile, fieldStat) {
   being.semLogCount = (being.semLogCount ?? 0) + 1;
+  const domain = resolveSemDomain(being, world, profile);
   const payload = {
     kind: 'SEM',
     rxKey,
     txKey,
     count,
     window: profile?.semWindow ?? 1,
+    ...(domain ? { domain } : {}),
   };
-  const content = `[SEM] pair ${rxKey}→${txKey} count ${count}`;
+  const domainTag = domain ? ` domain ${domain}` : '';
+  const content = `[SEM] pair ${rxKey}→${txKey}${domainTag} count ${count}`;
   if (fieldStat) {
     recorder.evolution(world.tick, being.id, content, payload);
   } else {
@@ -118,7 +126,15 @@ export function recordSemTx(world, recorder, being, profile, txLine, { fieldStat
     being.semLocalPairs.set(pk, (being.semLocalPairs.get(pk) ?? 0) + 1);
     being.semPairTally = (being.semPairTally ?? 0) + 1;
 
-    if (shouldLogPair(next, minCount, fieldStat)) {
+    if (semDomainTagEnabled(profile)) {
+      const domain = resolveSemDomain(being, world, profile);
+      if (domain) {
+        if (!being.semDomainPairTally) being.semDomainPairTally = {};
+        being.semDomainPairTally[domain] = (being.semDomainPairTally[domain] ?? 0) + 1;
+      }
+    }
+
+    if (shouldLogPair(next, minCount, fieldStat, semDomainTagEnabled(profile))) {
       logSemPair(world, recorder, being, rxKey, txKey, next, profile, fieldStat);
     }
   }

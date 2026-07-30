@@ -10,12 +10,13 @@
 
 - **核**：繁殖信息交换（CORE-R · PAIR/链/留置）
 - **四域**：衣 YI / 食 SHI / 住 ZHU / 行 XING — 服务繁殖的智慧交流
-- **下一步**：WL-R1 — SEM 繁殖邻域 + 域标记田野（Phase 131）
+- **下一步**：WL-R2 — 链×PAIR 混编下跨代繁殖载荷迹（Phase 132）
 
 ---
 
 ## 验证
 
 ```bash
+npm run field:phase131:verify
 npm run field:phase130:verify
 ```

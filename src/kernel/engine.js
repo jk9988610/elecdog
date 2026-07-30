@@ -87,6 +87,7 @@ import {
 } from '../world/memory-feedback.js';
 import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
 import { semEnabled, recordSemRx, recordSemTx, semFeedbackEnabled, semActBias } from '../world/sem.js';
+import { noteSemDomainFromKind, noteSemDomainFromTick } from '../world/sem-domain.js';
 import {
   socialKnowledgeEnabled,
   socialKnowledgeFeedbackEnabled,
@@ -445,6 +446,7 @@ export function stepWorld(world, recorder) {
           tickCount: being.tickCount,
         });
       }
+      noteSemDomainFromKind(being, 'NUR', world.tick);
     }
 
     const met = runMetabolism(world, being, {
@@ -457,12 +459,13 @@ export function stepWorld(world, recorder) {
     });
     if (met.draw && !stat) {
       recordPcpDrw(world, { idx: met.draw.idx });
-      recorder.metabolism(
-        world.tick,
-        being.id,
-        `[DRW] e${met.draw.idx} -${met.draw.amount.toFixed(4)} act${met.draw.activity}`,
-        { kind: 'DRW', ...met.draw }
-      );
+        recorder.metabolism(
+          world.tick,
+          being.id,
+          `[DRW] e${met.draw.idx} -${met.draw.amount.toFixed(4)} act${met.draw.activity}`,
+          { kind: 'DRW', ...met.draw }
+        );
+        noteSemDomainFromKind(being, 'DRW', world.tick);
       if (met.draw.dsp && dissipationEnabled(profile)) {
         const d = met.draw.dsp;
         recorder.metabolism(
@@ -516,6 +519,15 @@ export function stepWorld(world, recorder) {
     } else {
       being.lowStreak = 0;
     }
+
+    noteSemDomainFromTick(being, world, profile, {
+      hadDraw: Boolean(met.draw),
+      hadLow: Boolean(met.low),
+      hadAct: result.external.some((l) => l.startsWith('[ACT]')),
+      hadCrossBoundary: Boolean(met.crossBoundary),
+      lowIntegrity: met.integrity != null && met.integrity < CELL_INTEGRITY_LOW,
+      hadIntra: Boolean(met.intra?.transfers?.length),
+    });
 
     if (reservoirEnabled(profile)) {
       const rsv = tickReservoir(being, profile, {
