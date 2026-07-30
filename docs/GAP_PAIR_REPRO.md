@@ -65,7 +65,7 @@ npm run field:phase124:verify
 | **PAIR-0** ✅ | 体内合胞、无握手、无通道 |
 | **PAIR-1** ✅ | 半态 `[FLD]` 排入环境场 → B `[FLD-IN]` 摄取 |
 | **PAIR-2** ✅ | `[PRQ]`/`[PGR]` 许可握手后排 `[FLD]` |
-| PAIR-3 | 排出/接受绑定 subCell 或 `r_k` |
+| **PAIR-3** ✅ | 排出绑 `act` subCell·`e_k`，接受绑 `draw`·`r_k` |
 | PAIR-4 | 多维激素向量 \(h\) |
 
 ---
@@ -123,4 +123,34 @@ npm run field:phase126:verify
 
 ---
 
-*立项：2026-07-30 · Phase 124 首验 · Phase 125 PAIR-1 · Phase 126 PAIR-2*
+## 八、PAIR-3 流程（Phase 127）
+
+```
+形态A [MEI] → halfPacket + {subCellId, channelIdx}
+        ↓ PRQ/PGR（同 PAIR-2）
+形态A [FLD-CH] release（绑定 act 子单元主通道 e_k）
+        ↓ B draw 子单元须 r_k > θ_r 且 e_k > θ_e
+形态B [FLD-CH-IN] + dockedHalf → [FUS-IN] → …
+```
+
+| 处理组 | pairChannelBind |
+|--------|-----------------|
+| `ev127_pair_channel` | ✅ |
+| `ev127_pair_nochannel` | ❌（PAIR-2 对照，无 FLD-CH） |
+
+```bash
+npm run field:phase127
+npm run field:phase127:verify
+```
+
+---
+
+## 九、与「RNA 层」的关系（设计备忘）
+
+- **半态 `meiPacket.seq`** 已是 DNA 的**瞬时缩减副本**（`reduceDna`），功能上接近「可传递的信息片段」，但项目**不设 RNA/核糖体 CODEX 名**。
+- **寄存器 `r_k`** 承担表型/代谢态；**`[SEM]`/`[MEM-LIN]`** 承担跨代非 DNA 迹——暂不必另立 RNA 模块。
+- 若未来需要「DNA→短时表达→半态」显式分层，可用数字原生标签如 `[TRX]`（转录态），与 PAIR-3 通道绑定正交，**非 PAIR-3 阻塞项**。
+
+---
+
+*立项：2026-07-30 · Phase 124–127 PAIR-0→3*

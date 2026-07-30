@@ -493,6 +493,30 @@
 
 ---
 
+## GAP-PAIR-CHANNEL · subCell 通道绑定（Phase 127）
+
+- **PAIR-3**：`[FLD-CH]` 绑 act subCell·`e_k`；`[FLD-CH-IN]` 要求 draw·`r_k`/ `e_k` 阈值
+- **对照**：`ev127_pair_nochannel` 无 FLD-CH（PAIR-2 行为）
+- **田野**：`npm run field:phase127` — 待验
+
+---
+
+## GAP-VESTIGIAL · 程序「退化尾」清理（提议）
+
+> 电子狗在田野中演化，代码库也应周期性修剪长期不活跃路径——类比退化器官，**删前须对照组田野可复现**。
+
+| 候选尾迹 | 默认状态 | 仍用于 | 建议 |
+|----------|----------|--------|------|
+| `[REN]`/`[PLG]` 续行 | Phase 107 起默认关 | Phase 39–47 历史处理组 | 保留模块，文档标 `legacy` |
+| 即时 `[FUS]` 双体汇合 | 非 PAIR 默认关 | `ev124_pair_ctrl_instant` 对照 | 保留对照臂 |
+| `[END]`→`[LINEAGE]` | **始终开** | 所有田野死亡续行 | **不可删** |
+| Phase 2–90 单批田野脚本 | 无 verify | 历史报告 JSON | 归档目录，不删逻辑 |
+| `multicell_sub_route_ren` 等 | 显式 treatment | 子单元路由实验 | 合并进 `legacy-treatments` 段 |
+
+**原则**：默认运行路径（`ECO_REPRO_BASE` + 观察台栈）不变；仅合并重复 treatment 定义、标 `@deprecated`、移报告 JSON 至 `docs/archive/`。
+
+---
+
 - **假说切换**：`carryCoopAdvantage`（118/121 未立）→ `carryReproSocYield = socLin / carriedFiss`
 - **田野**：`npm run field:phase123` — 8192 tick turbo × COOP on/off
 - **验证**：`npm run field:phase123:verify`

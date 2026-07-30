@@ -3020,6 +3020,48 @@ export const PHASE126_TREATMENTS = {
   },
 };
 
+/** Phase 127 — GAP-PAIR-3 subCell / r_k 通道绑定 */
+export const PHASE127_TREATMENTS = {
+  ev127_pair_channel: {
+    id: 'ev127_pair_channel',
+    label: 'PAIR-3·通道绑定',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairHandshake: true,
+    pairChannelBind: true,
+    pairReleaseSubRole: 'act',
+    pairAcceptSubRole: 'draw',
+    pairAcceptRMin: 0.08,
+    pairAcceptEMin: 0.06,
+    pairFieldHalfMaxAge: 96,
+    pairRequestMaxAge: 48,
+  },
+  ev127_pair_nochannel: {
+    id: 'ev127_pair_nochannel',
+    label: 'PAIR-2·无通道对照',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairHandshake: true,
+    pairChannelBind: false,
+    pairFieldHalfMaxAge: 96,
+    pairRequestMaxAge: 48,
+  },
+  ev127_pair_ctrl_fiss: {
+    id: 'ev127_pair_ctrl_fiss',
+    label: '对照·克隆FISS',
+    ...PAIR_REPRO_MIN_BASE,
+    pairReproEnabled: false,
+    pairFusInBody: false,
+    pairHalfRelease: false,
+    pairHandshake: false,
+    pairChannelBind: false,
+    fissionEnabled: true,
+    ecoFissEnabled: true,
+    meiEnabled: false,
+    reproMode: 'instant',
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3954,6 +3996,18 @@ export function applyPhase126Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, envId);
   world.envProfile = { ...base, ...treatment, envId };
   world.fieldStudy = { phase: 126, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase127Treatment(world, treatmentId) {
+  const treatment = PHASE127_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase127 处理组: ${treatmentId}`);
+  }
+  const envId = treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, envId);
+  world.envProfile = { ...base, ...treatment, envId };
+  world.fieldStudy = { phase: 127, treatmentId, ...treatment };
   return world.envProfile;
 }
 

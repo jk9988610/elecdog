@@ -47,6 +47,7 @@ import {
   pairFusInBodyEnabled,
   processPairReproduction,
   tryDockedHalf,
+  annotatePairHalfMetadata,
 } from '../world/pair-repro.js';
 import {
   experienceEnabled,
@@ -661,6 +662,7 @@ export function stepWorld(world, recorder) {
     if (pairFusInBodyEnabled(world.envProfile)) {
       if (being.pairMorph === 'A') {
         tryMeiosis(world, recorder, being, { stress: result.stress, integrity: met.integrity });
+        annotatePairHalfMetadata(being, world.envProfile);
       } else if (being.pairMorph === 'B') {
         tryDockedHalf(world, recorder, being, { stress: result.stress, integrity: met.integrity });
       }

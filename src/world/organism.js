@@ -56,9 +56,18 @@ export function initOrganism(being, profile) {
 }
 
 function activeSubCell(being) {
+  return getActiveSubCell(being);
+}
+
+export function getActiveSubCell(being) {
   if (!being.subCells?.length) return null;
-  const idx = being.intraTick % being.subCells.length;
+  const idx = (being.intraTick ?? 0) % being.subCells.length;
   return being.subCells[idx];
+}
+
+export function getSubCellByRole(being, role) {
+  if (!being.subCells?.length || !role) return null;
+  return being.subCells.find((sc) => sc.role === role) ?? null;
 }
 
 /** 多子单元代谢：按轮值子单元摄取，子单元间通量再分配 */
