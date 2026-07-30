@@ -149,13 +149,13 @@ export function runFieldCarryScenario({
   carrySnapshots = [],
 }) {
   const startedAt = performance.now();
-  resetBirthCounters();
-  const world = createWorld(`01-p${phase}-${treatmentId}-${seed}`);
-  const profile = applyTreatment(world, treatmentId);
+  const probe = createWorld(`01-p${phase}-probe-${seed}`);
+  const profile = applyTreatment(probe, treatmentId);
   const carryMode = profile.carryMode ?? 'none';
   const needsChain = carryMode !== 'none';
 
   let carries = carrySnapshots;
+
   if (needsChain && !carries.length) {
     const sculpt = runSculptPass({
       createWorld,
@@ -178,6 +178,10 @@ export function runFieldCarryScenario({
       });
     }
   }
+
+  resetBirthCounters();
+  const world = createWorld(`01-p${phase}-${treatmentId}-${seed}`);
+  applyTreatment(world, treatmentId);
 
   const cohortSpec =
     carryMode === 'none'
@@ -217,6 +221,8 @@ export function runFieldCarryScenario({
       generation: c.generation,
       envId: c.provenance?.envId,
       ecoRepro: c.ecoRepro,
+      chainLen: c.provenance?.chain?.length ?? 0,
+      chainEnvs: (c.provenance?.chain ?? []).map((x) => x.envId).filter(Boolean),
     })),
     cohortSize: cohortSpec.length,
     durationMs,

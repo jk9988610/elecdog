@@ -123,6 +123,11 @@ const LABELS = {
   envDsp: { native: '耗散 DSP', analogy: '通量分流（类比）' },
   envAdv: { native: '平流 ADV', analogy: '邻格搬运（类比）' },
   semStack: { native: '信号约定迹', analogy: '发–收型统计（类比）' },
+  carryPanel: { native: '留置链', analogy: '跨环境留置谱系（类比）' },
+  carryPanelEmpty: {
+    native: '当前无留置个体 — 田野链实验或导入快照后可见',
+    analogy: '无跨环境留置记录',
+  },
   semStackOff: {
     native: '当前环境未启用 [SEM] — 请切换至智慧语言观察配置',
     analogy: '未启用约定迹记录 — 请切换观察环境',

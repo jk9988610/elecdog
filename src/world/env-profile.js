@@ -2609,6 +2609,30 @@ export const PHASE108_TREATMENTS = {
   },
 };
 
+/** Phase 109 — 三环境留置链：harsh 塑形 → SEM 孵化 → 第三环境混合 */
+export const PHASE109_TREATMENTS = {
+  ev109_triple_ctrl: {
+    id: 'ev109_triple_ctrl',
+    label: '三环境链·混合对照（wisdom）',
+    envId: 'wisdom_evolution',
+    mixedEnvId: 'wisdom_evolution',
+    ...EVO_CHAIN_BASE,
+    carryIncubateSem: true,
+    mixedSemEnabled: true,
+    ...WL3_SEM_STACK,
+  },
+  ev109_triple_fertile: {
+    id: 'ev109_triple_fertile',
+    label: '三环境链·富足混合',
+    envId: 'fertile_field',
+    mixedEnvId: 'fertile_field',
+    ...EVO_CHAIN_BASE,
+    carryIncubateSem: true,
+    mixedSemEnabled: true,
+    ...WL3_SEM_STACK,
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈 + 智慧语言 SEM 栈 */
 ENV_PROFILES.observer_wl_stack = {
   id: 'observer_wl_stack',
@@ -3253,6 +3277,23 @@ export function applyPhase108Treatment(world, treatmentId) {
     world.envProfile.semFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 108, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase109Treatment(world, treatmentId) {
+  const treatment = PHASE109_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase109 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 109, treatmentId, ...treatment };
   return world.envProfile;
 }
 

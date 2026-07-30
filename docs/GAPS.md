@@ -383,3 +383,13 @@
 - **文档**：[PHASE108_CARRY_CHAIN_SEM.md](PHASE108_CARRY_CHAIN_SEM.md)
 
 ---
+
+## GAP-EVO-CARRY-TRIPLE · 三环境留置链（Phase 109）
+
+- **扩展**：harsh 塑形 → SEM 孵化 → **第三环境**混合（`fertile_field` vs `wisdom_evolution` 对照）
+- **观察台**：`carry-panel` provenance 链可视化
+- **田野**：`npm run field:phase109`
+- **状态**：**部分结案** — 三环境链 + 富足场对照可观测
+- **文档**：[PHASE109_TRIPLE_CHAIN.md](PHASE109_TRIPLE_CHAIN.md)
+
+---

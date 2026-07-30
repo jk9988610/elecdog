@@ -57,6 +57,7 @@ import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
 import { renderImmersionPanel } from './immersion.js';
 import { renderEnvStackPanel } from './env-stack.js';
 import { renderSemStackPanel } from './sem-stack.js';
+import { renderCarryPanel } from './carry-panel.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 
 const SEED_DNA =
@@ -752,6 +753,7 @@ export class ObserverApp {
         viewModeHint,
       })}
       ${renderSemStackPanel(s.semStack, { label, semViewModeHint })}
+      ${renderCarryPanel(s.carry, { label })}
       <section class="panel env-panel">
         <h2>环境</h2>
         ${s.world.envHint ? `<p class="panel-hint">${escapeHtml(s.world.envHint)}</p>` : ''}
