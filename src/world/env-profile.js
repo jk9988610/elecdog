@@ -3231,8 +3231,9 @@ const WL_R1_SEM_STACK = {
   ...WL3_SEM_STACK,
   mixedSemEnabled: true,
   semDomainTag: true,
-  semReproWindow: 24,
-  semDomainWindow: 24,
+  semMinCount: 2,
+  semReproWindow: 48,
+  semDomainWindow: 48,
 };
 
 export const PHASE131_TREATMENTS = {

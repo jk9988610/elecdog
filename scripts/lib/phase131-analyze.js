@@ -1,12 +1,16 @@
 /** Phase 131 — WL-R1 繁殖邻域 SEM 域标记 */
 
-import { semDomainCountsFromRecorder } from '../../src/world/sem-domain.js';
+import { semDomainCountsFromRecorder, semDomainCountsFromBeings } from '../../src/world/sem-domain.js';
 import { analyzeChainPairFull, verifyChainPairFullBatch, slimCarryChainMetrics } from './phase130-analyze.js';
+import { evoCount } from './event-stats.js';
 
 export function analyzeWlrSemDomain(recorder, beings, world, ctx = {}) {
   const base = analyzeChainPairFull(recorder, beings, world, ctx);
-  const semDomain = semDomainCountsFromRecorder(recorder);
-  const semTotal = Object.values(semDomain).reduce((a, b) => a + b, 0);
+  const profile = world.envProfile ?? {};
+  const fromLogs = semDomainCountsFromRecorder(recorder);
+  const logSemCount = evoCount(recorder, 'SEM');
+  const semDomain = semDomainCountsFromBeings(beings, profile);
+  const semTotal = beings.reduce((s, b) => s + (b.semPairTally ?? 0), 0);
   const semTagged = semTotal - semDomain.untagged;
   const semCoreR = semDomain['CORE-R'] ?? 0;
 
@@ -16,8 +20,10 @@ export function analyzeWlrSemDomain(recorder, beings, world, ctx = {}) {
     semTotal,
     semTagged,
     semCoreR,
+    semLogCount: logSemCount,
+    semLogDomain: fromLogs,
     semCoreRRatio: semTotal ? +(semCoreR / semTotal).toFixed(4) : 0,
-    semDomainTagEnabled: world.envProfile?.semDomainTag === true,
+    semDomainTagEnabled: profile.semDomainTag === true,
   };
 }
 

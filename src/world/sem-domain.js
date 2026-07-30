@@ -85,3 +85,23 @@ export function semDomainCountsFromRecorder(recorder) {
   }
   return counts;
 }
+
+/** 田野分析：按配对形成时的域戳累计归因 */
+export function semDomainCountsFromBeings(beings, profile) {
+  const counts = { 'CORE-R': 0, YI: 0, SHI: 0, ZHU: 0, XING: 0, untagged: 0 };
+  const domainTag = semDomainTagEnabled(profile);
+  for (const being of beings) {
+    if (!domainTag) {
+      counts.untagged += being.semPairTally ?? 0;
+      continue;
+    }
+    const tally = being.semDomainPairTally ?? {};
+    for (const [domain, n] of Object.entries(tally)) {
+      if (counts[domain] != null) counts[domain] += n;
+    }
+    const tagged = Object.values(tally).reduce((a, b) => a + b, 0);
+    const untagged = (being.semPairTally ?? 0) - tagged;
+    if (untagged > 0) counts.untagged += untagged;
+  }
+  return counts;
+}

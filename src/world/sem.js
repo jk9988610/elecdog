@@ -17,6 +17,7 @@ export function initSemState(being) {
   being.semPairTally = 0;
   being.semFbHits = 0;
   being.semLocalPairs = new Map();
+  being.semDomainPairTally = {};
 }
 
 export function initSemWorld(world) {
@@ -69,10 +70,13 @@ export function recordSemRx(being, heard, receiveTick) {
   }
 }
 
-function shouldLogPair(count, minCount, fieldStat = false) {
+function shouldLogPair(count, minCount, fieldStat = false, domainTag = false) {
   if (count < minCount) return false;
   if (count === minCount) return true;
-  if (fieldStat) return count % 48 === 0;
+  if (fieldStat) {
+    if (domainTag) return count % 8 === 0;
+    return count % 48 === 0;
+  }
   return count % 8 === 0;
 }
 
@@ -122,7 +126,15 @@ export function recordSemTx(world, recorder, being, profile, txLine, { fieldStat
     being.semLocalPairs.set(pk, (being.semLocalPairs.get(pk) ?? 0) + 1);
     being.semPairTally = (being.semPairTally ?? 0) + 1;
 
-    if (shouldLogPair(next, minCount, fieldStat)) {
+    if (semDomainTagEnabled(profile)) {
+      const domain = resolveSemDomain(being, world, profile);
+      if (domain) {
+        if (!being.semDomainPairTally) being.semDomainPairTally = {};
+        being.semDomainPairTally[domain] = (being.semDomainPairTally[domain] ?? 0) + 1;
+      }
+    }
+
+    if (shouldLogPair(next, minCount, fieldStat, semDomainTagEnabled(profile))) {
       logSemPair(world, recorder, being, rxKey, txKey, next, profile, fieldStat);
     }
   }
