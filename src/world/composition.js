@@ -1,5 +1,6 @@
 // 种群结构快照 — 只输出可观测数值，不预制「人类/蘑菇」等地球类比标签
 
+import { populationLayerEnabled } from './multicell-v2.js';
 import { SLOT_COUNT } from './social.js';
 
 export const COMPOSITION_INTERVAL = 100;
@@ -68,5 +69,6 @@ export function compositionSnapshot(world) {
 }
 
 export function shouldRecordComposition(world) {
+  if (!populationLayerEnabled(world.envProfile)) return false;
   return world.tick > 0 && world.tick % COMPOSITION_INTERVAL === 0;
 }

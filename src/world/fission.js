@@ -12,9 +12,9 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { beingUsesEcoFiss } from './eco-repro.js';
 import { juvenileFissBoost, multicellV2Enabled } from './multicell-v2.js';
 
-/** 种群层 FISS（诞生新 being）— 多细胞 v2 妊娠栈仅体内 MIT + 交配分娩 */
+/** 种群层 FISS（诞生新 being）— 多细胞 v2 仅体内 MIT + 交配分娩 */
 export function populationFissionEnabled(profile) {
-  if (multicellV2Enabled(profile) && profile?.reproMode === 'gestation') {
+  if (multicellV2Enabled(profile)) {
     return false;
   }
   return profile?.fissionEnabled === true;

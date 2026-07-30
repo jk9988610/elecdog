@@ -14,7 +14,7 @@ import {
   shouldShowGenealogyPanel,
   setObserverLayoutMode,
 } from '../src/ui/observer-layout.js';
-import { multicellV2Observer } from '../src/world/multicell-v2.js';
+import { multicellV2Observer, populationLayerEnabled } from '../src/world/multicell-v2.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -32,6 +32,7 @@ initEnvStackModules(world);
 const recorder = new Recorder();
 
 assert(multicellV2Observer(world.envProfile), 'multicell v2 观察模式');
+assert(!populationLayerEnabled(world.envProfile), '多细胞 v2 无种群层');
 
 spawnBeing(world, recorder, { name: 'a', code: '001', pairMorph: 'A' });
 spawnBeing(world, recorder, { name: 'b', code: '002', pairMorph: 'B' });
@@ -39,6 +40,7 @@ stepWorld(world, recorder);
 
 const stats = buildDashboardStats(world, recorder);
 assert(stats.world.multicellV2Observer === true, 'stats 含 multicellV2Observer');
+assert(stats.world.populationLayerEnabled === false, 'stats 停用种群层');
 assert(stats.beings.every((b) => b.organismType === 'multicell'), '经典卡片数据含 multicell');
 assert(stats.beings.some((b) => b.devStage != null), 'stats 含 devStage');
 

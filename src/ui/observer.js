@@ -78,6 +78,11 @@ import {
   LAYOUT_GENEALOGY,
   LAYOUT_CLASSIC,
 } from './observer-layout.js';
+import {
+  renderMulticellClassicBeingCard,
+  initClassicMulticellHealthButtons,
+} from './observer-classic-multicell.js';
+import { populationLayerEnabled } from '../world/multicell-v2.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -594,6 +599,12 @@ export class ObserverApp {
         getWorld: () => this.world,
       });
       this.genealogyPanel?.paint();
+    } else if (
+      this.world?.envProfile &&
+      !populationLayerEnabled(this.world.envProfile) &&
+      this.observerLayout === LAYOUT_CLASSIC
+    ) {
+      initClassicMulticellHealthButtons(this.$.dashboard, { getWorld: () => this.world });
     }
     this.$.observerLayoutGroup?.classList.toggle(
       'hidden',
@@ -947,9 +958,19 @@ export class ObserverApp {
       .map(([slot, n]) => `<div class="stat-row"><span>${formatSlot(slot)}</span><strong>${n}</strong></div>`)
       .join('');
 
-    const beingCards = s.beings
-      .map(
-        (b) => `
+    const statsById = new Map(s.beings.map((b) => [b.id, b]));
+    const useMulticellClassic =
+      !populationLayerEnabled(this.world?.envProfile) && this.observerLayout === LAYOUT_CLASSIC;
+
+    const beingCards = useMulticellClassic
+      ? (this.world?.beings.filter((b) => b.alive) ?? [])
+          .map((being) =>
+            renderMulticellClassicBeingCard(being, this.world, statsById.get(being.id))
+          )
+          .join('')
+      : s.beings
+          .map(
+            (b) => `
       <article class="being-card">
         <header class="being-head">
           <span class="being-id">${b.id.slice(-8)}</span>
@@ -992,8 +1013,43 @@ export class ObserverApp {
         <div class="being-domain">${label('metabolismDomain')} e${b.cellBoundary.join(' e')}</div>
         <div class="being-regs" title="寄存器漂移">r ${b.registers.join(' ')}</div>
       </article>`
-      )
-      .join('');
+          )
+          .join('');
+
+    const popPanel = s.world.populationLayerEnabled
+      ? `
+      <section class="panel pop-panel">
+        <h2>种群</h2>
+        <h3 class="term">${label('popStruct')}</h3>
+        ${cmpBlock}
+        <h3 class="term">${label('popLife')}</h3>
+        <div class="stat-grid">
+          <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
+          <div class="stat-row"><span>${label('end')}</span><strong>${s.population.ended}</strong></div>
+          <div class="stat-row"><span>${label('lineage')}</span><strong>${s.population.lineage}</strong></div>
+          <div class="stat-row"><span>${label('fiss')}</span><strong>${s.population.fission}</strong></div>
+          <div class="stat-row"><span>${label('rpl')}</span><strong>${s.population.rpl}</strong></div>
+          <div class="stat-row"><span>${label('ren')}</span><strong>${s.population.ren ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('plg')}</span><strong>${s.population.plg ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('rco')}</span><strong>${s.population.rco ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('mei')}</span><strong>${s.population.mei ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('fus')}</span><strong>${s.population.fus ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('bcn')}</span><strong>${s.population.bcn ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('exp')}</span><strong>${s.population.exp ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('reg')}</span><strong>${s.population.reg ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('mtb')}</span><strong>${s.population.mtb ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('coop')}</span><strong>${s.population.coop ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('lay')}</span><strong>${s.population.lay ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('rpr')}</span><strong>${s.population.rpr ?? 0}</strong></div>
+          <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
+          <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
+        </div>
+        <h3 class="term">${label('social')}</h3>
+        <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
+      </section>`
+      : '';
+
+    const envProfile = this.world?.envProfile;
 
     return `
       ${renderImmersionPanel(s.consciousness, this.recorder, { label })}
@@ -1030,40 +1086,9 @@ export class ObserverApp {
         </div>
       </section>
 
-      <section class="panel pop-panel">
-        <h2>种群</h2>
-        <h3 class="term">${label('popStruct')}</h3>
-        ${cmpBlock}
-        <h3 class="term">${label('popLife')}</h3>
-        <div class="stat-grid">
-          <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
-          <div class="stat-row"><span>${label('end')}</span><strong>${s.population.ended}</strong></div>
-          <div class="stat-row"><span>${label('lineage')}</span><strong>${s.population.lineage}</strong></div>
-          <div class="stat-row"><span>${label('fiss')}</span><strong>${s.population.fission}</strong></div>
-          <div class="stat-row"><span>${label('rpl')}</span><strong>${s.population.rpl}</strong></div>
-          <div class="stat-row"><span>${label('ren')}</span><strong>${s.population.ren ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('plg')}</span><strong>${s.population.plg ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('rco')}</span><strong>${s.population.rco ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('mei')}</span><strong>${s.population.mei ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('fus')}</span><strong>${s.population.fus ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('bcn')}</span><strong>${s.population.bcn ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('exp')}</span><strong>${s.population.exp ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('reg')}</span><strong>${s.population.reg ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('mtb')}</span><strong>${s.population.mtb ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('coop')}</span><strong>${s.population.coop ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('lay')}</span><strong>${s.population.lay ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('rpr')}</span><strong>${s.population.rpr ?? 0}</strong></div>
-          <div class="stat-row"><span>${label('sel')}</span><strong>${s.population.selection}</strong></div>
-          <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
-        </div>
-        <h3 class="term">${label('social')}</h3>
-        <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
-      </section>
+      ${popPanel}
 
-      ${shouldShowGenealogyPanel(
-        { multicellV2Observer: s.world.multicellV2Observer, multicellV2Enabled: s.world.multicellV2Observer },
-        this.observerLayout
-      )
+      ${shouldShowGenealogyPanel(envProfile, this.observerLayout)
         ? renderGenealogyPanelHTML()
         : `
       <section class="panel beings-panel">
