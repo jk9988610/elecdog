@@ -46,6 +46,7 @@
 118 GAP-13 多批次因果定律       ← weak 4/7（定律未立）
 119 8192 tick 长时稳健性         ← support 6/7
 120 观察台长时留置导入           ← 验证通过
+121 GAP-13×8192 合作因果         ← 当前
 ```
 
 ---
@@ -78,6 +79,7 @@
 ## 验证命令
 
 ```bash
+npm run field:phase121       # GAP-13×8192
 npm run field:phase119       # 8192 tick 长时
 npm run field:phase118       # GAP-13 因果定律
 npm run field:phase117       # 六环境+链
