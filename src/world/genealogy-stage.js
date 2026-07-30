@@ -46,7 +46,13 @@ export function genealogyStageBadge(being) {
   }
 
   if (dev === LIFE_STAGE_GEST) {
-    return { code: STAGE_BADGE_GEST, className: 'genealogy-stage-badge stage-gest' };
+    if (isNursingInfant(being)) {
+      return { code: STAGE_BADGE_INFANT, className: 'genealogy-stage-badge stage-infant' };
+    }
+    if (life === LIFE_STAGE_JUV || being.devStage === LIFE_STAGE_JUV) {
+      return { code: STAGE_BADGE_JUV, className: 'genealogy-stage-badge stage-juv' };
+    }
+    return { code: STAGE_BADGE_INFANT, className: 'genealogy-stage-badge stage-infant' };
   }
 
   if (isNursingInfant(being)) {

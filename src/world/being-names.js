@@ -69,9 +69,16 @@ export function courtshipBondLineForCouple(male, female) {
   return formatCourtshipBondLine(initiator, target);
 }
 
-export function applyGenealogyLineOnBond(male, female, courtshipInitiatorMorph) {
+export function applyGenealogyLineOnBond(
+  male,
+  female,
+  courtshipInitiatorMorph,
+  courtshipInitiatorId = null
+) {
   if (!male || !female) return null;
-  const init = courtshipInitiatorMorph === 'B' ? 'B' : 'A';
+  let init = courtshipInitiatorMorph === 'B' ? 'B' : 'A';
+  if (courtshipInitiatorId === male.id) init = 'A';
+  else if (courtshipInitiatorId === female.id) init = 'B';
   if (init === 'A') {
     const head = male.lineageHeadId ?? male.id;
     male.lineageHeadId = head;
@@ -87,5 +94,7 @@ export function applyGenealogyLineOnBond(male, female, courtshipInitiatorMorph) 
   }
   male.bondCourtshipInitiatorMorph = init;
   female.bondCourtshipInitiatorMorph = init;
+  male.bondCourtshipInitiatorId = init === 'A' ? male.id : female.id;
+  female.bondCourtshipInitiatorId = male.bondCourtshipInitiatorId;
   return { initiator: init, headId: init === 'A' ? male.lineageHeadId : female.lineageHeadId };
 }

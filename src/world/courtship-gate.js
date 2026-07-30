@@ -19,6 +19,18 @@ export function hasPartner(being) {
   return Boolean(being?.partnerId);
 }
 
+/** 世界/个体求偶冷却窗（观察台开局避免立刻全配对妊娠） */
+export function courtshipEligible(being, world, profile = world?.envProfile) {
+  const tick = world?.tick ?? 0;
+  if (world?.courtshipGraceUntilTick != null && tick < world.courtshipGraceUntilTick) {
+    return false;
+  }
+  if (being?.courtshipEligibleAtTick != null && tick < being.courtshipEligibleAtTick) {
+    return false;
+  }
+  return true;
+}
+
 export function isAdultReproMale(being, world, profile) {
   return (
     being?.alive &&
@@ -41,6 +53,7 @@ export function isAdultReproFemale(being, world, profile) {
 /** 拥有伴侣的个体不发送求偶 */
 export function canSendCourtship(being, world, profile = world?.envProfile) {
   if (!being?.alive || hasPartner(being)) return false;
+  if (!courtshipEligible(being, world, profile)) return false;
   if (being.pairMorph === 'A') {
     return isAdultReproMale(being, world, profile);
   }
@@ -59,6 +72,9 @@ export function canMaleCourtFemale(male, female, world, profile = world?.envProf
   if (isPregnant(female)) return { ok: false, reason: 'pregnant' };
   if (isReproKinBlocked(male, female, profile)) return { ok: false, reason: 'kin' };
   if (female.partnerId && female.partnerId !== male.id) return { ok: false, reason: 'female-partner' };
+  if (!courtshipEligible(male, world, profile) || !courtshipEligible(female, world, profile)) {
+    return { ok: false, reason: 'courtship-grace' };
+  }
   return { ok: true, reason: 'ok' };
 }
 
@@ -71,6 +87,9 @@ export function canFemaleCourtMale(female, male, world, profile = world?.envProf
   if (hasPartner(male) && male.partnerId !== female.id) return { ok: false, reason: 'male-partner' };
   if (isPregnant(female)) return { ok: false, reason: 'pregnant' };
   if (isReproKinBlocked(female, male, profile)) return { ok: false, reason: 'kin' };
+  if (!courtshipEligible(female, world, profile) || !courtshipEligible(male, world, profile)) {
+    return { ok: false, reason: 'courtship-grace' };
+  }
   return { ok: true, reason: 'ok' };
 }
 

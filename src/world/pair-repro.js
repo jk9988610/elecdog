@@ -12,7 +12,7 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
-import { multicellV2Enabled, LIFE_STAGE_ADT } from './multicell-v2.js';
+import { multicellV2Enabled, LIFE_STAGE_ADT, LIFE_STAGE_JUV } from './multicell-v2.js';
 import {
   initGestationalUmbilical,
   tickUmbilicalFlux,
@@ -461,9 +461,11 @@ export function registerPairSpeechPGR(world, recorder, grantor, initiatorId, txL
   });
   noteSemDomainFromKind(a, 'PGR', tick);
   noteSemDomainFromKind(b, 'PGR', tick);
+  if (!req) return null;
   registerPartnerBond(world, recorder, a, b, {
     trigger: 'PGR',
     courtshipInitiatorMorph: initiator.pairMorph,
+    courtshipInitiatorId: initiator.id,
   });
   return { aId: a.id, bId: b.id };
 }
@@ -757,6 +759,8 @@ function expelSyncyte(world, recorder, carrier) {
   child.pairParentB = carrier.id;
   child.bornAtTick = world.tick;
   child.recombined = true;
+  child.devStage = LIFE_STAGE_JUV;
+  child.lifeStage = LIFE_STAGE_JUV;
 
   const surnameMorph = carrier.bondCourtshipInitiatorMorph ?? carrier.surnameLineMorph ?? 'A';
   const surnameParent = surnameMorph === 'A' ? parentA : carrier;
@@ -847,6 +851,8 @@ export function processPartnerChannelFus(world, recorder) {
   for (const a of males) {
     const b = world.beings.find((x) => x.id === a.partnerId);
     if (!b?.alive || b.pairMorph !== 'B' || isPregnant(b) || !b.dockedHalf) continue;
+    if (world.tick < (b.partnerFusEligibleAtTick ?? 0)) continue;
+    if (world.tick < (a.partnerFusEligibleAtTick ?? 0)) continue;
     if (a.pairGrantFrom !== b.id) a.pairGrantFrom = b.id;
     alignPartnerMatingChannels(a, b);
     const structFit = assessPairStructureFit(a, b, profile, a.meiPacket);
