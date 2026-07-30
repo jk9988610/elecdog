@@ -273,7 +273,7 @@ LOG-SEN-* → [SEN] → LOG-NRV（整合、时序）→ LOG-BRN（记忆/意识�
 
 ### MV4 — UI 开关
 
-- [ ] 经典单细胞观察子菜单
+- [x] 经典单细胞观察子菜单（`observer-layout.js` 族谱/经典卡片切换）
 
 ### MV5 — 五感
 
