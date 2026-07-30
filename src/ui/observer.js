@@ -616,6 +616,7 @@ export class ObserverApp {
     const envTag = s.world.envLabel ? ` · ${s.world.envLabel}` : '';
     this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}${envTag}`;
     this.$.dashboard.innerHTML = this.renderDashboard(s);
+    this.genealogyPanel = null;
     this.$.dashboard.querySelectorAll('[data-codex-entry]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-codex-entry');

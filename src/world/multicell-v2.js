@@ -116,6 +116,7 @@ export function resolveLifeStage(being, world, profile) {
     if (being.lifeStage !== LIFE_STAGE_ADT) {
       being.lifeStage = LIFE_STAGE_ADT;
       being.adultAtTick = world.tick;
+      matureAdultLogicCells(being, world, profile);
       initAdultMatingStructures(being, profile, world.tick);
       issueAdultHealthReport(being, world.tick);
       if (profile?.stemFreezeAtAdult !== false) {
@@ -172,6 +173,38 @@ export function fillAdultLogicCellsToMax(being, world, profile, { bypassEnvGate 
     }
   }
   freezeStemPool(being, tick);
+  return being;
+}
+
+/** 成体化：消耗剩余干细胞分化生殖/激素细胞，并补足成体最低逻辑细胞 */
+export function matureAdultLogicCells(being, world, profile) {
+  if (!multicellV2Enabled(profile)) return being;
+  ensureOrganPathways(being);
+  const tick = being.tickCount ?? 0;
+  const rng = mulberry32(hashString(`${being.id}:${tick}:mature-adt`));
+  let guard = 48;
+  while (!stemPoolFrozen(being) && guard-- > 0) {
+    const stems = being.logicCells?.[STEM_CELL_CODE];
+    if (!stems?.length) break;
+    const diff = tryDifferentiation(being, world, profile, LIFE_STAGE_ADT, rng);
+    if (!diff) break;
+  }
+  const minMap = profile?.adultMinLogicCells ?? {
+    'LOG-GON': 2,
+    'LOG-HRM': 2,
+  };
+  for (const [code, minN] of Object.entries(minMap)) {
+    const cells = ensureCellList(being, code);
+    const t = logicCellTypeByCode(code);
+    const max = t?.max ?? LOGIC_CELL_MAX_PER_TYPE;
+    const target = Math.min(max, minN);
+    while (
+      cells.length < target &&
+      envAllowsLogicCode(world, profile, code, being)
+    ) {
+      addLogicCell(being, code, tick);
+    }
+  }
   return being;
 }
 
@@ -384,10 +417,10 @@ function mitProbability(stage, profile, boost, being, world) {
   }
   const base =
     stage === LIFE_STAGE_GEST
-      ? 0.14
+      ? 0.16
       : stage === LIFE_STAGE_JUV
-        ? 0.07
-        : 0.035;
+        ? 0.11
+        : 0.045;
   const raw = Math.min(0.42, base + boost);
   return Math.min(0.55, raw * mitHormoneMult(being));
 }
@@ -395,8 +428,8 @@ function mitProbability(stage, profile, boost, being, world) {
 function diffProbability(stage, profile, being, targetCode) {
   let base = 0;
   if (stage === LIFE_STAGE_GEST) base = 0.12;
-  else if (stage === LIFE_STAGE_JUV) base = 0.08;
-  else if (stage === LIFE_STAGE_ADT) base = 0.05;
+  else if (stage === LIFE_STAGE_JUV) base = 0.14;
+  else if (stage === LIFE_STAGE_ADT) base = 0.08;
   const homeo = being?.dnaExpress?.homeo?.diffBias ?? 1;
   base *= homeo;
   if (!targetCode || !being?.hormoneVec) return base;

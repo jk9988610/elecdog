@@ -70,7 +70,7 @@ for (let i = 0; i < 4; i++) {
 
 const b0 = world.beings[0];
 const stemBirth = b0.logicCells?.[STEM_CELL_CODE]?.length ?? 0;
-assert(stemBirth >= 2, `出生为干细胞池（STEM=${stemBirth}）`);
+assert(stemBirth >= 4, `出生为干细胞池（STEM=${stemBirth}）`);
 assert(!b0.logicCells?.['LOG-BRN']?.length, '出生无已分化脑细胞');
 assert(b0.skinMembrane?.code === 'MBR-SKN', '皮肤膜存在');
 assert(b0.devStage === LIFE_STAGE_JUV, '排出/诞生即为婴幼儿 JUV（无体外胚胎窗）');
@@ -93,11 +93,16 @@ const fissionBorn = world.beings.filter((b) => b.fissionParent);
 assert(fissionBorn.length === 0, `无 FISS 血缘子代（${fissionBorn.length}）`);
 assert(celLog.length > 0, `[CEL] 逻辑计数迹（${celLog.length}）`);
 
-const juvMei = world.beings.some((b) => b.tickCount < 96 && b.meiCount > 0);
+const juvTicks = world.envProfile.juvenileTicks ?? 72;
+const juvMei = world.beings.some((b) => b.tickCount < juvTicks && b.meiCount > 0);
 assert(!juvMei, '幼体 tick 内无减数（生殖未成熟）');
 
 const adult = world.beings.find((b) => b.alive && b.lifeStage === LIFE_STAGE_ADT);
 assert(adult, '存在成体');
+assert(
+  (adult.logicCells?.['LOG-GON']?.length ?? 0) >= 2,
+  `成体有生殖细胞（GON=${adult.logicCells?.['LOG-GON']?.length ?? 0}）`
+);
 
 const hadJuv = world.beings.some((b) => b.devStage === LIFE_STAGE_JUV || b.juvDiffTicks > 0);
 assert(hadJuv, '经历婴幼儿发育与分化');

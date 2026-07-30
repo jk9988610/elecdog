@@ -1632,59 +1632,101 @@ input[type='number'] {
   grid-column: 1 / -1;
 }
 
-.genealogy-courtship-block {
-  margin-bottom: 1rem;
-  padding: 0.65rem 0.85rem;
+.genealogy-viewport-wrap {
   border: 1px solid #2a3140;
-  border-radius: 8px;
+  border-radius: 10px;
+  background: #0c1018;
+  overflow: hidden;
+}
+
+.genealogy-viewport {
+  position: relative;
+  width: 100%;
+  height: min(62vh, 640px);
+  min-height: 320px;
+  touch-action: none;
+  cursor: grab;
+  overflow: hidden;
+}
+
+.genealogy-viewport:active {
+  cursor: grabbing;
+}
+
+.genealogy-viewport-inner {
+  transform-origin: 0 0;
+  padding: 1.25rem;
+  will-change: transform;
+}
+
+.genealogy-detail-popover {
+  position: fixed;
+  z-index: 120;
+  border: 1px solid #3a4a60;
+  border-radius: 10px;
+  background: #121820;
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.55);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+}
+
+.genealogy-detail-popover.hidden {
+  display: none;
+}
+
+.genealogy-detail-popover-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem 0.65rem;
+  border-bottom: 1px solid #2a3140;
   background: #0f141c;
 }
 
-.genealogy-courtship-title {
-  margin: 0 0 0.5rem;
-  font-size: 0.875rem;
-}
-
-.genealogy-courtship-list {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-}
-
-.genealogy-courtship-item {
-  padding: 0.35rem 0;
-  border-bottom: 1px solid #1e2630;
+.genealogy-detail-popover-title {
   font-size: 0.8125rem;
+  color: #9aa8bc;
 }
 
-.genealogy-courtship-item:last-child {
-  border-bottom: none;
+.genealogy-detail-popover-close {
+  border: none;
+  background: transparent;
+  color: #c8ced9;
+  font-size: 1.25rem;
+  line-height: 1;
+  padding: 0.15rem 0.35rem;
+  cursor: pointer;
 }
 
-.genealogy-courtship-line {
-  color: #c8d4e8;
+.genealogy-detail-popover-body {
+  overflow: auto;
+  padding: 0.65rem 0.75rem;
+}
+
+.genealogy-detail-actions {
+  margin: 0.5rem 0 0.75rem;
+}
+
+.genealogy-detail-health-btn {
+  border: 1px solid #3a5068;
+  border-radius: 6px;
+  background: #1a2430;
+  color: #a8c8e8;
+  padding: 0.35rem 0.75rem;
+  font-size: 0.8125rem;
+  cursor: pointer;
+}
+
+.genealogy-detail-health-btn:hover {
+  background: #243040;
 }
 
 .genealogy-courtship-detail {
   margin: 0.25rem 0 0.5rem;
   font-size: 0.875rem;
   color: #a8c8e8;
-}
-
-.gv-courtship {
-  display: block;
-  max-width: 11rem;
-  font-size: 0.7rem;
-  line-height: 1.35;
-  color: #8ba8c8;
-  text-align: center;
-}
-
-.genealogy-layout {
-  display: grid;
-  grid-template-columns: 1fr minmax(280px, 360px);
-  gap: 1rem;
-  align-items: start;
 }
 
 .genealogy-tree-host {
