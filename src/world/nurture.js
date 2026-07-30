@@ -1,7 +1,8 @@
 // 谱系幼体依赖期 — 亲代通量种子 + 延迟独立（不设哺乳/性别名称）
 
 export function reproModeFromProfile(profile) {
-  return profile?.reproMode === 'nursed' ? 'nursed' : 'instant';
+  if (profile?.reproMode === 'nursed' || profile?.reproMode === 'gestation') return 'nursed';
+  return profile?.reproMode === 'instant' ? 'instant' : 'instant';
 }
 
 export function applyNurtureAtBirth(world, parent, child) {

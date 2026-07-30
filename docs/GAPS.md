@@ -466,6 +466,17 @@
 
 ---
 
+---
+
+## GAP-PAIR-REPRO · 双源体内合胞繁殖（Phase 124）
+
+- **PAIR-0**：关 FISS；形态 A `[MEI]` + 形态 B `[DCK]` → B 体内 `[FUS-IN]` → `[EMB]` → `[EXP]` → `[NUR]`
+- **半态 singleton**；无握手、无受体通道；激素门控 \(h=\bar r-0.35\bar e\)
+- **田野**：`npm run field:phase124` — support 7/7
+- **文档**：[GAP_PAIR_REPRO.md](GAP_PAIR_REPRO.md)
+
+---
+
 ## GAP-13-COOP-INTERACT · 留置繁殖×SOC 继承交互（Phase 123）
 
 - **假说切换**：`carryCoopAdvantage`（118/121 未立）→ `carryReproSocYield = socLin / carriedFiss`
