@@ -42,6 +42,49 @@ export function semDomainTagEnabled(profile) {
   return semEnabled(profile) && profile?.semDomainTag === true;
 }
 
+export function semFourDomainCoupleEnabled(profile) {
+  return semDomainTagEnabled(profile) && profile?.semFourDomainCouple === true;
+}
+
+export const FOUR_DOMAINS = [SEM_DOMAIN_YI, SEM_DOMAIN_SHI, SEM_DOMAIN_ZHU, SEM_DOMAIN_XING];
+
+export function coreRDomainActive(being, world, profile) {
+  if (!semDomainTagEnabled(profile)) return false;
+  const window = profile?.semDomainWindow ?? profile?.semReproWindow ?? 48;
+  const tick = world.tick;
+  return tick - (being.semDomainTicks?.[SEM_DOMAIN_CORE] ?? -Infinity) <= window;
+}
+
+export function activeFourDomains(being, world, profile) {
+  if (!semDomainTagEnabled(profile)) return [];
+  const window = profile?.semDomainWindow ?? profile?.semReproWindow ?? 48;
+  const tick = world.tick;
+  const stamps = being.semDomainTicks ?? {};
+  return FOUR_DOMAINS.filter((d) => tick - (stamps[d] ?? -Infinity) <= window);
+}
+
+export function noteFourDomainCouple(being, world, profile) {
+  if (!semFourDomainCoupleEnabled(profile) || !coreRDomainActive(being, world, profile)) return [];
+  const active = activeFourDomains(being, world, profile);
+  if (!active.length) return [];
+  if (!being.semFourDomainCoupleTally) being.semFourDomainCoupleTally = {};
+  for (const d of active) {
+    being.semFourDomainCoupleTally[d] = (being.semFourDomainCoupleTally[d] ?? 0) + 1;
+  }
+  being.semCoreRFourCouplePairs = (being.semCoreRFourCouplePairs ?? 0) + 1;
+  return active;
+}
+
+export function fourDomainCoupleCountsFromBeings(beings) {
+  const counts = { YI: 0, SHI: 0, ZHU: 0, XING: 0, couplePairs: 0 };
+  for (const being of beings) {
+    const tally = being.semFourDomainCoupleTally ?? {};
+    for (const d of FOUR_DOMAINS) counts[d] += tally[d] ?? 0;
+    counts.couplePairs += being.semCoreRFourCouplePairs ?? 0;
+  }
+  return counts;
+}
+
 export function markSemDomain(being, domain, tick) {
   if (!being || !domain) return;
   if (!being.semDomainTicks) being.semDomainTicks = {};
