@@ -33,7 +33,7 @@ import {
   canSendCourtship,
   isPregnant,
 } from './courtship-gate.js';
-import { buildHealthReport, healthReportKinBlocked } from './health-report.js';
+import { buildHealthReport, healthReportKinBlocked, issueHealthReport } from './health-report.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -702,6 +702,7 @@ function expelSyncyte(world, recorder, carrier) {
   applySemLineageEcho(world, recorder, child, [carrier], profile, { via: 'PAIR-EXP' });
 
   const nurture = applyNurtureAtBirth(world, carrier, child);
+  issueHealthReport(child, world.tick, { adult: false, stage: '婴' });
   closeUmbilicalOnExpel(carrier);
   carrier.syncyte = null;
   carrier.pregnant = false;

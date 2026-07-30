@@ -87,6 +87,7 @@
 ```bash
 npm run observer:multicell-v2       # MV 主轨回归
 npm run observer:repro-courtship      # #177 血缘/求偶门控
+npm run observer:stage-badge            # 阶段徽章 + DNA 体检解读
 npm run observer:dna-express          # Z1–Z6 分区哈希
 npm run observer:mv1c-mit             # MV1c 成体 MIT
 npm run observer:mv-lifecycle         # MV9 全生命周期闭环
