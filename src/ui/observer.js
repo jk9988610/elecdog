@@ -5,6 +5,7 @@ import { spawnBeing } from '../birth/spawn.js';
 import { spawnAdultMulticellCohort } from '../birth/adult-cohort.js';
 import { buildObserverNaiveSpecs } from '../carry/mixed-cohort.js';
 import { stepWorld } from '../kernel/engine.js';
+import { snapshotWorldState, restoreWorldState } from '../world/world-history.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
 import {
@@ -521,7 +522,12 @@ export class ObserverApp {
 
   captureWorldSnapshot() {
     if (!this.world) return null;
-    return structuredClone(this.world);
+    try {
+      return snapshotWorldState(this.world);
+    } catch (err) {
+      console.warn('[观察台] 世界快照失败', err);
+      return null;
+    }
   }
 
   resetWorldHistory() {
@@ -551,7 +557,7 @@ export class ObserverApp {
     if (!this.world || this.worldSnapshotIdx <= 0) return;
     this.pause();
     this.worldSnapshotIdx -= 1;
-    this.world = structuredClone(this.worldSnapshots[this.worldSnapshotIdx]);
+    this.world = restoreWorldState(this.worldSnapshots[this.worldSnapshotIdx]);
     this.truncateRecorderToWorldTick();
     this.refresh();
   }
@@ -561,7 +567,7 @@ export class ObserverApp {
     this.pause();
     if (this.worldSnapshotIdx < this.worldSnapshots.length - 1) {
       this.worldSnapshotIdx += 1;
-      this.world = structuredClone(this.worldSnapshots[this.worldSnapshotIdx]);
+      this.world = restoreWorldState(this.worldSnapshots[this.worldSnapshotIdx]);
       this.truncateRecorderToWorldTick();
       this.refresh();
       return;
