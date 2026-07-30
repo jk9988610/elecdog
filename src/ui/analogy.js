@@ -181,8 +181,8 @@ const LABELS = {
   wlReproTraceCount: { native: '有 reproTrace', analogy: '带繁殖迹个体' },
   semSignalStream: { native: '信号类比流', analogy: '发出语言类比流' },
   semSignalNote: {
-    native: '类比呈现 · 非辞典定义 · 由 sem-domain / 繁殖邻域 / SEM 共现推导',
-    analogy: '类比呈现 · 非辞典定义 · 机制推断，非地球语词典',
+    native: '主行=发/收信与载荷字节；语境行=窗口内域活跃（非载荷地球语含义）',
+    analogy: '主行看清「谁发/谁收、三字节是什么」；语境行只说明当时处于哪些机制域，不是翻译载荷内容',
   },
   semSignalBeing: { native: '个体', analogy: '个体' },
   semSignalAll: { native: '全部存活个体', analogy: '全部存活个体' },

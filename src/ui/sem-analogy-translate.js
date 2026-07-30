@@ -29,10 +29,10 @@ const COMMAND_KINDS = new Set(['PRQ', 'PGR', 'FLD-CH', 'FLD-CH-IN', 'FLD-IN', 'F
 
 const DOMAIN_ANALOGY = {
   [SEM_DOMAIN_CORE]: '繁殖核',
-  YI: '衣域',
-  SHI: '食域',
-  ZHU: '住域',
-  XING: '行域',
+  YI: '衣',
+  SHI: '食',
+  ZHU: '住',
+  XING: '行',
 };
 
 const TIER_REPRO = 1;
@@ -41,6 +41,42 @@ const TIER_COMMAND = 3;
 
 function tagFromContent(content) {
   const m = String(content).match(/\[([A-Z][A-Z0-9-]*)\]/);
+  return m ? m[1] : null;
+}
+
+function extractTxPart(content) {
+  const idx = String(content).indexOf('[TX]');
+  return idx >= 0 ? String(content).slice(idx) : String(content);
+}
+
+/** 从 `[TX] 0xAE 0x64 0x09` 或 RX 行内嵌 TX 提取 6 位 hex 键 */
+export function payloadHexFromSignal(content) {
+  const txPart = extractTxPart(content);
+  const bytes = [...txPart.matchAll(/0x([0-9a-fA-F]{2})/gi)];
+  if (bytes.length >= 3) {
+    return bytes
+      .slice(0, 3)
+      .map((m) => m[1].toLowerCase())
+      .join('');
+  }
+  return payloadKey(txPart) ?? payloadKey(content) ?? null;
+}
+
+export function formatPayloadDisplay(hex) {
+  if (!hex || hex === '—') return '—';
+  if (hex.length === 6) {
+    return `${hex.slice(0, 2)}·${hex.slice(2, 4)}·${hex.slice(4, 6)}`.toUpperCase();
+  }
+  return hex.toUpperCase();
+}
+
+function beingTail(id) {
+  return id ? id.slice(-8) : '—';
+}
+
+function rxFromId(content, meta) {
+  if (meta?.fromId) return meta.fromId;
+  const m = String(content).match(/\[RX\]\s+([^\s]+)/);
   return m ? m[1] : null;
 }
 
@@ -97,6 +133,13 @@ function findSemLogDomain(recorder, beingId, tick, window) {
   return null;
 }
 
+function formatDomainContext(domains, nativeMode) {
+  if (!domains.length) return null;
+  if (nativeMode) return `ctx ${domains.join('/')}`;
+  const names = domains.map((d) => DOMAIN_ANALOGY[d] ?? d);
+  return `语境 ${names.join('·')}（窗口内活跃，非载荷词义）`;
+}
+
 /**
  * @param {{ direction: 'TX'|'RX', content: string, tick: number, beingId?: string, meta?: object }} signal
  * @param {{ being?: object, world?: object, recorder?: object, profile?: object, nativeMode?: boolean }} ctx
@@ -108,10 +151,11 @@ export function translateSignal(signal, ctx = {}) {
   const tick = signal.tick ?? world?.tick ?? 0;
   const window = profile?.semReproWindow ?? profile?.semDomainWindow ?? 24;
 
-  const hex = payloadKey(content);
+  const hex = payloadHexFromSignal(content);
+  const payloadDisp = formatPayloadDisplay(hex);
   const basis = [];
+  const contextParts = [];
   let tier = 0;
-  let label = null;
 
   const evoKinds = nearbyEvolutionKinds(recorder, signal.beingId ?? being?.id, tick, window);
   const reproHits = [...evoKinds].filter((k) => REPRO_KINDS.has(k));
@@ -138,70 +182,92 @@ export function translateSignal(signal, ctx = {}) {
 
   const crossSlot = nearbyCrossSlotRx(recorder, signal.beingId ?? being?.id, tick, window);
 
-  // Tier 1 — 繁殖 / 求偶（CORE-R 邻域）
   const reproEvo = reproHits.filter((k) =>
     ['MEI', 'DCK', 'PRQ', 'PGR', 'FUS', 'FUS-IN', 'EMB', 'EXP'].includes(k)
   );
+
+  const activeDomains =
+    fourActive.length > 0
+      ? fourActive
+      : resolvedDomain && FOUR_DOMAINS.includes(resolvedDomain)
+        ? [resolvedDomain]
+        : [];
+
+  // Tier classification
   if (coreActive || reproEvo.length > 0) {
     tier = TIER_REPRO;
     const parts = reproEvo.length ? reproEvo.join('/') : 'CORE-R窗';
-    label = nativeMode
-      ? `繁殖核邻域 · ${parts}`
-      : `繁殖/求偶邻域 · ${parts}`;
+    contextParts.push(
+      nativeMode ? `CORE-R ${parts}` : `繁殖邻域 ${parts}`
+    );
     if (coreActive) basis.push('sem-domain:CORE-R-active');
     if (reproEvo.length) basis.push(`evolution:${reproEvo.join(',')}`);
   } else if (pairMatch?.domain === SEM_DOMAIN_CORE) {
     tier = TIER_REPRO;
-    label = nativeMode
-      ? `繁殖核约定迹 · ${pairMatch.pairKey}`
-      : `繁殖约定迹 · ${pairMatch.pairKey}`;
-  }
-
-  // Tier 2 — 衣食住行四域
-  if (!label && (fourActive.length > 0 || resolvedDomain && FOUR_DOMAINS.includes(resolvedDomain))) {
+    contextParts.push(
+      nativeMode ? `SEM-CORE ${pairMatch.pairKey}` : `繁殖约定迹 ${pairMatch.pairKey}`
+    );
+  } else if (activeDomains.length > 0) {
     tier = TIER_DOMAIN;
-    const domains = fourActive.length
-      ? fourActive
-      : resolvedDomain
-        ? [resolvedDomain]
-        : [];
-    const names = domains.map((d) => (nativeMode ? d : DOMAIN_ANALOGY[d] ?? d));
-    label = nativeMode
-      ? `四域状态 · ${names.join('·')}`
-      : `衣食住行状态 · ${names.join('·')}`;
-    basis.push(`sem-domain:${domains.join(',')}`);
+    const domainCtx = formatDomainContext(activeDomains, nativeMode);
+    if (domainCtx) contextParts.push(domainCtx);
+    basis.push(`sem-domain:${activeDomains.join(',')}`);
     if (semLogDomain && FOUR_DOMAINS.includes(semLogDomain)) {
       basis.push(`SEM-log:${semLogDomain}`);
     }
-  } else if (!label && pairMatch?.domain && FOUR_DOMAINS.includes(pairMatch.domain)) {
+  } else if (pairMatch?.domain && FOUR_DOMAINS.includes(pairMatch.domain)) {
     tier = TIER_DOMAIN;
     const d = pairMatch.domain;
-    label = nativeMode
-      ? `${d}约定迹 · ${pairMatch.pairKey}`
-      : `${DOMAIN_ANALOGY[d]}约定迹 · ${pairMatch.pairKey}`;
+    contextParts.push(
+      nativeMode
+        ? `${d} SEM ${pairMatch.pairKey}`
+        : `${DOMAIN_ANALOGY[d]}域约定迹 ${pairMatch.pairKey}`
+    );
   }
 
-  // Tier 3 — 命令 / 请求 / 场交换 / 社会位
-  if (!label && (cmdHits.length > 0 || crossSlot)) {
-    tier = TIER_COMMAND;
-    const parts = [];
-    if (cmdHits.length) parts.push(cmdHits.join('/'));
-    if (crossSlot) parts.push(nativeMode ? '跨位RX' : '跨社会位');
-    label = nativeMode
-      ? `许可/场交换 · ${parts.join(' · ')}`
-      : `许可/场交换信号 · ${parts.join(' · ')}`;
+  if (cmdHits.length > 0 || crossSlot) {
+    if (tier === 0) tier = TIER_COMMAND;
+    const cmdParts = [];
+    if (cmdHits.length) cmdParts.push(cmdHits.join('/'));
+    if (crossSlot) cmdParts.push(nativeMode ? '跨位RX' : '跨社会位');
+    contextParts.push(
+      nativeMode ? `CMD ${cmdParts.join(' ')}` : `许可/场交换 ${cmdParts.join(' · ')}`
+    );
     if (cmdHits.length) basis.push(`evolution:${cmdHits.join(',')}`);
     if (crossSlot) basis.push('social:cross-slot-RX');
   }
 
-  if (!label) {
+  if (pairMatch && direction === 'TX') {
+    contextParts.push(
+      nativeMode
+        ? `pair ${pairMatch.pairKey}`
+        : `共现回应 ${pairMatch.pairKey}`
+    );
+  }
+
+  const fromId = direction === 'RX' ? rxFromId(content, signal.meta) : null;
+
+  let analogyLabel;
+  if (direction === 'RX') {
+    analogyLabel = nativeMode
+      ? `RX ${payloadDisp} <- ${beingTail(fromId)}`
+      : `收信 ${payloadDisp} ← ${beingTail(fromId)}`;
+  } else {
+    analogyLabel = nativeMode ? `TX ${payloadDisp}` : `发信 ${payloadDisp}`;
+  }
+
+  const contextLabel = contextParts.length ? contextParts.join(' │ ') : null;
+
+  if (!hex) {
     return {
       unparsed: true,
-      analogyLabel: '未解析载荷',
+      analogyLabel: nativeMode ? 'UNPARSED' : '未解析载荷',
+      contextLabel,
       tier: 0,
       confidence: 'low',
-      basis: hex ? ['no-mechanism-match'] : ['no-hex-payload'],
-      rawHex: hex ?? '—',
+      basis: ['no-hex-payload', ...basis],
+      rawHex: '—',
+      payloadDisplay: '—',
       direction,
       tick,
     };
@@ -212,11 +278,13 @@ export function translateSignal(signal, ctx = {}) {
 
   return {
     unparsed: false,
-    analogyLabel: label,
+    analogyLabel,
+    contextLabel,
     tier,
     confidence,
     basis,
-    rawHex: hex ?? '—',
+    rawHex: hex,
+    payloadDisplay: payloadDisp,
     direction,
     tick,
   };
