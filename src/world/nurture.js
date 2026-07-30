@@ -2,6 +2,7 @@
 
 import { multicellV2Enabled } from './multicell-v2.js';
 import { initNursingStructures } from './body-structures.js';
+import { issueHealthReport } from './health-report.js';
 
 export function reproModeFromProfile(profile) {
   if (profile?.reproMode === 'nursed' || profile?.reproMode === 'gestation') return 'nursed';
@@ -20,6 +21,7 @@ export function applyNurtureAtBirth(world, parent, child) {
   const seedFrac = profile.nurtureSeedFrac ?? 0.35;
   const nurtureTicks = profile.nurtureTicks ?? profile.juvenileTicks ?? 80;
   child.independent = false;
+  child.weaned = false;
   child.nurtureUntilTick = world.tick + nurtureTicks;
   child.nurtureReserve = parent.registers.map((r) => r * seedFrac);
   child.nurtureParentId = parent.id;
@@ -63,7 +65,9 @@ export function tickNurture(world, being) {
 
   if (membraneReady) {
     being.independent = true;
+    being.weaned = true;
     being.nurtureReserve = null;
+    issueHealthReport(being, world.tick, { adult: false, stage: '幼' });
   }
 
   if (!transfers.length && !membraneReady) return null;

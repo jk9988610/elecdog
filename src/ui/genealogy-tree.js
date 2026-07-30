@@ -1,5 +1,5 @@
 /**
- * 多细胞 v2 族谱 — 竖向树状图：父母在上、后代在下
+ * 族谱树 + 体检报告面板
  */
 
 import { label } from './analogy.js';
@@ -20,7 +20,11 @@ import {
 } from '../world/logic-cell-types.js';
 import { genealogySourceBeings } from '../world/genealogy-persist.js';
 import { displayLogicRows } from '../world/logic-cell-display.js';
-import { isPregnant } from '../world/courtship-gate.js';
+import {
+  genealogyStageBadge,
+  isDisplayPregnant,
+  stageBadgeLabel,
+} from '../world/genealogy-stage.js';
 import { kinshipLabelBetween } from '../world/kinship-gate.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 
@@ -53,6 +57,7 @@ export function buildGenealogyModel(world) {
           Object.entries(being.logicCells).map(([k, v]) => [k, v?.length ?? 0])
         )
       : {};
+    const badge = genealogyStageBadge(being);
     return {
       id: being.id,
       code: being.code,
@@ -71,23 +76,35 @@ export function buildGenealogyModel(world) {
       parentA: being.pairParentA ?? being.fissionParent ?? null,
       parentB: being.pairParentB ?? null,
       logicCounts: counts,
-      pregnant: isPregnant(being),
+      stageBadge: badge?.code ?? null,
+      stageBadgeClass: badge?.className ?? null,
+      hasHealthReport: Boolean(being.healthReport),
       skin: being.skinMembrane?.code ?? SKIN_CELL_CODE,
     };
   });
   return { nodes, beings, tick: world?.tick ?? 0 };
 }
 
-function renderPersonBtn(n, selectedId, classExtra = '') {
-  const sel = selectedId === n.id ? ' selected' : '';
-  const dead = !n.alive ? ' dead' : '';
-  const preg = n.pregnant && n.alive ? '<span class="genealogy-preg-badge">孕</span>' : '';
-  const end = !n.alive ? '<span class="genealogy-end-badge">END</span>' : '';
-  return `<button type="button" class="genealogy-id-btn${sel}${dead}${classExtra}" data-being-id="${escapeHtml(n.id)}" title="${escapeHtml(n.id)}">
-    <span class="genealogy-avatar">${escapeHtml(n.code)}</span>
-    <span class="genealogy-morph">${escapeHtml(pairMorphCn(n.pairMorph))}</span>
-  ${preg}${end}
-  </button>`;
+function renderPersonCard(being, selectedId, classExtra = '') {
+  if (!being) return '';
+  const sel = selectedId === being.id ? ' selected' : '';
+  const dead = !being.alive ? ' dead' : '';
+  const badge = genealogyStageBadge(being);
+  const badgeHtml = badge
+    ? `<span class="${escapeHtml(badge.className)}">${escapeHtml(badge.code)}</span>`
+    : '';
+  const end = !being.alive ? '<span class="genealogy-end-badge">END</span>' : '';
+  const healthBtn = being.healthReport
+    ? `<button type="button" class="genealogy-health-btn" data-health-id="${escapeHtml(being.id)}">体检</button>`
+    : '';
+  return `<div class="gv-person-card${sel}${dead}${classExtra}">
+    <button type="button" class="genealogy-id-btn" data-being-id="${escapeHtml(being.id)}" title="${escapeHtml(being.id)}">
+      <span class="genealogy-avatar">${escapeHtml(being.code)}</span>
+      <span class="genealogy-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span>
+      ${badgeHtml}${end}
+    </button>
+    ${healthBtn}
+  </div>`;
 }
 
 function nodeFromId(nodes, id) {
@@ -115,8 +132,8 @@ function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   );
 
   const couple = mate
-    ? `<div class="gv-couple">${renderPersonBtn(n, selectedId)}<span class="gv-couple-link">—</span>${renderPersonBtn(nodeFromId(nodes, mate.id) ?? { ...n, id: mate.id, code: mate.code, pairMorph: mate.pairMorph, alive: mate.alive, pregnant: isPregnant(mate) }, selectedId, ' mate')}</div>`
-    : `<div class="gv-couple">${renderPersonBtn(n, selectedId)}</div>`;
+    ? `<div class="gv-couple">${renderPersonCard(being, selectedId)}<span class="gv-couple-link">—</span>${renderPersonCard(mate, selectedId, ' mate')}</div>`
+    : `<div class="gv-couple">${renderPersonCard(being, selectedId)}</div>`;
 
   const kids =
     children.length > 0
@@ -150,7 +167,7 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
     forestRoots.push(r);
   }
 
-  const trees = forestRoots
+  let trees = forestRoots
     .map((r) => renderTreeNode(r, byId, nodes, beings, selectedId, seen))
     .join('');
 
@@ -178,7 +195,57 @@ function renderHormoneBars(being) {
   }).join('');
 }
 
-export function renderBeingDetailHTML(being, partnerBeing = null, profile = null) {
+export function renderHealthReportHTML(being) {
+  const report = being?.healthReport;
+  if (!report) {
+    return '<p class="muted">尚无体检报告（幼体出生后签发；成体性成熟时覆盖更新）</p>';
+  }
+  const interp = report.dnaInterpret;
+  const zoneRows = (interp?.zones ?? [])
+    .map(
+      (z) =>
+        `<div class="health-zone-block">
+          <h5 class="health-zone-title">${escapeHtml(z.zone)} ${escapeHtml(z.name)} <code>${z.start}–${z.end}</code></h5>
+          <p class="health-zone-role muted">${escapeHtml(z.role)}</p>
+          <p class="health-zone-slice"><code>${escapeHtml(z.slice)}</code></p>
+          ${(z.expressLines ?? [])
+            .map((line) => `<p class="health-zone-express">${escapeHtml(line)}</p>`)
+            .join('')}
+        </div>`
+    )
+    .join('');
+
+  const posRows = (interp?.positions ?? [])
+    .map(
+      (p) =>
+        `<tr><td>${p.index}</td><td><code>${escapeHtml(p.base)}</code></td><td>${escapeHtml(p.zone)}</td><td>${escapeHtml(p.meaning)}</td></tr>`
+    )
+    .join('');
+
+  return `
+    <div class="health-report-panel">
+      <h4 class="term">体检报告</h4>
+      <div class="stat-grid">
+        <div class="stat-row"><span>签发 tick</span><strong>${report.atTick}</strong></div>
+        <div class="stat-row"><span>阶段</span><strong>${escapeHtml(report.stage ?? '—')}</strong></div>
+        <div class="stat-row"><span>DNA 指纹</span><strong><code>${escapeHtml(report.dnaFp)}</code></strong></div>
+        <div class="stat-row"><span>序列长度</span><strong>${interp?.length ?? report.dnaSeq?.length ?? 0}</strong></div>
+      </div>
+      <p class="health-seq"><code>${escapeHtml(interp?.sequence ?? report.dnaSeq ?? '')}</code></p>
+      <h5 class="health-subtitle">区段解读 Z1–Z6</h5>
+      <div class="health-zones">${zoneRows}</div>
+      <h5 class="health-subtitle">位点解读（96 段）</h5>
+      <div class="health-pos-table-wrap">
+        <table class="health-pos-table">
+          <thead><tr><th>位</th><th>碱</th><th>区</th><th>释义</th></tr></thead>
+          <tbody>${posRows}</tbody>
+        </table>
+      </div>
+    </div>
+  `;
+}
+
+export function renderBeingDetailHTML(being, partnerBeing = null, profile = null, { showHealth = false } = {}) {
   if (!being) return '<p class="muted">未选择个体</p>';
   const logicRows = displayLogicRows(being)
     .map(
@@ -189,23 +256,22 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
 
   const lactOpen = being.bodyStructures?.[STR_LACT_OUT]?.open;
   const lactUntil = being.bodyStructures?.[STR_LACT_OUT]?.untilTick;
-  const kinPartner = partnerBeing
-    ? kinshipLabelBetween(being, partnerBeing, profile)
-    : null;
+  const kinPartner = partnerBeing ? kinshipLabelBetween(being, partnerBeing, profile) : null;
+  const badge = stageBadgeLabel(being);
 
   return `
     <div class="genealogy-detail">
-      <h3 class="genealogy-detail-title">${escapeHtml(being.code)} <span class="genealogy-detail-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span></h3>
+      <h3 class="genealogy-detail-title">${escapeHtml(being.code)} <span class="genealogy-detail-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span> <span class="genealogy-detail-badge">${escapeHtml(badge)}</span></h3>
       <p class="genealogy-detail-id"><code>${escapeHtml(being.id)}</code></p>
       <div class="stat-grid">
         <div class="stat-row"><span>存活</span><strong>${being.alive ? '是' : '否'}</strong></div>
         ${!being.alive ? `<div class="stat-row"><span>END</span><strong>${escapeHtml(being.endReason ?? '—')} @t${being.endedAtTick ?? '—'}</strong></div>` : ''}
         <div class="stat-row"><span>发育阶段</span><strong>${escapeHtml(stageLabel(being.devStage ?? being.lifeStage))}</strong></div>
-        ${isPregnant(being) ? '<div class="stat-row"><span>妊娠</span><strong>孕妇</strong></div>' : ''}
+        <div class="stat-row"><span>族谱标记</span><strong>${escapeHtml(badge)}</strong></div>
+        ${isDisplayPregnant(being) ? '<div class="stat-row"><span>妊娠</span><strong>孕妇</strong></div>' : ''}
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
         ${being.partnerId ? `<div class="stat-row"><span>与伴侣血缘</span><strong>${escapeHtml(kinPartner ?? '—')}</strong></div>` : ''}
-        ${being.healthReport?.dnaFp ? `<div class="stat-row"><span>体检 DNA 指纹</span><strong><code>${escapeHtml(being.healthReport.dnaFp)}</code></strong></div>` : ''}
         <div class="stat-row"><span>皮肤膜</span><strong>${escapeHtml(being.skinMembrane?.code ?? SKIN_CELL_CODE)}</strong></div>
         <div class="stat-row"><span>脐带结构</span><strong>${escapeHtml(
           being.bodyStructures?.[UMB_STRUCTURE_CODE]?.open ? UMB_STRUCTURE_CODE : '—'
@@ -232,8 +298,8 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
             .join(' ') || '—'
         )}</strong></div>
       </div>
+      ${showHealth ? renderHealthReportHTML(being) : ''}
       <h4 class="term">激素与泌乳</h4>
-      <p class="panel-hint muted">在族谱面板选中哺乳中的母亲个体可观察泌乳激素（h2）与哺乳通量。</p>
       <div class="hormone-bars">${renderHormoneBars(being)}</div>
       <div class="stat-grid lact-panel">
         <div class="stat-row"><span>哺乳通道</span><strong>${lactOpen ? '开放' : '关闭'}</strong></div>
@@ -253,6 +319,7 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
   if (!treeHost || !detailHost) return null;
 
   let selectedId = null;
+  let healthViewId = null;
 
   function paint() {
     const world = getWorld?.();
@@ -261,7 +328,18 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
     treeHost.querySelectorAll('.genealogy-id-btn').forEach((btn) => {
       btn.addEventListener('click', () => {
         selectedId = btn.getAttribute('data-being-id');
+        healthViewId = null;
         onSelect?.(selectedId);
+        paint();
+      });
+    });
+    treeHost.querySelectorAll('.genealogy-health-btn').forEach((btn) => {
+      btn.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        const id = btn.getAttribute('data-health-id');
+        selectedId = id;
+        healthViewId = id;
+        onSelect?.(id);
         paint();
       });
     });
@@ -272,7 +350,9 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
         ? world?.beings?.find((b) => b.id === being.partnerId) ??
           genealogySourceBeings(world).find((b) => b.id === being.partnerId)
         : null;
-    detailHost.innerHTML = renderBeingDetailHTML(being, partner, world?.envProfile);
+    detailHost.innerHTML = renderBeingDetailHTML(being, partner, world?.envProfile, {
+      showHealth: healthViewId === selectedId,
+    });
   }
 
   return { paint, getSelectedId: () => selectedId };
