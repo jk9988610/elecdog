@@ -9,6 +9,8 @@ const LS_ENV = 'elecdog-env-profile';
 
 /** 观察台可选环境（田野配置子集） */
 export const OBSERVER_ENV_IDS = [
+  'multicell_v2_world',
+  'observer_repro_speech',
   'observer_brain_evolution',
   'observer_wlr_stack',
   'observer_wl_stack',
@@ -43,11 +45,13 @@ export const OBSERVER_ENV_IDS = [
 ];
 
 const ANALOGY_LABELS = {
+  multicell_v2_world: '多细胞 v2 世界（族谱观察）',
+  observer_repro_speech: '观察台·繁殖言语（思考→定向开口）',
   observer_brain_evolution: '观察台·脑演化（思考→开口）',
   observer_wlr_stack: '观察台·WL-R繁殖域栈',
   observer_wl_stack: '观察台·智慧语言栈（WL）',
   observer_w6_stack: '观察台·环境栈（W6）',
-  wisdom_evolution: '智慧演化场（默认）',
+  wisdom_evolution: '智慧演化场',
   consciousness_full: '意识完整栈',
   baseline: '基线（现行）',
   fertile_field: '富足分裂场（有复制上限）',
@@ -87,7 +91,7 @@ export function getObserverEnvId() {
   } catch {
     /* ignore */
   }
-  return 'wisdom_evolution';
+  return 'multicell_v2_world';
 }
 
 export function setObserverEnvId(id) {
@@ -106,6 +110,10 @@ export function observerEnvLabel(id) {
 
 export function observerEnvHint(id) {
   const hints = {
+    multicell_v2_world:
+      '逻辑细胞≤8/类 · 幼体有丝/成体减数 · 伴侣族谱 · 隐藏经典卡片',
+    observer_repro_speech:
+      '繁殖栈 + 定向 PRQ/PGR/四域询问；无随机对外 TX；多细胞胞内 [INTRA-TX]',
     observer_brain_evolution:
       'WL-R + 智慧全栈 + internal→TX 耦合 [THO]；思考外化面板',
     observer_wlr_stack: 'W6 环境栈 + WL-R 繁殖载荷域迹面板 + CODEX 第 33 条联动',

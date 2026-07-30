@@ -31,6 +31,12 @@ import { initSymModules } from '../world/sym.js';
 import { assignBeingPlace, applyPlaceBirthBias, placeEnabled } from '../world/place.js';
 import { SOLAR_CHANNEL } from '../world/diurnal.js';
 import { initDockedHalf, pairReproEnabled } from '../world/pair-repro.js';
+import {
+  assignPairMorph,
+  initSubstantiveSignal,
+  substantiveSignalOnly,
+} from '../world/substantive-signal.js';
+import { initMulticellV2, multicellV2Enabled } from '../world/multicell-v2.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -56,6 +62,8 @@ export function spawnBeing(
   being.cohortTag = cohortTag;
   if (pairMorph === 'A' || pairMorph === 'B') {
     being.pairMorph = pairMorph;
+  } else if (pairReproEnabled(world.envProfile)) {
+    being.pairMorph = assignPairMorph(id);
   }
   initOrganism(being, world.envProfile);
   if (placeBand || placeTerrain) {
@@ -111,6 +119,12 @@ export function spawnBeing(
   }
   if (internalTxCouplingEnabled(world.envProfile)) {
     initInternalTxCoupling(being);
+  }
+  if (substantiveSignalOnly(world.envProfile)) {
+    initSubstantiveSignal(being);
+  }
+  if (multicellV2Enabled(world.envProfile)) {
+    initMulticellV2(being, world.envProfile);
   }
   if (reservoirEnabled(world.envProfile)) {
     initReservoir(being, world.envProfile);

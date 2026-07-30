@@ -55,6 +55,39 @@ export function tierCn(tier) {
   return TIER_CN[tier] ?? '—';
 }
 
+/** 形态 A/B 观察者类比（机制层仍用 A/B；仅 UI） */
+export const PAIR_MORPH_CN = {
+  A: '排出方（类比·男）',
+  B: '接纳方（类比·女）',
+};
+
+/** 定向言语意图 */
+export const SPEECH_INTENT_CN = {
+  PRQ: '繁殖许可请求（排出方→接纳方）',
+  PGR: '繁殖许可授予（接纳方→排出方）',
+  'Q-YI': '衣域询问',
+  'Q-SHI': '食域询问',
+  'Q-ZHU': '住域询问',
+  'Q-XING': '行域询问',
+};
+
+export const QUERY_MODE_CN = {
+  REL: '关系式询问',
+  INF: '信息收集式询问',
+};
+
+export function speechIntentCn(intent, queryMode = null) {
+  const base = SPEECH_INTENT_CN[intent] ?? intent;
+  if (queryMode && QUERY_MODE_CN[queryMode]) {
+    return `${base}·${QUERY_MODE_CN[queryMode]}`;
+  }
+  return base;
+}
+
+export function pairMorphCn(morph) {
+  return PAIR_MORPH_CN[morph] ?? morph ?? '—';
+}
+
 /** 共现对 → 观察者句式 */
 export function pairConventionCn(rx, tx, count, domain = null) {
   const dom = domain ? `（${DOMAIN_CN[domain] ?? domain}）` : '';

@@ -140,6 +140,7 @@ export function buildDashboardStats(world, recorder) {
       envHint: observerEnvHint(envId),
       fissionEnabled: Boolean(world.envProfile?.fissionEnabled),
       rplEnabled: Boolean(world.envProfile?.rplEnabled),
+      multicellV2Observer: Boolean(world.envProfile?.multicellV2Observer),
     },
     environment: {
       substrate,

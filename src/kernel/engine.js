@@ -88,6 +88,16 @@ import {
 import { predictionEnabled, predictionFeedbackEnabled, predictionActBias, processPredictionTick } from '../world/prediction.js';
 import { semEnabled, recordSemRx, recordSemTx, semFeedbackEnabled, semActBias } from '../world/sem.js';
 import { internalTxCouplingEnabled } from '../world/internal-tx-coupling.js';
+import {
+  filterHeardSignals,
+  parseDirectedTx,
+  substantiveSignalOnly,
+} from '../world/substantive-signal.js';
+import { resolveLifeStage } from '../world/multicell-v2.js';
+import {
+  registerPairSpeechPRQ,
+  registerPairSpeechPGR,
+} from '../world/pair-repro.js';
 import { noteSemDomainFromKind, noteSemDomainFromTick } from '../world/sem-domain.js';
 import {
   socialKnowledgeEnabled,
@@ -250,7 +260,8 @@ export function stepWorld(world, recorder) {
   const activeBeings = world.beings.filter((b) => b.alive);
 
   for (const being of activeBeings) {
-    const heard = delivered.filter((s) => s.fromId !== being.id);
+    resolveLifeStage(being, world, world.envProfile);
+    const heard = filterHeardSignals(delivered, being.id, world.envProfile);
     const profile = world.envProfile;
     if (memoryFeedbackEnabled(profile)) {
       decayMemoryLoads(being);
@@ -270,6 +281,7 @@ export function stepWorld(world, recorder) {
       substrate: substrateSnap,
       experienceBias,
       profile,
+      world,
     });
 
     if (!result.alive) continue;
@@ -328,12 +340,20 @@ export function stepWorld(world, recorder) {
       }
       for (const line of result.external) {
         if (line.startsWith('[TX]')) {
+          const directed = parseDirectedTx(line);
           world.signalBus.push({
             fromId: being.id,
             content: line,
             emittedAt: world.tick,
             deliverAt: world.tick + 1,
+            toId: directed?.toId ?? null,
+            intent: directed?.intent ?? null,
           });
+          if (directed?.intent === 'PRQ' && being.pairMorph === 'A') {
+            registerPairSpeechPRQ(world, recorder, being, directed.toId, line);
+          } else if (directed?.intent === 'PGR' && being.pairMorph === 'B') {
+            registerPairSpeechPGR(world, recorder, being, directed.toId, line);
+          }
           if (semEnabled(profile)) {
             recordSemTx(world, recorder, being, profile, line, { fieldStat: stat });
           }
@@ -341,12 +361,19 @@ export function stepWorld(world, recorder) {
             recorder.memory(world.tick, being.id, `[MEM] TX t${world.tick}`, {
               kind: 'TX',
               refTick: world.tick,
+              toId: directed?.toId ?? null,
+              intent: directed?.intent ?? null,
             });
             recorder.social(world.tick, being.id, `[SOC] ${being.socialSlot} TX`, {
               kind: 'TX',
               slot: being.socialSlot,
+              toId: directed?.toId ?? null,
+              intent: directed?.intent ?? null,
             });
-            if (internalTxCouplingEnabled(profile) && being.internalTxAppliedTick) {
+            if (
+              (internalTxCouplingEnabled(profile) && being.internalTxAppliedTick) ||
+              (substantiveSignalOnly(profile) && directed)
+            ) {
               recorder.evolution(
                 world.tick,
                 being.id,
@@ -356,6 +383,10 @@ export function stepWorld(world, recorder) {
                   load: being.internalTxLoad ?? 0,
                   sourceInternal: being.lastInternalTxSource ?? '',
                   txLine: line,
+                  intent: directed?.intent ?? null,
+                  toId: directed?.toId ?? null,
+                  queryMode: directed?.queryMode ?? null,
+                  substantive: substantiveSignalOnly(profile),
                 }
               );
               being.internalTxAppliedTick = false;

@@ -4,7 +4,9 @@ import {
   isNativeShell,
   notifyAppReadyNative,
   runOtaBootstrapNative,
+  checkWebOtaStatus,
 } from './ota/native-bridge.js';
+import { SITE_OTA_VERSION } from './site-build.js';
 
 async function bootstrap() {
   let otaLabel = '';
@@ -16,6 +18,10 @@ async function bootstrap() {
     if (ota.updated) return;
     otaLabel = ota.label || (await getBundleVersionLabelNative());
     otaStatus = ota.status || '';
+  } else {
+    const web = await checkWebOtaStatus(SITE_OTA_VERSION);
+    otaLabel = web.local !== 'dev' ? `网页 ${web.local}` : '';
+    otaStatus = web.status;
   }
 
   new ObserverApp(document.getElementById('app'), {

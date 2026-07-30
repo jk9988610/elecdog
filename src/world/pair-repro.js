@@ -12,6 +12,8 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
+import { registerPartnerBond } from './partner-bond.js';
+import { meiAllowedForBeing } from './multicell-v2.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -35,6 +37,11 @@ export function pairHalfReleaseEnabled(profile) {
 /** PAIR-2：排入场前须 [PRQ]/[PGR] 许可握手 */
 export function pairHandshakeEnabled(profile) {
   return pairHalfReleaseEnabled(profile) && profile?.pairHandshake === true;
+}
+
+/** 繁殖言语驱动：许可请求/授予仅来自定向 [TX]，不自动广播 [PRQ] */
+export function pairSpeechDriven(profile) {
+  return pairHandshakeEnabled(profile) && profile?.pairSpeechDriven === true;
 }
 
 /** PAIR-3：半态排出/接受绑定 subCell 与 r_k / e_k */
@@ -194,6 +201,7 @@ export function initDockedHalf(world, being) {
 export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 1 } = {}) {
   const profile = world.envProfile;
   if (!pairFusInBodyEnabled(profile) || !meiEnabled(profile) || !being.alive) return null;
+  if (!meiAllowedForBeing(being, world, profile)) return null;
   if (being.pairMorph !== 'B' || being.syncyte) return null;
   if (being.dockedHalf || being.independent === false) return null;
   if (!replicationEnabled(profile)) return null;
@@ -253,36 +261,111 @@ function hasValidPairGrant(world, being) {
   return Boolean(grantor?.alive && grantor.pairMorph === 'B');
 }
 
+/** 定向言语 [TX] @B PRQ → 登记许可请求（形态 A / 排出方） */
+export function registerPairSpeechPRQ(world, recorder, a, bId, txLine = null) {
+  if (!pairSpeechDriven(world.envProfile)) return null;
+  if (!a?.alive || a.pairMorph !== 'A' || !a.meiPacket) return null;
+  const b = world.beings.find((x) => x.id === bId);
+  if (!b?.alive || b.pairMorph !== 'B') return null;
+  if (hasValidPairGrant(world, a)) return null;
+
+  ensurePairRequests(world);
+  const profile = world.envProfile ?? {};
+  const maxAge = profile.pairRequestMaxAge ?? 48;
+  const tick = world.tick;
+
+  world.pairRequests = world.pairRequests.filter((r) => r.fromId !== a.id);
+  const req = {
+    fromId: a.id,
+    toId: bId,
+    socialSlot: a.socialSlot ?? 'S0',
+    atTick: tick,
+    expireTick: tick + maxAge,
+    packetLen: a.meiPacket.seq.length,
+    speechDriven: true,
+  };
+  world.pairRequests.push(req);
+
+  recorder.evolution(tick, a.id, `[PRQ] speech @${bId} len ${req.packetLen}`, {
+    kind: 'PRQ',
+    packetLen: req.packetLen,
+    expireTick: req.expireTick,
+    grantTo: bId,
+    speechDriven: true,
+    txLine,
+  });
+  noteSemDomainFromKind(a, 'PRQ', tick);
+  return req;
+}
+
+/** 定向言语 [TX] @A PGR → 授予许可（形态 B / 接纳方） */
+export function registerPairSpeechPGR(world, recorder, b, aId, txLine = null) {
+  if (!pairSpeechDriven(world.envProfile)) return null;
+  if (!b?.alive || b.pairMorph !== 'B' || !b.dockedHalf || b.syncyte) return null;
+  const a = world.beings.find((x) => x.id === aId);
+  if (!a?.alive || a.pairMorph !== 'A' || !a.meiPacket) return null;
+  if (!pairGateOpen(b, world)) return null;
+
+  ensurePairRequests(world);
+  const tick = world.tick;
+  const hadReq = world.pairRequests.some((r) => r.fromId === aId);
+
+  a.pairGrantFrom = b.id;
+  world.pairRequests = world.pairRequests.filter((r) => r.fromId !== aId);
+  b.pairGrantCount = (b.pairGrantCount ?? 0) + 1;
+  recordHormoneVector(world, recorder, b, 'PGR');
+
+  recorder.evolution(tick, b.id, `[PGR] speech grant ${aId}`, {
+    kind: 'PGR',
+    grantTo: aId,
+    fromId: b.id,
+    speechDriven: true,
+    hadReq,
+    txLine,
+  });
+  noteSemDomainFromKind(a, 'PGR', tick);
+  noteSemDomainFromKind(b, 'PGR', tick);
+  registerPartnerBond(world, recorder, a, b, { trigger: 'PGR' });
+  return { aId, bId: b.id };
+}
+
 /** PAIR-2：形态 A 发 [PRQ]，形态 B 门控后发 [PGR] */
 export function processPairHandshake(world, recorder) {
   if (!pairHandshakeEnabled(world.envProfile)) return [];
   ensurePairRequests(world);
   const profile = world.envProfile ?? {};
+  const speechDriven = pairSpeechDriven(profile);
   const maxAge = profile.pairRequestMaxAge ?? 48;
   const tick = world.tick;
   const events = [];
 
   world.pairRequests = world.pairRequests.filter((r) => r.expireTick > tick);
 
-  for (const a of world.beings.filter((b) => b.alive && b.pairMorph === 'A' && b.meiPacket)) {
-    if (hasValidPairGrant(world, a)) continue;
-    if (world.pairRequests.some((r) => r.fromId === a.id)) continue;
+  if (!speechDriven) {
+    for (const a of world.beings.filter((b) => b.alive && b.pairMorph === 'A' && b.meiPacket)) {
+      if (hasValidPairGrant(world, a)) continue;
+      if (world.pairRequests.some((r) => r.fromId === a.id)) continue;
 
-    const req = {
-      fromId: a.id,
-      socialSlot: a.socialSlot ?? 'S0',
-      atTick: tick,
-      expireTick: tick + maxAge,
-      packetLen: a.meiPacket.seq.length,
-    };
-    world.pairRequests.push(req);
-    recorder.evolution(tick, a.id, `[PRQ] request len ${req.packetLen}`, {
-      kind: 'PRQ',
-      packetLen: req.packetLen,
-      expireTick: req.expireTick,
-    });
-    noteSemDomainFromKind(a, 'PRQ', tick);
-    events.push({ type: 'PRQ', aId: a.id });
+      const req = {
+        fromId: a.id,
+        socialSlot: a.socialSlot ?? 'S0',
+        atTick: tick,
+        expireTick: tick + maxAge,
+        packetLen: a.meiPacket.seq.length,
+      };
+      world.pairRequests.push(req);
+      recorder.evolution(tick, a.id, `[PRQ] request len ${req.packetLen}`, {
+        kind: 'PRQ',
+        packetLen: req.packetLen,
+        expireTick: req.expireTick,
+      });
+      noteSemDomainFromKind(a, 'PRQ', tick);
+      events.push({ type: 'PRQ', aId: a.id });
+    }
+  }
+
+  if (speechDriven) {
+    return events;
   }
 
   const morphB = world.beings.filter(

@@ -153,6 +153,14 @@ OTA_VERSION=1.0.99 node scripts/build-ota.mjs
 Capgo 规定：当前 bundle 加载成功后必须 `notifyAppReady()`，否则下次启动**回滚**到上一成功版本。  
 现在在 `main.js` 末尾通过 `native-bridge` 调用，热更包内无 npm 也能执行。
 
+### 7. 清单 CDN 缓存（2026-07-30）
+
+**现象**：合并 main 后 10 分钟内 App 仍显示「已最新」。  
+**原因**：`updates/www.json` 在 GitHub Pages CDN 上 `cache-control: max-age=600`。  
+**修复**：`native-bridge.js` 拉清单时加 `?nocache=` 时间戳；切换 bundle 后 `location.reload()`。
+
+网页版（非 APK）用工具栏 **检查线上版本** 对比 `site-build.js` 与线上清单；有新版时 **Ctrl+Shift+R** 强制刷新。
+
 ---
 
 ## 六、验收清单

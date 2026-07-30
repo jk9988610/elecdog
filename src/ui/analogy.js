@@ -201,9 +201,15 @@ const LABELS = {
   },
   thoughtSpeechEmpty: { native: '暂无 [THO] 记录', analogy: '尚未出现思考驱动发信' },
   thoughtSpeechOff: {
-    native: '当前环境未启用 internalTxCoupling — 请切换观察台·脑演化栈',
-    analogy: '请切换至脑演化观察环境',
+    native: '当前环境未启用 internalTxCoupling — 请切换观察台·繁殖言语栈或脑演化栈',
+    analogy: '请切换至繁殖言语或脑演化观察环境',
   },
+  genealogyPanel: { native: '多细胞族谱', analogy: '多细胞族谱（排出方主干）' },
+  genealogyHint: {
+    native: '点击身份证框查看个体；伴侣登记 [BOND]；隐藏单细胞卡片',
+    analogy: '一夫一妻伴侣树 · A 排出方主干 · B 接纳方配偶',
+  },
+  classicBeingsPanel: { native: '个体卡片（经典）', analogy: '经典单细胞式卡片' },
 };
 
 export function label(key) {

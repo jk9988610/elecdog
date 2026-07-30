@@ -67,7 +67,7 @@ import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import
 import { suggestObserverEnvId } from '../carry/import-report.js';
 import { renderMindStreamPanelHTML, initMindStreamPanel } from './mind-stream.js';
 import { renderSemSignalStreamPanelHTML, initSemSignalStreamPanel } from './sem-signal-stream.js';
-import { renderThoughtSpeechPanelHTML, initThoughtSpeechPanel } from './thought-speech.js';
+import { renderGenealogyPanelHTML, initGenealogyPanel } from './genealogy-tree.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -110,8 +110,8 @@ export class ObserverApp {
         <span id="tick-display" class="tick">tick 0</span>
         <span id="place-display" class="place"></span>
         ${this.otaLabel ? `<span id="ota-version" class="ota-version" title="当前网页热更新版本">${escapeHtml(this.otaLabel)}</span>` : ''}
-        ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : ''}
-        ${this.nativeShell && this.otaStatus ? `<span id="ota-status" class="ota-status" title="热更新状态">${escapeHtml(this.otaStatus)}</span>` : ''}
+        ${this.nativeShell ? `<button id="btn-ota-check" type="button" class="btn-ghost">检查热更</button>` : `<button id="btn-ota-check" type="button" class="btn-ghost">检查线上版本</button>`}
+        <span id="ota-status" class="ota-status" title="热更新/线上版本状态">${escapeHtml(this.otaStatus)}</span>
         <span class="toolbar-spacer"></span>
         <label class="env-label" title="切换后重置世界并应用环境规则">
           环境
@@ -468,10 +468,10 @@ export class ObserverApp {
     } else {
       this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
       const seeds = [
-        { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID },
-        { name: '002', code: '002' },
-        { name: '003', code: '003' },
-        { name: '001-乙', code: '001' },
+        { name: '观察者', code: '001', dnaSequence: SEED_DNA, id: SEED_ID, pairMorph: 'A' },
+        { name: '002', code: '002', pairMorph: 'B' },
+        { name: '003', code: '003', pairMorph: 'A' },
+        { name: '001-乙', code: '001', pairMorph: 'B' },
       ];
       for (const s of seeds) {
         performBirthRitual(this.world, this.recorder, s);
@@ -496,7 +496,7 @@ export class ObserverApp {
       `[观察台] 混编导入 p${phase ?? '?'} ${treatmentId ?? ''} seed${seed} · ${naiveCount} naive + ${carrySnapshots.length} carry`
     );
 
-    for (const spec of buildObserverNaiveSpecs(seed, naiveCount)) {
+    for (const spec of buildObserverNaiveSpecs(seed, naiveCount, this.world.envProfile)) {
       spawnBeing(this.world, this.recorder, spec);
     }
 
@@ -559,6 +559,12 @@ export class ObserverApp {
     this.mindStreamPanel?.refresh();
     this.semSignalPanel?.refresh();
     this.thoughtSpeechPanel?.refresh();
+    if (s.world.multicellV2Observer) {
+      this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
+        getWorld: () => this.world,
+      });
+      this.genealogyPanel?.paint();
+    }
     this.updateCloudStatus();
   }
 
@@ -572,16 +578,29 @@ export class ObserverApp {
   }
 
   async checkOta() {
-    if (!this.nativeShell || this.otaBusy) return;
+    if (this.otaBusy) return;
     this.otaBusy = true;
     if (this.$.btnOtaCheck) this.$.btnOtaCheck.disabled = true;
     this.setOtaStatus('检查中…');
     try {
-      const { runOtaBootstrapNative } = await import('../ota/native-bridge.js');
-      const ota = await runOtaBootstrapNative();
-      if (ota.updated) return;
-      if (this.$.otaVersion && ota.label) this.$.otaVersion.textContent = ota.label;
-      this.setOtaStatus(ota.status || '完成');
+      if (this.nativeShell) {
+        const { runOtaBootstrapNative } = await import('../ota/native-bridge.js');
+        const ota = await runOtaBootstrapNative();
+        if (ota.updated) return;
+        if (this.$.otaVersion && ota.label) this.$.otaVersion.textContent = ota.label;
+        this.setOtaStatus(ota.status || '完成');
+      } else {
+        const { checkWebOtaStatus } = await import('../ota/native-bridge.js');
+        const { SITE_OTA_VERSION } = await import('../site-build.js');
+        const web = await checkWebOtaStatus(SITE_OTA_VERSION);
+        if (this.$.otaVersion) {
+          this.$.otaVersion.textContent = web.local !== 'dev' ? `网页 ${web.local}` : '网页 dev';
+        }
+        this.setOtaStatus(web.status);
+        if (web.newer) {
+          this.setOtaStatus(`${web.status} · 可 Ctrl+Shift+R 强制刷新`);
+        }
+      }
     } catch (err) {
       this.setOtaStatus(`失败: ${err?.message || err}`);
     } finally {
@@ -998,11 +1017,14 @@ export class ObserverApp {
         <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
       </section>
 
+      ${s.world.multicellV2Observer
+        ? renderGenealogyPanelHTML()
+        : `
       <section class="panel beings-panel">
         <h2>${label('beings')}</h2>
         <p class="panel-hint">${viewModeHint()}</p>
         <div class="beings-grid">${beingCards || '<p class="muted">无存活个体</p>'}</div>
-      </section>
+      </section>`}
     `;
   }
 }
