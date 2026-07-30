@@ -30,6 +30,15 @@ export function pairHalfReleaseEnabled(profile) {
   return pairFusInBodyEnabled(profile) && profile?.pairHalfRelease === true;
 }
 
+/** PAIR-2：排入场前须 [PRQ]/[PGR] 许可握手 */
+export function pairHandshakeEnabled(profile) {
+  return pairHalfReleaseEnabled(profile) && profile?.pairHandshake === true;
+}
+
+export function ensurePairRequests(world) {
+  if (!world.pairRequests) world.pairRequests = [];
+}
+
 export function ensureFieldHalves(world) {
   if (!world.fieldHalves) world.fieldHalves = [];
 }
@@ -116,31 +125,105 @@ function resolveParentA(world, half, fallbackB) {
   };
 }
 
+function hasValidPairGrant(world, being) {
+  if (!being.pairGrantFrom) return false;
+  const grantor = world.beings.find((b) => b.id === being.pairGrantFrom);
+  return Boolean(grantor?.alive && grantor.pairMorph === 'B');
+}
+
+/** PAIR-2：形态 A 发 [PRQ]，形态 B 门控后发 [PGR] */
+export function processPairHandshake(world, recorder) {
+  if (!pairHandshakeEnabled(world.envProfile)) return [];
+  ensurePairRequests(world);
+  const profile = world.envProfile ?? {};
+  const maxAge = profile.pairRequestMaxAge ?? 48;
+  const tick = world.tick;
+  const events = [];
+
+  world.pairRequests = world.pairRequests.filter((r) => r.expireTick > tick);
+
+  for (const a of world.beings.filter((b) => b.alive && b.pairMorph === 'A' && b.meiPacket)) {
+    if (hasValidPairGrant(world, a)) continue;
+    if (world.pairRequests.some((r) => r.fromId === a.id)) continue;
+
+    const req = {
+      fromId: a.id,
+      socialSlot: a.socialSlot ?? 'S0',
+      atTick: tick,
+      expireTick: tick + maxAge,
+      packetLen: a.meiPacket.seq.length,
+    };
+    world.pairRequests.push(req);
+    recorder.evolution(tick, a.id, `[PRQ] request len ${req.packetLen}`, {
+      kind: 'PRQ',
+      packetLen: req.packetLen,
+      expireTick: req.expireTick,
+    });
+    events.push({ type: 'PRQ', aId: a.id });
+  }
+
+  const morphB = world.beings.filter(
+    (b) => b.alive && b.pairMorph === 'B' && b.dockedHalf && !b.syncyte && pairGateOpen(b, world)
+  );
+  const grantedA = new Set();
+
+  for (const b of morphB) {
+    const candidates = world.pairRequests
+      .filter((r) => !grantedA.has(r.fromId))
+      .sort((x, y) => slotDistance({ socialSlot: x.socialSlot }, b) - slotDistance({ socialSlot: y.socialSlot }, b));
+    if (!candidates.length) continue;
+
+    const req = candidates[0];
+    const a = world.beings.find((x) => x.id === req.fromId);
+    if (!a?.alive || !a.meiPacket) continue;
+
+    a.pairGrantFrom = b.id;
+    grantedA.add(req.fromId);
+    world.pairRequests = world.pairRequests.filter((r) => r.fromId !== req.fromId);
+    b.pairGrantCount = (b.pairGrantCount ?? 0) + 1;
+
+    recorder.evolution(tick, b.id, `[PGR] grant ${a.id}`, {
+      kind: 'PGR',
+      grantTo: a.id,
+      fromId: b.id,
+    });
+    events.push({ type: 'PGR', aId: a.id, bId: b.id });
+  }
+
+  return events;
+}
+
 /** 形态 A 将体内半态排入环境场（singleton / 源） */
 export function releaseFieldHalves(world, recorder) {
   if (!pairHalfReleaseEnabled(world.envProfile)) return [];
   ensureFieldHalves(world);
   const profile = world.envProfile ?? {};
+  const handshake = pairHandshakeEnabled(profile);
   const maxAge = profile.pairFieldHalfMaxAge ?? 96;
   const events = [];
 
   for (const a of world.beings.filter((b) => b.alive && b.pairMorph === 'A' && b.meiPacket)) {
+    if (handshake && !hasValidPairGrant(world, a)) continue;
+
     world.fieldHalves = world.fieldHalves.filter((h) => h.fromId !== a.id);
     const half = {
       id: `${a.id}:${world.tick}`,
       seq: a.meiPacket.seq,
       fromId: a.id,
       socialSlot: a.socialSlot ?? 'S0',
+      grantFrom: a.pairGrantFrom ?? null,
       atTick: world.tick,
       expireTick: world.tick + maxAge,
     };
     world.fieldHalves.push(half);
     a.meiPacket = null;
+    a.pairGrantFrom = null;
     a.fieldReleaseCount = (a.fieldReleaseCount ?? 0) + 1;
     recorder.evolution(world.tick, a.id, `[FLD] release len ${half.seq.length}`, {
       kind: 'FLD',
       packetLen: half.seq.length,
       expireTick: half.expireTick,
+      grantFrom: half.grantFrom,
     });
     events.push(half);
   }
@@ -343,15 +426,16 @@ export function processPairFusInBody(world, recorder) {
   return events;
 }
 
-/** tick 末尾：衰减 → 排入场 → 宫内发育 → 合胞 */
+/** tick 末尾：衰减 → 握手 → 排入场 → 宫内发育 → 合胞 */
 export function processPairReproduction(world, recorder) {
   if (!pairReproEnabled(world.envProfile)) {
-    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [] };
+    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [], handshake: [] };
   }
   decayFieldHalves(world);
+  const handshake = processPairHandshake(world, recorder);
   const fieldRelease = releaseFieldHalves(world, recorder);
   const gestation = processPairGestation(world, recorder);
   const fieldFus = processPairFusFromField(world, recorder);
   const fusIn = processPairFusInBody(world, recorder);
-  return { gestation, fusIn, fieldRelease, fieldFus };
+  return { gestation, fusIn, fieldRelease, fieldFus, handshake };
 }

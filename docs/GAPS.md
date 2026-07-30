@@ -485,6 +485,14 @@
 
 ---
 
+## GAP-PAIR-HANDSHAKE · 许可握手（Phase 126）
+
+- **PAIR-2**：A `[PRQ]` → B 门控 `[PGR]` → 持许可 A `[FLD]` 排入场
+- **对照**：`ev126_pair_nohandshake` 无 PRQ（PAIR-1 行为）
+- **田野**：`npm run field:phase126` — support 7/7
+
+---
+
 - **假说切换**：`carryCoopAdvantage`（118/121 未立）→ `carryReproSocYield = socLin / carriedFiss`
 - **田野**：`npm run field:phase123` — 8192 tick turbo × COOP on/off
 - **验证**：`npm run field:phase123:verify`
