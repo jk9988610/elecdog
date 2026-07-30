@@ -2538,6 +2538,39 @@ export const PHASE103_TREATMENTS = {
   },
 };
 
+/** Phase 106 — GAP-EVO-CARRY 进化留置 + 生态分裂（非续行） */
+const EVO_CARRY_REPRO_BASE = {
+  ...W5_WISDOM_FULL,
+  ...CONSCIOUSNESS_FIELD_BASE,
+  ...REN_BASE,
+  semEnabled: true,
+  semLineageEnabled: true,
+  semFeedbackEnabled: false,
+  carryEcoFissEnabled: true,
+  carryMaxPerSeed: 2,
+  carryNaiveCount: 10,
+  carryMeiRplGrant: 2,
+  sculptTicks: 640,
+  sculptEnvId: 'harsh_combined',
+};
+
+export const PHASE106_TREATMENTS = {
+  ev106_naive_only: {
+    id: 'ev106_naive_only',
+    label: '全0代对照',
+    envId: 'wisdom_evolution',
+    ...EVO_CARRY_REPRO_BASE,
+    carryMode: 'none',
+  },
+  ev106_mixed_eco: {
+    id: 'ev106_mixed_eco',
+    label: '0代+留置·生态分裂',
+    envId: 'wisdom_evolution',
+    ...EVO_CARRY_REPRO_BASE,
+    carryMode: 'mixed_eco',
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈 + 智慧语言 SEM 栈 */
 ENV_PROFILES.observer_wl_stack = {
   id: 'observer_wl_stack',
@@ -3165,6 +3198,17 @@ export function initEnvStackModules(world, profile = world?.envProfile) {
   if (profile.ventEnabled) initVentState(world, profile);
   if (profile.migEnabled) initMigState(world);
   if (profile.dissipationEnabled) initDissipationStats(world);
+}
+
+export function applyPhase106Treatment(world, treatmentId) {
+  const treatment = PHASE106_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase106 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  world.fieldStudy = { phase: 106, treatmentId, ...treatment };
+  return world.envProfile;
 }
 
 export function applyPhase103Treatment(world, treatmentId) {

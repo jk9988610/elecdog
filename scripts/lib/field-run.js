@@ -27,7 +27,7 @@ export function initFieldWorld(world, { phase, treatmentId, seed, ticks = FIELD_
       ? buildQuadChainCohort(seed)
       : buildFieldCohort(seed);
   for (const spec of cohortSpec) {
-    spawnBeing(world, recorder, spec);
+    spawnBeing(world, recorder, { ...spec, cohortTag: spec.cohortTag ?? 'naive' });
   }
   const cohortIds = cohortSpec.map((s) => s.id).filter(Boolean);
   return { recorder, cohort: cohortSpec, cohortIds, ticks };

@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · Phase 105 WL5 CODEX 已确认写入
+> 更新：2026-07-30 · Phase 106 GAP-EVO-CARRY 已交付
 
 ---
 
@@ -8,28 +8,34 @@
 
 | 项 | 状态 |
 |----|------|
-| WL0–WL5 | ✅ **智慧语言栈里程碑完成** |
-| CODEX | 第 32 条「载荷共现迹」 |
-| GAP-W06 | 部分结案 |
+| WL0–WL5 | ✅ 智慧语言栈完成 |
+| Phase 106 | ✅ 进化留置 + 生态分裂（weak 4/4） |
 
 ---
 
 ## 验证
 
 ```bash
-npm run gap-w06:sem:codex    # CODEX 立项验证
-npm run observer:sem-stack   # 观察台 UI
-npm run field:phase103       # 640 tick 正交田野
+npm run field:phase106       # 塑形640 + 混合640 tick
+npm run gap-w06:sem:codex
+npm run observer:sem-stack
 ```
 
 `cursor/<descriptive-name>-a3f2`
 
 ---
 
+## Phase 106 要点
+
+- **塑形** `harsh_combined` → 选 top2 留置快照
+- **混合** 10 naive（0 代）+ 2 carry（非 0 代）
+- **ecoRepro**：留置者跳过 REN，环境允许时 FISS（不扣 RPL）
+- **MEI+FUS**：0 代与留置均可减数分裂产生后代
+
+---
+
 ## 下一步（开放）
 
-智慧语言 WL0–WL5 已闭环。可选深化方向（需新 OBS）：
-
-- WL1/WL2 weak → support 复核田野
-- SEM×SOC 交互效应（H5）长时田野
-- 新 GAP 或 WISDOM 主线任务
+- 更长塑形田野 / 多环境留置链
+- 留置 + SEM 载荷迹跨环境传递
+- GAP-13 合作因果深化

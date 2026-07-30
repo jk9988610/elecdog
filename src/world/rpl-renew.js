@@ -94,9 +94,10 @@ function substrateAvg(world) {
   return ch.reduce((a, b) => a + b, 0) / ch.length;
 }
 
-/** 富足场 + 低胁迫 + 配额见底 → 概率性 [REN] */
+/** 富足场 + 低胁迫 + 配额见底 → 概率性 [REN]；ecoRepro 留置个体跳过续行 */
 export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
   const profile = world.envProfile;
+  if (being.ecoRepro && profile.carryEcoFissEnabled === true) return null;
   if (!profile?.rplRenewEnabled || !replicationEnabled(profile) || !being.alive) return null;
 
   const ceiling = profile.rplRenewAtOrBelow ?? 0;
