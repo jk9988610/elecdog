@@ -9,6 +9,7 @@ import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applySocialKnowledgeInheritance } from './social-knowledge.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
+import { beingUsesEcoFiss } from './eco-repro.js';
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -37,7 +38,7 @@ export function fissionGate(world, being, { stress, integrity }) {
   if (!fissionEnabled(profile) || !being.alive) return null;
   if (being.independent === false) return null;
 
-  const ecoFiss = being.ecoRepro && profile.carryEcoFissEnabled === true;
+  const ecoFiss = beingUsesEcoFiss(being, profile);
 
   const maxPop = profile.fissionMaxPop ?? 64;
   const aliveCount = world.beings.filter((b) => b.alive).length;

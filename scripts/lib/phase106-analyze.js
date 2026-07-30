@@ -60,9 +60,14 @@ export function verifyEvoCarryBatch(byTreatment) {
   const naive = byTreatment.ev106_naive_only ?? [];
 
   const mixedRuns = mixed.filter((r) => (r.carryCount ?? 0) > 0);
+  const naiveRuns = naive;
   const h1 = mixedRuns.length >= 2;
-  const h2 = mixedRuns.every((r) => (r.metrics.carriedRenTicks ?? 0) === 0);
-  const h3 = mixedRuns.some((r) => (r.metrics.meiCount ?? 0) > 0 || (r.metrics.fusCount ?? 0) > 0);
+  const h2 =
+    mixedRuns.every((r) => (r.metrics.renCount ?? 0) === 0) &&
+    naiveRuns.every((r) => (r.metrics.renCount ?? 0) === 0);
+  const h3 = [...mixedRuns, ...naiveRuns].some(
+    (r) => (r.metrics.fissCount ?? 0) > 0 || (r.metrics.ecoFissCount ?? 0) > 0
+  );
   const h4 = mixedRuns.some((r) => (r.metrics.ecoFissCount ?? 0) > 0 || (r.metrics.fissCount ?? 0) > 0);
   const h5 = mixedRuns.some((r) => (r.metrics.nonGen0Count ?? 0) > (r.metrics.carryImported ?? 0));
 

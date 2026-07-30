@@ -138,7 +138,7 @@ export function spawnCarriedBeing(world, recorder, snapshot, { cohortTag = 'carr
   being.generation = snapshot.generation ?? 0;
   being.cohortTag = cohortTag;
   being.carryProvenance = snapshot.provenance ?? null;
-  being.ecoRepro = snapshot.ecoRepro === true || profile.carryEcoFissEnabled === true;
+  being.ecoRepro = snapshot.ecoRepro === true || profile.ecoFissEnabled === true;
 
   if (snapshot.registers?.length === being.registers.length) {
     being.registers = [...snapshot.registers];

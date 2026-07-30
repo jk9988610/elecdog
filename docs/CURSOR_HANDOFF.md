@@ -25,6 +25,11 @@ npm run observer:sem-stack
 
 ---
 
+## Phase 107 要点
+
+- **默认繁殖**：环境门控有丝分裂（FISS），**无续行（REN）**
+- 见 [PHASE107_ECO_REPRO_DEFAULT.md](PHASE107_ECO_REPRO_DEFAULT.md)
+
 ## Phase 106 要点
 
 - **塑形** `harsh_combined` → 选 top2 留置快照

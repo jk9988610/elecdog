@@ -7,6 +7,7 @@ import {
   logReplication,
 } from './replication.js';
 import { applyEhuRenewalTrace } from './electronic-human-profile.js';
+import { beingUsesEcoFiss } from './eco-repro.js';
 
 function syncRplRemaining(being) {
   if (being.rplSub?.length) {
@@ -94,10 +95,10 @@ function substrateAvg(world) {
   return ch.reduce((a, b) => a + b, 0) / ch.length;
 }
 
-/** 富足场 + 低胁迫 + 配额见底 → 概率性 [REN]；ecoRepro 留置个体跳过续行 */
+/** 富足场 + 低胁迫 + 配额见底 → 概率性 [REN]；生态繁殖模式下全体跳过续行 */
 export function tryRplRenew(world, recorder, being, { stress = 0 } = {}) {
   const profile = world.envProfile;
-  if (being.ecoRepro && profile.carryEcoFissEnabled === true) return null;
+  if (beingUsesEcoFiss(being, profile)) return null;
   if (!profile?.rplRenewEnabled || !replicationEnabled(profile) || !being.alive) return null;
 
   const ceiling = profile.rplRenewAtOrBelow ?? 0;
