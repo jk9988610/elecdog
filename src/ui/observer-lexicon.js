@@ -57,8 +57,8 @@ export function tierCn(tier) {
 
 /** 形态 A/B 观察者类比（机制层仍用 A/B；仅 UI） */
 export const PAIR_MORPH_CN = {
-  A: '排出方（类比·男）',
-  B: '接纳方（类比·女）',
+  A: '雄',
+  B: '雌',
 };
 
 /** 定向言语意图 */

@@ -4,7 +4,7 @@
 
 import { label } from './analogy.js';
 import { pairMorphCn } from './observer-lexicon.js';
-import { LOGIC_CELL_TYPES, SKIN_CELL_CODE, STEM_CELL_CODE, STEM_CELL_TYPE } from '../world/logic-cell-types.js';
+import { SKIN_CELL_CODE } from '../world/logic-cell-types.js';
 import { UMB_STRUCTURE_CODE } from '../world/umbilical.js';
 import {
   assessPairStructureFit,
@@ -22,6 +22,8 @@ import {
   LIFE_STAGE_ADT,
 } from '../world/logic-cell-types.js';
 import { genealogySourceBeings } from '../world/genealogy-persist.js';
+import { displayLogicRows } from '../world/logic-cell-display.js';
+import { isPregnant } from '../world/courtship-gate.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -82,6 +84,7 @@ export function buildGenealogyModel(world) {
       parentA: being.pairParentA ?? being.fissionParent ?? null,
       parentB: being.pairParentB ?? null,
       logicCounts: counts,
+      pregnant: isPregnant(being),
       skin: being.skinMembrane?.code ?? SKIN_CELL_CODE,
     });
     if (partner && partner.pairMorph === 'B' && !seen.has(partner.id)) {
@@ -125,6 +128,7 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
       const sel = selectedId === n.id ? ' selected' : '';
       const dead = !n.alive ? ' dead' : '';
       const endBadge = !n.alive ? '<span class="genealogy-end-badge">END</span>' : '';
+      const pregBadge = n.pregnant && n.alive ? '<span class="genealogy-preg-badge">孕</span>' : '';
       return `
         <li class="genealogy-branch">
           <div class="genealogy-couple">
@@ -132,6 +136,7 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
               <span class="genealogy-avatar">${escapeHtml(n.code)}</span>
               <span class="genealogy-id-tail">${escapeHtml(beingTail(n.id))}</span>
               <span class="genealogy-morph">${escapeHtml(pairMorphCn(n.pairMorph))}</span>
+              ${pregBadge}
               ${endBadge}
             </button>
             ${mate
@@ -139,6 +144,7 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
               <span class="genealogy-avatar">${escapeHtml(mate.code)}</span>
               <span class="genealogy-id-tail">${escapeHtml(beingTail(mate.id))}</span>
               <span class="genealogy-morph">${escapeHtml(pairMorphCn(mate.pairMorph))}</span>
+              ${mate.pregnant && mate.alive ? '<span class="genealogy-preg-badge">孕</span>' : ''}
               ${mate.alive ? '' : '<span class="genealogy-end-badge">END</span>'}
             </button>`
               : `<span class="genealogy-mate-placeholder">无伴侣</span>`}
@@ -160,14 +166,12 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
 
 export function renderBeingDetailHTML(being) {
   if (!being) return '<p class="muted">未选择个体</p>';
-  const counts = being.logicCells ?? {};
-  const logicRows = [
-    `<div class="stat-row"><span>${escapeHtml(STEM_CELL_TYPE.analogy)} <code>${escapeHtml(STEM_CELL_CODE)}</code></span><strong>${counts[STEM_CELL_CODE]?.length ?? 0}/${STEM_CELL_TYPE.max}</strong></div>`,
-    ...LOGIC_CELL_TYPES.map((t) => {
-      const n = counts[t.code]?.length ?? 0;
-      return `<div class="stat-row"><span>${escapeHtml(t.analogy)} <code>${escapeHtml(t.code)}</code></span><strong>${n}/8</strong></div>`;
-    }),
-  ].join('');
+  const logicRows = displayLogicRows(being)
+    .map(
+      (r) =>
+        `<div class="stat-row"><span>${escapeHtml(r.analogy)} <code>${escapeHtml(r.code)}</code></span><strong>${r.n}/${r.max}</strong></div>`
+    )
+    .join('');
 
   return `
     <div class="genealogy-detail">
@@ -178,6 +182,7 @@ export function renderBeingDetailHTML(being) {
         ${!being.alive ? `<div class="stat-row"><span>END</span><strong>${escapeHtml(being.endReason ?? '—')} @t${being.endedAtTick ?? '—'}</strong></div>` : ''}
         <div class="stat-row"><span>形态</span><strong>${escapeHtml(pairMorphCn(being.pairMorph))}</strong></div>
         <div class="stat-row"><span>发育阶段</span><strong>${escapeHtml(stageLabel(being.devStage ?? being.lifeStage))}</strong></div>
+        ${isPregnant(being) ? '<div class="stat-row"><span>妊娠</span><strong>孕妇</strong></div>' : ''}
         <div class="stat-row"><span>代次</span><strong>${being.generation ?? 0}</strong></div>
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
         <div class="stat-row"><span>皮肤膜</span><strong>${escapeHtml(being.skinMembrane?.code ?? SKIN_CELL_CODE)}</strong></div>

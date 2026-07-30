@@ -78,15 +78,6 @@ function pinMeiDock(world, parentA, parentB, channel = 7) {
   };
 }
 
-function addUmbLogic(carrier, atTick = 0) {
-  carrier.logicCells = carrier.logicCells ?? {};
-  if (!carrier.logicCells['LOG-UMB']?.length) {
-    carrier.logicCells['LOG-UMB'] = [
-      { id: `${carrier.id.slice(-6)}:LOG-UMB:0`, code: 'LOG-UMB', atTick },
-    ];
-  }
-}
-
 function boostViability(being) {
   if (!being) return;
   being.alive = true;
@@ -122,7 +113,6 @@ function seedPairFus(world, recorder, parentA, parentB, channel = 7) {
 
   const carrier = world.beings.find((b) => b.id === parentB.id);
   if (!carrier?.syncyte) return null;
-  addUmbLogic(carrier, world.tick);
   initGestationalUmbilical(carrier, world.envProfile, world.tick);
   carrier.devStage = LIFE_STAGE_GEST;
   boostViability(parentA);

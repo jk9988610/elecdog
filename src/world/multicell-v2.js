@@ -202,7 +202,7 @@ function pickDiffTarget(being, world, profile, stage, rng) {
   const posIdx = (being.intraTick ?? 0) % 3;
   const preference =
     stage === LIFE_STAGE_GEST
-      ? ['LOG-BAR', 'LOG-UMB', 'LOG-NTR', 'LOG-TRP', 'LOG-RES', 'LOG-DIG', 'LOG-NRV']
+      ? ['LOG-NTR', 'LOG-RES', 'LOG-DIG', 'LOG-NRV']
       : stage === LIFE_STAGE_JUV
         ? [
             'LOG-DIG',
@@ -216,10 +216,6 @@ function pickDiffTarget(being, world, profile, stage, rng) {
             'LOG-SEN-OL',
             'LOG-BRN',
             'LOG-LNG',
-            'LOG-SIG-TX',
-            'LOG-SIG-RX',
-            'LOG-STR',
-            'LOG-CLR',
           ]
         : ['LOG-GON', 'LOG-HRM'];
 

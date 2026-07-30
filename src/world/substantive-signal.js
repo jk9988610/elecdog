@@ -15,6 +15,7 @@ import {
 } from './sem-domain.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { preferAct, externalThreshold } from './viability.js';
+import { canMaleCourtFemale, canFemaleGrantMale, isPregnant } from './courtship-gate.js';
 
 const DOMAIN_TO_QUERY = {
   [SEM_DOMAIN_YI]: 'Q-YI',
@@ -114,9 +115,11 @@ export function appendMulticellIntraTx(internal, being) {
 function pickMorphBTarget(world, a, heardSignals = []) {
   for (const sig of heardSignals) {
     const from = world.beings.find((b) => b.id === sig.fromId);
-    if (from?.alive && from.pairMorph === 'B') return from;
+    if (from?.alive && from.pairMorph === 'B' && canMaleCourtFemale(a, from, world).ok) return from;
   }
-  const candidates = world.beings.filter((b) => b.alive && b.pairMorph === 'B' && b.id !== a.id);
+  const candidates = world.beings.filter(
+    (b) => b.alive && b.pairMorph === 'B' && b.id !== a.id && canMaleCourtFemale(a, b, world).ok
+  );
   if (!candidates.length) return null;
   return candidates.sort((x, y) => slotDistance(x, a) - slotDistance(y, a))[0];
 }
@@ -126,7 +129,7 @@ function pickMorphAGrant(world, b, heardSignals = []) {
     const d = parseDirectedTx(sig.content);
     if (d?.intent === 'PRQ' && d.toId === b.id) {
       const a = world.beings.find((x) => x.id === sig.fromId);
-      if (a?.alive && a.pairMorph === 'A' && a.meiPacket) return a;
+      if (a?.alive && a.pairMorph === 'A' && a.meiPacket && canFemaleGrantMale(b, a, world).ok) return a;
     }
   }
   const reqs = world.pairRequests ?? [];
@@ -135,9 +138,10 @@ function pickMorphAGrant(world, b, heardSignals = []) {
     (x, y) =>
       slotDistance({ socialSlot: x.socialSlot }, b) - slotDistance({ socialSlot: y.socialSlot }, b)
   );
-  const req = sorted[0];
-  const a = world.beings.find((x) => x.id === req.fromId);
-  if (a?.alive && a.pairMorph === 'A' && a.meiPacket) return a;
+  for (const req of sorted) {
+    const a = world.beings.find((x) => x.id === req.fromId);
+    if (a?.alive && a.pairMorph === 'A' && a.meiPacket && canFemaleGrantMale(b, a, world).ok) return a;
+  }
   return null;
 }
 
@@ -178,7 +182,7 @@ function deriveReproIntent(being, world, heardSignals) {
     const target = pickMorphBTarget(world, being, heardSignals);
     if (target) return { intent: 'PRQ', target };
   }
-  if (being.pairMorph === 'B' && being.dockedHalf && !being.syncyte) {
+  if (being.pairMorph === 'B' && being.dockedHalf && !isPregnant(being)) {
     const grantA = pickMorphAGrant(world, being, heardSignals);
     if (grantA) return { intent: 'PGR', target: grantA };
   }

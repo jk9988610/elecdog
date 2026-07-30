@@ -26,6 +26,11 @@ import {
 } from './body-structures.js';
 import { registerPartnerBond } from './partner-bond.js';
 import { meiAllowedForBeing } from './multicell-v2.js';
+import {
+  canMaleCourtFemale,
+  canFemaleGrantMale,
+  isPregnant,
+} from './courtship-gate.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -54,6 +59,11 @@ export function pairHandshakeEnabled(profile) {
 /** 繁殖言语驱动：许可请求/授予仅来自定向 [TX]，不自动广播 [PRQ] */
 export function pairSpeechDriven(profile) {
   return pairHandshakeEnabled(profile) && profile?.pairSpeechDriven === true;
+}
+
+/** 伴侣登记后优先体内通道合胞（相对排入场） */
+export function pairPartnerChannelFus(profile) {
+  return pairFusInBodyEnabled(profile) && profile?.pairPartnerChannelFus === true;
 }
 
 /** PAIR-3：半态排出/接受绑定 subCell 与 r_k / e_k */
@@ -279,6 +289,15 @@ export function registerPairSpeechPRQ(world, recorder, a, bId, txLine = null) {
   if (!a?.alive || a.pairMorph !== 'A' || !a.meiPacket) return null;
   const b = world.beings.find((x) => x.id === bId);
   if (!b?.alive || b.pairMorph !== 'B') return null;
+  const gate = canMaleCourtFemale(a, b, world);
+  if (!gate.ok) {
+    recorder.evolution(world.tick, a.id, `[PRQ-BLOCK] ${bId} ${gate.reason}`, {
+      kind: 'PRQ-BLOCK',
+      toId: bId,
+      reason: gate.reason,
+    });
+    return null;
+  }
   if (hasValidPairGrant(world, a)) return null;
 
   ensurePairRequests(world);
@@ -313,9 +332,11 @@ export function registerPairSpeechPRQ(world, recorder, a, bId, txLine = null) {
 /** 定向言语 [TX] @A PGR → 授予许可（形态 B / 接纳方） */
 export function registerPairSpeechPGR(world, recorder, b, aId, txLine = null) {
   if (!pairSpeechDriven(world.envProfile)) return null;
-  if (!b?.alive || b.pairMorph !== 'B' || !b.dockedHalf || b.syncyte) return null;
+  if (!b?.alive || b.pairMorph !== 'B' || !b.dockedHalf || isPregnant(b)) return null;
   const a = world.beings.find((x) => x.id === aId);
   if (!a?.alive || a.pairMorph !== 'A' || !a.meiPacket) return null;
+  const gate = canFemaleGrantMale(b, a, world);
+  if (!gate.ok) return null;
   if (!pairGateOpen(b, world)) return null;
 
   const structFit = assessPairStructureFit(a, b, world.envProfile, a.meiPacket);
@@ -553,6 +574,14 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
     mutationCount,
   };
 
+  parentB.pregnant = true;
+  parentB.pregnantAtTick = world.tick;
+  const pairIn = parentB.bodyStructures?.['STR-PAIR-IN'];
+  if (pairIn?.open) {
+    pairIn.open = false;
+    pairIn.pregnancyClosed = true;
+  }
+
   parentA.meiPacket = null;
   parentB.dockedHalf = null;
   parentA.pairFusCount = (parentA.pairFusCount ?? 0) + 1;
@@ -631,7 +660,10 @@ function expelSyncyte(world, recorder, carrier) {
   const nurture = applyNurtureAtBirth(world, carrier, child);
   closeUmbilicalOnExpel(carrier);
   carrier.syncyte = null;
+  carrier.pregnant = false;
+  carrier.pregnantAtTick = null;
   carrier.expelCount = (carrier.expelCount ?? 0) + 1;
+  initAdultMatingStructures(carrier, profile, world.tick);
 
   recorder.evolution(world.tick, carrier.id, `[EXP] → ${child.id} gen ${child.generation}`, {
     kind: 'EXP',
@@ -693,16 +725,43 @@ export function processPairFusInBody(world, recorder) {
   return events;
 }
 
-/** tick 末尾：衰减 → 握手 → 排入场 → 宫内发育 → 合胞 */
+/** 伴侣体内通道合胞：登记伴侣且已授予许可 */
+export function processPartnerChannelFus(world, recorder) {
+  const profile = world.envProfile ?? {};
+  if (!pairPartnerChannelFus(profile)) return [];
+  const events = [];
+  const males = world.beings.filter(
+    (b) => b.alive && b.pairMorph === 'A' && b.meiPacket && b.partnerId
+  );
+  for (const a of males) {
+    const b = world.beings.find((x) => x.id === a.partnerId);
+    if (!b?.alive || b.pairMorph !== 'B' || isPregnant(b) || !b.dockedHalf) continue;
+    if (a.pairGrantFrom !== b.id) continue;
+    const structFit = assessPairStructureFit(a, b, profile, a.meiPacket);
+    if (
+      a.bodyStructures?.['STR-PAIR-OUT']?.open &&
+      b.bodyStructures?.['STR-PAIR-IN']?.open
+    ) {
+      recordPairStructureEvent(world, recorder, a, b, structFit, 'PARTNER-FUS');
+      if (!structFit.fit) continue;
+    }
+    createSyncyteOnB(world, recorder, a, b, a.meiPacket.seq, b.dockedHalf.seq);
+    events.push({ type: 'PARTNER-FUS', aId: a.id, bId: b.id });
+  }
+  return events;
+}
+
+/** tick 末尾：衰减 → 握手 → 伴侣通道 → 排入场 → 宫内发育 → 合胞 */
 export function processPairReproduction(world, recorder) {
   if (!pairReproEnabled(world.envProfile)) {
-    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [], handshake: [] };
+    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [], handshake: [], partnerFus: [] };
   }
   decayFieldHalves(world);
   const handshake = processPairHandshake(world, recorder);
+  const partnerFus = processPartnerChannelFus(world, recorder);
   const fieldRelease = releaseFieldHalves(world, recorder);
   const gestation = processPairGestation(world, recorder);
   const fieldFus = processPairFusFromField(world, recorder);
   const fusIn = processPairFusInBody(world, recorder);
-  return { gestation, fusIn, fieldRelease, fieldFus, handshake };
+  return { gestation, fusIn, fieldRelease, fieldFus, handshake, partnerFus };
 }

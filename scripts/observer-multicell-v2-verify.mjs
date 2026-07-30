@@ -134,9 +134,6 @@ carrier.syncyte = {
   parentAId: parentA.id,
 };
 initGestationalUmbilical(carrier, wU.envProfile, 0);
-carrier.logicCells['LOG-UMB'] = [
-  { id: `${carrier.id.slice(-6)}:LOG-UMB:0`, code: 'LOG-UMB', atTick: 0 },
-];
 assert(carrier.bodyStructures?.[UMB_STRUCTURE_CODE]?.open, 'STR-UMB 结构已挂接');
 assert(carrier.devStage === LIFE_STAGE_GEST, '合胞载体为 GEST');
 for (let i = 0; i < 20; i++) stepWorld(wU, recU);

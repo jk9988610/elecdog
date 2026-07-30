@@ -3501,6 +3501,7 @@ const MULTICELL_V2_STACK = {
   meiEnabled: true,
   pairReproEnabled: true,
   pairFusInBody: true,
+  pairPartnerChannelFus: true,
   pairHalfRelease: true,
   pairHandshake: true,
   pairSpeechDriven: true,

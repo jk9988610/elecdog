@@ -2,6 +2,7 @@ import { createWorld } from '../world/world.js';
 import { performBirthRitual } from '../birth/ritual.js';
 import { spawnCarriedBeing } from '../birth/spawn.js';
 import { spawnBeing } from '../birth/spawn.js';
+import { spawnAdultMulticellCohort } from '../birth/adult-cohort.js';
 import { buildObserverNaiveSpecs } from '../carry/mixed-cohort.js';
 import { stepWorld } from '../kernel/engine.js';
 import { Recorder } from '../recorder/logger.js';
@@ -491,6 +492,9 @@ export class ObserverApp {
           fixedId: `01imp${String(i + 1).padStart(3, '0')}`,
         });
       });
+    } else if (this.envProfileId === 'multicell_v2_world') {
+      this.recorder.system(0, `[观察台] 环境 ${this.envProfileId} · 8 成体（4雄4雌）`);
+      spawnAdultMulticellCohort(this.world, this.recorder, { males: 4, females: 4 });
     } else {
       this.recorder.system(0, `[观察台] 环境 ${this.envProfileId}`);
       const seeds = [
