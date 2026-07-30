@@ -9,6 +9,7 @@ import { meiEnabled } from './recombination.js';
 import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
+import { slotIndex, SLOT_COUNT } from './social.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -22,6 +23,15 @@ export function pairReproEnabled(profile) {
 
 export function pairFusInBodyEnabled(profile) {
   return pairReproEnabled(profile) && profile?.pairFusInBody === true;
+}
+
+/** PAIR-1：半态排入环境场，体内不直接合胞 */
+export function pairHalfReleaseEnabled(profile) {
+  return pairFusInBodyEnabled(profile) && profile?.pairHalfRelease === true;
+}
+
+export function ensureFieldHalves(world) {
+  if (!world.fieldHalves) world.fieldHalves = [];
 }
 
 function dnaDockBias(being) {
@@ -85,6 +95,109 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
     pairMorph: 'B',
   });
   return { seq };
+}
+
+function slotDistance(a, b) {
+  const ia = slotIndex(a?.socialSlot ?? 'S0');
+  const ib = slotIndex(b?.socialSlot ?? 'S0');
+  const d = Math.abs(ia - ib);
+  return Math.min(d, SLOT_COUNT - d);
+}
+
+function resolveParentA(world, half, fallbackB) {
+  const found = world.beings.find((b) => b.id === half.fromId);
+  if (found) return found;
+  return {
+    id: half.fromId,
+    name: 'A',
+    code: fallbackB.code,
+    registers: fallbackB.registers,
+    generation: 0,
+  };
+}
+
+/** 形态 A 将体内半态排入环境场（singleton / 源） */
+export function releaseFieldHalves(world, recorder) {
+  if (!pairHalfReleaseEnabled(world.envProfile)) return [];
+  ensureFieldHalves(world);
+  const profile = world.envProfile ?? {};
+  const maxAge = profile.pairFieldHalfMaxAge ?? 96;
+  const events = [];
+
+  for (const a of world.beings.filter((b) => b.alive && b.pairMorph === 'A' && b.meiPacket)) {
+    world.fieldHalves = world.fieldHalves.filter((h) => h.fromId !== a.id);
+    const half = {
+      id: `${a.id}:${world.tick}`,
+      seq: a.meiPacket.seq,
+      fromId: a.id,
+      socialSlot: a.socialSlot ?? 'S0',
+      atTick: world.tick,
+      expireTick: world.tick + maxAge,
+    };
+    world.fieldHalves.push(half);
+    a.meiPacket = null;
+    a.fieldReleaseCount = (a.fieldReleaseCount ?? 0) + 1;
+    recorder.evolution(world.tick, a.id, `[FLD] release len ${half.seq.length}`, {
+      kind: 'FLD',
+      packetLen: half.seq.length,
+      expireTick: half.expireTick,
+    });
+    events.push(half);
+  }
+  return events;
+}
+
+export function decayFieldHalves(world) {
+  if (!pairHalfReleaseEnabled(world.envProfile)) return 0;
+  ensureFieldHalves(world);
+  const before = world.fieldHalves.length;
+  const tick = world.tick;
+  world.fieldHalves = world.fieldHalves.filter((h) => h.expireTick > tick);
+  return before - world.fieldHalves.length;
+}
+
+/** PAIR-1：环境半态 + B 驻留半态 → 体内合胞 */
+export function processPairFusFromField(world, recorder) {
+  const profile = world.envProfile;
+  if (!pairHalfReleaseEnabled(profile)) return [];
+
+  ensureFieldHalves(world);
+  const morphB = world.beings.filter(
+    (b) => b.alive && b.pairMorph === 'B' && b.dockedHalf && !b.syncyte
+  );
+  if (!morphB.length || !world.fieldHalves.length) return [];
+
+  const events = [];
+  const usedHalves = new Set();
+  const usedB = new Set();
+
+  for (const b of morphB) {
+    if (usedB.has(b.id) || !pairGateOpen(b, world)) continue;
+    const candidates = world.fieldHalves
+      .filter((h) => !usedHalves.has(h.id))
+      .sort((x, y) => {
+        const ax = { socialSlot: x.socialSlot };
+        const ay = { socialSlot: y.socialSlot };
+        return slotDistance(ax, b) - slotDistance(ay, b);
+      });
+    if (!candidates.length) continue;
+
+    const half = candidates[0];
+    const parentA = resolveParentA(world, half, b);
+    createSyncyteOnB(world, recorder, parentA, b, half.seq, b.dockedHalf.seq);
+    usedHalves.add(half.id);
+    usedB.add(b.id);
+    b.fieldPickupCount = (b.fieldPickupCount ?? 0) + 1;
+    recorder.evolution(world.tick, b.id, `[FLD-IN] ${half.fromId} → syncyte`, {
+      kind: 'FLD-IN',
+      fromId: half.fromId,
+      halfId: half.id,
+    });
+    events.push({ type: 'FLD-IN', aId: half.fromId, bId: b.id, halfId: half.id });
+  }
+
+  world.fieldHalves = world.fieldHalves.filter((h) => !usedHalves.has(h.id));
+  return events;
 }
 
 function avgRegisters(a, b) {
@@ -203,10 +316,10 @@ export function processPairGestation(world, recorder) {
   return events;
 }
 
-/** 无握手：形态 A 半态 + 形态 B 驻留半态 → B 体内合胞 */
+/** 无握手：形态 A 半态 + 形态 B 驻留半态 → B 体内合胞（PAIR-0 体内直连） */
 export function processPairFusInBody(world, recorder) {
   const profile = world.envProfile;
-  if (!pairFusInBodyEnabled(profile)) return [];
+  if (!pairFusInBodyEnabled(profile) || pairHalfReleaseEnabled(profile)) return [];
 
   const morphA = world.beings.filter(
     (b) => b.alive && b.pairMorph === 'A' && b.meiPacket && !b.syncyte
@@ -230,10 +343,15 @@ export function processPairFusInBody(world, recorder) {
   return events;
 }
 
-/** tick 末尾：宫内发育 + 体内合胞 */
+/** tick 末尾：衰减 → 排入场 → 宫内发育 → 合胞 */
 export function processPairReproduction(world, recorder) {
-  if (!pairReproEnabled(world.envProfile)) return { gestation: [], fusIn: [] };
+  if (!pairReproEnabled(world.envProfile)) {
+    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [] };
+  }
+  decayFieldHalves(world);
+  const fieldRelease = releaseFieldHalves(world, recorder);
   const gestation = processPairGestation(world, recorder);
+  const fieldFus = processPairFusFromField(world, recorder);
   const fusIn = processPairFusInBody(world, recorder);
-  return { gestation, fusIn };
+  return { gestation, fusIn, fieldRelease, fieldFus };
 }

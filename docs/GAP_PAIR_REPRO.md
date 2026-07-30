@@ -63,7 +63,7 @@ npm run field:phase124:verify
 | 阶段 | 内容 |
 |------|------|
 | **PAIR-0** ✅ | 体内合胞、无握手、无通道 |
-| PAIR-1 | 半态排入环境/个体间 |
+| **PAIR-1** ✅ | 半态 `[FLD]` 排入环境场 → B `[FLD-IN]` 摄取 |
 | PAIR-2 | `[PRQ]`/`[PGR]` 许可握手 |
 | PAIR-3 | 排出/接受绑定 subCell 或 `r_k` |
 | PAIR-4 | 多维激素向量 \(h\) |
@@ -77,4 +77,26 @@ npm run field:phase124:verify
 
 ---
 
-*立项：2026-07-30 · Phase 124 首验*
+## 六、PAIR-1 流程（Phase 125）
+
+```
+形态A [MEI] → halfPacket
+        ↓ 同 tick 末
+环境场 [FLD] release（world.fieldHalves，singleton/源）
+        ↓ 社会位亲和趋近
+形态B [FLD-IN] + dockedHalf → [FUS-IN] → …（同 PAIR-0 后续）
+```
+
+| 处理组 | pairHalfRelease |
+|--------|-----------------|
+| `ev125_pair_field` | ✅ |
+| `ev125_pair_body` | ❌（PAIR-0 对照） |
+
+```bash
+npm run field:phase125
+npm run field:phase125:verify
+```
+
+---
+
+*立项：2026-07-30 · Phase 124 首验 · Phase 125 PAIR-1*

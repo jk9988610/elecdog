@@ -477,7 +477,13 @@
 
 ---
 
-## GAP-13-COOP-INTERACT · 留置繁殖×SOC 继承交互（Phase 123）
+## GAP-PAIR-FIELD · 半态排入环境场（Phase 125）
+
+- **PAIR-1**：A `[FLD]` 排入 `world.fieldHalves` → B `[FLD-IN]` 摄取 → 体内合胞链
+- **对照**：`ev125_pair_body` 保持 PAIR-0 体内直连（fld=0）
+- **田野**：`npm run field:phase125` — support 7/7
+
+---
 
 - **假说切换**：`carryCoopAdvantage`（118/121 未立）→ `carryReproSocYield = socLin / carriedFiss`
 - **田野**：`npm run field:phase123` — 8192 tick turbo × COOP on/off
