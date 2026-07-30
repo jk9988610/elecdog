@@ -3113,6 +3113,66 @@ export const PHASE128_TREATMENTS = {
   },
 };
 
+/** Phase 129 — 六环境链 × PAIR-0 混合繁殖 */
+const EVO_CHAIN_PAIR_BASE = {
+  ...EVO_HEXA_CHAIN_BASE,
+  carryMode: 'chain',
+  cohort: 'pair',
+  envId: 'fertile_field',
+  mixedEnvId: 'fertile_field',
+  mixedTicks: 640,
+  fieldRunDeadlineMs: 180000,
+  fieldMaxTicksPerPass: 8192,
+  carryPairMorphAssign: ['A', 'B'],
+  catastropheDisabled: true,
+  organismMode: 'multicell',
+  fissionEnabled: false,
+  ecoFissEnabled: false,
+  rplEnabled: true,
+  meiEnabled: true,
+  fusEnabled: false,
+  pairReproEnabled: true,
+  pairFusInBody: true,
+  pairHalfRelease: false,
+  reproMode: 'gestation',
+  substrateDrainMult: 0.52,
+  substrateBoost: 0.02,
+  substrateFloor: 0.54,
+  pairGateMin: 0.08,
+  pairGateFieldWeight: 0.35,
+  gestationTicks: 64,
+  nurtureTicks: 64,
+  dockBaseProb: 0.35,
+  mixedSemEnabled: false,
+  cooperationProfileEnabled: false,
+  socialKnowledgeEnabled: false,
+};
+
+export const PHASE129_TREATMENTS = {
+  ev129_chain_pair: {
+    id: 'ev129_chain_pair',
+    label: '六环境链+PAIR-0',
+    ...EVO_CHAIN_PAIR_BASE,
+  },
+  ev129_chain_eco: {
+    id: 'ev129_chain_eco',
+    label: '六环境链+生态FISS对照',
+    envId: 'wisdom_evolution',
+    mixedEnvId: 'wisdom_evolution',
+    ...EVO_HEXA_CHAIN_BASE,
+    carryMode: 'chain',
+    mixedSemEnabled: true,
+    ...WL3_SEM_STACK,
+  },
+  ev129_pair_only: {
+    id: 'ev129_pair_only',
+    label: '无链·PAIR-0基线',
+    ...PAIR_REPRO_MIN_BASE,
+    carryMode: 'none',
+    cohort: 'pair',
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -4071,6 +4131,31 @@ export function applyPhase128Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, envId);
   world.envProfile = { ...base, ...treatment, envId };
   world.fieldStudy = { phase: 128, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase129Treatment(world, treatmentId) {
+  const treatment = PHASE129_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase129 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  if (!treatment.socialKnowledgeEnabled) {
+    world.envProfile.socialKnowledgeEnabled = false;
+    world.envProfile.socialKnowledgeFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 129, treatmentId, ...treatment };
   return world.envProfile;
 }
 

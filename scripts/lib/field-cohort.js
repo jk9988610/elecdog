@@ -77,3 +77,32 @@ export function buildMixedCohort(seed = 0, carrySnapshots = [], profile = {}) {
   }));
   return [...naive, ...carries];
 }
+
+/** Phase 129 — 4 体 PAIR naive + ≤2 留置（形态 A/B 指派） */
+export function buildMixedPairCohort(seed = 0, carrySnapshots = [], profile = {}) {
+  const naive = buildPairCohort(seed);
+  const morphAssign = profile.carryPairMorphAssign ?? ['A', 'B'];
+  const carries = (carrySnapshots ?? []).slice(0, morphAssign.length).map((snap, i) => {
+    const pairMorph = morphAssign[i] ?? 'A';
+    const enriched = { ...snap, pairMorph };
+    return {
+      name: snap.name ?? `留置${pairMorph}${i + 1}`,
+      code: snap.code ?? (pairMorph === 'A' ? '007' : '008'),
+      dnaSequence: snap.dnaSequence,
+      pairMorph,
+      id: `01pcarry${seed}${String(i + 1).padStart(3, '0')}`,
+      cohortTag: 'carry',
+      _carrySnapshot: enriched,
+    };
+  });
+  return [...naive, ...carries];
+}
+
+export function buildFinalCarryCohort(seed, carries, profile) {
+  const carryMode = profile.carryMode ?? 'none';
+  const isPair = profile.cohort === 'pair';
+  if (carryMode === 'none') {
+    return isPair ? buildPairCohort(seed) : buildFieldCohort(seed);
+  }
+  return isPair ? buildMixedPairCohort(seed, carries, profile) : buildMixedCohort(seed, carries, profile);
+}

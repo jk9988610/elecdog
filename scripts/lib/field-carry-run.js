@@ -4,7 +4,7 @@ import { createFieldRecorder } from './field-recorder.js';
 import { resetBirthCounters } from '../../src/core/id.js';
 import { spawnBeing, spawnCarriedBeing } from '../../src/birth/spawn.js';
 import { applyEnvProfile } from '../../src/world/env-profile.js';
-import { buildFieldCohort, buildMixedCohort, FIELD_MED_TICKS, FIELD_SHORT_TICKS } from './field-cohort.js';
+import { buildFieldCohort, buildFinalCarryCohort, FIELD_MED_TICKS, FIELD_SHORT_TICKS } from './field-cohort.js';
 import { runFieldTicks } from './field-ticks.js';
 import { selectCarrySnapshots } from '../../src/carry/select-carry.js';
 import { mergeCarryProvenance } from '../../src/carry/being-snapshot.js';
@@ -49,6 +49,7 @@ export function initFieldWorldWithCohort(world, { phase, treatmentId, seed, tick
       spawnCarriedBeing(world, recorder, spec._carrySnapshot, {
         cohortTag: 'carry',
         fixedId: spec.id,
+        pairMorph: spec.pairMorph ?? null,
       });
     } else {
       spawnBeing(world, recorder, spec);
@@ -326,8 +327,7 @@ export function runFieldCarryScenario({
   const world = createWorld(`01-p${phase}-${treatmentId}-${seed}`);
   applyTreatment(world, treatmentId);
 
-  const cohortSpec =
-    carryMode === 'none' ? buildFieldCohort(seed) : buildMixedCohort(seed, carries, profile);
+  const cohortSpec = buildFinalCarryCohort(seed, carries, profile);
 
   const { recorder, cohortIds } = initFieldWorldWithCohort(world, {
     phase,
@@ -387,6 +387,7 @@ export function runFieldCarryScenario({
       semTrace: c.semTrace ?? null,
       semTraceWeight: c.semTraceWeight ?? 0,
       organismType: c.organismType ?? 'unicell',
+      pairMorph: c.pairMorph ?? null,
       ecoRepro: c.ecoRepro === true,
       provenance: c.provenance ?? null,
     })),
