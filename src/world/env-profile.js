@@ -2578,6 +2578,37 @@ export const PHASE106_TREATMENTS = {
   },
 };
 
+/** Phase 108 — 多环境留置链 + SEM 载荷迹跨环境孵化 */
+const EVO_CHAIN_BASE = {
+  ...EVO_CARRY_REPRO_BASE,
+  semEnabled: false,
+  semLineageEnabled: false,
+  semFeedbackEnabled: false,
+  carryMode: 'chain',
+  carryIncubateTicks: 384,
+  carryIncubateEnvId: 'wisdom_evolution',
+};
+
+export const PHASE108_TREATMENTS = {
+  ev108_chain_off: {
+    id: 'ev108_chain_off',
+    label: '塑形→混合（无SEM）',
+    envId: 'wisdom_evolution',
+    ...EVO_CHAIN_BASE,
+    carryIncubateSem: false,
+    mixedSemEnabled: false,
+  },
+  ev108_chain_sem: {
+    id: 'ev108_chain_sem',
+    label: '塑形→SEM孵化→混合',
+    envId: 'wisdom_evolution',
+    ...EVO_CHAIN_BASE,
+    carryIncubateSem: true,
+    mixedSemEnabled: true,
+    ...WL3_SEM_STACK,
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈 + 智慧语言 SEM 栈 */
 ENV_PROFILES.observer_wl_stack = {
   id: 'observer_wl_stack',
@@ -3207,6 +3238,22 @@ export function initEnvStackModules(world, profile = world?.envProfile) {
   if (profile.ventEnabled) initVentState(world, profile);
   if (profile.migEnabled) initMigState(world);
   if (profile.dissipationEnabled) initDissipationStats(world);
+}
+
+export function applyPhase108Treatment(world, treatmentId) {
+  const treatment = PHASE108_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase108 处理组: ${treatmentId}`);
+  }
+  const base = applyEnvProfile(world, treatment.envId);
+  world.envProfile = { ...base, ...treatment };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  world.fieldStudy = { phase: 108, treatmentId, ...treatment };
+  return world.envProfile;
 }
 
 export function applyPhase106Treatment(world, treatmentId) {

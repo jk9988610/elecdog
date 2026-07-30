@@ -27,3 +27,13 @@ export function snapshotBeing(being, provenance = {}) {
 export function snapshotBeings(beings, provenance = {}) {
   return beings.map((b) => snapshotBeing(b, provenance));
 }
+
+/** 合并链式 provenance（多环境留置） */
+export function mergeCarryProvenance(snap, stage, extra = {}) {
+  const prev = snap.provenance ?? {};
+  const chain = [...(prev.chain ?? []), { stage, envId: extra.envId ?? prev.envId, tick: extra.tick ?? prev.tick }];
+  return {
+    ...snap,
+    provenance: { ...prev, ...extra, chainStage: stage, chain },
+  };
+}

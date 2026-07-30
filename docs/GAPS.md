@@ -374,3 +374,12 @@
 - **文档**：[PHASE106_EVO_CARRY.md](PHASE106_EVO_CARRY.md)
 
 ---
+
+## GAP-EVO-CARRY-SEM · 留置链载荷迹（Phase 108）
+
+- **扩展**：harsh 塑形 → SEM 孵化（384 tick，仅 carry）→ 混合田野；`mergeCarryProvenance` 链式来源
+- **田野**：`npm run field:phase108` — chain_sem vs chain_off 对照
+- **状态**：**部分结案** — 跨环境 semTrace 可观察
+- **文档**：[PHASE108_CARRY_CHAIN_SEM.md](PHASE108_CARRY_CHAIN_SEM.md)
+
+---
