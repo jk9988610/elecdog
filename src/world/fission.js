@@ -37,6 +37,8 @@ export function fissionGate(world, being, { stress, integrity }) {
   if (!fissionEnabled(profile) || !being.alive) return null;
   if (being.independent === false) return null;
 
+  const ecoFiss = being.ecoRepro && profile.carryEcoFissEnabled === true;
+
   const maxPop = profile.fissionMaxPop ?? 64;
   const aliveCount = world.beings.filter((b) => b.alive).length;
   if (aliveCount >= maxPop) return null;
@@ -54,14 +56,14 @@ export function fissionGate(world, being, { stress, integrity }) {
   if (stress > (profile.fissionMaxStress ?? 0.25) + dna.stressCeilAdj) return null;
   if (integrity != null && integrity < (profile.fissionMinIntegrity ?? 0.5)) return null;
   if (being.lowStreak > 0) return null;
-  if (!hasFissReplicationBudget(being, profile)) return null;
+  if (!ecoFiss && !hasFissReplicationBudget(being, profile)) return null;
 
   const baseProb = profile.fissionBaseProb ?? 0.4;
   const eagerP = Math.min(0.95, baseProb + dna.bias * 0.4);
   const roll = mulberry32(hashString(`${being.id}:${world.tick}:fissroll`))();
   if (roll > eagerP) return null;
 
-  return { fert, dna, cooldown, eagerP, since };
+  return { fert, dna, cooldown, eagerP, since, ecoFiss: Boolean(ecoFiss) };
 }
 
 export function spawnFissionOffspring(world, recorder, parent, gate) {
@@ -114,6 +116,7 @@ export function spawnFissionOffspring(world, recorder, parent, gate) {
     dnaBias: +gate.dna.bias.toFixed(4),
     eagerP: +gate.eagerP.toFixed(4),
     stressCeil: (profile.fissionMaxStress ?? 0.25) + gate.dna.stressCeilAdj,
+    ecoFiss: Boolean(gate.ecoFiss),
   });
 
   return born;

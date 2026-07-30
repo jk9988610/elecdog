@@ -362,3 +362,15 @@
 - **关联**：次 tick 信号可达、RX 衍生 hex 可决、SOC-ENC、COOP
 
 ---
+
+## GAP-EVO-CARRY · 进化留置队列（Phase 106）
+
+- **缺口**：田野每批从 0 代起跑，环境塑形后的躯体与经历无法进入下一实验
+- **扩展**：`being-snapshot` + `spawnCarriedBeing`；塑形末选 top2 → 与 naive 混编
+- **生态分裂**：`ecoRepro` 留置者跳过 `[REN]`，场允许时 `[FISS]` 不扣 RPL
+- **减数分裂**：0 代与非 0 代均可 `[MEI]`+`[FUS]` 产生后代
+- **田野**：`npm run field:phase106` — **weak**（H1–H4 4/4）
+- **状态**：**部分结案** — 留置管线可观察；长期生态链仍开放
+- **文档**：[PHASE106_EVO_CARRY.md](PHASE106_EVO_CARRY.md)
+
+---

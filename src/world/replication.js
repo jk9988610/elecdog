@@ -287,6 +287,10 @@ export function applyFissionReplication(world, recorder, parent, child) {
   const profile = world.envProfile;
   if (!replicationEnabled(profile)) return null;
 
+  if (parent.ecoRepro && profile.carryEcoFissEnabled === true) {
+    return { ecoFiss: true, parentRpl: parent.rplRemaining };
+  }
+
   const scope = parent.rplScope ?? 'organism';
   let before = parent.rplRemaining ?? 0;
 

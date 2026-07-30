@@ -30,15 +30,32 @@ export function buildQuadChainCohort(seed = 0) {
 }
 
 /** 12 体：001–006 各 2（模板多样性） */
-export function buildFieldCohort(seed = 0) {
+export function buildFieldCohort(seed = 0, { count = 12 } = {}) {
   const codes = ['001', '002', '003', '004', '005', '006'];
-  return codes.flatMap((code, i) => [
+  const specs = codes.flatMap((code) => [
     {
       name: code === '001' ? '观察者' : code,
       code,
       dnaSequence: code === '001' ? OBSERVER_DNA : null,
       id: code === '001' ? `012026072901000${seed}` : null,
+      cohortTag: 'naive',
     },
-    { name: `${code}-乙`, code },
+    { name: `${code}-乙`, code, cohortTag: 'naive' },
   ]);
+  return specs.slice(0, count);
+}
+
+/** Phase 106 — naive + 留置混合队列 */
+export function buildMixedCohort(seed = 0, carrySnapshots = [], profile = {}) {
+  const naiveCount = profile.carryNaiveCount ?? 10;
+  const naive = buildFieldCohort(seed, { count: naiveCount });
+  const carries = (carrySnapshots ?? []).map((snap, i) => ({
+    name: snap.name ?? `留置${i + 1}`,
+    code: snap.code ?? '007',
+    dnaSequence: snap.dnaSequence,
+    id: `01carry${seed}${String(i + 1).padStart(3, '0')}`,
+    cohortTag: 'carry',
+    _carrySnapshot: snap,
+  }));
+  return [...naive, ...carries];
 }

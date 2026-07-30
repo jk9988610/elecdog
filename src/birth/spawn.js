@@ -4,7 +4,7 @@ import { createDna, createDnaFromSequence } from '../core/dna.js';
 import { generateId } from '../core/id.js';
 import { Being } from '../being/being.js';
 import { initOrganism } from '../world/organism.js';
-import { initReplicationQuota, recordReplicationInit } from '../world/replication.js';
+import { initReplicationQuota, recordReplicationInit, replicationEnabled } from '../world/replication.js';
 import { performBirthRitual } from './ritual.js';
 import { initExperience, experienceEnabled } from '../world/experience.js';
 import { initRegisterProfile, registerProfileEnabled } from '../world/register-profile.js';
@@ -42,6 +42,7 @@ export function spawnBeing(
     placeBand = null,
     placePatch = null,
     placeTerrain = null,
+    cohortTag = 'naive',
   } = {}
 ) {
   const tick = world.tick;
@@ -49,6 +50,7 @@ export function spawnBeing(
   const id = fixedId ?? generateId({ birthPlace: world.birthPlace, code });
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
+  being.cohortTag = cohortTag;
   initOrganism(being, world.envProfile);
   if (placeBand || placeTerrain) {
     assignBeingPlace(being, {
@@ -115,6 +117,53 @@ export function spawnBeing(
 
   world.beings.push(being);
   return { being, id, dna };
+}
+
+/**
+ * Phase 106 — 从留置快照复活（非 0 代 + 可选 ecoRepro）
+ */
+export function spawnCarriedBeing(world, recorder, snapshot, { cohortTag = 'carry', fixedId = null } = {}) {
+  if (!snapshot?.dnaSequence) {
+    throw new Error('留置快照缺少 dnaSequence');
+  }
+  const profile = world.envProfile ?? {};
+  const born = spawnBeing(world, recorder, {
+    name: snapshot.name ?? '留置',
+    code: snapshot.code ?? '001',
+    dnaSequence: snapshot.dnaSequence,
+    id: fixedId,
+  });
+  const being = born.being;
+
+  being.generation = snapshot.generation ?? 0;
+  being.cohortTag = cohortTag;
+  being.carryProvenance = snapshot.provenance ?? null;
+  being.ecoRepro = snapshot.ecoRepro === true || profile.carryEcoFissEnabled === true;
+
+  if (snapshot.registers?.length === being.registers.length) {
+    being.registers = [...snapshot.registers];
+  }
+  if (snapshot.metProfile) {
+    being.metProfile = snapshot.metProfile;
+  }
+  if (snapshot.semTrace?.length && semLineageEnabled(profile)) {
+    being.semTrace = snapshot.semTrace.map((e) => ({ ...e }));
+    being.semTraceWeight = snapshot.semTraceWeight ?? 0;
+  }
+
+  if (replicationEnabled(profile)) {
+    const grant = profile.carryMeiRplGrant ?? 2;
+    if (being.rplScope === 'subunit' && being.rplSub?.length) {
+      for (const unit of being.rplSub) {
+        unit.remaining = Math.min(unit.max, grant);
+      }
+      being.rplRemaining = being.rplSub.reduce((s, u) => s + u.remaining, 0);
+    } else {
+      being.rplRemaining = Math.min(being.rplMax ?? grant, grant);
+    }
+  }
+
+  return born;
 }
 
 /** 观察台用仪式；田野统计用 spawn */
