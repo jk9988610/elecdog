@@ -78,20 +78,20 @@ export function spawnAdultMulticellCohort(world, recorder, { males = 4, females 
   const out = [];
   for (let i = 0; i < males; i++) {
     const { being } = spawnBeing(world, recorder, {
-      name: `雄${i + 1}`,
       code: `M${String(i + 1).padStart(2, '0')}`,
       pairMorph: 'A',
       cohortTag: 'adult',
+      nameIndex: i,
     });
     initAdultWeanedBeing(being, world, profile);
     out.push(being);
   }
   for (let i = 0; i < females; i++) {
     const { being } = spawnBeing(world, recorder, {
-      name: `雌${i + 1}`,
       code: `F${String(i + 1).padStart(2, '0')}`,
       pairMorph: 'B',
       cohortTag: 'adult',
+      nameIndex: i,
     });
     initAdultWeanedBeing(being, world, profile);
     out.push(being);

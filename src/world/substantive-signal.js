@@ -212,6 +212,20 @@ function hasValidPairGrant(world, a) {
   return Boolean(grantor?.alive && grantor.pairMorph === 'B');
 }
 
+/** 雄 90% / 雌 10% 发出求偶 PRQ */
+export const COURTSHIP_PRQ_PROB_BY_MORPH = { A: 0.9, B: 0.1 };
+
+function shouldEmitCourtshipPrq(being) {
+  if (being.pairMorph === 'A') return being.rng() < COURTSHIP_PRQ_PROB_BY_MORPH.A;
+  if (being.pairMorph === 'B') return being.rng() < COURTSHIP_PRQ_PROB_BY_MORPH.B;
+  return false;
+}
+
+function maybePrq(being, target) {
+  if (!target || !shouldEmitCourtshipPrq(being)) return null;
+  return { intent: 'PRQ', target };
+}
+
 function deriveReproIntent(being, world, heardSignals) {
   if (!pairReproEnabled(world.envProfile)) return null;
   if (!canSendCourtship(being, world)) {
@@ -226,14 +240,14 @@ function deriveReproIntent(being, world, heardSignals) {
     return null;
   }
   if (being.pairMorph === 'A' && being.meiPacket && !hasValidPairGrant(world, being)) {
-    const target = pickMorphBTarget(world, being, heardSignals);
-    if (target) return { intent: 'PRQ', target };
+    const prq = maybePrq(being, pickMorphBTarget(world, being, heardSignals));
+    if (prq) return prq;
   }
   if (being.pairMorph === 'B' && being.dockedHalf && !isPregnant(being)) {
     const grantA = pickMorphAGrant(world, being, heardSignals);
     if (grantA) return { intent: 'PGR', target: grantA };
-    const target = pickMorphATarget(world, being, heardSignals);
-    if (target) return { intent: 'PRQ', target };
+    const prq = maybePrq(being, pickMorphATarget(world, being, heardSignals));
+    if (prq) return prq;
   }
   if (being.pairMorph === 'A' && being.meiPacket) {
     const grantB = pickMorphBGrant(world, being, heardSignals);

@@ -18,8 +18,11 @@ import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
   processPartnerChannelFus,
+  processPairGestation,
   initDockedHalf,
 } from '../src/world/pair-repro.js';
+import { COURTSHIP_PRQ_PROB_BY_MORPH } from '../src/world/substantive-signal.js';
+import { formatBeingDisplayName } from '../src/world/being-names.js';
 import {
   initAdultMatingStructures,
   STR_PAIR_IN,
@@ -51,6 +54,8 @@ initEnvStackModules(world);
 const recorder = new Recorder();
 
 assert(world.envProfile?.pairPartnerChannelFus === true, 'pairPartnerChannelFus 启用');
+assert(COURTSHIP_PRQ_PROB_BY_MORPH.A === 0.9, '雄求偶 PRQ 概率 90%');
+assert(COURTSHIP_PRQ_PROB_BY_MORPH.B === 0.1, '雌求偶 PRQ 概率 10%');
 
 const cohort = spawnAdultMulticellCohort(world, recorder, { males: 4, females: 4 });
 assert(cohort.length === 8, '8 成体队列');
@@ -81,6 +86,18 @@ for (const b of cohort) {
   }
 }
 assert(
+  cohort.every((b) => b.familyName && b.givenName),
+  '成体均有姓与名'
+);
+assert(
+  cohort.every((b) => b.lineageHeadId === b.id),
+  '开局各自为谱系头'
+);
+assert(
+  cohort.every((b) => formatBeingDisplayName(b) === `${b.familyName}·${b.givenName}`),
+  '显示名格式为姓·名'
+);
+assert(
   cohort.every((b) => {
     return cohort.every((o) => b.id === o.id || !cohortKinBlocked(b, o, world.envProfile));
   }),
@@ -103,6 +120,8 @@ assert(prq.healthReport?.dnaFp, 'PRQ 附带体检报告');
 const pgr = registerPairSpeechPGR(world, recorder, female, male.id);
 assert(pgr, '雌可 PGR 成为伴侣');
 assert(male.partnerId === female.id, '伴侣登记');
+assert(female.lineageHeadId === male.lineageHeadId, '雄求偶成功后雌并入雄谱系');
+assert(male.bondCourtshipInitiatorMorph === 'A', '雄为求偶发起方');
 assert(!canSendCourtship(male, world), '有伴侣雄不发送求偶');
 assert(!canSendCourtship(female, world), '有伴侣雌不发送求偶');
 
@@ -162,6 +181,14 @@ assert(fus.length > 0, '伴侣通道合胞 PARTNER-FUS');
 assert(isPregnant(female), '合胞后标记孕妇');
 assert(!female.bodyStructures[STR_PAIR_IN].open, '孕期关闭 STR-PAIR-IN');
 
+female.syncyte.gestationUntilTick = world.tick;
+const gest = processPairGestation(world, recorder);
+assert(gest.length > 0, '到期外排子代');
+const gestChild = world.beings.find((b) => b.id === gest[0].childId);
+assert(gestChild, '子代存在');
+assert(gestChild.familyName === male.familyName, '雄求偶子代姓氏随父');
+assert(gestChild.lineageHeadId === male.lineageHeadId, '子代谱系随父系');
+
 const blocks = recorder.entries.filter((e) => e.meta?.kind === 'PRQ-BLOCK');
 assert(blocks.some((e) => e.meta?.reason === 'female-partner'), 'PRQ-BLOCK female-partner 记录');
 
@@ -181,6 +208,19 @@ const fPrq = registerPairSpeechPRQ(wFem, recFem, fem, mal.id);
 assert(fPrq?.fromMorph === 'B', '雌可向雄 PRQ');
 const mPgr = registerPairSpeechPGR(wFem, recFem, mal, fem.id);
 assert(mPgr, '雄回应雌 PGR');
+assert(mal.lineageHeadId === fem.lineageHeadId, '雌求偶成功后雄并入雌谱系');
+assert(mal.bondCourtshipInitiatorMorph === 'B', '雌为求偶发起方');
+
+pinChannels(mal, STR_PAIR_OUT, 7);
+pinChannels(fem, STR_PAIR_IN, 7);
+const fusFem = processPartnerChannelFus(wFem, recFem);
+assert(fusFem.length > 0, '雌发起伴侣通道合胞');
+fem.syncyte.gestationUntilTick = wFem.tick;
+const gestFem = processPairGestation(wFem, recFem);
+assert(gestFem.length > 0, '雌谱系外排子代');
+const femChild = wFem.beings.find((b) => b.id === gestFem[0].childId);
+assert(femChild?.familyName === fem.familyName, '雌求偶子代姓氏随母');
+assert(femChild?.lineageHeadId === fem.lineageHeadId, '子代谱系随母系');
 
 // DNA 血缘：同胞阻断求偶；克隆 DNA 在 PGR 时被忽略
 const wDna = createWorld('M-DNA');
