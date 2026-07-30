@@ -66,7 +66,7 @@ npm run field:phase124:verify
 | **PAIR-1** ✅ | 半态 `[FLD]` 排入环境场 → B `[FLD-IN]` 摄取 |
 | **PAIR-2** ✅ | `[PRQ]`/`[PGR]` 许可握手后排 `[FLD]` |
 | **PAIR-3** ✅ | 排出绑 `act` subCell·`e_k`，接受绑 `draw`·`r_k` |
-| PAIR-4 | 多维激素向量 \(h\) |
+| **PAIR-4** ✅ | 多维激素 \(h_k=r_k-w e_k\)，`[HRM]` 记录 |
 
 ---
 
@@ -153,4 +153,25 @@ npm run field:phase127:verify
 
 ---
 
-*立项：2026-07-30 · Phase 124–127 PAIR-0→3*
+## 十、PAIR-4 流程（Phase 128）
+
+```
+形态B draw 子单元：h_k = r_k − w·e_k  （k ∈ draw.channels）
+        ↓ mean(h_k) > θ_μ 且 min(h_k) > θ_floor
+形态B [HRM] 记录向量快照
+        ↓ 同 PAIR-3 PRQ/PGR/FLD-CH/FLD-CH-IN
+```
+
+| 处理组 | pairHormoneVector |
+|--------|-------------------|
+| `ev128_pair_hormvec` | ✅ |
+| `ev128_pair_scalar` | ❌（PAIR-3 标量 h̄ 对照） |
+
+```bash
+npm run field:phase128
+npm run field:phase128:verify
+```
+
+---
+
+*立项：2026-07-30 · Phase 124–128 PAIR-0→4*
