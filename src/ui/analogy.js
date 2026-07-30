@@ -146,6 +146,21 @@ const LABELS = {
   semWithTrace: { native: '有 trace 体', analogy: '带残留迹个体数' },
   semTx: { native: '[TX]', analogy: '发信' },
   semRx: { native: '[RX]', analogy: '收信' },
+  // WL-R 繁殖核 + 四域（观察台类比，不写入 CODEX 地球名）
+  wlReproCore: { native: '繁殖核 CORE-R', analogy: '繁殖信息交换（核心）' },
+  wlYi: { native: '域 YI·边界躯体', analogy: '衣·膜与子域（类比）' },
+  wlShi: { native: '域 SHI·场通量', analogy: '食·摄取与场耦合（类比）' },
+  wlZhu: { native: '域 ZHU·依附宫内', analogy: '住·依赖与留置（类比）' },
+  wlXing: { native: '域 XING·位移社会', analogy: '行·对外与场交换（类比）' },
+  pairMei: { native: '[MEI]', analogy: '半态排出准备（繁殖核）' },
+  pairDck: { native: '[DCK]', analogy: '半态驻留（繁殖核）' },
+  pairPrq: { native: '[PRQ]', analogy: '许可请求（繁殖交流）' },
+  pairPgr: { native: '[PGR]', analogy: '许可授予（繁殖交流）' },
+  pairFld: { native: '[FLD]/[FLD-CH]', analogy: '半态入场交换（繁殖核）' },
+  pairFusIn: { native: '[FUS-IN]', analogy: '体内合胞（繁殖核）' },
+  pairEmb: { native: '[EMB]', analogy: '宫内通量（住域）' },
+  pairExp: { native: '[EXP]', analogy: '外排子代（繁殖核）' },
+  pairHrm: { native: '[HRM]', analogy: '多维门控向量（繁殖核）' },
 };
 
 export function label(key) {
