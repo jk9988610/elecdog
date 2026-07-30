@@ -1325,7 +1325,14 @@ input[type='number'] {
   color: #e8eaef;
   font-weight: 500;
   flex: 1;
-  min-width: 8rem;
+  min-width: 10rem;
+}
+
+.sig-context {
+  color: #8a9099;
+  font-size: 0.68rem;
+  flex: 1;
+  min-width: 10rem;
 }
 
 .sig-tier-repro .sig-analogy {

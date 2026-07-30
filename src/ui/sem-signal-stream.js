@@ -65,6 +65,7 @@ function renderSignalLine(row) {
     <span class="sig-who">${escapeHtml(beingTail(entry.beingId))}</span>
     <span class="sig-dir">${escapeHtml(direction)}</span>
     <span class="sig-analogy">${escapeHtml(t.analogyLabel)}</span>
+    ${t.contextLabel ? `<span class="sig-context">${escapeHtml(t.contextLabel)}</span>` : ''}
     <span class="sig-conf" title="置信">${escapeHtml(confLabel(t.confidence, !isAnalogyMode()))}</span>
     <code class="sig-raw" title="原始载荷">${escapeHtml(raw)}</code>
     <span class="sig-hex">hex ${escapeHtml(t.rawHex)}</span>

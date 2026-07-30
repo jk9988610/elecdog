@@ -13,6 +13,7 @@ import {
   translateSignal,
   buildSignalTranslations,
   pickSignalStreamEntries,
+  payloadHexFromSignal,
 } from '../src/ui/sem-analogy-translate.js';
 
 let failed = 0;
@@ -70,11 +71,30 @@ if (parsed.length) {
 const being = world.beings.find((b) => b.alive);
 if (being) {
   const manual = translateSignal(
-    { direction: 'TX', content: '[TX] a1b2c3', tick: world.tick, beingId: being.id },
+    { direction: 'TX', content: '[TX] 0x8E 0xBD 0x41', tick: world.tick, beingId: being.id },
     { being, world, recorder, profile: world.envProfile, nativeMode: false }
   );
   assert(manual.analogyLabel, 'translateSignal 返回类比标签');
-  assert(manual.rawHex, 'translateSignal 返回 rawHex');
+  assert(manual.rawHex === '8ebd41', `TX hex 正确（${manual.rawHex}）`);
+  assert(manual.analogyLabel.includes('8E·BD·41'), '主行含可读载荷');
+
+  const rxHex = payloadHexFromSignal(
+    '[RX] M-00-L20260730020002 [TX] 0xEB 0x30 0x1D'
+  );
+  assert(rxHex === 'eb301d', `RX 内嵌 TX hex 正确（${rxHex}）`);
+
+  const rxManual = translateSignal(
+    {
+      direction: 'RX',
+      content: '[RX] M-00-L20260730020002 [TX] 0xEB 0x30 0x1D',
+      tick: world.tick,
+      beingId: being.id,
+      meta: { fromId: 'M-00-L20260730020002' },
+    },
+    { being, world, recorder, profile: world.envProfile, nativeMode: false }
+  );
+  assert(rxManual.analogyLabel.includes('收信'), 'RX 主行为收信');
+  assert(rxManual.analogyLabel.includes('EB·30·1D'), 'RX 主行含载荷');
 }
 
 const translateSrc = readFileSync(
