@@ -821,4 +821,41 @@
   - GAP-W06 **部分结案**
 - **备注**：`docs/gap-w06-sem-codex-report.json` · `npm run gap-w06:sem:codex`
 
+## OBS-20260730-103
+
+- **世界**：田野（Phase 131 · WL-R1）
+- **环境**：六环境链 × PAIR 全栈 + `semDomainTag`
+- **事实**：
+  - `[SEM]` 记录 `meta.domain`；CORE-R 密度 full > pair0 / sem_plain
+  - 批次 **support 7/7**
+- **备注**：`docs/field-phase131-report.json` · `npm run field:phase131:verify`
+
+## OBS-20260730-104
+
+- **世界**：田野（Phase 132 · WL-R2）
+- **环境**：链 × PAIR 混编 + `semReproLineage`
+- **事实**：
+  - `PAIR-EXP` 时 `[SEM-LIN] repro coreR…`；留置子代 `reproTraceWeight` 可观察
+  - 批次 **support 7/7**
+- **备注**：`docs/field-phase132-report.json` · `npm run field:phase132:verify`
+
+## OBS-20260730-105
+
+- **世界**：田野（Phase 133 · WL-R3）
+- **环境**：2×2 `semDomainTag` × `semFourDomainCouple`
+- **事实**：
+  - on_on 四域耦合对 ≈4046、on_off = 0；域标记与耦合主效应可分离
+  - 批次 **support 7/7**
+- **备注**：`docs/field-phase133-report.json` · `npm run field:phase133:verify`
+
+## OBS-20260730-106
+
+- **世界**：辞典（Phase 134 · WL-R4 CODEX 确认）
+- **环境**：`docs/CODEX.md`
+- **事实**：
+  - 观察者确认写入 CODEX 第 33 条「繁殖载荷域迹」
+  - 依据 OBS-103/104/105；禁止地球式「繁殖语言/衣食住行」条名
+  - WL-R1–R3 田野 support 作为立项依据
+- **备注**：`docs/gap-wlr-repro-codex-report.json` · `npm run gap-wlr:repro:codex`
+
 ---

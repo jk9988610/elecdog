@@ -293,6 +293,16 @@
 - **依据**：OBS-20260729-99（Phase 100 田野 support）、OBS-20260729-100（Phase 103 正交 weak）
 - **可证伪**：若 on/off 田野无 `[SEM]` 账本差、或 rx→tx 条件概率不可重复、或将载荷对等同于预制语义标签，则修订
 - **确立日期**：2026-07-30
-- **备注**：延伸「次 tick 信号可达」；GAP-W06 部分结案；WL0–WL5 栈里程碑
+- **备注**：延伸「次 tick 信号可达」；GAP-W06 部分结案；WL0–WL5 栈里程碑；繁殖核收敛延伸见「繁殖载荷域迹」
+
+---
+
+## 繁殖载荷域迹
+
+- **定义**：在 `semEnabled` 且 `semDomainTag` 启用时，`[SEM]` 共现对携带 `domain` 标记（`CORE-R` / `YI` / `SHI` / `ZHU` / `XING`），由邻域机制标签（如 `[PRQ]`、`[FUS-IN]`、`[DRW]`、`[ACT]`、`[NUR]`）与 tick 代谢痕迹推断，非词典或地球生活词查询。可选 `semReproLineage`：于 `PAIR-EXP` 外排经 `[SEM-LIN]` 写入 `reproTrace` 与 `coreRWeight`，子代可继承 `reproTraceWeight`。可选 `semFourDomainCouple`：于 `CORE-R` 活跃窗口（`semReproWindow`）内，将同时活跃的四域戳叠加计入 `semFourDomainCoupleTally`。不设「繁殖语言」「衣食住行」等地球式辞典名。
+- **依据**：OBS-20260730-103（Phase 131 WL-R1 support 7/7）、OBS-20260730-104（Phase 132 WL-R2 support 7/7）、OBS-20260730-105（Phase 133 WL-R3 support 7/7）
+- **可证伪**：若域标记 on/off 田野无 `CORE-R` 密度主效应、或四域耦合 on/off 无增量、或 `reproTrace` 跨代不可观察、或将 `domain` 等同于预制生活语义表，则修订
+- **确立日期**：2026-07-30
+- **备注**：延伸「载荷共现迹」；WL-R 繁殖核智慧语言收敛；见 `docs/WL_REPRO_CENTER.md`
 
 ---

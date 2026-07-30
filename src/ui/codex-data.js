@@ -2,9 +2,9 @@
 
 export const CODEX_META = {
   title: '电子狗世界辞典（L2）',
-  count: 31,
-  phase: 97,
-  updated: '2026-07-29',
+  count: 33,
+  phase: 134,
+  updated: '2026-07-30',
   note: '只收录已从观察中归纳的条目；解释与命名请对照 OBS 编号。主目标：诞生智慧生命（见 docs/WISDOM.md）。',
 };
 
@@ -294,5 +294,26 @@ export const CODEX_ENTRIES = [
       '若 on/off 田野无 toReg/lost 账本差、或 yield 0.4 vs 0.2 无 toReg 系统性差、或将 lost 等同于预制资源名，则修订',
     established: '2026-07-29',
     tag: 'METABOLISM',
+  },
+  {
+    id: 'sem-payload-cooccurrence',
+    title: '载荷共现迹',
+    definition:
+      '启用 `semEnabled` 时，个体在 `semWindow`（默认 1 tick）内将收到的 `[RX]` 载荷 hex 键与随后发出的 `[TX]` 载荷 hex 键配对计数，记录为 `[SEM] pair {rxKey}→{txKey}`；可选 `semFeedbackEnabled` 对高共现对施加微弱 TX 偏置；可选 `semLineageEnabled` 写入 `[SEM-LIN]` 谱系迹。不设词汇表、句法或地球式「说话」命名。',
+    evidence: ['OBS-20260729-99', 'OBS-20260729-100'],
+    falsifiable: '若 on/off 田野无 `[SEM]` 账本差、或 rx→tx 条件概率不可重复、或将载荷对等同于预制语义标签，则修订',
+    established: '2026-07-30',
+    tag: 'SEM',
+  },
+  {
+    id: 'repro-payload-domain-trace',
+    title: '繁殖载荷域迹',
+    definition:
+      '在 `semEnabled` 且 `semDomainTag` 启用时，`[SEM]` 共现对携带 `domain`（`CORE-R` / `YI` / `SHI` / `ZHU` / `XING`），由邻域机制标签与 tick 代谢痕迹推断。可选 `semReproLineage`：`PAIR-EXP` 经 `[SEM-LIN]` 写 `reproTrace`/`coreRWeight`；可选 `semFourDomainCouple`：`CORE-R` 窗口内叠加四域耦合计数。不设地球式繁殖/生活辞典名。',
+    evidence: ['OBS-20260730-103', 'OBS-20260730-104', 'OBS-20260730-105'],
+    falsifiable:
+      '若域标记或四域耦合 on/off 田野无主效应、或 reproTrace 跨代不可观察、或将 domain 等同于预制生活语义表，则修订',
+    established: '2026-07-30',
+    tag: 'WL-R',
   },
 ];

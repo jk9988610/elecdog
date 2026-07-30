@@ -67,7 +67,7 @@ WL-R2  链×PAIR 混编下的跨代繁殖载荷迹         ✅ Phase 132
         ↓
 WL-R3  四域×繁殖核 2×2 田野（on/off 可证伪）  ✅ Phase 133
         ↓
-WL-R4  CODEX：繁殖中心智慧交流（第 33 条候选）  ← 下一步
+WL-R4  CODEX：繁殖中心智慧交流（第 33 条）           ✅ Phase 134
 ```
 
 ### WL-R1 操作定义（Phase 131）
@@ -79,17 +79,33 @@ WL-R4  CODEX：繁殖中心智慧交流（第 33 条候选）  ← 下一步
 | 田野 | `ev131_wlr_chain_full` vs `pair0` vs `sem_plain`；检验 CORE-R 对密度 |
 | 禁止 | 预制「衣食住行之词」、地球生活 CODEX 名 |
 
-实现：`src/world/sem-lineage.js` · `npm run field:phase132:verify`
+实现：`src/world/sem-domain.js` · `npm run field:phase131:verify`
+
+### WL-R2 操作定义（Phase 132）
+
+| 项 | 内容 |
+|----|------|
+| 机制 | `semReproLineage` — PAIR-EXP 时 CORE-R 域迹优先写入 `[SEM-LIN]` |
+| 田野 | full vs lin_off vs no_lin |
+
+实现：`npm run field:phase132:verify`
 
 ### WL-R3 操作定义（Phase 133）
 
 | 项 | 内容 |
 |----|------|
 | 设计 | 2×2：`semDomainTag` × `semFourDomainCouple` |
-| 机制 | CORE-R 窗口内四域 Y/S/Z/X 耦合计数 |
-| 田野 | on_on vs on_off vs off_off；主效应可分离 |
+| 田野 | on_on vs on_off；主效应可分离 |
 
 实现：`npm run field:phase133:verify`
+
+### WL-R4 操作定义（Phase 134）
+
+| 项 | 内容 |
+|----|------|
+| CODEX | 第 33 条「繁殖载荷域迹」 |
+| 依据 | Phase 131–133 support 7/7 |
+| 验证 | `npm run gap-wlr:repro:codex` |
 
 ---
 
@@ -115,19 +131,19 @@ WL-R4  CODEX：繁殖中心智慧交流（第 33 条候选）  ← 下一步
 | 繁殖×智慧语言田野定律 | **~70%**（WL-R3 2×2 主效应可分离） |
 | 跨代繁殖载荷迹（WL-R2） | **~95%** |
 | 四域×繁殖核耦合（WL-R3） | **~90%** |
-| CODEX 繁殖智慧交流条 | **0%** |
+| CODEX 繁殖智慧交流条 | **~95%**（第 33 条已立） |
 
-**智慧语言主轨（收敛后）**：约 **75–80%** — WL-R1–R3 田野定律初立；WL-R4 CODEX 待做。
+**智慧语言主轨（收敛后）**：约 **85–90%** — WL-R1–R4 CODEX 完成。
 
-综合留置+PAIR+WL 栈：**约 85–88%**。
+综合留置+PAIR+WL 栈：**约 90–92%**。
 
 ---
 
 ## 七、验证命令（当前可跑）
 
 ```bash
+npm run gap-wlr:repro:codex       # WL-R4 CODEX 第 33 条
 npm run field:phase133:verify   # WL-R3 四域×繁殖核 2×2
-npm run field:phase132:verify   # WL-R2 繁殖域跨代迹 · 繁殖邻域
 npm run field:phase130:verify   # 链×PAIR 全栈 · CORE-R 物理层
 npm run field:phase100:verify   # SEM 记录层
 npm run gap-w06:sem:codex       # 载荷共现迹 CODEX
