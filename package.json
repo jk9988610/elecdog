@@ -147,6 +147,7 @@
     "field:phase110": "node scripts/field-batch-phase110.mjs",
     "field:phase112": "node scripts/field-batch-phase112.mjs",
     "field:phase115": "node scripts/field-batch-phase115.mjs",
+    "field:phase116": "node scripts/field-batch-phase116.mjs",
     "field:deadline": "node scripts/field-deadline-verify.mjs",
     "gap11:dsp:codex": "node scripts/gap11-dsp-codex-verify.mjs",
     "gap-w06:sem:codex": "node scripts/gap-w06-sem-codex-verify.mjs",
