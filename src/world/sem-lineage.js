@@ -91,15 +91,37 @@ export function applySemLineageEcho(
 
   if (!merged.length) {
     merged = mergeTraceEntries(
-      list.map((p) => traceFromLocalPairs(p, topN, profile?.semTraceMinCount ?? 2, { reproOnly })),
+      list.map((p) => traceFromLocalPairs(p, topN, profile?.semTraceMinCount ?? 2, { reproOnly: false })),
       blend
     ).slice(0, topN);
-  } else if (reproOnly) {
+  }
+  if (!merged.length) {
+    merged = mergeTraceEntries(
+      list.map((p) => traceFromLocalPairs(p, topN, 1, { reproOnly: false })),
+      blend
+    ).slice(0, topN);
+  }
+
+  if (reproOnly) {
     const reproMerged = mergeTraceEntries(
-      list.map((p) => traceFromLocalPairs(p, topN, profile?.semTraceMinCount ?? 2, { reproOnly: true })),
+      list.map((p) => traceFromLocalPairs(p, topN, 1, { reproOnly: true })),
       blend
     ).slice(0, topN);
-    if (reproMerged.length) merged = reproMerged;
+    if (reproMerged.length) {
+      merged = reproMerged;
+    } else {
+      merged = merged
+        .filter((e) => e.domain === SEM_DOMAIN_CORE)
+        .slice(0, topN);
+      if (!merged.length) {
+        merged = mergeTraceEntries(
+          list.map((p) => traceFromLocalPairs(p, topN, 1, { reproOnly: false })),
+          blend
+        )
+          .sort((a, b) => (b.domain === SEM_DOMAIN_CORE) - (a.domain === SEM_DOMAIN_CORE) || b.w - a.w)
+          .slice(0, topN);
+      }
+    }
   }
 
   if (!merged.length) return null;
