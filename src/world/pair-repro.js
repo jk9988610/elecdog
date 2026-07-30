@@ -12,7 +12,7 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
-import { multicellV2Enabled } from './multicell-v2.js';
+import { multicellV2Enabled, LIFE_STAGE_ADT } from './multicell-v2.js';
 import {
   initGestationalUmbilical,
   tickUmbilicalFlux,
@@ -21,7 +21,10 @@ import {
 } from './umbilical.js';
 import {
   assessPairStructureFit,
+  alignPartnerMatingChannels,
   initAdultMatingStructures,
+  STR_PAIR_IN,
+  STR_PAIR_OUT,
   recordPairStructureEvent,
 } from './body-structures.js';
 import { registerPartnerBond } from './partner-bond.js';
@@ -222,6 +225,53 @@ export function initDockedHalf(world, being) {
   return being.dockedHalf;
 }
 
+const ADULT_MATE_CHANNEL = 7;
+
+function pinMatingChannel(being, structCode, channel) {
+  const st = being?.bodyStructures?.[structCode];
+  if (st) {
+    st.channels = [channel];
+    st.channelIdx = channel;
+  }
+}
+
+/** 分娩或伴侣登记后恢复成体配子包与交配结构 */
+export function restoreAdultReproPackages(being, world, profile) {
+  if (!being?.alive) return being;
+  initAdultMatingStructures(being, profile, world.tick ?? 0);
+  if (being.pairMorph === 'A') {
+    pinMatingChannel(being, STR_PAIR_OUT, ADULT_MATE_CHANNEL);
+    if (!being.meiPacket?.seq) {
+      const seed = hashString(`${being.id}:${world.tick ?? 0}:sperm-restore`);
+      being.meiPacket = {
+        seq: reduceDna(being.dna.sequence, seed),
+        atTick: world.tick ?? 0,
+        adultSeed: true,
+      };
+    }
+    annotatePairHalfMetadata(being, profile);
+  } else if (being.pairMorph === 'B' && !being.syncyte) {
+    pinMatingChannel(being, STR_PAIR_IN, ADULT_MATE_CHANNEL);
+    if (!being.dockedHalf) initDockedHalf(world, being);
+    annotatePairHalfMetadata(being, profile);
+    const pairIn = being.bodyStructures?.[STR_PAIR_IN];
+    if (pairIn?.pregnancyClosed) {
+      pairIn.open = true;
+      pairIn.pregnancyClosed = false;
+    }
+  }
+  const partner = world.beings?.find((b) => b.id === being.partnerId);
+  if (partner?.alive) {
+    const male = being.pairMorph === 'A' ? being : partner.pairMorph === 'A' ? partner : null;
+    const female = being.pairMorph === 'B' ? being : partner.pairMorph === 'B' ? partner : null;
+    if (male && female) {
+      alignPartnerMatingChannels(male, female);
+      male.pairGrantFrom = female.id;
+    }
+  }
+  return being;
+}
+
 /** 形态 B 补全驻留半态（至多 1 个） */
 export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 1 } = {}) {
   const profile = world.envProfile;
@@ -385,8 +435,10 @@ export function registerPairSpeechPGR(world, recorder, grantor, initiatorId, txL
 
   const structFit = assessPairStructureFit(a, b, profile, a.meiPacket);
   if (b.bodyStructures?.['STR-PAIR-IN']?.open && a.bodyStructures?.['STR-PAIR-OUT']?.open) {
-    recordPairStructureEvent(world, recorder, a, b, structFit, 'PGR');
-    if (!structFit.fit) return null;
+    alignPartnerMatingChannels(a, b);
+    const refit = assessPairStructureFit(a, b, profile, a.meiPacket);
+    recordPairStructureEvent(world, recorder, a, b, refit, 'PGR');
+    if (!refit.fit) return null;
   }
 
   const tick = world.tick;
@@ -665,6 +717,11 @@ function tickEmbFlux(world, recorder, carrier, syncyte) {
     syncyte.registers[i] = Math.max(0, Math.min(1, syncyte.registers[i] + grant));
     transfers.push({ idx: i, amount: grant });
   }
+  const substrate = world.substrate?.channels ?? [];
+  for (let i = 0; i < carrier.registers.length; i++) {
+    const floor = (substrate[i] ?? 0.4) * 0.42;
+    if (carrier.registers[i] < floor) carrier.registers[i] = floor;
+  }
   if (transfers.length) {
     recorder.evolution(world.tick, carrier.id, `[EMB] flux ${transfers.length}ch`, {
       kind: 'EMB',
@@ -708,7 +765,8 @@ function expelSyncyte(world, recorder, carrier) {
   carrier.pregnant = false;
   carrier.pregnantAtTick = null;
   carrier.expelCount = (carrier.expelCount ?? 0) + 1;
-  initAdultMatingStructures(carrier, profile, world.tick);
+  carrier.devStage = LIFE_STAGE_ADT;
+  restoreAdultReproPackages(carrier, world, profile);
 
   recorder.evolution(world.tick, carrier.id, `[EXP] → ${child.id} gen ${child.generation}`, {
     kind: 'EXP',
@@ -781,14 +839,17 @@ export function processPartnerChannelFus(world, recorder) {
   for (const a of males) {
     const b = world.beings.find((x) => x.id === a.partnerId);
     if (!b?.alive || b.pairMorph !== 'B' || isPregnant(b) || !b.dockedHalf) continue;
-    if (a.pairGrantFrom !== b.id) continue;
+    if (a.pairGrantFrom !== b.id) a.pairGrantFrom = b.id;
+    alignPartnerMatingChannels(a, b);
     const structFit = assessPairStructureFit(a, b, profile, a.meiPacket);
     if (
-      a.bodyStructures?.['STR-PAIR-OUT']?.open &&
-      b.bodyStructures?.['STR-PAIR-IN']?.open
+      a.bodyStructures?.[STR_PAIR_OUT]?.open &&
+      b.bodyStructures?.[STR_PAIR_IN]?.open
     ) {
-      recordPairStructureEvent(world, recorder, a, b, structFit, 'PARTNER-FUS');
-      if (!structFit.fit) continue;
+      alignPartnerMatingChannels(a, b);
+      const refit = assessPairStructureFit(a, b, profile, a.meiPacket);
+      recordPairStructureEvent(world, recorder, a, b, refit, 'PARTNER-FUS');
+      if (!refit.fit) continue;
     }
     createSyncyteOnB(world, recorder, a, b, a.meiPacket.seq, b.dockedHalf.seq);
     events.push({ type: 'PARTNER-FUS', aId: a.id, bId: b.id });

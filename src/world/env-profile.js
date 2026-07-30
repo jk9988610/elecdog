@@ -3492,6 +3492,7 @@ const MULTICELL_V2_STACK = {
   regLogInterval: 64,
   pairStructMinAffinity: 1,
   pairMorphMaxDelta: 48,
+  populationLayerEnabled: true,
   lactMinChannelOverlap: 1,
   lactMaxSlotDist: 2,
   lactTickGrant: 0.016,

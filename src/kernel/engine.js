@@ -604,7 +604,7 @@ export function stepWorld(world, recorder) {
       }
     }
     if (met.low) {
-      being.lowStreak++;
+      if (!being.syncyte) being.lowStreak++;
       if (dlc) recordDiurnalLow(world, { night: dlc.night });
       recordPcpLow(world, { idx: met.low.idx });
       if (scl) recordSeasonalLow(world, scl.phase);

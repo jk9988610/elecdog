@@ -106,6 +106,38 @@ export function assessPairStructureFit(emitter, receiver, profile, half = null) 
   };
 }
 
+/** 伴侣交配结构通道对齐 — 保证 STR-PAIR-OUT / IN 至少一条共享通道 */
+export function alignPartnerMatingChannels(male, female) {
+  if (male?.pairMorph !== 'A' || female?.pairMorph !== 'B') return null;
+  const out = male.bodyStructures?.[STR_PAIR_OUT];
+  const inStr = female.bodyStructures?.[STR_PAIR_IN];
+  if (!out?.open || !inStr?.open) return null;
+
+  const act = getSubCellByRole(male, 'act');
+  const draw = getSubCellByRole(female, 'draw');
+  let ch = act?.channels?.[0] ?? draw?.channels?.[0] ?? 7;
+  if (act?.channels?.length && draw?.channels?.length) {
+    const overlap = act.channels.filter((c) => draw.channels.includes(c));
+    if (overlap.length) ch = overlap[0];
+  }
+
+  const pin = (st, channel) => {
+    st.channels = [channel];
+    st.channelIdx = channel;
+  };
+  pin(out, ch);
+  pin(inStr, ch);
+  if (male.meiPacket) {
+    male.meiPacket.channels = [ch];
+    male.meiPacket.channelIdx = ch;
+  }
+  if (female.dockedHalf) {
+    female.dockedHalf.channels = [ch];
+    female.dockedHalf.channelIdx = ch;
+  }
+  return ch;
+}
+
 export function recordPairStructureEvent(world, recorder, emitter, receiver, assessment, trigger) {
   const kind = assessment.fit ? 'PAIR-FIT' : 'PAIR-MISMATCH';
   recorder.evolution(

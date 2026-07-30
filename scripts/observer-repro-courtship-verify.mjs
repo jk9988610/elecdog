@@ -27,6 +27,8 @@ import {
 } from '../src/world/body-structures.js';
 import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
 import { LIFE_STAGE_ADT } from '../src/world/multicell-v2.js';
+import { LOGIC_CELL_MAX_PER_TYPE } from '../src/world/logic-cell-types.js';
+import { displayLogicCellTypes } from '../src/world/logic-cell-display.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -72,6 +74,12 @@ assert(
   cohort.every((b) => b.healthReport?.dnaFp),
   '成体均有体检报告'
 );
+for (const b of cohort) {
+  for (const t of displayLogicCellTypes()) {
+    const n = b.logicCells?.[t.code]?.length ?? 0;
+    assert(n === LOGIC_CELL_MAX_PER_TYPE, `${b.code} ${t.code} 满格 ${n}`);
+  }
+}
 assert(
   cohort.every((b) => {
     return cohort.every((o) => b.id === o.id || !cohortKinBlocked(b, o, world.envProfile));

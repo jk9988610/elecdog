@@ -1,5 +1,6 @@
 // 多细胞 v2 — 一夫一妻伴侣登记（机制：partnerId，非地球婚恋 CODEX）
 
+import { alignPartnerMatingChannels } from './body-structures.js';
 export function partnerBondEnabled(profile) {
   return profile?.partnerBondEnabled === true || profile?.multicellV2Enabled === true;
 }
@@ -29,6 +30,13 @@ export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND' } 
   b.partnerBondTick = world.tick;
   a.partnerBondCount = (a.partnerBondCount ?? 0) + 1;
   b.partnerBondCount = (b.partnerBondCount ?? 0) + 1;
+
+  const male = a.pairMorph === 'A' ? a : b.pairMorph === 'A' ? b : null;
+  const female = a.pairMorph === 'B' ? a : b.pairMorph === 'B' ? b : null;
+  if (male && female) {
+    alignPartnerMatingChannels(male, female);
+    male.pairGrantFrom = female.id;
+  }
 
   if (recorder) {
     recorder.evolution(world.tick, a.id, `[BOND] partner ${b.id} ${trigger}`, {
