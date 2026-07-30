@@ -139,18 +139,22 @@ export class ObserverApp {
           <button id="btn-view-native" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_NATIVE ? 'active' : ''}">原版</button>
           <button id="btn-view-analogy" type="button" class="btn-ghost view-mode-btn ${this.viewMode === VIEW_ANALOGY ? 'active' : ''}">类比</button>
         </span>
-        <span id="observer-layout-group" class="view-mode-group hidden" title="${escapeHtml(observerLayoutHint())}">
-          <button id="btn-layout-genealogy" type="button" class="btn-ghost view-mode-btn ${this.observerLayout === LAYOUT_GENEALOGY ? 'active' : ''}">族谱</button>
-          <button id="btn-layout-classic" type="button" class="btn-ghost view-mode-btn ${this.observerLayout === LAYOUT_CLASSIC ? 'active' : ''}">经典卡片</button>
-        </span>
+        <div class="panels-menu-wrap" id="panels-menu-wrap">
+          <button id="btn-panels-toggle" type="button" class="btn-ghost">面板</button>
+          <div id="panels-dropdown" class="panels-dropdown hidden" role="menu">
+            <button type="button" class="panels-menu-item" data-panel-action="cloud">云设置</button>
+            <button type="button" class="panels-menu-item" data-panel-action="codex">辞典</button>
+            <button type="button" class="panels-menu-item" data-panel-action="carry-import">导入留置</button>
+            <button type="button" class="panels-menu-item" data-panel-action="mind-stream">内在流</button>
+            <button type="button" class="panels-menu-item" data-panel-action="sem-signal">信号类比</button>
+            <button type="button" class="panels-menu-item" data-panel-action="thought-speech">思考外化</button>
+            <hr class="panels-menu-sep" />
+            <button type="button" class="panels-menu-item panels-layout-item ${this.observerLayout === LAYOUT_GENEALOGY ? 'active' : ''}" data-panel-action="layout-genealogy">族谱布局</button>
+            <button type="button" class="panels-menu-item panels-layout-item ${this.observerLayout === LAYOUT_CLASSIC ? 'active' : ''}" data-panel-action="layout-classic">经典卡片</button>
+          </div>
+        </div>
         <span id="cloud-status" class="cloud-status" title="云同步状态">云 · 检测中</span>
         <button id="btn-cloud-archive" type="button" class="btn-secondary" disabled>上传田野归档</button>
-        <button id="btn-cloud-toggle" type="button" class="btn-ghost">云设置</button>
-        <button id="btn-codex-toggle" type="button" class="btn-ghost">辞典</button>
-        <button id="btn-carry-import-toggle" type="button" class="btn-ghost">导入留置</button>
-        <button id="btn-mind-stream-toggle" type="button" class="btn-ghost">内在流</button>
-        <button id="btn-sem-signal-toggle" type="button" class="btn-ghost">信号类比</button>
-        <button id="btn-thought-speech-toggle" type="button" class="btn-ghost">思考外化</button>
       </section>
 
       <section id="cloud-panel" class="cloud-panel hidden">
@@ -219,7 +223,6 @@ export class ObserverApp {
       dashboard: this.root.querySelector('#dashboard'),
       cloudStatus: this.root.querySelector('#cloud-status'),
       btnCloudArchive: this.root.querySelector('#btn-cloud-archive'),
-      btnCloudToggle: this.root.querySelector('#btn-cloud-toggle'),
       cloudPanel: this.root.querySelector('#cloud-panel'),
       observerLabel: this.root.querySelector('#observer-label'),
       btnSaveObserver: this.root.querySelector('#btn-save-observer'),
@@ -242,16 +245,10 @@ export class ObserverApp {
       otaVersion: this.root.querySelector('#ota-version'),
       btnViewNative: this.root.querySelector('#btn-view-native'),
       btnViewAnalogy: this.root.querySelector('#btn-view-analogy'),
-      observerLayoutGroup: this.root.querySelector('#observer-layout-group'),
-      btnLayoutGenealogy: this.root.querySelector('#btn-layout-genealogy'),
-      btnLayoutClassic: this.root.querySelector('#btn-layout-classic'),
+      panelsMenuWrap: this.root.querySelector('#panels-menu-wrap'),
+      btnPanelsToggle: this.root.querySelector('#btn-panels-toggle'),
+      panelsDropdown: this.root.querySelector('#panels-dropdown'),
       envProfile: this.root.querySelector('#env-profile'),
-      btnResetWorld: this.root.querySelector('#btn-reset-world'),
-      btnCodexToggle: this.root.querySelector('#btn-codex-toggle'),
-      btnCarryImportToggle: this.root.querySelector('#btn-carry-import-toggle'),
-      btnMindStreamToggle: this.root.querySelector('#btn-mind-stream-toggle'),
-      btnSemSignalToggle: this.root.querySelector('#btn-sem-signal-toggle'),
-      btnThoughtSpeechToggle: this.root.querySelector('#btn-thought-speech-toggle'),
     };
 
     this.codexPanel = initCodexPanel(this.root, {
@@ -307,10 +304,6 @@ export class ObserverApp {
 
     this.$.btnRun.addEventListener('click', () => this.run());
     this.$.btnPause.addEventListener('click', () => this.pause());
-    if (this.$.btnOtaCheck) {
-      this.$.btnOtaCheck.addEventListener('click', () => this.checkOta());
-    }
-    this.$.btnCloudToggle.addEventListener('click', () => this.toggleCloudPanel());
     this.$.btnCloudArchive.addEventListener('click', () => this.uploadArchive());
     this.$.btnSaveObserver.addEventListener('click', () => this.saveObserverLabel());
     this.$.btnSaveNote.addEventListener('click', () => this.saveNote());
@@ -320,15 +313,60 @@ export class ObserverApp {
     this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
     this.$.btnViewNative?.addEventListener('click', () => this.switchViewMode(VIEW_NATIVE));
     this.$.btnViewAnalogy?.addEventListener('click', () => this.switchViewMode(VIEW_ANALOGY));
-    this.$.btnLayoutGenealogy?.addEventListener('click', () => this.switchObserverLayout(LAYOUT_GENEALOGY));
-    this.$.btnLayoutClassic?.addEventListener('click', () => this.switchObserverLayout(LAYOUT_CLASSIC));
+    this.$.btnPanelsToggle?.addEventListener('click', () => this.togglePanelsDropdown());
+    this.$.panelsDropdown?.querySelectorAll('[data-panel-action]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        this.onPanelsMenuAction(btn.getAttribute('data-panel-action'));
+      });
+    });
+    document.addEventListener('click', (ev) => {
+      if (!this.$.panelsMenuWrap?.contains(ev.target)) this.closePanelsDropdown();
+    });
     this.$.envProfile?.addEventListener('change', () => this.onEnvProfileChange());
     this.$.btnResetWorld?.addEventListener('click', () => this.resetWorld());
-    this.$.btnCodexToggle?.addEventListener('click', () => this.toggleCodexPanel());
-    this.$.btnCarryImportToggle?.addEventListener('click', () => this.toggleCarryImportPanel());
-    this.$.btnMindStreamToggle?.addEventListener('click', () => this.toggleMindStreamPanel());
-    this.$.btnSemSignalToggle?.addEventListener('click', () => this.toggleSemSignalPanel());
-    this.$.btnThoughtSpeechToggle?.addEventListener('click', () => this.toggleThoughtSpeechPanel());
+    if (this.$.btnOtaCheck) {
+      this.$.btnOtaCheck.addEventListener('click', () => this.checkOta());
+    }
+  }
+
+  closePanelsDropdown() {
+    this.$.panelsDropdown?.classList.add('hidden');
+  }
+
+  togglePanelsDropdown() {
+    this.$.panelsDropdown?.classList.toggle('hidden');
+  }
+
+  onPanelsMenuAction(action) {
+    this.closePanelsDropdown();
+    switch (action) {
+      case 'cloud':
+        this.toggleCloudPanel();
+        break;
+      case 'codex':
+        this.toggleCodexPanel();
+        break;
+      case 'carry-import':
+        this.toggleCarryImportPanel();
+        break;
+      case 'mind-stream':
+        this.toggleMindStreamPanel();
+        break;
+      case 'sem-signal':
+        this.toggleSemSignalPanel();
+        break;
+      case 'thought-speech':
+        this.toggleThoughtSpeechPanel();
+        break;
+      case 'layout-genealogy':
+        this.switchObserverLayout(LAYOUT_GENEALOGY);
+        break;
+      case 'layout-classic':
+        this.switchObserverLayout(LAYOUT_CLASSIC);
+        break;
+      default:
+        break;
+    }
   }
 
   toggleCarryImportPanel() {
@@ -342,13 +380,11 @@ export class ObserverApp {
       this.closeSemSignalPanel();
       this.closeThoughtSpeechPanel();
       this.carryImportPanel.open();
-      this.$.btnCarryImportToggle?.classList.add('active');
     }
   }
 
   closeCarryImportPanel() {
     this.carryImportPanel?.close();
-    this.$.btnCarryImportToggle?.classList.remove('active');
   }
 
   toggleMindStreamPanel() {
@@ -361,13 +397,11 @@ export class ObserverApp {
       this.closeSemSignalPanel();
       this.closeThoughtSpeechPanel();
       this.mindStreamPanel.open();
-      this.$.btnMindStreamToggle?.classList.add('active');
     }
   }
 
   closeMindStreamPanel() {
     this.mindStreamPanel?.close();
-    this.$.btnMindStreamToggle?.classList.remove('active');
   }
 
   toggleSemSignalPanel() {
@@ -380,13 +414,11 @@ export class ObserverApp {
       this.closeMindStreamPanel();
       this.closeThoughtSpeechPanel();
       this.semSignalPanel.open();
-      this.$.btnSemSignalToggle?.classList.add('active');
     }
   }
 
   closeSemSignalPanel() {
     this.semSignalPanel?.close();
-    this.$.btnSemSignalToggle?.classList.remove('active');
   }
 
   toggleThoughtSpeechPanel() {
@@ -399,13 +431,11 @@ export class ObserverApp {
       this.closeMindStreamPanel();
       this.closeSemSignalPanel();
       this.thoughtSpeechPanel.open();
-      this.$.btnThoughtSpeechToggle?.classList.add('active');
     }
   }
 
   closeThoughtSpeechPanel() {
     this.thoughtSpeechPanel?.close();
-    this.$.btnThoughtSpeechToggle?.classList.remove('active');
   }
 
   toggleCodexPanel() {
@@ -418,13 +448,11 @@ export class ObserverApp {
       this.closeSemSignalPanel();
       this.closeThoughtSpeechPanel();
       this.codexPanel.open();
-      this.$.btnCodexToggle?.classList.add('active');
     }
   }
 
   closeCodexPanel() {
     this.codexPanel?.close();
-    this.$.btnCodexToggle?.classList.remove('active');
   }
 
   renderEnvOptions() {
@@ -458,8 +486,13 @@ export class ObserverApp {
 
   switchObserverLayout(mode) {
     this.observerLayout = setObserverLayoutMode(mode);
-    this.$.btnLayoutGenealogy?.classList.toggle('active', mode === LAYOUT_GENEALOGY);
-    this.$.btnLayoutClassic?.classList.toggle('active', mode === LAYOUT_CLASSIC);
+    this.$.panelsDropdown?.querySelectorAll('.panels-layout-item').forEach((btn) => {
+      const action = btn.getAttribute('data-panel-action');
+      const active =
+        (action === 'layout-genealogy' && mode === LAYOUT_GENEALOGY) ||
+        (action === 'layout-classic' && mode === LAYOUT_CLASSIC);
+      btn.classList.toggle('active', active);
+    });
     this.refresh();
   }
 
@@ -605,10 +638,9 @@ export class ObserverApp {
     ) {
       initClassicMulticellHealthButtons(this.$.dashboard, { getWorld: () => this.world });
     }
-    this.$.observerLayoutGroup?.classList.toggle(
-      'hidden',
-      !s.world.multicellV2Observer
-    );
+    this.$.panelsDropdown?.querySelectorAll('.panels-layout-item').forEach((el) => {
+      el.classList.toggle('hidden', !s.world.multicellV2Observer);
+    });
     this.updateCloudStatus();
   }
 

@@ -37,6 +37,7 @@ import {
   isPregnant,
 } from './courtship-gate.js';
 import { buildHealthReport, healthReportKinBlocked, issueHealthReport } from './health-report.js';
+import { assignChildName } from './being-names.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -460,7 +461,10 @@ export function registerPairSpeechPGR(world, recorder, grantor, initiatorId, txL
   });
   noteSemDomainFromKind(a, 'PGR', tick);
   noteSemDomainFromKind(b, 'PGR', tick);
-  registerPartnerBond(world, recorder, a, b, { trigger: 'PGR' });
+  registerPartnerBond(world, recorder, a, b, {
+    trigger: 'PGR',
+    courtshipInitiatorMorph: initiator.pairMorph,
+  });
   return { aId: a.id, bId: b.id };
 }
 
@@ -742,17 +746,21 @@ function expelSyncyte(world, recorder, carrier) {
   if (world.beings.filter((b) => b.alive).length >= maxPop) return null;
 
   const born = birthIntoWorld(world, recorder, {
-    name: `${carrier.name.slice(0, 2)}嗣`,
     code: carrier.code,
     dnaSequence: syncyte.dnaSeq,
   });
   const child = born.being;
+  const parentA = world.beings.find((b) => b.id === syncyte.parentAId);
   child.generation = Math.max(carrier.generation ?? 0, 1) + 1;
   child.registers = [...syncyte.registers];
   child.pairParentA = syncyte.parentAId;
   child.pairParentB = carrier.id;
   child.bornAtTick = world.tick;
   child.recombined = true;
+
+  const surnameMorph = carrier.bondCourtshipInitiatorMorph ?? carrier.surnameLineMorph ?? 'A';
+  const surnameParent = surnameMorph === 'A' ? parentA : carrier;
+  assignChildName(child, surnameParent ?? carrier, world);
 
   applyEhuLineageEcho(world, recorder, child, [carrier], profile);
   applyMemLineageEcho(world, recorder, child, [carrier], profile, { via: 'PAIR-EXP' });

@@ -38,6 +38,7 @@ import {
 } from '../world/substantive-signal.js';
 import { initMulticellV2, multicellV2Enabled } from '../world/multicell-v2.js';
 import { upsertGenealogyFromBeing } from '../world/genealogy-persist.js';
+import { assignBeingNames } from '../world/being-names.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -53,6 +54,9 @@ export function spawnBeing(
     placeTerrain = null,
     cohortTag = 'naive',
     pairMorph = null,
+    familyName = null,
+    givenName = null,
+    nameIndex = null,
   } = {}
 ) {
   const tick = world.tick;
@@ -66,6 +70,12 @@ export function spawnBeing(
   } else if (pairReproEnabled(world.envProfile)) {
     being.pairMorph = assignPairMorph(id);
   }
+  assignBeingNames(being, {
+    familyName,
+    givenName,
+    pairMorph: being.pairMorph,
+    index: nameIndex ?? world.beings.length,
+  });
   initOrganism(being, world.envProfile);
   if (placeBand || placeTerrain) {
     assignBeingPlace(being, {

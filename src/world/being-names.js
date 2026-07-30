@@ -1,0 +1,68 @@
+// 个体姓名 — 姓 / 名（机制层，非地球语 CODEX 固定表）
+
+import { hashString, mulberry32 } from '../core/hash.js';
+
+const MALE_SURNAMES = ['赵', '钱', '孙', '李'];
+const FEMALE_SURNAMES = ['周', '吴', '郑', '王'];
+const MALE_GIVEN = ['雄一', '雄二', '雄三', '雄四'];
+const FEMALE_GIVEN = ['雌一', '雌二', '雌三', '雌四'];
+const CHILD_GIVEN = ['嗣一', '嗣二', '嗣三', '嗣四', '嗣五', '嗣六', '嗣七', '嗣八', '嗣九', '嗣十'];
+
+export function formatBeingDisplayName(being) {
+  const family = being?.familyName ?? '';
+  const given = being?.givenName ?? being?.name ?? '';
+  if (family && given) return `${family}·${given}`;
+  return (given || family || being?.name) ?? '—';
+}
+
+export function assignBeingNames(being, { familyName = null, givenName = null, index = 0, pairMorph = null } = {}) {
+  const morph = pairMorph ?? being?.pairMorph;
+  let family = familyName;
+  let given = givenName;
+  if (!family) {
+    if (morph === 'A') family = MALE_SURNAMES[index % MALE_SURNAMES.length];
+    else if (morph === 'B') family = FEMALE_SURNAMES[index % FEMALE_SURNAMES.length];
+    else family = '氏';
+  }
+  if (!given) {
+    if (morph === 'A') given = MALE_GIVEN[index % MALE_GIVEN.length];
+    else if (morph === 'B') given = FEMALE_GIVEN[index % FEMALE_GIVEN.length];
+    else given = `体${index + 1}`;
+  }
+  being.familyName = family;
+  being.givenName = given;
+  being.name = formatBeingDisplayName(being);
+  if (!being.lineageHeadId) being.lineageHeadId = being.id;
+  return being;
+}
+
+export function assignChildName(being, surnameParent, world) {
+  const rng = mulberry32(hashString(`${being.id}:${world?.tick ?? 0}:child-name`));
+  const idx = Math.floor(rng() * CHILD_GIVEN.length);
+  being.familyName = surnameParent?.familyName ?? surnameParent?.name?.split('·')[0] ?? '氏';
+  being.givenName = CHILD_GIVEN[idx];
+  being.name = formatBeingDisplayName(being);
+  being.lineageHeadId = surnameParent?.lineageHeadId ?? surnameParent?.id ?? being.id;
+  return being;
+}
+
+export function applyGenealogyLineOnBond(male, female, courtshipInitiatorMorph) {
+  if (!male || !female) return null;
+  const init = courtshipInitiatorMorph === 'B' ? 'B' : 'A';
+  if (init === 'A') {
+    const head = male.lineageHeadId ?? male.id;
+    male.lineageHeadId = head;
+    female.lineageHeadId = head;
+    male.surnameLineMorph = 'A';
+    female.surnameLineMorph = 'A';
+  } else {
+    const head = female.lineageHeadId ?? female.id;
+    female.lineageHeadId = head;
+    male.lineageHeadId = head;
+    male.surnameLineMorph = 'B';
+    female.surnameLineMorph = 'B';
+  }
+  male.bondCourtshipInitiatorMorph = init;
+  female.bondCourtshipInitiatorMorph = init;
+  return { initiator: init, headId: init === 'A' ? male.lineageHeadId : female.lineageHeadId };
+}

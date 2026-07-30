@@ -8,6 +8,7 @@ import {
   LIFE_STAGE_GEST,
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
+  SKIN_CELL_CODE,
 } from '../world/logic-cell-types.js';
 import { genealogySourceBeings } from '../world/genealogy-persist.js';
 import { displayLogicRows } from '../world/logic-cell-display.js';
@@ -16,6 +17,7 @@ import {
   isDisplayPregnant,
   stageBadgeLabel,
 } from '../world/genealogy-stage.js';
+import { formatBeingDisplayName } from '../world/being-names.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 
@@ -53,6 +55,9 @@ export function buildGenealogyModel(world) {
       id: being.id,
       code: being.code,
       name: being.name,
+      familyName: being.familyName ?? null,
+      givenName: being.givenName ?? null,
+      displayName: formatBeingDisplayName(being),
       alive: being.alive,
       generation: being.generation ?? 0,
       pairMorph: being.pairMorph ?? null,
@@ -90,6 +95,7 @@ function renderPersonCard(being, selectedId, classExtra = '') {
     : '';
   return `<div class="gv-person-card${sel}${dead}${classExtra}">
     <button type="button" class="genealogy-id-btn" data-being-id="${escapeHtml(being.id)}" title="${escapeHtml(being.id)}">
+      <span class="genealogy-name">${escapeHtml(formatBeingDisplayName(being))}</span>
       <span class="genealogy-avatar">${escapeHtml(being.code)}</span>
       <span class="genealogy-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span>
       ${badgeHtml}${end}
@@ -139,6 +145,17 @@ function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   </li>`;
 }
 
+function isGenealogyForestRoot(being, byId) {
+  if (being.pairParentA || being.fissionParent) return false;
+  const headId = being.lineageHeadId ?? being.id;
+  if (headId !== being.id) return false;
+  if (being.pairMorph === 'B' && being.partnerId) {
+    const partner = byId.get(being.partnerId);
+    if (partner && (partner.lineageHeadId ?? partner.id) === partner.id) return false;
+  }
+  return true;
+}
+
 export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
   const nodes = model?.nodes ?? [];
   const beings = model?.beings ?? [];
@@ -147,16 +164,8 @@ export function renderGenealogyTreeHTML(model, { selectedId = null } = {}) {
   }
 
   const byId = new Map(beings.map((b) => [b.id, b]));
-  const roots = beings.filter((b) => !b.pairParentA && !b.fissionParent);
+  const forestRoots = beings.filter((b) => isGenealogyForestRoot(b, byId));
   const seen = new Set();
-  const forestRoots = [];
-
-  for (const r of roots) {
-    if (r.pairMorph === 'B' && r.partnerId && roots.some((x) => x.id === r.partnerId)) {
-      continue;
-    }
-    forestRoots.push(r);
-  }
 
   let trees = forestRoots
     .map((r) => renderTreeNode(r, byId, nodes, beings, selectedId, seen))
@@ -251,8 +260,8 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
 
   return `
     <div class="genealogy-detail">
-      <h3 class="genealogy-detail-title">${escapeHtml(being.code)} <span class="genealogy-detail-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span> <span class="genealogy-detail-badge">${escapeHtml(badge)}</span></h3>
-      <p class="genealogy-detail-id"><code>${escapeHtml(being.id)}</code></p>
+      <h3 class="genealogy-detail-title">${escapeHtml(formatBeingDisplayName(being))} <span class="genealogy-detail-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span> <span class="genealogy-detail-badge">${escapeHtml(badge)}</span></h3>
+      <p class="genealogy-detail-id"><code>${escapeHtml(being.id)}</code> · ${escapeHtml(being.code)}</p>
       <div class="stat-grid">
         <div class="stat-row"><span>存活</span><strong>${being.alive ? '是' : '否'}</strong></div>
         ${!being.alive ? `<div class="stat-row"><span>END</span><strong>${escapeHtml(being.endReason ?? '—')} @t${being.endedAtTick ?? '—'}</strong></div>` : ''}

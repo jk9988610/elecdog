@@ -1,6 +1,8 @@
 // 多细胞 v2 — 一夫一妻伴侣登记（机制：partnerId，非地球婚恋 CODEX）
 
 import { alignPartnerMatingChannels } from './body-structures.js';
+import { applyGenealogyLineOnBond } from './being-names.js';
+
 export function partnerBondEnabled(profile) {
   return profile?.partnerBondEnabled === true || profile?.multicellV2Enabled === true;
 }
@@ -14,8 +16,8 @@ function hasOtherPartner(being, otherId) {
   return being.partnerId !== otherId;
 }
 
-/** 登记伴侣；A/B 形态均可调用，族谱 UI 以 A 为主干 */
-export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND' } = {}) {
+/** 登记伴侣；A/B 形态均可调用，族谱以求偶发起方谱系为干 */
+export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND', courtshipInitiatorMorph = null } = {}) {
   const profile = world.envProfile ?? {};
   if (!partnerBondEnabled(profile)) return null;
   if (!a?.alive || !b?.alive || a.id === b.id) return null;
@@ -36,6 +38,15 @@ export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND' } 
   if (male && female) {
     alignPartnerMatingChannels(male, female);
     male.pairGrantFrom = female.id;
+    const init =
+      courtshipInitiatorMorph === 'B'
+        ? 'B'
+        : courtshipInitiatorMorph === 'A'
+          ? 'A'
+          : male.pairMorph === 'A'
+            ? 'A'
+            : 'B';
+    applyGenealogyLineOnBond(male, female, init);
   }
 
   if (recorder) {
@@ -45,6 +56,7 @@ export function registerPartnerBond(world, recorder, a, b, { trigger = 'BOND' } 
       trigger,
       morphA: a.pairMorph ?? null,
       morphB: b.pairMorph ?? null,
+      courtshipInitiator: male?.bondCourtshipInitiatorMorph ?? null,
     });
     recorder.social(world.tick, a.id, `[SOC] bond ${b.socialSlot}`, {
       kind: 'BOND',
