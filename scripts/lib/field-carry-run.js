@@ -74,48 +74,57 @@ export function runSculptPass({
   return { world, recorder, carries };
 }
 
-/** Phase 108 — 留置个体 SEM 孵化（仅 carry 队列，跨环境载荷迹） */
-export function runCarryIncubationPass({
+/** Phase 108+ — 留置链中间环境通行（SEM 孵化 / 富足蓄积等） */
+export function runCarryMiddlePass({
   createWorld,
   seed,
   phase,
   treatmentId,
   carries,
   profile,
+  passSpec,
 }) {
   if (!carries?.length) return carries;
 
+  const {
+    stage = 'incubate',
+    envId = 'wisdom_evolution',
+    ticks = FIELD_SHORT_TICKS,
+    semEnabled = false,
+    coopEnabled = false,
+  } = passSpec;
+
   resetBirthCounters();
-  const world = createWorld(`01-p${phase}-incubate-${seed}`);
-  const envId = profile.carryIncubateEnvId ?? 'wisdom_evolution';
+  const world = createWorld(`01-p${phase}-${stage}-${seed}`);
   applyEnvProfile(world, envId);
   world.envProfile = {
     ...world.envProfile,
     fieldStatMode: true,
     fieldLiteLog: true,
-    semEnabled: true,
-    semLineageEnabled: true,
-    semFeedbackEnabled: profile.semFeedbackEnabled ?? true,
+    semEnabled: semEnabled === true,
+    semLineageEnabled: semEnabled === true,
+    semFeedbackEnabled: semEnabled ? (profile.semFeedbackEnabled ?? true) : false,
     semWindow: profile.semWindow ?? 1,
     semMinCount: profile.semMinCount ?? 8,
-    ecoFissEnabled: true,
-    fissionEnabled: true,
+    cooperationProfileEnabled: coopEnabled === true,
+    cooperationFeedback: coopEnabled === true,
+    ecoFissEnabled: false,
+    fissionEnabled: false,
     rplRenewEnabled: false,
     meiEnabled: false,
     fusEnabled: false,
   };
 
   const recorder = new StatsRecorder();
-  recorder.system(0, `[field p${phase} ${treatmentId} incubate seed${seed}]`, { phase, treatmentId, seed });
+  recorder.system(0, `[field p${phase} ${treatmentId} ${stage} seed${seed}]`, { phase, treatmentId, seed, stage });
 
   carries.forEach((snap, i) => {
     spawnCarriedBeing(world, recorder, snap, {
       cohortTag: 'carry',
-      fixedId: `01inc${String(seed)}${String(i + 1).padStart(2, '0')}`,
+      fixedId: `01${stage.slice(0, 3)}${String(seed)}${String(i + 1).padStart(2, '0')}`,
     });
   });
 
-  const ticks = profile.carryIncubateTicks ?? FIELD_SHORT_TICKS;
   runFieldTicks(world, recorder, ticks);
 
   const refreshed = selectCarrySnapshots(world, profile, {
@@ -123,19 +132,47 @@ export function runCarryIncubationPass({
     seed,
     treatmentId,
     envId,
-    chainStage: 'incubate',
-    incubateTicks: ticks,
+    chainStage: stage,
+    [`${stage}Ticks`]: ticks,
   });
 
   if (!refreshed.length) return carries;
 
   return refreshed.map((snap, i) =>
-    mergeCarryProvenance(snap, 'incubate', {
+    mergeCarryProvenance(snap, stage, {
       envId,
       tick: ticks,
       priorEnv: carries[i]?.provenance?.envId ?? profile.sculptEnvId,
     })
   );
+}
+
+/** Phase 108 — 留置个体 SEM 孵化（仅 carry 队列，跨环境载荷迹） */
+export function runCarryIncubationPass(args) {
+  const { profile } = args;
+  return runCarryMiddlePass({
+    ...args,
+    passSpec: {
+      stage: 'incubate',
+      envId: profile.carryIncubateEnvId ?? 'wisdom_evolution',
+      ticks: profile.carryIncubateTicks ?? FIELD_SHORT_TICKS,
+      semEnabled: true,
+    },
+  });
+}
+
+/** Phase 112 — 富足场蓄积通行（COOP 社会迹积累） */
+export function runCarryAccruePass(args) {
+  const { profile } = args;
+  return runCarryMiddlePass({
+    ...args,
+    passSpec: {
+      stage: 'accrue',
+      envId: profile.carryAccrueEnvId ?? 'fertile_field',
+      ticks: profile.carryAccrueTicks ?? FIELD_SHORT_TICKS,
+      coopEnabled: profile.carryAccrueCoop !== false,
+    },
+  });
 }
 
 export function runFieldCarryScenario({
@@ -169,6 +206,16 @@ export function runFieldCarryScenario({
     carries = sculpt.carries;
     if (profile.carryIncubateSem && carries.length) {
       carries = runCarryIncubationPass({
+        createWorld,
+        seed,
+        phase,
+        treatmentId,
+        carries,
+        profile,
+      });
+    }
+    if (profile.carryAccrueEnabled && carries.length) {
+      carries = runCarryAccruePass({
         createWorld,
         seed,
         phase,

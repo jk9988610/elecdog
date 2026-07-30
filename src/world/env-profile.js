@@ -2670,6 +2670,38 @@ export const PHASE110_TREATMENTS = {
   },
 };
 
+/** Phase 112 — 四环境留置链：塑形 → SEM 孵化 → 富足蓄积 → 混合 */
+const EVO_QUAD_CHAIN_BASE = {
+  ...EVO_CHAIN_BASE,
+  carryIncubateSem: true,
+  mixedSemEnabled: true,
+  mixedEnvId: 'wisdom_evolution',
+  carryAccrueEnvId: 'fertile_field',
+  carryAccrueTicks: 384,
+  carryAccrueCoop: true,
+  ...WL3_SEM_STACK,
+  ...COOP_BASE,
+};
+
+export const PHASE112_TREATMENTS = {
+  ev112_quad_chain: {
+    id: 'ev112_quad_chain',
+    label: '四环境链·富足蓄积→智慧混合',
+    envId: 'wisdom_evolution',
+    ...EVO_QUAD_CHAIN_BASE,
+    carryAccrueEnabled: true,
+  },
+  ev112_triple_ctrl: {
+    id: 'ev112_triple_ctrl',
+    label: '三环境链对照（无蓄积）',
+    envId: 'wisdom_evolution',
+    ...EVO_QUAD_CHAIN_BASE,
+    carryAccrueEnabled: false,
+    cooperationProfileEnabled: false,
+    cooperationFeedback: false,
+  },
+};
+
 /** 观察台默认环境 — W6 环境栈 + 智慧语言 SEM 栈 */
 ENV_PROFILES.observer_wl_stack = {
   id: 'observer_wl_stack',
@@ -3356,6 +3388,27 @@ export function applyPhase110Treatment(world, treatmentId) {
     world.envProfile.socialKnowledgeFeedbackEnabled = false;
   }
   world.fieldStudy = { phase: 110, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase112Treatment(world, treatmentId) {
+  const treatment = PHASE112_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase112 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  world.fieldStudy = { phase: 112, treatmentId, ...treatment };
   return world.envProfile;
 }
 

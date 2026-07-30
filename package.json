@@ -145,6 +145,7 @@
     "field:phase108": "node scripts/field-batch-phase108.mjs",
     "field:phase109": "node scripts/field-batch-phase109.mjs",
     "field:phase110": "node scripts/field-batch-phase110.mjs",
+    "field:phase112": "node scripts/field-batch-phase112.mjs",
     "gap11:dsp:codex": "node scripts/gap11-dsp-codex-verify.mjs",
     "gap-w06:sem:codex": "node scripts/gap-w06-sem-codex-verify.mjs",
     "observer:env-stack": "node scripts/observer-env-stack-verify.mjs",

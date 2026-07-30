@@ -1,6 +1,7 @@
 /** Phase 106 — 进化留置个体快照（跨实验复活） */
 
 export function snapshotBeing(being, provenance = {}) {
+  const prior = being.carryProvenance ?? {};
   return {
     version: 1,
     code: being.code,
@@ -14,12 +15,10 @@ export function snapshotBeing(being, provenance = {}) {
     organismType: being.organismType ?? 'unicell',
     ecoRepro: being.ecoRepro === true,
     provenance: {
-      tick: provenance.tick ?? 0,
-      envId: provenance.envId ?? null,
-      phase: provenance.phase ?? null,
-      seed: provenance.seed ?? null,
-      treatmentId: provenance.treatmentId ?? null,
+      ...prior,
       ...provenance,
+      chain: prior.chain ?? provenance.chain,
+      chainStage: provenance.chainStage ?? prior.chainStage,
     },
   };
 }
