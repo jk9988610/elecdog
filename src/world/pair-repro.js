@@ -358,7 +358,10 @@ export function registerPairSpeechPRQ(world, recorder, from, toId, txLine = null
   const profile = world.envProfile ?? {};
   const maxAge = profile.pairRequestMaxAge ?? 48;
   const tick = world.tick;
-  const healthReport = buildHealthReport(from, tick);
+  const healthReport = buildHealthReport(from, tick, {
+    adult: meiAllowedForBeing(from, world, profile),
+    world,
+  });
 
   world.pairRequests = world.pairRequests.filter((r) => r.fromId !== from.id);
   const req = {
@@ -795,7 +798,7 @@ function expelSyncyte(world, recorder, carrier) {
   applySemLineageEcho(world, recorder, child, [carrier], profile, { via: 'PAIR-EXP' });
 
   const nurture = applyNurtureAtBirth(world, carrier, child);
-  issueHealthReport(child, world.tick, { adult: false, stage: '婴' });
+  issueHealthReport(being, world.tick, { adult: false, stage: '婴', world });
   closeUmbilicalOnExpel(carrier);
   carrier.syncyte = null;
   carrier.pregnant = false;

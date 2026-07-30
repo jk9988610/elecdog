@@ -44,7 +44,6 @@ export function initAdultWeanedBeing(being, world, profile, { mateChannel = null
     freezeStemPool(being, world.tick);
   }
   initAdultMatingStructures(being, profile, world.tick ?? 0);
-  issueAdultHealthReport(being, world.tick ?? 0);
   const ch = mateChannel ?? COHORT_MATE_CHANNEL;
   being.cohortMateChannel = ch;
   const grace = profile?.courtshipGraceTicks ?? 96;
@@ -64,6 +63,7 @@ export function initAdultWeanedBeing(being, world, profile, { mateChannel = null
     initDockedHalf(world, being);
     annotatePairHalfMetadata(being, profile);
   }
+  issueAdultHealthReport(being, world.tick ?? 0, world);
   return being;
 }
 
