@@ -47,8 +47,7 @@ export function initAdultWeanedBeing(being, world, profile, { mateChannel = null
   const ch = mateChannel ?? COHORT_MATE_CHANNEL;
   being.cohortMateChannel = ch;
   const grace = profile?.courtshipGraceTicks ?? 96;
-  const stagger = (profile?.courtshipStaggerTicks ?? 16) * ch;
-  being.courtshipEligibleAtTick = (world.tick ?? 0) + grace + stagger;
+  being.courtshipEligibleAtTick = (world.tick ?? 0) + grace;
   if (being.pairMorph === 'A') {
     pinMatingStructureChannel(being, STR_PAIR_OUT, ch);
     const seed = hashString(`${being.id}:adult-sperm`);

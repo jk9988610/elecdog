@@ -23,6 +23,20 @@ const HORMONE_LABELS = {
   h4: '生长',
 };
 
+export const HORMONE_NORMAL_HINT = {
+  h0: { min: 0.08, max: 0.35 },
+  h1: { min: 0.05, max: 0.25 },
+  h2: { min: 0.1, max: 0.4 },
+  h3: { min: 0.04, max: 0.2 },
+  h4: { min: 0.06, max: 0.3 },
+};
+
+export function formatHormoneValueLine(hormone) {
+  const hint = HORMONE_NORMAL_HINT[hormone?.key];
+  if (!hint) return `${hormone?.value ?? 0}`;
+  return `${Number(hormone.value).toFixed(3)}（正常 ${hint.min.toFixed(2)}–${hint.max.toFixed(2)}）`;
+}
+
 function round4(n) {
   return +Number(n).toFixed(4);
 }

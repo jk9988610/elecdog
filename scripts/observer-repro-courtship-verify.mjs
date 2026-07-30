@@ -18,6 +18,7 @@ import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
   processPartnerChannelFus,
+  processPartnerFertilization,
   processPairGestation,
   processPairFusFromField,
   releaseFieldHalves,
@@ -98,8 +99,12 @@ for (const b of cohort) {
   }
 }
 assert(
-  cohort.every((b) => b.familyName && b.givenName),
-  '成体均有姓与名'
+  cohort.every((b) => /^\d{2}$/.test(b.familyName)),
+  '姓为两位数字代号'
+);
+assert(
+  cohort.every((b) => /^\d{3}$/.test(b.givenName)),
+  '名为三位数字代号'
 );
 assert(
   cohort.every((b) => b.lineageHeadId === b.id),
@@ -197,8 +202,14 @@ female.bodyStructures[STR_PAIR_IN].open = true;
 female.bodyStructures[STR_PAIR_IN].pregnancyClosed = false;
 if (!female.dockedHalf) initDockedHalf(world, female);
 waiveReproGates(world, [male, female]);
-const fus = processPartnerChannelFus(world, recorder);
-assert(fus.length > 0, '伴侣通道合胞 PARTNER-FUS');
+male.partnerFusEligibleAtTick = 0;
+female.partnerFusEligibleAtTick = 0;
+const chFus = processPartnerChannelFus(world, recorder);
+assert(chFus.length > 0 && chFus[0].type === 'PARTNER-CH', '伴侣通道结合');
+assert(!isPregnant(female), '结合后延迟才受孕');
+world.tick = female.fertilizationEligibleAtTick ?? world.tick;
+const fus = processPartnerFertilization(world, recorder);
+assert(fus.length > 0, '延迟受孕 PARTNER-FUS');
 assert(isPregnant(female), '合胞后标记孕妇');
 assert(!female.bodyStructures[STR_PAIR_IN].open, '孕期关闭 STR-PAIR-IN');
 
@@ -236,8 +247,13 @@ assert(mal.bondCourtshipInitiatorMorph === 'B', '雌为求偶发起方');
 pinChannels(mal, STR_PAIR_OUT, 7);
 pinChannels(fem, STR_PAIR_IN, 7);
 waiveReproGates(wFem, [mal, fem]);
-const fusFem = processPartnerChannelFus(wFem, recFem);
-assert(fusFem.length > 0, '雌发起伴侣通道合胞');
+mal.partnerFusEligibleAtTick = 0;
+fem.partnerFusEligibleAtTick = 0;
+const chFem = processPartnerChannelFus(wFem, recFem);
+assert(chFem.length > 0, '雌发起伴侣通道结合');
+wFem.tick = fem.fertilizationEligibleAtTick ?? wFem.tick;
+const fusFem = processPartnerFertilization(wFem, recFem);
+assert(fusFem.length > 0, '雌发起延迟受孕');
 fem.syncyte.gestationUntilTick = wFem.tick;
 const gestFem = processPairGestation(wFem, recFem);
 assert(gestFem.length > 0, '雌谱系外排子代');
@@ -326,14 +342,19 @@ const prqFld = registerPairSpeechPRQ(wFld, recFld, maleFld, femaleFld.id);
 const pgrFld = registerPairSpeechPGR(wFld, recFld, femaleFld, maleFld.id);
 assert(prqFld && pgrFld, '场测试前完成结伴');
 waiveReproGates(wFld, [maleFld, femaleFld]);
+maleFld.partnerFusEligibleAtTick = 0;
+femaleFld.partnerFusEligibleAtTick = 0;
 maleFld.pairGrantFrom = femaleFld.id;
 releaseFieldHalves(wFld, recFld);
 const fieldFusBonded = processPairFusFromField(wFld, recFld);
 assert(fieldFusBonded.length === 0, '伴侣通道模式下场合胞不取代体内合胞');
 assert(!isPregnant(femaleFld), '场合胞未在伴侣通道前怀孕');
-const fusBond = processPartnerChannelFus(wFld, recFld);
-assert(fusBond.length > 0, '伴侣通道合胞受孕');
-assert(isPregnant(femaleFld), '结伴后伴侣通道方可怀孕');
+const chBond = processPartnerChannelFus(wFld, recFld);
+assert(chBond.length > 0, '伴侣通道结合');
+wFld.tick = femaleFld.fertilizationEligibleAtTick ?? wFld.tick;
+const fusBond = processPartnerFertilization(wFld, recFld);
+assert(fusBond.length > 0, '结伴后延迟受孕');
+assert(isPregnant(femaleFld), '受孕后标记孕妇');
 
 if (failed) {
   console.error(`observer-repro-courtship-verify: ${failed} failed`);

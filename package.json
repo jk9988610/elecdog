@@ -192,7 +192,6 @@
     "observer:mv1c-mit": "node scripts/observer-mv1c-mit-verify.mjs",
     "observer:repro-courtship": "node scripts/observer-repro-courtship-verify.mjs",
     "observer:stage-badge": "node scripts/observer-stage-badge-verify.mjs",
-    "observer:world-history": "node scripts/observer-world-history-verify.mjs",
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",

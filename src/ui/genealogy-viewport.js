@@ -1,6 +1,6 @@
 /** 族谱画布 — 单指/指针平移，滚轮与双指缩放 */
 
-const DEFAULT_SCALE = 0.62;
+const DEFAULT_SCALE = 0.48;
 const MIN_SCALE = 0.35;
 const MAX_SCALE = DEFAULT_SCALE;
 

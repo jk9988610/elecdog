@@ -5,7 +5,6 @@ import { spawnBeing } from '../birth/spawn.js';
 import { spawnAdultMulticellCohort } from '../birth/adult-cohort.js';
 import { buildObserverNaiveSpecs } from '../carry/mixed-cohort.js';
 import { stepWorld } from '../kernel/engine.js';
-import { snapshotWorldState, restoreWorldState } from '../world/world-history.js';
 import { Recorder } from '../recorder/logger.js';
 import { buildDashboardStats } from './stats.js';
 import {
@@ -108,9 +107,6 @@ export class ObserverApp {
     this.observerLayout = getObserverLayoutMode();
     this.envProfileId = getObserverEnvId();
     this.lastArchiveId = null;
-    this.worldSnapshots = [];
-    this.worldSnapshotIdx = 0;
-    this.maxWorldSnapshots = 256;
     this.render();
     this.bootstrapWorld();
     this.refreshCloudPanel();
@@ -127,7 +123,6 @@ export class ObserverApp {
       <section class="toolbar">
         <button id="btn-run" type="button">运行</button>
         <button id="btn-pause" type="button" disabled>暂停</button>
-        <button id="btn-step-back" type="button" class="btn-ghost" title="回退一 tick">回退</button>
         <button id="btn-step-forward" type="button" class="btn-ghost" title="前进一 tick">前进</button>
         <label class="speed-label">间隔 <input id="speed" type="number" value="200" min="50" max="2000" step="50" /></label>
         <span id="tick-display" class="tick">tick 0</span>
@@ -224,7 +219,6 @@ export class ObserverApp {
     this.$ = {
       btnRun: this.root.querySelector('#btn-run'),
       btnPause: this.root.querySelector('#btn-pause'),
-      btnStepBack: this.root.querySelector('#btn-step-back'),
       btnStepForward: this.root.querySelector('#btn-step-forward'),
       speed: this.root.querySelector('#speed'),
       tickDisplay: this.root.querySelector('#tick-display'),
@@ -313,7 +307,6 @@ export class ObserverApp {
 
     this.$.btnRun.addEventListener('click', () => this.run());
     this.$.btnPause.addEventListener('click', () => this.pause());
-    this.$.btnStepBack?.addEventListener('click', () => this.stepBack());
     this.$.btnStepForward?.addEventListener('click', () => this.stepForward());
     this.$.btnCloudArchive.addEventListener('click', () => this.uploadArchive());
     this.$.btnSaveObserver.addEventListener('click', () => this.saveObserverLabel());
@@ -520,72 +513,10 @@ export class ObserverApp {
     this.bootstrapWithCarries(null);
   }
 
-  captureWorldSnapshot() {
-    if (!this.world) return null;
-    try {
-      return snapshotWorldState(this.world);
-    } catch (err) {
-      console.warn('[观察台] 世界快照失败', err);
-      return null;
-    }
-  }
-
-  resetWorldHistory() {
-    const snap = this.captureWorldSnapshot();
-    this.worldSnapshots = snap ? [snap] : [];
-    this.worldSnapshotIdx = 0;
-    this.updateStepButtons();
-  }
-
-  truncateRecorderToWorldTick() {
-    const tick = this.world?.tick ?? 0;
-    this.recorder.entries = this.recorder.entries.filter((e) => e.tick <= tick);
-  }
-
-  updateStepButtons() {
-    if (!this.$?.btnStepBack || !this.$?.btnStepForward) return;
-    const paused = !this.timer;
-    const canBack = paused && this.worldSnapshotIdx > 0;
-    const canForward =
-      paused &&
-      (this.worldSnapshotIdx < this.worldSnapshots.length - 1 || Boolean(this.world));
-    this.$.btnStepBack.disabled = !canBack;
-    this.$.btnStepForward.disabled = !canForward;
-  }
-
-  stepBack() {
-    if (!this.world || this.worldSnapshotIdx <= 0) return;
-    this.pause();
-    this.worldSnapshotIdx -= 1;
-    this.world = restoreWorldState(this.worldSnapshots[this.worldSnapshotIdx]);
-    this.truncateRecorderToWorldTick();
-    this.refresh();
-  }
-
   stepForward() {
     if (!this.world) return;
     this.pause();
-    if (this.worldSnapshotIdx < this.worldSnapshots.length - 1) {
-      this.worldSnapshotIdx += 1;
-      this.world = restoreWorldState(this.worldSnapshots[this.worldSnapshotIdx]);
-      this.truncateRecorderToWorldTick();
-      this.refresh();
-      return;
-    }
     this.step();
-  }
-
-  pushWorldSnapshot() {
-    const snap = this.captureWorldSnapshot();
-    if (!snap) return;
-    if (this.worldSnapshotIdx < this.worldSnapshots.length - 1) {
-      this.worldSnapshots = this.worldSnapshots.slice(0, this.worldSnapshotIdx + 1);
-    }
-    this.worldSnapshots.push(snap);
-    if (this.worldSnapshots.length > this.maxWorldSnapshots) {
-      this.worldSnapshots.shift();
-    }
-    this.worldSnapshotIdx = this.worldSnapshots.length - 1;
   }
 
   bootstrapWithCarries(snapshots, meta = {}) {
@@ -625,7 +556,6 @@ export class ObserverApp {
     }
 
     this.refresh();
-    this.resetWorldHistory();
   }
 
   bootstrapMixedImport({ carrySnapshots = [], naiveCount = 4, seed = 0, envId, phase, treatmentId } = {}) {
@@ -654,7 +584,6 @@ export class ObserverApp {
     });
 
     this.refresh();
-    this.resetWorldHistory();
   }
 
   _applyObserverEnv(envId) {
@@ -669,7 +598,6 @@ export class ObserverApp {
   step() {
     if (!this.world) return;
     stepWorld(this.world, this.recorder);
-    this.pushWorldSnapshot();
     this.refresh();
   }
 
@@ -678,7 +606,6 @@ export class ObserverApp {
     this.speed = Number(this.$.speed.value) || 200;
     this.$.btnRun.disabled = true;
     this.$.btnPause.disabled = false;
-    this.updateStepButtons();
     this.timer = setInterval(() => this.step(), this.speed);
   }
 
@@ -689,7 +616,6 @@ export class ObserverApp {
     }
     this.$.btnRun.disabled = false;
     this.$.btnPause.disabled = true;
-    this.updateStepButtons();
   }
 
   refresh() {
@@ -716,7 +642,6 @@ export class ObserverApp {
         el.classList.toggle('hidden', !s.world.multicellV2Observer);
       });
       this.updateCloudStatus();
-      this.updateStepButtons();
       return;
     }
 
@@ -746,7 +671,6 @@ export class ObserverApp {
       el.classList.toggle('hidden', !s.world.multicellV2Observer);
     });
     this.updateCloudStatus();
-    this.updateStepButtons();
   }
 
   toggleCloudPanel() {

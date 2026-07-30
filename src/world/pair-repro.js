@@ -688,6 +688,12 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
   ) {
     return null;
   }
+  if (parentB.postpartumUntilTick != null && world.tick < parentB.postpartumUntilTick) {
+    return null;
+  }
+  if (parentB.syncyte || parentB.pregnant) {
+    return null;
+  }
   const gestationTicks = profile.gestationTicks ?? profile.nurtureTicks ?? 80;
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:pair-fus`);
   const combined = recombineDna(seqA, seqB, seed);
@@ -705,6 +711,9 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
 
   parentB.pregnant = true;
   parentB.pregnantAtTick = world.tick;
+  parentA.partnerChannelFusedAtTick = null;
+  parentB.partnerChannelFusedAtTick = null;
+  parentB.fertilizationEligibleAtTick = null;
   const pairIn = parentB.bodyStructures?.['STR-PAIR-IN'];
   if (pairIn?.open) {
     pairIn.open = false;
@@ -798,11 +807,16 @@ function expelSyncyte(world, recorder, carrier) {
   applySemLineageEcho(world, recorder, child, [carrier], profile, { via: 'PAIR-EXP' });
 
   const nurture = applyNurtureAtBirth(world, carrier, child);
-  issueHealthReport(being, world.tick, { adult: false, stage: '婴', world });
+  issueHealthReport(child, world.tick, { adult: false, stage: '婴', world });
   closeUmbilicalOnExpel(carrier);
   carrier.syncyte = null;
   carrier.pregnant = false;
   carrier.pregnantAtTick = null;
+  const cooldown = profile.postpartumCooldownTicks ?? 96;
+  carrier.postpartumUntilTick = world.tick + cooldown;
+  carrier.partnerChannelFusedAtTick = null;
+  carrier.fertilizationEligibleAtTick = null;
+  if (parentA) parentA.partnerChannelFusedAtTick = null;
   carrier.expelCount = (carrier.expelCount ?? 0) + 1;
   carrier.devStage = LIFE_STAGE_ADT;
   restoreAdultReproPackages(carrier, world, profile);
@@ -867,7 +881,7 @@ export function processPairFusInBody(world, recorder) {
   return events;
 }
 
-/** 伴侣体内通道合胞：登记伴侣且已授予许可 */
+/** 伴侣体内通道结合（不立即受孕） */
 export function processPartnerChannelFus(world, recorder) {
   const profile = world.envProfile ?? {};
   if (!pairPartnerChannelFus(profile)) return [];
@@ -878,6 +892,8 @@ export function processPartnerChannelFus(world, recorder) {
   for (const a of males) {
     const b = world.beings.find((x) => x.id === a.partnerId);
     if (!b?.alive || b.pairMorph !== 'B' || isPregnant(b) || !b.dockedHalf) continue;
+    if (a.partnerChannelFusedAtTick != null || b.partnerChannelFusedAtTick != null) continue;
+    if (b.postpartumUntilTick != null && world.tick < b.postpartumUntilTick) continue;
     if (world.tick < (b.partnerFusEligibleAtTick ?? 0)) continue;
     if (world.tick < (a.partnerFusEligibleAtTick ?? 0)) continue;
     if (a.pairGrantFrom !== b.id) a.pairGrantFrom = b.id;
@@ -889,10 +905,58 @@ export function processPartnerChannelFus(world, recorder) {
     ) {
       alignPartnerMatingChannels(a, b);
       const refit = assessPairStructureFit(a, b, profile, a.meiPacket);
+      recordPairStructureEvent(world, recorder, a, b, refit, 'PARTNER-CH');
+      if (!refit.fit) continue;
+    }
+    const tick = world.tick;
+    a.partnerChannelFusedAtTick = tick;
+    b.partnerChannelFusedAtTick = tick;
+    const fertDelay = profile.fertilizationDelayTicks ?? 40;
+    b.fertilizationEligibleAtTick = tick + fertDelay;
+    recorder.evolution(tick, a.id, `[PARTNER-CH] channel ${b.id} fert+${fertDelay}`, {
+      kind: 'PARTNER-CH',
+      aId: a.id,
+      bId: b.id,
+      fertilizationEligibleAtTick: b.fertilizationEligibleAtTick,
+    });
+    noteSemDomainFromKind(a, 'PARTNER-CH', tick);
+    noteSemDomainFromKind(b, 'PARTNER-CH', tick);
+    events.push({ type: 'PARTNER-CH', aId: a.id, bId: b.id });
+  }
+  return events;
+}
+
+/** 通道结合后延迟受孕（单胎） */
+export function processPartnerFertilization(world, recorder) {
+  const profile = world.envProfile ?? {};
+  if (!pairPartnerChannelFus(profile)) return [];
+  const events = [];
+  const females = world.beings.filter(
+    (b) =>
+      b.alive &&
+      b.pairMorph === 'B' &&
+      b.partnerChannelFusedAtTick != null &&
+      b.fertilizationEligibleAtTick != null &&
+      world.tick >= b.fertilizationEligibleAtTick
+  );
+  for (const b of females) {
+    if (isPregnant(b)) continue;
+    if (b.postpartumUntilTick != null && world.tick < b.postpartumUntilTick) continue;
+    const a = world.beings.find((x) => x.id === b.partnerId);
+    if (!a?.alive || a.pairMorph !== 'A' || !a.meiPacket || !b.dockedHalf) continue;
+    if (a.partnerChannelFusedAtTick == null) continue;
+    alignPartnerMatingChannels(a, b);
+    const structFit = assessPairStructureFit(a, b, profile, a.meiPacket);
+    if (
+      a.bodyStructures?.[STR_PAIR_OUT]?.open &&
+      b.bodyStructures?.[STR_PAIR_IN]?.open
+    ) {
+      const refit = assessPairStructureFit(a, b, profile, a.meiPacket);
       recordPairStructureEvent(world, recorder, a, b, refit, 'PARTNER-FUS');
       if (!refit.fit) continue;
     }
-    createSyncyteOnB(world, recorder, a, b, a.meiPacket.seq, b.dockedHalf.seq);
+    const syncyte = createSyncyteOnB(world, recorder, a, b, a.meiPacket.seq, b.dockedHalf.seq);
+    if (!syncyte) continue;
     events.push({ type: 'PARTNER-FUS', aId: a.id, bId: b.id });
   }
   return events;
@@ -901,14 +965,15 @@ export function processPartnerChannelFus(world, recorder) {
 /** tick 末尾：衰减 → 握手 → 伴侣通道 → 排入场 → 宫内发育 → 合胞 */
 export function processPairReproduction(world, recorder) {
   if (!pairReproEnabled(world.envProfile)) {
-    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [], handshake: [], partnerFus: [] };
+    return { gestation: [], fusIn: [], fieldRelease: [], fieldFus: [], handshake: [], partnerFus: [], partnerFert: [] };
   }
   decayFieldHalves(world);
   const handshake = processPairHandshake(world, recorder);
   const partnerFus = processPartnerChannelFus(world, recorder);
+  const partnerFert = processPartnerFertilization(world, recorder);
   const fieldRelease = releaseFieldHalves(world, recorder);
   const gestation = processPairGestation(world, recorder);
   const fieldFus = processPairFusFromField(world, recorder);
   const fusIn = processPairFusInBody(world, recorder);
-  return { gestation, fusIn, fieldRelease, fieldFus, handshake, partnerFus };
+  return { gestation, fusIn, fieldRelease, fieldFus, handshake, partnerFus, partnerFert };
 }

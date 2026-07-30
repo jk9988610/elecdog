@@ -22,6 +22,7 @@ import {
   courtshipBondLineForCouple,
   courtshipInitiatorFromPair,
 } from '../world/being-names.js';
+import { formatHormoneValueLine } from '../world/health-report.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 import { initGenealogyViewport } from './genealogy-viewport.js';
@@ -224,9 +225,8 @@ function lactationDisplay(being) {
   };
 }
 
-function renderHormoneBars(being) {
+function renderHormoneList(being) {
   if (!being?.hormoneVec) return '<p class="muted">无激素向量</p>';
-  const lact = lactationDisplay(being);
   const labels = ['生殖', '泌乳', '代谢', '应激', '生长'];
   return HORMONE_KEYS.map((k, i) => {
     let v = Math.max(0, Math.min(1, being.hormoneVec[k] ?? 0));
@@ -239,13 +239,8 @@ function renderHormoneBars(being) {
     ) {
       v = 0;
     }
-    const pct = Math.round(v * 100);
-    const lactRow = k === 'h2' && lact.open;
-    return `<div class="hormone-bar-row${lactRow ? ' hormone-bar-lact' : ''}">
-      <span class="hormone-bar-label">${labels[i] ?? k}</span>
-      <div class="hormone-bar-track"><div class="hormone-bar-fill" style="width:${pct}%"></div></div>
-      <span class="hormone-bar-val">${pct}%</span>
-    </div>`;
+    const line = formatHormoneValueLine({ key: k, value: v });
+    return `<div class="stat-row hormone-list-row"><span>${labels[i] ?? k}</span><strong>${escapeHtml(line)}</strong></div>`;
   }).join('');
 }
 
@@ -258,16 +253,12 @@ function renderHealthVitalRows(rows) {
     .join('');
 }
 
-function renderHealthHormoneRows(hormones) {
+function renderHealthHormoneList(hormones) {
   if (!hormones?.length) return '<p class="muted">无激素向量</p>';
   return hormones
     .map(
       (h) =>
-        `<div class="health-hormone-row">
-          <span class="health-hormone-label">${escapeHtml(h.label)}</span>
-          <div class="health-hormone-track"><div class="health-hormone-fill" style="width:${h.pct}%"></div></div>
-          <span class="health-hormone-val">${h.pct}%</span>
-        </div>`
+        `<div class="stat-row hormone-list-row"><span>${escapeHtml(h.label)}</span><strong>${escapeHtml(formatHormoneValueLine(h))}</strong></div>`
     )
     .join('');
 }
@@ -363,7 +354,7 @@ export function renderHealthReportHTML(being) {
         <div class="stat-row"><span>序列长度</span><strong>${interp?.length ?? report.dnaSeq?.length ?? 0}</strong></div>
       </div>
       <h5 class="health-subtitle">激素水平</h5>
-      <div class="health-hormone-list">${renderHealthHormoneRows(hormones)}</div>
+      <div class="stat-grid health-vitals-grid health-hormone-list">${renderHealthHormoneList(hormones)}</div>
       <h5 class="health-subtitle">营养与场态</h5>
       <div class="stat-grid health-vitals-grid">${nutritionRows}</div>
       <h5 class="health-subtitle">逻辑细胞（关键）</h5>
@@ -430,7 +421,7 @@ export function renderBeingDetailHTML(
       ${healthBtn ? `<div class="genealogy-detail-actions">${healthBtn}</div>` : ''}
       ${healthBlock}
       <h4 class="term">激素与泌乳</h4>
-      <div class="hormone-bars">${renderHormoneBars(being)}</div>
+      <div class="stat-grid hormone-list-panel">${renderHormoneList(being)}</div>
       <div class="stat-grid lact-panel">
         <div class="stat-row"><span>哺乳通道</span><strong>${lact.open ? '开放' : '关闭'}</strong></div>
         ${lact.until != null ? `<div class="stat-row"><span>哺乳至 tick</span><strong>${lact.until}</strong></div>` : ''}
