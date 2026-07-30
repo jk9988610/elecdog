@@ -35,4 +35,21 @@ npm run field:phase129:verify
 
 ---
 
-*2026-07-30 · 接续 PAIR-0→4 与 Phase 117 六环境链*
+## Phase 130 — 链末 PAIR-2/3/4 全栈
+
+在 Phase 129 六环境链基底上，混合阶段启用完整 PAIR 路径：
+
+`[PRQ]`/`[PGR]` + `[FLD-CH]`/`[FLD-CH-IN]` + `[HRM]`
+
+| 处理组 | 说明 |
+|--------|------|
+| `ev130_chain_pair_full` | 链 + PAIR 全栈 |
+| `ev130_chain_pair0` | 链 + PAIR-0 对照 |
+| `ev130_pair_full_only` | 无链 + PAIR 全栈基线 |
+
+```bash
+npm run field:phase130
+npm run field:phase130:verify
+```
+
+---
