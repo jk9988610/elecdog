@@ -61,7 +61,26 @@ assert(
   'EHU 词条数不变（无云覆盖 EHU）'
 );
 
-console.log(`本地辞典 ${CODEX_ENTRIES.length} 条 · EHU ${CODEX_ENTRIES.filter((e) => e.tag === 'EHU').length} 条`);
+const EXPECTED_COUNT = 33;
+const WLR_IDS = ['sem-payload-cooccurrence', 'repro-payload-domain-trace'];
+
+assert(CODEX_ENTRIES.length === EXPECTED_COUNT, `本地辞典 ${EXPECTED_COUNT} 条`);
+for (const id of WLR_IDS) {
+  const entry = CODEX_ENTRIES.find((e) => e.id === id);
+  assert(entry, `含 WL-R 条目 ${id}`);
+}
+assert(
+  CODEX_ENTRIES.find((e) => e.id === 'repro-payload-domain-trace')?.tag === 'WL-R',
+  '繁殖载荷域迹 tag=WL-R'
+);
+assert(
+  CODEX_ENTRIES.find((e) => e.id === 'sem-payload-cooccurrence')?.tag === 'SEM',
+  '载荷共现迹 tag=SEM'
+);
+
+console.log(
+  `本地辞典 ${CODEX_ENTRIES.length} 条 · EHU ${CODEX_ENTRIES.filter((e) => e.tag === 'EHU').length} 条 · WL-R/SEM ${WLR_IDS.length} 条`
+);
 
 if (useCloud) {
   if (!isCloudEnabled()) {

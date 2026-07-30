@@ -520,8 +520,8 @@
 
 - **收敛**：智慧语言以 CORE-R 为核，Y/S/Z/X 四域服务繁殖交流
 - **文档**：[WL_REPRO_CENTER.md](WL_REPRO_CENTER.md)
-- **状态**：WL-R 观察台面板 + CODEX 联动（Phase 135）
-- **下一步**：WL-R 长时田野
+- **状态**：**闭合** — WL-R1–R4 + Phase 135 观察台 + 云辞典 33 条（`codex:verify` / `codex:publish`）
+- **归档**：WL-R 长时田野 — 用户转向，不再推进
 
 ---
 
