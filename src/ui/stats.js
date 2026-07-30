@@ -10,6 +10,7 @@ import { observerEnvHint, observerEnvLabel } from './env-select.js';
 import { buildConsciousnessSummary } from './consciousness.js';
 import { buildEnvStackSummary } from './env-stack.js';
 import { buildSemStackSummary } from './sem-stack.js';
+import { buildWlReproStackSummary } from './wl-repro-stack.js';
 import { buildCarrySummary } from './carry-panel.js';
 
 function countEnv(entries, kind) {
@@ -224,6 +225,7 @@ export function buildDashboardStats(world, recorder) {
     }),
     envStack: buildEnvStackSummary(world, recorder),
     semStack: buildSemStackSummary(world, recorder),
+    wlReproStack: buildWlReproStackSummary(world, recorder),
     carry: buildCarrySummary(world),
   };
 }
