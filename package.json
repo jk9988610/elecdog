@@ -140,6 +140,7 @@
     "field:phase100": "node scripts/field-batch-phase100.mjs",
     "field:phase101": "node scripts/field-batch-phase101.mjs",
     "field:phase102": "node scripts/field-batch-phase102.mjs",
+    "field:phase103": "node scripts/field-batch-phase103.mjs",
     "gap11:dsp:codex": "node scripts/gap11-dsp-codex-verify.mjs",
     "observer:env-stack": "node scripts/observer-env-stack-verify.mjs",
     "field:all": "node scripts/field-batch.mjs && node scripts/field-batch-phase2.mjs && node scripts/field-batch-phase3.mjs && node scripts/field-batch-phase4.mjs"

@@ -27,9 +27,9 @@ WL0  Phase 100  [SEM] 载荷共现记录层          ✅ support
         ↓
 WL1  Phase 101  semFeedbackEnabled 行为偏置   ✅ weak
         ↓
-WL2  Phase 102+ 跨 tick / 跨代约定持久          ← 当前
+WL2  Phase 102  跨 tick / 跨代约定持久          ✅ weak
         ↓
-WL3  Phase 103+ 与 W4 社会知识正交对照田野
+WL3  Phase 103+ 与 W4 社会知识正交对照田野      ← 当前
         ↓
 WL4  Phase 104+ 观察台类比 UI（田野 support 后）
         ↓
@@ -56,15 +56,16 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 | 结果 | **weak**（H2/H3/H5 达标） |
 | 文档 | [PHASE101_SEM_FEEDBACK.md](PHASE101_SEM_FEEDBACK.md) |
 
-### WL2 · 持久层（Phase 102+）
+### WL2 · 持久层（Phase 102）
 
 | 项 | 内容 |
 |----|------|
-| 问题 | 约定迹是否跨 tick / 跨个体 / 跨代可核对残留 |
-| 机制候选 | `[SEM-LIN]` 谱系回响、与社会迹 `[SOC-ENC]` 分离 |
-| 验收 | 去掉持久机制后，H4 条件模式消失 |
+| 机制 | `[SEM-LIN]` 谱系回响 + `semTrace` 可继承摘要 |
+| 田野 | `npm run field:phase102` |
+| 结果 | **weak**（H4/H5 达标；H1/H2/H3 部分） |
+| 文档 | [PHASE102_SEM_LINEAGE.md](PHASE102_SEM_LINEAGE.md) |
 
-### WL3 · 社会正交（Phase 103+）
+### WL3 · 社会正交（Phase 103+，待启动）
 
 | 项 | 内容 |
 |----|------|
@@ -93,8 +94,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 
 | ID | 名称 | Phase | 状态 |
 |----|------|-------|------|
-| GAP-W06 | 信号约定/文化层 | 100–102 | WL0 support · WL1 weak |
-| — | 持久约定 | 102+ | 未启动 |
+| GAP-W06 | 信号约定/文化层 | 100–103 | WL0 support · WL1 weak · WL2 weak |
 | — | 社会正交 | 103+ | 未启动 |
 | — | 类比 UI | 104+ | 设计就绪，等田野 |
 | — | CODEX | 105+ | 禁止预制 |
@@ -105,8 +105,8 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS，非「语言」地球名）
 
 ```
 观察 TX/RX 链 → OBS
-  → WL0 [SEM] 记录 ✅ → WL1 反馈 ✅ weak
-  → WL2 持久 → WL3 社会正交 → WL4 UI → WL5 CODEX
+  → WL0 记录 ✅ → WL1 反馈 ✅ weak → WL2 持久 ✅ weak
+  → WL3 社会正交 → WL4 UI → WL5 CODEX
 ```
 
 每步：**实现 → 田野 → 文档 → PR → 合并 → HANDOFF 指向下一步**。
