@@ -142,6 +142,7 @@ WL-R4  CODEX：繁殖中心智慧交流（第 33 条）           ✅ Phase 134
 ## 七、验证命令（当前可跑）
 
 ```bash
+npm run observer:wlr-stack        # WL-R 观察台面板
 npm run gap-wlr:repro:codex       # WL-R4 CODEX 第 33 条
 npm run field:phase133:verify   # WL-R3 四域×繁殖核 2×2
 npm run field:phase130:verify   # 链×PAIR 全栈 · CORE-R 物理层

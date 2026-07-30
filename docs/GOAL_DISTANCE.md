@@ -67,6 +67,7 @@
 132 WL-R2 繁殖域跨代迹           ← support 7/7
 133 WL-R3 四域×繁殖核 2×2        ← support 7/7
 134 WL-R4 CODEX 繁殖载荷域迹     ← gap-wlr:repro:codex
+135 WL-R 观察台面板+CODEX联动    ← observer:wlr-stack
      WL-R 繁殖核智慧语言收敛      ← 见 WL_REPRO_CENTER.md
 ```
 
@@ -76,7 +77,7 @@
 
 | 缺口 | 说明 |
 |------|------|
-| **WL-R 深化** | 长时田野、观察台 WL-R 面板与 CODEX 联动 |
+| **WL-R 深化** | 长时田野、云辞典 WL-R 条目同步 |
 | **W5 长时验收** | 开放尺度仍 weak |
 | **GAP-10 选择压** | 繁殖路径选择压定律 |
 

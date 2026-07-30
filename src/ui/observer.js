@@ -53,6 +53,7 @@ import {
   setViewMode as saveViewMode,
   viewModeHint,
   semViewModeHint,
+  wlReproViewModeHint,
   VIEW_ANALOGY,
   VIEW_NATIVE,
 } from './analogy.js';
@@ -60,6 +61,7 @@ import { renderCodexPanelHTML, initCodexPanel } from './codex.js';
 import { renderImmersionPanel } from './immersion.js';
 import { renderEnvStackPanel } from './env-stack.js';
 import { renderSemStackPanel } from './sem-stack.js';
+import { renderWlReproStackPanel } from './wl-repro-stack.js';
 import { renderCarryPanel } from './carry-panel.js';
 import { renderCarryImportPanelHTML, initCarryImportPanel } from './carry-import.js';
 import { suggestObserverEnvId } from '../carry/import-report.js';
@@ -480,6 +482,12 @@ export class ObserverApp {
     const envTag = s.world.envLabel ? ` · ${s.world.envLabel}` : '';
     this.$.placeDisplay.textContent = `地点 ${s.world.birthPlace}${envTag}`;
     this.$.dashboard.innerHTML = this.renderDashboard(s);
+    this.$.dashboard.querySelectorAll('[data-codex-entry]').forEach((btn) => {
+      btn.addEventListener('click', () => {
+        const id = btn.getAttribute('data-codex-entry');
+        this.codexPanel?.openEntry?.(id);
+      });
+    });
     this.mindStreamPanel?.refresh();
     this.updateCloudStatus();
   }
@@ -868,6 +876,7 @@ export class ObserverApp {
         viewModeHint,
       })}
       ${renderSemStackPanel(s.semStack, { label, semViewModeHint })}
+      ${renderWlReproStackPanel(s.wlReproStack, { label, wlReproViewModeHint })}
       ${renderCarryPanel(s.carry, { label })}
       <section class="panel env-panel">
         <h2>环境</h2>

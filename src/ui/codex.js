@@ -171,6 +171,17 @@ export function initCodexPanel(root, { onClose, fetchCloudEntries } = {}) {
     isOpen() {
       return !panel.classList.contains('hidden');
     },
+    openEntry(entryId) {
+      if (!entryId) return;
+      panel.classList.remove('hidden');
+      query = '';
+      if (search) search.value = '';
+      expandedId = entryId;
+      updateMeta();
+      paint();
+      const item = list.querySelector(`[data-id="${entryId}"]`);
+      item?.scrollIntoView({ block: 'nearest', behavior: 'smooth' });
+    },
     refreshFromCloud,
   };
 }

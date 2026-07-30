@@ -3364,6 +3364,24 @@ ENV_PROFILES.observer_wl_stack = {
   ...WL3_SEM_STACK,
 };
 
+/** 观察台 — W6 + WL-R 繁殖载荷域迹可视化 */
+ENV_PROFILES.observer_wlr_stack = {
+  id: 'observer_wlr_stack',
+  label: '观察台·WL-R繁殖域栈',
+  ...W5_WISDOM_FULL,
+  organismMode: 'multicell',
+  ...ECO_REPRO_BASE,
+  ...W6_TOOL_ORG_STACK,
+  ...W6_ENV_STACK,
+  ...WL3_SEM_STACK,
+  semDomainTag: true,
+  semReproLineage: true,
+  semFourDomainCouple: true,
+  semMinCount: 2,
+  semReproWindow: 48,
+  semDomainWindow: 48,
+};
+
 /** 观察台默认环境 — W6 环境栈可视化 */
 ENV_PROFILES.observer_w6_stack = {
   id: 'observer_w6_stack',

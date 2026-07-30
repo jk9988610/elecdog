@@ -161,6 +161,24 @@ const LABELS = {
   pairEmb: { native: '[EMB]', analogy: '宫内通量（住域）' },
   pairExp: { native: '[EXP]', analogy: '外排子代（繁殖核）' },
   pairHrm: { native: '[HRM]', analogy: '多维门控向量（繁殖核）' },
+  wlReproStack: { native: '繁殖载荷域迹', analogy: '繁殖核约定迹（类比）' },
+  wlReproStackOff: {
+    native: '当前环境未启用 semDomainTag — 请切换至 observer_wlr_stack',
+    analogy: '未启用繁殖域标记 — 请切换观察环境',
+  },
+  wlReproDomains: { native: '域计数', analogy: '四域+核（类比）' },
+  wlReproCouple: { native: '四域耦合', analogy: '核窗口内四域（类比）' },
+  wlReproLin: { native: '繁殖谱系', analogy: '跨代繁殖迹（类比）' },
+  wlReproCodex: { native: 'CODEX', analogy: '辞典' },
+  wlCoreRRatio: { native: 'CORE-R 占比', analogy: '繁殖核占比' },
+  wlFourCouplePairs: { native: '耦合对', analogy: '核窗四域对' },
+  wlFourYi: { native: '耦合·YI', analogy: '耦合·衣域' },
+  wlFourShi: { native: '耦合·SHI', analogy: '耦合·食域' },
+  wlFourZhu: { native: '耦合·ZHU', analogy: '耦合·住域' },
+  wlFourXing: { native: '耦合·XING', analogy: '耦合·行域' },
+  wlSemLinRepro: { native: '[SEM-LIN] repro', analogy: '繁殖谱系迹' },
+  wlReproTraceMean: { native: 'reproTrace 均值', analogy: '繁殖迹权重均值' },
+  wlReproTraceCount: { native: '有 reproTrace', analogy: '带繁殖迹个体' },
 };
 
 export function label(key) {
@@ -233,6 +251,12 @@ export function semViewModeHint() {
   return isAnalogyMode()
     ? '类比呈现 · 非辞典 · 非语言定义'
     : '信号约定迹统计（非语义/对话层）';
+}
+
+export function wlReproViewModeHint() {
+  return isAnalogyMode()
+    ? '类比呈现 · 机制标签 · 可跳转 CODEX'
+    : 'WL-R 域统计（非地球生活词典）';
 }
 
 export function formatBand(band) {
