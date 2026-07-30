@@ -202,9 +202,9 @@
   - 加长混合 tick（1920）+ `fieldRunDeadlineMs` / `fieldMaxTicksPerPass` 截止守卫
   - 田野：`npm run field:phase113`
 - **Phase 121 扩展**：
-  - 六环境+链 × **8192 tick** COOP/SOC 因子复验（turbo）
+  - 六环境+链 × **8192 tick** COOP/SOC 因子复验（turbo）；support 6/9，定律仍未立
   - 田野：`npm run field:phase121`
-- **状态**：**部分结案** — 留置链田野上合作因果可度量；跨种子定律待验证
+- **状态**：**部分结案** — 合作因果可度量；960/8192 tick 定律均未立
 - **报告**：[PHASE51_COOPERATION.md](PHASE51_COOPERATION.md) · [PHASE110_COOP_CAUSAL.md](PHASE110_COOP_CAUSAL.md)
 
 ---
