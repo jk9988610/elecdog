@@ -103,7 +103,7 @@ for (const [tid, agg] of Object.entries(aggregate)) {
 console.log(`\n批次结论：${batchVerdict.verdict} (${batchVerdict.support}/4)`);
 console.log(`  H1 留置导入: ${batchVerdict.h1CarryImported ? '✓' : '✗'}`);
 console.log(`  H2 留置无REN: ${batchVerdict.h2NoCarryRen ? '✓' : '✗'}`);
-console.log(`  H3 MEI/FUS可观测: ${batchVerdict.h3MeiFusObserved ? '✓' : '✗'}`);
+console.log(`  H3 有丝分裂可观测: ${batchVerdict.h3MeiFusObserved ? '✓' : '✗'}`);
 console.log(`  H4 生态FISS可观测: ${batchVerdict.h4EcoFissObserved ? '✓' : '✗'}`);
 console.log(`  H5 后代超留置数: ${batchVerdict.h5OffspringBeyondCarry ? '✓' : '✗'}`);
 
