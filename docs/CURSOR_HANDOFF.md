@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · Phase 110 GAP-13 合作因果
+> 更新：2026-07-30 · Phase 111 观察台导入留置快照
 
 ---
 
@@ -8,34 +8,34 @@
 
 | 项 | 状态 |
 |----|------|
-| Phase 106–109 | ✅ 留置链 + 三环境混合 |
-| Phase 110 | ✅ 留置链 × COOP/SOC 合作因果 |
+| Phase 106–110 | ✅ 留置链 + COOP/SOC 因果 |
+| Phase 111 | ✅ 田野报告 → 观察台导入 carrySnapshots |
 
 ---
 
 ## 验证
 
 ```bash
-npm run field:phase110       # 留置链 + COOP/SOC 因果度量
-npm run field:phase109
+npm run field:phase110       # 报告含 carrySnapshots
+npm run observer:carry-import
 npm run observer:carry
-npm run gap-w06:sem:codex
 ```
 
 `cursor/<descriptive-name>-a3f2`
 
 ---
 
-## 留置链 + 合作因果（Phase 110）
+## 留置导入（Phase 111）
 
-- fertile 混合阶段叠加 COOP/SOC；度量留置 vs naive 合作迹差异
-- 见 [PHASE110_COOP_CAUSAL.md](PHASE110_COOP_CAUSAL.md)
+- 观察台「导入留置」← `field-phase109/110-report.json`
+- 见 [PHASE111_CARRY_IMPORT.md](PHASE111_CARRY_IMPORT.md)
 
 ---
 
 ## 下一步（开放）
 
-- 更长多环境链 / 观察台导入留置快照
+- 更长多环境链（4+ 环境）
 - GAP-13 更长 tick 因果稳健性复验
+
 
 
