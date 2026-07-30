@@ -10,13 +10,14 @@
 
 - **核**：繁殖信息交换（CORE-R · PAIR/链/留置）
 - **四域**：衣 YI / 食 SHI / 住 ZHU / 行 XING — 服务繁殖的智慧交流
-- **下一步**：WL-R4 — CODEX 繁殖中心智慧交流条（Phase 134）
+- **状态**：WL-R1–R4 ✅ — CODEX 第 33 条「繁殖载荷域迹」
+- **下一步**：WL-R 深化（长时田野 / 观察台联动）
 
 ---
 
 ## 验证
 
 ```bash
+npm run gap-wlr:repro:codex
 npm run field:phase133:verify
-npm run field:phase132:verify
 ```

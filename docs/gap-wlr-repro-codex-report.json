@@ -1,0 +1,26 @@
+{
+  "runAt": "2026-07-30T14:53:47.664Z",
+  "phase": 134,
+  "extension": "wl_r4_repro_codex",
+  "fieldPhases": [
+    131,
+    132,
+    133
+  ],
+  "fieldVerdicts": {
+    "phase131": "support",
+    "phase132": "support",
+    "phase133": "support"
+  },
+  "codexEntry": "繁殖载荷域迹",
+  "codexEntryNumber": 33,
+  "codexReady": true,
+  "wlRStatus": "converged_codex",
+  "obs": [
+    "OBS-20260730-103",
+    "OBS-20260730-104",
+    "OBS-20260730-105",
+    "OBS-20260730-106"
+  ],
+  "roadmap": "docs/PHASE134_WLR_CODEX.md"
+}
