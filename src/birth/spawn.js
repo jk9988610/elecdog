@@ -37,6 +37,7 @@ import {
   substantiveSignalOnly,
 } from '../world/substantive-signal.js';
 import { initMulticellV2, multicellV2Enabled } from '../world/multicell-v2.js';
+import { upsertGenealogyFromBeing } from '../world/genealogy-persist.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -143,6 +144,7 @@ export function spawnBeing(
   }
 
   world.beings.push(being);
+  upsertGenealogyFromBeing(world, being);
   return { being, id, dna };
 }
 

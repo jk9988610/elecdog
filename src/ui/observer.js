@@ -762,6 +762,14 @@ export class ObserverApp {
       if (preview.exportedAt) lines.push(`导出: ${preview.exportedAt}`);
       if (preview.world) {
         lines.push(`世界: ${preview.world.name} · tick ${preview.world.tick} · 存活 ${preview.world.aliveCount ?? '—'}/${preview.world.beingCount ?? '—'}`);
+        if (preview.world.endedCount != null) {
+          lines.push(`END 登记: ${preview.world.endedCount}`);
+        }
+      }
+      if (preview.genealogy?.nodeCount != null) {
+        lines.push(
+          `族谱: ${preview.genealogy.nodeCount} 节点 · 存活 ${preview.genealogy.aliveCount ?? '—'} · END ${preview.genealogy.endedCount ?? '—'}`
+        );
       }
       const sum = preview.summary ?? preview.report?.summary;
       if (sum?.phase) {
