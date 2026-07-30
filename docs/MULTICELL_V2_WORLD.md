@@ -45,18 +45,34 @@ being（1 身份证）
 
 ---
 
-## 三、生命阶段（四段 + 分化时间窗）
+## 三、生命阶段（三段 + 宫内，无「体外胚胎」）
 
 | 阶段 | 码 | 时间锚 | 分裂与分化要点 |
 |------|-----|--------|----------------|
-| **宫内胚胎** | `GEST` | 合胞后 `gestationTicks`；载体 B 体内 `syncyte` | 脐带 `STR-UMB` 供养；**LOG-UMB** 分泌/运输；少对外 MIT |
-| **体外胚胎** | `EMB` | 诞生后 `tickCount < embryonicTicks` | ZYG/STEM 扩增；膜/屏障/运输/呼吸/神经脊；感官原基 |
-| **婴幼儿** | `JUV` | `embryonicTicks ≤ tick < juvenileTicks` | 脑/语言/运动/五感完善；摄取；禁减数 |
-| **成体** | `ADT` | `tickCount ≥ juvenileTicks` | 生殖细胞、激素分泌、交配结构、泌乳窗；减数开启 |
+| **宫内胚胎** | `GEST` | 合胞后、载体 B 体内 `syncyte` | 脐带供养（MV1b）；膜/屏障/运输等 **宫内** DIFF |
+| **婴幼儿** | `JUV` | **排出/诞生瞬间起** `tickCount < juvenileTicks` | 出生即幼体；STEM→MIT/DIFF；禁减数 |
+| **成体** | `ADT` | `tickCount ≥ juvenileTicks` | 生殖、激素、减数；同型 MIT |
 
-配置项：`gestationTicks`、`embryonicTicks`、`juvenileTicks`（`multicell_v2_world` 可独立调）。
+**不设「体外胚胎 EMB」窗**：哺乳动物模型中胚胎在宫内完成早期发育，**分娩/排出后即为幼体**，不在诞生后再叠一段体外胚胎期。
 
-**分化窗原则**：每个 `LOG-*` 声明 `diffStages: ['GEST'|'EMB'|'JUV'|'ADT']`；过期窗 **默认不可** 从 STEM 新承诺为该类型（再生补位另立项）。
+配置项：`gestationTicks`（宫内）、`juvenileTicks`（婴幼儿总长）。
+
+---
+
+## 三·二、逻辑细胞 ↔ 电子狗环境场（立项）
+
+个体功能须 **匹配世界环境**，无场则无该功能（或仅记录 `[ENV-GATE]`）：
+
+| 逻辑细胞 | 需要的环境场 | 世界模块 |
+|----------|--------------|----------|
+| `LOG-RES` 呼吸 | `[AIR]` 大气 scalar ≥ 阈值 | `air.js`、W6 环境栈 |
+| `LOG-SEN-TM` 温度感 | 日相 solar + 大气 + 季相 + 地热 | `diurnal`、`air`、`seasonal`、`vent` |
+| `LOG-DIG` 摄取 | 基底场 / 基质 `substrate` | `substrate.js` |
+| `LOG-SEN-OL` 嗅觉 | 基质挥发 / SYM | `substrate`、`sym` |
+
+实现：`src/world/env-cell-coupling.js` — `sampleOrganismEnv`、`envAllowsLogicCode`；`[CEL-LOG]` 附带 `envCoupling` 快照。
+
+**分化门控**：`LOG-RES` 仅在 `hasBreathableAir` 时可从 STEM DIFF；无空气时已有呼吸细胞记 `[ENV-GATE] AIR`。
 
 ---
 
@@ -66,8 +82,8 @@ being（1 身份证）
 
 | 观察者类比 | 逻辑细胞 | 结构出口 | 输入源 | 分化窗主 | 观察通道 |
 |------------|----------|----------|--------|----------|----------|
-| **皮肤·触觉** | `LOG-SEN-TH` | `STR-SKN` | 接触/场压/Contest | EMB 末→JUV | `[SEN] kind:th` |
-| **皮肤·温度** | `LOG-SEN-TM` | `STR-SKN` | `air`/日相/地热 | EMB 末→JUV | `[SEN] kind:tm` |
+| **皮肤·触觉** | `LOG-SEN-TH` | `STR-SKN` | 接触/场压/Contest | JUV | `[SEN] kind:th` |
+| **皮肤·温度** | `LOG-SEN-TM` | `STR-SKN` | 日相+AIR+季相+VTN 温度代理 | JUV | `[SEN] kind:tm` |
 | **嘴·味觉** | `LOG-SEN-GU` | `STR-ORAL` | 摄取基质量/化学标量 | JUV | `[SEN] kind:gu` |
 | **眼·视觉** | `LOG-SEN-VS` | `STR-VIS` | 场通量/信号视觉负载 | JUV | `[SEN] kind:vs` |
 | **耳·听觉** | `LOG-SEN-AU` | `STR-AUD` | 其他个体 `[TX]`/场脉冲 | JUV | `[SEN] kind:au` |

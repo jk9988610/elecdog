@@ -10,7 +10,6 @@ export const STEM_CELL_CODE = 'STEM';
 export const STEM_CELL_MAX = 12;
 
 export const LIFE_STAGE_GEST = 'GEST';
-export const LIFE_STAGE_EMB = 'EMB';
 export const LIFE_STAGE_JUV = 'JUV';
 export const LIFE_STAGE_ADT = 'ADT';
 
@@ -34,14 +33,14 @@ export const LOGIC_CELL_TYPES = [
     analogy: '消化细胞',
     roles: ['draw', 'metabolism'],
     max: LOGIC_CELL_MAX_PER_TYPE,
-    diffStages: [LIFE_STAGE_EMB, LIFE_STAGE_JUV],
+    diffStages: [LIFE_STAGE_GEST, LIFE_STAGE_JUV],
   },
   {
     code: 'LOG-NRV',
     analogy: '神经细胞',
     roles: ['intra', 'signal-internal'],
     max: LOGIC_CELL_MAX_PER_TYPE,
-    diffStages: [LIFE_STAGE_EMB, LIFE_STAGE_JUV],
+    diffStages: [LIFE_STAGE_GEST, LIFE_STAGE_JUV],
   },
   {
     code: 'LOG-LNG',
@@ -69,28 +68,28 @@ export const LOGIC_CELL_TYPES = [
     analogy: '营养运输细胞',
     roles: ['intra', 'nutrient-route'],
     max: LOGIC_CELL_MAX_PER_TYPE,
-    diffStages: [LIFE_STAGE_EMB, LIFE_STAGE_JUV],
+    diffStages: [LIFE_STAGE_GEST, LIFE_STAGE_JUV],
   },
   {
     code: 'LOG-TRP',
     analogy: '氧与质运输细胞',
     roles: ['transport', 'oxygen'],
     max: LOGIC_CELL_MAX_PER_TYPE,
-    diffStages: [LIFE_STAGE_EMB, LIFE_STAGE_JUV],
+    diffStages: [LIFE_STAGE_GEST, LIFE_STAGE_JUV],
   },
   {
     code: 'LOG-RES',
     analogy: '呼吸细胞',
     roles: ['air', 'respiration'],
     max: LOGIC_CELL_MAX_PER_TYPE,
-    diffStages: [LIFE_STAGE_EMB, LIFE_STAGE_JUV],
+    diffStages: [LIFE_STAGE_GEST, LIFE_STAGE_JUV],
   },
   {
     code: 'LOG-BAR',
     analogy: '屏障连接细胞',
     roles: ['barrier', 'boundary'],
     max: LOGIC_CELL_MAX_PER_TYPE,
-    diffStages: [LIFE_STAGE_EMB, LIFE_STAGE_GEST],
+    diffStages: [LIFE_STAGE_GEST],
   },
   {
     code: 'LOG-CLR',

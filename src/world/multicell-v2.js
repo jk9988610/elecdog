@@ -9,17 +9,20 @@ import {
   STEM_CELL_CODE,
   STEM_CELL_MAX,
   LIFE_STAGE_GEST,
-  LIFE_STAGE_EMB,
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
   initialStemCellCount,
   typesDifferentiableInStage,
   logicCellTypeByCode,
 } from './logic-cell-types.js';
+import {
+  envAllowsLogicCode,
+  envGateLabel,
+  sampleOrganismEnv,
+} from './env-cell-coupling.js';
 
 export {
   LIFE_STAGE_GEST,
-  LIFE_STAGE_EMB,
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
 } from './logic-cell-types.js';
@@ -56,7 +59,8 @@ export function initMulticellV2(being, profile) {
     code: STEM_CELL_CODE,
     atTick: 0,
   }));
-  being.devStage = being.syncyte ? LIFE_STAGE_GEST : LIFE_STAGE_EMB;
+  // 宫内 GEST（载体合胞）；排出/诞生后直接进入婴幼儿 JUV（无体外胚胎窗）
+  being.devStage = being.syncyte ? LIFE_STAGE_GEST : LIFE_STAGE_JUV;
   being.lifeStage = LIFE_STAGE_JUV;
   being.adultAtTick = null;
   being.juvMitTicks = 0;
@@ -66,7 +70,10 @@ export function initMulticellV2(being, profile) {
   return being.logicCells;
 }
 
-/** 发育阶段 GEST / EMB / JUV / ADT（与 mei 用的 lifeStage JUV/ADT 并存） */
+/**
+ * 发育阶段：GEST（宫内）→ JUV（排出后幼体）→ ADT（成体）
+ * 不存在「体外胚胎」独立窗：胚胎在宫内完成，出生即幼体。
+ */
 export function resolveDevStage(being, world, profile) {
   if (!multicellV2Enabled(profile)) return being.devStage ?? LIFE_STAGE_ADT;
 
@@ -75,14 +82,9 @@ export function resolveDevStage(being, world, profile) {
     return LIFE_STAGE_GEST;
   }
 
-  const embryonicTicks = profile?.embryonicTicks ?? 48;
   const juvenileTicks = profile?.juvenileTicks ?? 96;
   const tick = being.tickCount ?? 0;
 
-  if (tick < embryonicTicks) {
-    being.devStage = LIFE_STAGE_EMB;
-    return LIFE_STAGE_EMB;
-  }
   if (tick < juvenileTicks) {
     being.devStage = LIFE_STAGE_JUV;
     return LIFE_STAGE_JUV;
@@ -119,7 +121,7 @@ export function meiAllowedForBeing(being, world, profile) {
 export function juvenileMitBoost(being, world, profile) {
   if (!multicellV2Enabled(profile)) return 0;
   const stage = resolveDevStage(being, world, profile);
-  if (stage === LIFE_STAGE_GEST || stage === LIFE_STAGE_EMB) {
+  if (stage === LIFE_STAGE_GEST) {
     return profile?.juvenileFissBoost ?? 0.12;
   }
   if (stage === LIFE_STAGE_JUV) return (profile?.juvenileFissBoost ?? 0.12) * 0.65;
@@ -165,13 +167,13 @@ function diffPositionLabel(being) {
   return 'core';
 }
 
-function pickDiffTarget(being, stage, rng) {
+function pickDiffTarget(being, world, profile, stage, rng) {
   const allowed = typesDifferentiableInStage(stage);
   if (!allowed.length) return null;
 
   const posIdx = (being.intraTick ?? 0) % 3;
   const preference =
-    stage === LIFE_STAGE_EMB || stage === LIFE_STAGE_GEST
+    stage === LIFE_STAGE_GEST
       ? ['LOG-BAR', 'LOG-RES', 'LOG-NTR', 'LOG-TRP', 'LOG-DIG', 'LOG-NRV']
       : stage === LIFE_STAGE_JUV
         ? ['LOG-DIG', 'LOG-MOT', 'LOG-NRV', 'LOG-BRN', 'LOG-LNG', 'LOG-STR', 'LOG-CLR']
@@ -181,17 +183,20 @@ function pickDiffTarget(being, stage, rng) {
   const roleHint =
     posIdx === 0 ? 'LOG-DIG' : posIdx === 1 ? 'LOG-MOT' : 'LOG-NRV';
 
-  if (allowedSet.has(roleHint) && (being.logicCells?.[roleHint]?.length ?? 0) < LOGIC_CELL_MAX_PER_TYPE) {
-    if (rng() < 0.55) return roleHint;
+  const envOk = (code) =>
+    envAllowsLogicCode(world, profile, code) &&
+    (being.logicCells?.[code]?.length ?? 0) < LOGIC_CELL_MAX_PER_TYPE;
+
+  if (allowedSet.has(roleHint) && envOk(roleHint) && rng() < 0.55) {
+    return roleHint;
   }
 
   for (const code of preference) {
-    if (!allowedSet.has(code)) continue;
-    const n = being.logicCells?.[code]?.length ?? 0;
-    if (n < LOGIC_CELL_MAX_PER_TYPE) return code;
+    if (!allowedSet.has(code) || !envOk(code)) continue;
+    return code;
   }
 
-  const fallback = allowed.find((t) => (being.logicCells?.[t.code]?.length ?? 0) < t.max);
+  const fallback = allowed.find((t) => envOk(t.code));
   return fallback?.code ?? null;
 }
 
@@ -226,14 +231,14 @@ function tryStemMitosis(being, profile, rng) {
   return { parentId: parent.id, daughterId: daughter.id, code: STEM_CELL_CODE, sameType: true };
 }
 
-function trySameTypeMitosis(being, profile, rng) {
-  const codes = LOGIC_CELL_TYPES.map((t) => t.code).filter(
-    (code) => (being.logicCells?.[code]?.length ?? 0) > 0
-  );
+function trySameTypeMitosis(being, world, profile, rng) {
+  const codes = LOGIC_CELL_TYPES.map((t) => t.code).filter((code) => {
+    const n = being.logicCells?.[code]?.length ?? 0;
+    return n > 0 && n < LOGIC_CELL_MAX_PER_TYPE && envAllowsLogicCode(world, profile, code);
+  });
   if (!codes.length) return null;
   const code = codes[Math.floor(rng() * codes.length)];
   const cells = being.logicCells[code];
-  if (cells.length >= LOGIC_CELL_MAX_PER_TYPE) return null;
   const parent = cells[Math.floor(rng() * cells.length)];
   const daughter = addLogicCell(being, code, being.tickCount ?? 0);
   if (!daughter) return null;
@@ -241,7 +246,7 @@ function trySameTypeMitosis(being, profile, rng) {
 }
 
 function tryDifferentiation(being, world, profile, stage, rng) {
-  const target = pickDiffTarget(being, stage, rng);
+  const target = pickDiffTarget(being, world, profile, stage, rng);
   if (!target) return null;
   const stem = consumeStem(being);
   if (!stem) return null;
@@ -262,7 +267,7 @@ function tryDifferentiation(being, world, profile, stage, rng) {
 
 function mitProbability(stage, profile, boost) {
   const base =
-    stage === LIFE_STAGE_GEST || stage === LIFE_STAGE_EMB
+    stage === LIFE_STAGE_GEST
       ? 0.14
       : stage === LIFE_STAGE_JUV
         ? 0.07
@@ -271,10 +276,23 @@ function mitProbability(stage, profile, boost) {
 }
 
 function diffProbability(stage, profile) {
-  if (stage === LIFE_STAGE_GEST || stage === LIFE_STAGE_EMB) return 0.12;
+  if (stage === LIFE_STAGE_GEST) return 0.12;
   if (stage === LIFE_STAGE_JUV) return 0.08;
   if (stage === LIFE_STAGE_ADT) return 0.05;
   return 0;
+}
+
+function recordEnvGateIfNeeded(world, recorder, being, profile) {
+  const env = sampleOrganismEnv(world, profile);
+  const resN = being.logicCells?.['LOG-RES']?.length ?? 0;
+  if (resN > 0 && !env.hasBreathableAir) {
+    recorder.evolution(
+      world.tick,
+      being.id,
+      `[ENV-GATE] RES×${resN} need AIR scalar≥${profile.cellCoupleMinAir ?? 0.08} got ${env.airScalar}`,
+      { kind: 'ENV-GATE', gate: 'AIR', code: 'LOG-RES', count: resN, env }
+    );
+  }
 }
 
 export function recordLogicCellSnapshot(world, recorder, being) {
@@ -283,6 +301,7 @@ export function recordLogicCellSnapshot(world, recorder, being) {
     .map((t) => `${t.code}:${counts[t.code] ?? 0}`)
     .join(' ');
   const stem = counts[STEM_CELL_CODE] ?? 0;
+  const env = sampleOrganismEnv(world, world.envProfile ?? {});
   recorder.cell(
     world.tick,
     being.id,
@@ -292,6 +311,12 @@ export function recordLogicCellSnapshot(world, recorder, being) {
       devStage: being.devStage,
       counts,
       totalLogic: totalLogicCells(being),
+      envCoupling: {
+        air: env.hasBreathableAir,
+        temp: env.hasWarmthField,
+        airScalar: env.airScalar,
+        tempScalar: env.tempScalar,
+      },
     }
   );
 }
@@ -312,13 +337,13 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
     if (rng() < pMit) {
       const mit =
         stage === LIFE_STAGE_ADT
-          ? trySameTypeMitosis(being, profile, rng)
+          ? trySameTypeMitosis(being, world, profile, rng)
           : rng() < 0.72
             ? tryStemMitosis(being, profile, rng)
-            : trySameTypeMitosis(being, profile, rng);
+            : trySameTypeMitosis(being, world, profile, rng);
       if (mit) {
         being.lastMitTick = world.tick;
-        if (stage === LIFE_STAGE_JUV || stage === LIFE_STAGE_EMB) being.juvMitTicks++;
+        if (stage === LIFE_STAGE_JUV || stage === LIFE_STAGE_GEST) being.juvMitTicks++;
         recorder.evolution(
           world.tick,
           being.id,
@@ -338,10 +363,11 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
       if (diff) {
         being.lastDiffTick = world.tick;
         being.juvDiffTicks++;
+        const gate = envGateLabel(diff.to);
         recorder.evolution(
           world.tick,
           being.id,
-          `[DIFF] ${diff.stage} ${diff.from}→${diff.to} ${diff.pos}`,
+          `[DIFF] ${diff.stage} ${diff.from}→${diff.to} ${diff.pos}${gate ? ` env:${gate}` : ''}`,
           { kind: 'DIFF', ...diff }
         );
         events.push({ type: 'DIFF', ...diff });
@@ -351,6 +377,7 @@ export function tickMulticellDevelopment(world, recorder, being, profile) {
 
   if (world.tick > 0 && world.tick % (profile?.celLogInterval ?? 32) === 0) {
     recordLogicCellSnapshot(world, recorder, being);
+    recordEnvGateIfNeeded(world, recorder, being, profile);
   }
 
   return events.length ? events : null;
