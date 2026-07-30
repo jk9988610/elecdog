@@ -189,7 +189,9 @@ function maybeActLine(being, stress, lowStreak, experienceBias) {
   const actBoost = experienceBias?.actBoost ?? 0;
   const thresholdDelta = experienceBias?.thresholdDelta ?? 0;
   const threshold = Math.max(0.22, Math.min(0.95, externalThreshold(stress, lowStreak) + thresholdDelta));
-  if (!preferAct(stress, lowStreak) || being.rng() > threshold - 0.08) return null;
+  const actRoll = Math.max(0.12, 0.32 - actBoost);
+  if (!preferAct(stress, lowStreak) && being.rng() > actRoll) return null;
+  if (being.rng() > threshold - 0.08 + actBoost * 0.5) return null;
   const op = toHexByte(being.registers[Math.floor(being.rng() * being.registers.length)] * 255);
   const payload = toHexByte(being.rng() * 255);
   const chk = toHexByte(being.rng() * 255);

@@ -164,6 +164,8 @@ pinSharedChannels(morphA, STR_PAIR_OUT, 7);
 pinSharedChannels(morphB, STR_PAIR_IN, 7);
 assert(morphA.bodyStructures?.[STR_PAIR_OUT]?.open, 'STR-PAIR-OUT 成体 A');
 assert(morphB.bodyStructures?.[STR_PAIR_IN]?.open, 'STR-PAIR-IN 成体 B');
+assert(morphA.bodyStructures?.[STR_PAIR_OUT]?.subRole === 'act', 'STR-PAIR-OUT 绑 act 子单元');
+assert(morphB.bodyStructures?.[STR_PAIR_IN]?.subRole === 'draw', 'STR-PAIR-IN 绑 draw 子单元');
 const fit = assessPairStructureFit(morphA, morphB, wS.envProfile);
 assert(fit.fit, `PAIR 结构匹配 overlap=${fit.overlap}`);
 
@@ -205,5 +207,17 @@ assert(reg.length > 0, `[REG] 全身调节摘要（${reg.length}）`);
 assert(world.beings.every((b) => b.dnaExpress?.hormoneBaseline?.h0 != null), 'dnaExpress 挂接');
 assert(world.beings.every((b) => b.dnaExpress?.sense?.th?.minLoad != null), 'Z5 感官 profile');
 
+// MV2 — 器官通路：分化细胞挂接 subCell / TX / ACT
+const motCell = world.beings
+  .flatMap((b) => b.logicCells?.['LOG-MOT'] ?? [])
+  .find((c) => c.pathway === 'act' && c.subCellId);
+assert(motCell, 'LOG-MOT 挂接 act 通路 subCellId');
+const digCell = world.beings
+  .flatMap((b) => b.logicCells?.['LOG-DIG'] ?? [])
+  .find((c) => c.pathway === 'draw' && c.subCellId);
+assert(digCell, 'LOG-DIG 挂接 draw 通路 subCellId');
+const pathLog = recorder.entries.filter((e) => e.meta?.kind === 'PATH');
+assert(pathLog.length > 0, `[PATH] 器官通路摘要（${pathLog.length}）`);
+
 if (failed) process.exit(1);
-console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV5/MV6/MV7/MV8 验证通过');
+console.log('\n✓ 多细胞 v2 MV1a/MV1b/MV2/MV5/MV6/MV7/MV8 验证通过');

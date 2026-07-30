@@ -24,6 +24,7 @@ import { initAdultMatingStructures } from './body-structures.js';
 import { onSenseCellDifferentiated, SENSE_TYPES } from './senses.js';
 import { initHormoneVec, hormoneActivityMult } from './hormone-system.js';
 import { attachDnaExpression } from '../genetics/dna-express.js';
+import { attachOrganPathway, ensureOrganPathways } from './organ-pathway.js';
 
 export {
   LIFE_STAGE_GEST,
@@ -197,6 +198,8 @@ function pickDiffTarget(being, world, profile, stage, rng) {
             'LOG-SEN-OL',
             'LOG-BRN',
             'LOG-LNG',
+            'LOG-SIG-TX',
+            'LOG-SIG-RX',
             'LOG-STR',
             'LOG-CLR',
           ]
@@ -240,6 +243,7 @@ function addLogicCell(being, code, atTick) {
     code,
     atTick,
   };
+  attachOrganPathway(being, cell, code);
   cells.push(cell);
   return cell;
 }
@@ -385,6 +389,7 @@ export function recordLogicCellSnapshot(world, recorder, being) {
 export function tickMulticellDevelopment(world, recorder, being, profile) {
   if (!multicellV2Enabled(profile) || !being.alive) return null;
 
+  ensureOrganPathways(being);
   const stage = resolveDevStage(being, world, profile);
   resolveLifeStage(being, world, profile);
   const rng = mulberry32(hashString(`${being.id}:${world.tick}:mv-dev`));
