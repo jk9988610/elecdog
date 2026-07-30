@@ -10,20 +10,20 @@
 
 ---
 
-## 当前进度（Phase 106–119）
+## 当前进度（Phase 106–120）
 
 | Phase | 内容 |
 |-------|------|
-| 118 | GAP-13 多批次因果 weak 4/7 |
-| 119 | 8192 tick 长时稳健性 + fieldTurboMode |
+| 119 | 8192 tick 长时 + fieldTurboMode |
+| 120 | 观察台导入 8192 长时留置快照 |
 
 ---
 
 ## 验证
 
 ```bash
+npm run observer:carry-longfield
 npm run field:phase119
-npm run field:phase117
 ```
 
 ---

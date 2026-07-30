@@ -407,7 +407,8 @@
 
 - **扩展**：田野报告 `carrySnapshots` → 观察台「导入留置」面板 → `spawnCarriedBeing`
 - **Phase 114**：按 run 混编批次（≤2 carry + naive）
-- **验证**：`npm run observer:carry-import` · `npm run observer:carry-batch`
+- **Phase 120**：8192 tick 长时报告可解析（无 treatmentIds 依赖）+ 链深 ≥5 验证
+- **验证**：`npm run observer:carry-import` · `npm run observer:carry-batch` · `npm run observer:carry-longfield`
 - **状态**：**部分结案** — 田野–观察台闭环可导入
 - **文档**：[PHASE111_CARRY_IMPORT.md](PHASE111_CARRY_IMPORT.md) · [PHASE114_CARRY_BATCH_IMPORT.md](PHASE114_CARRY_BATCH_IMPORT.md)
 
