@@ -2957,6 +2957,35 @@ export const PHASE124_TREATMENTS = {
   },
 };
 
+/** Phase 125 — GAP-PAIR-1 半态排入环境场 */
+export const PHASE125_TREATMENTS = {
+  ev125_pair_field: {
+    id: 'ev125_pair_field',
+    label: 'PAIR-1·半态排入场',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: true,
+    pairFieldHalfMaxAge: 96,
+  },
+  ev125_pair_body: {
+    id: 'ev125_pair_body',
+    label: 'PAIR-0·体内直连对照',
+    ...PAIR_REPRO_MIN_BASE,
+    pairHalfRelease: false,
+  },
+  ev125_pair_ctrl_fiss: {
+    id: 'ev125_pair_ctrl_fiss',
+    label: '对照·克隆FISS',
+    ...PAIR_REPRO_MIN_BASE,
+    pairReproEnabled: false,
+    pairFusInBody: false,
+    pairHalfRelease: false,
+    fissionEnabled: true,
+    ecoFissEnabled: true,
+    meiEnabled: false,
+    reproMode: 'instant',
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3867,6 +3896,18 @@ export function applyPhase124Treatment(world, treatmentId) {
   const base = applyEnvProfile(world, envId);
   world.envProfile = { ...base, ...treatment, envId };
   world.fieldStudy = { phase: 124, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase125Treatment(world, treatmentId) {
+  const treatment = PHASE125_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase125 处理组: ${treatmentId}`);
+  }
+  const envId = treatment.envId ?? 'fertile_field';
+  const base = applyEnvProfile(world, envId);
+  world.envProfile = { ...base, ...treatment, envId };
+  world.fieldStudy = { phase: 125, treatmentId, ...treatment };
   return world.envProfile;
 }
 
