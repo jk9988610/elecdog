@@ -106,7 +106,11 @@ assert(translateSrc.includes('sem-domain'), '翻译引用 sem-domain');
 
 const panelSrc = readFileSync(new URL('../src/ui/sem-signal-stream.js', import.meta.url), 'utf8');
 assert(panelSrc.includes('sem-signal-panel'), '信号类比面板已定义');
-assert(panelSrc.includes('非辞典'), '面板标注非辞典');
+const analogySrc = readFileSync(new URL('../src/ui/analogy.js', import.meta.url), 'utf8');
+assert(
+  analogySrc.includes('semSignalDigest') && analogySrc.includes('摘要'),
+  '类比标签含语义摘要'
+);
 
 const observerSrc = readFileSync(new URL('../src/ui/observer.js', import.meta.url), 'utf8');
 assert(observerSrc.includes('initSemSignalStreamPanel'), '观察台已挂载信号类比面板');
