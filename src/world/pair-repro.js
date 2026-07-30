@@ -10,6 +10,7 @@ import { applyEhuLineageEcho } from './electronic-human-profile.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
+import { getSubCellByRole } from './organism.js';
 
 function substrateAvg(world) {
   const ch = world.substrate?.channels;
@@ -33,6 +34,11 @@ export function pairHalfReleaseEnabled(profile) {
 /** PAIR-2：排入场前须 [PRQ]/[PGR] 许可握手 */
 export function pairHandshakeEnabled(profile) {
   return pairHalfReleaseEnabled(profile) && profile?.pairHandshake === true;
+}
+
+/** PAIR-3：半态排出/接受绑定 subCell 与 r_k / e_k */
+export function pairChannelBindEnabled(profile) {
+  return pairHalfReleaseEnabled(profile) && profile?.pairChannelBind === true;
 }
 
 export function ensurePairRequests(world) {
@@ -60,6 +66,69 @@ export function pairGateOpen(being, world) {
   return pairGateH(being, world) > (profile.pairGateMin ?? 0.08);
 }
 
+function resolveReleaseChannelMeta(being, profile) {
+  if (!pairChannelBindEnabled(profile)) return null;
+  const role = profile.pairReleaseSubRole ?? 'act';
+  const sub = getSubCellByRole(being, role) ?? being.subCells?.[0];
+  if (!sub?.channels?.length) return null;
+  const channelIdx = sub.channels.reduce(
+    (best, ch) => ((being.registers[ch] ?? 0) > (being.registers[best] ?? 0) ? ch : best),
+    sub.channels[0]
+  );
+  return {
+    subCellId: sub.id,
+    subRole: sub.role,
+    channelIdx,
+    channels: [...sub.channels],
+  };
+}
+
+function resolveAcceptSubCell(being, profile) {
+  const role = profile.pairAcceptSubRole ?? 'draw';
+  return getSubCellByRole(being, role) ?? being.subCells?.[0] ?? null;
+}
+
+/** MEI/DCK 后附加 subCell·通道元数据（PAIR-3） */
+export function annotatePairHalfMetadata(being, profile) {
+  const meta = resolveReleaseChannelMeta(being, profile);
+  if (!meta) return null;
+  if (being.meiPacket) Object.assign(being.meiPacket, meta);
+  if (being.dockedHalf) Object.assign(being.dockedHalf, meta);
+  return meta;
+}
+
+function channelAffinity(half, being, profile) {
+  const acceptSub = resolveAcceptSubCell(being, profile);
+  if (!half?.channels?.length || !acceptSub?.channels?.length) return 0;
+  return half.channels.filter((ch) => acceptSub.channels.includes(ch)).length;
+}
+
+/** PAIR-3：接受方须在绑定通道上满足 r_k / e_k 阈值 */
+export function pairChannelAcceptOpen(being, world, half, profile = world.envProfile ?? {}) {
+  if (!pairChannelBindEnabled(profile)) return pairGateOpen(being, world);
+  if (!pairGateOpen(being, world)) return false;
+
+  const acceptSub = resolveAcceptSubCell(being, profile);
+  const rMin = profile.pairAcceptRMin ?? 0.08;
+  const eMin = profile.pairAcceptEMin ?? 0.06;
+
+  const candidateChannels = new Set();
+  if (half?.channelIdx != null) candidateChannels.add(half.channelIdx);
+  for (const ch of half?.channels ?? []) {
+    if (!acceptSub || acceptSub.channels.includes(ch)) candidateChannels.add(ch);
+  }
+  if (!candidateChannels.size && acceptSub?.channels?.length) {
+    for (const ch of acceptSub.channels) candidateChannels.add(ch);
+  }
+
+  for (const ch of candidateChannels) {
+    const rK = being.registers[ch] ?? 0;
+    const eK = world.substrate?.channels?.[ch] ?? 0;
+    if (rK > rMin && eK > eMin) return true;
+  }
+  return false;
+}
+
 /** 出生时为形态 B 预置驻留半态（singleton） */
 export function initDockedHalf(world, being) {
   const profile = world.envProfile ?? {};
@@ -67,6 +136,7 @@ export function initDockedHalf(world, being) {
   if (being.dockedHalf) return being.dockedHalf;
   const seed = hashString(`${being.id}:${world.tick}:dock-init`);
   being.dockedHalf = { seq: reduceDna(being.dna.sequence, seed), atTick: world.tick, init: true };
+  annotatePairHalfMetadata(being, profile);
   return being.dockedHalf;
 }
 
@@ -97,6 +167,7 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
   being.dockedHalf = { seq, atTick: world.tick };
   being.lastDockTick = world.tick;
   being.dockCount = (being.dockCount ?? 0) + 1;
+  annotatePairHalfMetadata(being, profile);
 
   recorder.evolution(world.tick, being.id, `[DCK] half len ${seq.length}`, {
     kind: 'DCK',
@@ -206,6 +277,14 @@ export function releaseFieldHalves(world, recorder) {
     if (handshake && !hasValidPairGrant(world, a)) continue;
 
     world.fieldHalves = world.fieldHalves.filter((h) => h.fromId !== a.id);
+    const chMeta = pairChannelBindEnabled(profile)
+      ? {
+          subCellId: a.meiPacket.subCellId,
+          subRole: a.meiPacket.subRole,
+          channelIdx: a.meiPacket.channelIdx,
+          channels: a.meiPacket.channels ? [...a.meiPacket.channels] : undefined,
+        }
+      : {};
     const half = {
       id: `${a.id}:${world.tick}`,
       seq: a.meiPacket.seq,
@@ -214,16 +293,20 @@ export function releaseFieldHalves(world, recorder) {
       grantFrom: a.pairGrantFrom ?? null,
       atTick: world.tick,
       expireTick: world.tick + maxAge,
+      ...chMeta,
     };
     world.fieldHalves.push(half);
     a.meiPacket = null;
     a.pairGrantFrom = null;
     a.fieldReleaseCount = (a.fieldReleaseCount ?? 0) + 1;
-    recorder.evolution(world.tick, a.id, `[FLD] release len ${half.seq.length}`, {
-      kind: 'FLD',
+    const fldKind = chMeta.channelIdx != null ? 'FLD-CH' : 'FLD';
+    recorder.evolution(world.tick, a.id, `[${fldKind}] release len ${half.seq.length} e${chMeta.channelIdx ?? '?'}`, {
+      kind: fldKind,
       packetLen: half.seq.length,
       expireTick: half.expireTick,
       grantFrom: half.grantFrom,
+      channelIdx: chMeta.channelIdx ?? null,
+      subCellId: chMeta.subCellId ?? null,
     });
     events.push(half);
   }
@@ -255,13 +338,16 @@ export function processPairFusFromField(world, recorder) {
   const usedB = new Set();
 
   for (const b of morphB) {
-    if (usedB.has(b.id) || !pairGateOpen(b, world)) continue;
+    if (usedB.has(b.id)) continue;
     const candidates = world.fieldHalves
-      .filter((h) => !usedHalves.has(h.id))
+      .filter((h) => !usedHalves.has(h.id) && pairChannelAcceptOpen(b, world, h, profile))
       .sort((x, y) => {
-        const ax = { socialSlot: x.socialSlot };
-        const ay = { socialSlot: y.socialSlot };
-        return slotDistance(ax, b) - slotDistance(ay, b);
+        const slotD = slotDistance({ socialSlot: x.socialSlot }, b) - slotDistance({ socialSlot: y.socialSlot }, b);
+        if (slotD !== 0) return slotD;
+        if (pairChannelBindEnabled(profile)) {
+          return channelAffinity(y, b, profile) - channelAffinity(x, b, profile);
+        }
+        return 0;
       });
     if (!candidates.length) continue;
 
@@ -271,12 +357,15 @@ export function processPairFusFromField(world, recorder) {
     usedHalves.add(half.id);
     usedB.add(b.id);
     b.fieldPickupCount = (b.fieldPickupCount ?? 0) + 1;
-    recorder.evolution(world.tick, b.id, `[FLD-IN] ${half.fromId} → syncyte`, {
-      kind: 'FLD-IN',
+    const inKind = half.channelIdx != null ? 'FLD-CH-IN' : 'FLD-IN';
+    recorder.evolution(world.tick, b.id, `[${inKind}] ${half.fromId} → syncyte e${half.channelIdx ?? '?'}`, {
+      kind: inKind,
       fromId: half.fromId,
       halfId: half.id,
+      channelIdx: half.channelIdx ?? null,
+      subCellId: half.subCellId ?? null,
     });
-    events.push({ type: 'FLD-IN', aId: half.fromId, bId: b.id, halfId: half.id });
+    events.push({ type: inKind, aId: half.fromId, bId: b.id, halfId: half.id, channelIdx: half.channelIdx });
   }
 
   world.fieldHalves = world.fieldHalves.filter((h) => !usedHalves.has(h.id));
