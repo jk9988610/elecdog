@@ -811,4 +811,14 @@
   - 类比呈现标注「非辞典 · 非语言定义」；**未写入 CODEX**
 - **备注**：`npm run observer:sem-stack`
 
+## OBS-20260729-102
+
+- **世界**：辞典（Phase 105 · WL5 CODEX 确认）
+- **环境**：`docs/CODEX.md`
+- **事实**：
+  - 观察者确认写入 CODEX 第 32 条「载荷共现迹」
+  - 依据 OBS-99 + OBS-100；禁止地球式「语言/对话」条名
+  - GAP-W06 **部分结案**
+- **备注**：`docs/gap-w06-sem-codex-report.json` · `npm run gap-w06:sem:codex`
+
 ---

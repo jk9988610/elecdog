@@ -33,7 +33,7 @@ WL3  Phase 103  与 W4 社会知识正交对照          ✅ weak（640 tick）
         ↓
 WL4  Phase 104  观察台类比 UI                  ✅ 已交付
         ↓
-WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 立项就绪，待确认
+WL5  Phase 105   CODEX「载荷共现迹」第 32 条          ✅ 已确认
 ```
 
 ### WL0 · 记录层（Phase 100）
@@ -82,12 +82,12 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 立项就绪，待确�
 | 验证 | `npm run observer:sem-stack` |
 | 文档 | [PHASE104_SEM_STACK_UI.md](PHASE104_SEM_STACK_UI.md) |
 
-### WL5 · CODEX 归纳（Phase 105，立项就绪）
+### WL5 · CODEX 归纳（Phase 105）✅
 
 | 项 | 内容 |
 |----|------|
-| 门槛 | ≥2 OBS ✅ · **待您确认**写入 CODEX |
-| 候选条 | **载荷共现迹**（非「语言/对话」条名） |
+| CODEX | **载荷共现迹**（第 32 条） |
+| 依据 | OBS-99 + OBS-100；OBS-102 确认立项 |
 | 验证 | `npm run gap-w06:sem:codex` |
 | 文档 | [PHASE105_SEM_CODEX.md](PHASE105_SEM_CODEX.md) |
 
@@ -97,7 +97,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 立项就绪，待确�
 
 | ID | 名称 | Phase | 状态 |
 |----|------|-------|------|
-| GAP-W06 | 信号约定/文化层 | 100–105 | WL0–WL4 已交付 |
+| GAP-W06 | 信号约定/文化层 | 100–105 | ✅ WL0–WL5 已交付 |
 
 ---
 
@@ -105,7 +105,7 @@ WL5  Phase 105+ CODEX 归纳（≥2 OBS）           ← 立项就绪，待确�
 
 ```
 观察 TX/RX 链 → OBS
-  → WL0–WL3 ✅ → WL4 UI ✅ → WL5 CODEX（待确认）
+  → WL0–WL5 ✅ 智慧语言栈里程碑完成
 ```
 
 每步：**实现 → 田野 → 文档 → PR → 合并 → HANDOFF 指向下一步**。

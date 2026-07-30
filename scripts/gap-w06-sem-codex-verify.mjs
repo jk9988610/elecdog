@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 /**
- * Phase 105 — GAP-W06 [SEM] 载荷共现迹 CODEX 立项就绪验证
+ * Phase 105 — GAP-W06 [SEM] 载荷共现迹 CODEX 立项验证
  */
 import { existsSync, readFileSync, writeFileSync } from 'fs';
 
@@ -36,7 +36,7 @@ const v103 = field103.batchVerdict?.verdict ?? 'unknown';
 const hasCodexEntry = codex.includes('## 载荷共现迹');
 const forbidden = ['智慧语言', '## 语言', '## 对话'].some((t) => codex.includes(t));
 
-const obsIds = ['OBS-20260729-99', 'OBS-20260729-100', 'OBS-20260729-101'];
+const obsIds = ['OBS-20260729-99', 'OBS-20260729-100', 'OBS-20260729-102'];
 for (const id of obsIds) {
   assert(obsLog.includes(`## ${id}`), `观察日志含 ${id}`);
 }
@@ -44,7 +44,7 @@ for (const id of obsIds) {
 assert(v100 === 'support', `Phase 100 田野 support（${v100}）`);
 assert(v103 === 'weak' || v103 === 'support', `Phase 103 田野 weak/support（${v103}）`);
 assert(!forbidden, 'CODEX 无禁止地球式语言条名');
-assert(!hasCodexEntry, 'CODEX 尚未写入载荷共现迹（待确认）');
+assert(hasCodexEntry, 'CODEX 已写入载荷共现迹');
 
 const review = {
   runAt: new Date().toISOString(),
@@ -53,10 +53,8 @@ const review = {
   fieldPhases: [100, 103],
   fieldVerdicts: { phase100: v100, phase103: v103 },
   codexEntry: hasCodexEntry ? '载荷共现迹' : null,
-  prerequisitesMet: v100 === 'support' && (v103 === 'weak' || v103 === 'support') && obsIds.every((id) => obsLog.includes(id)),
   codexReady: hasCodexEntry && v100 === 'support',
-  awaitingUserConfirm: !hasCodexEntry,
-  gapW06Status: 'partial_ready',
+  gapW06Status: 'partial_closed',
   obs: obsIds,
   roadmap: 'docs/PHASE105_SEM_CODEX.md',
 };
@@ -66,10 +64,10 @@ writeFileSync(
   JSON.stringify(review, null, 2)
 );
 
-console.log('\nGAP-W06 载荷共现迹 CODEX 立项就绪\n');
+console.log('\nGAP-W06 载荷共现迹 CODEX 立项\n');
 console.log(`Phase 100：${v100} · Phase 103：${v103}`);
-console.log(`CODEX 新条：${hasCodexEntry ? '载荷共现迹 ✓' : '待确认写入'}`);
-console.log(`立项前提：${review.prerequisitesMet ? '✓ 达标' : '✗ 未通过'}`);
+console.log(`CODEX 新条：${hasCodexEntry ? '载荷共现迹 ✓' : '缺失 ✗'}`);
+console.log(`立项就绪：${review.codexReady ? '✓ support' : '✗ 未通过'}`);
 console.log('\n报告已写入 docs/gap-w06-sem-codex-report.json');
 
-if (!review.prerequisitesMet || failed) process.exit(1);
+if (!review.codexReady || failed) process.exit(1);

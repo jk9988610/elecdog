@@ -1,5 +1,5 @@
 {
-  "runAt": "2026-07-30T03:00:49.193Z",
+  "runAt": "2026-07-30T10:10:06.381Z",
   "phase": 105,
   "extension": "gap_w06_sem_codex",
   "fieldPhases": [
@@ -10,15 +10,13 @@
     "phase100": "support",
     "phase103": "weak"
   },
-  "codexEntry": null,
-  "prerequisitesMet": true,
-  "codexReady": false,
-  "awaitingUserConfirm": true,
-  "gapW06Status": "partial_ready",
+  "codexEntry": "载荷共现迹",
+  "codexReady": true,
+  "gapW06Status": "partial_closed",
   "obs": [
     "OBS-20260729-99",
     "OBS-20260729-100",
-    "OBS-20260729-101"
+    "OBS-20260729-102"
   ],
   "roadmap": "docs/PHASE105_SEM_CODEX.md"
 }

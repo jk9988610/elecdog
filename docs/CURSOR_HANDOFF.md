@@ -1,6 +1,6 @@
 # Cursor 新对话交接
 
-> 更新：2026-07-30 · Phase 105 WL5 CODEX 立项就绪（待确认）
+> 更新：2026-07-30 · Phase 105 WL5 CODEX 已确认写入
 
 ---
 
@@ -8,20 +8,28 @@
 
 | 项 | 状态 |
 |----|------|
-| WL0–WL4 | ✅ 田野 + 观察台 UI |
-| WL5 Phase 105 | ⏳ CODEX「载荷共现迹」**立项就绪**，待您确认写入 |
-| 确认后 | 写入 CODEX 第 32 条 + GAP-W06 部分结案 |
+| WL0–WL5 | ✅ **智慧语言栈里程碑完成** |
+| CODEX | 第 32 条「载荷共现迹」 |
+| GAP-W06 | 部分结案 |
 
 ---
 
 ## 验证
 
 ```bash
-npm run gap-w06:sem:codex    # 立项前提（不写入 CODEX）
+npm run gap-w06:sem:codex    # CODEX 立项验证
 npm run observer:sem-stack   # 观察台 UI
 npm run field:phase103       # 640 tick 正交田野
 ```
 
-**请确认**：是否将草案「载荷共现迹」写入 `docs/CODEX.md`？
-
 `cursor/<descriptive-name>-a3f2`
+
+---
+
+## 下一步（开放）
+
+智慧语言 WL0–WL5 已闭环。可选深化方向（需新 OBS）：
+
+- WL1/WL2 weak → support 复核田野
+- SEM×SOC 交互效应（H5）长时田野
+- 新 GAP 或 WISDOM 主线任务
