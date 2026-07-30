@@ -10,7 +10,15 @@ import { applySocialKnowledgeInheritance } from './social-knowledge.js';
 import { applyMemLineageEcho } from './lineage-memory.js';
 import { applySemLineageEcho } from './sem-lineage.js';
 import { beingUsesEcoFiss } from './eco-repro.js';
-import { juvenileFissBoost } from './multicell-v2.js';
+import { juvenileFissBoost, multicellV2Enabled } from './multicell-v2.js';
+
+/** 种群层 FISS（诞生新 being）— 多细胞 v2 妊娠栈仅体内 MIT + 交配分娩 */
+export function populationFissionEnabled(profile) {
+  if (multicellV2Enabled(profile) && profile?.reproMode === 'gestation') {
+    return false;
+  }
+  return profile?.fissionEnabled === true;
+}
 
 export function dnaFissionParams(being) {
   const rng = mulberry32(hashString(`${being.dna.sequence}:${being.id}:fiss`));
@@ -30,7 +38,7 @@ export function substrateFertility(channels) {
 }
 
 export function fissionEnabled(profile) {
-  return profile?.fissionEnabled === true;
+  return populationFissionEnabled(profile);
 }
 
 /** 富足场 + 低场压 + 膜完整 + DNA 偏置 → 可分裂 */

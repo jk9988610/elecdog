@@ -20,6 +20,7 @@ import {
 } from '../src/world/logic-cell-types.js';
 import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
 import { getObserverEnvId } from '../src/ui/env-select.js';
+import { populationFissionEnabled } from '../src/world/fission.js';
 import {
   initGestationalUmbilical,
   UMB_STRUCTURE_CODE,
@@ -54,6 +55,8 @@ initEnvStackModules(world);
 const recorder = new Recorder();
 
 assert(world.envProfile?.multicellV2Enabled === true, 'multicell v2 启用');
+assert(world.envProfile?.fissionEnabled === false, '环境 fissionEnabled=false');
+assert(!populationFissionEnabled(world.envProfile), '妊娠栈禁止种群 FISS');
 
 for (let i = 0; i < 4; i++) {
   spawnBeing(world, recorder, {
@@ -80,6 +83,9 @@ const celLog = recorder.entries.filter((e) => e.channel === 'cell' && e.meta?.ki
 
 assert(mit.length > 0, `[MIT] 体内有丝（${mit.length}）`);
 assert(diff.length > 0, `[DIFF] 分化（${diff.length}）`);
+const fiss = recorder.entries.filter((e) => e.channel === 'evolution' && e.meta?.kind === 'FISS');
+assert(fiss.length === 0, `无种群 [FISS] 子代（${fiss.length}）`);
+assert(world.beings.length === 4, '种群数仍为初始 4（无 FISS 增员）');
 assert(celLog.length > 0, `[CEL] 逻辑计数迹（${celLog.length}）`);
 
 const juvMei = world.beings.some((b) => b.tickCount < 96 && b.meiCount > 0);
