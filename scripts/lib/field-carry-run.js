@@ -246,20 +246,25 @@ export function runFieldCarryScenario({
 
   let carries = carrySnapshots;
   let tickStats = { ticksCompleted: 0, deadlineHit: false, tickCapHit: false };
+  let sculptTicksRequested = null;
+  let sculptTicksCompleted = null;
 
   if (needsChain && !carries.length) {
+    const sculptTicksVal = profile.sculptTicks ?? FIELD_MED_TICKS;
+    sculptTicksRequested = sculptTicksVal;
     const sculpt = runSculptPass({
       createWorld,
       seed,
       phase,
       treatmentId,
       sculptEnvId: profile.sculptEnvId ?? 'harsh_combined',
-      sculptTicks: profile.sculptTicks ?? FIELD_MED_TICKS,
+      sculptTicks: sculptTicksVal,
       profile,
       deadline,
       maxTicksPerPass,
     });
     carries = sculpt.carries;
+    sculptTicksCompleted = sculpt.tickResult.ticksCompleted;
     tickStats = mergeTickStats(tickStats, sculpt.tickResult);
 
     if (!tickStats.deadlineHit && carries.length) {
@@ -308,6 +313,8 @@ export function runFieldCarryScenario({
     carryMode,
     deadlineHit: tickStats.deadlineHit,
     tickCapHit: tickStats.tickCapHit,
+    sculptTicks: sculptTicksRequested,
+    sculptTicksCompleted,
   });
 
   const durationMs = performance.now() - startedAt;
@@ -345,6 +352,8 @@ export function runFieldCarryScenario({
     })),
     cohortSize: cohortSpec.length,
     mixedTicks,
+    sculptTicks: sculptTicksRequested,
+    sculptTicksCompleted,
     ticksCompleted: tickStats.ticksCompleted,
     deadlineHit: tickStats.deadlineHit,
     tickCapHit: tickStats.tickCapHit,

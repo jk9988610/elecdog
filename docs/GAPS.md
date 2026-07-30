@@ -429,3 +429,13 @@
 - **文档**：[PHASE115_PENTA_CHAIN.md](PHASE115_PENTA_CHAIN.md) · [GOAL_DISTANCE.md](GOAL_DISTANCE.md)
 
 ---
+
+## GAP-EVO-CARRY-SCULPT · 加长塑形 tick（Phase 116）
+
+- **扩展**：五环境链基底上，harsh 塑形 tick 640 vs 1920；`sculptTicksCompleted` 可观测
+- **截止守卫**：与 Phase 113 同（墙钟 + tick 硬顶）
+- **田野**：`npm run field:phase116`
+- **状态**：**部分结案** — 加长塑形可跑通；8192 tick 级仍开放
+- **文档**：[PHASE116_LONG_SCULPT.md](PHASE116_LONG_SCULPT.md)
+
+---

@@ -2732,6 +2732,24 @@ export const PHASE115_TREATMENTS = {
   },
 };
 
+/** Phase 116 — 加长塑形 tick + 截止守卫（五环境链基底） */
+export const PHASE116_TREATMENTS = {
+  ev116_sculpt_std: {
+    id: 'ev116_sculpt_std',
+    label: '标准塑形·五环境链',
+    envId: 'wisdom_evolution',
+    ...EVO_PENTA_CHAIN_BASE,
+    sculptTicks: 640,
+  },
+  ev116_sculpt_long: {
+    id: 'ev116_sculpt_long',
+    label: '加长塑形·五环境链',
+    envId: 'wisdom_evolution',
+    ...EVO_PENTA_CHAIN_BASE,
+    sculptTicks: 1920,
+  },
+};
+
 /** Phase 113 — GAP-13 加长混合 tick + 墙钟/tick 截止守卫 */
 export const PHASE113_TREATMENTS = {
   ev113_coop_std: {
@@ -3484,6 +3502,27 @@ export function applyPhase115Treatment(world, treatmentId) {
     world.envProfile.cooperationFeedback = false;
   }
   world.fieldStudy = { phase: 115, treatmentId, ...treatment };
+  return world.envProfile;
+}
+
+export function applyPhase116Treatment(world, treatmentId) {
+  const treatment = PHASE116_TREATMENTS[treatmentId];
+  if (!treatment) {
+    throw new Error(`未知 Phase116 处理组: ${treatmentId}`);
+  }
+  const mixedEnvId = treatment.mixedEnvId ?? treatment.envId;
+  const base = applyEnvProfile(world, mixedEnvId);
+  world.envProfile = { ...base, ...treatment, envId: mixedEnvId };
+  if (!treatment.mixedSemEnabled) {
+    world.envProfile.semEnabled = false;
+    world.envProfile.semLineageEnabled = false;
+    world.envProfile.semFeedbackEnabled = false;
+  }
+  if (!treatment.cooperationProfileEnabled) {
+    world.envProfile.cooperationProfileEnabled = false;
+    world.envProfile.cooperationFeedback = false;
+  }
+  world.fieldStudy = { phase: 116, treatmentId, ...treatment };
   return world.envProfile;
 }
 
