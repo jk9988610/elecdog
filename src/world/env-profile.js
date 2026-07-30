@@ -675,6 +675,16 @@ const REN_BASE = {
   rplRenewMinSubstrate: 0.46,
 };
 
+/** Phase 107+ 默认繁殖 — 环境门控有丝分裂（FISS），无续行（REN）/无减数（MEI）默认 */
+const ECO_REPRO_BASE = {
+  ecoFissEnabled: true,
+  fissionEnabled: true,
+  rplRenewEnabled: false,
+  plgEnabled: false,
+  meiEnabled: false,
+  fusEnabled: false,
+};
+
 const PLG_BASE = {
   plgEnabled: true,
   plgRenewGrant: 1,
@@ -1307,14 +1317,13 @@ ENV_PROFILES.consciousness_full = {
   ehuBindNarrative: true,
 };
 
-/** Phase 70 — 智慧演化默认环境：完整栈 + W1 记忆→行为闭环 */
+/** Phase 70 — 智慧演化默认环境：生态有丝分裂，无续行 */
 ENV_PROFILES.wisdom_evolution = {
   id: 'wisdom_evolution',
   label: '智慧演化场',
   ...CONSCIOUSNESS_FIELD_BASE,
   ...EHU_DEEP_FULL,
-  ...REN_BASE,
-  ...PLG_BASE,
+  ...ECO_REPRO_BASE,
   ehuDistinctionErosionMult: 0.3,
   ehuBindNarrative: true,
   memoryFeedbackEnabled: true,
@@ -2542,14 +2551,12 @@ export const PHASE103_TREATMENTS = {
 const EVO_CARRY_REPRO_BASE = {
   ...W5_WISDOM_FULL,
   ...CONSCIOUSNESS_FIELD_BASE,
-  ...REN_BASE,
+  ...ECO_REPRO_BASE,
   semEnabled: true,
   semLineageEnabled: true,
   semFeedbackEnabled: false,
-  carryEcoFissEnabled: true,
   carryMaxPerSeed: 2,
   carryNaiveCount: 10,
-  carryMeiRplGrant: 2,
   sculptTicks: 640,
   sculptEnvId: 'harsh_combined',
 };
@@ -2577,6 +2584,7 @@ ENV_PROFILES.observer_wl_stack = {
   label: '观察台·智慧语言栈',
   ...W5_WISDOM_FULL,
   organismMode: 'multicell',
+  ...ECO_REPRO_BASE,
   ...W6_TOOL_ORG_STACK,
   ...W6_ENV_STACK,
   ...WL3_SEM_STACK,
@@ -2588,6 +2596,7 @@ ENV_PROFILES.observer_w6_stack = {
   label: '观察台·环境栈',
   ...W5_WISDOM_FULL,
   organismMode: 'multicell',
+  ...ECO_REPRO_BASE,
   ...W6_TOOL_ORG_STACK,
   ...W6_ENV_STACK,
 };

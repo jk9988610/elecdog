@@ -1,6 +1,7 @@
 // 复制配额 — DNA 决定的剩余复制次数（不设端粒/海弗利克名称表）
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { beingUsesEcoFiss } from './eco-repro.js';
 
 export function replicationEnabled(profile) {
   return profile?.rplEnabled === true;
@@ -287,7 +288,7 @@ export function applyFissionReplication(world, recorder, parent, child) {
   const profile = world.envProfile;
   if (!replicationEnabled(profile)) return null;
 
-  if (parent.ecoRepro && profile.carryEcoFissEnabled === true) {
+  if (beingUsesEcoFiss(parent, profile)) {
     return { ecoFiss: true, parentRpl: parent.rplRemaining };
   }
 
