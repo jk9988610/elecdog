@@ -35,6 +35,11 @@ export function shouldShowGenealogyPanel(profile, layoutMode = getObserverLayout
   return layoutMode === LAYOUT_GENEALOGY;
 }
 
+/** 族谱布局下仅展示族谱主面板，隐藏环境/种群等仪表盘区块 */
+export function shouldUseGenealogyOnlyDashboard(profile, layoutMode = getObserverLayoutMode()) {
+  return shouldShowGenealogyPanel(profile, layoutMode);
+}
+
 export function observerLayoutHint() {
   return '多细胞 v2：族谱与经典卡片为同一套机制，仅展示形式不同；无种群层统计。';
 }

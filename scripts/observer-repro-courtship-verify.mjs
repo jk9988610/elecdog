@@ -29,6 +29,7 @@ import {
   STR_PAIR_OUT,
 } from '../src/world/body-structures.js';
 import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
+import { courtshipBondLineForCouple } from '../src/world/being-names.js';
 import { LIFE_STAGE_ADT } from '../src/world/multicell-v2.js';
 import { LOGIC_CELL_MAX_PER_TYPE } from '../src/world/logic-cell-types.js';
 import { displayLogicCellTypes } from '../src/world/logic-cell-display.js';
@@ -122,6 +123,10 @@ assert(pgr, '雌可 PGR 成为伴侣');
 assert(male.partnerId === female.id, '伴侣登记');
 assert(female.lineageHeadId === male.lineageHeadId, '雄求偶成功后雌并入雄谱系');
 assert(male.bondCourtshipInitiatorMorph === 'A', '雄为求偶发起方');
+assert(
+  courtshipBondLineForCouple(male, female)?.includes(male.familyName),
+  '求偶文案含发起雄姓名'
+);
 assert(!canSendCourtship(male, world), '有伴侣雄不发送求偶');
 assert(!canSendCourtship(female, world), '有伴侣雌不发送求偶');
 

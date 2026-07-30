@@ -74,6 +74,7 @@ import {
   getObserverLayoutMode,
   setObserverLayoutMode,
   shouldShowGenealogyPanel,
+  shouldUseGenealogyOnlyDashboard,
   observerLayoutHint,
   LAYOUT_GENEALOGY,
   LAYOUT_CLASSIC,
@@ -481,7 +482,6 @@ export class ObserverApp {
     this.pause();
     this.recorder.clear();
     this.bootstrapWorld();
-    this.run();
   }
 
   switchObserverLayout(mode) {
@@ -547,7 +547,6 @@ export class ObserverApp {
     }
 
     this.refresh();
-    this.run();
   }
 
   bootstrapMixedImport({ carrySnapshots = [], naiveCount = 4, seed = 0, envId, phase, treatmentId } = {}) {
@@ -576,7 +575,6 @@ export class ObserverApp {
     });
 
     this.refresh();
-    this.run();
   }
 
   _applyObserverEnv(envId) {
@@ -973,6 +971,11 @@ export class ObserverApp {
   }
 
   renderDashboard(s) {
+    const envProfile = this.world?.envProfile;
+    if (shouldUseGenealogyOnlyDashboard(envProfile, this.observerLayout)) {
+      return renderGenealogyPanelHTML();
+    }
+
     const cmp = s.population.cmp;
     const cmpBlock = cmp
       ? `
@@ -1100,8 +1103,6 @@ export class ObserverApp {
         <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>
       </section>`
       : '';
-
-    const envProfile = this.world?.envProfile;
 
     return `
       ${renderImmersionPanel(s.consciousness, this.recorder, { label })}

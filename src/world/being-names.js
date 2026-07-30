@@ -46,6 +46,29 @@ export function assignChildName(being, surnameParent, world) {
   return being;
 }
 
+/** 伴侣登记中的求偶发起方（雄/雌形态唯一） */
+export function courtshipInitiatorFromPair(male, female) {
+  if (!male || !female) return null;
+  const morph = male.bondCourtshipInitiatorMorph ?? female.bondCourtshipInitiatorMorph;
+  if (morph === 'B') return female;
+  if (morph === 'A') return male;
+  return male;
+}
+
+export function formatCourtshipBondLine(initiator, target) {
+  if (!initiator || !target) return null;
+  const roleFrom = initiator.pairMorph === 'A' ? '雄' : initiator.pairMorph === 'B' ? '雌' : '体';
+  const roleTo = target.pairMorph === 'A' ? '雄' : target.pairMorph === 'B' ? '雌' : '体';
+  return `${roleFrom}·${formatBeingDisplayName(initiator)} 向 ${roleTo}·${formatBeingDisplayName(target)} 求偶`;
+}
+
+export function courtshipBondLineForCouple(male, female) {
+  if (!male || !female) return null;
+  const initiator = courtshipInitiatorFromPair(male, female);
+  const target = initiator === male ? female : male;
+  return formatCourtshipBondLine(initiator, target);
+}
+
 export function applyGenealogyLineOnBond(male, female, courtshipInitiatorMorph) {
   if (!male || !female) return null;
   const init = courtshipInitiatorMorph === 'B' ? 'B' : 'A';
