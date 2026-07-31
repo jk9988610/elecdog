@@ -16,7 +16,7 @@ import {
   crossoverRate as profileCrossoverRate,
 } from '../src/genetics/genome.js';
 import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines } from '../src/genetics/genome-display.js';
-import { renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
+import { renderBeingDetailHTML, buildGenealogyModel, renderGenealogyTreeHTML } from '../src/ui/genealogy-tree.js';
 import {
   createSyncyteOnB,
   processPairGestation,
@@ -130,6 +130,9 @@ assert(detailHtml.includes('染色体二倍体'), '详情含染色体表');
 assert(detailHtml.includes(genomeRows[0].maternal), '详情含母源染色体');
 const childDetail = renderBeingDetailHTML(child, null, world.envProfile, world);
 assert(childDetail.includes('卵方减数'), '子代详情含父母贡献');
+const treeHtml = renderGenealogyTreeHTML(buildGenealogyModel(world));
+assert(treeHtml.includes('gv-birth-branch'), '族谱树含分娩枝标');
+assert(treeHtml.includes('分娩'), '族谱树标注分娩');
 
 if (failed) {
   console.error(`observer-chromosome-genetics-verify: ${failed} failed`);
