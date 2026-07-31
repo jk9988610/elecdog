@@ -55,6 +55,7 @@ export function initAdultWeanedBeing(being, world, profile, { mateChannel = null
     being.meiPacket = {
       seq: gamete.seq,
       haploid: gamete.haploid,
+      segregation: gamete.segregation,
       atTick: world.tick ?? 0,
       adultSeed: true,
     };

@@ -28,7 +28,7 @@ import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 import { initGenealogyViewport } from './genealogy-viewport.js';
 import { chromosomeGeneticsEnabled } from '../genetics/genome.js';
-import { genomeDisplayRows, haploidDisplayRows } from '../genetics/genome-display.js';
+import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines, segregationLabel } from '../genetics/genome-display.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -110,12 +110,13 @@ function renderPersonCard(being, selectedId, classExtra = '') {
     ? `<span class="${escapeHtml(badge.className)}">${escapeHtml(badge.code)}</span>`
     : '';
   const genderHtml = morphGenderBadge(being);
+  const inheritHtml = renderChromosomeInheritBadge(being);
   const end = !being.alive ? '<span class="genealogy-end-badge">END</span>' : '';
   return `<div class="gv-person-card${sel}${dead}${classExtra}">
     <button type="button" class="genealogy-id-btn" data-being-id="${escapeHtml(being.id)}" title="${escapeHtml(being.id)}">
       <span class="genealogy-name">${escapeHtml(formatBeingDisplayName(being))}</span>
       <span class="genealogy-avatar">${escapeHtml(being.code)}</span>
-      ${badgeHtml}${genderHtml}${end}
+      ${badgeHtml}${genderHtml}${inheritHtml}${end}
     </button>
   </div>`;
 }
@@ -256,17 +257,28 @@ function renderHealthVitalRows(rows) {
     .join('');
 }
 
+function renderSegTag(side) {
+  if (!side) return '';
+  const cls = side === 'maternal' ? 'chr-seg-mat' : 'chr-seg-pat';
+  return `<span class="chr-seg-tag ${cls}">${escapeHtml(segregationLabel(side))}</span>`;
+}
+
 function renderGenomeTable(rows) {
   if (!rows?.length) return '';
+  const hasProv = rows.some((r) => r.eggSeg || r.spermSeg);
   const body = rows
     .map((r) => {
       const cls = r.isSexPair ? 'chr-sex-pair' : '';
       const yTag = r.sexYOnPaternal ? ' <span class="chr-y-tag">Y</span>' : '';
+      const hetTag =
+        r.heterozygousBits > 0
+          ? `<span class="chr-het-tag">${r.heterozygousBits}杂</span>`
+          : '';
       return `<tr class="${cls}">
         <td class="chr-pair-label">${escapeHtml(r.label)}</td>
-        <td><code>${escapeHtml(r.maternal)}</code></td>
-        <td><code>${escapeHtml(r.paternal)}</code>${yTag}</td>
-        <td><code>${escapeHtml(r.expressed)}</code></td>
+        <td><code>${escapeHtml(r.maternal)}</code>${hasProv ? renderSegTag(r.eggSeg) : ''}</td>
+        <td><code>${escapeHtml(r.paternal)}</code>${yTag}${hasProv ? renderSegTag(r.spermSeg) : ''}</td>
+        <td><code>${escapeHtml(r.expressed)}</code>${hetTag}</td>
       </tr>`;
     })
     .join('');
@@ -276,8 +288,8 @@ function renderGenomeTable(rows) {
         <thead>
           <tr>
             <th>对</th>
-            <th>母源</th>
-            <th>父源</th>
+            <th>母源${hasProv ? '·卵' : ''}</th>
+            <th>父源${hasProv ? '·精' : ''}</th>
             <th>表达</th>
           </tr>
         </thead>
@@ -288,24 +300,46 @@ function renderGenomeTable(rows) {
 
 function renderHaploidTable(rows, { title = '配子单倍体' } = {}) {
   if (!rows?.length) return '';
+  const hasSeg = rows.some((r) => r.segregation);
   const body = rows
     .map((r) => {
       const cls = r.isSexPair ? 'chr-sex-pair' : '';
       const yTag = r.isY ? ' <span class="chr-y-tag">Y</span>' : '';
       return `<tr class="${cls}">
         <td class="chr-pair-label">${escapeHtml(r.label)}</td>
-        <td><code>${escapeHtml(r.sequence)}</code>${yTag}</td>
+        <td><code>${escapeHtml(r.sequence)}</code>${yTag}${hasSeg ? renderSegTag(r.segregation) : ''}</td>
       </tr>`;
     })
     .join('');
+  const head = hasSeg
+    ? '<tr><th>对</th><th>单倍体·来源</th></tr>'
+    : '<tr><th>对</th><th>单倍体</th></tr>';
   return `
     <h5 class="detail-subtitle">${escapeHtml(title)}</h5>
     <div class="chr-genome-table-wrap health-pos-table-wrap">
       <table class="chr-genome-table health-pos-table">
-        <thead><tr><th>对</th><th>单倍体</th></tr></thead>
+        <thead>${head}</thead>
         <tbody>${body}</tbody>
       </table>
     </div>`;
+}
+
+function renderProvenanceSummary(genome) {
+  const lines = provenanceContributionLines(genome?.provenance);
+  if (!lines) return '';
+  return `
+    <div class="stat-grid chr-provenance-grid">
+      <div class="stat-row"><span>父母染色体</span><strong>${escapeHtml(lines.parentTotals)}</strong></div>
+      <div class="stat-row"><span>卵方减数</span><strong>母源${lines.eggMat} · 父源${lines.eggPat}</strong></div>
+      <div class="stat-row"><span>精方减数</span><strong>母源${lines.spermMat} · 父源${lines.spermPat}</strong></div>
+    </div>
+    <p class="muted chr-genome-hint">标签「母源/父源」指该亲本二倍体中哪条同源进入配子；合子母源列来自卵、父源列来自精。</p>`;
+}
+
+function renderChromosomeInheritBadge(being) {
+  const lines = provenanceContributionLines(being?.genome?.provenance);
+  if (!lines) return '';
+  return `<span class="genealogy-chr-inherit" title="${escapeHtml(lines.eggLine)}；${escapeHtml(lines.spermLine)}">${escapeHtml(lines.cardShort)}</span>`;
 }
 
 function renderChromosomeGeneticsSection(being, profile) {
@@ -315,7 +349,8 @@ function renderChromosomeGeneticsSection(being, profile) {
 
   return `
     <h4 class="term">染色体二倍体</h4>
-    <p class="muted chr-genome-hint">12 对 × 8 位；表达列为母源/父源按位 max；性染色体对父源 Y → 雄形态。</p>
+    <p class="muted chr-genome-hint">表达：纯合 / 强显性(差≥2) / 共显性(差1 上取整均值)；性染色体父源 Y → 雄形态。</p>
+    ${renderProvenanceSummary(being?.genome)}
     ${renderGenomeTable(genomeRows)}`;
 }
 
@@ -363,7 +398,12 @@ function renderBeingDetailVitalsSections(being, world, profile) {
           ['LOG-GON', String(sperm.logicGon)],
         ])}
       </div>
-      ${being?.meiPacket?.haploid?.length ? renderHaploidTable(haploidDisplayRows(being.meiPacket.haploid), { title: '精子单倍体' }) : ''}`;
+      ${being?.meiPacket?.haploid?.length
+        ? renderHaploidTable(
+            haploidDisplayRows(being.meiPacket.haploid, being.meiPacket.segregation),
+            { title: '精子单倍体' }
+          )
+        : ''}`;
   }
   if (egg) {
     reproHtml += `
@@ -383,7 +423,12 @@ function renderBeingDetailVitalsSections(being, world, profile) {
           ['LOG-GON', String(egg.logicGon)],
         ])}
       </div>
-      ${being?.dockedHalf?.haploid?.length ? renderHaploidTable(haploidDisplayRows(being.dockedHalf.haploid), { title: '卵单倍体' }) : ''}`;
+      ${being?.dockedHalf?.haploid?.length
+        ? renderHaploidTable(
+            haploidDisplayRows(being.dockedHalf.haploid, being.dockedHalf.segregation),
+            { title: '卵单倍体' }
+          )
+        : ''}`;
   }
 
   const zoneRows = (interp?.zones ?? [])

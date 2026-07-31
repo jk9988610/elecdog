@@ -163,7 +163,13 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
   const gamete = produceGamete(being, profile, seed);
   const packetSeq = gamete.seq;
   const rpl = consumeReplicationForMei(being, profile);
-  being.meiPacket = { seq: packetSeq, haploid: gamete.haploid, atTick: world.tick, subId: rpl.subId ?? null };
+  being.meiPacket = {
+    seq: packetSeq,
+    haploid: gamete.haploid,
+    segregation: gamete.segregation,
+    atTick: world.tick,
+    subId: rpl.subId ?? null,
+  };
   being.lastMeiTick = world.tick;
   being.meiCount = (being.meiCount ?? 0) + 1;
 
@@ -223,7 +229,13 @@ function spawnFusionFromSeqs(
   parentB,
   seqA,
   seqB,
-  { liveDonor = false, orphan = false, orphanFromId = null } = {}
+  {
+    liveDonor = false,
+    orphan = false,
+    orphanFromId = null,
+    segA = null,
+    segB = null,
+  } = {}
 ) {
   const profile = world.envProfile ?? {};
   const maxPop = profile.fusionMaxPop ?? profile.fissionMaxPop ?? 36;
@@ -235,7 +247,11 @@ function spawnFusionFromSeqs(
   let genome = null;
   let mutationCount = 0;
   if (chromosomeGeneticsEnabled(profile)) {
-    const zygote = zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB: false });
+    const zygote = zygoteFromGametes(seqA, seqB, profile, seed, {
+      eggIsB: false,
+      eggSegregation: segA ?? parentA.meiPacket?.segregation,
+      spermSegregation: segB ?? parentB.meiPacket?.segregation,
+    });
     seq = zygote.dnaSeq;
     genome = zygote.genome;
     mutationCount = zygote.mutationCount;
@@ -384,6 +400,8 @@ function tryLiveDonorFusion(world, recorder, holder, donor) {
   applyLiveDonorRpl(world, recorder, donor);
   return spawnFusionFromSeqs(world, recorder, holder, donor, holder.meiPacket.seq, donorGamete.seq, {
     liveDonor: true,
+    segA: holder.meiPacket?.segregation,
+    segB: donorGamete.segregation,
   });
 }
 

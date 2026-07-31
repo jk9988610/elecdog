@@ -39,10 +39,24 @@ export function flattenHaploid(haploid) {
   return (haploid ?? []).map((c) => (c ?? '').slice(0, CHR_LEN).padEnd(CHR_LEN, '0')).join('');
 }
 
-export function combineAlleleDigit(a, b) {
+/** 单等位表达：纯合 / 强显性(差≥2) / 共显性(差=1 取上取整均值) */
+export function expressAlleleDigit(a, b) {
   const ma = Number(a ?? 0);
   const mb = Number(b ?? 0);
-  return String(Math.max(ma, mb));
+  if (ma === mb) {
+    return { digit: String(ma), mode: 'homozygous' };
+  }
+  const hi = Math.max(ma, mb);
+  const lo = Math.min(ma, mb);
+  if (hi - lo >= 2) {
+    return { digit: String(hi), mode: 'dominant' };
+  }
+  const blended = Math.min(3, Math.ceil((ma + mb) / 2));
+  return { digit: String(blended), mode: 'codominant' };
+}
+
+export function combineAlleleDigit(a, b) {
+  return expressAlleleDigit(a, b).digit;
 }
 
 /** 按位合并双等位 → 96 位表达串（供 Z1–Z6 哈希与指纹） */
@@ -118,26 +132,31 @@ export function createRandomDiploid(code, morph = null, seed = 0) {
   return genome;
 }
 
-/** 减数分裂：每对随机分离一条进入配子 */
+/** 减数分裂：每对随机分离一条进入配子，并记录来自母源/父源同源 */
 export function meiosis(genome, seed) {
   const rng = mulberry32(seed);
   const haploid = [];
+  const segregation = [];
   for (let i = 0; i < CHR_COUNT; i++) {
     const pair = genome.pairs[i] ?? {};
-    haploid.push(rng() < 0.5 ? pair.maternal : pair.paternal);
+    const fromMaternal = rng() < 0.5;
+    haploid.push(fromMaternal ? pair.maternal : pair.paternal);
+    segregation.push(fromMaternal ? 'maternal' : 'paternal');
   }
-  return haploid;
+  return { haploid, segregation };
 }
 
 /** 受精：卵单倍体 → 母源；精单倍体 → 父源 */
-export function fertilize(eggHaploid, spermHaploid) {
+export function fertilize(eggHaploid, spermHaploid, provenance = null) {
   const pairs = [];
   for (let i = 0; i < CHR_COUNT; i++) {
     const mat = (eggHaploid?.[i] ?? '00000000').slice(0, CHR_LEN).padEnd(CHR_LEN, '0');
     const pat = (spermHaploid?.[i] ?? '00000000').slice(0, CHR_LEN).padEnd(CHR_LEN, '0');
     pairs.push({ maternal: mat, paternal: pat });
   }
-  return { pairs };
+  const genome = { pairs };
+  if (provenance) genome.provenance = provenance;
+  return genome;
 }
 
 export function mutateDiploid(genome, rate = 0.015, seed = 0) {
@@ -160,7 +179,7 @@ export function mutateDiploid(genome, rate = 0.015, seed = 0) {
     }
     return { maternal: maternal.join(''), paternal: paternal.join('') };
   });
-  return { genome: { pairs }, mutationCount };
+  return { genome: { pairs, provenance: genome.provenance ?? null }, mutationCount };
 }
 
 /** 成体产生配子（染色体路径）或回退 reduceDna */
@@ -173,12 +192,18 @@ export function produceGamete(being, profile, seed) {
   if (!genome?.pairs?.length) {
     throw new Error('produceGamete: being lacks diploid genome');
   }
-  const haploid = meiosis(genome, seed);
-  return { haploid, seq: flattenHaploid(haploid) };
+  const { haploid, segregation } = meiosis(genome, seed);
+  return { haploid, segregation, seq: flattenHaploid(haploid) };
 }
 
 /** 双配子 → 合子二倍体 + 表达串 */
-export function zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB = true } = {}) {
+export function zygoteFromGametes(
+  seqA,
+  seqB,
+  profile,
+  seed,
+  { eggIsB = true, eggSegregation = null, spermSegregation = null } = {}
+) {
   if (!chromosomeGeneticsEnabled(profile)) {
     const combined = recombineDna(seqA, seqB, seed);
     const { seq, mutationCount } = mutate(combined, profile?.fusionMutationRate ?? 0.015, seed + 1);
@@ -188,7 +213,13 @@ export function zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB = true } =
   const haploidB = splitSequenceToHaploid(seqB);
   const eggH = eggIsB ? haploidB : haploidA;
   const spermH = eggIsB ? haploidA : haploidB;
-  let genome = fertilize(eggH, spermH);
+  const eggSeg = eggIsB ? eggSegregation : spermSegregation;
+  const spermSeg = eggIsB ? spermSegregation : eggSegregation;
+  const provenance =
+    eggSeg?.length || spermSeg?.length
+      ? { maternalSegregation: eggSeg ?? null, paternalSegregation: spermSeg ?? null }
+      : null;
+  let genome = fertilize(eggH, spermH, provenance);
   const { genome: mutated, mutationCount } = mutateDiploid(
     genome,
     profile?.fusionMutationRate ?? 0.015,
