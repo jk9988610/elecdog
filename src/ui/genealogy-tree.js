@@ -353,8 +353,7 @@ function renderHaploidTable(rows, { title = '配子单倍体' } = {}) {
     </div>`;
 }
 
-function renderProvenanceSummary(genome) {
-  const lines = provenanceContributionLines(genome?.provenance);
+function renderInheritContributionBlock(lines) {
   if (!lines) return '';
   return `
     <div class="stat-grid chr-provenance-grid">
@@ -363,6 +362,26 @@ function renderProvenanceSummary(genome) {
       <div class="stat-row"><span>精方减数</span><strong>母源${lines.spermMat} · 父源${lines.spermPat}${lines.spermCross ? ` · 互换${lines.spermCross}` : ''}</strong></div>
     </div>
     <p class="muted chr-genome-hint">标签「母源/父源」= 亲本二倍体哪条同源进入配子；「互换@n」= 减数前在第 n 位交叉互换。对旁 Z 区对应 DNA_EXPRESSION 区段。</p>`;
+}
+
+function renderProvenanceSummary(genome) {
+  const lines = provenanceContributionLines(genome?.provenance);
+  if (!lines) return '';
+  return renderInheritContributionBlock(lines);
+}
+
+/** 无 genome 对象时从登记表 inheritDetail 展示减数来源 */
+function renderInheritArchiveSection(being) {
+  if (being?.genome?.pairs?.length) return '';
+  const lines = inheritSummaryFromBeing(being);
+  if (!lines) return '';
+  const archiveNote = being?._registryOnly
+    ? '<p class="muted chr-genome-hint">云归档/族谱登记节点（无完整 genome 对象，inherit 来自压缩登记）。</p>'
+    : '';
+  return `
+    <h5 class="detail-subtitle">减数来源登记</h5>
+    ${archiveNote}
+    ${renderInheritContributionBlock(lines)}`;
 }
 
 function renderChromosomeInheritBadge(being) {
@@ -538,6 +557,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
     .join('');
 
   const chromosomeHtml = renderChromosomeGeneticsSection(being, profile ?? {});
+  const inheritArchiveHtml = renderInheritArchiveSection(being);
   const parentKinHtml = renderParentZoneKinship(being, world, profile);
 
   return `
@@ -549,6 +569,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
     </div>
     <p class="detail-dna-seq"><code>${escapeHtml(interp?.sequence ?? snap.dnaSeq ?? '')}</code></p>
     ${chromosomeHtml}
+    ${inheritArchiveHtml}
     ${parentKinHtml}
     <h5 class="detail-subtitle">区段解读 Z1–Z6</h5>
     <div class="health-zones">${zoneRows}</div>
@@ -696,7 +717,10 @@ export function initGenealogyPanel(root, { getWorld, getRecorder, onSelect } = {
 
   let selectedId = null;
   let viewportCtrl = initGenealogyViewport(viewportEl, innerEl);
-  const reproStream = initReproEvolutionStream(root, { getRecorder });
+  const reproStream = initReproEvolutionStream(root, {
+    getRecorder,
+    getSelectedBeingId: () => selectedId,
+  });
 
   function findBeing(world, id) {
     return (
@@ -709,6 +733,7 @@ export function initGenealogyPanel(root, { getWorld, getRecorder, onSelect } = {
     popover.classList.add('hidden');
     selectedId = null;
     innerEl.querySelectorAll('.gv-person-card').forEach((c) => c.classList.remove('selected'));
+    reproStream?.paint();
   }
 
   function openPopover(anchorEl, being) {
@@ -718,6 +743,7 @@ export function initGenealogyPanel(root, { getWorld, getRecorder, onSelect } = {
     popover.classList.remove('hidden');
     positionDetailPopover(popover, anchorEl);
     onSelect?.(being.id);
+    reproStream?.paint();
   }
 
   popoverClose?.addEventListener('click', () => closePopover());

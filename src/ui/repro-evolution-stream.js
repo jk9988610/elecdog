@@ -69,29 +69,45 @@ export function renderReproEvolutionStreamHTML() {
     <section id="genealogy-repro-stream" class="genealogy-repro-stream" aria-label="繁殖进化流">
       <div class="genealogy-repro-stream-head">
         <h3 class="genealogy-repro-stream-title">繁殖进化流</h3>
-        <label class="genealogy-repro-stream-filter">
-          <input type="checkbox" id="genealogy-repro-cross-only" />
-          仅交叉
-        </label>
+        <div class="genealogy-repro-stream-filters">
+          <label class="genealogy-repro-stream-filter">
+            <input type="checkbox" id="genealogy-repro-follow-select" checked />
+            跟随选中
+          </label>
+          <label class="genealogy-repro-stream-filter">
+            <input type="checkbox" id="genealogy-repro-cross-only" />
+            仅交叉
+          </label>
+        </div>
       </div>
-      <p class="muted genealogy-repro-stream-note">[MEI] 减数排出 · [DCK] 半态驻留；含 <code>cross</code> 或互换计数的行为高亮。</p>
+      <p class="muted genealogy-repro-stream-note">[MEI] 减数排出 · [DCK] 半态驻留；含 <code>cross</code> 或互换计数的行为高亮。选中族谱个体时默认只显示该体日志。</p>
       <ul id="genealogy-repro-stream-list" class="genealogy-repro-stream-list"></ul>
     </section>`;
 }
 
-export function initReproEvolutionStream(root, { getRecorder } = {}) {
+export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId } = {}) {
   const list = root.querySelector('#genealogy-repro-stream-list');
   const crossOnlyInput = root.querySelector('#genealogy-repro-cross-only');
+  const followSelectInput = root.querySelector('#genealogy-repro-follow-select');
   if (!list) return null;
 
   let crossOnly = false;
 
+  function resolveBeingFilter() {
+    if (!followSelectInput?.checked) return null;
+    return getSelectedBeingId?.() ?? null;
+  }
+
   function paint() {
     const recorder = getRecorder?.();
     if (!recorder) return;
-    const entries = pickReproEvolutionEntries(recorder, { crossOnly });
+    const beingId = resolveBeingFilter();
+    const entries = pickReproEvolutionEntries(recorder, { beingId, crossOnly });
     if (!entries.length) {
-      list.innerHTML = '<li class="repro-stream-empty muted">暂无 [MEI]/[DCK] 记录</li>';
+      const hint = beingId
+        ? `选中个体暂无 [MEI]/[DCK] 记录`
+        : '暂无 [MEI]/[DCK] 记录';
+      list.innerHTML = `<li class="repro-stream-empty muted">${escapeHtml(hint)}</li>`;
       return;
     }
     list.innerHTML = entries.map(renderReproStreamLine).join('');
@@ -102,6 +118,8 @@ export function initReproEvolutionStream(root, { getRecorder } = {}) {
     crossOnly = crossOnlyInput.checked;
     paint();
   });
+
+  followSelectInput?.addEventListener('change', () => paint());
 
   return { paint, refresh: paint };
 }
