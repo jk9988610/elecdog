@@ -12,7 +12,7 @@ import {
   STAGE_BADGE_JUV,
 } from '../src/world/genealogy-stage.js';
 import { interpretFullDna } from '../src/genetics/dna-interpret.js';
-import { issueHealthReport } from '../src/world/health-report.js';
+import { buildHealthReport } from '../src/world/health-report.js';
 import { LIFE_STAGE_ADT } from '../src/world/multicell-v2.js';
 
 let failed = 0;
@@ -32,13 +32,15 @@ const recorder = new Recorder();
 const cohort = spawnAdultMulticellCohort(world, recorder, { males: 1, females: 1 });
 const adult = cohort[0];
 assert(genealogyStageBadge(adult)?.code === STAGE_BADGE_ADULT, '成体标 成');
-assert(adult.healthReport?.dnaInterpret?.positions?.length === 96, '成体体检 96 位解读');
-assert(adult.healthReport?.vitals?.common?.hormones?.length === 5, '成体体检含激素');
-assert(adult.healthReport?.vitals?.sperm?.stocked === true, '成体雄体检含精子备货');
+const adultSnap = buildHealthReport(adult, 0, { adult: true, world, stage: '成体' });
+assert(adultSnap.dnaInterpret?.positions?.length === 96, '成体 96 位 DNA 解读');
+assert(adultSnap.vitals?.common?.hormones?.length === 5, '成体含激素指标');
+assert(adultSnap.vitals?.sperm?.stocked === true, '成体雄含精子备货');
 const female = cohort.find((b) => b.pairMorph === 'B');
-assert(female?.healthReport?.vitals?.egg?.stocked === true, '成体雌体检含卵细胞备货');
-assert(female?.healthReport?.vitals?.egg?.oocyteQuality > 0, '卵母细胞质量');
-assert(adult.healthReport?.vitals?.common?.nutrition?.registerMean > 0, '营养储备指标');
+const femaleSnap = buildHealthReport(female, 0, { adult: true, world, stage: '成体' });
+assert(femaleSnap?.vitals?.egg?.stocked === true, '成体雌含卵细胞备货');
+assert(femaleSnap?.vitals?.egg?.oocyteQuality > 0, '卵母细胞质量');
+assert(adultSnap.vitals?.common?.nutrition?.registerMean > 0, '营养储备指标');
 
 const interp = interpretFullDna(adult.dna.sequence, adult.id);
 assert(interp.zones.length === 6, 'Z1–Z6 区段');
@@ -51,8 +53,8 @@ assert(!isDisplayPregnant(infant), '婴不标孕');
 const juv = { alive: true, independent: true, weaned: true, lifeStage: 'JUV', devStage: 'JUV', pairMorph: 'A' };
 assert(genealogyStageBadge(juv)?.code === STAGE_BADGE_JUV, '断奶幼体标 幼');
 
-issueHealthReport(juv, 0, { stage: '幼' });
-assert(juv.healthReport?.dnaInterpret, '幼体体检含解读');
+const juvSnap = buildHealthReport(juv, 0, { stage: '幼', world });
+assert(juvSnap.dnaInterpret, '幼体 DNA 解读');
 
 const preg = {
   alive: true,

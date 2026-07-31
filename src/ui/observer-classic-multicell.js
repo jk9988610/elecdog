@@ -7,7 +7,6 @@ import { pairMorphCn } from './observer-lexicon.js';
 import { assessCellIntegrity } from '../world/cell.js';
 import { genealogyStageBadge, stageBadgeLabel } from '../world/genealogy-stage.js';
 import { displayLogicRows } from '../world/logic-cell-display.js';
-import { renderHealthReportHTML } from './genealogy-tree.js';
 
 function escapeHtml(s) {
   return String(s ?? '')
@@ -39,10 +38,6 @@ export function renderMulticellClassicBeingCard(being, world, entryStats = null)
   const integrity =
     entryStats?.integrity ?? assessCellIntegrity(being, world?.substrate?.channels);
 
-  const healthBtn = being.healthReport
-    ? `<button type="button" class="genealogy-health-btn classic-health-btn" data-health-id="${escapeHtml(being.id)}">体检</button>`
-    : '';
-
   return `
       <article class="being-card being-card-multicell">
         <header class="being-head">
@@ -63,25 +58,8 @@ export function renderMulticellClassicBeingCard(being, world, entryStats = null)
           <div class="stat-row"><span>哺乳接触</span><strong>${being.lactContactCount ?? 0}</strong></div>
         </div>
         <div class="being-domain muted">${escapeHtml(logicSummary || '逻辑细胞 —')}</div>
-        ${healthBtn}
-        <div class="classic-health-host hidden" data-health-host="${escapeHtml(being.id)}"></div>
       </article>`;
 }
 
-export function initClassicMulticellHealthButtons(root, { getWorld } = {}) {
-  root.querySelectorAll('.classic-health-btn').forEach((btn) => {
-    btn.addEventListener('click', () => {
-      const id = btn.getAttribute('data-health-id');
-      const world = getWorld?.();
-      const being = world?.beings?.find((b) => b.id === id);
-      const host = root.querySelector(`[data-health-host="${id}"]`);
-      if (!host || !being) return;
-      const open = host.classList.toggle('hidden');
-      if (!open) {
-        host.innerHTML = renderHealthReportHTML(being);
-      } else {
-        host.innerHTML = '';
-      }
-    });
-  });
-}
+/** @deprecated 经典卡片详情已并入族谱个体详情，无独立体检按钮 */
+export function initClassicMulticellHealthButtons() {}

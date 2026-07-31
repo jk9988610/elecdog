@@ -1723,6 +1723,19 @@ input[type='number'] {
   display: none;
 }
 
+.detail-dna-seq {
+  font-size: 0.7rem;
+  line-height: 1.35;
+  margin: 0.35rem 0 0.65rem;
+  word-break: break-all;
+}
+
+.detail-subtitle {
+  font-size: 0.75rem;
+  color: #8a94a4;
+  margin: 0.5rem 0 0.35rem;
+}
+
 .genealogy-food-hint,
 .genealogy-embryo-hint {
   font-size: 0.8125rem;
