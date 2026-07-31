@@ -4,6 +4,7 @@ import { hashString, mulberry32 } from '../core/hash.js';
 import { meiAllowedForBeing } from './multicell-v2.js';
 import { captureSymOnFus, symCaptureEnabled } from './sym.js';
 import { reduceDna, recombineDna, mutate } from '../core/dna.js';
+import { produceGamete } from '../genetics/genome.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import {
@@ -159,9 +160,10 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
   if (roll > prob) return null;
 
   const seed = hashString(`${being.id}:${world.tick}:reduce`);
-  const packetSeq = reduceDna(being.dna.sequence, seed);
+  const gamete = produceGamete(being, profile, seed);
+  const packetSeq = gamete.seq;
   const rpl = consumeReplicationForMei(being, profile);
-  being.meiPacket = { seq: packetSeq, atTick: world.tick, subId: rpl.subId ?? null };
+  being.meiPacket = { seq: packetSeq, haploid: gamete.haploid, atTick: world.tick, subId: rpl.subId ?? null };
   being.lastMeiTick = world.tick;
   being.meiCount = (being.meiCount ?? 0) + 1;
 

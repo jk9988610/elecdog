@@ -39,6 +39,14 @@ import {
 import { initMulticellV2, multicellV2Enabled } from '../world/multicell-v2.js';
 import { upsertGenealogyFromBeing } from '../world/genealogy-persist.js';
 import { assignBeingNames } from '../world/being-names.js';
+import {
+  chromosomeGeneticsEnabled,
+  createRandomDiploid,
+  diploidExpressSequence,
+  derivePairMorphFromGenome,
+  sequenceToDiploid,
+  setSexPairForMorph,
+} from '../genetics/genome.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
 export function spawnBeing(
@@ -57,18 +65,42 @@ export function spawnBeing(
     familyName = null,
     givenName = null,
     nameIndex = null,
+    genome = null,
   } = {}
 ) {
   const tick = world.tick;
-  const dna = dnaSequence ? createDnaFromSequence(code, dnaSequence) : createDna(code);
+  const profile = world.envProfile ?? {};
+  let dna = dnaSequence ? createDnaFromSequence(code, dnaSequence) : createDna(code);
   const id = fixedId ?? generateId({ birthPlace: world.birthPlace, code });
   const being = new Being({ name, code, dna, id });
   being.bornAtTick = tick;
   being.cohortTag = cohortTag;
+
+  if (chromosomeGeneticsEnabled(profile)) {
+    if (genome?.pairs?.length) {
+      being.genome = genome;
+      dna.sequence = diploidExpressSequence(genome);
+      being.dna = dna;
+    } else if (dnaSequence) {
+      being.genome = sequenceToDiploid(dna.sequence);
+      if (pairMorph === 'A' || pairMorph === 'B') {
+        setSexPairForMorph(being.genome, pairMorph);
+      }
+    } else {
+      being.genome = createRandomDiploid(code, pairMorph === 'A' || pairMorph === 'B' ? pairMorph : null, tick);
+    }
+    if (!genome?.pairs?.length) {
+      dna.sequence = diploidExpressSequence(being.genome);
+      being.dna = dna;
+    }
+  }
+
   if (pairMorph === 'A' || pairMorph === 'B') {
     being.pairMorph = pairMorph;
-  } else if (pairReproEnabled(world.envProfile)) {
-    being.pairMorph = assignPairMorph(id);
+  } else if (pairReproEnabled(profile)) {
+    being.pairMorph = chromosomeGeneticsEnabled(profile)
+      ? derivePairMorphFromGenome(being.genome ?? sequenceToDiploid(dna.sequence))
+      : assignPairMorph(id);
   }
   assignBeingNames(being, {
     familyName,

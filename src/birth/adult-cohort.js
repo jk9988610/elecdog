@@ -1,7 +1,6 @@
 // 断奶后成体队列 — 观察台默认 4 雄 4 雌（无血缘、满格逻辑细胞）
 
 import { hashString } from '../core/hash.js';
-import { reduceDna } from '../core/dna.js';
 import { spawnBeing } from './spawn.js';
 import {
   resolveDevStage,
@@ -20,6 +19,7 @@ import {
 } from '../world/body-structures.js';
 import { issueAdultHealthReport } from '../world/health-report.js';
 import { cohortKinBlocked } from '../world/kinship-gate.js';
+import { produceGamete } from '../genetics/genome.js';
 
 const COHORT_MATE_CHANNEL = 7;
 
@@ -51,8 +51,10 @@ export function initAdultWeanedBeing(being, world, profile, { mateChannel = null
   if (being.pairMorph === 'A') {
     pinMatingStructureChannel(being, STR_PAIR_OUT, ch);
     const seed = hashString(`${being.id}:adult-sperm`);
+    const gamete = produceGamete(being, profile, seed);
     being.meiPacket = {
-      seq: reduceDna(being.dna.sequence, seed),
+      seq: gamete.seq,
+      haploid: gamete.haploid,
       atTick: world.tick ?? 0,
       adultSeed: true,
     };

@@ -1,6 +1,7 @@
 // DNA 分区表达 — Z1–Z6 哈希派生（96 位四态串，机制层无地球基因名）
 
 import { hashString, mulberry32 } from '../core/hash.js';
+import { diploidExpressSequence } from './genome.js';
 
 export const DNA_LENGTH = 96;
 
@@ -130,15 +131,21 @@ export function expressAxisWeights(sequence) {
   };
 }
 
-/** 汇总表达快照，挂 being.dnaExpress */
-export function buildDnaExpression(dna, beingId = '') {
-  const seq = dna?.sequence ?? '';
+export function expressSequenceForBeing(dna, genome) {
+  if (genome?.pairs?.length) return diploidExpressSequence(genome);
+  return dna?.sequence ?? '';
+}
+
+/** 汇总表达快照，挂 being.dnaExpress（二倍体先合并等位再 Z 区段哈希） */
+export function buildDnaExpression(dna, beingId = '', genome = null) {
+  const seq = expressSequenceForBeing(dna, genome);
   const sense = Object.fromEntries(
     SENSE_KINDS.map((k) => [k, expressSenseProfile(seq, k)])
   );
   return {
     sequenceLen: seq.length,
     zones: DNA_ZONES,
+    expressedSequence: seq,
     hormoneBaseline: expressHormoneBaseline(seq),
     hormoneRhythm: expressHormoneRhythm(seq),
     hormoneGain: expressHormoneGainTable(seq, beingId),
@@ -151,6 +158,6 @@ export function buildDnaExpression(dna, beingId = '') {
 }
 
 export function attachDnaExpression(being) {
-  being.dnaExpress = buildDnaExpression(being.dna, being.id);
+  being.dnaExpress = buildDnaExpression(being.dna, being.id, being.genome);
   return being.dnaExpress;
 }
