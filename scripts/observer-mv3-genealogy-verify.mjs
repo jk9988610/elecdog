@@ -13,7 +13,9 @@ import {
   genealogyRegistrySnapshot,
   recordGenealogyEnd,
 } from '../src/world/genealogy-persist.js';
-import { buildGenealogyModel } from '../src/ui/genealogy-tree.js';
+import { buildGenealogyModel, renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
+import { initGenealogyRegistry } from '../src/world/genealogy-persist.js';
+import { pickReproEvolutionEntries } from '../src/ui/repro-evolution-stream.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -73,6 +75,69 @@ const logShape = {
 };
 assert(logShape.genealogy.endedCount === 1, '云归档含族谱 END 计数');
 assert(logShape.world.beings.some((b) => !b.alive), '云归档 beings 含已 END');
+
+const reg = initGenealogyRegistry(world);
+reg['reg-child'] = {
+  id: 'reg-child',
+  code: 'C01',
+  name: 'reg-child',
+  familyName: '12',
+  givenName: '001',
+  alive: false,
+  generation: 1,
+  pairMorph: 'A',
+  pairParentA: 'reg-pa',
+  pairParentB: 'reg-pb',
+  inheritSummary: '卵6·6 精5·7 ×3',
+  inheritDetail: {
+    eggMat: 6,
+    eggPat: 6,
+    spermMat: 5,
+    spermPat: 7,
+    eggCross: 1,
+    spermCross: 2,
+    cardShort: '卵6·6 精5·7 ×3',
+  },
+  dnaSequence: `${'0'.repeat(48)}${'1'.repeat(48)}`,
+  dnaFp: 'ABCDEF01',
+  logicSummary: { 'LOG-BRN': 8 },
+  endedAtTick: 10,
+  endReason: 'END',
+};
+reg['reg-pa'] = {
+  id: 'reg-pa',
+  code: 'PA1',
+  name: 'pa',
+  familyName: '12',
+  givenName: '002',
+  alive: false,
+  pairMorph: 'A',
+  dnaSequence: `${'0'.repeat(96)}`,
+  logicSummary: {},
+};
+reg['reg-pb'] = {
+  id: 'reg-pb',
+  code: 'PB1',
+  name: 'pb',
+  familyName: '34',
+  givenName: '003',
+  alive: false,
+  pairMorph: 'B',
+  dnaSequence: `${'2'.repeat(96)}`,
+  logicSummary: {},
+};
+const registryChild = buildGenealogyModel(world).beings.find((b) => b.id === 'reg-child');
+assert(registryChild?._registryOnly, '登记表节点标记 registryOnly');
+const regDetail = renderBeingDetailHTML(registryChild, null, world.envProfile, world);
+assert(regDetail.includes('减数来源登记'), '登记表详情含 inherit 登记块');
+assert(regDetail.includes('卵方减数'), '登记表详情含减数统计');
+assert(regDetail.includes('父母 DNA 区段相似度'), '登记表详情含父母区段相似度');
+assert(regDetail.includes('·阈'), '登记表详情含区段阈值');
+
+recorder.evolution(1, 'being-a', '[MEI] packet len 96', { kind: 'MEI' });
+recorder.evolution(2, 'being-b', '[DCK] half len 96', { kind: 'DCK' });
+assert(pickReproEvolutionEntries(recorder, { beingId: 'being-a' }).length === 1, '进化流可按个体筛选');
+assert(pickReproEvolutionEntries(recorder).length === 2, '进化流可显示全部');
 
 const ends = recorder.entries.filter((e) => e.meta?.kind === 'END');
 assert(ends.length >= 1, `[END] 记录（${ends.length}）`);

@@ -1742,6 +1742,13 @@ input[type='number'] {
   gap: 0.35rem;
 }
 
+.genealogy-repro-stream-filters {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+
 .genealogy-repro-stream-note {
   font-size: 0.7rem;
   margin: 0 0 0.5rem;
