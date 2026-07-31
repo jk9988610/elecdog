@@ -1,7 +1,6 @@
 // GAP-PAIR-0 — 体内合胞、宫内通量、外排与依赖期（不设配子/性别/通道名）
 
 import { hashString, mulberry32 } from '../core/hash.js';
-import { reduceDna, recombineDna, mutate } from '../core/dna.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { applyNurtureAtBirth } from './nurture.js';
 import { replicationEnabled } from './replication.js';
@@ -38,6 +37,11 @@ import {
 } from './courtship-gate.js';
 import { isReproKinBlocked } from './kinship-gate.js';
 import { dnaFingerprint } from '../genetics/dna-kinship.js';
+import {
+  produceGamete,
+  zygoteFromGametes,
+  derivePairMorphFromGenome,
+} from '../genetics/genome.js';
 import { issueHealthReport } from './health-report.js';
 import { assignChildName } from './being-names.js';
 
@@ -223,7 +227,8 @@ export function initDockedHalf(world, being) {
   if (!pairReproEnabled(profile) || being.pairMorph !== 'B') return null;
   if (being.dockedHalf) return being.dockedHalf;
   const seed = hashString(`${being.id}:${world.tick}:dock-init`);
-  being.dockedHalf = { seq: reduceDna(being.dna.sequence, seed), atTick: world.tick, init: true };
+  const gamete = produceGamete(being, world.envProfile ?? {}, seed);
+  being.dockedHalf = { seq: gamete.seq, haploid: gamete.haploid, atTick: world.tick, init: true };
   annotatePairHalfMetadata(being, profile);
   return being.dockedHalf;
 }
@@ -246,8 +251,10 @@ export function restoreAdultReproPackages(being, world, profile) {
     pinMatingChannel(being, STR_PAIR_OUT, ADULT_MATE_CHANNEL);
     if (!being.meiPacket?.seq) {
       const seed = hashString(`${being.id}:${world.tick ?? 0}:sperm-restore`);
+      const gamete = produceGamete(being, profile, seed);
       being.meiPacket = {
-        seq: reduceDna(being.dna.sequence, seed),
+        seq: gamete.seq,
+        haploid: gamete.haploid,
         atTick: world.tick ?? 0,
         adultSeed: true,
       };
@@ -299,8 +306,9 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
   if (roll > prob) return null;
 
   const seed = hashString(`${being.id}:${world.tick}:dock-reduce`);
-  const seq = reduceDna(being.dna.sequence, seed);
-  being.dockedHalf = { seq, atTick: world.tick };
+  const gamete = produceGamete(being, profile, seed);
+  const seq = gamete.seq;
+  being.dockedHalf = { seq, haploid: gamete.haploid, atTick: world.tick };
   being.lastDockTick = world.tick;
   being.dockCount = (being.dockCount ?? 0) + 1;
   annotatePairHalfMetadata(being, profile);
@@ -696,17 +704,16 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
   }
   const gestationTicks = profile.gestationTicks ?? profile.nurtureTicks ?? 80;
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:pair-fus`);
-  const combined = recombineDna(seqA, seqB, seed);
-  const rate = profile.fusionMutationRate ?? 0.015;
-  const { seq, mutationCount } = mutate(combined, rate, seed + 1);
+  const zygote = zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB: true });
 
   parentB.syncyte = {
-    dnaSeq: seq,
+    dnaSeq: zygote.dnaSeq,
+    genome: zygote.genome,
     registers: avgRegisters(parentA.registers, parentB.registers),
     gestationUntilTick: world.tick + gestationTicks,
     parentAId: parentA.id,
     atTick: world.tick,
-    mutationCount,
+    mutationCount: zygote.mutationCount,
   };
 
   parentB.pregnant = true;
@@ -728,12 +735,12 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
   recorder.evolution(
     world.tick,
     parentB.id,
-    `[FUS-IN] ${parentA.id} → syncyte mut ${mutationCount}`,
+    `[FUS-IN] ${parentA.id} → syncyte mut ${zygote.mutationCount}`,
     {
       kind: 'FUS-IN',
       parentA: parentA.id,
       parentB: parentB.id,
-      mutationCount,
+      mutationCount: zygote.mutationCount,
       gestationTicks,
     }
   );
@@ -787,6 +794,8 @@ function expelSyncyte(world, recorder, carrier) {
   const born = birthIntoWorld(world, recorder, {
     code: carrier.code,
     dnaSequence: syncyte.dnaSeq,
+    genome: syncyte.genome,
+    pairMorph: syncyte.genome ? derivePairMorphFromGenome(syncyte.genome) : undefined,
   });
   const child = born.being;
   const parentA = world.beings.find((b) => b.id === syncyte.parentAId);
