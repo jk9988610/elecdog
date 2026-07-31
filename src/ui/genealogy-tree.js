@@ -263,9 +263,14 @@ function renderSegTag(side) {
   return `<span class="chr-seg-tag ${cls}">${escapeHtml(segregationLabel(side))}</span>`;
 }
 
+function renderCrossTag(point) {
+  if (point == null) return '';
+  return `<span class="chr-cross-tag">互换@${point}</span>`;
+}
+
 function renderGenomeTable(rows) {
   if (!rows?.length) return '';
-  const hasProv = rows.some((r) => r.eggSeg || r.spermSeg);
+  const hasProv = rows.some((r) => r.eggSeg || r.spermSeg || r.eggCross != null || r.spermCross != null);
   const body = rows
     .map((r) => {
       const cls = r.isSexPair ? 'chr-sex-pair' : '';
@@ -274,10 +279,11 @@ function renderGenomeTable(rows) {
         r.heterozygousBits > 0
           ? `<span class="chr-het-tag">·${r.heterozygousBits}杂</span>`
           : '';
+      const zoneTag = r.zone ? `<span class="chr-zone-tag">${escapeHtml(r.zone)}</span>` : '';
       return `<tr class="${cls}">
-        <td class="chr-pair-label">${escapeHtml(r.label)}</td>
-        <td><code>${escapeHtml(r.maternal)}</code>${hasProv ? renderSegTag(r.eggSeg) : ''}</td>
-        <td><code>${escapeHtml(r.paternal)}</code>${yTag}${hasProv ? renderSegTag(r.spermSeg) : ''}</td>
+        <td class="chr-pair-label">${escapeHtml(r.label)}${zoneTag}</td>
+        <td><code>${escapeHtml(r.maternal)}</code>${hasProv ? renderSegTag(r.eggSeg) : ''}${hasProv ? renderCrossTag(r.eggCross) : ''}</td>
+        <td><code>${escapeHtml(r.paternal)}</code>${yTag}${hasProv ? renderSegTag(r.spermSeg) : ''}${hasProv ? renderCrossTag(r.spermCross) : ''}</td>
         <td><code>${escapeHtml(r.expressed)}</code>${hetTag}</td>
       </tr>`;
     })
@@ -305,9 +311,10 @@ function renderHaploidTable(rows, { title = '配子单倍体' } = {}) {
     .map((r) => {
       const cls = r.isSexPair ? 'chr-sex-pair' : '';
       const yTag = r.isY ? ' <span class="chr-y-tag">Y</span>' : '';
+      const zoneTag = r.zone ? `<span class="chr-zone-tag">${escapeHtml(r.zone)}</span>` : '';
       return `<tr class="${cls}">
-        <td class="chr-pair-label">${escapeHtml(r.label)}</td>
-        <td><code>${escapeHtml(r.sequence)}</code>${yTag}${hasSeg ? renderSegTag(r.segregation) : ''}</td>
+        <td class="chr-pair-label">${escapeHtml(r.label)}${zoneTag}</td>
+        <td><code>${escapeHtml(r.sequence)}</code>${yTag}${hasSeg ? renderSegTag(r.segregation) : ''}${renderCrossTag(r.crossover)}</td>
       </tr>`;
     })
     .join('');
@@ -330,10 +337,10 @@ function renderProvenanceSummary(genome) {
   return `
     <div class="stat-grid chr-provenance-grid">
       <div class="stat-row"><span>父母染色体</span><strong>${escapeHtml(lines.parentTotals)}</strong></div>
-      <div class="stat-row"><span>卵方减数</span><strong>母源${lines.eggMat} · 父源${lines.eggPat}</strong></div>
-      <div class="stat-row"><span>精方减数</span><strong>母源${lines.spermMat} · 父源${lines.spermPat}</strong></div>
+      <div class="stat-row"><span>卵方减数</span><strong>母源${lines.eggMat} · 父源${lines.eggPat}${lines.eggCross ? ` · 互换${lines.eggCross}` : ''}</strong></div>
+      <div class="stat-row"><span>精方减数</span><strong>母源${lines.spermMat} · 父源${lines.spermPat}${lines.spermCross ? ` · 互换${lines.spermCross}` : ''}</strong></div>
     </div>
-    <p class="muted chr-genome-hint">标签「母源/父源」指该亲本二倍体中哪条同源进入配子；合子母源列来自卵、父源列来自精。</p>`;
+    <p class="muted chr-genome-hint">标签「母源/父源」= 亲本二倍体哪条同源进入配子；「互换@n」= 减数前在第 n 位交叉互换。对旁 Z 区对应 DNA_EXPRESSION 区段。</p>`;
 }
 
 function renderChromosomeInheritBadge(being) {
@@ -400,7 +407,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
       </div>
       ${being?.meiPacket?.haploid?.length
         ? renderHaploidTable(
-            haploidDisplayRows(being.meiPacket.haploid, being.meiPacket.segregation),
+            haploidDisplayRows(being.meiPacket.haploid, being.meiPacket.segregation, being.meiPacket.crossovers),
             { title: '精子单倍体' }
           )
         : ''}`;
@@ -425,7 +432,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
       </div>
       ${being?.dockedHalf?.haploid?.length
         ? renderHaploidTable(
-            haploidDisplayRows(being.dockedHalf.haploid, being.dockedHalf.segregation),
+            haploidDisplayRows(being.dockedHalf.haploid, being.dockedHalf.segregation, being.dockedHalf.crossovers),
             { title: '卵单倍体' }
           )
         : ''}`;

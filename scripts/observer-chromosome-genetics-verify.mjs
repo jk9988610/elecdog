@@ -13,6 +13,7 @@ import {
   produceGamete,
   diploidExpressSequence,
   expressAlleleDigit,
+  crossoverRate as profileCrossoverRate,
 } from '../src/genetics/genome.js';
 import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines } from '../src/genetics/genome-display.js';
 import { renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
@@ -73,16 +74,19 @@ const egg = produceGamete(female, world.envProfile, 43);
 assert(sperm.haploid?.length === 12, '精子单倍体 12 条');
 assert(egg.haploid?.length === 12, '卵子单倍体 12 条');
 assert(sperm.segregation?.length === 12, '精子记录减数来源');
+assert(sperm.crossovers?.length === 12, '精子记录交叉互换位点');
 const zyg = fertilize(egg.haploid, sperm.haploid);
 assert(derivePairMorphFromGenome(zyg) === 'A' || derivePairMorphFromGenome(zyg) === 'B', '合子 morph 可派生');
 
 const genome = male.genome;
-const hap1 = meiosis(genome, 1);
-const hap2 = meiosis(genome, 2);
+const hap1 = meiosis(genome, 1, { crossoverRate: profileCrossoverRate(world.envProfile) });
+const hap2 = meiosis(genome, 2, { crossoverRate: profileCrossoverRate(world.envProfile) });
 assert(
   hap1.haploid.join('') !== hap2.haploid.join('') || genome.pairs.every((p) => p.maternal === p.paternal),
   '减数分裂可产生不同单倍型'
 );
+const heavyX = meiosis(genome, 777, { crossoverRate: 1 });
+assert(heavyX.crossovers?.some((c) => c != null), '减数分裂可交叉互换');
 
 initAdultMatingStructures(male, world.envProfile, 0);
 initAdultMatingStructures(female, world.envProfile, 0);
@@ -117,7 +121,8 @@ assert(provLines?.spermMat + provLines?.spermPat === 12, '精方贡献 12 条');
 const genomeRows = genomeDisplayRows(male.genome);
 assert(genomeRows.length === 12, '展示行 12 对');
 assert(genomeRows[SEX_PAIR_INDEX].isSexPair, '性染色体对标记');
-const spermRows = haploidDisplayRows(sperm.haploid, sperm.segregation);
+const spermRows = haploidDisplayRows(sperm.haploid, sperm.segregation, sperm.crossovers);
+assert(genomeRows[0].zone === 'Z1', '展示行含 Z 区');
 assert(spermRows.length === 12, '精子单倍体展示 12 条');
 assert(spermRows[0].segregation === sperm.segregation[0], '单倍体展示带来源');
 const detailHtml = renderBeingDetailHTML(male, female, world.envProfile, world);

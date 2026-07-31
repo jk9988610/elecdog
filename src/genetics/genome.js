@@ -11,6 +11,30 @@ export const GENOME_LEN = CHR_COUNT * CHR_LEN;
 export const SEX_PAIR_INDEX = 11;
 export const SEX_Y_DIGIT = '3';
 
+/** 12 对 ↔ Z1–Z6（每区 2 对 × 8 位 = 16 位） */
+export const CHR_ZONE_BY_PAIR = [
+  'Z1', 'Z1', 'Z2', 'Z2', 'Z3', 'Z3', 'Z4', 'Z4', 'Z5', 'Z5', 'Z6', 'Z6',
+];
+
+export function crossoverEnabled(profile) {
+  if (profile?.meiCrossoverEnabled === false) return false;
+  return profile?.meiCrossoverEnabled === true || profile?.multicellV2Enabled === true;
+}
+
+export function crossoverRate(profile) {
+  if (!crossoverEnabled(profile)) return 0;
+  return profile?.meiCrossoverRate ?? 0.32;
+}
+
+function crossoverAtPoint(mat, pat, point) {
+  const m = mat.padEnd(CHR_LEN, '0').slice(0, CHR_LEN);
+  const p = pat.padEnd(CHR_LEN, '0').slice(0, CHR_LEN);
+  return {
+    maternal: m.slice(0, point) + p.slice(point),
+    paternal: p.slice(0, point) + m.slice(point),
+  };
+}
+
 export function chromosomeGeneticsEnabled(profile) {
   if (profile?.chromosomeGenetics === false) return false;
   return profile?.chromosomeGenetics === true || profile?.multicellV2Enabled === true;
@@ -132,18 +156,29 @@ export function createRandomDiploid(code, morph = null, seed = 0) {
   return genome;
 }
 
-/** 减数分裂：每对随机分离一条进入配子，并记录来自母源/父源同源 */
-export function meiosis(genome, seed) {
+/** 减数分裂：可选同源交叉互换 → 随机分离，记录来源 */
+export function meiosis(genome, seed, { crossoverRate: rate = 0 } = {}) {
   const rng = mulberry32(seed);
   const haploid = [];
   const segregation = [];
+  const crossovers = [];
   for (let i = 0; i < CHR_COUNT; i++) {
     const pair = genome.pairs[i] ?? {};
+    let mat = (pair.maternal ?? '').padEnd(CHR_LEN, '0').slice(0, CHR_LEN);
+    let pat = (pair.paternal ?? '').padEnd(CHR_LEN, '0').slice(0, CHR_LEN);
+    let crossPoint = null;
+    if (i !== SEX_PAIR_INDEX && rate > 0 && rng() < rate) {
+      crossPoint = 1 + Math.floor(rng() * (CHR_LEN - 1));
+      const crossed = crossoverAtPoint(mat, pat, crossPoint);
+      mat = crossed.maternal;
+      pat = crossed.paternal;
+    }
+    crossovers.push(crossPoint);
     const fromMaternal = rng() < 0.5;
-    haploid.push(fromMaternal ? pair.maternal : pair.paternal);
+    haploid.push(fromMaternal ? mat : pat);
     segregation.push(fromMaternal ? 'maternal' : 'paternal');
   }
-  return { haploid, segregation };
+  return { haploid, segregation, crossovers };
 }
 
 /** 受精：卵单倍体 → 母源；精单倍体 → 父源 */
@@ -192,8 +227,10 @@ export function produceGamete(being, profile, seed) {
   if (!genome?.pairs?.length) {
     throw new Error('produceGamete: being lacks diploid genome');
   }
-  const { haploid, segregation } = meiosis(genome, seed);
-  return { haploid, segregation, seq: flattenHaploid(haploid) };
+  const { haploid, segregation, crossovers } = meiosis(genome, seed, {
+    crossoverRate: crossoverRate(profile),
+  });
+  return { haploid, segregation, crossovers, seq: flattenHaploid(haploid) };
 }
 
 /** 双配子 → 合子二倍体 + 表达串 */
@@ -202,7 +239,7 @@ export function zygoteFromGametes(
   seqB,
   profile,
   seed,
-  { eggIsB = true, eggSegregation = null, spermSegregation = null } = {}
+  { eggIsB = true, eggSegregation = null, spermSegregation = null, eggCrossovers = null, spermCrossovers = null } = {}
 ) {
   if (!chromosomeGeneticsEnabled(profile)) {
     const combined = recombineDna(seqA, seqB, seed);
@@ -215,9 +252,16 @@ export function zygoteFromGametes(
   const spermH = eggIsB ? haploidA : haploidB;
   const eggSeg = eggIsB ? eggSegregation : spermSegregation;
   const spermSeg = eggIsB ? spermSegregation : eggSegregation;
+  const eggCross = eggIsB ? eggCrossovers : spermCrossovers;
+  const spermCross = eggIsB ? spermCrossovers : eggCrossovers;
   const provenance =
-    eggSeg?.length || spermSeg?.length
-      ? { maternalSegregation: eggSeg ?? null, paternalSegregation: spermSeg ?? null }
+    eggSeg?.length || spermSeg?.length || eggCross?.length || spermCross?.length
+      ? {
+          maternalSegregation: eggSeg ?? null,
+          paternalSegregation: spermSeg ?? null,
+          maternalCrossovers: eggCross ?? null,
+          paternalCrossovers: spermCross ?? null,
+        }
       : null;
   let genome = fertilize(eggH, spermH, provenance);
   const { genome: mutated, mutationCount } = mutateDiploid(
