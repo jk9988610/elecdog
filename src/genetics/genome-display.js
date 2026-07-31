@@ -4,6 +4,7 @@ import {
   CHR_COUNT,
   CHR_LEN,
   SEX_PAIR_INDEX,
+  CHR_ZONE_BY_PAIR,
   expressAlleleDigit,
   isSexYChromosome,
 } from './genome.js';
@@ -37,12 +38,16 @@ export function provenanceContributionLines(provenance) {
   if (!provenance) return null;
   const egg = countSegregation(provenance.maternalSegregation);
   const sperm = countSegregation(provenance.paternalSegregation);
-  if (!egg.total && !sperm.total) return null;
+  const eggX = countCrossovers(provenance.maternalCrossovers);
+  const spermX = countCrossovers(provenance.paternalCrossovers);
+  if (!egg.total && !sperm.total && !eggX && !spermX) return null;
   return {
     eggMat: egg.maternal,
     eggPat: egg.paternal,
     spermMat: sperm.maternal,
     spermPat: sperm.paternal,
+    eggCross: eggX,
+    spermCross: spermX,
     eggLine: `卵方减数 ${egg.maternal}+${egg.paternal}（母源+父源同源）`,
     spermLine: `精方减数 ${sperm.maternal}+${sperm.paternal}（母源+父源同源）`,
     cardShort: `卵${egg.maternal}·${egg.paternal} 精${sperm.maternal}·${sperm.paternal}`,
@@ -71,6 +76,7 @@ export function genomeDisplayRows(genome) {
     rows.push({
       index: i,
       label: chromosomePairLabel(i),
+      zone: CHR_ZONE_BY_PAIR[i] ?? null,
       maternal: mat,
       paternal: pat,
       expressed,
@@ -78,6 +84,8 @@ export function genomeDisplayRows(genome) {
       sexYOnPaternal: i === SEX_PAIR_INDEX && isSexYChromosome(pat),
       eggSeg: prov?.maternalSegregation?.[i] ?? null,
       spermSeg: prov?.paternalSegregation?.[i] ?? null,
+      eggCross: prov?.maternalCrossovers?.[i] ?? null,
+      spermCross: prov?.paternalCrossovers?.[i] ?? null,
       heterozygousBits,
       codominantBits,
     });
@@ -86,7 +94,7 @@ export function genomeDisplayRows(genome) {
 }
 
 /** 配子单倍体 12 条 + 减数分裂来源 */
-export function haploidDisplayRows(haploid, segregation = null) {
+export function haploidDisplayRows(haploid, segregation = null, crossovers = null) {
   if (!haploid?.length) return [];
   const rows = [];
   for (let i = 0; i < CHR_COUNT; i++) {
@@ -94,11 +102,21 @@ export function haploidDisplayRows(haploid, segregation = null) {
     rows.push({
       index: i,
       label: chromosomePairLabel(i),
+      zone: CHR_ZONE_BY_PAIR[i] ?? null,
       sequence: chr,
       isSexPair: i === SEX_PAIR_INDEX,
       isY: i === SEX_PAIR_INDEX && isSexYChromosome(chr),
       segregation: segregation?.[i] ?? null,
+      crossover: crossovers?.[i] ?? null,
     });
   }
   return rows;
+}
+
+export function countCrossovers(crossovers) {
+  let n = 0;
+  for (const c of crossovers ?? []) {
+    if (c != null) n += 1;
+  }
+  return n;
 }

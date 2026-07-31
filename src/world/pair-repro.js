@@ -232,6 +232,7 @@ export function initDockedHalf(world, being) {
     seq: gamete.seq,
     haploid: gamete.haploid,
     segregation: gamete.segregation,
+    crossovers: gamete.crossovers,
     atTick: world.tick,
     init: true,
   };
@@ -262,6 +263,7 @@ export function restoreAdultReproPackages(being, world, profile) {
         seq: gamete.seq,
         haploid: gamete.haploid,
         segregation: gamete.segregation,
+        crossovers: gamete.crossovers,
         atTick: world.tick ?? 0,
         adultSeed: true,
       };
@@ -315,7 +317,7 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
   const seed = hashString(`${being.id}:${world.tick}:dock-reduce`);
   const gamete = produceGamete(being, profile, seed);
   const seq = gamete.seq;
-  being.dockedHalf = { seq, haploid: gamete.haploid, segregation: gamete.segregation, atTick: world.tick };
+  being.dockedHalf = { seq, haploid: gamete.haploid, segregation: gamete.segregation, crossovers: gamete.crossovers, atTick: world.tick };
   being.lastDockTick = world.tick;
   being.dockCount = (being.dockCount ?? 0) + 1;
   annotatePairHalfMetadata(being, profile);
@@ -715,6 +717,8 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
     eggIsB: true,
     spermSegregation: parentA.meiPacket?.segregation,
     eggSegregation: parentB.dockedHalf?.segregation,
+    spermCrossovers: parentA.meiPacket?.crossovers,
+    eggCrossovers: parentB.dockedHalf?.crossovers,
   });
 
   parentB.syncyte = {

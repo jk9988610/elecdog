@@ -167,8 +167,8 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
     seq: packetSeq,
     haploid: gamete.haploid,
     segregation: gamete.segregation,
+    crossovers: gamete.crossovers,
     atTick: world.tick,
-    subId: rpl.subId ?? null,
   };
   being.lastMeiTick = world.tick;
   being.meiCount = (being.meiCount ?? 0) + 1;
@@ -235,6 +235,8 @@ function spawnFusionFromSeqs(
     orphanFromId = null,
     segA = null,
     segB = null,
+    crossA = null,
+    crossB = null,
   } = {}
 ) {
   const profile = world.envProfile ?? {};
@@ -251,6 +253,8 @@ function spawnFusionFromSeqs(
       eggIsB: false,
       eggSegregation: segA ?? parentA.meiPacket?.segregation,
       spermSegregation: segB ?? parentB.meiPacket?.segregation,
+      eggCrossovers: crossA ?? parentA.meiPacket?.crossovers,
+      spermCrossovers: crossB ?? parentB.meiPacket?.crossovers,
     });
     seq = zygote.dnaSeq;
     genome = zygote.genome;
@@ -402,6 +406,8 @@ function tryLiveDonorFusion(world, recorder, holder, donor) {
     liveDonor: true,
     segA: holder.meiPacket?.segregation,
     segB: donorGamete.segregation,
+    crossA: holder.meiPacket?.crossovers,
+    crossB: donorGamete.crossovers,
   });
 }
 

@@ -2264,3 +2264,20 @@ input[type='number'] {
 .chr-provenance-grid {
   margin-bottom: 0.5rem;
 }
+
+.chr-zone-tag {
+  display: inline-block;
+  margin-left: 0.15rem;
+  font-size: 0.55rem;
+  color: #6a7a8a;
+}
+
+.chr-cross-tag {
+  display: inline-block;
+  margin-left: 0.2rem;
+  padding: 0 0.2rem;
+  font-size: 0.55rem;
+  color: #c9a86c;
+  background: rgba(180, 140, 80, 0.12);
+  border-radius: 2px;
+}
