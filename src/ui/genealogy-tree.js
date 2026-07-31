@@ -367,13 +367,9 @@ export function renderHealthReportHTML(being) {
   `;
 }
 
-export function renderBeingDetailHTML(
-  being,
-  partnerBeing = null,
-  profile = null,
-  { showHealth = false } = {}
-) {
+export function renderBeingDetailHTML(being, partnerBeing = null, profile = null, world = null) {
   if (!being) return '<p class="muted">未选择个体</p>';
+  const tick = world?.tick ?? being.tickCount ?? 0;
   const logicRows = displayLogicRows(being)
     .map(
       (r) =>
@@ -397,17 +393,42 @@ export function renderBeingDetailHTML(
     }
   }
 
-  const healthBtn = being.healthReport
-    ? `<button type="button" class="genealogy-detail-health-btn">${showHealth ? '收起体检' : '查看体检'}</button>`
-    : '';
-  const healthBlock = showHealth
+  const healthBlock = being.healthReport
     ? `<div class="genealogy-detail-health-host">${renderHealthReportHTML(being)}</div>`
     : '';
+
+  let embryoHtml = '';
+  if (being.syncyte?.logicCells) {
+    const gestLeft =
+      being.syncyte.gestationUntilTick != null
+        ? Math.max(0, being.syncyte.gestationUntilTick - tick)
+        : null;
+    const embRows = displayLogicRows({ logicCells: being.syncyte.logicCells })
+      .map(
+        (r) =>
+          `<div class="stat-row"><span>${escapeHtml(r.analogy)} <code>${escapeHtml(r.code)}</code></span><strong>${r.n}/${r.max}</strong></div>`
+      )
+      .join('');
+    embryoHtml = `
+      <h4 class="term">宫内胚胎</h4>
+      <p class="muted genealogy-embryo-hint">合胞在孕妇体内发育；营养由母体寄存器经脐带 STR-UMB / [EMB] 通量输送。</p>
+      <div class="stat-grid">
+        ${gestLeft != null ? `<div class="stat-row"><span>剩余妊娠 tick</span><strong>${gestLeft}</strong></div>` : ''}
+        <div class="stat-row"><span>逻辑细胞总量</span><strong>${totalLogicCells({ logicCells: being.syncyte.logicCells })}</strong></div>
+        <div class="stat-row"><span>宫内 MIT</span><strong>${being.syncyte.juvMitTicks ?? 0}</strong></div>
+        <div class="stat-row"><span>宫内 DIFF</span><strong>${being.syncyte.juvDiffTicks ?? 0}</strong></div>
+      </div>
+      <div class="stat-grid">${embRows}</div>`;
+  }
+
+  const foodNote = `
+    <p class="muted genealogy-food-hint">营养摄取：环境数字基底场 <code>substrate.channels</code> 经 draw 子单元按 MET_DRAW 通量抽吸至个体寄存器，非实体食物颗粒。</p>`;
 
   return `
     <div class="genealogy-detail">
       <h3 class="genealogy-detail-title">${escapeHtml(formatBeingDisplayName(being))} <span class="genealogy-detail-morph">${escapeHtml(pairMorphCn(being.pairMorph))}</span> <span class="genealogy-detail-badge">${escapeHtml(badge)}</span></h3>
       <p class="genealogy-detail-id"><code>${escapeHtml(being.id)}</code> · ${escapeHtml(being.code)}</p>
+      ${foodNote}
       <div class="stat-grid">
         <div class="stat-row"><span>存活</span><strong>${being.alive ? '是' : '否'}</strong></div>
         ${!being.alive ? `<div class="stat-row"><span>END</span><strong>${escapeHtml(being.endReason ?? '—')} @t${being.endedAtTick ?? '—'}</strong></div>` : ''}
@@ -418,7 +439,7 @@ export function renderBeingDetailHTML(
         <div class="stat-row"><span>伴侣</span><strong>${escapeHtml(beingTail(being.partnerId))}</strong></div>
       </div>
       ${courtshipHtml}
-      ${healthBtn ? `<div class="genealogy-detail-actions">${healthBtn}</div>` : ''}
+      ${embryoHtml}
       ${healthBlock}
       <h4 class="term">激素与泌乳</h4>
       <div class="stat-grid hormone-list-panel">${renderHormoneList(being)}</div>
@@ -437,7 +458,7 @@ export function renderBeingDetailHTML(
 function positionDetailPopover(popover, anchorEl) {
   const rect = anchorEl.getBoundingClientRect();
   const margin = 12;
-  const width = 340;
+  const width = 520;
   const maxHeight = Math.min(520, window.innerHeight - margin * 2);
   popover.style.width = `${width}px`;
   popover.style.maxHeight = `${maxHeight}px`;
@@ -485,7 +506,6 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
   if (!viewportEl || !innerEl || !popover || !popoverBody) return null;
 
   let selectedId = null;
-  let showHealth = false;
   let viewportCtrl = initGenealogyViewport(viewportEl, innerEl);
 
   function findBeing(world, id) {
@@ -498,20 +518,13 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
   function closePopover() {
     popover.classList.add('hidden');
     selectedId = null;
-    showHealth = false;
     innerEl.querySelectorAll('.gv-person-card').forEach((c) => c.classList.remove('selected'));
   }
 
   function openPopover(anchorEl, being) {
     const world = getWorld?.();
     const partner = being?.partnerId ? findBeing(world, being.partnerId) : null;
-    popoverBody.innerHTML = renderBeingDetailHTML(being, partner, world?.envProfile, {
-      showHealth,
-    });
-    popoverBody.querySelector('.genealogy-detail-health-btn')?.addEventListener('click', () => {
-      showHealth = !showHealth;
-      openPopover(anchorEl, being);
-    });
+    popoverBody.innerHTML = renderBeingDetailHTML(being, partner, world?.envProfile, world);
     popover.classList.remove('hidden');
     positionDetailPopover(popover, anchorEl);
     onSelect?.(being.id);
@@ -534,7 +547,6 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
           return;
         }
         selectedId = id;
-        showHealth = false;
         innerEl.querySelectorAll('.gv-person-card').forEach((c) => c.classList.remove('selected'));
         btn.closest('.gv-person-card')?.classList.add('selected');
         openPopover(btn, being);

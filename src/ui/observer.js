@@ -107,6 +107,7 @@ export class ObserverApp {
     this.observerLayout = getObserverLayoutMode();
     this.envProfileId = getObserverEnvId();
     this.lastArchiveId = null;
+    this.genealogyPopVisible = true;
     this.render();
     this.bootstrapWorld();
     this.refreshCloudPanel();
@@ -144,12 +145,14 @@ export class ObserverApp {
         <div class="panels-menu-wrap" id="panels-menu-wrap">
           <button id="btn-panels-toggle" type="button" class="btn-ghost">面板</button>
           <div id="panels-dropdown" class="panels-dropdown hidden" role="menu">
-            <button type="button" class="panels-menu-item" data-panel-action="cloud">云设置</button>
-            <button type="button" class="panels-menu-item" data-panel-action="codex">辞典</button>
-            <button type="button" class="panels-menu-item" data-panel-action="carry-import">导入留置</button>
-            <button type="button" class="panels-menu-item" data-panel-action="mind-stream">内在流</button>
-            <button type="button" class="panels-menu-item" data-panel-action="sem-signal">信号类比</button>
-            <button type="button" class="panels-menu-item" data-panel-action="thought-speech">思考外化</button>
+            <button type="button" class="panels-menu-item observer-extra-panel" data-panel-action="cloud">云设置</button>
+            <button type="button" class="panels-menu-item observer-extra-panel" data-panel-action="codex">辞典</button>
+            <button type="button" class="panels-menu-item observer-extra-panel" data-panel-action="carry-import">导入留置</button>
+            <button type="button" class="panels-menu-item observer-extra-panel" data-panel-action="mind-stream">内在流</button>
+            <button type="button" class="panels-menu-item observer-extra-panel" data-panel-action="sem-signal">信号类比</button>
+            <button type="button" class="panels-menu-item observer-extra-panel" data-panel-action="thought-speech">思考外化</button>
+            <hr class="panels-menu-sep observer-extra-panel" />
+            <button type="button" class="panels-menu-item" data-panel-action="population">种群统计</button>
             <hr class="panels-menu-sep" />
             <button type="button" class="panels-menu-item panels-layout-item ${this.observerLayout === LAYOUT_GENEALOGY ? 'active' : ''}" data-panel-action="layout-genealogy">族谱布局</button>
             <button type="button" class="panels-menu-item panels-layout-item ${this.observerLayout === LAYOUT_CLASSIC ? 'active' : ''}" data-panel-action="layout-classic">经典卡片</button>
@@ -361,6 +364,15 @@ export class ObserverApp {
         break;
       case 'thought-speech':
         this.toggleThoughtSpeechPanel();
+        break;
+      case 'population':
+        this.genealogyPopVisible = !this.genealogyPopVisible;
+        const popPanel = this.$.dashboard?.querySelector('#genealogy-pop-panel');
+        if (popPanel) {
+          popPanel.classList.toggle('hidden', !this.genealogyPopVisible);
+        } else {
+          this.refresh();
+        }
         break;
       case 'layout-genealogy':
         this.switchObserverLayout(LAYOUT_GENEALOGY);
@@ -636,8 +648,12 @@ export class ObserverApp {
         this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
           getWorld: () => this.world,
         });
+      } else {
+        const popStats = this.$.dashboard.querySelector('#genealogy-pop-stats');
+        if (popStats) popStats.innerHTML = this.renderGenealogyPopStatsInner(s);
       }
       this.genealogyPanel?.paint();
+      this.syncGenealogyOnlyChrome(true);
       this.$.panelsDropdown?.querySelectorAll('.panels-layout-item').forEach((el) => {
         el.classList.toggle('hidden', !s.world.multicellV2Observer);
       });
@@ -647,6 +663,7 @@ export class ObserverApp {
 
     this.$.dashboard.innerHTML = this.renderDashboard(s);
     this.genealogyPanel = null;
+    this.syncGenealogyOnlyChrome(false);
     this.$.dashboard.querySelectorAll('[data-codex-entry]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const id = btn.getAttribute('data-codex-entry');
@@ -1001,10 +1018,63 @@ export class ObserverApp {
     }
   }
 
+  syncGenealogyOnlyChrome(active) {
+    this.root.classList.toggle('genealogy-only-mode', active);
+    this.$.btnCloudArchive?.classList.toggle('hidden', active);
+    this.$.cloudStatus?.classList.toggle('hidden', active);
+  }
+
+  renderGenealogyPopStatsInner(s) {
+    const cmp = s.population.cmp;
+    const cmpBlock = cmp
+      ? `
+        <div class="stat-row"><span>存活</span><strong>${cmp.pop ?? s.population.alive}</strong></div>
+        <div class="stat-row"><span>代号种数</span><strong>${cmp.codes ?? '—'}</strong></div>
+        <div class="stat-row"><span>谱系根</span><strong>${cmp.lineageRoots ?? '—'}</strong></div>
+        <div class="stat-row"><span>结构指数</span><strong>${cmp.structIdx ?? '—'}</strong></div>
+        <div class="stat-row"><span>代号同质</span><strong>${cmp.codeHom ?? '—'}</strong></div>
+        <div class="stat-row"><span>谱系同质</span><strong>${cmp.lineageHom ?? '—'}</strong></div>
+      `
+      : `<div class="stat-row"><span>存活</span><strong>${s.population.alive}</strong></div>`;
+
+    const slotLines = Object.entries(s.population.slots)
+      .map(([slot, n]) => `<div class="stat-row"><span>${formatSlot(slot)}</span><strong>${n}</strong></div>`)
+      .join('');
+
+    return `
+      <p class="panel-hint muted">多细胞 v2：伴侣、妊娠与分娩链；无种群 FISS 增员。</p>
+      <h3 class="term">${label('popStruct')}</h3>
+      <div class="stat-grid">${cmpBlock}</div>
+      <h3 class="term">多细胞生命史</h3>
+      <div class="stat-grid">
+        <div class="stat-row"><span>存活 / 总量</span><strong>${s.population.alive} / ${s.population.total}</strong></div>
+        <div class="stat-row"><span>${label('end')}</span><strong>${s.population.ended}</strong></div>
+        <div class="stat-row"><span>有伴侣</span><strong>${s.population.partnered ?? 0}</strong></div>
+        <div class="stat-row"><span>妊娠中</span><strong>${s.population.pregnant ?? 0}</strong></div>
+        <div class="stat-row"><span>伴侣登记</span><strong>${s.population.bond ?? 0}</strong></div>
+        <div class="stat-row"><span>${label('pairPrq')}</span><strong>${s.population.prq ?? 0}</strong></div>
+        <div class="stat-row"><span>${label('pairPgr')}</span><strong>${s.population.pgr ?? 0}</strong></div>
+        <div class="stat-row"><span>体内合胞</span><strong>${s.population.fusIn ?? 0}</strong></div>
+        <div class="stat-row"><span>分娩</span><strong>${s.population.pairExp ?? 0}</strong></div>
+        <div class="stat-row"><span>${label('contest')}</span><strong>${s.population.contest}</strong></div>
+      </div>
+      <h3 class="term">${label('social')}</h3>
+      <div class="stat-grid">${slotLines || '<div class="muted">—</div>'}</div>`;
+  }
+
+  renderGenealogyPopStatsHTML(s) {
+    const hidden = !this.genealogyPopVisible ? ' hidden' : '';
+    return `
+      <section id="genealogy-pop-panel" class="panel pop-panel genealogy-pop-panel${hidden}">
+        <h2>种群</h2>
+        <div id="genealogy-pop-stats">${this.renderGenealogyPopStatsInner(s)}</div>
+      </section>`;
+  }
+
   renderDashboard(s) {
     const envProfile = this.world?.envProfile;
     if (shouldUseGenealogyOnlyDashboard(envProfile, this.observerLayout)) {
-      return renderGenealogyPanelHTML();
+      return `${this.renderGenealogyPopStatsHTML(s)}${renderGenealogyPanelHTML()}`;
     }
 
     const cmp = s.population.cmp;

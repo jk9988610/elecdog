@@ -30,7 +30,6 @@ export function initGestationalUmbilical(carrier, profile, atTick = 0) {
     channelIdx: draw?.channels?.[0] ?? null,
     channels: draw?.channels ? [...draw.channels] : [],
   };
-  carrier.devStage = 'GEST';
   return carrier.bodyStructures[UMB_STRUCTURE_CODE];
 }
 

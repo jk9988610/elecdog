@@ -12,7 +12,7 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
-import { multicellV2Enabled, LIFE_STAGE_ADT, LIFE_STAGE_JUV } from './multicell-v2.js';
+import { multicellV2Enabled, LIFE_STAGE_ADT, LIFE_STAGE_JUV, initEmbryoInSyncyte, tickEmbryoDevelopment, applyEmbryoLogicToChild } from './multicell-v2.js';
 import {
   initGestationalUmbilical,
   tickUmbilicalFlux,
@@ -36,7 +36,9 @@ import {
   canSendCourtship,
   isPregnant,
 } from './courtship-gate.js';
-import { buildHealthReport, healthReportKinBlocked, issueHealthReport } from './health-report.js';
+import { isReproKinBlocked } from './kinship-gate.js';
+import { dnaFingerprint } from '../genetics/dna-kinship.js';
+import { issueHealthReport } from './health-report.js';
 import { assignChildName } from './being-names.js';
 
 function substrateAvg(world) {
@@ -337,7 +339,7 @@ function hasValidPairGrant(world, being) {
   return Boolean(grantor?.alive && grantor.pairMorph === 'B');
 }
 
-/** 定向言语 [TX] PRQ — 雄或雌向非血缘异性求偶（附带体检报告） */
+/** 定向言语 [TX] PRQ — 雄或雌向非血缘异性求偶（仅附带 DNA 指纹） */
 export function registerPairSpeechPRQ(world, recorder, from, toId, txLine = null) {
   if (!pairSpeechDriven(world.envProfile)) return null;
   if (!from?.alive || !canSendCourtship(from, world)) return null;
@@ -358,10 +360,7 @@ export function registerPairSpeechPRQ(world, recorder, from, toId, txLine = null
   const profile = world.envProfile ?? {};
   const maxAge = profile.pairRequestMaxAge ?? 48;
   const tick = world.tick;
-  const healthReport = buildHealthReport(from, tick, {
-    adult: meiAllowedForBeing(from, world, profile),
-    world,
-  });
+  const dnaFp = dnaFingerprint(from.dna?.sequence ?? '');
 
   world.pairRequests = world.pairRequests.filter((r) => r.fromId !== from.id);
   const req = {
@@ -376,18 +375,19 @@ export function registerPairSpeechPRQ(world, recorder, from, toId, txLine = null
         ? from.meiPacket?.seq?.length ?? 0
         : from.dockedHalf?.seq?.length ?? 0,
     speechDriven: true,
-    healthReport,
+    dnaFp,
+    beingId: from.id,
   };
   world.pairRequests.push(req);
 
-  recorder.evolution(tick, from.id, `[PRQ] speech @${toId} fp ${healthReport.dnaFp}`, {
+  recorder.evolution(tick, from.id, `[PRQ] speech @${toId} fp ${dnaFp}`, {
     kind: 'PRQ',
     packetLen: req.packetLen,
     expireTick: req.expireTick,
     grantTo: toId,
     fromMorph: from.pairMorph,
     speechDriven: true,
-    healthReport,
+    dnaFp,
     txLine,
   });
   noteSemDomainFromKind(from, 'PRQ', tick);
@@ -427,7 +427,7 @@ export function registerPairSpeechPGR(world, recorder, grantor, initiatorId, txL
   const req = world.pairRequests.find(
     (r) => r.fromId === initiatorId && r.toId === grantor.id
   );
-  if (req?.healthReport && healthReportKinBlocked(grantor, req.healthReport, profile)) {
+  if (req && initiator && isReproKinBlocked(grantor, initiator, profile)) {
     recorder.evolution(world.tick, grantor.id, `[PRQ-IGNORE] ${initiatorId} kin-dna`, {
       kind: 'PRQ-IGNORE',
       fromId: initiatorId,
@@ -741,6 +741,7 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
   noteSemDomainFromKind(parentB, 'FUS-IN', world.tick);
   if (multicellV2Enabled(profile)) {
     initGestationalUmbilical(parentB, profile, world.tick);
+    initEmbryoInSyncyte(parentB.syncyte, profile, seed + 2);
   }
   return parentB.syncyte;
 }
@@ -791,6 +792,7 @@ function expelSyncyte(world, recorder, carrier) {
   const parentA = world.beings.find((b) => b.id === syncyte.parentAId);
   child.generation = Math.max(carrier.generation ?? 0, 1) + 1;
   child.registers = [...syncyte.registers];
+  applyEmbryoLogicToChild(child, syncyte, world.tick);
   child.pairParentA = syncyte.parentAId;
   child.pairParentB = carrier.id;
   child.bornAtTick = world.tick;
@@ -838,6 +840,7 @@ export function processPairGestation(world, recorder) {
   for (const being of world.beings) {
     if (!being.alive || !being.syncyte) continue;
     tickEmbFlux(world, recorder, being, being.syncyte);
+    tickEmbryoDevelopment(world, recorder, being, being.syncyte, world.envProfile ?? {});
     if (world.tick >= being.syncyte.gestationUntilTick) {
       const exp = expelSyncyte(world, recorder, being);
       if (exp) events.push({ type: 'EXP', carrierId: being.id, childId: exp.child.id });
