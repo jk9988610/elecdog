@@ -194,6 +194,7 @@
     "observer:stage-badge": "node scripts/observer-stage-badge-verify.mjs",
     "observer:chromosome-genetics": "node scripts/observer-chromosome-genetics-verify.mjs",
     "observer:kinship-zone-stats": "node scripts/observer-kinship-zone-stats.mjs",
+    "observer:kinship-sibling-field": "node scripts/observer-kinship-sibling-field.mjs",
     "observer:carry": "node scripts/observer-carry-verify.mjs",
     "observer:carry-import": "node scripts/observer-carry-import-verify.mjs",
     "observer:carry-batch": "node scripts/observer-carry-batch-verify.mjs",

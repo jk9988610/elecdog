@@ -91,6 +91,41 @@ export function kinshipZoneBlockSim(profile, zoneKey) {
   return kinshipDnaBlockSim(profile);
 }
 
+/**
+ * 根据同胞/随机对区段相似度样本建议 Z 区阈值（田野微调用）
+ * @returns {{ global: number, zones: Record<string, number> }}
+ */
+export function suggestKinshipZoneBlockSim(
+  profile,
+  { siblingZoneMax = {}, unrelatedZoneMax = {}, padding = 0.02 } = {}
+) {
+  const globalFallback = kinshipDnaBlockSim(profile);
+  const unrelatedOverall = unrelatedZoneMax.overall ?? 0;
+  const siblingOverall = siblingZoneMax.overall ?? 0;
+  let global = globalFallback;
+  if (siblingOverall > 0 || unrelatedOverall > 0) {
+    global = Math.max(
+      globalFallback,
+      siblingOverall > 0 ? siblingOverall + padding : 0,
+      unrelatedOverall > 0 ? unrelatedOverall + padding : 0
+    );
+    global = Math.min(0.88, global);
+  }
+
+  const zones = {};
+  for (const zoneKey of Object.keys(DNA_ZONES)) {
+    const cur = kinshipZoneBlockSim(profile, zoneKey);
+    const sMax = siblingZoneMax[zoneKey] ?? 0;
+    const uMax = unrelatedZoneMax[zoneKey] ?? 0;
+    let suggested = cur;
+    if (sMax > 0) suggested = Math.max(suggested, sMax + padding);
+    if (uMax > 0) suggested = Math.max(suggested, uMax + padding);
+    suggested = Math.min(0.88, Math.max(0.55, suggested));
+    zones[zoneKey] = +suggested.toFixed(3);
+  }
+  return { global: +global.toFixed(3), zones };
+}
+
 /** 列出触发 DNA 近亲阻断的区段（全序列或任一 Z 区 sim ≥ 阈） */
 export function dnaKinBlockTriggers(a, b, profile = {}) {
   if (!kinshipDnaBlockEnabled(profile)) return [];

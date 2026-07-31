@@ -2,7 +2,7 @@
  * 田野归档与笔记云同步 — ElecDog Phase 28
  */
 import { buildDashboardStats } from '../ui/stats.js';
-import { buildGenealogyArchive, applyGenealogyArchive } from '../world/genealogy-persist.js';
+import { buildGenealogyArchive, applyGenealogyArchive, applyArchiveBeingSnapshots } from '../world/genealogy-persist.js';
 import { isReproEvolutionEntry } from '../ui/repro-evolution-stream.js';
 import { getObserverLabel } from './config.js';
 import {
@@ -49,6 +49,9 @@ function buildLogArchive(world, recorder) {
         id: b.id,
         name: b.name,
         code: b.code,
+        familyName: b.familyName ?? null,
+        givenName: b.givenName ?? null,
+        lineageHeadId: b.lineageHeadId ?? b.id,
         generation: b.generation,
         socialSlot: b.socialSlot,
         alive: b.alive,
@@ -158,13 +161,17 @@ export function mergeArchiveReproEvolution(recorder, entries) {
   return { merged };
 }
 
-/** 观察台复盘：族谱登记 + 繁殖进化流日志 */
+/** 观察台复盘：族谱登记 + 个体快照 + 繁殖进化流日志 */
 export function applyObserverArchiveReplay(world, recorder, archive) {
   const genealogy = archive?.genealogy ?? null;
   const genResult = genealogy ? applyGenealogyArchive(world, genealogy) : { applied: 0 };
+  const beingResult = archive?.world
+    ? applyArchiveBeingSnapshots(world, archive.world)
+    : { applied: 0 };
   const reproResult = mergeArchiveReproEvolution(recorder, archive?.entries);
   return {
     genealogy: genResult,
+    beingSnapshots: beingResult,
     reproEvolution: reproResult,
   };
 }

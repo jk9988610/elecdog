@@ -30,7 +30,7 @@ export function isReproCrossHighlight(entry) {
 
 export function pickReproEvolutionEntries(
   recorder,
-  { beingId = null, limit = STREAM_LIMIT, crossOnly = false, kinds = null } = {}
+  { beingId = null, limit = STREAM_LIMIT, crossOnly = false, kinds = null, tickMin = null } = {}
 ) {
   if (!recorder?.entries) return [];
   const kindSet =
@@ -42,6 +42,7 @@ export function pickReproEvolutionEntries(
   let entries = recorder.entries.filter((e) => {
     if (!isReproEvolutionEntry(e)) return false;
     if (beingId && e.beingId !== beingId) return false;
+    if (tickMin != null && e.tick < tickMin) return false;
     if (kindSet) {
       const k =
         e.meta?.kind ??
@@ -98,6 +99,15 @@ export function renderReproEvolutionStreamHTML() {
             <input type="checkbox" id="genealogy-repro-cross-only" />
             仅交叉
           </label>
+          <label class="genealogy-repro-stream-filter repro-tick-window-label">
+            tick窗
+            <select id="genealogy-repro-tick-window">
+              <option value="0">全部</option>
+              <option value="50">近50</option>
+              <option value="100">近100</option>
+              <option value="200">近200</option>
+            </select>
+          </label>
         </div>
       </div>
       <p class="muted genealogy-repro-stream-note">[MEI] 减数排出 · [DCK] 半态驻留；含 <code>cross</code> 或互换计数的行为高亮。选中族谱个体时默认只显示该体日志。</p>
@@ -105,12 +115,13 @@ export function renderReproEvolutionStreamHTML() {
     </section>`;
 }
 
-export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId } = {}) {
+export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId, getReferenceTick } = {}) {
   const list = root.querySelector('#genealogy-repro-stream-list');
   const crossOnlyInput = root.querySelector('#genealogy-repro-cross-only');
   const followSelectInput = root.querySelector('#genealogy-repro-follow-select');
   const meiKindInput = root.querySelector('#genealogy-repro-kind-mei');
   const dckKindInput = root.querySelector('#genealogy-repro-kind-dck');
+  const tickWindowSelect = root.querySelector('#genealogy-repro-tick-window');
   if (!list) return null;
 
   let crossOnly = false;
@@ -128,6 +139,19 @@ export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId
     return getSelectedBeingId?.() ?? null;
   }
 
+  function resolveTickMin() {
+    const windowTicks = Number(tickWindowSelect?.value ?? 0);
+    if (!windowTicks) return null;
+    const recorder = getRecorder?.();
+    const refTick = getReferenceTick?.() ?? null;
+    const maxEntryTick =
+      recorder?.entries
+        ?.filter((e) => isReproEvolutionEntry(e))
+        .reduce((m, e) => Math.max(m, e.tick), 0) ?? 0;
+    const anchor = Math.max(refTick ?? 0, maxEntryTick);
+    return anchor - windowTicks;
+  }
+
   function paint() {
     const recorder = getRecorder?.();
     if (!recorder) return;
@@ -137,7 +161,8 @@ export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId
       return;
     }
     const beingId = resolveBeingFilter();
-    const entries = pickReproEvolutionEntries(recorder, { beingId, crossOnly, kinds });
+    const tickMin = resolveTickMin();
+    const entries = pickReproEvolutionEntries(recorder, { beingId, crossOnly, kinds, tickMin });
     if (!entries.length) {
       const hint = beingId
         ? `选中个体暂无匹配记录`
@@ -159,6 +184,7 @@ export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId
   followSelectInput?.addEventListener('change', () => paint());
   meiKindInput?.addEventListener('change', () => paint());
   dckKindInput?.addEventListener('change', () => paint());
+  tickWindowSelect?.addEventListener('change', () => paint());
 
   return { paint, refresh: paint };
 }

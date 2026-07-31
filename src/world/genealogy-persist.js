@@ -179,3 +179,46 @@ export function applyGenealogyArchive(world, genealogy) {
     endedCount: genealogy.endedCount ?? null,
   };
 }
+
+/** 将云归档 world.beings 快照合并进族谱登记（补全伴侣/父母/END 等字段） */
+export function applyArchiveBeingSnapshots(world, archiveWorld) {
+  const snaps = archiveWorld?.beings ?? [];
+  if (!snaps.length) return { applied: 0 };
+  const reg = initGenealogyRegistry(world);
+  let applied = 0;
+  const tick = archiveWorld.tick ?? world?.tick ?? 0;
+  for (const snap of snaps) {
+    if (!snap?.id) continue;
+    const prev = reg[snap.id] ?? {};
+    reg[snap.id] = {
+      ...prev,
+      id: snap.id,
+      code: snap.code ?? prev.code,
+      name: snap.name ?? prev.name,
+      familyName: snap.familyName ?? prev.familyName ?? null,
+      givenName: snap.givenName ?? prev.givenName ?? null,
+      lineageHeadId: snap.lineageHeadId ?? prev.lineageHeadId ?? snap.id,
+      alive: snap.alive ?? prev.alive,
+      generation: snap.generation ?? prev.generation,
+      pairMorph: snap.pairMorph ?? prev.pairMorph,
+      partnerId: snap.partnerId ?? prev.partnerId,
+      pairParentA: snap.pairParentA ?? prev.pairParentA,
+      pairParentB: snap.pairParentB ?? prev.pairParentB,
+      endedAtTick: snap.endedAtTick ?? prev.endedAtTick,
+      endReason: snap.endReason ?? prev.endReason,
+      lifeStage: snap.lifeStage ?? prev.lifeStage,
+      devStage: snap.devStage ?? prev.devStage,
+      socialSlot: snap.socialSlot ?? prev.socialSlot ?? null,
+      updatedAtTick: tick,
+    };
+    applied += 1;
+  }
+  const replay = world.genealogyArchiveReplay ?? {};
+  world.genealogyArchiveReplay = {
+    ...replay,
+    beingSnapshotsApplied: applied,
+    sourceTick: archiveWorld.tick ?? replay.sourceTick ?? null,
+    appliedAtTick: world?.tick ?? 0,
+  };
+  return { applied };
+}

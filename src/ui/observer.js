@@ -86,7 +86,7 @@ import {
   initClassicMulticellHealthButtons,
 } from './observer-classic-multicell.js';
 import { populationLayerEnabled } from '../world/multicell-v2.js';
-import { applyGenealogyArchive } from '../world/genealogy-persist.js';
+import { applyGenealogyArchive, applyArchiveBeingSnapshots } from '../world/genealogy-persist.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -204,6 +204,7 @@ export class ObserverApp {
           <div class="cloud-preview-head">
             <h3 id="cloud-preview-title">归档预览</h3>
             <div class="cloud-preview-actions">
+              <button id="btn-archive-load-beings" type="button" class="btn-secondary" disabled title="合并归档中的个体快照到登记表">载入个体快照</button>
               <button id="btn-archive-load-genealogy" type="button" class="btn-secondary" disabled title="将族谱节点写入当前世界登记表">载入族谱</button>
               <button id="btn-archive-load-repro" type="button" class="btn-secondary" disabled title="合并归档中的 [MEI]/[DCK] 进化流">载入繁殖流</button>
               <button id="btn-archive-load-full" type="button" class="btn-secondary" disabled title="族谱 + 繁殖进化流">载入复盘</button>
@@ -254,6 +255,7 @@ export class ObserverApp {
       cloudPreviewTitle: this.root.querySelector('#cloud-preview-title'),
       cloudPreviewBody: this.root.querySelector('#cloud-preview-body'),
       btnArchiveLoadGenealogy: this.root.querySelector('#btn-archive-load-genealogy'),
+      btnArchiveLoadBeings: this.root.querySelector('#btn-archive-load-beings'),
       btnArchiveLoadRepro: this.root.querySelector('#btn-archive-load-repro'),
       btnArchiveLoadFull: this.root.querySelector('#btn-archive-load-full'),
       btnClosePreview: this.root.querySelector('#btn-close-preview'),
@@ -331,6 +333,7 @@ export class ObserverApp {
     this.$.cloudRuns.addEventListener('click', (e) => this.onCloudRunClick(e));
     this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
     this.$.btnArchiveLoadGenealogy?.addEventListener('click', () => this.loadArchiveGenealogy());
+    this.$.btnArchiveLoadBeings?.addEventListener('click', () => this.loadArchiveBeingSnapshots());
     this.$.btnArchiveLoadRepro?.addEventListener('click', () => this.loadArchiveReproEvolution());
     this.$.btnArchiveLoadFull?.addEventListener('click', () => this.loadArchiveFullReplay());
     this.$.btnViewNative?.addEventListener('click', () => this.switchViewMode(VIEW_NATIVE));
@@ -893,8 +896,20 @@ export class ObserverApp {
   setArchiveLoadButtonsEnabled(enabled) {
     const on = Boolean(enabled);
     if (this.$.btnArchiveLoadGenealogy) this.$.btnArchiveLoadGenealogy.disabled = !on;
+    if (this.$.btnArchiveLoadBeings) this.$.btnArchiveLoadBeings.disabled = !on;
     if (this.$.btnArchiveLoadRepro) this.$.btnArchiveLoadRepro.disabled = !on;
     if (this.$.btnArchiveLoadFull) this.$.btnArchiveLoadFull.disabled = !on;
+  }
+
+  loadArchiveBeingSnapshots() {
+    if (!this.world || !this.lastArchivePayload?.world?.beings?.length) {
+      this.setCloudMessage('归档无个体快照', true);
+      return;
+    }
+    const result = applyArchiveBeingSnapshots(this.world, this.lastArchivePayload.world);
+    this.setCloudMessage(`已合并个体快照 ${result.applied} 条到族谱登记`);
+    this.genealogyPanel?.paint();
+    this.refresh();
   }
 
   loadArchiveGenealogy() {
@@ -928,7 +943,7 @@ export class ObserverApp {
     }
     const result = applyObserverArchiveReplay(this.world, this.recorder, this.lastArchivePayload);
     this.setCloudMessage(
-      `复盘载入：族谱 ${result.genealogy.applied ?? 0} 节点 · 繁殖流 ${result.reproEvolution.merged ?? 0} 条`
+      `复盘载入：族谱 ${result.genealogy.applied ?? 0} 节点 · 快照 ${result.beingSnapshots?.applied ?? 0} · 繁殖流 ${result.reproEvolution.merged ?? 0} 条`
     );
     this.genealogyPanel?.paint();
     this.mindStreamPanel?.refresh();
