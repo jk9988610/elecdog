@@ -27,6 +27,8 @@ import { meiAllowedForBeing, totalLogicCells } from '../world/multicell-v2.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 import { initGenealogyViewport } from './genealogy-viewport.js';
+import { chromosomeGeneticsEnabled } from '../genetics/genome.js';
+import { genomeDisplayRows, haploidDisplayRows } from '../genetics/genome-display.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -254,6 +256,69 @@ function renderHealthVitalRows(rows) {
     .join('');
 }
 
+function renderGenomeTable(rows) {
+  if (!rows?.length) return '';
+  const body = rows
+    .map((r) => {
+      const cls = r.isSexPair ? 'chr-sex-pair' : '';
+      const yTag = r.sexYOnPaternal ? ' <span class="chr-y-tag">Y</span>' : '';
+      return `<tr class="${cls}">
+        <td class="chr-pair-label">${escapeHtml(r.label)}</td>
+        <td><code>${escapeHtml(r.maternal)}</code></td>
+        <td><code>${escapeHtml(r.paternal)}</code>${yTag}</td>
+        <td><code>${escapeHtml(r.expressed)}</code></td>
+      </tr>`;
+    })
+    .join('');
+  return `
+    <div class="chr-genome-table-wrap health-pos-table-wrap">
+      <table class="chr-genome-table health-pos-table">
+        <thead>
+          <tr>
+            <th>对</th>
+            <th>母源</th>
+            <th>父源</th>
+            <th>表达</th>
+          </tr>
+        </thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
+}
+
+function renderHaploidTable(rows, { title = '配子单倍体' } = {}) {
+  if (!rows?.length) return '';
+  const body = rows
+    .map((r) => {
+      const cls = r.isSexPair ? 'chr-sex-pair' : '';
+      const yTag = r.isY ? ' <span class="chr-y-tag">Y</span>' : '';
+      return `<tr class="${cls}">
+        <td class="chr-pair-label">${escapeHtml(r.label)}</td>
+        <td><code>${escapeHtml(r.sequence)}</code>${yTag}</td>
+      </tr>`;
+    })
+    .join('');
+  return `
+    <h5 class="detail-subtitle">${escapeHtml(title)}</h5>
+    <div class="chr-genome-table-wrap health-pos-table-wrap">
+      <table class="chr-genome-table health-pos-table">
+        <thead><tr><th>对</th><th>单倍体</th></tr></thead>
+        <tbody>${body}</tbody>
+      </table>
+    </div>`;
+}
+
+function renderChromosomeGeneticsSection(being, profile) {
+  if (!chromosomeGeneticsEnabled(profile)) return '';
+  const genomeRows = genomeDisplayRows(being?.genome);
+  if (!genomeRows.length) return '';
+
+  return `
+    <h4 class="term">染色体二倍体</h4>
+    <p class="muted chr-genome-hint">12 对 × 8 位；表达列为母源/父源按位 max；性染色体对父源 Y → 雄形态。</p>
+    ${renderGenomeTable(genomeRows)}`;
+}
+
 /** 个体详情内嵌指标（实时计算，非「体检报告」快照） */
 function renderBeingDetailVitalsSections(being, world, profile) {
   if (!being) return '';
@@ -297,7 +362,8 @@ function renderBeingDetailVitalsSections(being, world, profile) {
           ['排出结构', sperm.structureOpen ? '开放' : '关闭'],
           ['LOG-GON', String(sperm.logicGon)],
         ])}
-      </div>`;
+      </div>
+      ${being?.meiPacket?.haploid?.length ? renderHaploidTable(haploidDisplayRows(being.meiPacket.haploid), { title: '精子单倍体' }) : ''}`;
   }
   if (egg) {
     reproHtml += `
@@ -316,7 +382,8 @@ function renderBeingDetailVitalsSections(being, world, profile) {
           ['孕期闭锁', egg.pregnancyClosed ? '是' : '否'],
           ['LOG-GON', String(egg.logicGon)],
         ])}
-      </div>`;
+      </div>
+      ${being?.dockedHalf?.haploid?.length ? renderHaploidTable(haploidDisplayRows(being.dockedHalf.haploid), { title: '卵单倍体' }) : ''}`;
   }
 
   const zoneRows = (interp?.zones ?? [])
@@ -333,6 +400,8 @@ function renderBeingDetailVitalsSections(being, world, profile) {
     )
     .join('');
 
+  const chromosomeHtml = renderChromosomeGeneticsSection(being, profile ?? {});
+
   return `
     <h4 class="term">遗传与 DNA</h4>
     <div class="stat-grid">
@@ -341,6 +410,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
       <div class="stat-row"><span>代次</span><strong>${snap.generation ?? being.generation ?? 0}</strong></div>
     </div>
     <p class="detail-dna-seq"><code>${escapeHtml(interp?.sequence ?? snap.dnaSeq ?? '')}</code></p>
+    ${chromosomeHtml}
     <h5 class="detail-subtitle">区段解读 Z1–Z6</h5>
     <div class="health-zones">${zoneRows}</div>
     <h4 class="term">营养与场态</h4>
@@ -397,6 +467,7 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
         <div class="stat-row"><span>宫内 MIT</span><strong>${being.syncyte.juvMitTicks ?? 0}</strong></div>
         <div class="stat-row"><span>宫内 DIFF</span><strong>${being.syncyte.juvDiffTicks ?? 0}</strong></div>
       </div>
+      ${being.syncyte.genome?.pairs?.length ? `<h5 class="detail-subtitle">合子二倍体</h5>${renderGenomeTable(genomeDisplayRows(being.syncyte.genome))}` : ''}
       <div class="stat-grid">${embRows}</div>`;
   }
 

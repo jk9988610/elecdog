@@ -2193,3 +2193,34 @@ input[type='number'] {
   position: sticky;
   top: 0;
 }
+
+.chr-genome-table-wrap {
+  max-height: 11rem;
+  margin-bottom: 0.75rem;
+}
+
+.chr-genome-table code {
+  font-size: 0.62rem;
+  word-break: break-all;
+}
+
+.chr-pair-label {
+  width: 2rem;
+  color: #8a94a4;
+  font-variant-numeric: tabular-nums;
+}
+
+.chr-sex-pair td {
+  background: rgba(90, 120, 180, 0.08);
+}
+
+.chr-y-tag {
+  color: #7eb8ff;
+  font-size: 0.65rem;
+  font-weight: 600;
+}
+
+.chr-genome-hint {
+  font-size: 0.72rem;
+  margin: 0.25rem 0 0.5rem;
+}

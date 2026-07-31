@@ -13,6 +13,8 @@ import {
   produceGamete,
   diploidExpressSequence,
 } from '../src/genetics/genome.js';
+import { genomeDisplayRows, haploidDisplayRows } from '../src/genetics/genome-display.js';
+import { renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
 import {
   createSyncyteOnB,
   processPairGestation,
@@ -98,6 +100,15 @@ const child = world.beings.find((b) => b.id === gest[0].childId);
 assert(child?.genome?.pairs?.length === 12, '子代有二倍体 genome');
 assert(child.pairMorph === derivePairMorphFromGenome(child.genome), '子代 morph 与性染色体一致');
 assert(child.dna.sequence === diploidExpressSequence(child.genome), '子代表达串与 genome 一致');
+
+const genomeRows = genomeDisplayRows(male.genome);
+assert(genomeRows.length === 12, '展示行 12 对');
+assert(genomeRows[SEX_PAIR_INDEX].isSexPair, '性染色体对标记');
+const spermRows = haploidDisplayRows(sperm.haploid);
+assert(spermRows.length === 12, '精子单倍体展示 12 条');
+const detailHtml = renderBeingDetailHTML(male, female, world.envProfile, world);
+assert(detailHtml.includes('染色体二倍体'), '详情含染色体表');
+assert(detailHtml.includes(genomeRows[0].maternal), '详情含母源染色体');
 
 if (failed) {
   console.error(`observer-chromosome-genetics-verify: ${failed} failed`);
