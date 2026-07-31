@@ -12,7 +12,7 @@ import { applySemLineageEcho } from './sem-lineage.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import { getSubCellByRole } from './organism.js';
 import { noteSemDomainFromKind } from './sem-domain.js';
-import { multicellV2Enabled, LIFE_STAGE_ADT, LIFE_STAGE_JUV, initEmbryoInSyncyte, tickEmbryoDevelopment, applyEmbryoLogicToChild } from './multicell-v2.js';
+import { multicellV2Enabled, LIFE_STAGE_ADT, LIFE_STAGE_JUV, initEmbryoInSyncyte, tickEmbryoDevelopment, applyEmbryoLogicToChild, ensureBirthMinimumLogicCells } from './multicell-v2.js';
 import {
   initGestationalUmbilical,
   tickUmbilicalFlux,
@@ -793,6 +793,7 @@ function expelSyncyte(world, recorder, carrier) {
   child.generation = Math.max(carrier.generation ?? 0, 1) + 1;
   child.registers = [...syncyte.registers];
   applyEmbryoLogicToChild(child, syncyte, world.tick);
+  ensureBirthMinimumLogicCells(child, world, profile, world.tick);
   child.pairParentA = syncyte.parentAId;
   child.pairParentB = carrier.id;
   child.bornAtTick = world.tick;

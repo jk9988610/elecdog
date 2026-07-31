@@ -14,6 +14,9 @@ import {
   LIFE_STAGE_JUV,
   LIFE_STAGE_ADT,
   initialStemCellCount,
+  initialEmbryoStemCellCount,
+  GEST_PRIMORDIA_COUNTS,
+  BIRTH_MIN_LOGIC_COUNTS,
   typesDifferentiableInStage,
   logicCellTypeByCode,
 } from './logic-cell-types.js';
@@ -584,12 +587,13 @@ export function initEmbryoInSyncyte(syncyte, profile, seed) {
   const rng = mulberry32(seed);
   const embId = `emb${String(seed).slice(-8)}`;
   syncyte.logicCells = {};
-  const stemN = initialStemCellCount(rng);
+  const stemN = initialEmbryoStemCellCount(rng);
   syncyte.logicCells[STEM_CELL_CODE] = Array.from({ length: stemN }, (_, i) => ({
     id: makeCellId(embId, STEM_CELL_CODE, i),
     code: STEM_CELL_CODE,
     atTick: 0,
   }));
+  seedPrimordiaLogicCells(syncyte.logicCells, embId, GEST_PRIMORDIA_COUNTS, 0);
   syncyte.lastMitTick = -999;
   syncyte.lastDiffTick = -999;
   syncyte.juvMitTicks = 0;
@@ -696,6 +700,53 @@ export function applyEmbryoLogicToChild(child, syncyte, atTick = 0) {
     child.dnaExpress = { ...syncyte.dnaExpress };
   }
   return child;
+}
+
+function seedPrimordiaLogicCells(logicCells, ownerId, counts, atTick = 0) {
+  if (!logicCells || !counts) return;
+  for (const [code, minN] of Object.entries(counts)) {
+    const cells = logicCells[code] ?? [];
+    logicCells[code] = cells;
+    for (let i = cells.length; i < minN; i++) {
+      cells.push({
+        id: makeCellId(ownerId, code, i),
+        code,
+        atTick,
+        primordia: true,
+      });
+    }
+  }
+}
+
+function birthGuaranteeLogicCell(being, code, atTick) {
+  const cells = ensureCellList(being, code);
+  const t = logicCellTypeByCode(code);
+  const max = t?.max ?? LOGIC_CELL_MAX_PER_TYPE;
+  if (cells.length >= max) return null;
+  const cell = {
+    id: makeCellId(being.id, code, cells.length),
+    code,
+    atTick,
+    birthPrimordia: true,
+  };
+  attachOrganPathway(being, cell, code);
+  cells.push(cell);
+  return cell;
+}
+
+/** 出生保底：必备逻辑细胞不得为 0（直接分化，不消耗干细胞） */
+export function ensureBirthMinimumLogicCells(being, world, profile, atTick = 0) {
+  if (!multicellV2Enabled(profile) || !being?.alive) return being;
+  ensureOrganPathways(being);
+  const mins = profile?.birthMinLogicCounts ?? BIRTH_MIN_LOGIC_COUNTS;
+  for (const [code, minN] of Object.entries(mins)) {
+    const have = being.logicCells?.[code]?.length ?? 0;
+    for (let i = have; i < minN; i++) {
+      if (!envAllowsLogicCode(world, profile, code, being)) continue;
+      birthGuaranteeLogicCell(being, code, atTick);
+    }
+  }
+  return being;
 }
 
 export function multicellV2Snapshot(being) {

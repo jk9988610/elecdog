@@ -22,7 +22,8 @@ import {
   courtshipBondLineForCouple,
   courtshipInitiatorFromPair,
 } from '../world/being-names.js';
-import { formatHormoneValueLine } from '../world/health-report.js';
+import { formatHormoneValueLine, buildHealthReport } from '../world/health-report.js';
+import { meiAllowedForBeing, totalLogicCells } from '../world/multicell-v2.js';
 import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 import { initGenealogyViewport } from './genealogy-viewport.js';
@@ -81,7 +82,7 @@ export function buildGenealogyModel(world) {
       logicCounts: counts,
       stageBadge: badge?.code ?? null,
       stageBadgeClass: badge?.className ?? null,
-      hasHealthReport: Boolean(being.healthReport),
+      hasHealthReport: Boolean(being.dna?.sequence),
       skin: being.skinMembrane?.code ?? SKIN_CELL_CODE,
     };
   });
@@ -253,25 +254,19 @@ function renderHealthVitalRows(rows) {
     .join('');
 }
 
-function renderHealthHormoneList(hormones) {
-  if (!hormones?.length) return '<p class="muted">无激素向量</p>';
-  return hormones
-    .map(
-      (h) =>
-        `<div class="stat-row hormone-list-row"><span>${escapeHtml(h.label)}</span><strong>${escapeHtml(formatHormoneValueLine(h))}</strong></div>`
-    )
-    .join('');
-}
-
-export function renderHealthReportHTML(being) {
-  const report = being?.healthReport;
-  if (!report) {
-    return '<p class="muted">尚无体检报告（幼体出生后签发；成体性成熟时覆盖更新）</p>';
-  }
-  const interp = report.dnaInterpret;
-  const vitals = report.vitals ?? {};
+/** 个体详情内嵌指标（实时计算，非「体检报告」快照） */
+function renderBeingDetailVitalsSections(being, world, profile) {
+  if (!being) return '';
+  const tick = world?.tick ?? being.tickCount ?? 0;
+  const adult = meiAllowedForBeing(being, world, profile ?? {});
+  const snap = buildHealthReport(being, tick, {
+    adult,
+    world,
+    stage: stageBadgeLabel(being),
+  });
+  const interp = snap.dnaInterpret;
+  const vitals = snap.vitals ?? {};
   const nutrition = vitals.common?.nutrition ?? {};
-  const hormones = vitals.common?.hormones ?? [];
   const sperm = vitals.sperm;
   const egg = vitals.egg;
 
@@ -286,16 +281,10 @@ export function renderHealthReportHTML(being) {
     ['高压连续', String(nutrition.stressStreak ?? 0)],
   ]);
 
-  const commonRows = renderHealthVitalRows([
-    ['LOG-HRM', String(vitals.common?.logicHrm ?? 0)],
-    ['LOG-NTR', String(vitals.common?.logicNtr ?? 0)],
-    ['LOG-NRV', String(vitals.common?.logicNrv ?? 0)],
-  ]);
-
   let reproHtml = '';
   if (sperm) {
     reproHtml += `
-      <h5 class="health-subtitle health-subtitle-male">精子指标</h5>
+      <h4 class="term">精子指标</h4>
       <div class="stat-grid health-vitals-grid">
         ${renderHealthVitalRows([
           ['精子备货', sperm.stocked ? '有' : '无'],
@@ -312,7 +301,7 @@ export function renderHealthReportHTML(being) {
   }
   if (egg) {
     reproHtml += `
-      <h5 class="health-subtitle health-subtitle-female">卵细胞指标</h5>
+      <h4 class="term">卵细胞指标</h4>
       <div class="stat-grid health-vitals-grid">
         ${renderHealthVitalRows([
           ['卵细胞备货', egg.stocked ? '有' : '无'],
@@ -345,26 +334,18 @@ export function renderHealthReportHTML(being) {
     .join('');
 
   return `
-    <div class="health-report-panel">
-      <h4 class="term">体检报告</h4>
-      <div class="stat-grid">
-        <div class="stat-row"><span>签发 tick</span><strong>${report.atTick}</strong></div>
-        <div class="stat-row"><span>阶段</span><strong>${escapeHtml(report.stage ?? '—')}</strong></div>
-        <div class="stat-row"><span>DNA 指纹</span><strong><code>${escapeHtml(report.dnaFp)}</code></strong></div>
-        <div class="stat-row"><span>序列长度</span><strong>${interp?.length ?? report.dnaSeq?.length ?? 0}</strong></div>
-      </div>
-      <h5 class="health-subtitle">激素水平</h5>
-      <div class="stat-grid health-vitals-grid health-hormone-list">${renderHealthHormoneList(hormones)}</div>
-      <h5 class="health-subtitle">营养与场态</h5>
-      <div class="stat-grid health-vitals-grid">${nutritionRows}</div>
-      <h5 class="health-subtitle">逻辑细胞（关键）</h5>
-      <div class="stat-grid health-vitals-grid">${commonRows}</div>
-      ${reproHtml}
-      <p class="health-seq"><code>${escapeHtml(interp?.sequence ?? report.dnaSeq ?? '')}</code></p>
-      <h5 class="health-subtitle">区段解读 Z1–Z6</h5>
-      <div class="health-zones">${zoneRows}</div>
+    <h4 class="term">遗传与 DNA</h4>
+    <div class="stat-grid">
+      <div class="stat-row"><span>DNA 指纹</span><strong><code>${escapeHtml(snap.dnaFp)}</code></strong></div>
+      <div class="stat-row"><span>序列长度</span><strong>${interp?.length ?? snap.dnaSeq?.length ?? 0}</strong></div>
+      <div class="stat-row"><span>代次</span><strong>${snap.generation ?? being.generation ?? 0}</strong></div>
     </div>
-  `;
+    <p class="detail-dna-seq"><code>${escapeHtml(interp?.sequence ?? snap.dnaSeq ?? '')}</code></p>
+    <h5 class="detail-subtitle">区段解读 Z1–Z6</h5>
+    <div class="health-zones">${zoneRows}</div>
+    <h4 class="term">营养与场态</h4>
+    <div class="stat-grid health-vitals-grid">${nutritionRows}</div>
+    ${reproHtml}`;
 }
 
 export function renderBeingDetailHTML(being, partnerBeing = null, profile = null, world = null) {
@@ -393,9 +374,7 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
     }
   }
 
-  const healthBlock = being.healthReport
-    ? `<div class="genealogy-detail-health-host">${renderHealthReportHTML(being)}</div>`
-    : '';
+  const vitalsHtml = renderBeingDetailVitalsSections(being, world, profile);
 
   let embryoHtml = '';
   if (being.syncyte?.logicCells) {
@@ -440,7 +419,7 @@ export function renderBeingDetailHTML(being, partnerBeing = null, profile = null
       </div>
       ${courtshipHtml}
       ${embryoHtml}
-      ${healthBlock}
+      ${vitalsHtml}
       <h4 class="term">激素与泌乳</h4>
       <div class="stat-grid hormone-list-panel">${renderHormoneList(being)}</div>
       <div class="stat-grid lact-panel">

@@ -141,3 +141,26 @@ export function typesDifferentiableInStage(stage) {
 export function initialStemCellCount(rng) {
   return 4 + Math.floor(rng() * 3);
 }
+
+/** 宫内合胞干细胞池（略高于普通幼体起点） */
+export function initialEmbryoStemCellCount(rng) {
+  return 6 + Math.floor(rng() * 3);
+}
+
+/** 宫内着床时先天原基（GEST 可分化类型） */
+export const GEST_PRIMORDIA_COUNTS = {
+  'LOG-DIG': 1,
+  'LOG-NRV': 1,
+  'LOG-NTR': 1,
+  'LOG-RES': 1,
+};
+
+/** 出生/外排时必备逻辑细胞下限（数量可少但不得为 0） */
+export const BIRTH_MIN_LOGIC_COUNTS = {
+  'LOG-BRN': 1,
+  'LOG-DIG': 2,
+  'LOG-NRV': 2,
+  'LOG-NTR': 1,
+  'LOG-RES': 1,
+  'LOG-MOT': 1,
+};

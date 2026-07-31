@@ -230,7 +230,10 @@ const gestChild = world.beings.find((b) => b.id === gest[0].childId);
 assert(gestChild, '子代存在');
 assert(gestChild.familyName === male.familyName, '雄求偶子代姓氏随父');
 assert(gestChild.lineageHeadId === male.lineageHeadId, '子代谱系随父系');
-assert(totalLogicCells(gestChild) > 0, '外排子代继承宫内 logicCells');
+assert(totalLogicCells(gestChild) >= 9, `外排子代细胞总量≥9（${totalLogicCells(gestChild)}）`);
+assert((gestChild.logicCells?.['LOG-BRN']?.length ?? 0) >= 1, '出生必有脑细胞');
+assert((gestChild.logicCells?.['LOG-DIG']?.length ?? 0) >= 2, '出生消化细胞≥2');
+assert((gestChild.logicCells?.['LOG-NRV']?.length ?? 0) >= 2, '出生神经细胞≥2');
 
 const blocks = recorder.entries.filter((e) => e.meta?.kind === 'PRQ-BLOCK');
 assert(blocks.some((e) => e.meta?.reason === 'female-partner'), 'PRQ-BLOCK female-partner 记录');
