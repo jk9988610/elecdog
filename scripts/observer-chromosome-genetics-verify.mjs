@@ -13,9 +13,16 @@ import {
   produceGamete,
   diploidExpressSequence,
   expressAlleleDigit,
+  expressAlleleDigitForZone,
   crossoverRate as profileCrossoverRate,
 } from '../src/genetics/genome.js';
-import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines } from '../src/genetics/genome-display.js';
+import {
+  genomeDisplayRows,
+  haploidDisplayRows,
+  provenanceContributionLines,
+  provenanceToInheritDetail,
+  formatCrossoverLog,
+} from '../src/genetics/genome-display.js';
 import { renderBeingDetailHTML, buildGenealogyModel, renderGenealogyTreeHTML } from '../src/ui/genealogy-tree.js';
 import {
   createSyncyteOnB,
@@ -47,6 +54,8 @@ const recorder = new Recorder();
 
 assert(expressAlleleDigit('0', '3').mode === 'dominant' && expressAlleleDigit('0', '3').digit === '3', '强显性');
 assert(expressAlleleDigit('1', '2').mode === 'codominant' && expressAlleleDigit('1', '2').digit === '2', '共显性');
+assert(expressAlleleDigitForZone('Z6', '1', '2').digit === '2', 'Z6 强显性');
+assert(expressAlleleDigitForZone('Z3', '0', '3').mode === 'codominant', 'Z3 偏共显');
 
 const cohort = spawnAdultMulticellCohort(world, recorder, { males: 2, females: 2 });
 assert(cohort.every((b) => b.genome?.pairs?.length === 12), '成体均有 12 对染色体');
@@ -87,6 +96,7 @@ assert(
 );
 const heavyX = meiosis(genome, 777, { crossoverRate: 1 });
 assert(heavyX.crossovers?.some((c) => c != null), '减数分裂可交叉互换');
+assert(formatCrossoverLog(heavyX.crossovers).startsWith('cross'), '交叉日志可格式化');
 
 initAdultMatingStructures(male, world.envProfile, 0);
 initAdultMatingStructures(female, world.envProfile, 0);
@@ -130,6 +140,9 @@ assert(detailHtml.includes('染色体二倍体'), '详情含染色体表');
 assert(detailHtml.includes(genomeRows[0].maternal), '详情含母源染色体');
 const childDetail = renderBeingDetailHTML(child, null, world.envProfile, world);
 assert(childDetail.includes('卵方减数'), '子代详情含父母贡献');
+assert(childDetail.includes('Z3 激素'), '子代详情含父母区段相似度');
+const inheritCompact = provenanceToInheritDetail(child.genome.provenance);
+assert(inheritCompact?.cardShort, 'inherit 可压缩登记');
 const treeHtml = renderGenealogyTreeHTML(buildGenealogyModel(world));
 assert(treeHtml.includes('gv-birth-branch'), '族谱树含分娩枝标');
 assert(treeHtml.includes('分娩'), '族谱树标注分娩');

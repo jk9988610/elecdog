@@ -5,6 +5,7 @@ import { meiAllowedForBeing } from './multicell-v2.js';
 import { captureSymOnFus, symCaptureEnabled } from './sym.js';
 import { recombineDna, mutate } from '../core/dna.js';
 import { chromosomeGeneticsEnabled, produceGamete, zygoteFromGametes } from '../genetics/genome.js';
+import { formatCrossoverLog, countCrossovers } from '../genetics/genome-display.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import {
@@ -169,9 +170,13 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
     segregation: gamete.segregation,
     crossovers: gamete.crossovers,
     atTick: world.tick,
+    subId: rpl.subId ?? null,
   };
   being.lastMeiTick = world.tick;
   being.meiCount = (being.meiCount ?? 0) + 1;
+
+  const crossLog = formatCrossoverLog(gamete.crossovers);
+  const crossCount = countCrossovers(gamete.crossovers);
 
   logReplication(recorder, world.tick, being.id, `[RPL] mei ${being.rplRemaining}/${being.rplMax}`, {
     phase: 'mei',
@@ -186,11 +191,14 @@ export function tryMeiosis(world, recorder, being, { stress = 0, integrity = 1 }
   recorder.evolution(
     world.tick,
     being.id,
-    `[MEI] packet len ${packetSeq.length} bias ${bias.toFixed(3)}`,
+    `[MEI] packet len ${packetSeq.length} bias ${bias.toFixed(3)}${crossLog ? ` ${crossLog}` : ''}`,
     {
       kind: 'MEI',
       packetLen: packetSeq.length,
       dnaBias: +bias.toFixed(4),
+      crossoverCount: crossCount,
+      crossoverLog: crossLog || null,
+      crossovers: gamete.crossovers,
       rplRemaining: being.rplRemaining,
       stress,
       organismType: being.organismType ?? 'unicell',
