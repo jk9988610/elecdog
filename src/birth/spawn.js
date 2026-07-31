@@ -44,8 +44,6 @@ import {
   createRandomDiploid,
   diploidExpressSequence,
   derivePairMorphFromGenome,
-  sequenceToDiploid,
-  setSexPairForMorph,
 } from '../genetics/genome.js';
 
 /** 统计田野：跳过仪式与冗余日志 */
@@ -77,29 +75,18 @@ export function spawnBeing(
   being.cohortTag = cohortTag;
 
   if (chromosomeGeneticsEnabled(profile)) {
-    if (genome?.pairs?.length) {
-      being.genome = genome;
-      dna.sequence = diploidExpressSequence(genome);
-      being.dna = dna;
-    } else if (dnaSequence) {
-      being.genome = sequenceToDiploid(dna.sequence);
-      if (pairMorph === 'A' || pairMorph === 'B') {
-        setSexPairForMorph(being.genome, pairMorph);
-      }
-    } else {
-      being.genome = createRandomDiploid(code, pairMorph === 'A' || pairMorph === 'B' ? pairMorph : null, tick);
-    }
-    if (!genome?.pairs?.length) {
-      dna.sequence = diploidExpressSequence(being.genome);
-      being.dna = dna;
-    }
+    being.genome = genome?.pairs?.length
+      ? genome
+      : createRandomDiploid(code, pairMorph === 'A' || pairMorph === 'B' ? pairMorph : null, tick);
+    dna.sequence = diploidExpressSequence(being.genome);
+    being.dna = dna;
   }
 
   if (pairMorph === 'A' || pairMorph === 'B') {
     being.pairMorph = pairMorph;
   } else if (pairReproEnabled(profile)) {
     being.pairMorph = chromosomeGeneticsEnabled(profile)
-      ? derivePairMorphFromGenome(being.genome ?? sequenceToDiploid(dna.sequence))
+      ? derivePairMorphFromGenome(being.genome)
       : assignPairMorph(id);
   }
   assignBeingNames(being, {

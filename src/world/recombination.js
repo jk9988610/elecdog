@@ -3,8 +3,8 @@
 import { hashString, mulberry32 } from '../core/hash.js';
 import { meiAllowedForBeing } from './multicell-v2.js';
 import { captureSymOnFus, symCaptureEnabled } from './sym.js';
-import { reduceDna, recombineDna, mutate } from '../core/dna.js';
-import { produceGamete } from '../genetics/genome.js';
+import { recombineDna, mutate } from '../core/dna.js';
+import { chromosomeGeneticsEnabled, produceGamete, zygoteFromGametes } from '../genetics/genome.js';
 import { birthIntoWorld } from '../birth/spawn.js';
 import { slotIndex, SLOT_COUNT } from './social.js';
 import {
@@ -230,14 +230,27 @@ function spawnFusionFromSeqs(
   if (world.beings.filter((b) => b.alive).length >= maxPop) return null;
 
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:fus`);
-  const combined = recombineDna(seqA, seqB, seed);
   const rate = profile.fusionMutationRate ?? 0.015;
-  const { seq, mutationCount } = mutate(combined, rate, seed + 1);
+  let seq;
+  let genome = null;
+  let mutationCount = 0;
+  if (chromosomeGeneticsEnabled(profile)) {
+    const zygote = zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB: false });
+    seq = zygote.dnaSeq;
+    genome = zygote.genome;
+    mutationCount = zygote.mutationCount;
+  } else {
+    const combined = recombineDna(seqA, seqB, seed);
+    const mutated = mutate(combined, rate, seed + 1);
+    seq = mutated.seq;
+    mutationCount = mutated.mutationCount;
+  }
 
   const born = birthIntoWorld(world, recorder, {
     name: `${parentA.name.slice(0, 3)}${parentB.name.slice(0, 3)}汇`,
     code: parentA.code,
     dnaSequence: seq,
+    genome,
   });
 
   const child = born.being;
@@ -367,9 +380,9 @@ function tryLiveDonorFusion(world, recorder, holder, donor) {
   if (!profile?.fusLiveDonorEnabled || !hasDonorReplicationBudget(donor, profile)) return null;
   if (!holder.meiPacket || !packetFresh(holder.meiPacket, world, profile)) return null;
 
-  const donorSeq = reduceDna(donor.dna.sequence, hashString(`${donor.id}:${world.tick}:live`));
+  const donorGamete = produceGamete(donor, profile, hashString(`${donor.id}:${world.tick}:live`));
   applyLiveDonorRpl(world, recorder, donor);
-  return spawnFusionFromSeqs(world, recorder, holder, donor, holder.meiPacket.seq, donorSeq, {
+  return spawnFusionFromSeqs(world, recorder, holder, donor, holder.meiPacket.seq, donorGamete.seq, {
     liveDonor: true,
   });
 }
@@ -379,9 +392,9 @@ function tryOrphanFusion(world, recorder, orphan, donor) {
   if (!profile?.fusOrphanPoolEnabled || !hasDonorReplicationBudget(donor, profile)) return null;
   if (!packetFresh(orphan, world, profile)) return null;
 
-  const donorSeq = reduceDna(donor.dna.sequence, hashString(`${donor.id}:${world.tick}:orphan`));
+  const donorGamete = produceGamete(donor, profile, hashString(`${donor.id}:${world.tick}:orphan`));
   applyLiveDonorRpl(world, recorder, donor);
-  return spawnFusionFromSeqs(world, recorder, donor, donor, orphan.seq, donorSeq, {
+  return spawnFusionFromSeqs(world, recorder, donor, donor, orphan.seq, donorGamete.seq, {
     liveDonor: true,
     orphan: true,
     orphanFromId: orphan.fromId,

@@ -60,14 +60,6 @@ export function diploidExpressSequence(genome) {
   return out.slice(0, GENOME_LEN);
 }
 
-/** 旧单串存档 → 纯合二倍体（每对两条相同） */
-export function sequenceToDiploid(seq) {
-  const haploid = splitSequenceToHaploid(seq);
-  return {
-    pairs: haploid.map((chr) => ({ maternal: chr, paternal: chr })),
-  };
-}
-
 export function diploidFromHaploids(maternalHaploid, paternalHaploid) {
   const pairs = [];
   for (let i = 0; i < CHR_COUNT; i++) {
@@ -171,20 +163,16 @@ export function mutateDiploid(genome, rate = 0.015, seed = 0) {
   return { genome: { pairs }, mutationCount };
 }
 
-export function ensureBeingGenome(being) {
-  if (being?.genome?.pairs?.length === CHR_COUNT) return being.genome;
-  const genome = sequenceToDiploid(being?.dna?.sequence ?? '');
-  being.genome = genome;
-  return genome;
-}
-
 /** 成体产生配子（染色体路径）或回退 reduceDna */
 export function produceGamete(being, profile, seed) {
   if (!chromosomeGeneticsEnabled(profile)) {
     const seq = reduceDna(being.dna.sequence, seed);
     return { seq, haploid: splitSequenceToHaploid(seq) };
   }
-  const genome = ensureBeingGenome(being);
+  const genome = being?.genome;
+  if (!genome?.pairs?.length) {
+    throw new Error('produceGamete: being lacks diploid genome');
+  }
   const haploid = meiosis(genome, seed);
   return { haploid, seq: flattenHaploid(haploid) };
 }
@@ -194,7 +182,7 @@ export function zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB = true } =
   if (!chromosomeGeneticsEnabled(profile)) {
     const combined = recombineDna(seqA, seqB, seed);
     const { seq, mutationCount } = mutate(combined, profile?.fusionMutationRate ?? 0.015, seed + 1);
-    return { dnaSeq: seq, genome: sequenceToDiploid(seq), mutationCount };
+    return { dnaSeq: seq, genome: null, mutationCount };
   }
   const haploidA = splitSequenceToHaploid(seqA);
   const haploidB = splitSequenceToHaploid(seqB);
@@ -211,14 +199,4 @@ export function zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB = true } =
     genome: mutated,
     mutationCount,
   };
-}
-
-export function attachGenomeFromSequence(being, sequence, morph = null) {
-  const genome = sequenceToDiploid(sequence);
-  if (morph === 'A' || morph === 'B') {
-    setSexPairForMorph(genome, morph);
-  }
-  being.genome = genome;
-  being.dna.sequence = diploidExpressSequence(genome);
-  return genome;
 }

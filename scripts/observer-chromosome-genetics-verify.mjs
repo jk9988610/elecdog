@@ -12,7 +12,6 @@ import {
   SEX_PAIR_INDEX,
   produceGamete,
   diploidExpressSequence,
-  sequenceToDiploid,
 } from '../src/genetics/genome.js';
 import {
   createSyncyteOnB,
@@ -99,9 +98,6 @@ const child = world.beings.find((b) => b.id === gest[0].childId);
 assert(child?.genome?.pairs?.length === 12, '子代有二倍体 genome');
 assert(child.pairMorph === derivePairMorphFromGenome(child.genome), '子代 morph 与性染色体一致');
 assert(child.dna.sequence === diploidExpressSequence(child.genome), '子代表达串与 genome 一致');
-
-const legacy = sequenceToDiploid('300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303');
-assert(diploidExpressSequence(legacy).length === 96, '旧单串可转二倍体表达');
 
 if (failed) {
   console.error(`observer-chromosome-genetics-verify: ${failed} failed`);
