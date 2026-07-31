@@ -1239,6 +1239,15 @@ input[type='number'] {
   color: #c8a0e8;
 }
 
+.mind-stream-item.mind-stream-cross {
+  background: rgba(200, 120, 60, 0.12);
+  border-left: 2px solid #c87840;
+}
+
+.mind-stream-item.mind-stream-cross .mind-content {
+  color: #e8b070;
+}
+
 .mind-ch-memory .mind-content {
   color: #9aa3b5;
 }
@@ -1703,6 +1712,122 @@ input[type='number'] {
 .genealogy-detail-popover-body {
   overflow: auto;
   padding: 0.65rem 0.75rem;
+}
+
+.genealogy-repro-stream {
+  border-top: 1px solid #2a3140;
+  padding: 0.65rem 0.75rem;
+  background: #0a0c10;
+}
+
+.genealogy-repro-stream-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-bottom: 0.35rem;
+}
+
+.genealogy-repro-stream-title {
+  font-size: 0.8125rem;
+  color: #9aa8bc;
+  margin: 0;
+}
+
+.genealogy-repro-stream-filter {
+  font-size: 0.75rem;
+  color: #8a94a4;
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.genealogy-repro-stream-note {
+  font-size: 0.7rem;
+  margin: 0 0 0.5rem;
+}
+
+.genealogy-repro-stream-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 10rem;
+  overflow: auto;
+  background: #0f1219;
+  border: 1px solid #1e2430;
+  border-radius: 6px;
+}
+
+.repro-stream-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.35rem;
+  padding: 0.3rem 0.55rem;
+  border-bottom: 1px solid #1a1f2a;
+  font-size: 0.68rem;
+  line-height: 1.35;
+}
+
+.repro-stream-item:last-child {
+  border-bottom: none;
+}
+
+.repro-stream-cross {
+  background: rgba(200, 120, 60, 0.14);
+  border-left: 2px solid #c87840;
+}
+
+.repro-stream-mei .repro-stream-kind {
+  color: #c8a0e8;
+}
+
+.repro-stream-dck .repro-stream-kind {
+  color: #7ec8e3;
+}
+
+.repro-stream-tick {
+  color: #6b7385;
+  font-family: ui-monospace, monospace;
+}
+
+.repro-stream-who {
+  color: #7ec8e3;
+  font-family: ui-monospace, monospace;
+}
+
+.repro-stream-kind {
+  font-weight: 600;
+  font-size: 0.65rem;
+}
+
+.repro-stream-cross-badge {
+  color: #e8b070;
+  font-size: 0.62rem;
+}
+
+.repro-stream-content {
+  flex: 1;
+  color: #b8c0d0;
+  font-family: ui-monospace, monospace;
+  word-break: break-all;
+}
+
+.repro-stream-cross .repro-stream-content {
+  color: #e8b070;
+}
+
+.repro-stream-empty {
+  padding: 0.65rem;
+  text-align: center;
+}
+
+.parent-zone-grid .zone-kin-block-hit {
+  background: rgba(200, 80, 80, 0.12);
+}
+
+.parent-zone-grid .zone-kin-block-hit strong {
+  color: #e8a070;
 }
 
 .genealogy-only-mode .observer-extra-panel,

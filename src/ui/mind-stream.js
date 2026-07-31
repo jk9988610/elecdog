@@ -1,4 +1,10 @@
-/** 内在流观察面板 — internal + [EHU] 进化迹 + 记忆/信号 */
+/** 内在流观察面板 — internal + [EHU] 进化迹 + [MEI]/[DCK] 繁殖迹 + 记忆/信号 */
+
+import {
+  isReproCrossHighlight,
+  isReproEvolutionEntry,
+  pickReproEvolutionEntries,
+} from './repro-evolution-stream.js';
 
 const STREAM_LIMIT = 120;
 
@@ -20,13 +26,17 @@ function beingTail(id) {
   return id ? id.slice(-8) : '—';
 }
 
-export function pickMindStreamEntries(recorder, { beingId = null, limit = STREAM_LIMIT } = {}) {
+export function pickMindStreamEntries(recorder, { beingId = null, limit = STREAM_LIMIT, reproOnly = false } = {}) {
+  if (reproOnly) {
+    return pickReproEvolutionEntries(recorder, { beingId, limit });
+  }
   const entries = recorder.entries.filter((e) => {
     if (beingId && e.beingId !== beingId) return false;
     if (e.channel === 'internal') return true;
     if (e.channel === 'memory') return true;
     if (e.channel === 'signal') return true;
     if (e.channel === 'evolution') {
+      if (isReproEvolutionEntry(e)) return true;
       return /\[EHU/.test(e.content);
     }
     return false;
@@ -66,7 +76,7 @@ export function renderMindStreamPanelHTML() {
           <button id="btn-mind-stream-close" type="button" class="btn-ghost">关闭</button>
         </div>
       </div>
-      <p class="mind-stream-note">显示 internal 思考流与 [EHU]/[EHU-LIN]/[EHU-REN] 进化迹；非感受映射。</p>
+      <p class="mind-stream-note">显示 internal 思考流、[EHU] 进化迹与 [MEI]/[DCK] 减数交叉（含 cross 高亮）；非感受映射。</p>
       <ul id="mind-stream-list" class="mind-stream-list"></ul>
     </section>
   `;
@@ -74,8 +84,10 @@ export function renderMindStreamPanelHTML() {
 
 function renderStreamLine(entry) {
   const ch = CHANNEL_CLASS[entry.channel] ?? 'mind-ch-other';
+  const cross = entry.channel === 'evolution' && isReproCrossHighlight(entry);
+  const crossClass = cross ? ' mind-stream-cross' : '';
   const who = entry.beingId ? `<span class="mind-who">${escapeHtml(beingTail(entry.beingId))}</span>` : '';
-  return `<li class="mind-stream-item ${ch}">
+  return `<li class="mind-stream-item ${ch}${crossClass}">
     <span class="mind-tick">t${entry.tick}</span>
     ${who}
     <span class="mind-ch">${escapeHtml(entry.channel)}</span>
