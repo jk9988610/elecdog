@@ -5,7 +5,7 @@ import {
   CHR_LEN,
   SEX_PAIR_INDEX,
   CHR_ZONE_BY_PAIR,
-  expressAlleleDigit,
+  expressAlleleDigitForZone,
   isSexYChromosome,
 } from './genome.js';
 
@@ -55,6 +55,58 @@ export function provenanceContributionLines(provenance) {
   };
 }
 
+/** 族谱登记用紧凑 inherit（无完整 provenance 数组） */
+export function provenanceToInheritDetail(provenance) {
+  const lines = provenanceContributionLines(provenance);
+  if (!lines) return null;
+  return {
+    eggMat: lines.eggMat,
+    eggPat: lines.eggPat,
+    spermMat: lines.spermMat,
+    spermPat: lines.spermPat,
+    eggCross: lines.eggCross ?? 0,
+    spermCross: lines.spermCross ?? 0,
+    cardShort: lines.cardShort,
+  };
+}
+
+/** 活体 genome 或登记 inheritDetail */
+export function inheritSummaryFromBeing(being) {
+  if (being?.genome?.provenance) return provenanceContributionLines(being.genome.provenance);
+  const d = being?.inheritDetail;
+  if (!d) return null;
+  const eggMat = d.eggMat ?? 0;
+  const eggPat = d.eggPat ?? 0;
+  const spermMat = d.spermMat ?? 0;
+  const spermPat = d.spermPat ?? 0;
+  const eggX = d.eggCross ?? 0;
+  const spermX = d.spermCross ?? 0;
+  if (!eggMat && !eggPat && !spermMat && !spermPat && !eggX && !spermX) return null;
+  const cardShort = being.inheritSummary ?? d.cardShort ?? `卵${eggMat}·${eggPat} 精${spermMat}·${spermPat}`;
+  return {
+    eggMat,
+    eggPat,
+    spermMat,
+    spermPat,
+    eggCross: eggX,
+    spermCross: spermX,
+    eggLine: `卵方减数 ${eggMat}+${eggPat}（母源+父源同源）`,
+    spermLine: `精方减数 ${spermMat}+${spermPat}（母源+父源同源）`,
+    cardShort,
+    parentTotals: '母源12 · 父源12',
+  };
+}
+
+export function formatCrossoverLog(crossovers) {
+  const parts = [];
+  for (let i = 0; i < (crossovers?.length ?? 0); i++) {
+    const c = crossovers[i];
+    if (c != null) parts.push(`${i + 1}:${c}`);
+  }
+  if (!parts.length) return '';
+  return `cross ${parts.join(' ')}`;
+}
+
 /** 二倍体每对：母源 / 父源 / 表达（显性规则） */
 export function genomeDisplayRows(genome) {
   if (!genome?.pairs?.length) return [];
@@ -67,8 +119,9 @@ export function genomeDisplayRows(genome) {
     let expressed = '';
     let heterozygousBits = 0;
     let codominantBits = 0;
+    const zone = CHR_ZONE_BY_PAIR[i] ?? 'Z2';
     for (let j = 0; j < CHR_LEN; j++) {
-      const ex = expressAlleleDigit(mat[j], pat[j]);
+      const ex = expressAlleleDigitForZone(zone, mat[j], pat[j]);
       expressed += ex.digit;
       if (ex.mode === 'codominant') codominantBits += 1;
       if (mat[j] !== pat[j]) heterozygousBits += 1;

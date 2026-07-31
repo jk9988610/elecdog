@@ -79,6 +79,32 @@ export function expressAlleleDigit(a, b) {
   return { digit: String(blended), mode: 'codominant' };
 }
 
+/** Z 区差异化显性：Z3/Z4 偏共显；Z1/Z6 偏强显性；Z2/Z5 默认 */
+export function expressAlleleDigitForZone(zone, a, b) {
+  const ma = Number(a ?? 0);
+  const mb = Number(b ?? 0);
+  if (ma === mb) {
+    return { digit: String(ma), mode: 'homozygous' };
+  }
+  const hi = Math.max(ma, mb);
+  const lo = Math.min(ma, mb);
+  const diff = hi - lo;
+  const blend = () => {
+    const digit = String(Math.min(3, Math.ceil((ma + mb) / 2)));
+    return { digit, mode: 'codominant' };
+  };
+  if (zone === 'Z3' || zone === 'Z4') {
+    return blend();
+  }
+  if (zone === 'Z1' || zone === 'Z6') {
+    return { digit: String(hi), mode: 'dominant' };
+  }
+  if (diff >= 2) {
+    return { digit: String(hi), mode: 'dominant' };
+  }
+  return blend();
+}
+
 export function combineAlleleDigit(a, b) {
   return expressAlleleDigit(a, b).digit;
 }
@@ -91,8 +117,9 @@ export function diploidExpressSequence(genome) {
     const pair = genome.pairs[i] ?? {};
     const mat = (pair.maternal ?? '').padEnd(CHR_LEN, '0');
     const pat = (pair.paternal ?? '').padEnd(CHR_LEN, '0');
+    const zone = CHR_ZONE_BY_PAIR[i];
     for (let j = 0; j < CHR_LEN; j++) {
-      out += combineAlleleDigit(mat[j], pat[j]);
+      out += expressAlleleDigitForZone(zone, mat[j], pat[j]).digit;
     }
   }
   return out.slice(0, GENOME_LEN);

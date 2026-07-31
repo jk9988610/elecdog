@@ -28,7 +28,8 @@ import { HORMONE_KEYS } from '../world/hormone-system.js';
 import { STR_LACT_OUT } from '../world/body-structures.js';
 import { initGenealogyViewport } from './genealogy-viewport.js';
 import { chromosomeGeneticsEnabled } from '../genetics/genome.js';
-import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines, segregationLabel } from '../genetics/genome-display.js';
+import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines, inheritSummaryFromBeing, segregationLabel } from '../genetics/genome-display.js';
+import { parentZoneSimilarityRows, overallSequenceSimilarityPct, kinshipDnaBlockSim, dnaSequenceSimilarity } from '../genetics/dna-kinship.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -137,8 +138,7 @@ function orderCouplePrimary(being, mate) {
 
 function renderBirthBranchLabel(being) {
   if (!being?.pairParentA && !being?.fissionParent) return '';
-  const prov = being.genome?.provenance;
-  const lines = prov ? provenanceContributionLines(prov) : null;
+  const lines = inheritSummaryFromBeing(being);
   const gen = being.generation ?? 0;
   if (being.pairParentA || being.recombined) {
     const x = (lines?.eggCross ?? 0) + (lines?.spermCross ?? 0);
@@ -365,9 +365,70 @@ function renderProvenanceSummary(genome) {
 }
 
 function renderChromosomeInheritBadge(being) {
-  const lines = provenanceContributionLines(being?.genome?.provenance);
+  const lines = inheritSummaryFromBeing(being);
   if (!lines) return '';
   return `<span class="genealogy-chr-inherit" title="${escapeHtml(lines.eggLine)}；${escapeHtml(lines.spermLine)}">${escapeHtml(lines.cardShort)}</span>`;
+}
+
+function findBeingInWorld(world, id) {
+  if (!id) return null;
+  return (
+    world?.beings?.find((b) => b.id === id) ??
+    genealogySourceBeings(world).find((b) => b.id === id)
+  );
+}
+
+function renderParentZoneKinship(being, world, profile) {
+  if (!being?.dna?.sequence || !being.pairParentA) return '';
+  const parentA = findBeingInWorld(world, being.pairParentA);
+  const parentB = findBeingInWorld(world, being.pairParentB);
+  if (!parentA && !parentB) return '';
+  const blockSim = kinshipDnaBlockSim(profile ?? {});
+  const rows = [];
+  if (parentA?.dna?.sequence) {
+    const zones = parentZoneSimilarityRows(being, parentA);
+    const z3 = zones.find((z) => z.zone === 'Z3');
+    rows.push([
+      `与父方 ${formatBeingDisplayName(parentA)} 全序列`,
+      overallSequenceSimilarityPct(dnaSequenceSimilarity(being.dna.sequence, parentA.dna.sequence)),
+    ]);
+    if (z3) {
+      rows.push([`与父方 Z3 激素区`, overallSequenceSimilarityPct(z3.sim)]);
+    }
+  }
+  if (parentB?.dna?.sequence) {
+    const zones = parentZoneSimilarityRows(being, parentB);
+    const z3 = zones.find((z) => z.zone === 'Z3');
+    rows.push([
+      `与母方 ${formatBeingDisplayName(parentB)} 全序列`,
+      overallSequenceSimilarityPct(dnaSequenceSimilarity(being.dna.sequence, parentB.dna.sequence)),
+    ]);
+    if (z3) {
+      rows.push([`与母方 Z3 激素区`, overallSequenceSimilarityPct(z3.sim)]);
+    }
+  }
+  const zoneGrid = [];
+  if (parentA?.dna?.sequence) {
+    zoneGrid.push(
+      ...parentZoneSimilarityRows(being, parentA).map(
+        (z) =>
+          `<div class="stat-row"><span>父·${z.zone} ${escapeHtml(z.tag)}</span><strong>${overallSequenceSimilarityPct(z.sim)}</strong></div>`
+      )
+    );
+  }
+  if (parentB?.dna?.sequence) {
+    zoneGrid.push(
+      ...parentZoneSimilarityRows(being, parentB).map(
+        (z) =>
+          `<div class="stat-row"><span>母·${z.zone} ${escapeHtml(z.tag)}</span><strong>${overallSequenceSimilarityPct(z.sim)}</strong></div>`
+      )
+    );
+  }
+  return `
+    <h4 class="term">父母 DNA 区段相似度</h4>
+    <p class="muted chr-genome-hint">PRQ 近亲阻断阈值约 ${Math.round(blockSim * 100)}%（全序列）；Z3 高相似常见于同胞/近亲。</p>
+    <div class="stat-grid health-vitals-grid">${renderHealthVitalRows(rows)}</div>
+    <div class="stat-grid parent-zone-grid">${zoneGrid.join('')}</div>`;
 }
 
 function renderChromosomeGeneticsSection(being, profile) {
@@ -377,7 +438,7 @@ function renderChromosomeGeneticsSection(being, profile) {
 
   return `
     <h4 class="term">染色体二倍体</h4>
-    <p class="muted chr-genome-hint">表达：纯合 / 强显性(差≥2) / 共显性(差1 上取整均值)；性染色体父源 Y → 雄形态。「·N杂」为 8 位中卵精不同的位数，不是 DNA 数字。</p>
+    <p class="muted chr-genome-hint">表达：Z3/Z4 偏共显；Z1/Z6 偏强显性；其余默认。「·N杂」为 8 位中卵精不同的位数，不是 DNA 数字。</p>
     ${renderProvenanceSummary(being?.genome)}
     ${renderGenomeTable(genomeRows)}`;
 }
@@ -474,6 +535,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
     .join('');
 
   const chromosomeHtml = renderChromosomeGeneticsSection(being, profile ?? {});
+  const parentKinHtml = renderParentZoneKinship(being, world, profile);
 
   return `
     <h4 class="term">遗传与 DNA</h4>
@@ -484,6 +546,7 @@ function renderBeingDetailVitalsSections(being, world, profile) {
     </div>
     <p class="detail-dna-seq"><code>${escapeHtml(interp?.sequence ?? snap.dnaSeq ?? '')}</code></p>
     ${chromosomeHtml}
+    ${parentKinHtml}
     <h5 class="detail-subtitle">区段解读 Z1–Z6</h5>
     <div class="health-zones">${zoneRows}</div>
     <h4 class="term">营养与场态</h4>

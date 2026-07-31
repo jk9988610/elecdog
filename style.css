@@ -2286,8 +2286,13 @@ input[type='number'] {
   font-variant-numeric: tabular-nums;
 }
 
-.chr-provenance-grid {
-  margin-bottom: 0.5rem;
+.parent-zone-grid {
+  margin-top: 0.35rem;
+  font-size: 0.68rem;
+}
+
+.parent-zone-grid .stat-row span {
+  color: #8a94a4;
 }
 
 .chr-zone-tag {

@@ -1,6 +1,8 @@
 // MV3 — 族谱持久：END 登记 + 云归档族谱快照
 
 import { SKIN_CELL_CODE } from './logic-cell-types.js';
+import { provenanceToInheritDetail } from '../genetics/genome-display.js';
+import { dnaFingerprint } from '../genetics/dna-kinship.js';
 
 export function initGenealogyRegistry(world) {
   if (!world.genealogyRegistry) world.genealogyRegistry = {};
@@ -20,6 +22,7 @@ function logicSummary(being) {
 /** 从活体或已 END 个体生成族谱节点（紧凑，可云归档） */
 export function genealogyNodeFromBeing(being, world, patch = {}) {
   const tick = world?.tick ?? being.tickCount ?? 0;
+  const inheritDetail = provenanceToInheritDetail(being?.genome?.provenance);
   return {
     id: being.id,
     code: being.code,
@@ -44,6 +47,10 @@ export function genealogyNodeFromBeing(being, world, patch = {}) {
     endReason: being.endReason ?? null,
     skin: being.skinMembrane?.code ?? SKIN_CELL_CODE,
     logicSummary: logicSummary(being),
+    inheritSummary: inheritDetail?.cardShort ?? null,
+    inheritDetail: inheritDetail ?? null,
+    dnaSequence: being.dna?.sequence ?? null,
+    dnaFp: being.dnaFp ?? dnaFingerprint(being.dna?.sequence),
     updatedAtTick: tick,
     ...patch,
   };
@@ -107,6 +114,10 @@ export function genealogySourceBeings(world) {
       endedAtTick: node.endedAtTick,
       endReason: node.endReason,
       skinMembrane: node.skin ? { code: node.skin } : null,
+      inheritSummary: node.inheritSummary ?? null,
+      inheritDetail: node.inheritDetail ?? null,
+      dna: node.dnaSequence ? { sequence: node.dnaSequence } : null,
+      dnaFp: node.dnaFp ?? null,
       logicCells: Object.fromEntries(
         Object.entries(node.logicSummary ?? {}).map(([k, n]) =>
           [k, Array.from({ length: n }, (_, i) => ({ id: `${k}:${i}`, code: k }))]

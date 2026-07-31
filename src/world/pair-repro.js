@@ -37,6 +37,7 @@ import {
 } from './courtship-gate.js';
 import { isReproKinBlocked } from './kinship-gate.js';
 import { dnaFingerprint } from '../genetics/dna-kinship.js';
+import { formatCrossoverLog, countCrossovers } from '../genetics/genome-display.js';
 import {
   produceGamete,
   zygoteFromGametes,
@@ -322,9 +323,12 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
   being.dockCount = (being.dockCount ?? 0) + 1;
   annotatePairHalfMetadata(being, profile);
 
-  recorder.evolution(world.tick, being.id, `[DCK] half len ${seq.length}`, {
+  const crossLog = formatCrossoverLog(gamete.crossovers);
+  recorder.evolution(world.tick, being.id, `[DCK] half len ${seq.length}${crossLog ? ` ${crossLog}` : ''}`, {
     kind: 'DCK',
     packetLen: seq.length,
+    crossoverCount: countCrossovers(gamete.crossovers),
+    crossoverLog: crossLog || null,
     pairMorph: 'B',
   });
   noteSemDomainFromKind(being, 'DCK', world.tick);

@@ -1,6 +1,7 @@
 // DNA 血缘相似度 — 配合族谱 ID 禁止近亲繁殖
 
 import { hashString } from '../core/hash.js';
+import { DNA_ZONES } from './dna-express.js';
 
 export const KINSHIP_LABEL_NONE = '无血缘';
 export const KINSHIP_LABEL_PARENT = '父母子女';
@@ -19,6 +20,26 @@ export function dnaSequenceSimilarity(seqA, seqB) {
     if (seqA[i] === seqB[i]) match += 1;
   }
   return match / len;
+}
+
+/** Z1–Z6 区段序列相似度（表达串 96 位切片） */
+export function zoneSequenceSimilarity(seqA, seqB, zoneKey) {
+  const z = DNA_ZONES[zoneKey];
+  if (!z) return 0;
+  return dnaSequenceSimilarity(seqA?.slice(z.start, z.end), seqB?.slice(z.start, z.end));
+}
+
+export function parentZoneSimilarityRows(child, parent) {
+  if (!child?.dna?.sequence || !parent?.dna?.sequence) return [];
+  return Object.keys(DNA_ZONES).map((zoneKey) => ({
+    zone: zoneKey,
+    tag: DNA_ZONES[zoneKey].tag,
+    sim: zoneSequenceSimilarity(child.dna.sequence, parent.dna.sequence, zoneKey),
+  }));
+}
+
+export function overallSequenceSimilarityPct(sim) {
+  return `${Math.round((sim ?? 0) * 100)}%`;
 }
 
 /** 短指纹 — 体检报告与族谱展示 */
