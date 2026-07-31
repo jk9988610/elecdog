@@ -720,6 +720,7 @@ export function initGenealogyPanel(root, { getWorld, getRecorder, onSelect } = {
   const reproStream = initReproEvolutionStream(root, {
     getRecorder,
     getSelectedBeingId: () => selectedId,
+    getReferenceTick: () => getWorld?.()?.tick ?? null,
   });
 
   function findBeing(world, id) {

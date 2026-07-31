@@ -13,6 +13,7 @@ import {
   genealogyRegistrySnapshot,
   recordGenealogyEnd,
   applyGenealogyArchive,
+  applyArchiveBeingSnapshots,
 } from '../src/world/genealogy-persist.js';
 import { buildGenealogyModel, renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
 import { initGenealogyRegistry } from '../src/world/genealogy-persist.js';
@@ -154,13 +155,43 @@ recorder.evolution(99, 'merge-a', '[MEI] merge test', { kind: 'MEI' });
 const { merged } = mergeArchiveReproEvolution(recMerge, recorder.entries);
 assert(merged >= 2, 'mergeArchiveReproEvolution 合并 MEI/DCK');
 
+assert(pickReproEvolutionEntries(recorder, { tickMin: 50 }).length === 1, '进化流 tick 窗筛选');
+
+const snapWorld = {
+  tick: 50,
+  beings: [
+    {
+      id: 'snap-1',
+      code: 'S1',
+      name: 'snap',
+      familyName: '11',
+      givenName: '001',
+      lineageHeadId: 'snap-1',
+      alive: false,
+      generation: 1,
+      pairMorph: 'A',
+      pairParentA: 'pa',
+      pairParentB: 'pb',
+      endedAtTick: 40,
+      endReason: 'END',
+    },
+  ],
+};
+const wSnap = createWorld('M-SNAP');
+applyEnvProfile(wSnap, 'multicell_v2_world');
+const snapResult = applyArchiveBeingSnapshots(wSnap, snapWorld);
+assert(snapResult.applied === 1, 'applyArchiveBeingSnapshots');
+assert(wSnap.genealogyRegistry['snap-1']?.familyName === '11', '快照写入姓');
+
 const wReplay = createWorld('M-REPLAY');
 applyEnvProfile(wReplay, 'multicell_v2_world');
 const replay = applyObserverArchiveReplay(wReplay, recMerge, {
   genealogy: archive,
+  world: snapWorld,
   entries: recorder.entries,
 });
 assert(replay.genealogy.applied === archive.nodeCount, 'applyObserverArchiveReplay 族谱');
+assert(replay.beingSnapshots?.applied === 1, 'applyObserverArchiveReplay 个体快照');
 assert(replay.reproEvolution.merged >= 2, 'applyObserverArchiveReplay 繁殖流');
 
 const ends = recorder.entries.filter((e) => e.meta?.kind === 'END');
