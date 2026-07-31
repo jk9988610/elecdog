@@ -272,7 +272,7 @@ function renderGenomeTable(rows) {
       const yTag = r.sexYOnPaternal ? ' <span class="chr-y-tag">Y</span>' : '';
       const hetTag =
         r.heterozygousBits > 0
-          ? `<span class="chr-het-tag">${r.heterozygousBits}杂</span>`
+          ? `<span class="chr-het-tag">·${r.heterozygousBits}杂</span>`
           : '';
       return `<tr class="${cls}">
         <td class="chr-pair-label">${escapeHtml(r.label)}</td>
@@ -349,7 +349,7 @@ function renderChromosomeGeneticsSection(being, profile) {
 
   return `
     <h4 class="term">染色体二倍体</h4>
-    <p class="muted chr-genome-hint">表达：纯合 / 强显性(差≥2) / 共显性(差1 上取整均值)；性染色体父源 Y → 雄形态。</p>
+    <p class="muted chr-genome-hint">表达：纯合 / 强显性(差≥2) / 共显性(差1 上取整均值)；性染色体父源 Y → 雄形态。「·N杂」为 8 位中卵精不同的位数，不是 DNA 数字。</p>
     ${renderProvenanceSummary(being?.genome)}
     ${renderGenomeTable(genomeRows)}`;
 }
