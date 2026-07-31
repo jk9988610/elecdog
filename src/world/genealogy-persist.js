@@ -148,3 +148,34 @@ export function buildGenealogyArchive(world) {
 export function genealogyRegistrySnapshot(world) {
   return { ...initGenealogyRegistry(world) };
 }
+
+/** 将云归档 mv-genealogy 节点合并进当前世界登记表（不替换活体） */
+export function applyGenealogyArchive(world, genealogy) {
+  if (!genealogy?.nodes?.length) {
+    return { applied: 0, nodeCount: 0, endedCount: 0 };
+  }
+  const reg = initGenealogyRegistry(world);
+  let applied = 0;
+  for (const node of genealogy.nodes) {
+    if (!node?.id) continue;
+    reg[node.id] = {
+      ...reg[node.id],
+      ...node,
+      updatedAtTick: node.updatedAtTick ?? genealogy.tick ?? world?.tick ?? 0,
+    };
+    applied += 1;
+  }
+  world.genealogyArchiveReplay = {
+    sourceTick: genealogy.tick ?? null,
+    sourceWorld: genealogy.worldName ?? null,
+    appliedAtTick: world?.tick ?? 0,
+    nodeCount: genealogy.nodeCount ?? applied,
+    endedCount: genealogy.endedCount ?? null,
+    applied,
+  };
+  return {
+    applied,
+    nodeCount: genealogy.nodeCount ?? applied,
+    endedCount: genealogy.endedCount ?? null,
+  };
+}
