@@ -18,7 +18,7 @@ import {
 import { buildGenealogyModel, renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
 import { initGenealogyRegistry } from '../src/world/genealogy-persist.js';
 import { pickReproEvolutionEntries } from '../src/ui/repro-evolution-stream.js';
-import { mergeArchiveReproEvolution, applyObserverArchiveReplay } from '../src/cloud/field-sync.js';
+import { mergeArchiveReproEvolution, applyObserverArchiveReplay, alignWorldTickToArchive } from '../src/cloud/field-sync.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -193,6 +193,18 @@ const replay = applyObserverArchiveReplay(wReplay, recMerge, {
 assert(replay.genealogy.applied === archive.nodeCount, 'applyObserverArchiveReplay 族谱');
 assert(replay.beingSnapshots?.applied === 1, 'applyObserverArchiveReplay 个体快照');
 assert(replay.reproEvolution.merged >= 2, 'applyObserverArchiveReplay 繁殖流');
+
+const wTick = createWorld('M-TICK');
+applyEnvProfile(wTick, 'multicell_v2_world');
+wTick.tick = 5;
+const tickAlign = alignWorldTickToArchive(wTick, { world: { tick: 120 }, genealogy: { tick: 120 } });
+assert(tickAlign.aligned && wTick.tick === 120, 'alignWorldTickToArchive');
+const replayTick = applyObserverArchiveReplay(wTick, new Recorder(), {
+  genealogy: archive,
+  world: { tick: 200, beings: snapWorld.beings },
+  entries: [],
+}, { alignTick: true });
+assert(replayTick.tickAlign?.tick === 200, '复盘可选对齐 tick');
 
 const ends = recorder.entries.filter((e) => e.meta?.kind === 'END');
 assert(ends.length >= 1, `[END] 记录（${ends.length}）`);

@@ -3528,14 +3528,14 @@ const MULTICELL_V2_STACK = {
   meiMinAge: 40,
   kinshipDnaBlockEnabled: true,
   kinshipDnaBlockSim: 0.68,
-  /** Z 区段近亲阻断阈值（未列区段回退 kinshipDnaBlockSim） */
+  /** Z 区段近亲阻断阈值 — 田野同胞样本校准（observer-kinship-sibling-field，cap 0.88） */
   kinshipZoneBlockSim: {
-    Z1: 0.7,
-    Z2: 0.68,
-    Z3: 0.72,
-    Z4: 0.7,
-    Z5: 0.68,
-    Z6: 0.65,
+    Z1: 0.88,
+    Z2: 0.88,
+    Z3: 0.88,
+    Z4: 0.88,
+    Z5: 0.88,
+    Z6: 0.88,
   },
 };
 
