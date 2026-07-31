@@ -206,6 +206,16 @@ const replayTick = applyObserverArchiveReplay(wTick, new Recorder(), {
 }, { alignTick: true });
 assert(replayTick.tickAlign?.tick === 200, '复盘可选对齐 tick');
 
+const wTickOff = createWorld('M-TICK-OFF');
+applyEnvProfile(wTickOff, 'multicell_v2_world');
+wTickOff.tick = 42;
+const replayTickOff = applyObserverArchiveReplay(wTickOff, new Recorder(), {
+  genealogy: archive,
+  world: { tick: 200, beings: snapWorld.beings },
+  entries: [],
+}, { alignTick: false });
+assert(wTickOff.tick === 42 && !replayTickOff.tickAlign?.aligned, '复盘可跳过 tick 对齐');
+
 const ends = recorder.entries.filter((e) => e.meta?.kind === 'END');
 assert(ends.length >= 1, `[END] 记录（${ends.length}）`);
 

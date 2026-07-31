@@ -608,6 +608,19 @@ input[type='number'] {
   gap: 0.35rem;
 }
 
+.cloud-archive-opt {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.72rem;
+  color: #8b93a7;
+  user-select: none;
+}
+
+.cloud-archive-opt input {
+  margin: 0;
+}
+
 .cloud-preview-head h3 {
   margin: 0;
   font-size: 0.75rem;

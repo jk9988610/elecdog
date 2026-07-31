@@ -207,7 +207,11 @@ export class ObserverApp {
               <button id="btn-archive-load-beings" type="button" class="btn-secondary" disabled title="合并归档中的个体快照到登记表">载入个体快照</button>
               <button id="btn-archive-load-genealogy" type="button" class="btn-secondary" disabled title="将族谱节点写入当前世界登记表">载入族谱</button>
               <button id="btn-archive-load-repro" type="button" class="btn-secondary" disabled title="合并归档中的 [MEI]/[DCK] 进化流">载入繁殖流</button>
-              <button id="btn-archive-load-full" type="button" class="btn-secondary" disabled title="族谱 + 繁殖进化流">载入复盘</button>
+              <label class="cloud-archive-opt" title="载入复盘时将 tick 对齐到归档时刻，便于进化流 tick 窗筛选">
+                <input type="checkbox" id="archive-replay-align-tick" checked />
+                对齐 tick
+              </label>
+              <button id="btn-archive-load-full" type="button" class="btn-secondary" disabled title="族谱 + 个体快照 + 繁殖进化流">载入复盘</button>
               <button id="btn-close-preview" type="button" class="btn-ghost">关闭</button>
             </div>
           </div>
@@ -258,6 +262,7 @@ export class ObserverApp {
       btnArchiveLoadBeings: this.root.querySelector('#btn-archive-load-beings'),
       btnArchiveLoadRepro: this.root.querySelector('#btn-archive-load-repro'),
       btnArchiveLoadFull: this.root.querySelector('#btn-archive-load-full'),
+      archiveReplayAlignTick: this.root.querySelector('#archive-replay-align-tick'),
       btnClosePreview: this.root.querySelector('#btn-close-preview'),
       cloudMessage: this.root.querySelector('#cloud-message'),
       btnOtaCheck: this.root.querySelector('#btn-ota-check'),
@@ -941,8 +946,9 @@ export class ObserverApp {
       this.setCloudMessage('无可用归档', true);
       return;
     }
+    const alignTick = Boolean(this.$.archiveReplayAlignTick?.checked);
     const result = applyObserverArchiveReplay(this.world, this.recorder, this.lastArchivePayload, {
-      alignTick: true,
+      alignTick,
     });
     const tickMsg = result.tickAlign?.aligned
       ? ` · tick→${result.tickAlign.tick}`
