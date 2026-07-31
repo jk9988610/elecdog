@@ -7,18 +7,6 @@ import { applyEnvProfile, initEnvStackModules } from '../src/world/env-profile.j
 import { Recorder } from '../src/recorder/logger.js';
 import { spawnAdultMulticellCohort } from '../src/birth/adult-cohort.js';
 import {
-  initAdultMatingStructures,
-  STR_PAIR_IN,
-  STR_PAIR_OUT,
-} from '../src/world/body-structures.js';
-import {
-  processPartnerChannelFus,
-  processPartnerFertilization,
-  processPairGestation,
-  restoreAdultReproPackages,
-} from '../src/world/pair-repro.js';
-import { registerPairSpeechPRQ, registerPairSpeechPGR } from '../src/world/pair-repro.js';
-import {
   dnaSequenceSimilarity,
   isFullSibling,
   isDnaKinBlocked,
@@ -28,6 +16,11 @@ import {
   zoneSequenceSimilarity,
 } from '../src/genetics/dna-kinship.js';
 import { DNA_ZONES } from '../src/genetics/dna-express.js';
+import {
+  bondPair,
+  birthChild,
+  resetPairForNextBirth,
+} from './lib/kinship-repro-helpers.mjs';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -39,49 +32,6 @@ function assert(cond, msg) {
   }
 }
 
-function pinChannels(being, code, ch) {
-  const st = being?.bodyStructures?.[code];
-  if (st) st.channels = [ch];
-}
-
-function waiveReproGates(world, beings = []) {
-  world.courtshipGraceUntilTick = 0;
-  for (const b of beings) {
-    b.courtshipEligibleAtTick = 0;
-    b.partnerFusEligibleAtTick = 0;
-    b.postpartumUntilTick = 0;
-  }
-}
-
-function resetPairForNextBirth(world, male, female, profile) {
-  female.pregnant = false;
-  female.syncyte = null;
-  female.postpartumUntilTick = 0;
-  female.partnerChannelFusedAtTick = null;
-  female.fertilizationEligibleAtTick = null;
-  male.partnerChannelFusedAtTick = null;
-  restoreAdultReproPackages(male, world, profile);
-  restoreAdultReproPackages(female, world, profile);
-}
-
-function birthChild(world, recorder, male, female) {
-  restoreAdultReproPackages(male, world, profile);
-  restoreAdultReproPackages(female, world, profile);
-  pinChannels(male, STR_PAIR_OUT, 7);
-  pinChannels(female, STR_PAIR_IN, 7);
-  waiveReproGates(world, [male, female]);
-  male.partnerFusEligibleAtTick = 0;
-  female.partnerFusEligibleAtTick = 0;
-  processPartnerChannelFus(world, recorder);
-  world.tick = female.fertilizationEligibleAtTick ?? world.tick;
-  const fus = processPartnerFertilization(world, recorder);
-  if (!fus.length || !female.syncyte) return null;
-  female.syncyte.gestationUntilTick = world.tick;
-  const gest = processPairGestation(world, recorder);
-  const childId = gest[0]?.childId;
-  return childId ? world.beings.find((b) => b.id === childId) : null;
-}
-
 const world = createWorld('M-SIB-FIELD');
 applyEnvProfile(world, 'multicell_v2_world');
 initEnvStackModules(world);
@@ -91,13 +41,8 @@ const recorder = new Recorder();
 const cohort = spawnAdultMulticellCohort(world, recorder, { males: 1, females: 1 });
 const male = cohort.find((b) => b.pairMorph === 'A');
 const female = cohort.find((b) => b.pairMorph === 'B');
-initAdultMatingStructures(male, profile, 0);
-initAdultMatingStructures(female, profile, 0);
-pinChannels(male, STR_PAIR_OUT, 7);
-pinChannels(female, STR_PAIR_IN, 7);
-waiveReproGates(world, cohort);
-assert(registerPairSpeechPRQ(world, recorder, male, female.id), '雄雌结伴 PRQ');
-assert(registerPairSpeechPGR(world, recorder, female, male.id), '雌雄结伴 PGR');
+
+assert(bondPair(world, recorder, male, female), '雄雌结伴');
 
 const child1 = birthChild(world, recorder, male, female);
 assert(child1, '第一胎外排');

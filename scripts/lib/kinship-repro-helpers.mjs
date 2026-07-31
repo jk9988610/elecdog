@@ -1,4 +1,5 @@
 /** 田野脚本共用 — 多细胞繁殖分娩辅助 */
+import { initAdultWeanedBeing } from '../../src/birth/adult-cohort.js';
 import {
   initAdultMatingStructures,
   STR_PAIR_OUT,
@@ -66,6 +67,16 @@ export function bondPair(world, recorder, male, female) {
 
 function profileFrom(world) {
   return world.envProfile ?? {};
+}
+
+/** 将分娩子代晋升为可繁殖成体（多代田野用） */
+export function promoteToAdultRepro(being, world) {
+  const profile = profileFrom(world);
+  initAdultWeanedBeing(being, world, profile, { mateChannel: 7 });
+  being.courtshipEligibleAtTick = 0;
+  being.partnerFusEligibleAtTick = 0;
+  being.postpartumUntilTick = 0;
+  return being;
 }
 
 export function birthChild(world, recorder, male, female) {
