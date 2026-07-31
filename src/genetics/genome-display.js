@@ -50,7 +50,7 @@ export function provenanceContributionLines(provenance) {
     spermCross: spermX,
     eggLine: `卵方减数 ${egg.maternal}+${egg.paternal}（母源+父源同源）`,
     spermLine: `精方减数 ${sperm.maternal}+${sperm.paternal}（母源+父源同源）`,
-    cardShort: `卵${egg.maternal}·${egg.paternal} 精${sperm.maternal}·${sperm.paternal}`,
+    cardShort: `卵${egg.maternal}·${egg.paternal} 精${sperm.maternal}·${sperm.paternal}${eggX + spermX > 0 ? ` ×${eggX + spermX}` : ''}`,
     parentTotals: '母源12 · 父源12',
   };
 }

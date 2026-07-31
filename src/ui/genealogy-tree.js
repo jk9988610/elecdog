@@ -135,6 +135,26 @@ function orderCouplePrimary(being, mate) {
   return [being, mate];
 }
 
+function renderBirthBranchLabel(being) {
+  if (!being?.pairParentA && !being?.fissionParent) return '';
+  const prov = being.genome?.provenance;
+  const lines = prov ? provenanceContributionLines(prov) : null;
+  const gen = being.generation ?? 0;
+  if (being.pairParentA || being.recombined) {
+    const x = (lines?.eggCross ?? 0) + (lines?.spermCross ?? 0);
+    const title = lines
+      ? `${lines.eggLine}；${lines.spermLine}${x ? `；互换合计${x}` : ''}`
+      : '父母联姻分娩';
+    const text = x > 0 ? `分娩 G${gen} · 互换${x}` : `分娩 G${gen}`;
+    const inherit = lines?.cardShort ? `<span class="gv-birth-inherit">${escapeHtml(lines.cardShort)}</span>` : '';
+    return `<div class="gv-birth-branch" title="${escapeHtml(title)}">${escapeHtml(text)}${inherit}</div>`;
+  }
+  if (being.fissionParent) {
+    return `<div class="gv-birth-branch gv-birth-fiss" title="单亲分裂">分裂 G${gen}</div>`;
+  }
+  return '';
+}
+
 function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
   if (!being || seen.has(being.id)) return '';
   seen.add(being.id);
@@ -171,6 +191,7 @@ function renderTreeNode(being, byId, nodes, beings, selectedId, seen) {
       : '';
 
   return `<li class="gv-node${children.length ? ' has-children' : ''}">
+    ${renderBirthBranchLabel(primary)}
     ${couple}
     ${kids}
   </li>`;
