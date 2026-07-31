@@ -126,6 +126,21 @@ export function suggestKinshipZoneBlockSim(
   return { global: +global.toFixed(3), zones };
 }
 
+/** 将田野建议阈值写入 profile（运行时微调，不修改 env-profile 常量） */
+export function applyKinshipZoneTuning(profile, suggestion) {
+  if (!profile || !suggestion) return { applied: false };
+  if (suggestion.global != null) profile.kinshipDnaBlockSim = suggestion.global;
+  if (suggestion.zones) {
+    profile.kinshipZoneBlockSim = {
+      ...(profile.kinshipZoneBlockSim ?? {}),
+      ...suggestion.zones,
+    };
+  }
+  profile.kinshipZoneTuningApplied = true;
+  profile.kinshipZoneTuningSource = suggestion;
+  return { applied: true, global: profile.kinshipDnaBlockSim, zones: { ...profile.kinshipZoneBlockSim } };
+}
+
 /** 列出触发 DNA 近亲阻断的区段（全序列或任一 Z 区 sim ≥ 阈） */
 export function dnaKinBlockTriggers(a, b, profile = {}) {
   if (!kinshipDnaBlockEnabled(profile)) return [];

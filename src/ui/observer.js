@@ -941,9 +941,14 @@ export class ObserverApp {
       this.setCloudMessage('无可用归档', true);
       return;
     }
-    const result = applyObserverArchiveReplay(this.world, this.recorder, this.lastArchivePayload);
+    const result = applyObserverArchiveReplay(this.world, this.recorder, this.lastArchivePayload, {
+      alignTick: true,
+    });
+    const tickMsg = result.tickAlign?.aligned
+      ? ` · tick→${result.tickAlign.tick}`
+      : '';
     this.setCloudMessage(
-      `复盘载入：族谱 ${result.genealogy.applied ?? 0} 节点 · 快照 ${result.beingSnapshots?.applied ?? 0} · 繁殖流 ${result.reproEvolution.merged ?? 0} 条`
+      `复盘载入：族谱 ${result.genealogy.applied ?? 0} 节点 · 快照 ${result.beingSnapshots?.applied ?? 0} · 繁殖流 ${result.reproEvolution.merged ?? 0} 条${tickMsg}`
     );
     this.genealogyPanel?.paint();
     this.mindStreamPanel?.refresh();

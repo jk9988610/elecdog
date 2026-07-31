@@ -377,8 +377,8 @@ const fusBond = processPartnerFertilization(wFld, recFld);
 assert(fusBond.length > 0, '结伴后延迟受孕');
 assert(isPregnant(femaleFld), '受孕后标记孕妇');
 
-assert(wKin.envProfile.kinshipZoneBlockSim?.Z3 === 0.72, 'multicell v2 Z3 阻断阈值 72%');
-assert(kinshipZoneBlockSim(wKin.envProfile, 'Z6') === 0.65, 'Z6 阻断阈值 65%');
+assert(wKin.envProfile.kinshipZoneBlockSim?.Z3 === 0.88, 'multicell v2 Z3 阻断阈值 88%（田野校准）');
+assert(kinshipZoneBlockSim(wKin.envProfile, 'Z6') === 0.88, 'Z6 阻断阈值 88%（田野校准）');
 const kinCloneA = { id: 'kin-clone-a', dna: { sequence: '0'.repeat(96) } };
 const kinCloneB = { id: 'kin-clone-b', dna: { sequence: '0'.repeat(96) } };
 assert(isDnaKinBlocked(kinCloneA, kinCloneB, wKin.envProfile), '同序列克隆阻断');

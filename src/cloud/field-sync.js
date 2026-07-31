@@ -161,17 +161,30 @@ export function mergeArchiveReproEvolution(recorder, entries) {
   return { merged };
 }
 
+/** 复盘时把世界 tick 对齐到归档导出时刻（便于 tick 窗筛选） */
+export function alignWorldTickToArchive(world, archive) {
+  const tick = archive?.world?.tick ?? archive?.genealogy?.tick ?? null;
+  if (tick == null || !world) return { aligned: false };
+  const previousTick = world.tick ?? 0;
+  world.tick = tick;
+  world.archiveReplayAnchorTick = tick;
+  world.archiveReplayTickFrom = previousTick;
+  return { aligned: true, tick, previousTick };
+}
+
 /** 观察台复盘：族谱登记 + 个体快照 + 繁殖进化流日志 */
-export function applyObserverArchiveReplay(world, recorder, archive) {
+export function applyObserverArchiveReplay(world, recorder, archive, { alignTick = false } = {}) {
   const genealogy = archive?.genealogy ?? null;
   const genResult = genealogy ? applyGenealogyArchive(world, genealogy) : { applied: 0 };
   const beingResult = archive?.world
     ? applyArchiveBeingSnapshots(world, archive.world)
     : { applied: 0 };
   const reproResult = mergeArchiveReproEvolution(recorder, archive?.entries);
+  const tickAlign = alignTick ? alignWorldTickToArchive(world, archive) : { aligned: false };
   return {
     genealogy: genResult,
     beingSnapshots: beingResult,
     reproEvolution: reproResult,
+    tickAlign,
   };
 }
