@@ -2224,3 +2224,43 @@ input[type='number'] {
   font-size: 0.72rem;
   margin: 0.25rem 0 0.5rem;
 }
+
+.chr-seg-tag {
+  display: inline-block;
+  margin-left: 0.2rem;
+  padding: 0 0.25rem;
+  font-size: 0.58rem;
+  border-radius: 2px;
+  vertical-align: middle;
+}
+
+.chr-seg-mat {
+  color: #9ab6d4;
+  background: rgba(90, 120, 180, 0.15);
+}
+
+.chr-seg-pat {
+  color: #c4a87a;
+  background: rgba(180, 140, 90, 0.12);
+}
+
+.chr-het-tag {
+  margin-left: 0.25rem;
+  font-size: 0.58rem;
+  color: #8a94a4;
+}
+
+.genealogy-chr-inherit {
+  display: inline-block;
+  margin-left: 0.2rem;
+  padding: 0 0.3rem;
+  font-size: 0.58rem;
+  color: #7eb8a8;
+  background: rgba(80, 160, 130, 0.12);
+  border-radius: 2px;
+  font-variant-numeric: tabular-nums;
+}
+
+.chr-provenance-grid {
+  margin-bottom: 0.5rem;
+}

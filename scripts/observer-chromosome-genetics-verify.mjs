@@ -12,8 +12,9 @@ import {
   SEX_PAIR_INDEX,
   produceGamete,
   diploidExpressSequence,
+  expressAlleleDigit,
 } from '../src/genetics/genome.js';
-import { genomeDisplayRows, haploidDisplayRows } from '../src/genetics/genome-display.js';
+import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines } from '../src/genetics/genome-display.js';
 import { renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
 import {
   createSyncyteOnB,
@@ -43,6 +44,9 @@ applyEnvProfile(world, 'multicell_v2_world');
 initEnvStackModules(world);
 const recorder = new Recorder();
 
+assert(expressAlleleDigit('0', '3').mode === 'dominant' && expressAlleleDigit('0', '3').digit === '3', '强显性');
+assert(expressAlleleDigit('1', '2').mode === 'codominant' && expressAlleleDigit('1', '2').digit === '2', '共显性');
+
 const cohort = spawnAdultMulticellCohort(world, recorder, { males: 2, females: 2 });
 assert(cohort.every((b) => b.genome?.pairs?.length === 12), '成体均有 12 对染色体');
 assert(
@@ -68,13 +72,17 @@ const sperm = produceGamete(male, world.envProfile, 42);
 const egg = produceGamete(female, world.envProfile, 43);
 assert(sperm.haploid?.length === 12, '精子单倍体 12 条');
 assert(egg.haploid?.length === 12, '卵子单倍体 12 条');
+assert(sperm.segregation?.length === 12, '精子记录减数来源');
 const zyg = fertilize(egg.haploid, sperm.haploid);
 assert(derivePairMorphFromGenome(zyg) === 'A' || derivePairMorphFromGenome(zyg) === 'B', '合子 morph 可派生');
 
 const genome = male.genome;
 const hap1 = meiosis(genome, 1);
 const hap2 = meiosis(genome, 2);
-assert(hap1.join('') !== hap2.join('') || genome.pairs.every((p) => p.maternal === p.paternal), '减数分裂可产生不同单倍型');
+assert(
+  hap1.haploid.join('') !== hap2.haploid.join('') || genome.pairs.every((p) => p.maternal === p.paternal),
+  '减数分裂可产生不同单倍型'
+);
 
 initAdultMatingStructures(male, world.envProfile, 0);
 initAdultMatingStructures(female, world.envProfile, 0);
@@ -100,15 +108,23 @@ const child = world.beings.find((b) => b.id === gest[0].childId);
 assert(child?.genome?.pairs?.length === 12, '子代有二倍体 genome');
 assert(child.pairMorph === derivePairMorphFromGenome(child.genome), '子代 morph 与性染色体一致');
 assert(child.dna.sequence === diploidExpressSequence(child.genome), '子代表达串与 genome 一致');
+assert(child.genome?.provenance?.maternalSegregation?.length === 12, '子代记录卵方减数来源');
+assert(child.genome?.provenance?.paternalSegregation?.length === 12, '子代记录精方减数来源');
+const provLines = provenanceContributionLines(child.genome.provenance);
+assert(provLines?.eggMat + provLines?.eggPat === 12, '卵方贡献 12 条');
+assert(provLines?.spermMat + provLines?.spermPat === 12, '精方贡献 12 条');
 
 const genomeRows = genomeDisplayRows(male.genome);
 assert(genomeRows.length === 12, '展示行 12 对');
 assert(genomeRows[SEX_PAIR_INDEX].isSexPair, '性染色体对标记');
-const spermRows = haploidDisplayRows(sperm.haploid);
+const spermRows = haploidDisplayRows(sperm.haploid, sperm.segregation);
 assert(spermRows.length === 12, '精子单倍体展示 12 条');
+assert(spermRows[0].segregation === sperm.segregation[0], '单倍体展示带来源');
 const detailHtml = renderBeingDetailHTML(male, female, world.envProfile, world);
 assert(detailHtml.includes('染色体二倍体'), '详情含染色体表');
 assert(detailHtml.includes(genomeRows[0].maternal), '详情含母源染色体');
+const childDetail = renderBeingDetailHTML(child, null, world.envProfile, world);
+assert(childDetail.includes('卵方减数'), '子代详情含父母贡献');
 
 if (failed) {
   console.error(`observer-chromosome-genetics-verify: ${failed} failed`);

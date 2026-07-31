@@ -228,7 +228,13 @@ export function initDockedHalf(world, being) {
   if (being.dockedHalf) return being.dockedHalf;
   const seed = hashString(`${being.id}:${world.tick}:dock-init`);
   const gamete = produceGamete(being, world.envProfile ?? {}, seed);
-  being.dockedHalf = { seq: gamete.seq, haploid: gamete.haploid, atTick: world.tick, init: true };
+  being.dockedHalf = {
+    seq: gamete.seq,
+    haploid: gamete.haploid,
+    segregation: gamete.segregation,
+    atTick: world.tick,
+    init: true,
+  };
   annotatePairHalfMetadata(being, profile);
   return being.dockedHalf;
 }
@@ -255,6 +261,7 @@ export function restoreAdultReproPackages(being, world, profile) {
       being.meiPacket = {
         seq: gamete.seq,
         haploid: gamete.haploid,
+        segregation: gamete.segregation,
         atTick: world.tick ?? 0,
         adultSeed: true,
       };
@@ -308,7 +315,7 @@ export function tryDockedHalf(world, recorder, being, { stress = 0, integrity = 
   const seed = hashString(`${being.id}:${world.tick}:dock-reduce`);
   const gamete = produceGamete(being, profile, seed);
   const seq = gamete.seq;
-  being.dockedHalf = { seq, haploid: gamete.haploid, atTick: world.tick };
+  being.dockedHalf = { seq, haploid: gamete.haploid, segregation: gamete.segregation, atTick: world.tick };
   being.lastDockTick = world.tick;
   being.dockCount = (being.dockCount ?? 0) + 1;
   annotatePairHalfMetadata(being, profile);
@@ -704,7 +711,11 @@ export function createSyncyteOnB(world, recorder, parentA, parentB, seqA, seqB) 
   }
   const gestationTicks = profile.gestationTicks ?? profile.nurtureTicks ?? 80;
   const seed = hashString(`${parentA.id}:${parentB.id}:${world.tick}:pair-fus`);
-  const zygote = zygoteFromGametes(seqA, seqB, profile, seed, { eggIsB: true });
+  const zygote = zygoteFromGametes(seqA, seqB, profile, seed, {
+    eggIsB: true,
+    spermSegregation: parentA.meiPacket?.segregation,
+    eggSegregation: parentB.dockedHalf?.segregation,
+  });
 
   parentB.syncyte = {
     dnaSeq: zygote.dnaSeq,

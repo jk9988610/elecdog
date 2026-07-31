@@ -2,11 +2,16 @@
 
 import { spawnBeing } from './spawn.js';
 
-export function performBirthRitual(
-  world,
-  recorder,
-  { name = '小狗', code = '001', dnaSequence = null, id: fixedId = null, pairMorph = null } = {}
-) {
+export function performBirthRitual(world, recorder, opts = {}) {
+  const {
+    name = '小狗',
+    code = '001',
+    dnaSequence = null,
+    id: fixedId = null,
+    pairMorph = null,
+    genome = null,
+    ...spawnRest
+  } = opts;
   const tick = world.tick;
   const steps = [];
 
@@ -24,6 +29,8 @@ export function performBirthRitual(
     dnaSequence,
     id: fixedId,
     pairMorph,
+    genome,
+    ...spawnRest,
   });
 
   steps.push(
