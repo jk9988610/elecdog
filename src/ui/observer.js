@@ -21,6 +21,8 @@ import {
   fetchRecentNotes,
   loadArchivePreview,
   saveFieldNote,
+  applyObserverArchiveReplay,
+  mergeArchiveReproEvolution,
 } from '../cloud/field-sync.js';
 import { formatSupabaseError } from '../cloud/supabase-error.js';
 import { getLogPublicUrl } from '../cloud/rest.js';
@@ -84,6 +86,7 @@ import {
   initClassicMulticellHealthButtons,
 } from './observer-classic-multicell.js';
 import { populationLayerEnabled } from '../world/multicell-v2.js';
+import { applyGenealogyArchive } from '../world/genealogy-persist.js';
 
 const SEED_DNA =
   '300303230322133312222231123010332200320013122030231012321231020111313313212021231101211320032303';
@@ -107,6 +110,7 @@ export class ObserverApp {
     this.observerLayout = getObserverLayoutMode();
     this.envProfileId = getObserverEnvId();
     this.lastArchiveId = null;
+    this.lastArchivePayload = null;
     this.genealogyPopVisible = true;
     this.render();
     this.bootstrapWorld();
@@ -199,7 +203,12 @@ export class ObserverApp {
         <div id="cloud-preview" class="cloud-preview hidden">
           <div class="cloud-preview-head">
             <h3 id="cloud-preview-title">归档预览</h3>
-            <button id="btn-close-preview" type="button" class="btn-ghost">关闭</button>
+            <div class="cloud-preview-actions">
+              <button id="btn-archive-load-genealogy" type="button" class="btn-secondary" disabled title="将族谱节点写入当前世界登记表">载入族谱</button>
+              <button id="btn-archive-load-repro" type="button" class="btn-secondary" disabled title="合并归档中的 [MEI]/[DCK] 进化流">载入繁殖流</button>
+              <button id="btn-archive-load-full" type="button" class="btn-secondary" disabled title="族谱 + 繁殖进化流">载入复盘</button>
+              <button id="btn-close-preview" type="button" class="btn-ghost">关闭</button>
+            </div>
           </div>
           <pre id="cloud-preview-body" class="cloud-preview-body"></pre>
         </div>
@@ -244,6 +253,9 @@ export class ObserverApp {
       cloudPreview: this.root.querySelector('#cloud-preview'),
       cloudPreviewTitle: this.root.querySelector('#cloud-preview-title'),
       cloudPreviewBody: this.root.querySelector('#cloud-preview-body'),
+      btnArchiveLoadGenealogy: this.root.querySelector('#btn-archive-load-genealogy'),
+      btnArchiveLoadRepro: this.root.querySelector('#btn-archive-load-repro'),
+      btnArchiveLoadFull: this.root.querySelector('#btn-archive-load-full'),
       btnClosePreview: this.root.querySelector('#btn-close-preview'),
       cloudMessage: this.root.querySelector('#cloud-message'),
       btnOtaCheck: this.root.querySelector('#btn-ota-check'),
@@ -318,6 +330,9 @@ export class ObserverApp {
     this.$.btnRefreshCloud.addEventListener('click', () => this.refreshCloudPanel());
     this.$.cloudRuns.addEventListener('click', (e) => this.onCloudRunClick(e));
     this.$.btnClosePreview?.addEventListener('click', () => this.closeArchivePreview());
+    this.$.btnArchiveLoadGenealogy?.addEventListener('click', () => this.loadArchiveGenealogy());
+    this.$.btnArchiveLoadRepro?.addEventListener('click', () => this.loadArchiveReproEvolution());
+    this.$.btnArchiveLoadFull?.addEventListener('click', () => this.loadArchiveFullReplay());
     this.$.btnViewNative?.addEventListener('click', () => this.switchViewMode(VIEW_NATIVE));
     this.$.btnViewAnalogy?.addEventListener('click', () => this.switchViewMode(VIEW_ANALOGY));
     this.$.btnPanelsToggle?.addEventListener('click', () => this.togglePanelsDropdown());
@@ -871,6 +886,53 @@ export class ObserverApp {
   closeArchivePreview() {
     this.$.cloudPreview?.classList.add('hidden');
     this.$.cloudPreviewBody.textContent = '';
+    this.lastArchivePayload = null;
+    this.setArchiveLoadButtonsEnabled(false);
+  }
+
+  setArchiveLoadButtonsEnabled(enabled) {
+    const on = Boolean(enabled);
+    if (this.$.btnArchiveLoadGenealogy) this.$.btnArchiveLoadGenealogy.disabled = !on;
+    if (this.$.btnArchiveLoadRepro) this.$.btnArchiveLoadRepro.disabled = !on;
+    if (this.$.btnArchiveLoadFull) this.$.btnArchiveLoadFull.disabled = !on;
+  }
+
+  loadArchiveGenealogy() {
+    if (!this.world || !this.lastArchivePayload?.genealogy) {
+      this.setCloudMessage('归档无族谱块', true);
+      return;
+    }
+    const result = applyGenealogyArchive(this.world, this.lastArchivePayload.genealogy);
+    this.setCloudMessage(
+      `已载入族谱 ${result.applied} 节点（END ${result.endedCount ?? '—'}）· 族谱布局可复盘`
+    );
+    this.genealogyPanel?.paint();
+    this.refresh();
+  }
+
+  loadArchiveReproEvolution() {
+    if (!this.lastArchivePayload?.entries?.length) {
+      this.setCloudMessage('归档无日志条目', true);
+      return;
+    }
+    const { merged } = mergeArchiveReproEvolution(this.recorder, this.lastArchivePayload.entries);
+    this.setCloudMessage(`已合并繁殖进化流 ${merged} 条`);
+    this.genealogyPanel?.paint();
+    this.mindStreamPanel?.refresh();
+  }
+
+  loadArchiveFullReplay() {
+    if (!this.world || !this.lastArchivePayload) {
+      this.setCloudMessage('无可用归档', true);
+      return;
+    }
+    const result = applyObserverArchiveReplay(this.world, this.recorder, this.lastArchivePayload);
+    this.setCloudMessage(
+      `复盘载入：族谱 ${result.genealogy.applied ?? 0} 节点 · 繁殖流 ${result.reproEvolution.merged ?? 0} 条`
+    );
+    this.genealogyPanel?.paint();
+    this.mindStreamPanel?.refresh();
+    this.refresh();
   }
 
   async previewArchive(title, logPath) {
@@ -880,6 +942,8 @@ export class ObserverApp {
     this.setCloudMessage('');
     try {
       const preview = await loadArchivePreview(logPath);
+      this.lastArchivePayload = preview.archive ?? null;
+      this.setArchiveLoadButtonsEnabled(Boolean(this.lastArchivePayload));
       const lines = [];
       lines.push(`类型: ${preview.kind}`);
       if (preview.exportedAt) lines.push(`导出: ${preview.exportedAt}`);
@@ -951,6 +1015,8 @@ export class ObserverApp {
       this.$.cloudPreviewBody.textContent = lines.join('\n');
     } catch (err) {
       this.$.cloudPreviewBody.textContent = '';
+      this.lastArchivePayload = null;
+      this.setArchiveLoadButtonsEnabled(false);
       this.setCloudMessage(formatSupabaseError(err), true);
     }
   }

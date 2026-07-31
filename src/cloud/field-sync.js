@@ -2,7 +2,8 @@
  * 田野归档与笔记云同步 — ElecDog Phase 28
  */
 import { buildDashboardStats } from '../ui/stats.js';
-import { buildGenealogyArchive } from '../world/genealogy-persist.js';
+import { buildGenealogyArchive, applyGenealogyArchive } from '../world/genealogy-persist.js';
+import { isReproEvolutionEntry } from '../ui/repro-evolution-stream.js';
 import { getObserverLabel } from './config.js';
 import {
   insertFieldRun,
@@ -141,5 +142,29 @@ export async function loadArchivePreview(logPath, { entryLimit = 40 } = {}) {
     entryCount: entries.length,
     previewEntries: entries.slice(-entryLimit),
     exportedAt: archive.exportedAt ?? archive.report?.runAt ?? null,
+    archive,
+  };
+}
+
+/** 云归档繁殖进化流条目并入当前 recorder（[MEI]/[DCK]） */
+export function mergeArchiveReproEvolution(recorder, entries) {
+  if (!recorder || !entries?.length) return { merged: 0 };
+  let merged = 0;
+  for (const e of entries) {
+    if (!isReproEvolutionEntry(e)) continue;
+    recorder.evolution(e.tick, e.beingId, e.content, e.meta ?? {});
+    merged += 1;
+  }
+  return { merged };
+}
+
+/** 观察台复盘：族谱登记 + 繁殖进化流日志 */
+export function applyObserverArchiveReplay(world, recorder, archive) {
+  const genealogy = archive?.genealogy ?? null;
+  const genResult = genealogy ? applyGenealogyArchive(world, genealogy) : { applied: 0 };
+  const reproResult = mergeArchiveReproEvolution(recorder, archive?.entries);
+  return {
+    genealogy: genResult,
+    reproEvolution: reproResult,
   };
 }

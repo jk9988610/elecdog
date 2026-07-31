@@ -30,12 +30,24 @@ export function isReproCrossHighlight(entry) {
 
 export function pickReproEvolutionEntries(
   recorder,
-  { beingId = null, limit = STREAM_LIMIT, crossOnly = false } = {}
+  { beingId = null, limit = STREAM_LIMIT, crossOnly = false, kinds = null } = {}
 ) {
   if (!recorder?.entries) return [];
+  const kindSet =
+    kinds == null
+      ? null
+      : new Set(
+          kinds.filter((k) => REPRO_KINDS.has(k))
+        );
   let entries = recorder.entries.filter((e) => {
     if (!isReproEvolutionEntry(e)) return false;
     if (beingId && e.beingId !== beingId) return false;
+    if (kindSet) {
+      const k =
+        e.meta?.kind ??
+        (/\[MEI\]/.test(e.content ?? '') ? 'MEI' : /\[DCK\]/.test(e.content ?? '') ? 'DCK' : null);
+      if (!k || !kindSet.has(k)) return false;
+    }
     return true;
   });
   if (crossOnly) {
@@ -75,6 +87,14 @@ export function renderReproEvolutionStreamHTML() {
             跟随选中
           </label>
           <label class="genealogy-repro-stream-filter">
+            <input type="checkbox" id="genealogy-repro-kind-mei" checked />
+            MEI
+          </label>
+          <label class="genealogy-repro-stream-filter">
+            <input type="checkbox" id="genealogy-repro-kind-dck" checked />
+            DCK
+          </label>
+          <label class="genealogy-repro-stream-filter">
             <input type="checkbox" id="genealogy-repro-cross-only" />
             仅交叉
           </label>
@@ -89,9 +109,19 @@ export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId
   const list = root.querySelector('#genealogy-repro-stream-list');
   const crossOnlyInput = root.querySelector('#genealogy-repro-cross-only');
   const followSelectInput = root.querySelector('#genealogy-repro-follow-select');
+  const meiKindInput = root.querySelector('#genealogy-repro-kind-mei');
+  const dckKindInput = root.querySelector('#genealogy-repro-kind-dck');
   if (!list) return null;
 
   let crossOnly = false;
+
+  function resolveKindFilter() {
+    const kinds = [];
+    if (meiKindInput?.checked) kinds.push('MEI');
+    if (dckKindInput?.checked) kinds.push('DCK');
+    if (!kinds.length || kinds.length === REPRO_KINDS.size) return null;
+    return kinds;
+  }
 
   function resolveBeingFilter() {
     if (!followSelectInput?.checked) return null;
@@ -101,12 +131,19 @@ export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId
   function paint() {
     const recorder = getRecorder?.();
     if (!recorder) return;
+    const kinds = resolveKindFilter();
+    if (kinds && !kinds.length) {
+      list.innerHTML = '<li class="repro-stream-empty muted">请勾选 MEI 或 DCK</li>';
+      return;
+    }
     const beingId = resolveBeingFilter();
-    const entries = pickReproEvolutionEntries(recorder, { beingId, crossOnly });
+    const entries = pickReproEvolutionEntries(recorder, { beingId, crossOnly, kinds });
     if (!entries.length) {
       const hint = beingId
-        ? `选中个体暂无 [MEI]/[DCK] 记录`
-        : '暂无 [MEI]/[DCK] 记录';
+        ? `选中个体暂无匹配记录`
+        : kinds
+          ? `暂无 ${kinds.join('/')} 记录`
+          : '暂无 [MEI]/[DCK] 记录';
       list.innerHTML = `<li class="repro-stream-empty muted">${escapeHtml(hint)}</li>`;
       return;
     }
@@ -120,6 +157,8 @@ export function initReproEvolutionStream(root, { getRecorder, getSelectedBeingId
   });
 
   followSelectInput?.addEventListener('change', () => paint());
+  meiKindInput?.addEventListener('change', () => paint());
+  dckKindInput?.addEventListener('change', () => paint());
 
   return { paint, refresh: paint };
 }

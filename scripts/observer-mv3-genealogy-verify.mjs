@@ -12,10 +12,12 @@ import {
   buildGenealogyArchive,
   genealogyRegistrySnapshot,
   recordGenealogyEnd,
+  applyGenealogyArchive,
 } from '../src/world/genealogy-persist.js';
 import { buildGenealogyModel, renderBeingDetailHTML } from '../src/ui/genealogy-tree.js';
 import { initGenealogyRegistry } from '../src/world/genealogy-persist.js';
 import { pickReproEvolutionEntries } from '../src/ui/repro-evolution-stream.js';
+import { mergeArchiveReproEvolution, applyObserverArchiveReplay } from '../src/cloud/field-sync.js';
 
 let failed = 0;
 function assert(cond, msg) {
@@ -138,6 +140,28 @@ recorder.evolution(1, 'being-a', '[MEI] packet len 96', { kind: 'MEI' });
 recorder.evolution(2, 'being-b', '[DCK] half len 96', { kind: 'DCK' });
 assert(pickReproEvolutionEntries(recorder, { beingId: 'being-a' }).length === 1, '进化流可按个体筛选');
 assert(pickReproEvolutionEntries(recorder).length === 2, '进化流可显示全部');
+assert(pickReproEvolutionEntries(recorder, { kinds: ['MEI'] }).length === 1, '进化流仅 MEI 筛选');
+assert(pickReproEvolutionEntries(recorder, { kinds: ['DCK'] }).length === 1, '进化流仅 DCK 筛选');
+
+const wApply = createWorld('M-APPLY');
+applyEnvProfile(wApply, 'multicell_v2_world');
+const applyResult = applyGenealogyArchive(wApply, archive);
+assert(applyResult.applied === archive.nodeCount, 'applyGenealogyArchive 合并节点');
+assert(wApply.genealogyArchiveReplay?.applied === applyResult.applied, '归档复盘元数据');
+
+const recMerge = new Recorder();
+recorder.evolution(99, 'merge-a', '[MEI] merge test', { kind: 'MEI' });
+const { merged } = mergeArchiveReproEvolution(recMerge, recorder.entries);
+assert(merged >= 2, 'mergeArchiveReproEvolution 合并 MEI/DCK');
+
+const wReplay = createWorld('M-REPLAY');
+applyEnvProfile(wReplay, 'multicell_v2_world');
+const replay = applyObserverArchiveReplay(wReplay, recMerge, {
+  genealogy: archive,
+  entries: recorder.entries,
+});
+assert(replay.genealogy.applied === archive.nodeCount, 'applyObserverArchiveReplay 族谱');
+assert(replay.reproEvolution.merged >= 2, 'applyObserverArchiveReplay 繁殖流');
 
 const ends = recorder.entries.filter((e) => e.meta?.kind === 'END');
 assert(ends.length >= 1, `[END] 记录（${ends.length}）`);
