@@ -23,7 +23,7 @@ import {
   provenanceToInheritDetail,
   formatCrossoverLog,
 } from '../src/genetics/genome-display.js';
-import { renderBeingDetailHTML, buildGenealogyModel, renderGenealogyTreeHTML } from '../src/ui/genealogy-tree.js';
+import { renderBeingDetailHTML, buildGenealogyModel, renderGenealogyTreeHTML, renderGenealogyPanelHTML } from '../src/ui/genealogy-tree.js';
 import {
   createSyncyteOnB,
   processPairGestation,
@@ -146,6 +146,8 @@ assert(inheritCompact?.cardShort, 'inherit 可压缩登记');
 const treeHtml = renderGenealogyTreeHTML(buildGenealogyModel(world));
 assert(treeHtml.includes('gv-birth-branch'), '族谱树含分娩枝标');
 assert(treeHtml.includes('分娩'), '族谱树标注分娩');
+assert(renderGenealogyPanelHTML().includes('genealogy-repro-stream'), '族谱面板含繁殖进化流');
+assert(childDetail.includes('·阈'), '详情区段相似度含阈值标注');
 
 if (failed) {
   console.error(`observer-chromosome-genetics-verify: ${failed} failed`);

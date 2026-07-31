@@ -82,11 +82,54 @@ export function kinshipDnaBlockSim(profile) {
   return profile?.kinshipDnaBlockSim ?? 0.68;
 }
 
+/** 单 Z 区近亲阻断阈值；未配置时回退全序列阈值 */
+export function kinshipZoneBlockSim(profile, zoneKey) {
+  const zoneMap = profile?.kinshipZoneBlockSim;
+  if (zoneKey && zoneMap && zoneMap[zoneKey] != null) {
+    return zoneMap[zoneKey];
+  }
+  return kinshipDnaBlockSim(profile);
+}
+
+/** 列出触发 DNA 近亲阻断的区段（全序列或任一 Z 区 sim ≥ 阈） */
+export function dnaKinBlockTriggers(a, b, profile = {}) {
+  if (!kinshipDnaBlockEnabled(profile)) return [];
+  const seqA = a?.dna?.sequence;
+  const seqB = b?.dna?.sequence;
+  if (!seqA || !seqB) return [];
+
+  const triggers = [];
+  const overallSim = dnaSequenceSimilarity(seqA, seqB);
+  const overallThreshold = kinshipDnaBlockSim(profile);
+  if (overallSim >= overallThreshold) {
+    triggers.push({
+      scope: 'overall',
+      zone: null,
+      tag: 'full',
+      sim: overallSim,
+      threshold: overallThreshold,
+    });
+  }
+
+  for (const zoneKey of Object.keys(DNA_ZONES)) {
+    const sim = zoneSequenceSimilarity(seqA, seqB, zoneKey);
+    const threshold = kinshipZoneBlockSim(profile, zoneKey);
+    if (sim >= threshold) {
+      triggers.push({
+        scope: 'zone',
+        zone: zoneKey,
+        tag: DNA_ZONES[zoneKey].tag,
+        sim,
+        threshold,
+      });
+    }
+  }
+  return triggers;
+}
+
 /** DNA 高相似视为血缘（同胞/克隆）；多代后相似度自然下降可繁殖 */
 export function isDnaKinBlocked(a, b, profile = {}) {
-  if (!kinshipDnaBlockEnabled(profile)) return false;
-  const sim = dnaSequenceSimilarity(a?.dna?.sequence, b?.dna?.sequence);
-  return sim >= kinshipDnaBlockSim(profile);
+  return dnaKinBlockTriggers(a, b, profile).length > 0;
 }
 
 export function kinshipRelationLabel(a, b, profile = {}) {
@@ -94,10 +137,10 @@ export function kinshipRelationLabel(a, b, profile = {}) {
   if (isParentChildId(a, b)) return KINSHIP_LABEL_PARENT;
   if (isFullSibling(a, b)) return KINSHIP_LABEL_SIBLING;
   if (isHalfSibling(a, b)) return KINSHIP_LABEL_HALF;
-  const sim = dnaSequenceSimilarity(a?.dna?.sequence, b?.dna?.sequence);
-  if (kinshipDnaBlockEnabled(profile) && sim >= kinshipDnaBlockSim(profile)) {
+  if (kinshipDnaBlockEnabled(profile) && isDnaKinBlocked(a, b, profile)) {
     return KINSHIP_LABEL_CLOSE;
   }
+  const sim = dnaSequenceSimilarity(a?.dna?.sequence, b?.dna?.sequence);
   if (sim >= 0.42) return KINSHIP_LABEL_DISTANT;
   return KINSHIP_LABEL_NONE;
 }

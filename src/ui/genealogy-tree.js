@@ -29,7 +29,8 @@ import { STR_LACT_OUT } from '../world/body-structures.js';
 import { initGenealogyViewport } from './genealogy-viewport.js';
 import { chromosomeGeneticsEnabled } from '../genetics/genome.js';
 import { genomeDisplayRows, haploidDisplayRows, provenanceContributionLines, inheritSummaryFromBeing, segregationLabel } from '../genetics/genome-display.js';
-import { parentZoneSimilarityRows, overallSequenceSimilarityPct, kinshipDnaBlockSim, dnaSequenceSimilarity } from '../genetics/dna-kinship.js';
+import { parentZoneSimilarityRows, overallSequenceSimilarityPct, kinshipDnaBlockSim, kinshipZoneBlockSim, dnaSequenceSimilarity } from '../genetics/dna-kinship.js';
+import { renderReproEvolutionStreamHTML, initReproEvolutionStream } from './repro-evolution-stream.js';
 
 function escapeHtml(s) {
   return String(s)
@@ -378,6 +379,14 @@ function findBeingInWorld(world, id) {
   );
 }
 
+function renderZoneKinRow(prefix, z, profile) {
+  const threshold = kinshipZoneBlockSim(profile ?? {}, z.zone);
+  const hit = z.sim >= threshold;
+  const hitClass = hit ? ' zone-kin-block-hit' : '';
+  const hitMark = hit ? ' ⚡' : '';
+  return `<div class="stat-row${hitClass}"><span>${prefix}·${z.zone} ${escapeHtml(z.tag)}</span><strong>${overallSequenceSimilarityPct(z.sim)} ·阈${overallSequenceSimilarityPct(threshold)}${hitMark}</strong></div>`;
+}
+
 function renderParentZoneKinship(being, world, profile) {
   if (!being?.dna?.sequence || !being.pairParentA) return '';
   const parentA = findBeingInWorld(world, being.pairParentA);
@@ -410,23 +419,17 @@ function renderParentZoneKinship(being, world, profile) {
   const zoneGrid = [];
   if (parentA?.dna?.sequence) {
     zoneGrid.push(
-      ...parentZoneSimilarityRows(being, parentA).map(
-        (z) =>
-          `<div class="stat-row"><span>父·${z.zone} ${escapeHtml(z.tag)}</span><strong>${overallSequenceSimilarityPct(z.sim)}</strong></div>`
-      )
+      ...parentZoneSimilarityRows(being, parentA).map((z) => renderZoneKinRow('父', z, profile))
     );
   }
   if (parentB?.dna?.sequence) {
     zoneGrid.push(
-      ...parentZoneSimilarityRows(being, parentB).map(
-        (z) =>
-          `<div class="stat-row"><span>母·${z.zone} ${escapeHtml(z.tag)}</span><strong>${overallSequenceSimilarityPct(z.sim)}</strong></div>`
-      )
+      ...parentZoneSimilarityRows(being, parentB).map((z) => renderZoneKinRow('母', z, profile))
     );
   }
   return `
     <h4 class="term">父母 DNA 区段相似度</h4>
-    <p class="muted chr-genome-hint">PRQ 近亲阻断阈值约 ${Math.round(blockSim * 100)}%（全序列）；Z3 高相似常见于同胞/近亲。</p>
+    <p class="muted chr-genome-hint">PRQ 近亲阻断：全序列≥${Math.round(blockSim * 100)}%；各区段独立阈值（标 ⚡ 表示若成体间达阈将阻断）。Z3 高相似常见于同胞/近亲。</p>
     <div class="stat-grid health-vitals-grid">${renderHealthVitalRows(rows)}</div>
     <div class="stat-grid parent-zone-grid">${zoneGrid.join('')}</div>`;
 }
@@ -683,7 +686,7 @@ function bindGenealogyPopoverDismiss() {
   );
 }
 
-export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
+export function initGenealogyPanel(root, { getWorld, getRecorder, onSelect } = {}) {
   const viewportEl = root.querySelector('#genealogy-viewport');
   const innerEl = root.querySelector('#genealogy-viewport-inner');
   const popover = root.querySelector('#genealogy-detail-popover');
@@ -693,6 +696,7 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
 
   let selectedId = null;
   let viewportCtrl = initGenealogyViewport(viewportEl, innerEl);
+  const reproStream = initReproEvolutionStream(root, { getRecorder });
 
   function findBeing(world, id) {
     return (
@@ -756,6 +760,7 @@ export function initGenealogyPanel(root, { getWorld, onSelect } = {}) {
         closePopover();
       }
     }
+    reproStream?.paint();
   }
 
   return { paint, getSelectedId: () => selectedId, closePopover };
@@ -778,6 +783,7 @@ export function renderGenealogyPanelHTML() {
         </div>
         <div id="genealogy-detail-popover-body" class="genealogy-detail-popover-body"></div>
       </div>
+      ${renderReproEvolutionStreamHTML()}
     </section>
   `;
 }

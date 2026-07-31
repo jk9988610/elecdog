@@ -15,6 +15,13 @@ import {
 } from '../src/world/courtship-gate.js';
 import { cohortKinBlocked, isReproKinBlocked } from '../src/world/kinship-gate.js';
 import {
+  dnaKinBlockTriggers,
+  isDnaKinBlocked,
+  kinshipZoneBlockSim,
+} from '../src/genetics/dna-kinship.js';
+import { pickReproEvolutionEntries } from '../src/ui/repro-evolution-stream.js';
+import { tryMeiosis } from '../src/world/recombination.js';
+import {
   registerPairSpeechPRQ,
   registerPairSpeechPGR,
   processPartnerChannelFus,
@@ -369,6 +376,35 @@ wFld.tick = femaleFld.fertilizationEligibleAtTick ?? wFld.tick;
 const fusBond = processPartnerFertilization(wFld, recFld);
 assert(fusBond.length > 0, '结伴后延迟受孕');
 assert(isPregnant(femaleFld), '受孕后标记孕妇');
+
+assert(wKin.envProfile.kinshipZoneBlockSim?.Z3 === 0.72, 'multicell v2 Z3 阻断阈值 72%');
+assert(kinshipZoneBlockSim(wKin.envProfile, 'Z6') === 0.65, 'Z6 阻断阈值 65%');
+const kinCloneA = { id: 'kin-clone-a', dna: { sequence: '0'.repeat(96) } };
+const kinCloneB = { id: 'kin-clone-b', dna: { sequence: '0'.repeat(96) } };
+assert(isDnaKinBlocked(kinCloneA, kinCloneB, wKin.envProfile), '同序列克隆阻断');
+const z6PairA = { id: 'z6a', dna: { sequence: `${'1'.repeat(80)}${'0'.repeat(16)}` } };
+const z6PairB = { id: 'z6b', dna: { sequence: `${'2'.repeat(80)}${'0'.repeat(16)}` } };
+const z6Triggers = dnaKinBlockTriggers(z6PairA, z6PairB, wKin.envProfile);
+assert(z6Triggers.some((t) => t.zone === 'Z6'), '仅 Z6 相似触发区段阻断');
+assert(!z6Triggers.some((t) => t.scope === 'overall'), '全序列未单独达阈');
+assert(isDnaKinBlocked(z6PairA, z6PairB, wKin.envProfile), 'Z6 区段阻断生效');
+
+const wMei = createWorld('M-MEI-LOG');
+applyEnvProfile(wMei, 'multicell_v2_world');
+initEnvStackModules(wMei);
+const recMei = new Recorder();
+const meiMale = spawnAdultMulticellCohort(wMei, recMei, { males: 1, females: 0 })[0];
+meiMale.meiPacket = null;
+meiMale.rplRemaining = 3;
+meiMale.lastMeiTick = -999;
+meiMale.tickCount = 100;
+for (let i = 0; i < 120 && !recMei.entries.some((e) => e.meta?.kind === 'MEI'); i++) {
+  wMei.tick += 1;
+  tryMeiosis(wMei, recMei, meiMale, { stress: 0.1, integrity: 0.9 });
+}
+const meiEntries = pickReproEvolutionEntries(recMei);
+assert(meiEntries.length > 0, '繁殖进化流可拾取 [MEI]');
+assert(meiEntries.every((e) => e.meta?.kind === 'MEI' || /\[MEI\]/.test(e.content)), '条目为 MEI');
 
 if (failed) {
   console.error(`observer-repro-courtship-verify: ${failed} failed`);

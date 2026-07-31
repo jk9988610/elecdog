@@ -647,6 +647,7 @@ export class ObserverApp {
         this.$.dashboard.innerHTML = this.renderDashboard(s);
         this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
           getWorld: () => this.world,
+          getRecorder: () => this.recorder,
         });
       } else {
         const popStats = this.$.dashboard.querySelector('#genealogy-pop-stats');
@@ -676,6 +677,7 @@ export class ObserverApp {
     if (shouldShowGenealogyPanel(this.world?.envProfile, this.observerLayout)) {
       this.genealogyPanel = initGenealogyPanel(this.$.dashboard, {
         getWorld: () => this.world,
+        getRecorder: () => this.recorder,
       });
       this.genealogyPanel?.paint();
     } else if (
